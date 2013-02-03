@@ -1,0 +1,20 @@
+Scythe installs as header-only C++ library.  Users who do not wish to
+install Scythe in this way may also compile the Scythe sources
+directly into their applications using the SCYTHE_COMPILE_DIRECT
+preprocessor flag.
+
+To install in the default system library folder (typicaly /usr/local/lib).
+In the current directory, execute the commands (assuming you have root
+write privelages):
+	$ ./configure
+	$ make install
+
+To install in a local library folder (e.g. /home/myhome/lib).  In the
+current directory, execute the commands:
+  $ ./configure --prefix=/home/myhome
+  $ make install
+
+Make sure /home/myhome/lib is in your include path or compile with
+-I/home/myhome/lib when installing in a local folder.
+
+Scythe requires gcc 4.4.7 or greater to compile.

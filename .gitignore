@@ -1,0 +1,8 @@
+*.DS_Store
+binaries/
+build/
+TestDivers.cpp
+creeEtiquettes.cpp
+parcoursModeles.cpp
+splitFiles.cpp
+testBootstrap.cpp

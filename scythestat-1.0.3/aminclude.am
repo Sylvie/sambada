@@ -1,0 +1,213 @@
+# This file is part of Automake.                       -*- Automake -*-
+
+# Copyright (C) 2003 Oren Ben-Kiki
+# This file is distributed under the same terms as the Automake macro files.
+
+# Generate automatic documentation using Doxygen. Goals and variables values
+# are controlled by the various DX_COND_??? conditionals set by autoconf.
+#
+# The provided goals are:
+#
+# doxygen: generate all the documentation. Called via dist-hook. Calls:
+#   doxygen-hook: do psot-doxygen processing.
+#   doxygen-pdf: generate documentation in PDF format.
+#   doxygen-ps: generate documentation in PostScript format.
+#
+# mostlyclean-doxygen: clean all tmp files. Called via mostlyclean. Calls:
+#   mostlyclean-doxygen-chm: delete the uncompressed HTML files.
+#   mostlyclean-doxygen-latex: delete the LaTeX source files for PS/PDF.
+#
+# clean-doxygen: remove all the documentation. Called via clean and
+#                maintainer-clean.
+#
+# The following variables are set:
+#
+# DX_OUT_FILES = the generated document files (CHM, PS, PDF, XML, RTF).
+# DX_OUT_DIRS = the generated document directories (html, man).
+#
+# These may then be added to EXTRA_DIST etc.
+
+## --------------------------------- ##
+## Format-independent Doxygen rules. ##
+## --------------------------------- ##
+
+if DX_COND_doc
+
+.PHONY: doxygen clean-doxygen mostlyclean-doxygen doxygen-hook
+
+dist-hook: doxygen
+
+doxygen: @DX_DOCDIR@/@PACKAGE@.tag doxygen-hook
+
+maintainer-clean: clean-doxygen
+
+distclean: clean-doxygen
+
+clean: clean-doxygen
+
+clean-doxygen:
+	rm -rf @DX_DOCDIR@/html @DX_DOCDIR@/Scythe.tag
+
+mostlyclean: mostlyclean-doxygen
+
+@DX_DOCDIR@/@PACKAGE@.tag: $(DX_CONFIG) $(pkginclude_HEADERS)
+	rm -rf @DX_DOCDIR@/html @DX_DOCDIR@/Scythe.tag
+	$(DX_ENV) $(DX_DOXYGEN) $(srcdir)/$(DX_CONFIG)
+
+endif DX_COND_doc
+
+DX_OUT_FILES =
+DX_OUT_DIRS =
+
+
+## ------------------------------- ##
+## Rules specific for HTML output. ##
+## ------------------------------- ##
+
+if DX_COND_html
+
+DX_OUT_FILES += @DX_DOCDIR@/@PACKAGE@.tag
+DX_OUT_DIRS += @DX_DOCDIR@/html
+
+@DX_DOCDIR@/html: @DX_DOCDIR@/@PACKAGE@.tag
+
+else !DX_COND_html
+
+# HTML is not generated, but tag file is. It is pretty useless by itself, but
+# is a convenient intermediate file to hand all the other goals on.
+.INTERMEDIATE: @DX_DOCDIR@/@PACKAGE@.tag
+
+MOSTLYCLEAN_FILES = @DX_DOCDIR@/@PACKAGE@.tag
+
+endif !DX_COND_html
+
+## ------------------------------ ##
+## Rules specific for CHM output. ##
+## ------------------------------ ##
+
+if DX_COND_chm
+
+.PHONY: mostlyclean-doxygen-chm
+
+DX_OUT_FILES += @DX_DOCDIR@/@PACKAGE@.chm
+@DX_DOCDIR@/@PACKAGE@.chm: @DX_DOCDIR@/@PACKAGE@.tag
+
+if DX_COND_chi
+DX_OUT_FILES += @DX_DOCDIR@/@PACKAGE@.chi
+@DX_DOCDIR@/@PACKAGE@.chi: @DX_DOCDIR@/@PACKAGE@.tag
+endif DX_COND_chi
+
+mostlyclean-doxygen: mostlyclean-doxygen-chm
+
+mostlyclean-doxygen-chm:
+	rm -rf @DX_DOCDIR@/html
+
+endif DX_COND_chm
+
+## ------------------------------ ##
+## Rules specific for MAN output. ##
+## ------------------------------ ##
+
+if DX_COND_man
+
+DX_OUT_DIRS += @DX_DOCDIR@/man
+@DX_DOCDIR@/man: @DX_DOCDIR@/@PACKAGE@.tag
+
+endif DX_COND_man
+
+## ----------------------------- ##
+## Rules specific for PS output. ##
+## ----------------------------- ##
+
+if DX_COND_ps
+
+.PHONY: doxygen-ps
+
+DX_OUT_FILES += @DX_DOCDIR@/@PACKAGE@.ps
+
+doxygen: doxygen-ps
+
+doxygen-ps: @DX_DOCDIR@/@PACKAGE@.ps
+
+@DX_DOCDIR@/@PACKAGE@.ps: @DX_DOCDIR@/@PACKAGE@.tag
+	cd @DX_DOCDIR@/latex; \
+	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+	$(DX_LATEX) refman.tex; \
+	$(MAKEINDEX_PATH) refman.idx; \
+	$(DX_LATEX) refman.tex; \
+	countdown=5; \
+	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
+	                  refman.log > /dev/null 2>&1 \
+	   && test $$countdown -gt 0; do \
+	    $(DX_LATEX) refman.tex; \
+	    countdown=`expr $$countdown - 1`; \
+	done; \
+	$(DX_DVIPS) -o ../@PACKAGE@.ps refman.dvi
+
+endif DX_COND_ps
+
+## ------------------------------ ##
+## Rules specific for PDF output. ##
+## ------------------------------ ##
+
+if DX_COND_pdf
+
+.PHONY: doxygen-pdf
+
+DX_OUT_FILES += @DX_DOCDIR@/@PACKAGE@.pdf
+
+doxygen: doxygen-pdf
+
+doxygen-pdf: @DX_DOCDIR@/@PACKAGE@.pdf
+
+@DX_DOCDIR@/@PACKAGE@.pdf: @DX_DOCDIR@/@PACKAGE@.tag
+	cd @DX_DOCDIR@/latex; \
+	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+	$(DX_PDFLATEX) refman.tex; \
+	$(DX_MAKEINDEX) refman.idx; \
+	$(DX_PDFLATEX) refman.tex; \
+	countdown=5; \
+	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
+	                  refman.log > /dev/null 2>&1 \
+	   && test $$countdown -gt 0; do \
+	    $(DX_PDFLATEX) refman.tex; \
+	    countdown=`expr $$countdown - 1`; \
+	done; \
+	mv refman.pdf ../@PACKAGE@.pdf
+
+endif DX_COND_pdf
+
+## ------------------------------------------------- ##
+## Rules specific for LaTeX (shared for PS and PDF). ##
+## ------------------------------------------------- ##
+
+if DX_COND_latex
+
+mostlyclean-doxygen: mostlyclean-doxygen-latex
+
+mostlyclean-doxygen-latex:
+	rm -rf @DX_DOCDIR@/latex
+
+endif DX_COND_latex
+
+## ------------------------------ ##
+## Rules specific for RTF output. ##
+## ------------------------------ ##
+
+if DX_COND_rtf
+
+DX_OUT_DIRS += @DX_DOCDIR@/rtf
+@DX_DOCDIR@/rtf: @DX_DOCDIR@/@PACKAGE@.tag
+
+endif DX_COND_rtf
+
+## ------------------------------ ##
+## Rules specific for XML output. ##
+## ------------------------------ ##
+
+if DX_COND_xml
+
+DX_OUT_DIRS += @DX_DOCDIR@/xml
+@DX_DOCDIR@/xml: @DX_DOCDIR@/@PACKAGE@.tag
+
+endif DX_COND_xml

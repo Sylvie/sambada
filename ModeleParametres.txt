@@ -1,0 +1,56 @@
+Paramètre de ScytheSAM
+
+Chaque ligne doit commencer par le nom du paramètre concerné.
+Si un paramètre est facultatif (F), la ligne entière peut être omise.
+Les paramètres obligatoires sont signalés par un (O).
+Les choix possibles sont placés entre crochets.
+
+- FILENAME (F) (Ces infos peuvent être fournies en argument au programme)
+Nom(s) du (des) fichier(s) contenant les données (2 fichiers si les données environnementales (1er) et les marqueurs (2e) sont séparés) 
+
+- WORDDELIM (F) Caractère (unique!) de séparation entre les mots. Par défaut, les mots sont séparés par des espaces: ' '
+
+- HEADERS (F) Présence ou absence de noms pour les variables [Y, N]. Ces noms seront lus sur la première ligne. 
+S'il n'y a pas d'en-têtes ou que HEADERS est omis, les variables environnementales seront numérotées P1, P2, P3... et les marqueurs M1, M2, M3...
+
+- NUMVARENV (O)	Nombre de variables environnementales
+
+- NUMMMARK (O) Nombre de marqueurs génétiques (et éventuellement nombre total de marqueurs en cas de répartition des calculs)
+
+- NUMINDIV (O) Nombre d'échantillons
+
+- IDINDIV (F) Colonne(s) contenant les identifiants des individus. Elles sont désignées par leur nom si HEADERS est vrai, ou par leur numéro [0, ..., N-1] si HEADERS est faux.
+S'il y a deux fichiers de données mais un seul IDINDIV, la même colonne sera sélectionnées dans les deux fichiers.
+
+- COLSUPENV (F) Colonnes inactives dans les variables environnementales. Elles sont désignées par leur nom si HEADERS est vrai, ou par leur numéro [0, ..., N-1] si HEADERS est faux. 
+
+- COLSUPMARK (F) Colonnes inactives dans les marqueurs génétiques. Elles sont désignées par leur nom si HEADERS est vrai, ou par leur numéro [0, ..., N-1] si HEADERS est faux.
+
+- DIMMAX (F) Dimension maximale du calcul pour l'analyse multivariée, [1=univarié, 2=bivarié, 3=trivarié...], DIMMAX vaut 1 s'il est omis.
+
+- SPATIAL (F) Noms (ou numéros) de colonnes pour longitude et latitude, type de coordonnées [SPHERICAL, CARTESIAN], 
+type de calcul de voisinage [DISTANCE, GAUSSIAN, BISQUARE, NEAREST], paramètre d'échelle (bandwidth ou nombre de voisins suivant le cas)
+
+- AUTOCORR (F) (requiert le champ SPATIAL) type d'auto-corrélation [GLOBAL, LOCAL, BOTH], variables considérées [ENV, MARK, BOTH], nombre de permutations (facultatif, valeur par défaut 9999)
+
+- GWR (F) (requiert le champ SPATIAL)
+
+- SHAPEFILE (F) (requiert le champ SPATIAL) Sauvegarde des résultats spatiaux en shapefile [YES, NO]
+
+(- DISCRETEVAR (F) Présence ou absence de données en catégories, liste de ces données)
+
+- SUBSETVARENV (F) Sélection de données géographiques, liste des données à considérer
+
+- SAVETYPE (O) Type de sauvegarde : Temps réel ou à la fin [REAL, END], sauvegarde (ou non) de toutes les données [ALL, BEST], si BEST, p-valeur limite pour la sélection des modèles
+
+
+
+// Paramètres supervision
+1: Nom fichier input, ev. nom fichier variables environnement (pour connaître le nom)
+2: Nom fichier paramètres
+3: Nombre de variables d'environnement
+4: Nombre de marqueurs génétiques
+5: Nombre de lignes
+6: Taille des blocs
+7: Nombre de calculs sous Windows et sous Unix
+//8: Dimension max du calcul (pour la fusion des résultats)

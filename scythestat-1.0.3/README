@@ -1,0 +1,33 @@
+Description
+
+  The Scythe Statistical Library is an open source C++ library for
+  statistical computation. It includes a suite of matrix manipulation
+  functions, a suite of pseudo-random number generators, and a suite
+  of numerical optimizers. Programs written using Scythe are generally
+  much faster than those written in commonly used interpreted
+  languages, such as R, Matlab, and GAUSS; and can be compiled on any
+  system with the GNU GCC compiler (and perhaps with other C++
+  compilers). One of the primary design goals of the Scythe developers
+  has been ease of use for non-expert C++ programmers. Ease of use is
+  provided through three primary mechanisms: (1) operator and function
+  over-loading, (2) numerous pre-fabricated utility functions, and (3)
+  clear documentation and example programs. Additionally, Scythe is
+  quite flexible and entirely extensible because the source code is
+  available to all users. Scythe is distributed under the GNU General
+  Public License, and has been thoroughly tested on Linux and MacOS X.
+
+Installation
+
+	Scythe is typically installed as a header-only C++ library.  The
+	text file INSTALL, located in this directory, provides installation
+	instructions.
+
+Documentation
+
+	See http://scythe.wustl.edu
+
+License
+
+	Scythe is free software.  The text files COPYING and
+	LICENSE, located in this directory, contain copyright and
+	licensing details.

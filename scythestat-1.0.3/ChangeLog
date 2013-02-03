@@ -1,0 +1,57 @@
+Version 1.0
+	* Major release.  Change log starts here.
+
+Version 1.0.1
+	*	Fixed missing la.h include in rng.h.  This allows rwish method to
+		compile.
+
+Version 1.0.2
+	* Added LAPACK wrapper for LU decomposition.
+	* Added QR decomposition for concrete col-major matrices using LAPACK.
+	* Added equation solving via QR decomposition for concrete col-major
+		matrices using LAPACK.
+	* Added singular value decomposition for concrete col-major matrices
+		using LAPACK.
+	* Added eigenvalue/vector decomposition for symmetric concrete 
+		col-major matrices using LAPACK.
+	* Added wrapped_generator class to allow use of external pseudo-random
+		uniform number generators with rng.h.
+	* Provided support for plain rectangular files in matrix file
+		constructor.
+	* Added scythe_lapack_internal_error exception type.
+	* Changed SetPackageSeed return type in lecuyer.h for mcmcpack
+		compatibility.
+	* Added return type to GetState in lecuyer.h.
+	* Added missing std prefixes in distributions.h.
+	* Fixed bugs in lndmvn in distributions.h.
+	* Fixed rgamma documentation to indicate it takes shape and rate,
+		not shape and scale.
+	* Fixed some typos in error checks in ide.h.
+	* Changed __PRETTY_FUNCTION__ to __func__ for standards compliance.
+	* Made a number of functions inline for mcmcpack compatibility.
+
+Version 1.0.3 
+	* Removed extra semi-colons in stat.h macro calls.
+	* Changed else if to else in rgamma (rng.h) to eliminate warning.
+	* Changed error level of symmetry check in vech (la.h) to match docs.
+	* Fixed typo in vech (la.h) doc.
+	* Added missing std prefix to sqrt in xpnd (la.h).
+	* Changed A = A + .. to A += ... in rwish.
+	* Made Matrix::save() const.
+	* Added generalized eigenvalue support (experimental and undocumented).
+	* Added inlines to lapack wrappers for mcmcpack support.
+	* Fixed bugs in median and mode functions that, erroneously, modified 
+		matrix views passed to those methods in place.
+	* Added an asScalar() method to the matrix class.
+	* Updated datablock.h for thread safety with pthreads when
+		SCYTHE_PTHREAD compiler flag enabled.
+	* Fixed bug in rdirich.
+	* Fixed subtle string bug in scythe_exception::what()
+	* Various standards compliance fixes.
+	* Updated triangularity checks to ensure square.
+	* Fixed SCYTHE_DEBUG_LEVEL typo on doc intro page.
+	* Added SCYTHE_RPACK flag and some R compatibility code for printing
+		warnings and errors, and aborting from C++ back into R.
+	* Updated the documentation into to fix some typos, add some
+		context, and to reflect new preprocessor flags.
+	* Moved to GNU GPL v3.
