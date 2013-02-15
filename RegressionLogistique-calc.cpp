@@ -315,7 +315,7 @@ bool RegressionLogistique::Domaine::miseAJour()
 		int indiceCourant(0);
 		for (int i(0); i<nbPoints; ++i)
 		{
-			if (masque(i,0))
+			if (masque(i,0)) // Si le point est valide
 			{
 				pointsValides.push_back(i);
 				indices[i]=indiceCourant;

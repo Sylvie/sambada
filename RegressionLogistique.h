@@ -86,9 +86,9 @@ private:
 	typedef struct
 	{
 	public:
-		int nbPoints, taille;
+		int nbPoints, taille; // taille = nb points valides
 		MatriceBools masque;
-		vector<int> pointsValides, indices;
+		vector<int> pointsValides, indices; // pointsValides = liste de taille "taille", indices= indices locaux des points valides
 		TableClassementsVoisins poids;
 			
 		// Mise à jour à partir du masque, recalcule les nombres de points totaux et valides, les vecteurs d'indiçage et redimensionne le poids
