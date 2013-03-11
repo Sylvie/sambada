@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	
 	//logitModel.analyseCategories();
 	//logitModel.calculeCorrelations();
-	//logitModel.calculeAutocorrelations();
+	logitModel.calculeAutocorrelations();
 	logitModel.creeModelesGlobaux();
 	
 	time_t temps_fin_calculs(time(NULL));

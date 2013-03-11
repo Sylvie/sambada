@@ -151,7 +151,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 			
 		}
 		
-		cout << distances(0,0,5,5)<<"\n";
+		//cout << distances(0,0,5,5)<<"\n";
 		
 		// Pour la pondération, on prend w_ii = 0, un point n'est pas son propre voisin (pour l'autocorrélation)
 		// Pour la GWR, le point sera rajouté parmi ses voisins
@@ -171,6 +171,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 						pointsGeo.poids[pt2].push_back(make_pair(pt1, 1));
 					}
 				}
+				
 			}
 		}
 		// Pondération gaussienne: Faut-il tronquer?
@@ -183,10 +184,16 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 				for (int j(i+1); j<pointsGeo.taille; ++j)
 				{
 					pt2 = pointsGeo.pointsValides[j];
-					pondCourante=exp(-distances(pt1,pt2)/(2*carreBandePassante));
-					pointsGeo.poids[pt1].push_back(make_pair(pt2, pondCourante));
-					pointsGeo.poids[pt2].push_back(make_pair(pt1, pondCourante));
-				}	
+					//if (distances(pt1,pt2)<=carreBandePassante)	// Tronquage pour comparaison avec pysal
+					//{
+						pondCourante=exp(-distances(pt1,pt2)/(2*carreBandePassante));
+						//cout << "*"<< i << " " << j << " " << pondCourante << endl;
+						pointsGeo.poids[pt1].push_back(make_pair(pt2, pondCourante));
+						pointsGeo.poids[pt2].push_back(make_pair(pt1, pondCourante));
+					//}
+				}
+				// Auto-voisinage pour comparaison avec pysal
+				//pointsGeo.poids[pt1].push_back(make_pair(pt1, 1));
 				
 			}
 		}
@@ -207,7 +214,11 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 						pointsGeo.poids[pt1].push_back(make_pair(pt2, pondCourante));
 						pointsGeo.poids[pt2].push_back(make_pair(pt1, pondCourante));
 					}
+					
 				}	
+				// Auto-voisinage pour comparaison avec pysal
+				//pointsGeo.poids[pt1].push_back(make_pair(pt1, 1));
+				
 			}
 		}
 		else // Plus proches voisins (cas plus compliqué)
@@ -286,11 +297,11 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 			}
 		}
 		//cout.precision(toolbox::precisionLecture);
-		cout << coordonnees(0,0,10,1) << "\n" << "\n" <<sqrt( distances(0,0,10,10)) << " " << pointsGeo.poids.size()<< " "<<pointsGeo.poids[0].size() << " " << pointsGeo.poids[384].size() <<"\n" ;
+		//cout << coordonnees(0,0,10,1) << "\n" << "\n" <<sqrt( distances(0,0,10,10)) << " " << pointsGeo.poids.size()<< " "<<pointsGeo.poids[0].size() << " " << pointsGeo.poids[384].size() <<"\n" ;
 		for (int chose(0); chose<pointsGeo.poids[0].size(); ++chose)
-		 {
-		 cout << pointsGeo.poids[0][chose].first << " " <<  pointsGeo.poids[0][chose].second<< "\n";
-		 }
+		{
+			cout << pointsGeo.poids[0][chose].first << " " <<  pointsGeo.poids[0][chose].second<< "\n";
+		}
 		
 	}	
 }
@@ -476,7 +487,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 	
 	// Test de multiplication
 	
-	vector<int> permutationPointsValides;
+	vector<int> listePointsValidesPerm, voisinagePerm, listePointsGlobauxPerm; // Liste des points sélectionnables lors de la permutations, voisinage temporaire pendant la permutation
 	int pt1, pt2, nbVoisins; // Pour repérer les indices des points considérés || Pour compter les voisins d'un point
 	
 	// On calcule une pondération-type basée sur le masqueGeo pour les cas où tous les points ayant des crd sont valides
@@ -486,6 +497,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 	{
 		if (pointsAC.masque(i,0))			
 		{
+			sommePond=0;
 			// Si un point est valide, tous ses voisins sont considérés, vu qu'on ne compte que le masque géo
 			nbVoisins=pointsAC.poids[i].size();
 			for (int j(0); j<nbVoisins; ++j)
@@ -614,91 +626,191 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					}				
 				}
 			}
-				// Calcul des déviations, moyenne et variance
-				moyenne=0;
-				sommeCarresDeviations=0;
-				for (int k(0); k<nbPoints; ++k)
+			
+			for (int zut(0); zut<5; ++zut)
+			{
+				for (int prout(0); prout<pointsCourants.poids[zut].size(); ++ prout)
 				{
-					if (pointsCourants.masque(k,0))
+					cout << pointsCourants.poids[zut][prout].first<< " " << pointsCourants.poids[zut][prout].second << " ";
+				}
+				cout << endl;
+			}
+			// Calcul des déviations, moyenne et variance
+			moyenne=0;
+			sommeCarresDeviations=0;
+			for (int k(0); k<nbPoints; ++k)
+			{
+				if (pointsCourants.masque(k,0))
+				{
+					deviations(k, 0) = dataEnv(k, i);
+					moyenne+=dataEnv(k,i);
+					sommeCarresDeviations+=dataEnv(k, i)*dataEnv(k, i);
+				}
+				else 
+				{
+					deviations(k,0)=0;
+				}
+				
+			}
+			
+			moyenne/=pointsCourants.taille;
+			//				sommeCarresDeviations= sommeCarresDeviations/pointsCourants.taille-moyenne*moyenne;	// ! Variance
+			sommeCarresDeviations= sommeCarresDeviations-pointsCourants.taille*moyenne*moyenne;
+			
+			for(int u(0); u<pointsCourants.taille; ++u)
+			{
+				deviations(pointsCourants.pointsValides[u])-=moyenne;
+			}
+			
+			
+			facteurEchelleLocal=(pointsCourants.taille-1)/sommeCarresDeviations;
+			facteurEchelleGlobal=1./(pointsCourants.taille-1);
+			
+			// On calcule l'autocorrélation manuellement car la matrice des poids est creuse (sparse matrix)
+			//autocorrTemp=0;
+			double valeurIntermediaire(0);
+			for (int  j(0); j<pointsCourants.taille; ++j)
+			{
+				pt1=pointsCourants.pointsValides[j];
+				nbVoisins=pointsCourants.poids[pt1].size();
+				valeurIntermediaire=0;
+				for (int k(0); k<nbVoisins; ++k)
+				{
+					valeurIntermediaire+=pointsCourants.poids[pt1][k].second * deviations[pointsCourants.poids[pt1][k].first];
+				}
+				autocorrLocale(pt1, i) = valeurIntermediaire*deviations[pt1]*facteurEchelleLocal;
+			}
+			
+			// Ecritude des valeurs dans le DBF
+			if (AS_shapefile)
+			{
+				for (int j(0); j<nbPoints; ++j)
+				{
+					if(pointsCourants.masque(j,0))
 					{
-						deviations(k, 0) = dataEnv(k, i);
-						moyenne+=dataEnv(k,i);
-						sommeCarresDeviations=dataEnv(k, i)*dataEnv(k, i);
+						DBFWriteDoubleAttribute(fichierDBF, indicesShpPoints[j], indicesShpEnv[i], autocorrLocale(j, i));
 					}
-					else 
+					else
 					{
-						deviations(k,0)=0;
-					}
-					
-				}
-				
-				moyenne/=pointsCourants.taille;
-				sommeCarresDeviations= sommeCarresDeviations/pointsCourants.taille-moyenne*moyenne;
-				
-				for(int u(0); u<pointsCourants.taille; ++u)
-				{
-					deviations(pointsCourants.pointsValides[u])-=moyenne;
-				}
-				
-				
-				facteurEchelleLocal=(pointsCourants.taille-1)/sommeCarresDeviations;
-				facteurEchelleGlobal=1./(pointsCourants.taille-1);
-				
-				// On calcule l'autocorrélation manuellement car la matrice des poids est creuse (sparse matrix)
-				//autocorrTemp=0;
-				double valeurIntermediaire(0);
-				for (int  j(0); j<pointsCourants.taille; ++j)
-				{
-					pt1=pointsCourants.pointsValides[j];
-					nbVoisins=pointsCourants.poids[pt1].size();
-					valeurIntermediaire=0;
-					for (int k(0); k<nbVoisins; ++k)
-					{
-						valeurIntermediaire+=pointsCourants.poids[pt1][k].second * deviations[pointsCourants.poids[pt1][k].first];
-					}
-					autocorrLocale(pt1, i) = valeurIntermediaire*deviations[pt1]*facteurEchelleLocal;
-				}
-				
-				// Ecritude des valeurs dans le DBF
-				if (AS_shapefile)
-				{
-					for (int j(0); j<nbPoints; ++j)
-					{
-						if(pointsCourants.masque(j,0))
-						{
-							DBFWriteDoubleAttribute(fichierDBF, indicesShpPoints[j], indicesShpEnv[i], autocorrLocale(j, i));
-						}
-						else
-						{
-							DBFWriteNULLAttribute(fichierDBF, indicesShpPoints[j], indicesShpEnv[i]);
-							
-						}
+						DBFWriteNULLAttribute(fichierDBF, indicesShpPoints[j], indicesShpEnv[i]);
+						
 					}
 				}
+			}
+			
+			/*			autocorrTemp=(deviations%(ponderation*deviations))*facteurEchelleLocal;	// AC locale, elle est temporaire car il faut remettre les valeurs à leur place (tailleDonnees->nbPoints)
+			 for (int j(0); j<tailleDonnees; ++j)
+			 {
+			 autocorrLocale(pointsValides[j], i) =autocorrTemp(j,0);
+			 }
+			 */
+			if (AS_autocorrGlobale)
+			{
+				//cout << "\n" << autocorrLocale(_,i);
+				//cout << tailleDonnees << " " << sum(ponderationCourante) << " " << sum(autocorrLocale(_,i)) << " " << sum(deviations%deviations) << "\n";
 				
-				/*			autocorrTemp=(deviations%(ponderation*deviations))*facteurEchelleLocal;	// AC locale, elle est temporaire car il faut remettre les valeurs à leur place (tailleDonnees->nbPoints)
-				 for (int j(0); j<tailleDonnees; ++j)
-				 {
-				 autocorrLocale(pointsValides[j], i) =autocorrTemp(j,0);
-				 }
-				 */
-				if (AS_autocorrGlobale)
-				{
-					//cout << "\n" << autocorrLocale(_,i);
-					//cout << tailleDonnees << " " << sum(ponderationCourante) << " " << sum(autocorrLocale(_,i)) << " " << sum(deviations%deviations) << "\n";
-					
-					autocorrGlobale(0,i)=facteurEchelleGlobal*(sum(autocorrLocale(_,i)));				
-					cout << specDataEnv[varEnvActives[i]].name << " " << moyenne << " " << autocorrGlobale(0,i)  << " " << sommeCarresDeviations<< "\n";
-				}
+				autocorrGlobale(0,i)=facteurEchelleGlobal*(sum(autocorrLocale(_,i)));				
+				cout << specDataEnv[varEnvActives[i]].name << " " << moyenne << " " << autocorrGlobale(0,i)  << " " << sommeCarresDeviations<< "\n";
+			}
+			
+			
+			// Permutations!
+			
+			// Chaque fois qu'on prend un point, le nombre de points restants (=parmi lesquels on peut tirer un élément) diminue
+			// Prop = facteur d'échelle pour le tirage d'un entier entre nbPointsValides, nbPointsValides-1, ..., 2,1,0
+			// Subtilité : Le points courant reste fixe, il ne sera jamais choisi comme voisin -> nb voisins possibles = taille-1 !!!!
+			vector<double> proportion(pointsCourants.taille-1);
+			int choix(0);
+			for (int j(0); j<(pointsCourants.taille-1); ++j)
+			{
+				// Comme 0<=rand<=RAND_MAX, on divise par RM+1 pour éviter les débordements de tableau
+				//cout << "!" <<  pointsCourants.taille-1-j << endl;
+				proportion[j]=(double)(pointsCourants.taille-1-j)/((double)RAND_MAX+1);
+			}
+			
+			
+			// Itération sur les points -> tous les points n'ont pas le même nombre de voisins
+			for (int  k(0); k<pointsCourants.taille; ++k)
+			{
 				
 				
-				// Permutations!
+				pt1 = pointsCourants.pointsValides[k]; // Numéro global du point considéré
+				nbVoisins = pointsCourants.poids[pt1].size();
+				voisinagePerm.resize(nbVoisins);	// Redimensionnement du voisinage temporaire
+				
 				for (int j(0); j<AS_nbPermutations; ++j)
 				{
 					
 					// Les pondérations sont fixes, on réordonne les déviations
-					permutationPointsValides=pointsCourants.pointsValides;
-					random_shuffle(permutationPointsValides.begin(), permutationPointsValides.end());
+					listePointsValidesPerm=pointsCourants.pointsValides;
+					// L'indice local du point courant est k -> on le permute avec le dernier point pour ne jamais le sélectionner
+					swap(listePointsValidesPerm[k], listePointsValidesPerm[pointsCourants.taille-1]);
+					
+					for (int l(0); l<nbVoisins; ++l)
+					{
+						choix=floor(rand()*proportion[l]);
+						voisinagePerm[l]=listePointsValidesPerm[choix];
+						swap(listePointsValidesPerm[choix], listePointsValidesPerm[pointsCourants.taille-2-l]);		// La dernière place est déjà occupée par le point
+					}
+					
+					random_shuffle(voisinagePerm.begin(), voisinagePerm.end());
+					// voisinagePerm contient les numéros globaux des voisins temporaires
+					
+					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
+					
+					//nbVoisins=pointsCourants.poids[pt1].size();
+					valeurIntermediaire=0;
+					for (int l(0); l<nbVoisins; ++l)
+					{
+						valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ voisinagePerm[ l ] ];
+					}
+					// Le point courant reste le même
+					autocorrLocaleCourante(pt1, 0) = valeurIntermediaire*deviations[pt1]*facteurEchelleLocal;
+					
+					
+					
+					// p-valeur
+					
+					//if ( ((autocorrTempCourante(k, 0)*autocorrTemp(k, 0))>0) && (abs(autocorrTempCourante(k, 0)) >= abs(autocorrTemp(k, 0))))
+					if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
+						||   ( (autocorrLocale(pt1, i)<0) && (autocorrLocaleCourante(pt1, 0)<=autocorrLocale(pt1, i)))    )
+						//	if ( abs(autocorrLocaleCourante(pt1, 0))>=abs(autocorrLocale(pt1, i))   )
+					{
+						pValeurLocale(pt1, i)=pValeurLocale(pt1, i)+1;
+					}
+					
+					// La p-valeur pour l'AC globale est calculée à part, tous les points sont permutés
+					
+				}
+			}
+			
+			if (AS_autocorrGlobale)
+			{
+				// La somme des carrés des déviations est la même pour chaque permutation
+				// Idem pour le facteur d'échelle
+				
+				listePointsValidesPerm.resize(pointsCourants.taille);
+				for (int j(0); j<pointsCourants.taille; ++j)
+				{
+					listePointsValidesPerm[j]=j;
+				}
+				
+				for (int j(0); j<AS_nbPermutations; ++j)
+				{
+					//listePointsValidesPerm=pointsCourants.pointsValides;
+					random_shuffle(listePointsValidesPerm.begin(), listePointsValidesPerm.end());
+					listePointsGlobauxPerm=pointsCourants.indices; // Indices locaux des points valides (originaux)
+					
+					// On veut les nouveau indices globaux des points permutés
+					for (int k(0); k<pointsCourants.nbPoints; ++k)
+					{
+						if (listePointsGlobauxPerm[k]!=-1)
+						{
+							// de droite à gauche: liste [N] des indices locaux -> permutations -> indices globaux correspondants
+							listePointsGlobauxPerm[k]=pointsCourants.pointsValides[ listePointsValidesPerm[listePointsGlobauxPerm[k]] ];
+						}
+					}
+					
 					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
 					for (int  k(0); k<pointsCourants.taille; ++k)
 					{
@@ -707,166 +819,175 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 						valeurIntermediaire=0;
 						for (int l(0); l<nbVoisins; ++l)
 						{
-							valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[permutationPointsValides[ pointsCourants.indices [pointsCourants.poids[pt1][l].first]]];
+							valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ listePointsGlobauxPerm[ pointsCourants.poids[pt1][l].first ]];
 						}
 						
-						autocorrLocaleCourante(pt1, 0) = valeurIntermediaire*deviations[permutationPointsValides[pointsCourants.indices[ k]]]*facteurEchelleLocal;
+						autocorrLocaleCourante(pt1, 0) = valeurIntermediaire*deviations[ listePointsGlobauxPerm[pt1] ]*facteurEchelleLocal;
 					}
 					
 					
-					/*				autocorrTempCourante=(deviationsCourantes%(ponderationCourante*deviationsCourantes))*facteurEchelleLocal;	// AC locale, permutée et temporaire (pour remise dans les bonnes cases)
-					 for (int k(0); k<tailleDonnees; ++k)
-					 {
-					 autocorrLocaleCourante(pointsValides[k], 0) = autocorrTempCourante(k,0);
-					 }
-					 */
+					
+					//autocorrGlobaleCourante=facteurEchelle*(sum(autocorrLocaleCourante(_,0))-sommeCarresDeviations);
+					autocorrGlobaleCourante=facteurEchelleGlobal*(sum(autocorrLocaleCourante(_,0)));
+					
+					
+					// Historique
+					historiqueAutocorrGlobale(j, i)=autocorrGlobaleCourante;
+					
 					// p-valeur
-					for (int k(0); k<pointsCourants.taille; ++k)
+					if ( ((autocorrGlobale(0, i) >= 0) && (autocorrGlobaleCourante >= autocorrGlobale(0, i)) ) || ((autocorrGlobale(0, i) < 0) && (autocorrGlobaleCourante <= autocorrGlobale(0, i)) ))
+						//if ( abs(autocorrGlobaleCourante) >= abs(autocorrGlobale(0, i) )) 
 					{
-						//if ( ((autocorrTempCourante(k, 0)*autocorrTemp(k, 0))>0) && (abs(autocorrTempCourante(k, 0)) >= abs(autocorrTemp(k, 0))))
-						if ( ( (autocorrLocale(pointsCourants.pointsValides[k], i)>0) && (autocorrLocaleCourante(pointsCourants.pointsValides[k], 0)>=autocorrLocale(pointsCourants.pointsValides[k], i))) 
-							||   ( (autocorrLocale(pointsCourants.pointsValides[k], i)<0) && (autocorrLocaleCourante(pointsCourants.pointsValides[k], 0)<=autocorrLocale(pointsCourants.pointsValides[k], i)))    )
-							//if ( (autocorrLocaleCourante(pointsValides[k], 0))>=abs(autocorrLocale(pointsValides[k], i))   )
-						{
-							pValeurLocale(pointsCourants.pointsValides[k], i)=pValeurLocale(pointsCourants.pointsValides[k], i)+1;
-						}
-						
-					}
-					
-					if (AS_autocorrGlobale)
-					{
-						// La somme des carrés des déviations est la même pour chaque permutation
-						// Idem pour le facteur d'échelle
-						
-						//autocorrGlobaleCourante=facteurEchelle*(sum(autocorrLocaleCourante(_,0))-sommeCarresDeviations);
-						autocorrGlobaleCourante=facteurEchelleGlobal*(sum(autocorrLocaleCourante(_,0)));
-						
-						
-						// Historique
-						historiqueAutocorrGlobale(j, i)=autocorrGlobaleCourante;
-						
-						// p-valeur
-						if ( ((autocorrGlobale(0, i) > 0) && (autocorrGlobaleCourante >= autocorrGlobale(0, i)) ) || ((autocorrGlobale(0, i) < 0) && (autocorrGlobaleCourante <= autocorrGlobale(0, i)) ))
-						{
-							pValeurGlobale(0, i)=pValeurGlobale(0, i)+1;
-						}
+						pValeurGlobale(0, i)=pValeurGlobale(0, i)+1;
 					}
 				}
+			}
+		}
+		
+		// Calcul de la p-valeur
+		pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
+		if (AS_autocorrGlobale)
+		{
+			pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
+			cout << "*** " << pValeurGlobale << "\n";
+		}
+		
+		time_t t2(time(NULL));
+		cout << "Calcul autocorrélation : " << t2-t1 << "\n";
+		
+		
+		// Ecriture des résultats
+		
+		//cout << autocorrLocale(0,0,10,2) << "\n"<< pValeurLocale(0,0,10,2) << "\n";
+		
+		sortieAS.precision(toolbox::precisionLecture);
+		t1=time(NULL);
+		// Ecriture de l'autocorrélation
+		sortieAS.open((nomFichierResultats.first+"-AS-Env"+nomFichierResultats.second).c_str());
+		if (sortieAS.fail())
+		{
+			throw Erreur("MSG_errOpenFileACEnv", "Error while opening file for autocorrelation of environnemental variables.");
+		}
+		else
+		{
+			// Headers
+			if (existeColID)
+			{
+				sortieAS << "ID ";
+			}
+			for (int j(0); j<nbEnvActives; ++j)
+			{
+				sortieAS << specDataEnv[varEnvActives.at(j)].name << " ";
+			}
+			sortieAS << delimLignes;
 			
-			
-			// Calcul de la p-valeur
-			pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
+			// AC Globale
 			if (AS_autocorrGlobale)
 			{
-				pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
-				cout << "*** " << pValeurGlobale << "\n";
+				if (existeColID)
+				{
+					sortieAS << "Global_AC ";
+				}
+				for (int j(0); j<nbEnvActives; ++j)
+				{
+					sortieAS << autocorrGlobale(0, j) << " ";
+				}
+				sortieAS << delimLignes;
 			}
 			
-			time_t t2(time(NULL));
-			cout << "Calcul autocorrélation : " << t2-t1 << "\n";
 			
-			// Ecriture des résultats
+			// AC Locales
+			for (int i(0); i<nbPoints; ++i)
+			{
+				if (existeColID)
+				{
+					sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+				}
+				for (int j(0); j<nbEnvActives; ++j)
+				{
+					sortieAS << autocorrLocale(i, j) << " ";
+				}
+				sortieAS << delimLignes;
+				
+			}
 			
-			//cout << autocorrLocale(0,0,10,2) << "\n"<< pValeurLocale(0,0,10,2) << "\n";
+			sortieAS.close();
+		}
+		
+		
+		// Ecriture des p-valeurs
+		sortieAS.open((nomFichierResultats.first+"-AS-Env-pVal"+nomFichierResultats.second).c_str());
+		if (sortieAS.fail())
+		{
+			throw Erreur("MSG_errOpenFileACSigEnv", "Error while opening file for autocorrelation significance of environnementales variables.");
+		}
+		else
+		{
+			// Headers
+			if (existeColID)
+			{
+				sortieAS << "ID ";
+			}
+			for (int j(0); j<nbEnvActives; ++j)
+			{
+				sortieAS << specDataEnv[varEnvActives.at(j)].name << " ";
+			}
+			sortieAS << delimLignes;
 			
-			sortieAS.precision(toolbox::precisionLecture);
-			t1=time(NULL);
-			// Ecriture de l'autocorrélation
-			sortieAS.open((nomFichierResultats.first+"-AS-Env"+nomFichierResultats.second).c_str());
+			// AC Globale
+			if (AS_autocorrGlobale)
+			{
+				if (existeColID)
+				{
+					sortieAS << "Global_AC ";
+				}
+				for (int j(0); j<nbEnvActives; ++j)
+				{
+					sortieAS <<  pValeurGlobale(0, j) << " ";
+				}
+				sortieAS << delimLignes;
+			}
+			
+			// AC Locales
+			for (int i(0); i<nbPoints; ++i)
+			{
+				if (existeColID)
+				{
+					sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+				}
+				for (int j(0); j<nbEnvActives; ++j)
+				{
+					sortieAS << pValeurLocale(i, j) << " ";
+				}
+				sortieAS << delimLignes;
+			}
+			sortieAS.flush();
+			sortieAS.close();
+		}
+		
+		// Ecriture de l'historique des permutations (autocorr globale)
+		if (AS_autocorrGlobale)
+		{
+			sortieAS.open((nomFichierResultats.first+"-AS-Env-Sim"+nomFichierResultats.second).c_str());
 			if (sortieAS.fail())
 			{
-				throw Erreur("MSG_errOpenFileACEnv", "Error while opening file for autocorrelation of environnemental variables.");
+				throw Erreur("MSG_errOpenFileACHistEnv", "Error while opening history file for autocorrelation of environnemental variables.");
 			}
 			else
 			{
 				// Headers
-				if (existeColID)
-				{
-					sortieAS << "ID ";
-				}
 				for (int j(0); j<nbEnvActives; ++j)
 				{
 					sortieAS << specDataEnv[varEnvActives.at(j)].name << " ";
 				}
 				sortieAS << delimLignes;
 				
-				// AC Globale
-				if (AS_autocorrGlobale)
+				
+				for (int i(0); i<AS_nbPermutations; ++i)
 				{
-					if (existeColID)
-					{
-						sortieAS << "Global_AC ";
-					}
 					for (int j(0); j<nbEnvActives; ++j)
 					{
-						sortieAS << autocorrGlobale(0, j) << " ";
-					}
-					sortieAS << delimLignes;
-				}
-				
-				
-				// AC Locales
-				for (int i(0); i<nbPoints; ++i)
-				{
-					if (existeColID)
-					{
-						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
-					}
-					for (int j(0); j<nbEnvActives; ++j)
-					{
-						sortieAS << autocorrLocale(i, j) << " ";
-					}
-					sortieAS << delimLignes;
-					
-				}
-				
-				sortieAS.close();
-			}
-			
-			
-			// Ecriture des p-valeurs
-			sortieAS.open((nomFichierResultats.first+"-AS-Env-pVal"+nomFichierResultats.second).c_str());
-			if (sortieAS.fail())
-			{
-				throw Erreur("MSG_errOpenFileACSigEnv", "Error while opening file for autocorrelation significance of environnementales variables.");
-			}
-			else
-			{
-				// Headers
-				if (existeColID)
-				{
-					sortieAS << "ID ";
-				}
-				for (int j(0); j<nbEnvActives; ++j)
-				{
-					sortieAS << specDataEnv[varEnvActives.at(j)].name << " ";
-				}
-				sortieAS << delimLignes;
-				
-				// AC Globale
-				if (AS_autocorrGlobale)
-				{
-					if (existeColID)
-					{
-						sortieAS << "Global_AC ";
-					}
-					for (int j(0); j<nbEnvActives; ++j)
-					{
-						sortieAS <<  pValeurGlobale(0, j) << " ";
-					}
-					sortieAS << delimLignes;
-				}
-				
-				// AC Locales
-				for (int i(0); i<nbPoints; ++i)
-				{
-					if (existeColID)
-					{
-						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
-					}
-					for (int j(0); j<nbEnvActives; ++j)
-					{
-						sortieAS << pValeurLocale(i, j) << " ";
+						sortieAS << historiqueAutocorrGlobale(i, j) << " ";
 					}
 					sortieAS << delimLignes;
 				}
@@ -874,41 +995,11 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				sortieAS.close();
 			}
 			
-			// Ecriture de l'historique des permutations (autocorr globale)
-			if (AS_autocorrGlobale)
-			{
-				sortieAS.open((nomFichierResultats.first+"-AS-Env-Sim"+nomFichierResultats.second).c_str());
-				if (sortieAS.fail())
-				{
-					throw Erreur("MSG_errOpenFileACHistEnv", "Error while opening history file for autocorrelation of environnemental variables.");
-				}
-				else
-				{
-					// Headers
-					for (int j(0); j<nbEnvActives; ++j)
-					{
-						sortieAS << specDataEnv[varEnvActives.at(j)].name << " ";
-					}
-					sortieAS << delimLignes;
-					
-					
-					for (int i(0); i<AS_nbPermutations; ++i)
-					{
-						for (int j(0); j<nbEnvActives; ++j)
-						{
-							sortieAS << historiqueAutocorrGlobale(i, j) << " ";
-						}
-						sortieAS << delimLignes;
-					}
-					sortieAS.flush();
-					sortieAS.close();
-				}
-				
-			}
-			t2=time(NULL);
-			cout << "Ecriture autocorrélation : " << t2-t1 << "\n";
-			
 		}
+		t2=time(NULL);
+		cout << "Ecriture autocorrélation : " << t2-t1 << "\n";
+		
+		
 	}
 	
 	/*

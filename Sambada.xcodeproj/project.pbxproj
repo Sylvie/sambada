@@ -148,7 +148,7 @@
 		3F3DD9E413EAF1F200DD85A7 /* creeEtiquettes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = creeEtiquettes.cpp; sourceTree = "<group>"; };
 		3F47FCD616BEC69300A7943C /* mainSambada.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainSambada.cpp; sourceTree = "<group>"; };
 		3F47FCD716BEC69300A7943C /* mainSupervision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainSupervision.cpp; sourceTree = "<group>"; };
-		3F54755B1378221400879439 /* Sambdada */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sambdada; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F54755B1378221400879439 /* Sambada */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sambada; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5475B31378377500879439 /* RegressionLogistique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegressionLogistique.h; sourceTree = "<group>"; };
 		3F5475B41378377500879439 /* RegressionLogistique-io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "RegressionLogistique-io.cpp"; sourceTree = "<group>"; };
 		3F5DEAD013793F15006EDC53 /* Erreur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Erreur.h; sourceTree = "<group>"; };
@@ -321,7 +321,7 @@
 		3FD89932135DD51200D02D21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3F54755B1378221400879439 /* Sambdada */,
+				3F54755B1378221400879439 /* Sambada */,
 				3F2DB2D613ADFC2F00F02AFB /* splitFiles */,
 				3FCC62FF13F94D7000471BD6 /* creeEtiquettes */,
 				3FCC630113F94D7000471BD6 /* creeEtiquettes */,
@@ -552,7 +552,7 @@
 			);
 			name = Sambada;
 			productName = ScytheSAM;
-			productReference = 3F54755B1378221400879439 /* Sambdada */;
+			productReference = 3F54755B1378221400879439 /* Sambada */;
 			productType = "com.apple.product-type.tool";
 		};
 		3F76142513C4A2DD0083D26E /* TestBootstrap */ = {
@@ -890,7 +890,7 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				PRODUCT_NAME = Sambdada;
+				PRODUCT_NAME = Sambada;
 				ZERO_LINK = NO;
 			};
 			name = Release;

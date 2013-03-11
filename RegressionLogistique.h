@@ -86,8 +86,8 @@ private:
 	typedef struct
 	{
 	public:
-		int nbPoints, taille; // taille = nb points valides
-		MatriceBools masque;
+		int nbPoints, taille;	// taille = nb points valides
+		MatriceBools masque;	// taille du masque = nbPoints
 		vector<int> pointsValides, indices; // pointsValides = liste de taille "taille", indices= indices locaux des points valides
 		TableClassementsVoisins poids;
 			
@@ -124,8 +124,8 @@ protected:
 	int nbMarqActifs;
 	int nbMarqTot;
 	int numPremierMarq;
-	int nbPoints;
-	int taille;
+	int nbPoints;	// Nombre points totaux dans l'échantillon
+	int taille;		// Nombre de points valides-> dépend du marqueur considéré
 	int nbParam;
 	int dimensionMax;
 	
