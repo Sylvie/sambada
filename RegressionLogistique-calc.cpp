@@ -186,10 +186,10 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 					pt2 = pointsGeo.pointsValides[j];
 					//if (distances(pt1,pt2)<=carreBandePassante)	// Tronquage pour comparaison avec pysal
 					//{
-						pondCourante=exp(-distances(pt1,pt2)/(2*carreBandePassante));
-						//cout << "*"<< i << " " << j << " " << pondCourante << endl;
-						pointsGeo.poids[pt1].push_back(make_pair(pt2, pondCourante));
-						pointsGeo.poids[pt2].push_back(make_pair(pt1, pondCourante));
+					pondCourante=exp(-distances(pt1,pt2)/(2*carreBandePassante));
+					//cout << "*"<< i << " " << j << " " << pondCourante << endl;
+					pointsGeo.poids[pt1].push_back(make_pair(pt2, pondCourante));
+					pointsGeo.poids[pt2].push_back(make_pair(pt1, pondCourante));
 					//}
 				}
 				// Auto-voisinage pour comparaison avec pysal
@@ -302,6 +302,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 		{
 			cout << pointsGeo.poids[0][chose].first << " " <<  pointsGeo.poids[0][chose].second<< "\n";
 		}
+		
 		
 	}	
 }
@@ -514,6 +515,10 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		}
 	}
 	
+	//cout << distances << endl;
+	//toolbox::affiche(voisinage);
+	//toolbox::affiche(pointsGeo.poids);
+	//toolbox::affiche(pointsAC.poids);
 	
 	ofstream sortieAS;
 	
@@ -548,7 +553,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			{
 				continue;
 			}
-			else if (pointsCourants.taille==pointsAC.taille)
+			else if (pointsCourants.taille==pointsAC.taille)	// Cas où tous les points géographiquement valides ont une valeur env
 			{
 				pointsCourants=pointsAC;
 			}
@@ -559,17 +564,23 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				// Calcul de la pondératon
 				if (choixPonderation!=pondPlusProchesVoisins)
 				{
-					int somme(0);
+					double somme(0);
 					for (int u(0); u<pointsCourants.taille; ++u)
 					{
 						pt1=pointsCourants.pointsValides[u];
 						somme=0;
-						nbVoisins=pointsCourants.poids[pt1].size();
+						nbVoisins=pointsAC.poids[pt1].size();
 						for (int v(0); v<nbVoisins; ++v)
 						{
-							pointsCourants.poids[pt1].push_back(pointsAC.poids[pt1][v]);
-							somme += pointsCourants.poids[pt1][v].second;
+							// On copie le voisin s'il est lui-même valide
+							if(pointsCourants.masque(pointsAC.poids[pt1][v].first,0))
+							{
+								pointsCourants.poids[pt1].push_back(pointsAC.poids[pt1][v]);
+								//cout << "*"<< pointsAC.poids[pt1][v].first << " " << pointsAC.poids[pt1][v].second << endl;
+								somme += (pointsAC.poids[pt1][v].second);
+							}
 						}
+						nbVoisins=pointsCourants.poids[pt1].size();
 						if (somme != 0)
 						{
 							for (int v(0); v<nbVoisins; ++v)
@@ -583,6 +594,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				else	// Cas plus proches voisins
 				{
 					// Cas où tous les points valides sont voisins
+					// On se base sur les points courants valides -> pas besoin de revérifier leur validité
 					if (pointsCourants.taille<=(nbPlusProchesVoisins+1))
 					{
 						double poids(1./pointsCourants.taille);
@@ -608,33 +620,56 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 						for (int u(0); u<pointsCourants.taille; ++u)
 						{
 							pt1 = pointsCourants.pointsValides[u];
-							nbVoisins=nbPlusProchesVoisins;
-							voisinSuivant=voisinage[pt1].begin()+(nbPlusProchesVoisins); // Premier point hors limite
-							voisinCourant=voisinage[pt1].begin()+(nbPlusProchesVoisins-1); //dernier point à être pris automatiquement
-							while((voisinSuivant)->second == voisinCourant->second) 
+							nbVoisins=0;
+							voisinCourant=voisinage[pt1].begin();
+							while (nbVoisins<nbPlusProchesVoisins && voisinCourant!=voisinage[pt1].end())
 							{
+								if (pointsCourants.masque(voisinCourant->first,0))
+								{
+									pointsCourants.poids[pt1].push_back(make_pair(voisinCourant->first, 1));
+									++nbVoisins;
+								}
 								++voisinCourant;
-								++voisinSuivant;
-								++nbVoisins;
 							}
-							double poids(1./nbVoisins);
-							for (voisinCourant=voisinage[pt1].begin(); voisinCourant!=voisinSuivant; ++voisinCourant)
+							
+							if (voisinCourant!=voisinage[pt1].end())
 							{
-								pointsCourants.poids[pt1].push_back(make_pair(voisinCourant->first, poids));						
+								voisinSuivant=voisinCourant+1;
+								while (voisinSuivant!=voisinage[pt1].end() && ((voisinSuivant)->second == voisinCourant->second))
+								{
+									pointsCourants.poids[pt1].push_back(make_pair(voisinSuivant->first, 1));
+									++voisinCourant;
+									++voisinSuivant;
+									++nbVoisins;									
+								}
+								
+							}
+
+							double poids(1./nbVoisins);
+							for (voisinCourant=pointsCourants.poids[pt1].begin(); voisinCourant!=pointsCourants.poids[pt1].end(); ++voisinCourant)
+							{
+								voisinCourant->second=poids;						
 							}
 						}
 					}				
 				}
 			}
 			
+			//toolbox::affiche(pointsCourants.poids);
+			/*
 			for (int zut(0); zut<5; ++zut)
 			{
+				for (int prout(0); prout<voisinage[zut].size(); ++prout)
+				{
+					cout << voisinage[zut][prout].first << " " << voisinage[zut][prout].second << " " ;
+				}
+				cout << endl;
 				for (int prout(0); prout<pointsCourants.poids[zut].size(); ++ prout)
 				{
 					cout << pointsCourants.poids[zut][prout].first<< " " << pointsCourants.poids[zut][prout].second << " ";
 				}
 				cout << endl;
-			}
+			}*/
 			// Calcul des déviations, moyenne et variance
 			moyenne=0;
 			sommeCarresDeviations=0;
@@ -801,7 +836,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					random_shuffle(listePointsValidesPerm.begin(), listePointsValidesPerm.end());
 					listePointsGlobauxPerm=pointsCourants.indices; // Indices locaux des points valides (originaux)
 					
-					// On veut les nouveau indices globaux des points permutés
+					// On veut les nouveaux indices globaux des points permutés
 					for (int k(0); k<pointsCourants.nbPoints; ++k)
 					{
 						if (listePointsGlobauxPerm[k]!=-1)
@@ -810,7 +845,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 							listePointsGlobauxPerm[k]=pointsCourants.pointsValides[ listePointsValidesPerm[listePointsGlobauxPerm[k]] ];
 						}
 					}
-					
+				//	toolbox::affiche(listePointsGlobauxPerm);
 					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
 					for (int  k(0); k<pointsCourants.taille; ++k)
 					{

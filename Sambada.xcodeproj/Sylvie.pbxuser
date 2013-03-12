@@ -92,17 +92,17 @@
 	};
 	3F2DB23413ADE7D100F02AFB /* Toolbox.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1381, 3874}}";
-			sepNavSelRange = "{4716, 0}";
-			sepNavVisRange = "{4115, 1974}";
+			sepNavIntBoundsRect = "{{0, 0}, {1381, 4134}}";
+			sepNavSelRange = "{7656, 0}";
+			sepNavVisRange = "{7167, 1036}";
 			sepNavWindowFrame = "{{0, 82}, {1440, 766}}";
 		};
 	};
 	3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1381, 4290}}";
-			sepNavSelRange = "{2345, 32}";
-			sepNavVisRange = "{0, 1219}";
+			sepNavIntBoundsRect = "{{0, 0}, {1381, 4394}}";
+			sepNavSelRange = "{5967, 0}";
+			sepNavVisRange = "{4975, 1114}";
 			sepNavWindowFrame = "{{1536, 16}, {1440, 766}}";
 		};
 	};
@@ -160,7 +160,7 @@
 		variableFormatDictionary = {
 		};
 	};
-	3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:786 */ = {
+	3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:821 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -170,15 +170,15 @@
 		delayBeforeContinue = 0;
 		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 0;
+		hitCount = 2;
 		ignoreCount = 0;
-		lineNumber = 786;
+		lineNumber = 821;
 		location = ScytheSAM;
-		modificationTime = 384705737.723525;
+		modificationTime = 384802890.457808;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:798 */ = {
+	3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:833 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -188,15 +188,15 @@
 		delayBeforeContinue = 0;
 		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 0;
+		hitCount = 2;
 		ignoreCount = 0;
-		lineNumber = 798;
+		lineNumber = 833;
 		location = ScytheSAM;
-		modificationTime = 384705737.868174;
+		modificationTime = 384802891.265677;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:854 */ = {
+	3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:889 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -206,15 +206,15 @@
 		delayBeforeContinue = 0;
 		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 0;
+		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 854;
+		lineNumber = 889;
 		location = ScytheSAM;
-		modificationTime = 384705737.954075;
+		modificationTime = 384802892.847043;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:950 */ = {
+	3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:985 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -224,140 +224,13 @@
 		delayBeforeContinue = 0;
 		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 0;
+		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 950;
+		lineNumber = 985;
 		location = ScytheSAM;
-		modificationTime = 384705738.077932;
+		modificationTime = 384802893.588788;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
-	};
-	3F30840016EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 179";
-		rLen = 0;
-		rLoc = 5661;
-		rType = 0;
-		vrLen = 855;
-		vrLoc = 5539;
-	};
-	3F30840116EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 855";
-		rLen = 0;
-		rLoc = 28344;
-		rType = 0;
-		vrLen = 1853;
-		vrLoc = 26386;
-	};
-	3F30840216EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 365";
-		rLen = 0;
-		rLoc = 8360;
-		rType = 0;
-		vrLen = 938;
-		vrLoc = 7997;
-	};
-	3F30840316EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
-		name = "ModeleParametres.txt: 13";
-		rLen = 0;
-		rLoc = 705;
-		rType = 0;
-		vrLen = 3025;
-		vrLoc = 0;
-	};
-	3F30840416EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F30840516EA7205002A3248 /* CinqPoints.R */;
-		name = "CinqPoints.R: 89";
-		rLen = 0;
-		rLoc = 1908;
-		rType = 0;
-		vrLen = 1208;
-		vrLoc = 886;
-	};
-	3F30840516EA7205002A3248 /* CinqPoints.R */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.rez;
-		name = CinqPoints.R;
-		path = "/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/5Points/CinqPoints.R";
-		sourceTree = "<absolute>";
-	};
-	3F30840616EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
-		name = "RegressionLogistique.h: 86";
-		rLen = 0;
-		rLoc = 2687;
-		rType = 0;
-		vrLen = 858;
-		vrLoc = 3145;
-	};
-	3F30840716EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		name = "RegressionLogistique-io.cpp: 10";
-		rLen = 60;
-		rLoc = 158;
-		rType = 0;
-		vrLen = 1381;
-		vrLoc = 39328;
-	};
-	3F30840816EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
-		name = "mainSambada.cpp: 29";
-		rLen = 0;
-		rLoc = 747;
-		rType = 0;
-		vrLen = 1183;
-		vrLoc = 0;
-	};
-	3F30840916EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
-		name = "Toolbox.h: 186";
-		rLen = 0;
-		rLoc = 4716;
-		rType = 0;
-		vrLen = 1974;
-		vrLoc = 4115;
-	};
-	3F30840A16EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
-		name = "Archiviste.cpp: 117";
-		rLen = 0;
-		rLoc = 1392;
-		rType = 0;
-		vrLen = 644;
-		vrLoc = 164;
-	};
-	3F30840B16EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 375";
-		rLen = 0;
-		rLoc = 8523;
-		rType = 0;
-		vrLen = 1121;
-		vrLoc = 5318;
-	};
-	3F30840C16EA7205002A3248 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
-		name = "Makefile: 118";
-		rLen = 0;
-		rLoc = 3301;
-		rType = 0;
-		vrLen = 1928;
-		vrLoc = 1519;
 	};
 	3F30840D16EA7205002A3248 /* Makefile */ = {
 		isa = PBXFileReference;
@@ -370,146 +243,6 @@
 			sepNavSelRange = "{3301, 0}";
 			sepNavVisRange = "{1519, 1928}";
 		};
-	};
-	3F31156316ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 179";
-		rLen = 0;
-		rLoc = 5661;
-		rType = 0;
-		vrLen = 1060;
-		vrLoc = 5685;
-	};
-	3F31156416ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 855";
-		rLen = 0;
-		rLoc = 28344;
-		rType = 0;
-		vrLen = 1853;
-		vrLoc = 26386;
-	};
-	3F31156516ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 365";
-		rLen = 0;
-		rLoc = 8360;
-		rType = 0;
-		vrLen = 938;
-		vrLoc = 7997;
-	};
-	3F31156616ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
-		name = "ModeleParametres.txt: 13";
-		rLen = 0;
-		rLoc = 705;
-		rType = 0;
-		vrLen = 3025;
-		vrLoc = 0;
-	};
-	3F31156716ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F31156816ECBE140031D13D /* CinqPoints.R */;
-		name = "CinqPoints.R: 89";
-		rLen = 0;
-		rLoc = 1908;
-		rType = 0;
-		vrLen = 1211;
-		vrLoc = 883;
-	};
-	3F31156816ECBE140031D13D /* CinqPoints.R */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.rez;
-		name = CinqPoints.R;
-		path = "/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/5Points/CinqPoints.R";
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1253, 1248}}";
-			sepNavSelRange = "{1908, 0}";
-			sepNavVisRange = "{886, 1208}";
-			sepNavWindowFrame = "{{15, 70}, {1312, 808}}";
-		};
-	};
-	3F31156916ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
-		name = "RegressionLogistique.h: 86";
-		rLen = 0;
-		rLoc = 2687;
-		rType = 0;
-		vrLen = 858;
-		vrLoc = 3145;
-	};
-	3F31156A16ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		name = "RegressionLogistique-io.cpp: 10";
-		rLen = 60;
-		rLoc = 158;
-		rType = 0;
-		vrLen = 1381;
-		vrLoc = 39328;
-	};
-	3F31156B16ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
-		name = "mainSambada.cpp: 29";
-		rLen = 0;
-		rLoc = 747;
-		rType = 0;
-		vrLen = 1183;
-		vrLoc = 0;
-	};
-	3F31156C16ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
-		name = "Toolbox.h: 186";
-		rLen = 0;
-		rLoc = 4716;
-		rType = 0;
-		vrLen = 1974;
-		vrLoc = 4115;
-	};
-	3F31156D16ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
-		name = "Archiviste.cpp: 117";
-		rLen = 0;
-		rLoc = 1392;
-		rType = 0;
-		vrLen = 644;
-		vrLoc = 164;
-	};
-	3F31156E16ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 375";
-		rLen = 0;
-		rLoc = 8523;
-		rType = 0;
-		vrLen = 1121;
-		vrLoc = 5318;
-	};
-	3F31156F16ECBE140031D13D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F31157016ECBE140031D13D /* Makefile */;
-		name = "Makefile: 118";
-		rLen = 0;
-		rLoc = 3301;
-		rType = 0;
-		vrLen = 1928;
-		vrLoc = 1519;
-	};
-	3F31157016ECBE140031D13D /* Makefile */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.make;
-		name = Makefile;
-		path = "/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Scythe/ScytheSAM/Makefile";
-		sourceTree = "<absolute>";
 	};
 	3F322E6416715B9D0047A93B /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -528,6 +261,255 @@
 			sepNavVisRange = "{1295, 280}";
 			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
 		};
+	};
+	3F41F65916EE48A300A1BE7A /* RegressionLogistique-calc.cpp:28 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculePonderation()";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 28;
+		location = ScytheSAM;
+		modificationTime = 384802488.851478;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F41F65F16EE4B1B00A1BE7A /* RegressionLogistique-io.cpp:1083 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1083;
+		location = ScytheSAM;
+		modificationTime = 384802484.915113;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F41F66316EE4C7400A1BE7A /* RegressionLogistique-io.cpp:1219 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1219;
+		location = ScytheSAM;
+		modificationTime = 384802485.095344;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F41F66516EE4C8800A1BE7A /* RegressionLogistique-io.cpp:1235 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1235;
+		location = ScytheSAM;
+		modificationTime = 384802485.207452;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F41F66B16EE4E3A00A1BE7A /* RegressionLogistique-io.cpp:1359 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 1359;
+		location = ScytheSAM;
+		modificationTime = 384802486.657554;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F41F67316EE516200A1BE7A /* RegressionLogistique-io.cpp:1212 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1212;
+		location = ScytheSAM;
+		modificationTime = 384802485.484606;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F41F68316EE529D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 10";
+		rLen = 60;
+		rLoc = 158;
+		rType = 0;
+		vrLen = 1593;
+		vrLoc = 29610;
+	};
+	3F41F68716EE529D00A1BE7A /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+	};
+	3F41F69616EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1875;
+		vrLoc = 28565;
+	};
+	3F41F69716EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1105";
+		rLen = 0;
+		rLoc = 30837;
+		rType = 0;
+		vrLen = 1526;
+		vrLoc = 32723;
+	};
+	3F41F69816EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 187";
+		rLen = 0;
+		rLoc = 5957;
+		rType = 0;
+		vrLen = 2170;
+		vrLoc = 5552;
+	};
+	3F41F69916EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 865";
+		rLen = 0;
+		rLoc = 29572;
+		rType = 0;
+		vrLen = 1376;
+		vrLoc = 12536;
+	};
+	3F41F69A16EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3F41F69B16EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 3025;
+		vrLoc = 0;
+	};
+	3F41F69C16EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 938;
+		vrLoc = 7997;
+	};
+	3F41F69D16EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 858;
+		vrLoc = 3145;
+	};
+	3F41F69E16EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
+		name = "Toolbox.h: 186";
+		rLen = 0;
+		rLoc = 4716;
+		rType = 0;
+		vrLen = 1974;
+		vrLoc = 4115;
+	};
+	3F41F69F16EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 644;
+		vrLoc = 164;
+	};
+	3F41F6A016EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1121;
+		vrLoc = 5318;
+	};
+	3F41F6A116EE573D00A1BE7A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F41F6A216EE573D00A1BE7A /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1928;
+		vrLoc = 1519;
+	};
+	3F41F6A216EE573D00A1BE7A /* Makefile */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.make;
+		name = Makefile;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Scythe/ScytheSAM/Makefile";
+		sourceTree = "<absolute>";
 	};
 	3F47FCD616BEC69300A7943C /* mainSambada.cpp */ = {
 		uiCtxt = {
@@ -575,6 +557,9 @@
 			NO,
 			NO,
 			NO,
+			NO,
+			NO,
+			YES,
 			YES,
 			YES,
 		);
@@ -600,11 +585,14 @@
 			"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion5-juin-2012/Scythe/Alpina.txt",
 			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion6-octobre-2012/Scythe/param-simul.txt\"",
 			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion6-octobre-2012/Scythe/box_strong_MC8-300-subset.csv\"",
-			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/100Points/input-Sample100.txt\"",
-			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/100Points/Sample100.txt\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestMissings/input-AS.txt\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestMissings/Data10.txt\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/input.txt\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/TableEnvUG.csv\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/Marq15.txt\"",
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -660,19 +648,19 @@
 	};
 	3F5475B31378377500879439 /* RegressionLogistique.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1223, 3263}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1223, 3120}}";
 			sepNavSelRange = "{2687, 0}";
-			sepNavVisRange = "{3145, 858}";
+			sepNavVisRange = "{3538, 999}";
 			sepNavWindowFrame = "{{158, 413}, {1282, 465}}";
 		};
 	};
 	3F5475B41378377500879439 /* RegressionLogistique-io.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1129, 22048}}";
-			sepNavSelRange = "{158, 60}";
-			sepNavVisRange = "{39328, 1381}";
+			sepNavIntBoundsRect = "{{0, 0}, {1129, 22438}}";
+			sepNavSelRange = "{12514, 6}";
+			sepNavVisRange = "{34466, 1088}";
 			sepNavVisRect = "{{0, 0}, {1183, 340}}";
-			sepNavWindowFrame = "{{247, 96}, {1188, 766}}";
+			sepNavWindowFrame = "{{763, 47}, {1188, 808}}";
 		};
 	};
 	3F5DEAD013793F15006EDC53 /* Erreur.h */ = {
@@ -713,7 +701,7 @@
 			sepNavWindowFrame = "{{0, 74}, {1054, 804}}";
 		};
 	};
-	3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:718 */ = {
+	3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:753 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -723,11 +711,11 @@
 		delayBeforeContinue = 0;
 		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 1;
+		hitCount = 2;
 		ignoreCount = 0;
-		lineNumber = 718;
+		lineNumber = 753;
 		location = ScytheSAM;
-		modificationTime = 384705743.621142;
+		modificationTime = 384802889.536951;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -836,347 +824,7 @@
 		variableFormatDictionary = {
 		};
 	};
-	3FCCCFC516EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 214";
-		rLen = 0;
-		rLoc = 6909;
-		rType = 0;
-		vrLen = 2124;
-		vrLoc = 4990;
-	};
-	3FCCCFC616EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 861";
-		rLen = 0;
-		rLoc = 28344;
-		rType = 0;
-		vrLen = 1827;
-		vrLoc = 26443;
-	};
-	3FCCCFC716EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 365";
-		rLen = 0;
-		rLoc = 8360;
-		rType = 0;
-		vrLen = 938;
-		vrLoc = 7997;
-	};
-	3FCCCFC816EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
-		name = "ModeleParametres.txt: 13";
-		rLen = 0;
-		rLoc = 705;
-		rType = 0;
-		vrLen = 3025;
-		vrLoc = 0;
-	};
-	3FCCCFC916EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F31156816ECBE140031D13D /* CinqPoints.R */;
-		name = "CinqPoints.R: 89";
-		rLen = 0;
-		rLoc = 1908;
-		rType = 0;
-		vrLen = 1210;
-		vrLoc = 883;
-	};
-	3FCCCFCA16EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
-		name = "RegressionLogistique.h: 86";
-		rLen = 0;
-		rLoc = 2687;
-		rType = 0;
-		vrLen = 858;
-		vrLoc = 3145;
-	};
-	3FCCCFCB16EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		name = "RegressionLogistique-io.cpp: 10";
-		rLen = 60;
-		rLoc = 158;
-		rType = 0;
-		vrLen = 1381;
-		vrLoc = 39328;
-	};
-	3FCCCFCC16EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
-		name = "mainSambada.cpp: 29";
-		rLen = 0;
-		rLoc = 747;
-		rType = 0;
-		vrLen = 1183;
-		vrLoc = 0;
-	};
-	3FCCCFCD16EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
-		name = "Toolbox.h: 186";
-		rLen = 0;
-		rLoc = 4716;
-		rType = 0;
-		vrLen = 1974;
-		vrLoc = 4115;
-	};
-	3FCCCFCE16EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
-		name = "Archiviste.cpp: 117";
-		rLen = 0;
-		rLoc = 1392;
-		rType = 0;
-		vrLen = 644;
-		vrLoc = 164;
-	};
-	3FCCCFCF16EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 375";
-		rLen = 0;
-		rLoc = 8523;
-		rType = 0;
-		vrLen = 1121;
-		vrLoc = 5318;
-	};
-	3FCCCFD016EE036900754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
-		name = "Makefile: 118";
-		rLen = 0;
-		rLoc = 3301;
-		rType = 0;
-		vrLen = 1928;
-		vrLoc = 1519;
-	};
-	3FCCCFDA16EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 861";
-		rLen = 0;
-		rLoc = 28344;
-		rType = 0;
-		vrLen = 1827;
-		vrLoc = 26443;
-	};
-	3FCCCFDB16EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 214";
-		rLen = 0;
-		rLoc = 6909;
-		rType = 0;
-		vrLen = 2124;
-		vrLoc = 4990;
-	};
-	3FCCCFDC16EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 365";
-		rLen = 0;
-		rLoc = 8360;
-		rType = 0;
-		vrLen = 938;
-		vrLoc = 7997;
-	};
-	3FCCCFDD16EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
-		name = "ModeleParametres.txt: 13";
-		rLen = 0;
-		rLoc = 705;
-		rType = 0;
-		vrLen = 3025;
-		vrLoc = 0;
-	};
-	3FCCCFDE16EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
-		name = "RegressionLogistique.h: 86";
-		rLen = 0;
-		rLoc = 2687;
-		rType = 0;
-		vrLen = 858;
-		vrLoc = 3145;
-	};
-	3FCCCFDF16EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		name = "RegressionLogistique-io.cpp: 10";
-		rLen = 60;
-		rLoc = 158;
-		rType = 0;
-		vrLen = 1381;
-		vrLoc = 39328;
-	};
-	3FCCCFE016EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
-		name = "mainSambada.cpp: 29";
-		rLen = 0;
-		rLoc = 747;
-		rType = 0;
-		vrLen = 1183;
-		vrLoc = 0;
-	};
-	3FCCCFE116EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
-		name = "Toolbox.h: 186";
-		rLen = 0;
-		rLoc = 4716;
-		rType = 0;
-		vrLen = 1974;
-		vrLoc = 4115;
-	};
-	3FCCCFE216EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
-		name = "Archiviste.cpp: 117";
-		rLen = 0;
-		rLoc = 1392;
-		rType = 0;
-		vrLen = 644;
-		vrLoc = 164;
-	};
-	3FCCCFE316EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 375";
-		rLen = 0;
-		rLoc = 8523;
-		rType = 0;
-		vrLen = 1121;
-		vrLoc = 5318;
-	};
-	3FCCCFE416EE053100754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
-		name = "Makefile: 118";
-		rLen = 0;
-		rLoc = 3301;
-		rType = 0;
-		vrLen = 1928;
-		vrLoc = 1519;
-	};
-	3FCCCFE716EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 193";
-		rLen = 0;
-		rLoc = 6247;
-		rType = 0;
-		vrLen = 2118;
-		vrLoc = 4883;
-	};
-	3FCCCFE816EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 864";
-		rLen = 0;
-		rLoc = 28344;
-		rType = 0;
-		vrLen = 1800;
-		vrLoc = 26384;
-	};
-	3FCCCFE916EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 365";
-		rLen = 0;
-		rLoc = 8360;
-		rType = 0;
-		vrLen = 938;
-		vrLoc = 7997;
-	};
-	3FCCCFEA16EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
-		name = "ModeleParametres.txt: 13";
-		rLen = 0;
-		rLoc = 705;
-		rType = 0;
-		vrLen = 3025;
-		vrLoc = 0;
-	};
-	3FCCCFEB16EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
-		name = "RegressionLogistique.h: 86";
-		rLen = 0;
-		rLoc = 2687;
-		rType = 0;
-		vrLen = 858;
-		vrLoc = 3145;
-	};
-	3FCCCFEC16EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		name = "RegressionLogistique-io.cpp: 10";
-		rLen = 60;
-		rLoc = 158;
-		rType = 0;
-		vrLen = 1381;
-		vrLoc = 39328;
-	};
-	3FCCCFED16EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
-		name = "mainSambada.cpp: 29";
-		rLen = 0;
-		rLoc = 747;
-		rType = 0;
-		vrLen = 1183;
-		vrLoc = 0;
-	};
-	3FCCCFEE16EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
-		name = "Toolbox.h: 186";
-		rLen = 0;
-		rLoc = 4716;
-		rType = 0;
-		vrLen = 1974;
-		vrLoc = 4115;
-	};
-	3FCCCFEF16EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
-		name = "Archiviste.cpp: 117";
-		rLen = 0;
-		rLoc = 1392;
-		rType = 0;
-		vrLen = 644;
-		vrLoc = 164;
-	};
-	3FCCCFF016EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 375";
-		rLen = 0;
-		rLoc = 8523;
-		rType = 0;
-		vrLen = 1121;
-		vrLoc = 5318;
-	};
-	3FCCCFF116EE195200754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
-		name = "Makefile: 118";
-		rLen = 0;
-		rLoc = 3301;
-		rType = 0;
-		vrLen = 1928;
-		vrLoc = 1519;
-	};
-	3FCCCFF616EE1EBE00754093 /* RegressionLogistique-calc.cpp:417 */ = {
+	3FCCCFF616EE1EBE00754093 /* RegressionLogistique-calc.cpp:418 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1188,13 +836,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 417;
+		lineNumber = 418;
 		location = ScytheSAM;
-		modificationTime = 384705739.343904;
+		modificationTime = 384802490.113615;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:517 */ = {
+	3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:522 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1206,13 +854,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 517;
+		lineNumber = 522;
 		location = ScytheSAM;
-		modificationTime = 384705741.611459;
+		modificationTime = 384802492.023239;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:699 */ = {
+	3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:734 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1222,231 +870,13 @@
 		delayBeforeContinue = 0;
 		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 1;
+		hitCount = 2;
 		ignoreCount = 0;
-		lineNumber = 699;
+		lineNumber = 734;
 		location = ScytheSAM;
-		modificationTime = 384705742.643396;
+		modificationTime = 384802888.7833;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
-	};
-	3FCCD00516EE1F3300754093 /* RegressionLogistique-calc.cpp:736 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 1;
-		ignoreCount = 0;
-		lineNumber = 736;
-		location = ScytheSAM;
-		modificationTime = 384705744.786088;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3FCCD00916EE1F8200754093 /* RegressionLogistique-calc.cpp:743 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 4;
-		ignoreCount = 0;
-		lineNumber = 743;
-		location = ScytheSAM;
-		modificationTime = 384705783.127302;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3FCCD00B16EE1F9300754093 /* RegressionLogistique-calc.cpp:756 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 3;
-		ignoreCount = 0;
-		lineNumber = 756;
-		location = ScytheSAM;
-		modificationTime = 384705781.934155;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3FCCD00D16EE1F9400754093 /* RegressionLogistique-calc.cpp:755 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 755;
-		location = ScytheSAM;
-		modificationTime = 384705738.83849;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3FCCD00F16EE1FA700754093 /* RegressionLogistique-calc.cpp:783 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 783;
-		location = ScytheSAM;
-		modificationTime = 384705738.964422;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3FCCD01116EE1FBF00754093 /* RegressionLogistique-calc.cpp:767 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 3;
-		ignoreCount = 0;
-		lineNumber = 767;
-		location = ScytheSAM;
-		modificationTime = 384705782.504563;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3FCCD01916EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 221";
-		rLen = 0;
-		rLoc = 7029;
-		rType = 0;
-		vrLen = 2013;
-		vrLoc = 5232;
-	};
-	3FCCD01A16EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		name = "RegressionLogistique-calc.cpp: 865";
-		rLen = 0;
-		rLoc = 28344;
-		rType = 0;
-		vrLen = 1242;
-		vrLoc = 12169;
-	};
-	3FCCD01B16EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 365";
-		rLen = 0;
-		rLoc = 8360;
-		rType = 0;
-		vrLen = 938;
-		vrLoc = 7997;
-	};
-	3FCCD01C16EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
-		name = "ModeleParametres.txt: 13";
-		rLen = 0;
-		rLoc = 705;
-		rType = 0;
-		vrLen = 3025;
-		vrLoc = 0;
-	};
-	3FCCD01D16EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
-		name = "RegressionLogistique.h: 86";
-		rLen = 0;
-		rLoc = 2687;
-		rType = 0;
-		vrLen = 858;
-		vrLoc = 3145;
-	};
-	3FCCD01E16EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		name = "RegressionLogistique-io.cpp: 10";
-		rLen = 60;
-		rLoc = 158;
-		rType = 0;
-		vrLen = 1381;
-		vrLoc = 39328;
-	};
-	3FCCD01F16EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
-		name = "mainSambada.cpp: 29";
-		rLen = 0;
-		rLoc = 747;
-		rType = 0;
-		vrLen = 1183;
-		vrLoc = 0;
-	};
-	3FCCD02016EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
-		name = "Toolbox.h: 186";
-		rLen = 0;
-		rLoc = 4716;
-		rType = 0;
-		vrLen = 1974;
-		vrLoc = 4115;
-	};
-	3FCCD02116EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
-		name = "Archiviste.cpp: 117";
-		rLen = 0;
-		rLoc = 1392;
-		rType = 0;
-		vrLen = 644;
-		vrLoc = 164;
-	};
-	3FCCD02216EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 375";
-		rLen = 0;
-		rLoc = 8523;
-		rType = 0;
-		vrLen = 1121;
-		vrLoc = 5318;
-	};
-	3FCCD02316EE253600754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
-		name = "Makefile: 118";
-		rLen = 0;
-		rLoc = 3301;
-		rType = 0;
-		vrLen = 1928;
-		vrLoc = 1519;
 	};
 	3FCCD02916EE2A7500754093 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1463,7 +893,7 @@
 		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
 		name = "RegressionLogistique-calc.cpp: 865";
 		rLen = 0;
-		rLoc = 28344;
+		rLoc = 29572;
 		rType = 0;
 		vrLen = 1343;
 		vrLoc = 12128;
@@ -1497,16 +927,6 @@
 		rType = 0;
 		vrLen = 858;
 		vrLoc = 3145;
-	};
-	3FCCD02E16EE2A7500754093 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		name = "RegressionLogistique-io.cpp: 10";
-		rLen = 60;
-		rLoc = 158;
-		rType = 0;
-		vrLen = 1381;
-		vrLoc = 39328;
 	};
 	3FCCD02F16EE2A7500754093 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1558,6 +978,1305 @@
 		vrLen = 1928;
 		vrLoc = 1519;
 	};
+	3FD325C316EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
+		name = "Toolbox.h: 285";
+		rLen = 0;
+		rLoc = 7918;
+		rType = 0;
+		vrLen = 973;
+		vrLoc = 7167;
+	};
+	3FD325C416EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1889;
+		vrLoc = 28546;
+	};
+	3FD325C516EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1105";
+		rLen = 0;
+		rLoc = 30837;
+		rType = 0;
+		vrLen = 1472;
+		vrLoc = 32723;
+	};
+	3FD325C616EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 187";
+		rLen = 0;
+		rLoc = 5957;
+		rType = 0;
+		vrLen = 2080;
+		vrLoc = 5552;
+	};
+	3FD325C716EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 865";
+		rLen = 0;
+		rLoc = 29572;
+		rType = 0;
+		vrLen = 1372;
+		vrLoc = 12536;
+	};
+	3FD325C816EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3FD325C916EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 2991;
+		vrLoc = 0;
+	};
+	3FD325CA16EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 7997;
+	};
+	3FD325CB16EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 839;
+		vrLoc = 3145;
+	};
+	3FD325CC16EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 641;
+		vrLoc = 164;
+	};
+	3FD325CD16EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1119;
+		vrLoc = 5318;
+	};
+	3FD325CE16EF4EF200214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1912;
+		vrLoc = 1519;
+	};
+	3FD325EA16EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1204";
+		rLen = 0;
+		rLoc = 33551;
+		rType = 0;
+		vrLen = 1348;
+		vrLoc = 32749;
+	};
+	3FD325EB16EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1256;
+		vrLoc = 33210;
+	};
+	3FD325EC16EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 187";
+		rLen = 0;
+		rLoc = 5957;
+		rType = 0;
+		vrLen = 2080;
+		vrLoc = 5552;
+	};
+	3FD325ED16EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
+		name = "Toolbox.h: 285";
+		rLen = 0;
+		rLoc = 7918;
+		rType = 0;
+		vrLen = 1509;
+		vrLoc = 5658;
+	};
+	3FD325EE16EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 865";
+		rLen = 0;
+		rLoc = 29572;
+		rType = 0;
+		vrLen = 1372;
+		vrLoc = 12536;
+	};
+	3FD325EF16EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3FD325F016EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 2991;
+		vrLoc = 0;
+	};
+	3FD325F116EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 7997;
+	};
+	3FD325F216EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 839;
+		vrLoc = 3145;
+	};
+	3FD325F316EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 641;
+		vrLoc = 164;
+	};
+	3FD325F416EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1119;
+		vrLoc = 5318;
+	};
+	3FD325F516EF65DA00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1912;
+		vrLoc = 1519;
+	};
+	3FD3260C16EF6A5600214530 /* RegressionLogistique-io.cpp:1231 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1231;
+		location = ScytheSAM;
+		modificationTime = 384802485.653222;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3FD3268216EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 575";
+		rLen = 0;
+		rLoc = 17948;
+		rType = 0;
+		vrLen = 1627;
+		vrLoc = 17569;
+	};
+	3FD3268316EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 795;
+		vrLoc = 2672;
+	};
+	3FD3268416EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 26";
+		rLen = 42;
+		rLoc = 1003;
+		rType = 0;
+		vrLen = 2413;
+		vrLoc = 7956;
+	};
+	3FD3268516EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1204";
+		rLen = 0;
+		rLoc = 33551;
+		rType = 0;
+		vrLen = 1347;
+		vrLoc = 36932;
+	};
+	3FD3268616EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
+		name = "Toolbox.h: 299";
+		rLen = 0;
+		rLoc = 8171;
+		rType = 0;
+		vrLen = 917;
+		vrLoc = 7818;
+	};
+	3FD3268716EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
+		name = "Toolbox.cpp: 300";
+		rLen = 0;
+		rLoc = 5973;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 5650;
+	};
+	3FD3268A16EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3268B16EF942C00214530 /* CinqPoints.R */;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+		rType = 0;
+	};
+	3FD3268B16EF942C00214530 /* CinqPoints.R */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.rez;
+		name = CinqPoints.R;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/5Points/CinqPoints.R";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1129, 1248}}";
+			sepNavSelRange = "{2038, 0}";
+			sepNavVisRange = "{886, 1207}";
+		};
+	};
+	3FD3268C16EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3268D16EF942C00214530 /* CinqPoints.R */;
+		name = "CinqPoints.R: 93";
+		rLen = 0;
+		rLoc = 2038;
+		rType = 0;
+		vrLen = 1207;
+		vrLoc = 886;
+	};
+	3FD3268D16EF942C00214530 /* CinqPoints.R */ = {
+		isa = PBXFileReference;
+		name = CinqPoints.R;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/5Points/CinqPoints.R";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1129, 1248}}";
+			sepNavSelRange = "{2038, 0}";
+			sepNavVisRange = "{886, 1208}";
+		};
+	};
+	3FD3269016EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3269116EF942C00214530 /* TableEnvUG.csv */;
+		name = "TableEnvUG.csv: 224";
+		rLen = 312;
+		rLoc = 71863;
+		rType = 0;
+		vrLen = 16740;
+		vrLoc = 62190;
+	};
+	3FD3269116EF942C00214530 /* TableEnvUG.csv */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text;
+		name = TableEnvUG.csv;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/TableEnvUG.csv";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {3337, 10153}}";
+			sepNavSelRange = "{67658, 29}";
+			sepNavVisRange = "{54787, 16752}";
+		};
+	};
+	3FD3269216EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3269316EF942C00214530 /* TableEnvUG.csv */;
+		name = "TableEnvUG.csv: 211";
+		rLen = 29;
+		rLoc = 67658;
+		rType = 0;
+		vrLen = 16752;
+		vrLoc = 54787;
+	};
+	3FD3269316EF942C00214530 /* TableEnvUG.csv */ = {
+		isa = PBXFileReference;
+		name = TableEnvUG.csv;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/TableEnvUG.csv";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {3337, 10153}}";
+			sepNavSelRange = "{67658, 29}";
+			sepNavVisRange = "{54787, 17076}";
+		};
+	};
+	3FD3269416EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1258;
+		vrLoc = 33761;
+	};
+	3FD3269516EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3FD3269616EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 2991;
+		vrLoc = 0;
+	};
+	3FD3269716EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 7997;
+	};
+	3FD3269816EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 641;
+		vrLoc = 164;
+	};
+	3FD3269916EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1119;
+		vrLoc = 5318;
+	};
+	3FD3269A16EF942C00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1912;
+		vrLoc = 1519;
+	};
+	3FD326A216EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1204";
+		rLen = 0;
+		rLoc = 33551;
+		rType = 0;
+		vrLen = 1418;
+		vrLoc = 36976;
+	};
+	3FD326A316EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 575";
+		rLen = 0;
+		rLoc = 17948;
+		rType = 0;
+		vrLen = 1627;
+		vrLoc = 17569;
+	};
+	3FD326A416EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 850;
+		vrLoc = 2688;
+	};
+	3FD326A516EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 26";
+		rLen = 42;
+		rLoc = 1003;
+		rType = 0;
+		vrLen = 2316;
+		vrLoc = 8062;
+	};
+	3FD326A616EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
+		name = "Toolbox.cpp: 300";
+		rLen = 0;
+		rLoc = 5973;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 5650;
+	};
+	3FD326A716EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3268B16EF942C00214530 /* CinqPoints.R */;
+		name = "CinqPoints.R: 93";
+		rLen = 0;
+		rLoc = 2038;
+		rType = 0;
+		vrLen = 1207;
+		vrLoc = 886;
+	};
+	3FD326A816EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3269116EF942C00214530 /* TableEnvUG.csv */;
+		name = "TableEnvUG.csv: 211";
+		rLen = 29;
+		rLoc = 67658;
+		rType = 0;
+		vrLen = 16752;
+		vrLoc = 54787;
+	};
+	3FD326A916EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1301;
+		vrLoc = 33816;
+	};
+	3FD326AA16EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3FD326AB16EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 2991;
+		vrLoc = 0;
+	};
+	3FD326AC16EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 7997;
+	};
+	3FD326AD16EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 641;
+		vrLoc = 164;
+	};
+	3FD326AE16EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1119;
+		vrLoc = 5318;
+	};
+	3FD326AF16EF964F00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1912;
+		vrLoc = 1519;
+	};
+	3FD326C116EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 582";
+		rLen = 0;
+		rLoc = 18254;
+		rType = 0;
+		vrLen = 1600;
+		vrLoc = 17388;
+	};
+	3FD326C216EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1204";
+		rLen = 0;
+		rLoc = 33551;
+		rType = 0;
+		vrLen = 1612;
+		vrLoc = 37030;
+	};
+	3FD326C316EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 856;
+		vrLoc = 2808;
+	};
+	3FD326C416EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 26";
+		rLen = 42;
+		rLoc = 1003;
+		rType = 0;
+		vrLen = 2231;
+		vrLoc = 8210;
+	};
+	3FD326C516EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
+		name = "Toolbox.cpp: 300";
+		rLen = 0;
+		rLoc = 5973;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 5650;
+	};
+	3FD326C616EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3268D16EF942C00214530 /* CinqPoints.R */;
+		name = "CinqPoints.R: 93";
+		rLen = 0;
+		rLoc = 2038;
+		rType = 0;
+		vrLen = 1207;
+		vrLoc = 886;
+	};
+	3FD326C716EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3269316EF942C00214530 /* TableEnvUG.csv */;
+		name = "TableEnvUG.csv: 211";
+		rLen = 29;
+		rLoc = 67658;
+		rType = 0;
+		vrLen = 16752;
+		vrLoc = 54787;
+	};
+	3FD326C816EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1303;
+		vrLoc = 33845;
+	};
+	3FD326C916EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3FD326CA16EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 2991;
+		vrLoc = 0;
+	};
+	3FD326CB16EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 7997;
+	};
+	3FD326CC16EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 641;
+		vrLoc = 164;
+	};
+	3FD326CD16EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1119;
+		vrLoc = 5318;
+	};
+	3FD326CE16EF989000214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1912;
+		vrLoc = 1519;
+	};
+	3FD326D016EF989A00214530 /* RegressionLogistique-calc.cpp:659 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 659;
+		location = ScytheSAM;
+		modificationTime = 384802486.052647;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3FD326DC16EF991400214530 /* RegressionLogistique-calc.cpp:571 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 571;
+		location = ScytheSAM;
+		modificationTime = 384802486.213612;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3FD326F916EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 26";
+		rLen = 42;
+		rLoc = 1003;
+		rType = 0;
+		vrLen = 2774;
+		vrLoc = 7387;
+	};
+	3FD326FA16EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1204";
+		rLen = 0;
+		rLoc = 33551;
+		rType = 0;
+		vrLen = 1584;
+		vrLoc = 37173;
+	};
+	3FD326FB16EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 579";
+		rLen = 0;
+		rLoc = 18164;
+		rType = 0;
+		vrLen = 1601;
+		vrLoc = 17388;
+	};
+	3FD326FC16EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 580";
+		rLen = 0;
+		rLoc = 18164;
+		rType = 0;
+		vrLen = 1718;
+		vrLoc = 17388;
+	};
+	3FD326FD16EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 828;
+		vrLoc = 3143;
+	};
+	3FD326FE16EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
+		name = "Toolbox.cpp: 300";
+		rLen = 0;
+		rLoc = 5973;
+		rType = 0;
+		vrLen = 808;
+		vrLoc = 5650;
+	};
+	3FD326FF16EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3268D16EF942C00214530 /* CinqPoints.R */;
+		name = "CinqPoints.R: 93";
+		rLen = 0;
+		rLoc = 2038;
+		rType = 0;
+		vrLen = 1208;
+		vrLoc = 886;
+	};
+	3FD3270016EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3269316EF942C00214530 /* TableEnvUG.csv */;
+		name = "TableEnvUG.csv: 211";
+		rLen = 29;
+		rLoc = 67658;
+		rType = 0;
+		vrLen = 17076;
+		vrLoc = 54787;
+	};
+	3FD3270116EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1205;
+		vrLoc = 34097;
+	};
+	3FD3270216EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3FD3270316EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 3025;
+		vrLoc = 0;
+	};
+	3FD3270416EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 938;
+		vrLoc = 7997;
+	};
+	3FD3270516EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 644;
+		vrLoc = 164;
+	};
+	3FD3270616EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1121;
+		vrLoc = 5318;
+	};
+	3FD3270716EF9DAF00214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1928;
+		vrLoc = 1519;
+	};
+	3FD3270C16EF9EAD00214530 /* RegressionLogistique-calc.cpp:657 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 2;
+		ignoreCount = 0;
+		lineNumber = 657;
+		location = ScytheSAM;
+		modificationTime = 384802782.058489;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3FD3271016EF9EDA00214530 /* RegressionLogistique-calc.cpp:690 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 2;
+		ignoreCount = 0;
+		lineNumber = 690;
+		location = ScytheSAM;
+		modificationTime = 384802885.06279;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3FD3271216EF9EFC00214530 /* RegressionLogistique-calc.cpp:718 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 2;
+		ignoreCount = 0;
+		lineNumber = 718;
+		location = ScytheSAM;
+		modificationTime = 384802887.84942;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3FD3271416EF9FD500214530 /* RegressionLogistique-calc.cpp:881 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 881;
+		location = ScytheSAM;
+		modificationTime = 384802892.031106;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3FD3272616EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 521";
+		rLen = 0;
+		rLoc = 16307;
+		rType = 0;
+		vrLen = 1257;
+		vrLoc = 15748;
+	};
+	3FD3272716EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 26";
+		rLen = 42;
+		rLoc = 1003;
+		rType = 0;
+		vrLen = 2009;
+		vrLoc = 19265;
+	};
+	3FD3272816EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1204";
+		rLen = 0;
+		rLoc = 33551;
+		rType = 0;
+		vrLen = 1571;
+		vrLoc = 37437;
+	};
+	3FD3272916EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 834;
+		vrLoc = 3351;
+	};
+	3FD3272A16EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
+		name = "Toolbox.cpp: 300";
+		rLen = 0;
+		rLoc = 5973;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 5650;
+	};
+	3FD3272B16EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3268D16EF942C00214530 /* CinqPoints.R */;
+		name = "CinqPoints.R: 93";
+		rLen = 0;
+		rLoc = 2038;
+		rType = 0;
+		vrLen = 1207;
+		vrLoc = 886;
+	};
+	3FD3272C16EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3269316EF942C00214530 /* TableEnvUG.csv */;
+		name = "TableEnvUG.csv: 211";
+		rLen = 29;
+		rLoc = 67658;
+		rType = 0;
+		vrLen = 16752;
+		vrLoc = 54787;
+	};
+	3FD3272D16EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1066;
+		vrLoc = 34384;
+	};
+	3FD3272E16EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3FD3272F16EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 2991;
+		vrLoc = 0;
+	};
+	3FD3273016EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 7997;
+	};
+	3FD3273116EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 641;
+		vrLoc = 164;
+	};
+	3FD3273216EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1119;
+		vrLoc = 5318;
+	};
+	3FD3273316EFA20600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1912;
+		vrLoc = 1519;
+	};
+	3FD3273D16EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
+		name = "Toolbox.cpp: 299";
+		rLen = 0;
+		rLoc = 5967;
+		rType = 0;
+		vrLen = 1114;
+		vrLoc = 4975;
+	};
+	3FD3273E16EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
+		name = "Toolbox.h: 270";
+		rLen = 0;
+		rLoc = 7656;
+		rType = 0;
+		vrLen = 1036;
+		vrLoc = 7167;
+	};
+	3FD3273F16EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 521";
+		rLen = 0;
+		rLoc = 16307;
+		rType = 0;
+		vrLen = 1294;
+		vrLoc = 15815;
+	};
+	3FD3274016EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 26";
+		rLen = 42;
+		rLoc = 1003;
+		rType = 0;
+		vrLen = 2037;
+		vrLoc = 19340;
+	};
+	3FD3274116EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1204";
+		rLen = 0;
+		rLoc = 33551;
+		rType = 0;
+		vrLen = 1750;
+		vrLoc = 37449;
+	};
+	3FD3274216EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 86";
+		rLen = 0;
+		rLoc = 2687;
+		rType = 0;
+		vrLen = 999;
+		vrLoc = 3538;
+	};
+	3FD3274316EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3268D16EF942C00214530 /* CinqPoints.R */;
+		name = "CinqPoints.R: 93";
+		rLen = 0;
+		rLoc = 2038;
+		rType = 0;
+		vrLen = 1208;
+		vrLoc = 886;
+	};
+	3FD3274416EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD3269316EF942C00214530 /* TableEnvUG.csv */;
+		name = "TableEnvUG.csv: 211";
+		rLen = 29;
+		rLoc = 67658;
+		rType = 0;
+		vrLen = 17076;
+		vrLoc = 54787;
+	};
+	3FD3274516EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 458";
+		rLen = 6;
+		rLoc = 12514;
+		rType = 0;
+		vrLen = 1088;
+		vrLoc = 34466;
+	};
+	3FD3274616EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 29";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 0;
+	};
+	3FD3274716EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 3025;
+		vrLoc = 0;
+	};
+	3FD3274816EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 365";
+		rLen = 0;
+		rLoc = 8360;
+		rType = 0;
+		vrLen = 938;
+		vrLoc = 7997;
+	};
+	3FD3274916EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 117";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 644;
+		vrLoc = 164;
+	};
+	3FD3274A16EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 375";
+		rLen = 0;
+		rLoc = 8523;
+		rType = 0;
+		vrLen = 1121;
+		vrLoc = 5318;
+	};
+	3FD3274B16EFA39600214530 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F30840D16EA7205002A3248 /* Makefile */;
+		name = "Makefile: 118";
+		rLen = 0;
+		rLoc = 3301;
+		rType = 0;
+		vrLen = 1928;
+		vrLoc = 1519;
+	};
 	3FD898D1135DC94A00D02D21 /* Project object */ = {
 		activeBuildConfigurationName = Release;
 		activeExecutable = 3F54755C1378221400879439 /* Sambada */;
@@ -1566,20 +2285,27 @@
 			3F54753B1378221400879439 /* Sambada */,
 		);
 		breakpoints = (
-			3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:718 */,
-			3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:786 */,
-			3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:798 */,
-			3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:854 */,
-			3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:950 */,
-			3FCCCFF616EE1EBE00754093 /* RegressionLogistique-calc.cpp:417 */,
-			3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:517 */,
-			3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:699 */,
-			3FCCD00516EE1F3300754093 /* RegressionLogistique-calc.cpp:736 */,
-			3FCCD00916EE1F8200754093 /* RegressionLogistique-calc.cpp:743 */,
-			3FCCD00B16EE1F9300754093 /* RegressionLogistique-calc.cpp:756 */,
-			3FCCD00D16EE1F9400754093 /* RegressionLogistique-calc.cpp:755 */,
-			3FCCD00F16EE1FA700754093 /* RegressionLogistique-calc.cpp:783 */,
-			3FCCD01116EE1FBF00754093 /* RegressionLogistique-calc.cpp:767 */,
+			3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:753 */,
+			3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:821 */,
+			3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:833 */,
+			3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:889 */,
+			3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:985 */,
+			3FCCCFF616EE1EBE00754093 /* RegressionLogistique-calc.cpp:418 */,
+			3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:522 */,
+			3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:734 */,
+			3F41F65916EE48A300A1BE7A /* RegressionLogistique-calc.cpp:28 */,
+			3F41F65F16EE4B1B00A1BE7A /* RegressionLogistique-io.cpp:1083 */,
+			3F41F66316EE4C7400A1BE7A /* RegressionLogistique-io.cpp:1219 */,
+			3F41F66516EE4C8800A1BE7A /* RegressionLogistique-io.cpp:1235 */,
+			3F41F66B16EE4E3A00A1BE7A /* RegressionLogistique-io.cpp:1359 */,
+			3F41F67316EE516200A1BE7A /* RegressionLogistique-io.cpp:1212 */,
+			3FD3260C16EF6A5600214530 /* RegressionLogistique-io.cpp:1231 */,
+			3FD326D016EF989A00214530 /* RegressionLogistique-calc.cpp:659 */,
+			3FD326DC16EF991400214530 /* RegressionLogistique-calc.cpp:571 */,
+			3FD3270C16EF9EAD00214530 /* RegressionLogistique-calc.cpp:657 */,
+			3FD3271016EF9EDA00214530 /* RegressionLogistique-calc.cpp:690 */,
+			3FD3271216EF9EFC00214530 /* RegressionLogistique-calc.cpp:718 */,
+			3FD3271416EF9FD500214530 /* RegressionLogistique-calc.cpp:881 */,
 		);
 		codeSenseManager = 3FD898D6135DC94A00D02D21 /* Code sense */;
 		executables = (
@@ -1595,6 +2321,7 @@
 			varDiscretes,
 			nbVarDisc,
 			"(((('scythe::DataBlockReference<double>') (((('RegressionLogistique' *) (this)))->beta_hat))).data_)",
+			"(*(((('std::_Vector_base<std::vector<std::pair<int, long double>, std::allocator<std::pair<int, long double> > >,std::allocator<std::vector<std::pair<int, long double>, std::allocator<std::pair<int, long double> > > > >') (((('RegressionLogistique' *) (this)))->voisinage)))._M_impl._M_start + 0)))",
 		);
 		ignoreBreakpointsInProjectsDict = {
 		};
@@ -1707,94 +2434,151 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 384695471;
-			PBXWorkspaceStateSaveDate = 384695471;
+			PBXPerProjectTemplateStateSaveDate = 384776080;
+			PBXWorkspaceStateSaveDate = 384776080;
 		};
 		perUserProjectItems = {
 			3F1428BC16D6969600F5EA46 = 3F1428BC16D6969600F5EA46 /* PBXTextBookmark */;
 			3F1EFADE167647B300CD2092 = 3F1EFADE167647B300CD2092 /* PBXTextBookmark */;
-			3F30840016EA7205002A3248 = 3F30840016EA7205002A3248 /* PBXTextBookmark */;
-			3F30840116EA7205002A3248 = 3F30840116EA7205002A3248 /* PBXTextBookmark */;
-			3F30840216EA7205002A3248 = 3F30840216EA7205002A3248 /* PBXTextBookmark */;
-			3F30840316EA7205002A3248 = 3F30840316EA7205002A3248 /* PBXTextBookmark */;
-			3F30840416EA7205002A3248 = 3F30840416EA7205002A3248 /* PBXTextBookmark */;
-			3F30840616EA7205002A3248 = 3F30840616EA7205002A3248 /* PBXTextBookmark */;
-			3F30840716EA7205002A3248 = 3F30840716EA7205002A3248 /* PBXTextBookmark */;
-			3F30840816EA7205002A3248 = 3F30840816EA7205002A3248 /* PBXTextBookmark */;
-			3F30840916EA7205002A3248 = 3F30840916EA7205002A3248 /* PBXTextBookmark */;
-			3F30840A16EA7205002A3248 = 3F30840A16EA7205002A3248 /* PBXTextBookmark */;
-			3F30840B16EA7205002A3248 = 3F30840B16EA7205002A3248 /* PBXTextBookmark */;
-			3F30840C16EA7205002A3248 = 3F30840C16EA7205002A3248 /* PBXTextBookmark */;
-			3F31156316ECBE140031D13D = 3F31156316ECBE140031D13D /* PBXTextBookmark */;
-			3F31156416ECBE140031D13D = 3F31156416ECBE140031D13D /* PBXTextBookmark */;
-			3F31156516ECBE140031D13D = 3F31156516ECBE140031D13D /* PBXTextBookmark */;
-			3F31156616ECBE140031D13D = 3F31156616ECBE140031D13D /* PBXTextBookmark */;
-			3F31156716ECBE140031D13D = 3F31156716ECBE140031D13D /* PBXTextBookmark */;
-			3F31156916ECBE140031D13D = 3F31156916ECBE140031D13D /* PBXTextBookmark */;
-			3F31156A16ECBE140031D13D = 3F31156A16ECBE140031D13D /* PBXTextBookmark */;
-			3F31156B16ECBE140031D13D = 3F31156B16ECBE140031D13D /* PBXTextBookmark */;
-			3F31156C16ECBE140031D13D = 3F31156C16ECBE140031D13D /* PBXTextBookmark */;
-			3F31156D16ECBE140031D13D = 3F31156D16ECBE140031D13D /* PBXTextBookmark */;
-			3F31156E16ECBE140031D13D = 3F31156E16ECBE140031D13D /* PBXTextBookmark */;
-			3F31156F16ECBE140031D13D = 3F31156F16ECBE140031D13D /* PBXTextBookmark */;
 			3F322E6416715B9D0047A93B = 3F322E6416715B9D0047A93B /* PBXTextBookmark */;
+			3F41F68316EE529D00A1BE7A = 3F41F68316EE529D00A1BE7A /* PBXTextBookmark */;
+			3F41F68716EE529D00A1BE7A = 3F41F68716EE529D00A1BE7A /* PBXBookmark */;
+			3F41F69616EE573D00A1BE7A = 3F41F69616EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69716EE573D00A1BE7A = 3F41F69716EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69816EE573D00A1BE7A = 3F41F69816EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69916EE573D00A1BE7A = 3F41F69916EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69A16EE573D00A1BE7A = 3F41F69A16EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69B16EE573D00A1BE7A = 3F41F69B16EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69C16EE573D00A1BE7A = 3F41F69C16EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69D16EE573D00A1BE7A = 3F41F69D16EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69E16EE573D00A1BE7A = 3F41F69E16EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F69F16EE573D00A1BE7A = 3F41F69F16EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F6A016EE573D00A1BE7A = 3F41F6A016EE573D00A1BE7A /* PBXTextBookmark */;
+			3F41F6A116EE573D00A1BE7A = 3F41F6A116EE573D00A1BE7A /* PBXTextBookmark */;
 			3F965D6D166FE42600A3EB32 = 3F965D6D166FE42600A3EB32 /* PBXTextBookmark */;
-			3FCCCFC516EE036900754093 /* PBXTextBookmark */ = 3FCCCFC516EE036900754093 /* PBXTextBookmark */;
-			3FCCCFC616EE036900754093 /* PBXTextBookmark */ = 3FCCCFC616EE036900754093 /* PBXTextBookmark */;
-			3FCCCFC716EE036900754093 /* PBXTextBookmark */ = 3FCCCFC716EE036900754093 /* PBXTextBookmark */;
-			3FCCCFC816EE036900754093 /* PBXTextBookmark */ = 3FCCCFC816EE036900754093 /* PBXTextBookmark */;
-			3FCCCFC916EE036900754093 /* PBXTextBookmark */ = 3FCCCFC916EE036900754093 /* PBXTextBookmark */;
-			3FCCCFCA16EE036900754093 /* PBXTextBookmark */ = 3FCCCFCA16EE036900754093 /* PBXTextBookmark */;
-			3FCCCFCB16EE036900754093 /* PBXTextBookmark */ = 3FCCCFCB16EE036900754093 /* PBXTextBookmark */;
-			3FCCCFCC16EE036900754093 /* PBXTextBookmark */ = 3FCCCFCC16EE036900754093 /* PBXTextBookmark */;
-			3FCCCFCD16EE036900754093 /* PBXTextBookmark */ = 3FCCCFCD16EE036900754093 /* PBXTextBookmark */;
-			3FCCCFCE16EE036900754093 /* PBXTextBookmark */ = 3FCCCFCE16EE036900754093 /* PBXTextBookmark */;
-			3FCCCFCF16EE036900754093 /* PBXTextBookmark */ = 3FCCCFCF16EE036900754093 /* PBXTextBookmark */;
-			3FCCCFD016EE036900754093 /* PBXTextBookmark */ = 3FCCCFD016EE036900754093 /* PBXTextBookmark */;
-			3FCCCFDA16EE053100754093 /* PBXTextBookmark */ = 3FCCCFDA16EE053100754093 /* PBXTextBookmark */;
-			3FCCCFDB16EE053100754093 /* PBXTextBookmark */ = 3FCCCFDB16EE053100754093 /* PBXTextBookmark */;
-			3FCCCFDC16EE053100754093 /* PBXTextBookmark */ = 3FCCCFDC16EE053100754093 /* PBXTextBookmark */;
-			3FCCCFDD16EE053100754093 /* PBXTextBookmark */ = 3FCCCFDD16EE053100754093 /* PBXTextBookmark */;
-			3FCCCFDE16EE053100754093 /* PBXTextBookmark */ = 3FCCCFDE16EE053100754093 /* PBXTextBookmark */;
-			3FCCCFDF16EE053100754093 /* PBXTextBookmark */ = 3FCCCFDF16EE053100754093 /* PBXTextBookmark */;
-			3FCCCFE016EE053100754093 /* PBXTextBookmark */ = 3FCCCFE016EE053100754093 /* PBXTextBookmark */;
-			3FCCCFE116EE053100754093 /* PBXTextBookmark */ = 3FCCCFE116EE053100754093 /* PBXTextBookmark */;
-			3FCCCFE216EE053100754093 /* PBXTextBookmark */ = 3FCCCFE216EE053100754093 /* PBXTextBookmark */;
-			3FCCCFE316EE053100754093 /* PBXTextBookmark */ = 3FCCCFE316EE053100754093 /* PBXTextBookmark */;
-			3FCCCFE416EE053100754093 /* PBXTextBookmark */ = 3FCCCFE416EE053100754093 /* PBXTextBookmark */;
-			3FCCCFE716EE195200754093 /* PBXTextBookmark */ = 3FCCCFE716EE195200754093 /* PBXTextBookmark */;
-			3FCCCFE816EE195200754093 /* PBXTextBookmark */ = 3FCCCFE816EE195200754093 /* PBXTextBookmark */;
-			3FCCCFE916EE195200754093 /* PBXTextBookmark */ = 3FCCCFE916EE195200754093 /* PBXTextBookmark */;
-			3FCCCFEA16EE195200754093 /* PBXTextBookmark */ = 3FCCCFEA16EE195200754093 /* PBXTextBookmark */;
-			3FCCCFEB16EE195200754093 /* PBXTextBookmark */ = 3FCCCFEB16EE195200754093 /* PBXTextBookmark */;
-			3FCCCFEC16EE195200754093 /* PBXTextBookmark */ = 3FCCCFEC16EE195200754093 /* PBXTextBookmark */;
-			3FCCCFED16EE195200754093 /* PBXTextBookmark */ = 3FCCCFED16EE195200754093 /* PBXTextBookmark */;
-			3FCCCFEE16EE195200754093 /* PBXTextBookmark */ = 3FCCCFEE16EE195200754093 /* PBXTextBookmark */;
-			3FCCCFEF16EE195200754093 /* PBXTextBookmark */ = 3FCCCFEF16EE195200754093 /* PBXTextBookmark */;
-			3FCCCFF016EE195200754093 /* PBXTextBookmark */ = 3FCCCFF016EE195200754093 /* PBXTextBookmark */;
-			3FCCCFF116EE195200754093 /* PBXTextBookmark */ = 3FCCCFF116EE195200754093 /* PBXTextBookmark */;
-			3FCCD01916EE253600754093 /* PBXTextBookmark */ = 3FCCD01916EE253600754093 /* PBXTextBookmark */;
-			3FCCD01A16EE253600754093 /* PBXTextBookmark */ = 3FCCD01A16EE253600754093 /* PBXTextBookmark */;
-			3FCCD01B16EE253600754093 /* PBXTextBookmark */ = 3FCCD01B16EE253600754093 /* PBXTextBookmark */;
-			3FCCD01C16EE253600754093 /* PBXTextBookmark */ = 3FCCD01C16EE253600754093 /* PBXTextBookmark */;
-			3FCCD01D16EE253600754093 /* PBXTextBookmark */ = 3FCCD01D16EE253600754093 /* PBXTextBookmark */;
-			3FCCD01E16EE253600754093 /* PBXTextBookmark */ = 3FCCD01E16EE253600754093 /* PBXTextBookmark */;
-			3FCCD01F16EE253600754093 /* PBXTextBookmark */ = 3FCCD01F16EE253600754093 /* PBXTextBookmark */;
-			3FCCD02016EE253600754093 /* PBXTextBookmark */ = 3FCCD02016EE253600754093 /* PBXTextBookmark */;
-			3FCCD02116EE253600754093 /* PBXTextBookmark */ = 3FCCD02116EE253600754093 /* PBXTextBookmark */;
-			3FCCD02216EE253600754093 /* PBXTextBookmark */ = 3FCCD02216EE253600754093 /* PBXTextBookmark */;
-			3FCCD02316EE253600754093 /* PBXTextBookmark */ = 3FCCD02316EE253600754093 /* PBXTextBookmark */;
-			3FCCD02916EE2A7500754093 /* PBXTextBookmark */ = 3FCCD02916EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD02A16EE2A7500754093 /* PBXTextBookmark */ = 3FCCD02A16EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD02B16EE2A7500754093 /* PBXTextBookmark */ = 3FCCD02B16EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD02C16EE2A7500754093 /* PBXTextBookmark */ = 3FCCD02C16EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD02D16EE2A7500754093 /* PBXTextBookmark */ = 3FCCD02D16EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD02E16EE2A7500754093 /* PBXTextBookmark */ = 3FCCD02E16EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD02F16EE2A7500754093 /* PBXTextBookmark */ = 3FCCD02F16EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD03016EE2A7500754093 /* PBXTextBookmark */ = 3FCCD03016EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD03116EE2A7500754093 /* PBXTextBookmark */ = 3FCCD03116EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD03216EE2A7500754093 /* PBXTextBookmark */ = 3FCCD03216EE2A7500754093 /* PBXTextBookmark */;
-			3FCCD03316EE2A7500754093 /* PBXTextBookmark */ = 3FCCD03316EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD02916EE2A7500754093 = 3FCCD02916EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD02A16EE2A7500754093 = 3FCCD02A16EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD02B16EE2A7500754093 = 3FCCD02B16EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD02C16EE2A7500754093 = 3FCCD02C16EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD02D16EE2A7500754093 = 3FCCD02D16EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD02F16EE2A7500754093 = 3FCCD02F16EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD03016EE2A7500754093 = 3FCCD03016EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD03116EE2A7500754093 = 3FCCD03116EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD03216EE2A7500754093 = 3FCCD03216EE2A7500754093 /* PBXTextBookmark */;
+			3FCCD03316EE2A7500754093 = 3FCCD03316EE2A7500754093 /* PBXTextBookmark */;
+			3FD325C316EF4EF200214530 /* PBXTextBookmark */ = 3FD325C316EF4EF200214530 /* PBXTextBookmark */;
+			3FD325C416EF4EF200214530 /* PBXTextBookmark */ = 3FD325C416EF4EF200214530 /* PBXTextBookmark */;
+			3FD325C516EF4EF200214530 /* PBXTextBookmark */ = 3FD325C516EF4EF200214530 /* PBXTextBookmark */;
+			3FD325C616EF4EF200214530 /* PBXTextBookmark */ = 3FD325C616EF4EF200214530 /* PBXTextBookmark */;
+			3FD325C716EF4EF200214530 /* PBXTextBookmark */ = 3FD325C716EF4EF200214530 /* PBXTextBookmark */;
+			3FD325C816EF4EF200214530 /* PBXTextBookmark */ = 3FD325C816EF4EF200214530 /* PBXTextBookmark */;
+			3FD325C916EF4EF200214530 /* PBXTextBookmark */ = 3FD325C916EF4EF200214530 /* PBXTextBookmark */;
+			3FD325CA16EF4EF200214530 /* PBXTextBookmark */ = 3FD325CA16EF4EF200214530 /* PBXTextBookmark */;
+			3FD325CB16EF4EF200214530 /* PBXTextBookmark */ = 3FD325CB16EF4EF200214530 /* PBXTextBookmark */;
+			3FD325CC16EF4EF200214530 /* PBXTextBookmark */ = 3FD325CC16EF4EF200214530 /* PBXTextBookmark */;
+			3FD325CD16EF4EF200214530 /* PBXTextBookmark */ = 3FD325CD16EF4EF200214530 /* PBXTextBookmark */;
+			3FD325CE16EF4EF200214530 /* PBXTextBookmark */ = 3FD325CE16EF4EF200214530 /* PBXTextBookmark */;
+			3FD325EA16EF65DA00214530 /* PBXTextBookmark */ = 3FD325EA16EF65DA00214530 /* PBXTextBookmark */;
+			3FD325EB16EF65DA00214530 /* PBXTextBookmark */ = 3FD325EB16EF65DA00214530 /* PBXTextBookmark */;
+			3FD325EC16EF65DA00214530 /* PBXTextBookmark */ = 3FD325EC16EF65DA00214530 /* PBXTextBookmark */;
+			3FD325ED16EF65DA00214530 /* PBXTextBookmark */ = 3FD325ED16EF65DA00214530 /* PBXTextBookmark */;
+			3FD325EE16EF65DA00214530 /* PBXTextBookmark */ = 3FD325EE16EF65DA00214530 /* PBXTextBookmark */;
+			3FD325EF16EF65DA00214530 /* PBXTextBookmark */ = 3FD325EF16EF65DA00214530 /* PBXTextBookmark */;
+			3FD325F016EF65DA00214530 /* PBXTextBookmark */ = 3FD325F016EF65DA00214530 /* PBXTextBookmark */;
+			3FD325F116EF65DA00214530 /* PBXTextBookmark */ = 3FD325F116EF65DA00214530 /* PBXTextBookmark */;
+			3FD325F216EF65DA00214530 /* PBXTextBookmark */ = 3FD325F216EF65DA00214530 /* PBXTextBookmark */;
+			3FD325F316EF65DA00214530 /* PBXTextBookmark */ = 3FD325F316EF65DA00214530 /* PBXTextBookmark */;
+			3FD325F416EF65DA00214530 /* PBXTextBookmark */ = 3FD325F416EF65DA00214530 /* PBXTextBookmark */;
+			3FD325F516EF65DA00214530 /* PBXTextBookmark */ = 3FD325F516EF65DA00214530 /* PBXTextBookmark */;
+			3FD3268216EF942C00214530 /* PBXTextBookmark */ = 3FD3268216EF942C00214530 /* PBXTextBookmark */;
+			3FD3268316EF942C00214530 /* PBXTextBookmark */ = 3FD3268316EF942C00214530 /* PBXTextBookmark */;
+			3FD3268416EF942C00214530 /* PBXTextBookmark */ = 3FD3268416EF942C00214530 /* PBXTextBookmark */;
+			3FD3268516EF942C00214530 /* PBXTextBookmark */ = 3FD3268516EF942C00214530 /* PBXTextBookmark */;
+			3FD3268616EF942C00214530 /* PBXTextBookmark */ = 3FD3268616EF942C00214530 /* PBXTextBookmark */;
+			3FD3268716EF942C00214530 /* PBXTextBookmark */ = 3FD3268716EF942C00214530 /* PBXTextBookmark */;
+			3FD3268A16EF942C00214530 /* PBXTextBookmark */ = 3FD3268A16EF942C00214530 /* PBXTextBookmark */;
+			3FD3268C16EF942C00214530 /* PBXTextBookmark */ = 3FD3268C16EF942C00214530 /* PBXTextBookmark */;
+			3FD3269016EF942C00214530 /* PBXTextBookmark */ = 3FD3269016EF942C00214530 /* PBXTextBookmark */;
+			3FD3269216EF942C00214530 /* PBXTextBookmark */ = 3FD3269216EF942C00214530 /* PBXTextBookmark */;
+			3FD3269416EF942C00214530 /* PBXTextBookmark */ = 3FD3269416EF942C00214530 /* PBXTextBookmark */;
+			3FD3269516EF942C00214530 /* PBXTextBookmark */ = 3FD3269516EF942C00214530 /* PBXTextBookmark */;
+			3FD3269616EF942C00214530 /* PBXTextBookmark */ = 3FD3269616EF942C00214530 /* PBXTextBookmark */;
+			3FD3269716EF942C00214530 /* PBXTextBookmark */ = 3FD3269716EF942C00214530 /* PBXTextBookmark */;
+			3FD3269816EF942C00214530 /* PBXTextBookmark */ = 3FD3269816EF942C00214530 /* PBXTextBookmark */;
+			3FD3269916EF942C00214530 /* PBXTextBookmark */ = 3FD3269916EF942C00214530 /* PBXTextBookmark */;
+			3FD3269A16EF942C00214530 /* PBXTextBookmark */ = 3FD3269A16EF942C00214530 /* PBXTextBookmark */;
+			3FD326A216EF964F00214530 /* PBXTextBookmark */ = 3FD326A216EF964F00214530 /* PBXTextBookmark */;
+			3FD326A316EF964F00214530 /* PBXTextBookmark */ = 3FD326A316EF964F00214530 /* PBXTextBookmark */;
+			3FD326A416EF964F00214530 /* PBXTextBookmark */ = 3FD326A416EF964F00214530 /* PBXTextBookmark */;
+			3FD326A516EF964F00214530 /* PBXTextBookmark */ = 3FD326A516EF964F00214530 /* PBXTextBookmark */;
+			3FD326A616EF964F00214530 /* PBXTextBookmark */ = 3FD326A616EF964F00214530 /* PBXTextBookmark */;
+			3FD326A716EF964F00214530 /* PBXTextBookmark */ = 3FD326A716EF964F00214530 /* PBXTextBookmark */;
+			3FD326A816EF964F00214530 /* PBXTextBookmark */ = 3FD326A816EF964F00214530 /* PBXTextBookmark */;
+			3FD326A916EF964F00214530 /* PBXTextBookmark */ = 3FD326A916EF964F00214530 /* PBXTextBookmark */;
+			3FD326AA16EF964F00214530 /* PBXTextBookmark */ = 3FD326AA16EF964F00214530 /* PBXTextBookmark */;
+			3FD326AB16EF964F00214530 /* PBXTextBookmark */ = 3FD326AB16EF964F00214530 /* PBXTextBookmark */;
+			3FD326AC16EF964F00214530 /* PBXTextBookmark */ = 3FD326AC16EF964F00214530 /* PBXTextBookmark */;
+			3FD326AD16EF964F00214530 /* PBXTextBookmark */ = 3FD326AD16EF964F00214530 /* PBXTextBookmark */;
+			3FD326AE16EF964F00214530 /* PBXTextBookmark */ = 3FD326AE16EF964F00214530 /* PBXTextBookmark */;
+			3FD326AF16EF964F00214530 /* PBXTextBookmark */ = 3FD326AF16EF964F00214530 /* PBXTextBookmark */;
+			3FD326C116EF989000214530 /* PBXTextBookmark */ = 3FD326C116EF989000214530 /* PBXTextBookmark */;
+			3FD326C216EF989000214530 /* PBXTextBookmark */ = 3FD326C216EF989000214530 /* PBXTextBookmark */;
+			3FD326C316EF989000214530 /* PBXTextBookmark */ = 3FD326C316EF989000214530 /* PBXTextBookmark */;
+			3FD326C416EF989000214530 /* PBXTextBookmark */ = 3FD326C416EF989000214530 /* PBXTextBookmark */;
+			3FD326C516EF989000214530 /* PBXTextBookmark */ = 3FD326C516EF989000214530 /* PBXTextBookmark */;
+			3FD326C616EF989000214530 /* PBXTextBookmark */ = 3FD326C616EF989000214530 /* PBXTextBookmark */;
+			3FD326C716EF989000214530 /* PBXTextBookmark */ = 3FD326C716EF989000214530 /* PBXTextBookmark */;
+			3FD326C816EF989000214530 /* PBXTextBookmark */ = 3FD326C816EF989000214530 /* PBXTextBookmark */;
+			3FD326C916EF989000214530 /* PBXTextBookmark */ = 3FD326C916EF989000214530 /* PBXTextBookmark */;
+			3FD326CA16EF989000214530 /* PBXTextBookmark */ = 3FD326CA16EF989000214530 /* PBXTextBookmark */;
+			3FD326CB16EF989000214530 /* PBXTextBookmark */ = 3FD326CB16EF989000214530 /* PBXTextBookmark */;
+			3FD326CC16EF989000214530 /* PBXTextBookmark */ = 3FD326CC16EF989000214530 /* PBXTextBookmark */;
+			3FD326CD16EF989000214530 /* PBXTextBookmark */ = 3FD326CD16EF989000214530 /* PBXTextBookmark */;
+			3FD326CE16EF989000214530 /* PBXTextBookmark */ = 3FD326CE16EF989000214530 /* PBXTextBookmark */;
+			3FD326F916EF9DAF00214530 /* PBXTextBookmark */ = 3FD326F916EF9DAF00214530 /* PBXTextBookmark */;
+			3FD326FA16EF9DAF00214530 /* PBXTextBookmark */ = 3FD326FA16EF9DAF00214530 /* PBXTextBookmark */;
+			3FD326FB16EF9DAF00214530 /* PBXTextBookmark */ = 3FD326FB16EF9DAF00214530 /* PBXTextBookmark */;
+			3FD326FC16EF9DAF00214530 /* PBXTextBookmark */ = 3FD326FC16EF9DAF00214530 /* PBXTextBookmark */;
+			3FD326FD16EF9DAF00214530 /* PBXTextBookmark */ = 3FD326FD16EF9DAF00214530 /* PBXTextBookmark */;
+			3FD326FE16EF9DAF00214530 /* PBXTextBookmark */ = 3FD326FE16EF9DAF00214530 /* PBXTextBookmark */;
+			3FD326FF16EF9DAF00214530 /* PBXTextBookmark */ = 3FD326FF16EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3270016EF9DAF00214530 /* PBXTextBookmark */ = 3FD3270016EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3270116EF9DAF00214530 /* PBXTextBookmark */ = 3FD3270116EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3270216EF9DAF00214530 /* PBXTextBookmark */ = 3FD3270216EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3270316EF9DAF00214530 /* PBXTextBookmark */ = 3FD3270316EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3270416EF9DAF00214530 /* PBXTextBookmark */ = 3FD3270416EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3270516EF9DAF00214530 /* PBXTextBookmark */ = 3FD3270516EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3270616EF9DAF00214530 /* PBXTextBookmark */ = 3FD3270616EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3270716EF9DAF00214530 /* PBXTextBookmark */ = 3FD3270716EF9DAF00214530 /* PBXTextBookmark */;
+			3FD3272616EFA20600214530 /* PBXTextBookmark */ = 3FD3272616EFA20600214530 /* PBXTextBookmark */;
+			3FD3272716EFA20600214530 /* PBXTextBookmark */ = 3FD3272716EFA20600214530 /* PBXTextBookmark */;
+			3FD3272816EFA20600214530 /* PBXTextBookmark */ = 3FD3272816EFA20600214530 /* PBXTextBookmark */;
+			3FD3272916EFA20600214530 /* PBXTextBookmark */ = 3FD3272916EFA20600214530 /* PBXTextBookmark */;
+			3FD3272A16EFA20600214530 /* PBXTextBookmark */ = 3FD3272A16EFA20600214530 /* PBXTextBookmark */;
+			3FD3272B16EFA20600214530 /* PBXTextBookmark */ = 3FD3272B16EFA20600214530 /* PBXTextBookmark */;
+			3FD3272C16EFA20600214530 /* PBXTextBookmark */ = 3FD3272C16EFA20600214530 /* PBXTextBookmark */;
+			3FD3272D16EFA20600214530 /* PBXTextBookmark */ = 3FD3272D16EFA20600214530 /* PBXTextBookmark */;
+			3FD3272E16EFA20600214530 /* PBXTextBookmark */ = 3FD3272E16EFA20600214530 /* PBXTextBookmark */;
+			3FD3272F16EFA20600214530 /* PBXTextBookmark */ = 3FD3272F16EFA20600214530 /* PBXTextBookmark */;
+			3FD3273016EFA20600214530 /* PBXTextBookmark */ = 3FD3273016EFA20600214530 /* PBXTextBookmark */;
+			3FD3273116EFA20600214530 /* PBXTextBookmark */ = 3FD3273116EFA20600214530 /* PBXTextBookmark */;
+			3FD3273216EFA20600214530 /* PBXTextBookmark */ = 3FD3273216EFA20600214530 /* PBXTextBookmark */;
+			3FD3273316EFA20600214530 /* PBXTextBookmark */ = 3FD3273316EFA20600214530 /* PBXTextBookmark */;
+			3FD3273D16EFA39600214530 /* PBXTextBookmark */ = 3FD3273D16EFA39600214530 /* PBXTextBookmark */;
+			3FD3273E16EFA39600214530 /* PBXTextBookmark */ = 3FD3273E16EFA39600214530 /* PBXTextBookmark */;
+			3FD3273F16EFA39600214530 /* PBXTextBookmark */ = 3FD3273F16EFA39600214530 /* PBXTextBookmark */;
+			3FD3274016EFA39600214530 /* PBXTextBookmark */ = 3FD3274016EFA39600214530 /* PBXTextBookmark */;
+			3FD3274116EFA39600214530 /* PBXTextBookmark */ = 3FD3274116EFA39600214530 /* PBXTextBookmark */;
+			3FD3274216EFA39600214530 /* PBXTextBookmark */ = 3FD3274216EFA39600214530 /* PBXTextBookmark */;
+			3FD3274316EFA39600214530 /* PBXTextBookmark */ = 3FD3274316EFA39600214530 /* PBXTextBookmark */;
+			3FD3274416EFA39600214530 /* PBXTextBookmark */ = 3FD3274416EFA39600214530 /* PBXTextBookmark */;
+			3FD3274516EFA39600214530 /* PBXTextBookmark */ = 3FD3274516EFA39600214530 /* PBXTextBookmark */;
+			3FD3274616EFA39600214530 /* PBXTextBookmark */ = 3FD3274616EFA39600214530 /* PBXTextBookmark */;
+			3FD3274716EFA39600214530 /* PBXTextBookmark */ = 3FD3274716EFA39600214530 /* PBXTextBookmark */;
+			3FD3274816EFA39600214530 /* PBXTextBookmark */ = 3FD3274816EFA39600214530 /* PBXTextBookmark */;
+			3FD3274916EFA39600214530 /* PBXTextBookmark */ = 3FD3274916EFA39600214530 /* PBXTextBookmark */;
+			3FD3274A16EFA39600214530 /* PBXTextBookmark */ = 3FD3274A16EFA39600214530 /* PBXTextBookmark */;
+			3FD3274B16EFA39600214530 /* PBXTextBookmark */ = 3FD3274B16EFA39600214530 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 3FD898D5135DC94A00D02D21 /* Source Control */;
 		userBookmarkGroup = 3F54752C1378170E00879439 /* PBXBookmarkGroup */;
@@ -1857,9 +2641,9 @@
 	};
 	3FD898FD135DCA4900D02D21 /* error.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {787, 7852}}";
-			sepNavSelRange = "{19900, 0}";
-			sepNavVisRange = "{19136, 815}";
+			sepNavIntBoundsRect = "{{0, 0}, {1379, 8411}}";
+			sepNavSelRange = "{21152, 0}";
+			sepNavVisRange = "{20619, 558}";
 			sepNavWindowFrame = "{{15, 89}, {1362, 784}}";
 		};
 	};
@@ -1944,10 +2728,10 @@
 	};
 	3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1342, 39598}}";
-			sepNavSelRange = "{28344, 0}";
-			sepNavVisRange = "{12128, 1343}";
-			sepNavWindowFrame = "{{51, 72}, {1278, 551}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1219, 39832}}";
+			sepNavSelRange = "{1003, 42}";
+			sepNavVisRange = "{19340, 2037}";
+			sepNavWindowFrame = "{{-1278, -124}, {1278, 1024}}";
 		};
 	};
 	3FF4C6AD146D747800AF9E37 /* TestBootstrap */ = {

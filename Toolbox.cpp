@@ -296,8 +296,34 @@ bool toolbox::lectureLigne(istream& entree, vector<string>& ligne, char delimMot
 	}
 	return entree.eof();
 }
-
-
+/*
+void toolbox::	 affiche(const vector< vector < pair<int, reel> > > v, int n, int m)
+{
+	int taille(v.size());
+	if (n==-1)
+	{
+		n=taille;
+	}
+	int limite(0);
+	for (int i(0); i<n; ++i)
+	{
+		if (m==-1)
+		{
+			limite=v[i].size();
+		}
+		else
+		{
+			limite=m;
+		}
+		for (int j(0); j<limite; ++j)
+		{
+			cout << v[i][j].first << " " << v[i][j].second << "; " ;
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+*/
 int ComparaisonVecteurs::caseComparaisonVecteurs=0;
 
 ComparaisonVecteurs::ComparaisonVecteurs()

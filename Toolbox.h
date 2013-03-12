@@ -265,6 +265,41 @@ namespace toolbox {
 		vector<string> tokens(0);
 		return lectureLigne(entree, ligne, false, truc, false, tokens, delimMots);
 	}
+	
+	/*
+	// Méthodes d'affichage pour le débug
+	template <class T>
+	void affiche(const vector<T>& v, int n=-1)
+	{
+		int taille(v.size());
+		if (n==-1)
+		{
+			n=taille;
+		}
+		for (int i(0); i<n; ++i)
+		{
+			cout << v[i] << " " ;
+		}
+		cout << endl;
+	}
+	
+	template <class T>
+	void affiche(const vector< vector< T > >& v, int n=-1, int m=-1)
+	{
+		int taille(v.size());
+		if (n==-1)
+		{
+			n=taille;
+		}
+		for (int i(0); i<n; ++i)
+		{
+			affiche(v[i], m);
+		}
+		cout << endl;
+	}
+	
+	void affiche(const vector< vector < pair<int, reel> > > v, int n=-1, int m=-1);
+	*/
 }
 
 class ComparaisonVecteurs

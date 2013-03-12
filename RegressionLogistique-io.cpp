@@ -1166,7 +1166,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			
 			// Validation des résultats
 			caseCourante=0;
-			nombreRecuperes=lineValidation.size();
+			nombreRecuperes=lineValidation.size();	// Nombre de mots inconvertibles
 			// Variables environnementales
 			for (int i(0); i<nbEnv; ++i)
 			{
@@ -1201,12 +1201,21 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			}
 			
 			
-			validation.push_back(lineValidation);
+			validation.push_back(listeErreurs);
 			++rows;
 			
 			entree >> ws;
 		}
 		
+		for (int compteur(0); compteur<3;++compteur)
+		{
+			cout << validation[compteur].size() << endl;
+			for (int ccompt(0); ccompt<validation[compteur].size(); ++ccompt)
+			{
+				cout << validation[compteur][ccompt] << " " ;
+			}
+			cout << endl;
+		}
 		
 		missingValuesEnv.resize(nbEnvActives, std::set< int > ());	
 		cout << missingValuesEnv.size() << "\n";
