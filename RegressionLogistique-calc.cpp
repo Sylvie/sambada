@@ -65,7 +65,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 					lu.clear();
 					lu>>dustbin;
 					// La coordonnée vaut 0 par défaut, pas besoin de la modifier
-					masqueCrd(i, indiceLongitude)=false;	// Mise à jour du masque
+					masqueCrd(i, 0)=false;	// Mise à jour du masque
 				}
 				else 
 				{
@@ -94,7 +94,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 					lu.clear();
 					lu>>dustbin;
 					// La coordonnée vaut 0 par défaut, pas besoin de la modifier
-					masqueCrd(i, indiceLatitude)=false;	// Mise à jour du masque
+					masqueCrd(i, 1)=false;	// Mise à jour du masque
 				}
 				else 
 				{
