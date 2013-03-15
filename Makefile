@@ -28,6 +28,10 @@ CXXFLAGS += $(PKG_CXXFLAGS)
 # On demande le nom du systeme
 SYSTEM =  $(shell (uname | cut -b 1-6))
 
+ifneq ($(SYS_CIBLE), Darwin)
+ CPPFLAGS += -static
+endif
+
 ifeq ($(SYS_CIBLE), WIN32)
  PREFIXE_SYS = WIN32_
  ifeq ($(SYSTEM), Darwin)

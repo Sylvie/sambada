@@ -148,6 +148,7 @@
 		3F3DD9E413EAF1F200DD85A7 /* creeEtiquettes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = creeEtiquettes.cpp; sourceTree = "<group>"; };
 		3F47FCD616BEC69300A7943C /* mainSambada.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainSambada.cpp; sourceTree = "<group>"; };
 		3F47FCD716BEC69300A7943C /* mainSupervision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainSupervision.cpp; sourceTree = "<group>"; };
+		3F53D9D816F38F810001FF1C /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		3F54755B1378221400879439 /* Sambada */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sambada; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5475B31378377500879439 /* RegressionLogistique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegressionLogistique.h; sourceTree = "<group>"; };
 		3F5475B41378377500879439 /* RegressionLogistique-io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "RegressionLogistique-io.cpp"; sourceTree = "<group>"; };
@@ -276,6 +277,7 @@
 				3F5DEAD113793F15006EDC53 /* Erreur.cpp */,
 				3F2DB2D113ADFC1B00F02AFB /* splitFiles.cpp */,
 				3F76144513C4A2FF0083D26E /* testBootstrap.cpp */,
+				3F53D9D816F38F810001FF1C /* Makefile */,
 				3FFD2232151F4E3B00D2189B /* Shapefile */,
 				3FD898F8135DCA4900D02D21 /* scythestat */,
 				3FD89932135DD51200D02D21 /* Products */,
