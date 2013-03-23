@@ -217,7 +217,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 					
 				}	
 				// Auto-voisinage pour comparaison avec pysal
-				pointsGeo.poids[pt1].push_back(make_pair(pt1, 1));
+				 //pointsGeo.poids[pt1].push_back(make_pair(pt1, 1));
 				
 			}
 		}
