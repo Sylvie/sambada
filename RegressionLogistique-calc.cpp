@@ -34,6 +34,10 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 		// calcul des distances
 		const reel rayonTerre(6378137), rayonTerreCarre(rayonTerre*rayonTerre), carreBandePassante(bandePassante*bandePassante); // en mètres
 		// Il faut les coordonnées en radians
+		// crdBrutes= telles que stockées dans les var env (actives ou sup)
+		// crd = crd en radian
+		coordonneesBrutes.resize(nbPoints, 2);
+		coordonneesBrutes=0;
 		coordonnees.resize(nbPoints, 2);
 		coordonnees=0;
 		MatriceBools masqueCrd(nbPoints,2, true, true);
@@ -49,7 +53,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 		// Longitude
 		if (specDataEnv[longitude].isActive) // Cas simple, il suffit de copier les données
 		{
-			coordonnees(_, 0) =dataEnv(_, indiceLongitude);
+			coordonneesBrutes(_, 0) =dataEnv(_, indiceLongitude);
 			masqueCrd(_, 0) = masqueX(_, indiceLongitude);
 		}
 		else	// Si la variable est passive, on doit récupérer les valeurs qui sont des strings
@@ -69,7 +73,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 				}
 				else 
 				{
-					coordonnees(i, 0)=valeur;
+					coordonneesBrutes(i, 0)=valeur;
 				}
 			}
 		}
@@ -77,7 +81,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 		// Latitude
 		if (specDataEnv[latitude].isActive) // Cas simple, il suffit de copier les données
 		{
-			coordonnees(_, 1) =dataEnv(_, indiceLatitude);
+			coordonneesBrutes(_, 1) =dataEnv(_, indiceLatitude);
 			masqueCrd(_, 1) = masqueX(_, indiceLatitude);
 		}
 		else	// Si la variable est passive, on doit récupérer les valeurs qui sont des strings
@@ -98,7 +102,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 				}
 				else 
 				{
-					coordonnees(i, 1)=valeur;
+					coordonneesBrutes(i, 1)=valeur;
 				}
 			}
 		}		
@@ -114,10 +118,14 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 		// Coordonnees sphériques -> Transformation en radians
 		if (!crdCartesiennes) 
 		{
-			coordonnees(_, 0) *= M_PI / 180.0;
-			coordonnees(_, 1) *= M_PI / 180.0;
+			coordonnees(_, 0) = coordonneesBrutes(_,0) * M_PI / 180.0;
+			coordonnees(_, 1) = coordonneesBrutes(_,1) * M_PI / 180.0;
 		}
-		
+		else 
+		{
+			coordonnees=coordonneesBrutes;
+		}
+
 		distances.resize(nbPoints, nbPoints);
 		distances=0;
 		
@@ -459,8 +467,8 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			// Un point manquant à cause des crd ou à cause de valeurs manquantes est traité de la même façon durant le calcul d'AC
 			if (pointsGeo.masque(i,0))
 			{
-				x=coordonnees(i,0);
-				y=coordonnees(i,1);
+				x=coordonneesBrutes(i,0);
+				y=coordonneesBrutes(i,1);
 				
 				SHPObject* obj(SHPCreateSimpleObject(SHPT_POINT, 1, &x, &y, NULL));
 				indicesShpPoints[i]=SHPWriteObject(fichierSHP, -1, obj);

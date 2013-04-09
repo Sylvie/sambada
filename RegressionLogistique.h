@@ -154,7 +154,7 @@ protected:
 	int longitude, latitude, nbPlusProchesVoisins, AS_nbPermutations;
 	reel bandePassante;
 	typePonderation choixPonderation;
-	MatriceReels distances, coordonnees; // Les crd sont extraites lors du calcul de la pondération
+	MatriceReels distances, coordonneesBrutes, coordonnees; // Les crd sont extraites lors du calcul de la pondération
 	// Voisinage : pour chaque point, liste triée des couples "autres points - distance"
 	// Pondération: On stocke les voisins ayant un poids non nul
 	// Pondération géo et marq : pondérations-type si pas de valeurs manquantes supplémentaires

@@ -216,10 +216,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F57F66F16FCB626003D7EC1</string>
+						<string>3FB7E3941714E0D2001DC82E</string>
 						<key>history</key>
 						<array>
-							<string>3F0701FB16FBC4BC00F4993C</string>
+							<string>3F57F66F16FCB626003D7EC1</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -242,6 +242,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>3FB7E3801714E07A001DC82E</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>RegressionLogistique.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>3FB7E3811714E07A001DC82E</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>RegressionLogistique.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>3FB7E3951714E0D2001DC82E</string>
+						<key>history</key>
+						<array>
+							<string>3FB7E3741714DEBD001DC82E</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1280, 713}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>0 124 1280 754 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>3F12F68A16FA4333001ADA9D</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>moranPysal.py</string>
@@ -256,10 +296,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F57F67016FCB626003D7EC1</string>
+						<string>3FB7E3961714E0D2001DC82E</string>
 						<key>history</key>
 						<array>
-							<string>3F0701FC16FBC4BC00F4993C</string>
+							<string>3F57F67016FCB626003D7EC1</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -296,10 +336,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F57F67216FCB626003D7EC1</string>
+						<string>3FB7E3971714E0D2001DC82E</string>
 						<key>history</key>
 						<array>
-							<string>3F0701FE16FBC4BC00F4993C</string>
+							<string>3F57F67216FCB626003D7EC1</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -395,7 +435,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>11</integer>
+									<integer>14</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -500,9 +540,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>3F57F66316FC6E1A003D7EC1</string>
+				<string>3FB7E37D1714E07A001DC82E</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>3F57F66416FC6E1A003D7EC1</string>
+				<string>3FB7E37E1714E07A001DC82E</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -643,8 +683,9 @@
 		<string>3FD89952135DD58600D02D21</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>3F53D9DA16F39CAD0001FF1C</string>
-		<string>/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Sambada.xcodeproj</string>
 		<string>3F12F68A16FA4333001ADA9D</string>
+		<string>/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Sambada.xcodeproj</string>
+		<string>3FB7E3801714E07A001DC82E</string>
 		<string>3F986C7316F898A800743A2D</string>
 	</array>
 	<key>WindowString</key>
@@ -725,7 +766,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>3FD89952135DD58600D02D21</string>
-				<string>3F57F66816FC6E1A003D7EC1</string>
+				<string>3FB7E3851714E07A001DC82E</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -849,13 +890,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>3F57F66916FC6E1A003D7EC1</string>
+				<string>3FB7E3861714E07A001DC82E</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>3F57F66A16FC6E1A003D7EC1</string>
-				<string>3F57F66B16FC6E1A003D7EC1</string>
-				<string>3F57F66C16FC6E1A003D7EC1</string>
-				<string>3F57F66D16FC6E1A003D7EC1</string>
-				<string>3F57F66E16FC6E1A003D7EC1</string>
+				<string>3FB7E3871714E07A001DC82E</string>
+				<string>3FB7E3881714E07A001DC82E</string>
+				<string>3FB7E3891714E07A001DC82E</string>
+				<string>3FB7E38A1714E07A001DC82E</string>
+				<string>3FB7E38B1714E07A001DC82E</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
