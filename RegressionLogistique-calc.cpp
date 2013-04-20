@@ -125,7 +125,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 		{
 			coordonnees=coordonneesBrutes;
 		}
-
+		
 		distances.resize(nbPoints, nbPoints);
 		distances=0;
 		
@@ -225,7 +225,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 					
 				}	
 				// Auto-voisinage pour comparaison avec pysal
-				 //pointsGeo.poids[pt1].push_back(make_pair(pt1, 1));
+				//pointsGeo.poids[pt1].push_back(make_pair(pt1, 1));
 				
 			}
 		}
@@ -498,6 +498,8 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 	
 	vector<int> listePointsValidesPerm, voisinagePerm, listePointsGlobauxPerm; // Liste des points sélectionnables lors de la permutations, voisinage temporaire pendant la permutation
 	int pt1, pt2, nbVoisins; // Pour repérer les indices des points considérés || Pour compter les voisins d'un point
+	reel limiteIndicesIdentiques(1e-6), moitieNbPerms(AS_nbPermutations/2);
+	int nbSimPlusGrandes, nbSimEgales, nbSimPlusPetites;
 	
 	// On calcule une pondération-type basée sur le masqueGeo pour les cas où tous les points ayant des crd sont valides
 	pointsAC=pointsGeo;
@@ -652,7 +654,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 								}
 								
 							}
-
+							
 							double poids(1./nbVoisins);
 							for (voisinCourant=pointsCourants.poids[pt1].begin(); voisinCourant!=pointsCourants.poids[pt1].end(); ++voisinCourant)
 							{
@@ -665,19 +667,19 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			
 			//toolbox::affiche(pointsCourants.poids);
 			/*
-			for (int zut(0); zut<5; ++zut)
-			{
-				for (int prout(0); prout<voisinage[zut].size(); ++prout)
-				{
-					cout << voisinage[zut][prout].first << " " << voisinage[zut][prout].second << " " ;
-				}
-				cout << endl;
-				for (int prout(0); prout<pointsCourants.poids[zut].size(); ++ prout)
-				{
-					cout << pointsCourants.poids[zut][prout].first<< " " << pointsCourants.poids[zut][prout].second << " ";
-				}
-				cout << endl;
-			}*/
+			 for (int zut(0); zut<5; ++zut)
+			 {
+			 for (int prout(0); prout<voisinage[zut].size(); ++prout)
+			 {
+			 cout << voisinage[zut][prout].first << " " << voisinage[zut][prout].second << " " ;
+			 }
+			 cout << endl;
+			 for (int prout(0); prout<pointsCourants.poids[zut].size(); ++ prout)
+			 {
+			 cout << pointsCourants.poids[zut][prout].first<< " " << pointsCourants.poids[zut][prout].second << " ";
+			 }
+			 cout << endl;
+			 }*/
 			// Calcul des déviations, moyenne et variance
 			moyenne=0;
 			sommeCarresDeviations=0;
@@ -775,7 +777,9 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			// Itération sur les points -> tous les points n'ont pas le même nombre de voisins
 			for (int  k(0); k<pointsCourants.taille; ++k)
 			{
-				
+				nbSimPlusGrandes=0;
+				nbSimEgales=0;
+				nbSimPlusPetites=0;
 				
 				pt1 = pointsCourants.pointsValides[k]; // Numéro global du point considéré
 				nbVoisins = pointsCourants.poids[pt1].size();
@@ -813,22 +817,60 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					
 					
 					// p-valeur
+					/*if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
+					 ||   ( (autocorrLocale(pt1, i)<0) && (autocorrLocaleCourante(pt1, 0)<=autocorrLocale(pt1, i)))    )
+					 {
+					 pValeurLocale(pt1, i)=pValeurLocale(pt1, i)+1;
+					 }*/
 					
-					//if ( ((autocorrTempCourante(k, 0)*autocorrTemp(k, 0))>0) && (abs(autocorrTempCourante(k, 0)) >= abs(autocorrTemp(k, 0))))
-					if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
-						||   ( (autocorrLocale(pt1, i)<0) && (autocorrLocaleCourante(pt1, 0)<=autocorrLocale(pt1, i)))    )
-						//	if ( abs(autocorrLocaleCourante(pt1, 0))>=abs(autocorrLocale(pt1, i))   )
+					// Comparaison entre simulation et valeur réelle
+					if (abs( autocorrLocaleCourante(pt1, 0) - autocorrLocale(pt1,i)) < limiteIndicesIdentiques)
 					{
-						pValeurLocale(pt1, i)=pValeurLocale(pt1, i)+1;
+						++nbSimEgales;
+					}
+					else if (autocorrLocaleCourante(pt1, 0) > autocorrLocale(pt1,i))
+					{
+						++nbSimPlusGrandes;
 					}
 					
 					// La p-valeur pour l'AC globale est calculée à part, tous les points sont permutés
-					
 				}
-			}
+				
+				// p-valeur
+				// Discussions avec S. Rey et lexique ASU (pseudo p-valeurs)
+				
+				nbSimPlusPetites=AS_nbPermutations - nbSimPlusGrandes - nbSimEgales;
+				
+				if ( nbSimPlusPetites >= nbSimPlusGrandes) // a >= c
+				{
+					if ( nbSimPlusPetites >= moitieNbPerms )
+					{
+						pValeurLocale(pt1, i) = (nbSimPlusGrandes + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+					}
+					else	// cas où les I' == I incluent la médiane de la distribution
+					{
+						pValeurLocale(pt1, i) = 0.5;
+					}
+				}
+				else	// a<c
+				{
+					if ( nbSimPlusGrandes >= moitieNbPerms )
+					{
+						pValeurLocale(pt1, i) = (nbSimPlusPetites + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+					}
+					else // cas où les I' == I incluent la médiane de la distribution
+					{
+						pValeurLocale(pt1, i) = 0.5;
+					}
+				}
+			}	// Fin calcul p-valeurs locales
 			
 			if (AS_autocorrGlobale)
 			{
+				nbSimPlusGrandes=0;
+				nbSimEgales=0;
+				nbSimPlusPetites=0;
+				
 				// La somme des carrés des déviations est la même pour chaque permutation
 				// Idem pour le facteur d'échelle
 				
@@ -853,7 +895,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 							listePointsGlobauxPerm[k]=pointsCourants.pointsValides[ listePointsValidesPerm[listePointsGlobauxPerm[k]] ];
 						}
 					}
-				//	toolbox::affiche(listePointsGlobauxPerm);
+					//	toolbox::affiche(listePointsGlobauxPerm);
 					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
 					for (int  k(0); k<pointsCourants.taille; ++k)
 					{
@@ -878,22 +920,63 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					historiqueAutocorrGlobale(j, i)=autocorrGlobaleCourante;
 					
 					// p-valeur
-					if ( ((autocorrGlobale(0, i) >= 0) && (autocorrGlobaleCourante >= autocorrGlobale(0, i)) ) || ((autocorrGlobale(0, i) < 0) && (autocorrGlobaleCourante <= autocorrGlobale(0, i)) ))
-						//if ( abs(autocorrGlobaleCourante) >= abs(autocorrGlobale(0, i) )) 
+					/*					if ( ((autocorrGlobale(0, i) >= 0) && (autocorrGlobaleCourante >= autocorrGlobale(0, i)) ) || ((autocorrGlobale(0, i) < 0) && (autocorrGlobaleCourante <= autocorrGlobale(0, i)) ))
+					 //if ( abs(autocorrGlobaleCourante) >= abs(autocorrGlobale(0, i) )) 
+					 {
+					 pValeurGlobale(0, i)=pValeurGlobale(0, i)+1;
+					 }*/
+					// Comparaison entre simulation et valeur réelle
+					if (abs( autocorrGlobaleCourante - autocorrGlobale(0,i)) < limiteIndicesIdentiques)
 					{
-						pValeurGlobale(0, i)=pValeurGlobale(0, i)+1;
+						++nbSimEgales;
+					}
+					else if (autocorrGlobaleCourante > autocorrGlobale(0, i))
+					{
+						++nbSimPlusGrandes;
+					}
+					
+				}
+				
+				nbSimPlusPetites=AS_nbPermutations - nbSimPlusGrandes - nbSimEgales;
+				
+				if ( nbSimPlusPetites >= nbSimPlusGrandes) // a >= c
+				{
+					if ( nbSimPlusPetites >= moitieNbPerms )
+					{
+						pValeurGlobale(0, i) = (nbSimPlusGrandes + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+					}
+					else	// cas où les I' == I incluent la médiane de la distribution
+					{
+						pValeurGlobale(0, i) = 0.5;
 					}
 				}
+				else	// a<c
+				{
+					if ( nbSimPlusGrandes >= moitieNbPerms )
+					{
+						pValeurLocale(0, i) = (nbSimPlusPetites + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+					}
+					else // cas où les I' == I incluent la médiane de la distribution
+					{
+						pValeurGlobale(0, i) = 0.5;
+					}
+				}
+				
+				
 			}
 		}
 		
 		// Calcul de la p-valeur
-		pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
-		if (AS_autocorrGlobale)
-		{
-			pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
-			cout << "*** " << pValeurGlobale << "\n";
-		}
+		/*pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
+		 if (AS_autocorrGlobale)
+		 {
+		 pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
+		 cout << "*** " << pValeurGlobale << "\n";
+		 }*/
+		
+		
+		
+		
 		
 		time_t t2(time(NULL));
 		cout << "Calcul autocorrélation : " << t2-t1 << "\n";
@@ -1041,7 +1124,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		}
 		t2=time(NULL);
 		cout << "Ecriture autocorrélation : " << t2-t1 << "\n";
-
+		
 		
 	}
 	
@@ -1291,8 +1374,10 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			// Itération sur les points -> tous les points n'ont pas le même nombre de voisins
 			for (int  k(0); k<pointsCourants.taille; ++k)
 			{
-				
-				
+				nbSimPlusGrandes=0;
+				nbSimEgales=0;
+				nbSimPlusPetites=0;
+								
 				pt1 = pointsCourants.pointsValides[k]; // Numéro global du point considéré
 				nbVoisins = pointsCourants.poids[pt1].size();
 				voisinagePerm.resize(nbVoisins);	// Redimensionnement du voisinage temporaire
@@ -1331,20 +1416,62 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					// p-valeur
 					
 					//if ( ((autocorrTempCourante(k, 0)*autocorrTemp(k, 0))>0) && (abs(autocorrTempCourante(k, 0)) >= abs(autocorrTemp(k, 0))))
-					if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
+					/*if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
 						||   ( (autocorrLocale(pt1, i)<0) && (autocorrLocaleCourante(pt1, 0)<=autocorrLocale(pt1, i)))    )
 						//	if ( abs(autocorrLocaleCourante(pt1, 0))>=abs(autocorrLocale(pt1, i))   )
 					{
 						pValeurLocale(pt1, i)=pValeurLocale(pt1, i)+1;
+					}*/
+					
+					// Comparaison entre simulation et valeur réelle
+					if (abs( autocorrLocaleCourante(pt1, 0) - autocorrLocale(pt1,i)) < limiteIndicesIdentiques)
+					{
+						++nbSimEgales;
 					}
+					else if (autocorrLocaleCourante(pt1, 0) > autocorrLocale(pt1,i))
+					{
+						++nbSimPlusGrandes;
+					}					
 					
 					// La p-valeur pour l'AC globale est calculée à part, tous les points sont permutés
 					
 				}
-			}
+				// p-valeur
+				// Discussions avec S. Rey et lexique ASU (pseudo p-valeurs)
+				
+				nbSimPlusPetites=AS_nbPermutations - nbSimPlusGrandes - nbSimEgales;
+				
+				if ( nbSimPlusPetites >= nbSimPlusGrandes) // a >= c
+				{
+					if ( nbSimPlusPetites >= moitieNbPerms )
+					{
+						pValeurLocale(pt1, i) = (nbSimPlusGrandes + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+					}
+					else	// cas où les I' == I incluent la médiane de la distribution
+					{
+						pValeurLocale(pt1, i) = 0.5;
+					}
+				}
+				else	// a<c
+				{
+					if ( nbSimPlusGrandes >= moitieNbPerms )
+					{
+						pValeurLocale(pt1, i) = (nbSimPlusPetites + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+					}
+					else // cas où les I' == I incluent la médiane de la distribution
+					{
+						pValeurLocale(pt1, i) = 0.5;
+					}
+				}
+				
+			}	// Fin calcul p-valeurs locales
 			
 			if (AS_autocorrGlobale)
 			{
+				nbSimPlusGrandes=0;
+				nbSimEgales=0;
+				nbSimPlusPetites=0;
+				
 				// La somme des carrés des déviations est la même pour chaque permutation
 				// Idem pour le facteur d'échelle
 				
@@ -1394,22 +1521,59 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					historiqueAutocorrGlobale(j, i)=autocorrGlobaleCourante;
 					
 					// p-valeur
-					if ( ((autocorrGlobale(0, i) >= 0) && (autocorrGlobaleCourante >= autocorrGlobale(0, i)) ) || ((autocorrGlobale(0, i) < 0) && (autocorrGlobaleCourante <= autocorrGlobale(0, i)) ))
+					/*if ( ((autocorrGlobale(0, i) >= 0) && (autocorrGlobaleCourante >= autocorrGlobale(0, i)) ) || ((autocorrGlobale(0, i) < 0) && (autocorrGlobaleCourante <= autocorrGlobale(0, i)) ))
 						//if ( abs(autocorrGlobaleCourante) >= abs(autocorrGlobale(0, i) )) 
 					{
 						pValeurGlobale(0, i)=pValeurGlobale(0, i)+1;
+					}*/
+					
+					// Comparaison entre simulation et valeur réelle
+					if (abs( autocorrGlobaleCourante - autocorrGlobale(0,i)) < limiteIndicesIdentiques)
+					{
+						++nbSimEgales;
+					}
+					else if (autocorrGlobaleCourante > autocorrGlobale(0, i))
+					{
+						++nbSimPlusGrandes;
+					}
+					
+				}
+				
+				nbSimPlusPetites=AS_nbPermutations - nbSimPlusGrandes - nbSimEgales;
+				
+				if ( nbSimPlusPetites >= nbSimPlusGrandes) // a >= c
+				{
+					if ( nbSimPlusPetites >= moitieNbPerms )
+					{
+						pValeurGlobale(0, i) = (nbSimPlusGrandes + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+					}
+					else	// cas où les I' == I incluent la médiane de la distribution
+					{
+						pValeurGlobale(0, i) = 0.5;
 					}
 				}
+				else	// a<c
+				{
+					if ( nbSimPlusGrandes >= moitieNbPerms )
+					{
+						pValeurGlobale(0, i) = (nbSimPlusPetites + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+					}
+					else // cas où les I' == I incluent la médiane de la distribution
+					{
+						pValeurGlobale(0, i) = 0.5;
+					}
+				}
+				
 			}
 		}
 		
 		// Calcul de la p-valeur
-		pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
+		/*pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
 		if (AS_autocorrGlobale)
 		{
 			pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
 			cout << "*** " << pValeurGlobale << "\n";
-		}
+		}*/
 		
 		time_t t2(time(NULL));
 		cout << "Calcul autocorrélation : " << t2-t1 << "\n";
@@ -1562,10 +1726,10 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		
 		t2=time(NULL);
 		cout << "Ecriture autocorrélation : " << t2-t1 << "\n";
-	
+		
 	}
 	
-
+	
 	
 	/*
 	 // Marqueurs génétiques
