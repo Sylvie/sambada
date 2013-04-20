@@ -216,7 +216,7 @@ bool Lecteur::lecture(int numFichier, vector<T>& ligne, char delimMots) const
 	for (vector<string>::iterator i(ligneBrute.begin()); i!=ligneBrute.end(); ++i)
 	{
 		valeur=toolbox::conversion<T>(*i, testEchec);
-		cout << valeur << endl;
+		//cout << valeur << endl;
 		if (!testEchec)
 		{
 			ligne.push_back(valeur);
