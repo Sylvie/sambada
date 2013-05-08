@@ -107,17 +107,17 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	// //-> Même code
 	if (uniqueFichierDonnees)
 	{
-	int position(nomFichierInput[0].rfind("."));
-	nomFichierResultats.first=nomFichierInput[0].substr(0, position);
-	nomFichierResultats.second=nomFichierInput[0].substr(position);
-	
+		int position(nomFichierInput[0].rfind("."));
+		nomFichierResultats.first=nomFichierInput[0].substr(0, position);
+		nomFichierResultats.second=nomFichierInput[0].substr(position);
+		
 	}
-	 else
-	 {
-	 int position(nomFichierInput[1].rfind("."));
-	 nomFichierResultats.first=nomFichierInput[1].substr(0, position);
-	 nomFichierResultats.second=nomFichierInput[1].substr(position);		
-	 }
+	else
+	{
+		int position(nomFichierInput[1].rfind("."));
+		nomFichierResultats.first=nomFichierInput[1].substr(0, position);
+		nomFichierResultats.second=nomFichierInput[1].substr(position);		
+	}
 	++paramCourant;
 	
 	// WORDDELIM
@@ -751,9 +751,26 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			sauvegardeTempsReel=false;
 		}
 		
-		if (paramCourant->contents[1]=="BEST")
+		if (paramCourant->contents[1]=="ALL")
 		{
-			sauvegardeExhaustive=false;
+			cout << "all!" << endl;
+			selModeles=all;
+		}
+		else
+		{
+			if (paramCourant->contents[1]=="BEST")
+			{
+				cout << "best!" << endl;
+				
+				selModeles=best;
+			}
+			else
+			{
+				cout << "signif!" << endl;
+				
+				selModeles=signif;
+			}
+			
 			if(nbParamSauvegarde!=3)
 			{
 				throw Erreur("MSG_savetypeThreshold", "SAVETYPE : Specify the significance threshold for best models.");
@@ -778,10 +795,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 				 }*/
 			}
 		}
-		else
-		{
-			sauvegardeExhaustive=true;
-		}
+		
 		
 	}	
 	
@@ -814,6 +828,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			specDataEnv[i].localIndex=nbPassives;
 			++nbPassives;
 		}
+		//cout << specDataEnv[i].number << " "<< specDataEnv[i].name << " "<< specDataEnv[i].isNumeric << " "<< specDataEnv[i].isActive << " "<< specDataEnv[i].localIndex << endl;
+		
 	}
 	// Marqueurs
 	nbMarqActifs=0;
@@ -839,7 +855,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		nbMarqTot=nbMarqActifs;
 	}
 	
-	if(!sauvegardeExhaustive)
+	if(selModeles!=all)
 	{
 		// Calcul des seuils de p-valeurs
 		cout << "Chose" <<"\n";
@@ -1379,13 +1395,18 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	// S'il y a deux fichiers d'entrée et des identifiants d'individus, on test pour chaque ligne si les noms correspondent
 	if (!uniqueFichierDonnees && existeColID)
 	{
+		/*cout <<"%"<< colIDEnv << colIDMarq << endl;
+		 cout << dataSupEnv.rows() << "  "<< dataSupEnv.cols()<< endl;
+		 cout << dataSupEnv(0,_) << dataSupEnv(1,_) << dataSupEnv(2,_) << endl;
+		 cout << dataSupMarq(0,_) << dataSupMarq(1,_) << dataSupMarq(2,_) << endl;*/
 		for (int i(0); i<nbPoints; ++i)
 		{
-			if (dataSupEnv[i, specDataEnv[colIDEnv].localIndex] != dataSupMarq[i, specDataMarq[colIDMarq].localIndex])
+			//cout << specDataEnv[colIDEnv].localIndex << " & " << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << endl;
+			if (dataSupEnv(i, specDataEnv[colIDEnv].localIndex) != dataSupMarq(i, specDataMarq[colIDMarq].localIndex))
 			{
 				std::ostringstream oss;
 				oss << "IDs do not match on line " << i << " : "
-				<< dataSupEnv[i, specDataEnv[colIDEnv].localIndex] << " != " << dataSupMarq[i, specDataMarq[colIDMarq].localIndex];
+				<< dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " != " << dataSupMarq(i, specDataMarq[colIDMarq].localIndex);
 				throw Erreur("MSG_unmatchIDs", oss.str());
 			}
 		}
@@ -1413,138 +1434,140 @@ void RegressionLogistique::ecritResultat(int numFichier, const resModele& r) con
 	
 }
 
-void RegressionLogistique::ecritResultats() const
-{
-	if (resultats.size()>0)
-	{
-		for (int i(0); i<=dimensionMax; ++i)
-		{
-			//sortie << "Dimension = " << i << "\n";
-			for (groupeResultats::const_iterator fleche=(resultats[i]).begin(); fleche!=(resultats[i]).end(); ++fleche)
-			{
-				
-				//On écrit les numéros/noms globaux des marqueurs 
-				// Le décalage du numéro de marqueur dans les jobs multiples a déjà été pris en compte
-				
-				// No de marqueur
-				sortie.ecriture(i, specDataMarq[marqActifs.at(fleche->first.first)].name, false);
-				
-				// Liste des variables
-				for (set<int>::iterator iter(fleche->first.second.begin()); iter!=fleche->first.second.end(); ++iter)
-				{
-					//cout << *iter << " " << varEnvActives.size() << "\n";
-					sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
-				}	
-				
-				// Résultats
-				sortie.ecriture(i, fleche->second, true);
-				
-			}
-		}
-	}
-}
-
-// Ecrit les résultats dans un fichier (ou dans la console)
-void RegressionLogistique::ecritResultats(string nomFichier) const
-{
-	ofstream sortie(nomFichier.c_str());
-	if (sortie.fail())
-	{
-		ecritResultats(cout);
-	}
-	else 
-	{
-		ecritResultats(sortie);
-	}
-	sortie.close();
-}
-
-// Ecrit les résultats dans un flot
-ostream& RegressionLogistique::ecritResultats(ostream& sortie) const
-{	
-	// Ecriture des noms de colonnes pour s'y repérer
-	vector< vector<string> > names(3);
-	names[0].push_back("Marker");
-	names[0].push_back("Env_");
-	names[0].push_back("Beta_");
-	names[1].push_back("Loglikelihood");
-	names[1].push_back("AverageProb");
-	names[1].push_back("Beta_0");
-	names[1].push_back("NumError");
-	names[2].push_back("Loglikelihood");
-	names[2].push_back("Gscore");
-	names[2].push_back("WaldScore");
-	names[2].push_back("NumError");
-	names[2].push_back("Efron");
-	names[2].push_back("McFadden");
-	names[2].push_back("McFaddenAdj");
-	names[2].push_back("CoxSnell"); 
-	names[2].push_back("Nagelkerke"); 
-	names[2].push_back("AIC"); 
-	names[2].push_back("BIC");
-	
-	if (resultats.size()>0)
-	{
-		int precisionRes(toolbox::precisionLecture), anciennePrecision(sortie.precision());;
-		sortie.precision(precisionRes);
-		for (int i(0); i<=dimensionMax;++i)
-		{
-			sortie << "Dimension = " << i << delimLignes;
-			if (i==0)
-			{
-				sortie << names[0][0] << delimMots;
-				for (int j(0); j< names[1].size(); ++j)
-				{
-					sortie << names[1][j]<< delimMots;
-				}
-				sortie << delimLignes;
-			}
-			else
-			{
-				sortie << names[0][0] << delimMots;
-				for (int j(1); j<=i; ++j)
-				{
-					sortie << names[0][1]+toolbox::conversion(j) << delimMots;
-				}
-				for (int j(0); j< names[2].size(); ++j)
-				{
-					sortie << names[2][j]<< delimMots;
-				}
-				for (int j(0); j<=i; ++j)
-				{
-					sortie << names[0][2]+toolbox::conversion(j) << delimMots;
-				}
-				sortie << delimLignes;
-				
-			}
-			
-			
-			for (groupeResultats::const_iterator fleche=(resultats[i]).begin(); fleche!=(resultats[i]).end(); ++fleche)
-			{
-				// No de marqueur
-				sortie << specDataMarq[marqActifs.at(fleche->first.first)].name << delimMots;
-				
-				// Liste des variables
-				for (set<int>::const_iterator set_iter(fleche->first.second.begin()); set_iter!=fleche->first.second.end(); ++set_iter)
-				{
-					sortie << specDataEnv[varEnvActives.at(*set_iter)].name << delimMots;
-				}
-				// Résultats
-				int nbRes(fleche->second.size());
-				for (int j(0); j<nbRes; ++j)
-				{
-					sortie << fleche->second[j] << delimMots;
-				}
-				sortie << delimLignes;
-			}		
-			sortie << delimLignes;
-		}
-		cout << sortie.precision() << delimLignes;
-		sortie.precision(anciennePrecision);
-	}
-	return sortie;
-}
-
+/*
+ void RegressionLogistique::ecritResultats() const
+ {
+ if (resultats.size()>0)
+ {
+ for (int i(0); i<=dimensionMax; ++i)
+ {
+ //sortie << "Dimension = " << i << "\n";
+ for (groupeResultats::const_iterator fleche=(resultats[i]).begin(); fleche!=(resultats[i]).end(); ++fleche)
+ {
+ 
+ //On écrit les numéros/noms globaux des marqueurs 
+ // Le décalage du numéro de marqueur dans les jobs multiples a déjà été pris en compte
+ 
+ // No de marqueur
+ sortie.ecriture(i, specDataMarq[marqActifs.at(fleche->first.first)].name, false);
+ 
+ // Liste des variables
+ for (set<int>::iterator iter(fleche->first.second.begin()); iter!=fleche->first.second.end(); ++iter)
+ {
+ //cout << *iter << " " << varEnvActives.size() << "\n";
+ sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
+ }	
+ 
+ // Résultats
+ sortie.ecriture(i, fleche->second, true);
+ 
+ }
+ }
+ }
+ }
+ 
+ 
+ // Ecrit les résultats dans un fichier (ou dans la console)
+ void RegressionLogistique::ecritResultats(string nomFichier) const
+ {
+ ofstream sortie(nomFichier.c_str());
+ if (sortie.fail())
+ {
+ ecritResultats(cout);
+ }
+ else 
+ {
+ ecritResultats(sortie);
+ }
+ sortie.close();
+ }
+ 
+ // Ecrit les résultats dans un flot
+ ostream& RegressionLogistique::ecritResultats(ostream& sortie) const
+ {	
+ // Ecriture des noms de colonnes pour s'y repérer
+ vector< vector<string> > names(3);
+ names[0].push_back("Marker");
+ names[0].push_back("Env_");
+ names[0].push_back("Beta_");
+ names[1].push_back("Loglikelihood");
+ names[1].push_back("AverageProb");
+ names[1].push_back("Beta_0");
+ names[1].push_back("NumError");
+ names[2].push_back("Loglikelihood");
+ names[2].push_back("Gscore");
+ names[2].push_back("WaldScore");
+ names[2].push_back("NumError");
+ names[2].push_back("Efron");
+ names[2].push_back("McFadden");
+ names[2].push_back("McFaddenAdj");
+ names[2].push_back("CoxSnell"); 
+ names[2].push_back("Nagelkerke"); 
+ names[2].push_back("AIC"); 
+ names[2].push_back("BIC");
+ 
+ if (resultats.size()>0)
+ {
+ int precisionRes(toolbox::precisionLecture), anciennePrecision(sortie.precision());;
+ sortie.precision(precisionRes);
+ for (int i(0); i<=dimensionMax;++i)
+ {
+ sortie << "Dimension = " << i << delimLignes;
+ if (i==0)
+ {
+ sortie << names[0][0] << delimMots;
+ for (int j(0); j< names[1].size(); ++j)
+ {
+ sortie << names[1][j]<< delimMots;
+ }
+ sortie << delimLignes;
+ }
+ else
+ {
+ sortie << names[0][0] << delimMots;
+ for (int j(1); j<=i; ++j)
+ {
+ sortie << names[0][1]+toolbox::conversion(j) << delimMots;
+ }
+ for (int j(0); j< names[2].size(); ++j)
+ {
+ sortie << names[2][j]<< delimMots;
+ }
+ for (int j(0); j<=i; ++j)
+ {
+ sortie << names[0][2]+toolbox::conversion(j) << delimMots;
+ }
+ sortie << delimLignes;
+ 
+ }
+ 
+ 
+ for (groupeResultats::const_iterator fleche=(resultats[i]).begin(); fleche!=(resultats[i]).end(); ++fleche)
+ {
+ // No de marqueur
+ sortie << specDataMarq[marqActifs.at(fleche->first.first)].name << delimMots;
+ 
+ // Liste des variables
+ for (set<int>::const_iterator set_iter(fleche->first.second.begin()); set_iter!=fleche->first.second.end(); ++set_iter)
+ {
+ sortie << specDataEnv[varEnvActives.at(*set_iter)].name << delimMots;
+ }
+ // Résultats
+ int nbRes(fleche->second.size());
+ for (int j(0); j<nbRes; ++j)
+ {
+ sortie << fleche->second[j] << delimMots;
+ }
+ sortie << delimLignes;
+ }		
+ sortie << delimLignes;
+ }
+ cout << sortie.precision() << delimLignes;
+ sortie.precision(anciennePrecision);
+ }
+ return sortie;
+ }
+ */
 void RegressionLogistique::affiche(const etiquetteModele& label)
 {
 	cout << label.first << " : ";
@@ -1618,19 +1641,26 @@ void RegressionLogistique::trieEtEcritResultats()
 			//for (groupeResultats::const_iterator fleche=(resultats[i]).begin(); fleche!=(resultats[i]).end(); ++fleche)
 			for (int j(0); j<tailleListe; ++j)
 			{
-				
-				// No de marqueur
-				sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
-				
-				// Liste des variables
-				for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter!=listeModeles[j]->first.second.end(); ++iter)
+				if (listeModeles[j]->second[validiteModele]==0 || (listeModeles[j]->second[validiteModele]==6 && selModeles==signif) || selModeles==all)
 				{
-					//cout << *iter << " " << varEnvActives.size() << "\n";
-					sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
-				}	
-				
-				// Résultats
-				sortie.ecriture(i, listeModeles[j]->second, true);
+					
+					// No de marqueur
+					sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
+					
+					// Liste des variables
+					for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter!=listeModeles[j]->first.second.end(); ++iter)
+					{
+						//cout << *iter << " " << varEnvActives.size() << "\n";
+						sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
+						
+						//cout << specDataEnv[varEnvActives.at(*iter)].name<< " ";
+
+					}	
+					
+					// Résultats
+					sortie.ecriture(i, listeModeles[j]->second, true);
+					//cout << listeModeles[j]->second[0] << " " << listeModeles[j]->second[1] << " " << listeModeles[j]->second[2] << " " << listeModeles[j]->second[3] << " " << endl;
+				}
 				
 			}
 		}

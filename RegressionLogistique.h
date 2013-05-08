@@ -30,6 +30,13 @@ protected:
 	typedef enum {valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC} listeStats;
 	typedef enum {pondDistanceMax, pondGaussienne, pondBicarree, pondPlusProchesVoisins} typePonderation;
 	
+	/* Type de sauvegarde
+	 ALL : sauvegarde exhaustive
+	 VALID: sauvegarde des modèles significatifs
+	 BEST: sauvegarde des modèles significatifs ayant au moins un parent valide
+	 */
+	typedef enum {all, signif, best} typeSelectionModeles;
+	
 	//typedef vector< vector <double> > tableau;
 	typedef Matrix<reel, Col, Concrete> MatriceReels;
 	typedef Matrix<bool, Col, Concrete> MatriceBools;
@@ -51,9 +58,10 @@ public:
 	
 	void ecritResultat(int numFichier, const resModele& r) const;
 	
-	void ecritResultats() const;
+	// Méthodes non utilisées pour le moment
+	/*void ecritResultats() const;
 	void ecritResultats(string nomFichier) const;
-	ostream& ecritResultats(ostream& sortie) const;
+	ostream& ecritResultats(ostream& sortie) const;*/
 	
 protected:
 	
@@ -140,7 +148,8 @@ protected:
 	Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
 	
 	vector< groupeResultats > resultats;
-	bool sauvegardeExhaustive, sauvegardeTempsReel;
+	bool sauvegardeTempsReel;
+	typeSelectionModeles selModeles;
 	pair<string, string> nomFichierResultats;
 	
 	// Paramètres numériques

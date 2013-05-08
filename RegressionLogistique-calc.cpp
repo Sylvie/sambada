@@ -12,7 +12,7 @@ using namespace scythe;
 
 RegressionLogistique::RegressionLogistique()
 :dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
-sauvegardeTempsReel(true), sauvegardeExhaustive(true),
+sauvegardeTempsReel(true), selModeles(all),
 analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
 eps(sqrt(epsilon < reel > ())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel)700,log(numeric_limits < reel >::max()/2))),
 limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsSansPseudos(4),
@@ -2119,7 +2119,8 @@ int RegressionLogistique::creeModelesGlobaux()
 	<< "2: J_info is singular" << "\n"
 	<< "3: divergence of beta" << "\n"
 	<< "4: maximum number of iterations" << "\n"
-	<< "5: monomorphic marker" << "\n";
+	<< "5: monomorphic marker" << "\n"
+	<< "6: non-significant parents models" << "\n";
 	
 	
 	// Initialisation du conteneur de résultats et des flots de sortie
@@ -2584,7 +2585,7 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			resultat.second.push_back(1);
 		}
 		
-		if (sauvegardeExhaustive || (dim<dimensionMax))
+		if (selModeles==all)
 		{
 			resultats[dim].insert(resultat);
 			// Cas où on sauvegarde les résultats au fur et à mesure
@@ -2742,7 +2743,8 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			
 		}
 		
-		if (sauvegardeExhaustive || (dim<dimensionMax) || modeleRetenu)
+		// Il faut garder le modèle même s'il n'est pas signif dans le cas signif, pour les comparaison ultérieures
+		if (selModeles==all || modeleRetenu || (dim<dimensionMax))
 		{
 			resultats[dim].insert(resultat);
 			if (sauvegardeTempsReel)
@@ -2775,6 +2777,7 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 // 3: divergence beta
 // 4: max iterations atteint
 // 5: marqueur constant
+// 6: modèle avec parents non-significatifs
 int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composantEfron)
 {
 	
@@ -2931,14 +2934,16 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	/*for (set< int >:: iterator iter(resultat.first.second.begin()); iter!=resultat.first.second.end(); ++iter)
 	 {
 	 cout << *iter << " " ;
+		 cout << specDataEnv[varEnvActives.at(*iter)].name<< " ";
+
 	 }
 	 cout << "!"<<"\n";*/
 	//cout << "ç" << resultat.first.second.size()-1 << "\n";
 	//affiche(resultat);
-	int dimParents(resultat.first.second.size()-1);
+	int dimParents(resultat.first.second.size()-1); // Taille de l'étiquette - 1
 	
 	// On garde les infos des modèles plus simples que dim max
-	bool modeleNonMax(resultat.first.second.size() < dimensionMax);
+	//bool modeleNonMax(resultat.first.second.size() < dimensionMax);
 	
 	groupeResultats::iterator modeleCourant, bestLoglike;
 	
@@ -2965,9 +2970,10 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			// Initialisation avec les valeurs du premier modèle
 			etiquetteCourante=resultat.first;
 			etiquetteCourante.second.erase(*variableCourante);	// On corrige l'étiquette pour le modèle à considérer
-			modeleCourant=resultats[dimParents].find(etiquetteCourante);
+			modeleCourant=resultats[dimParents].find(etiquetteCourante);	// Parent courant
 			
-			if ((modeleCourant->second[validiteModele])==0)
+			// On teste si le parent existe et s'il n'est pas dans un état d'erreur
+			if (modeleCourant!=resultats[dimParents].end() && ( (modeleCourant->second[validiteModele])==0  || (modeleCourant->second[validiteModele])==6) )
 			{
 				if (parentValide) //  Test si un parent valide a déjà été trouvé
 				{
@@ -2998,83 +3004,77 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		// Si on sauve tous les modèles, on cherche le plus petit score de Wald
 		int tailleModele(dimParents+1);
 		
-		if (sauvegardeExhaustive || modeleNonMax)
+		// Au cas où on choisit les modèles significatifs, on commence par tester le score G
+		if (selModeles!=all && (resultat.second[Gscore]<seuilScore[tailleModele]))
 		{
-			// Initialisation du score
+			// rejet car G trop petit
+			modeleRetenu=false;
+			resultat.second[validiteModele]=7;
+		}
+		else
+		{
+			// On fait un test de Wald par variable (pas la constante)
+			// Simplification : on calcule le score de Wald final (= le plus petit score de Wald, un par variable)
+			// On teste la significativité du score à la fin.
+			
+			// Initialisation du score de Wald
 			reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
 			resultat.second[WaldScore]=WaldCourant;
 			
-			for (int paramCourant(2); paramCourant<tailleModele; ++paramCourant)
+			//affiche(resultat.first);
+			//cout << "	" << WaldCourant;
+			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
 			{
 				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
+				//cout << "	" << WaldCourant;
 				if (WaldCourant < resultat.second[WaldScore])
 				{
 					resultat.second[WaldScore] = WaldCourant;
 				}
 			}
-			
-		}
-		else
-		{
-			// Test de Wald si le modèle passe le test G 
-			if (resultat.second[Gscore]<seuilScore[tailleModele])
+			//cout << endl;
+			// Test du score de Wald
+			if (selModeles!=all && ( resultat.second[WaldScore] < seuilScore[tailleModele] ))
 			{
 				modeleRetenu=false;
+				resultat.second[validiteModele]=7;
+
 			}
-			else
-			{
-				// On fait un test de Wald par variable (pas la constante)
-				// Si un test échoue, le modèle est éliminé
-				
-				// Initialisation du score
-				reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
-				if (WaldCourant < seuilScore[tailleModele])
-				{
-					modeleRetenu=false;
-				}
-				else
-				{
-					resultat.second[WaldScore]=WaldCourant;
-					
-					for (int paramCourant(2); (paramCourant<tailleModele) && modeleRetenu; ++paramCourant)
-					{
-						WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
-						if (WaldCourant < seuilScore[tailleModele])
-						{
-							modeleRetenu=false;
-						}
-						else if (WaldCourant < resultat.second[WaldScore])
-						{
-							resultat.second[WaldScore] = WaldCourant;
-						}
-					}
-					
-					
-				}
-				
-			}
+			//affiche(resultat);
 			
-		}		
+		}
+		
 	}
-	else 
+	else if (selModeles!=best)
 		// Aucun modèle parent n'est valide -> on compare avec le modèle constant 
 		// Le modèle constant est de toute façon valide
 		//-> Attention au changement de seuil pour la p-valeur
 	{
+		// Aucun parent valide -> erreur type 6
+		resultat.second[validiteModele]=6;
+		
 		etiquetteCourante=resultat.first;
 		etiquetteCourante.second.clear();
 		modeleCourant=resultats[0].find(etiquetteCourante);
 		
-		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-modeleCourant->second[valloglikelihood]);
+		loglikeZero=modeleCourant->second[valloglikelihood];
+
+		
+		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-loglikeZero);
 		
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
-		if (!sauvegardeExhaustive && (resultat.second[Gscore]<seuilScoreMultivarie[dimParents+1]))
+		if (selModeles==signif && (resultat.second[Gscore]<seuilScoreMultivarie[dimParents+1]))
 		{
 			modeleRetenu=false;
+			resultat.second[validiteModele]=7;
+
 		}
 		else
 		{
+			// Test avec Wald individuel
+			/*
 			// Calcul du score de Wald -> On prend la sous-matrice (1:n, 1:n) de inv_J_info et on l'inverse
+			//cout << nbParamEstimes << endl;
 			MatriceReels matInterm(nbParamEstimes, nbParamEstimes);
 			try {
 				matInterm=invpd(inv_J_info(1,1,nbParamEstimes,nbParamEstimes));
@@ -3085,16 +3085,61 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 				//cerr << error.message() << "\n";
 				resultat.second[WaldScore]=0;
 			}
+			*/
 			
-			loglikeZero=modeleCourant->second[valloglikelihood];
+			// On fait un test de Wald par variable (pas la constante)
+			// Simplification : on calcule le score de Wald final (= le plus petit score de Wald, un par variable)
+			// On teste la significativité du score à la fin.
+			
+			// Si on sauve tous les modèles, on cherche le plus petit score de Wald
+			int tailleModele(dimParents+1);
+			
+			// Initialisation du score de Wald
+			reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
+			resultat.second[WaldScore]=WaldCourant;
+			
+			//affiche(resultat.first);
+			//cout << "	" << WaldCourant;
+
+			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
+			{
+				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
+				//cout << "	" << WaldCourant;
+
+				if (WaldCourant < resultat.second[WaldScore])
+				{
+					resultat.second[WaldScore] = WaldCourant;
+				}
+			}
+			//cout << endl;
+			
+			
+			
+			
+
+//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
+				if (selModeles==signif && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
+			{
+				modeleRetenu=false;
+				resultat.second[validiteModele]=7;
+
+			}
+			
 			
 		}
 		
 		
 		
 	}
+	else // Aucun parent n'est valide et on ne prend que les meilleurs modèles
+	{
+		modeleRetenu=false;
+		resultat.second[validiteModele]=7;
+
+	}
 	
-	if (modeleRetenu || modeleNonMax)
+	// Ici pas besoin de calculer ceci pour les modèles non signif dans le cas signif
+	if (modeleRetenu || selModeles==all)
 	{
 		
 		// Calcul des pseudos R carrés
