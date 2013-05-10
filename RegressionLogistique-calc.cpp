@@ -2505,7 +2505,9 @@ int RegressionLogistique::creeModelesGlobaux()
 			
 			
 			// Parcours des modèles de dimension dim-1
-			for (groupeResultats::iterator generationPrecedente(resultats[dim].begin());  (generationPrecedente!=resultats[dim].end()); ++generationPrecedente)
+			// La fonction lower_bound permet de trouver directement le premier modèle avec le bon marqueur
+//			for (groupeResultats::iterator generationPrecedente(resultats[dim].begin());  (generationPrecedente!=resultats[dim].end()); ++generationPrecedente)
+			for (groupeResultats::iterator generationPrecedente(resultats[dim].lower_bound(resultatCourant.first));  (generationPrecedente!=resultats[dim].end()); ++generationPrecedente)
 			{
 				// Si le résultat considéré concerne le marqueur i:
 				if (generationPrecedente->first.first==i)
