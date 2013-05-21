@@ -1092,7 +1092,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					22,
 					300,
-					762.58349609375,
+					763,
 				);
 				PBXFileTableDataSourceColumnsKey = (
 					PBXExecutablesDataSource_ActiveFlagID,
@@ -1156,20 +1156,20 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 390221775;
-			PBXWorkspaceStateSaveDate = 390221775;
+			PBXPerProjectTemplateStateSaveDate = 390833389;
+			PBXWorkspaceStateSaveDate = 390833389;
 		};
 		perUserProjectItems = {
-			3FDA4D0F1742496500BE56A1 /* PBXTextBookmark */ = 3FDA4D0F1742496500BE56A1 /* PBXTextBookmark */;
-			3FDA4D111742496500BE56A1 /* PBXTextBookmark */ = 3FDA4D111742496500BE56A1 /* PBXTextBookmark */;
-			3FDA4D131742496500BE56A1 /* PBXTextBookmark */ = 3FDA4D131742496500BE56A1 /* PBXTextBookmark */;
-			3FDA4D151742496500BE56A1 /* PBXTextBookmark */ = 3FDA4D151742496500BE56A1 /* PBXTextBookmark */;
-			3FDA4D4317424FD400BE56A1 /* PBXBookmark */ = 3FDA4D4317424FD400BE56A1 /* PBXBookmark */;
-			3FDA4D4B1742509F00BE56A1 /* PBXTextBookmark */ = 3FDA4D4B1742509F00BE56A1 /* PBXTextBookmark */;
-			3FDA4D4C1742509F00BE56A1 /* PBXTextBookmark */ = 3FDA4D4C1742509F00BE56A1 /* PBXTextBookmark */;
-			3FDA4D4E1742509F00BE56A1 /* PBXTextBookmark */ = 3FDA4D4E1742509F00BE56A1 /* PBXTextBookmark */;
-			3FDA4D501742509F00BE56A1 /* PBXTextBookmark */ = 3FDA4D501742509F00BE56A1 /* PBXTextBookmark */;
-			3FDA4D521742509F00BE56A1 /* PBXTextBookmark */ = 3FDA4D521742509F00BE56A1 /* PBXTextBookmark */;
+			3FDA4D0F1742496500BE56A1 = 3FDA4D0F1742496500BE56A1 /* PBXTextBookmark */;
+			3FDA4D111742496500BE56A1 = 3FDA4D111742496500BE56A1 /* PBXTextBookmark */;
+			3FDA4D131742496500BE56A1 = 3FDA4D131742496500BE56A1 /* PBXTextBookmark */;
+			3FDA4D151742496500BE56A1 = 3FDA4D151742496500BE56A1 /* PBXTextBookmark */;
+			3FDA4D4317424FD400BE56A1 = 3FDA4D4317424FD400BE56A1 /* PBXBookmark */;
+			3FDA4D4B1742509F00BE56A1 = 3FDA4D4B1742509F00BE56A1 /* PBXTextBookmark */;
+			3FDA4D4C1742509F00BE56A1 = 3FDA4D4C1742509F00BE56A1 /* PBXTextBookmark */;
+			3FDA4D4E1742509F00BE56A1 = 3FDA4D4E1742509F00BE56A1 /* PBXTextBookmark */;
+			3FDA4D501742509F00BE56A1 = 3FDA4D501742509F00BE56A1 /* PBXTextBookmark */;
+			3FDA4D521742509F00BE56A1 = 3FDA4D521742509F00BE56A1 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 3FD898D5135DC94A00D02D21 /* Source Control */;
 		userBookmarkGroup = 3F54752C1378170E00879439 /* PBXBookmarkGroup */;
@@ -1317,12 +1317,6 @@
 		name = copySortChosenAnimals.cpp;
 		path = "/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/Environnement/copySortChosenAnimals.cpp";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1221, 1352}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{38, 1300}";
-			sepNavWindowFrame = "{{160, 188}, {1280, 690}}";
-		};
 	};
 	3FDA4D111742496500BE56A1 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1394,6 +1388,7 @@
 	};
 	3FDA4D4D1742509F00BE56A1 /* copySortChosenAnimals.cpp */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
 		name = copySortChosenAnimals.cpp;
 		path = "/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/Environnement/copySortChosenAnimals.cpp";
 		sourceTree = "<absolute>";
@@ -1410,15 +1405,10 @@
 	};
 	3FDA4D4F1742509F00BE56A1 /* scriptsBayEnv.R */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.rez;
 		name = scriptsBayEnv.R;
 		path = "/Users/Sylvie/Documents/Bac-à-Sable/BayEnv/scriptsBayEnv.R";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1221, 562}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 570}";
-			sepNavWindowFrame = "{{160, 188}, {1280, 690}}";
-		};
 	};
 	3FDA4D501742509F00BE56A1 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1432,15 +1422,10 @@
 	};
 	3FDA4D511742509F00BE56A1 /* ped2lfmm.pl */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = text.script.perl;
 		name = ped2lfmm.pl;
 		path = "/Users/Sylvie/Documents/Bac-à-Sable/LFMM/LFMM_CL_v1-1/scripts/ped2lfmm.pl";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1221, 1118}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{988, 762}";
-			sepNavWindowFrame = "{{160, 188}, {1280, 690}}";
-		};
 	};
 	3FDA4D521742509F00BE56A1 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

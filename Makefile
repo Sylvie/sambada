@@ -28,7 +28,7 @@ CXXFLAGS += $(PKG_CXXFLAGS)
 # On demande le nom du systeme
 SYSTEM =  $(shell (uname | cut -b 1-6))
 
-ifneq ($(SYS_CIBLE), Darwin)
+ifneq ($(SYSTEM), Darwin)
  CPPFLAGS += -static
 endif
 
