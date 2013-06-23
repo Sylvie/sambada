@@ -2171,11 +2171,12 @@ int RegressionLogistique::creeModelesGlobaux()
 			sortie.ecriture(i, names[0][1]+toolbox::conversion(j));
 		}
 		sortie.ecriture(i, names[2]);
-		for (int j(0); j<=i; ++j)
+		for (int j(0); j<i; ++j)
 		{
 			sortie.ecriture(i, names[0][2]+toolbox::conversion(j));
 		}
-		sortie.ecriture(i, "", true);
+		sortie.ecriture(i, names[0][2]+toolbox::conversion(i), true);
+		//sortie.ecriture(i, "", true);
 	}
 	
 	
