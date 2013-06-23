@@ -8,6 +8,8 @@ using namespace std;
 typedef pair< vector< string >, vector< reel > > ligneResultat;
 typedef vector< ligneResultat > listeResultats;
 
+typedef enum {G, Wald, AIC, BIC, Both} typeScore;
+
 namespace ParametresCluster {
 	
 	typedef enum {Windows, Unix} TypeFichier;

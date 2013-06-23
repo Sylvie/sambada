@@ -3,6 +3,7 @@
 #include "Erreur.h"
 #include <ctime>
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
@@ -226,8 +227,8 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 	{
 		chemin="";
 	}
-
-
+	
+	
 	
 	std::ostringstream oss, ossNumPremierMarq;
 	oss << tailleBlocs;
@@ -361,8 +362,53 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 int Supervision::fusionResultats(int argc, char* argv[]) throw()
 {
 	// nomProg nomFichierInput nbBlocs tailleBlocs dimMax
-	if (argc!=5)
+	// nomProg nomFichierInput nbBlocs tailleBlocs dimMax choixScore seuilScore choixTri
+	bool seuilSelection(false);
+	reel seuilScore(0);
+	typeScore scoreSel(Both);
+	typeScore scoreTri(Wald);
+	
+	// Lien entre le type de score et le numéro de colonne
+	map<typeScore, int> numColonnes;
+	numColonnes.insert(make_pair(G,1));
+	numColonnes.insert(make_pair(Wald,2));
+	numColonnes.insert(make_pair(AIC,9));
+	numColonnes.insert(make_pair(BIC,10));
+	if (argc==7 || argc==8)
 	{
+		string lu(argv[5]);
+		if (lu=="G")
+		{
+			scoreSel=G;
+		}
+		else if(lu=="Wald")
+		{
+			scoreSel=Wald;
+		}
+		
+		seuilScore=atof(argv[6]);
+		seuilSelection=true;
+	}
+	if (argc==8) 
+	{
+		string lu(argv[7]);
+		if (lu=="G") 
+		{
+			scoreTri=G;
+		}
+		if (lu=="AIC") 
+		{
+			scoreTri=AIC;
+		}
+		if (lu=="BIC") 
+		{
+			scoreTri=BIC;
+		}
+		
+	}
+	else if (argc!=5 && argc!=7 && argc!=8)
+	{
+		cout << argc << endl;
 		throw Erreur("Nombre d'arguments incorrect.");	
 	}
 	
@@ -391,7 +437,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	
 	sortie.setRetourLigne(&ParametresCluster::retourLigne[0]);
 	entree.setRetourLigne(&ParametresCluster::retourLigne[0]);
-
+	
 	sortie.setDelimMots(' ');
 	entree.setDelimMots(' ');
 	
@@ -454,7 +500,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	vector<string> entete(0);
 	listeResultats resultats(0);
 	ligneResultat resCourant;
-	
+	reel scoreCourant;
 	for (int i(0); i<=dimensionMax; ++i)
 	{
 		ossDim.str("");
@@ -465,15 +511,27 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		
 		int tailleNom(i+1);
 		
-		for(int j(0); j<nbBlocs; ++j)
+		
+		// Cas où il n'y a qu'un seul fichier
+		if (nbBlocs==1) 
 		{
-			oss.str("");
-			oss.clear();
-			oss << j;
-			ossNumPremierMarq.str("");
-			ossNumPremierMarq.clear();
-			ossNumPremierMarq << j*tailleBlocs;
-			nomsFichiers[j]=(chemin+nomFichierMarq.first+ParametresCluster::suffixeMarq+oss.str()+"-"+ossNumPremierMarq.str()+ParametresCluster::suffixeResPartiel+ossDim.str()+nomFichierMarq.second);
+			nomsFichiers[0]=(chemin+nomFichierMarq.first+ParametresCluster::suffixeResPartiel+ossDim.str()+nomFichierMarq.second);
+			cout << nomsFichiers[0] << endl;
+		}
+		else 
+		{
+			
+			for(int j(0); j<nbBlocs; ++j)
+			{
+				oss.str("");
+				oss.clear();
+				oss << j;
+				ossNumPremierMarq.str("");
+				ossNumPremierMarq.clear();
+				ossNumPremierMarq << j*tailleBlocs;
+				nomsFichiers[j]=(chemin+nomFichierMarq.first+ParametresCluster::suffixeMarq+oss.str()+"-"+ossNumPremierMarq.str()+ParametresCluster::suffixeResPartiel+ossDim.str()+nomFichierMarq.second);
+			}
+			
 		}
 		entree.initialise(nomsFichiers);
 		bool etatFlot(true);
@@ -487,18 +545,48 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 			entree.lecture(j, entete);
 			
 			// Pour chaque ligne, il faut lire le nom et les valeurs du modèle séparément
-			while(!entree.finFichier(j))
+			if (!seuilSelection || i==0) 
 			{
-				entree.lectureGroupe(j, resCourant.first, tailleNom, ' ');
-				entree.lecture(j, resCourant.second, ' ');
-				resultats.push_back(resCourant);
+				
+				while(!entree.finFichier(j))
+				{
+					entree.lectureGroupe(j, resCourant.first, tailleNom, ' ');
+					entree.lecture(j, resCourant.second, ' ');
+					resultats.push_back(resCourant);
+				}
+			}
+			else
+			{
+				while(!entree.finFichier(j))
+				{
+					entree.lectureGroupe(j, resCourant.first, tailleNom, ' ');
+					entree.lecture(j, resCourant.second, ' ');
+					if (scoreSel==Both)
+					{
+						scoreCourant=min(resCourant.second[numColonnes[G]], resCourant.second[numColonnes[Wald]]);
+					}
+					else if (scoreSel==G)
+					{
+						cout << numColonnes[G] << " " << resCourant.second.size() << endl;
+						scoreCourant=resCourant.second[numColonnes[G]];
+					}
+					else if (scoreSel==Wald)
+					{
+						scoreCourant=resCourant.second[numColonnes[Wald]];						
+					}
+					if (scoreCourant>=seuilScore)
+					{
+						resultats.push_back(resCourant);
+					}
+				}
+				
 			}
 			cout << "% "<<resultats.size() << endl; 
 		}
 		
 		if (i>0)
 		{
-			ComparaisonLignesResultats::setCase(2);
+			ComparaisonLignesResultats::setCase(numColonnes[scoreTri]);
 			sort(resultats.begin(), resultats.end(), ComparaisonLignesResultats::plusGrandQue);
 		}
 		
@@ -509,7 +597,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 			sortie.ecriture(i, resultats[k].first, false);
 			sortie.ecriture(i, resultats[k].second, true);
 		}
-			
+		
 		entree.fermeture();
 		
 		
