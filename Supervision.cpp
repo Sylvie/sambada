@@ -538,7 +538,11 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		etatFlot=entree.ouverture();
 		if (!etatFlot)
 		{
+			cerr << "plop"<< endl;
+
 			throw Erreur("Problème lors de l'ouverture des fichiers pour la dimension "+ossDim.str()+".");
+			cerr << "plop"<< endl;
+
 		}
 		for (int j(0); j<nbBlocs; ++j)
 		{
