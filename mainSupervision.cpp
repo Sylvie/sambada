@@ -34,13 +34,13 @@ int main(int argc, char *argv[])
 		cout << err.what() << endl;
 		exit(1);
 	}
-	time_t temps_interm(time(NULL));
-	cout << "Fin de la lecture : " << difftime(temps_interm, temps_start) << " s." << endl;
+	//time_t temps_interm(time(NULL));
+	//cout << "Fin de la lecture : " << difftime(temps_interm, temps_start) << " s." << endl;
 	
 	
 	time_t temps_fin_calculs(time(NULL));
-	cout << "Fin des calculs " << endl;
-	cout << "Temps écoulé : " << difftime(temps_fin_calculs, temps_interm) << " s." << endl;
+	//cout << "Fin des calculs " << endl;
+	cout << "Temps écoulé : " << difftime(temps_fin_calculs, temps_start) << " s." << endl;
 	
 	
 	time_t temps_stop(time(NULL));

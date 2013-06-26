@@ -92,5 +92,25 @@ protected:
 };
 
 
+class ComparaisonTablesResultats
+{
+public:
+	ComparaisonTablesResultats();
+	virtual ~ComparaisonTablesResultats();
+	
+	//static int getCase();
+	//static void setCase(int i);
+	
+	static bool plusPetitQue(const pair<int, reel>  &  r1, const pair<int, reel>  &  r2);
+	
+	static bool plusGrandQue(const pair<int, reel>  &  r1, const pair<int, reel>  &  r2);
+	
+protected:
+	//static int caseComparaisonResultats;
+	
+	ComparaisonTablesResultats(ComparaisonTablesResultats& c);
+};
+
+
 #endif // SUPERVISION_H
 

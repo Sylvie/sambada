@@ -361,6 +361,9 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 
 int Supervision::fusionResultats(int argc, char* argv[]) throw()
 {
+	time_t temps_start(time(NULL));
+	
+	
 	// nomProg nomFichierInput nbBlocs tailleBlocs dimMax
 	// nomProg nomFichierInput nbBlocs tailleBlocs dimMax choixScore seuilScore choixTri
 	bool seuilSelection(false);
@@ -433,7 +436,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		throw Erreur("Dimension des résultat incorrecte.");	
 	}
 	
-	time_t temps_start(time(NULL));
+//	time_t temps_start(time(NULL));
 	
 	sortie.setRetourLigne(&ParametresCluster::retourLigne[0]);
 	entree.setRetourLigne(&ParametresCluster::retourLigne[0]);
@@ -500,14 +503,35 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	vector<string> entete(0);
 	listeResultats resultats(0);
 	ligneResultat resCourant;
+	pair<int, reel> indiceCourant;
+	vector<pair<int,reel> > tableRes(0);
+	
+	typedef struct {int a; reel b;} chose;
+	cout << "& " << sizeof(ligneResultat) << " " << sizeof(pair<int,reel>)<< " " << sizeof(int)<< " " << sizeof(double)<< " " << sizeof(reel) << endl ;
+	ligneResultat v;
+	v.first=vector<string> (2,"Abracadabra343Vercingetorix");
+	v.second=vector<reel>(13, 83.6);
+	cout << "& " << sizeof(v) << " "<< sizeof(vector<string>) << " "<< sizeof(vector<reel>) << " "<< sizeof(string("Abracadabra343VercingetorixAbracadabra343VercingetorixAbracadabra343Vercingetorix"))<< endl;
+	int nombreRes(0);
 	reel scoreCourant;
+	time_t temps_fin_prep(time(NULL));
+	cout << "Temps initialisation: " << difftime(temps_fin_prep, temps_start) << endl;
 	for (int i(0); i<=dimensionMax; ++i)
 	{
+		time_t temps_debut_lecture(time(NULL));
+
 		ossDim.str("");
 		ossDim.clear();
 		ossDim << i;
 		
 		resultats.clear();
+		tableRes.clear();
+		time_t t1(time(NULL));
+		resultats.reserve(pow(10.0,7));
+		tableRes.reserve(pow(10.0,7));
+		time_t t2(time(NULL));
+		cout << "Temps reserve : " << difftime(t2, t1)<< endl;
+		nombreRes=0;
 		
 		int tailleNom(i+1);
 		
@@ -538,11 +562,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		etatFlot=entree.ouverture();
 		if (!etatFlot)
 		{
-			cerr << "plop"<< endl;
-
 			throw Erreur("Problème lors de l'ouverture des fichiers pour la dimension "+ossDim.str()+".");
-			cerr << "plop"<< endl;
-
 		}
 		for (int j(0); j<nbBlocs; ++j)
 		{
@@ -557,6 +577,9 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 					entree.lectureGroupe(j, resCourant.first, tailleNom, ' ');
 					entree.lecture(j, resCourant.second, ' ');
 					resultats.push_back(resCourant);
+					indiceCourant.first=nombreRes;
+					tableRes.push_back(indiceCourant);
+					++nombreRes;
 				}
 			}
 			else
@@ -571,36 +594,54 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 					}
 					else if (scoreSel==G)
 					{
-						cout << numColonnes[G] << " " << resCourant.second.size() << endl;
+						//cout << numColonnes[G] << " " << resCourant.second.size() << endl;
 						scoreCourant=resCourant.second[numColonnes[G]];
 					}
 					else if (scoreSel==Wald)
 					{
 						scoreCourant=resCourant.second[numColonnes[Wald]];						
 					}
+
+					/* Au cas où on veut sélectionner les pires modèles
+					 if (scoreCourant<=seuilScore)*/
+					
 					if (scoreCourant>=seuilScore)
 					{
+						
 						resultats.push_back(resCourant);
+						indiceCourant.first=nombreRes;
+						indiceCourant.second=scoreCourant;
+						tableRes.push_back(indiceCourant);
+						++nombreRes;
 					}
 				}
 				
 			}
 			cout << "% "<<resultats.size() << endl; 
 		}
-		
+		time_t temps_fin_lecture(time(NULL));
+		cout << "Temps lecture (dim " << i << "):" << difftime(temps_fin_lecture, temps_debut_lecture) << endl;
 		if (i>0)
 		{
-			ComparaisonLignesResultats::setCase(numColonnes[scoreTri]);
-			sort(resultats.begin(), resultats.end(), ComparaisonLignesResultats::plusGrandQue);
+			ComparaisonLignesResultats::setCase(2);
+			sort(tableRes.begin(), tableRes.end(), ComparaisonTablesResultats::plusGrandQue);
 		}
+		
+		time_t temps_fin_tri(time(NULL));
+		cout << "Temps tri (dim " << i << "):" << difftime(temps_fin_tri,temps_fin_lecture) << endl;
+
 		
 		int nbRes(resultats.size());
 		sortie.ecriture(i, entete, true);
 		for (int k(0); k<nbRes; ++k)
 		{
-			sortie.ecriture(i, resultats[k].first, false);
-			sortie.ecriture(i, resultats[k].second, true);
+			sortie.ecriture(i, resultats[tableRes[k].first].first, false);
+			sortie.ecriture(i, resultats[tableRes[k].first].second, true);
 		}
+		
+		time_t temps_fin_ecriture(time(NULL));
+		cout << "Temps ecriture (dim " << i << "):" << difftime(temps_fin_ecriture, temps_fin_tri) << endl;
+
 		
 		entree.fermeture();
 		
@@ -654,3 +695,34 @@ ComparaisonLignesResultats::ComparaisonLignesResultats(ComparaisonLignesResultat
 
 
 
+//int ComparaisonLignesResultats::caseComparaisonResultats=0;
+
+ComparaisonTablesResultats::ComparaisonTablesResultats()
+{}
+
+ComparaisonTablesResultats::~ComparaisonTablesResultats()
+{}
+
+/*int ComparaisonLignesResultats::getCase()
+{
+	return caseComparaisonResultats;
+}
+
+void ComparaisonLignesResultats::setCase(int i)
+{
+	caseComparaisonResultats=i;
+}*/
+
+bool ComparaisonTablesResultats::plusPetitQue(const pair<int, reel>  &  r1, const pair<int, reel>  &  r2) 
+{
+	return ((r1.second)<(r2.second));
+}
+
+bool ComparaisonTablesResultats::plusGrandQue(const pair<int, reel>  &  r1, const pair<int, reel>  &  r2) 
+{
+	return ((r1.second)>(r2.second));
+}
+
+
+ComparaisonTablesResultats::ComparaisonTablesResultats(ComparaisonTablesResultats& c)
+{}
