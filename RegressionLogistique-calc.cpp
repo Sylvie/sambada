@@ -2746,24 +2746,16 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			
 		}
 		
+		// On traite la mise en mémoire et la sauvegarde différemment
+		if ( (selModeles==all || modeleRetenu) && sauvegardeTempsReel)
+		{
+			ecritResultat(dim, resultat);
+		}
+		
 		// Il faut garder le modèle même s'il n'est pas signif dans le cas signif, pour les comparaison ultérieures
-		if (selModeles==all || modeleRetenu || (dim<dimensionMax))
+		if ((dim<dimensionMax) || ( (selModeles==all || modeleRetenu) && !sauvegardeTempsReel) )
 		{
 			resultats[dim].insert(resultat);
-			if (sauvegardeTempsReel)
-			{
-				ecritResultat(dim, resultat);
-				/*
-				 // No de marqueur
-				 sortie.ecriture(dim, resultat.first.first, false);
-				 
-				 // Liste des variables
-				 sortie.ecriture(dim, resultat.first.second, false);
-				 
-				 // Résultats
-				 sortie.ecriture(dim, resultat.second, true);
-				 */
-			}
 		}
 		
 		
