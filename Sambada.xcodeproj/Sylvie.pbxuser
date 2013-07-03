@@ -16,9 +16,9 @@
 	};
 	3F232592140243BC002A911B /* Supervision.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1380, 10335}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1380, 10517}}";
 			sepNavSelRange = "{9315, 0}";
-			sepNavVisRange = "{9237, 900}";
+			sepNavVisRange = "{9237, 870}";
 			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
 		};
 	};
@@ -431,9 +431,9 @@
 	3F47FCD716BEC69300A7943C /* mainSupervision.cpp */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {778, 702}}";
-			sepNavSelRange = "{304, 33}";
-			sepNavVisRange = "{34, 851}";
-			sepNavWindowFrame = "{{1467, -277}, {837, 690}}";
+			sepNavSelRange = "{241, 0}";
+			sepNavVisRange = "{34, 862}";
+			sepNavWindowFrame = "{{400, -274}, {837, 690}}";
 		};
 	};
 	3F53D97416F34ADC0001FF1C /* RegressionLogistique-calc.cpp:1134 */ = {
@@ -946,7 +946,7 @@
 		isa = PBXTextBookmark;
 		fRef = 3F92D83217847223001F2900 /* recodeBayEnv.cpp */;
 		rLen = 0;
-		rLoc = 9223372036854775807;
+		rLoc = 9223372036854775808;
 		rType = 0;
 	};
 	3F92D83217847223001F2900 /* recodeBayEnv.cpp */ = {
@@ -968,20 +968,16 @@
 	};
 	3F92D83417847223001F2900 /* recodeBayEnv.cpp */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
 		name = recodeBayEnv.cpp;
 		path = "/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/Environnement/Recodage/recodeBayEnv.cpp";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1349, 8762}}";
-			sepNavSelRange = "{9294, 8}";
-			sepNavVisRange = "{0, 1537}";
-		};
 	};
 	3F92D83717847223001F2900 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 3F92D83817847223001F2900 /* NotANumber.cpp */;
 		rLen = 0;
-		rLoc = 9223372036854775970;
+		rLoc = 9223372036854775808;
 		rType = 0;
 	};
 	3F92D83817847223001F2900 /* NotANumber.cpp */ = {
@@ -1003,14 +999,10 @@
 	};
 	3F92D83A17847223001F2900 /* NotANumber.cpp */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
 		name = NotANumber.cpp;
 		path = /Users/Sylvie/Desktop/NotANumber.cpp;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1132, 819}}";
-			sepNavSelRange = "{382, 0}";
-			sepNavVisRange = "{0, 841}";
-		};
 	};
 	3F92D83B17847223001F2900 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1026,7 +1018,7 @@
 		isa = PBXTextBookmark;
 		fRef = 3F92D83F17847223001F2900 /* copySortData.cpp */;
 		rLen = 0;
-		rLoc = 9223372036854775807;
+		rLoc = 9223372036854775808;
 		rType = 0;
 	};
 	3F92D83F17847223001F2900 /* copySortData.cpp */ = {
@@ -1048,14 +1040,10 @@
 	};
 	3F92D84117847223001F2900 /* copySortData.cpp */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
 		name = copySortData.cpp;
 		path = "/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/Environnement/copySortData.cpp";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1132, 2366}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{68, 2003}";
-		};
 	};
 	3F92D84A17847260001F2900 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1106,6 +1094,34 @@
 		rType = 0;
 		vrLen = 2003;
 		vrLoc = 68;
+	};
+	3F92D87D17848664001F2900 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 3F47FCD716BEC69300A7943C /* mainSupervision.cpp */;
+	};
+	3F92D88217848669001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD716BEC69300A7943C /* mainSupervision.cpp */;
+		name = "mainSupervision.cpp: 18";
+		rLen = 33;
+		rLoc = 315;
+		rType = 0;
+		vrLen = 851;
+		vrLoc = 34;
+	};
+	3F92D88A17848682001F2900 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+	};
+	3F92D88D17848686001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 417";
+		rLen = 0;
+		rLoc = 9315;
+		rType = 0;
+		vrLen = 870;
+		vrLoc = 9237;
 	};
 	3FA819E116EFEBDF009B04CF /* RegressionLogistique-calc.cpp:30 */ = {
 		isa = PBXFileBreakpoint;
@@ -1570,8 +1586,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 394549645;
-			PBXWorkspaceStateSaveDate = 394549645;
+			PBXPerProjectTemplateStateSaveDate = 394561119;
+			PBXWorkspaceStateSaveDate = 394561119;
 		};
 		perUserProjectItems = {
 			3F2C15AC1781D2C4007B02A4 = 3F2C15AC1781D2C4007B02A4 /* PBXTextBookmark */;
@@ -1585,23 +1601,27 @@
 			3F92D7F2178455D3001F2900 = 3F92D7F2178455D3001F2900 /* PBXTextBookmark */;
 			3F92D7F3178455D3001F2900 = 3F92D7F3178455D3001F2900 /* PBXTextBookmark */;
 			3F92D7F4178455D3001F2900 = 3F92D7F4178455D3001F2900 /* PBXTextBookmark */;
-			3F92D81D17845991001F2900 /* PBXBookmark */ = 3F92D81D17845991001F2900 /* PBXBookmark */;
-			3F92D81E17845AEF001F2900 /* PBXBookmark */ = 3F92D81E17845AEF001F2900 /* PBXBookmark */;
-			3F92D82317845B06001F2900 /* PBXTextBookmark */ = 3F92D82317845B06001F2900 /* PBXTextBookmark */;
-			3F92D82617845B06001F2900 /* PBXTextBookmark */ = 3F92D82617845B06001F2900 /* PBXTextBookmark */;
-			3F92D82E17847223001F2900 /* PBXTextBookmark */ = 3F92D82E17847223001F2900 /* PBXTextBookmark */;
-			3F92D83117847223001F2900 /* PBXTextBookmark */ = 3F92D83117847223001F2900 /* PBXTextBookmark */;
-			3F92D83317847223001F2900 /* PBXTextBookmark */ = 3F92D83317847223001F2900 /* PBXTextBookmark */;
-			3F92D83717847223001F2900 /* PBXTextBookmark */ = 3F92D83717847223001F2900 /* PBXTextBookmark */;
-			3F92D83917847223001F2900 /* PBXTextBookmark */ = 3F92D83917847223001F2900 /* PBXTextBookmark */;
-			3F92D83B17847223001F2900 /* PBXTextBookmark */ = 3F92D83B17847223001F2900 /* PBXTextBookmark */;
-			3F92D83E17847223001F2900 /* PBXTextBookmark */ = 3F92D83E17847223001F2900 /* PBXTextBookmark */;
-			3F92D84017847223001F2900 /* PBXTextBookmark */ = 3F92D84017847223001F2900 /* PBXTextBookmark */;
-			3F92D84A17847260001F2900 /* PBXTextBookmark */ = 3F92D84A17847260001F2900 /* PBXTextBookmark */;
-			3F92D84B17847260001F2900 /* PBXTextBookmark */ = 3F92D84B17847260001F2900 /* PBXTextBookmark */;
-			3F92D84C17847260001F2900 /* PBXTextBookmark */ = 3F92D84C17847260001F2900 /* PBXTextBookmark */;
-			3F92D84D17847260001F2900 /* PBXTextBookmark */ = 3F92D84D17847260001F2900 /* PBXTextBookmark */;
-			3F92D84E17847260001F2900 /* PBXTextBookmark */ = 3F92D84E17847260001F2900 /* PBXTextBookmark */;
+			3F92D81D17845991001F2900 = 3F92D81D17845991001F2900 /* PBXBookmark */;
+			3F92D81E17845AEF001F2900 = 3F92D81E17845AEF001F2900 /* PBXBookmark */;
+			3F92D82317845B06001F2900 = 3F92D82317845B06001F2900 /* PBXTextBookmark */;
+			3F92D82617845B06001F2900 = 3F92D82617845B06001F2900 /* PBXTextBookmark */;
+			3F92D82E17847223001F2900 = 3F92D82E17847223001F2900 /* PBXTextBookmark */;
+			3F92D83117847223001F2900 = 3F92D83117847223001F2900 /* PBXTextBookmark */;
+			3F92D83317847223001F2900 = 3F92D83317847223001F2900 /* PBXTextBookmark */;
+			3F92D83717847223001F2900 = 3F92D83717847223001F2900 /* PBXTextBookmark */;
+			3F92D83917847223001F2900 = 3F92D83917847223001F2900 /* PBXTextBookmark */;
+			3F92D83B17847223001F2900 = 3F92D83B17847223001F2900 /* PBXTextBookmark */;
+			3F92D83E17847223001F2900 = 3F92D83E17847223001F2900 /* PBXTextBookmark */;
+			3F92D84017847223001F2900 = 3F92D84017847223001F2900 /* PBXTextBookmark */;
+			3F92D84A17847260001F2900 = 3F92D84A17847260001F2900 /* PBXTextBookmark */;
+			3F92D84B17847260001F2900 = 3F92D84B17847260001F2900 /* PBXTextBookmark */;
+			3F92D84C17847260001F2900 = 3F92D84C17847260001F2900 /* PBXTextBookmark */;
+			3F92D84D17847260001F2900 = 3F92D84D17847260001F2900 /* PBXTextBookmark */;
+			3F92D84E17847260001F2900 = 3F92D84E17847260001F2900 /* PBXTextBookmark */;
+			3F92D87D17848664001F2900 /* PBXBookmark */ = 3F92D87D17848664001F2900 /* PBXBookmark */;
+			3F92D88217848669001F2900 /* PBXTextBookmark */ = 3F92D88217848669001F2900 /* PBXTextBookmark */;
+			3F92D88A17848682001F2900 /* PBXBookmark */ = 3F92D88A17848682001F2900 /* PBXBookmark */;
+			3F92D88D17848686001F2900 /* PBXTextBookmark */ = 3F92D88D17848686001F2900 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 3FD898D5135DC94A00D02D21 /* Source Control */;
 		userBookmarkGroup = 3F54752C1378170E00879439 /* PBXBookmarkGroup */;
