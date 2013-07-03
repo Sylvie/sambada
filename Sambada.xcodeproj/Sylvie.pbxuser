@@ -16,9 +16,9 @@
 	};
 	3F232592140243BC002A911B /* Supervision.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1482, 9490}}";
-			sepNavSelRange = "{14521, 0}";
-			sepNavVisRange = "{13212, 1699}";
+			sepNavIntBoundsRect = "{{0, 0}, {1380, 10335}}";
+			sepNavSelRange = "{9315, 0}";
+			sepNavVisRange = "{9237, 900}";
 			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
 		};
 	};
@@ -97,7 +97,7 @@
 		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
 		name = "Supervision.cpp: 511";
 		rLen = 0;
-		rLoc = 11789;
+		rLoc = 11941;
 		rType = 0;
 		vrLen = 1700;
 		vrLoc = 10681;
@@ -111,7 +111,7 @@
 		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
 		name = "Supervision.cpp: 592";
 		rLen = 1186;
-		rLoc = 14190;
+		rLoc = 14342;
 		rType = 0;
 		vrLen = 1229;
 		vrLoc = 16961;
@@ -268,7 +268,7 @@
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F3C4B46177731BA0027E053 /* Supervision.cpp:380 */ = {
+	3F3C4B46177731BA0027E053 /* Supervision.cpp:381 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -280,13 +280,13 @@
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 380;
+		lineNumber = 381;
 		location = Supervision;
 		modificationTime = 393795036.768676;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F3C4B9B177735720027E053 /* Supervision.cpp:575 */ = {
+	3F3C4B9B177735720027E053 /* Supervision.cpp:588 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -298,7 +298,7 @@
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 575;
+		lineNumber = 588;
 		location = Supervision;
 		modificationTime = 393795036.817159;
 		originalNumberOfMultipleMatches = 1;
@@ -750,7 +750,7 @@
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F6852141778D3C90028FF0E /* Supervision.cpp:367 */ = {
+	3F6852141778D3C90028FF0E /* Supervision.cpp:368 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -762,13 +762,13 @@
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
 		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 367;
+		lineNumber = 368;
 		location = Supervision;
 		modificationTime = 393795037.2062448;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F68521F1778D4890028FF0E /* Supervision.cpp:506 */ = {
+	3F68521F1778D4890028FF0E /* Supervision.cpp:519 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -780,13 +780,13 @@
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 506;
+		lineNumber = 519;
 		location = Supervision;
 		modificationTime = 393795037.0521621;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F6852391778D5D60028FF0E /* Supervision.cpp:566 */ = {
+	3F6852391778D5D60028FF0E /* Supervision.cpp:579 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -798,7 +798,7 @@
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 566;
+		lineNumber = 579;
 		location = Supervision;
 		modificationTime = 393795036.954625;
 		originalNumberOfMultipleMatches = 1;
@@ -849,7 +849,7 @@
 		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
 		name = "Supervision.cpp: 592";
 		rLen = 1186;
-		rLoc = 14190;
+		rLoc = 14342;
 		rType = 0;
 		vrLen = 1319;
 		vrLoc = 16871;
@@ -869,7 +869,7 @@
 		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
 		name = "Supervision.cpp: 636";
 		rLen = 0;
-		rLoc = 15630;
+		rLoc = 15782;
 		rType = 0;
 		vrLen = 409;
 		vrLoc = 9108;
@@ -879,7 +879,7 @@
 		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
 		name = "Supervision.cpp: 635";
 		rLen = 0;
-		rLoc = 15594;
+		rLoc = 15746;
 		rType = 0;
 		vrLen = 823;
 		vrLoc = 14972;
@@ -889,7 +889,7 @@
 		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
 		name = "Supervision.cpp: 641";
 		rLen = 0;
-		rLoc = 15806;
+		rLoc = 15959;
 		rType = 0;
 		vrLen = 627;
 		vrLoc = 15175;
@@ -917,7 +917,7 @@
 		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
 		name = "Supervision.cpp: 600";
 		rLen = 0;
-		rLoc = 14521;
+		rLoc = 14673;
 		rType = 0;
 		vrLen = 1699;
 		vrLoc = 13212;
@@ -931,6 +931,181 @@
 		rType = 0;
 		vrLen = 1325;
 		vrLoc = 90286;
+	};
+	3F92D82E17847223001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 461";
+		rLen = 0;
+		rLoc = 10164;
+		rType = 0;
+		vrLen = 1302;
+		vrLoc = 9751;
+	};
+	3F92D83117847223001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D83217847223001F2900 /* recodeBayEnv.cpp */;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+		rType = 0;
+	};
+	3F92D83217847223001F2900 /* recodeBayEnv.cpp */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = recodeBayEnv.cpp;
+		path = "/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/Environnement/Recodage/recodeBayEnv.cpp";
+		sourceTree = "<absolute>";
+	};
+	3F92D83317847223001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D83417847223001F2900 /* recodeBayEnv.cpp */;
+		name = "recodeBayEnv.cpp: 311";
+		rLen = 8;
+		rLoc = 9294;
+		rType = 0;
+		vrLen = 1185;
+		vrLoc = 8241;
+	};
+	3F92D83417847223001F2900 /* recodeBayEnv.cpp */ = {
+		isa = PBXFileReference;
+		name = recodeBayEnv.cpp;
+		path = "/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/Environnement/Recodage/recodeBayEnv.cpp";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1349, 8762}}";
+			sepNavSelRange = "{9294, 8}";
+			sepNavVisRange = "{0, 1537}";
+		};
+	};
+	3F92D83717847223001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D83817847223001F2900 /* NotANumber.cpp */;
+		rLen = 0;
+		rLoc = 9223372036854775970;
+		rType = 0;
+	};
+	3F92D83817847223001F2900 /* NotANumber.cpp */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = NotANumber.cpp;
+		path = /Users/Sylvie/Desktop/NotANumber.cpp;
+		sourceTree = "<absolute>";
+	};
+	3F92D83917847223001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D83A17847223001F2900 /* NotANumber.cpp */;
+		name = "NotANumber.cpp: 25";
+		rLen = 0;
+		rLoc = 382;
+		rType = 0;
+		vrLen = 841;
+		vrLoc = 0;
+	};
+	3F92D83A17847223001F2900 /* NotANumber.cpp */ = {
+		isa = PBXFileReference;
+		name = NotANumber.cpp;
+		path = /Users/Sylvie/Desktop/NotANumber.cpp;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1132, 819}}";
+			sepNavSelRange = "{382, 0}";
+			sepNavVisRange = "{0, 841}";
+		};
+	};
+	3F92D83B17847223001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 2761";
+		rLen = 0;
+		rLoc = 82979;
+		rType = 0;
+		vrLen = 1325;
+		vrLoc = 90286;
+	};
+	3F92D83E17847223001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D83F17847223001F2900 /* copySortData.cpp */;
+		rLen = 0;
+		rLoc = 9223372036854775807;
+		rType = 0;
+	};
+	3F92D83F17847223001F2900 /* copySortData.cpp */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = copySortData.cpp;
+		path = "/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/Environnement/copySortData.cpp";
+		sourceTree = "<absolute>";
+	};
+	3F92D84017847223001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D84117847223001F2900 /* copySortData.cpp */;
+		name = "copySortData.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 2003;
+		vrLoc = 68;
+	};
+	3F92D84117847223001F2900 /* copySortData.cpp */ = {
+		isa = PBXFileReference;
+		name = copySortData.cpp;
+		path = "/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/Environnement/copySortData.cpp";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1132, 2366}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{68, 2003}";
+		};
+	};
+	3F92D84A17847260001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 417";
+		rLen = 0;
+		rLoc = 9315;
+		rType = 0;
+		vrLen = 900;
+		vrLoc = 9237;
+	};
+	3F92D84B17847260001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D83417847223001F2900 /* recodeBayEnv.cpp */;
+		name = "recodeBayEnv.cpp: 311";
+		rLen = 8;
+		rLoc = 9294;
+		rType = 0;
+		vrLen = 1537;
+		vrLoc = 0;
+	};
+	3F92D84C17847260001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D83A17847223001F2900 /* NotANumber.cpp */;
+		name = "NotANumber.cpp: 25";
+		rLen = 0;
+		rLoc = 382;
+		rType = 0;
+		vrLen = 841;
+		vrLoc = 0;
+	};
+	3F92D84D17847260001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 2761";
+		rLen = 0;
+		rLoc = 82979;
+		rType = 0;
+		vrLen = 1325;
+		vrLoc = 90286;
+	};
+	3F92D84E17847260001F2900 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F92D84117847223001F2900 /* copySortData.cpp */;
+		name = "copySortData.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 2003;
+		vrLoc = 68;
 	};
 	3FA819E116EFEBDF009B04CF /* RegressionLogistique-calc.cpp:30 */ = {
 		isa = PBXFileBreakpoint;
@@ -1262,11 +1437,11 @@
 			3F67C1FD173AB0BE000FCD18 /* RegressionLogistique-io.cpp:1623 */,
 			3F67C20F173AB13C000FCD18 /* RegressionLogistique-io.cpp:1631 */,
 			3F67C21F173AB39C000FCD18 /* RegressionLogistique-calc.cpp:2936 */,
-			3F3C4B46177731BA0027E053 /* Supervision.cpp:380 */,
-			3F3C4B9B177735720027E053 /* Supervision.cpp:575 */,
-			3F6852141778D3C90028FF0E /* Supervision.cpp:367 */,
-			3F68521F1778D4890028FF0E /* Supervision.cpp:506 */,
-			3F6852391778D5D60028FF0E /* Supervision.cpp:566 */,
+			3F3C4B46177731BA0027E053 /* Supervision.cpp:381 */,
+			3F3C4B9B177735720027E053 /* Supervision.cpp:588 */,
+			3F6852141778D3C90028FF0E /* Supervision.cpp:368 */,
+			3F68521F1778D4890028FF0E /* Supervision.cpp:519 */,
+			3F6852391778D5D60028FF0E /* Supervision.cpp:579 */,
 		);
 		codeSenseManager = 3FD898D6135DC94A00D02D21 /* Code sense */;
 		executables = (
@@ -1414,6 +1589,19 @@
 			3F92D81E17845AEF001F2900 /* PBXBookmark */ = 3F92D81E17845AEF001F2900 /* PBXBookmark */;
 			3F92D82317845B06001F2900 /* PBXTextBookmark */ = 3F92D82317845B06001F2900 /* PBXTextBookmark */;
 			3F92D82617845B06001F2900 /* PBXTextBookmark */ = 3F92D82617845B06001F2900 /* PBXTextBookmark */;
+			3F92D82E17847223001F2900 /* PBXTextBookmark */ = 3F92D82E17847223001F2900 /* PBXTextBookmark */;
+			3F92D83117847223001F2900 /* PBXTextBookmark */ = 3F92D83117847223001F2900 /* PBXTextBookmark */;
+			3F92D83317847223001F2900 /* PBXTextBookmark */ = 3F92D83317847223001F2900 /* PBXTextBookmark */;
+			3F92D83717847223001F2900 /* PBXTextBookmark */ = 3F92D83717847223001F2900 /* PBXTextBookmark */;
+			3F92D83917847223001F2900 /* PBXTextBookmark */ = 3F92D83917847223001F2900 /* PBXTextBookmark */;
+			3F92D83B17847223001F2900 /* PBXTextBookmark */ = 3F92D83B17847223001F2900 /* PBXTextBookmark */;
+			3F92D83E17847223001F2900 /* PBXTextBookmark */ = 3F92D83E17847223001F2900 /* PBXTextBookmark */;
+			3F92D84017847223001F2900 /* PBXTextBookmark */ = 3F92D84017847223001F2900 /* PBXTextBookmark */;
+			3F92D84A17847260001F2900 /* PBXTextBookmark */ = 3F92D84A17847260001F2900 /* PBXTextBookmark */;
+			3F92D84B17847260001F2900 /* PBXTextBookmark */ = 3F92D84B17847260001F2900 /* PBXTextBookmark */;
+			3F92D84C17847260001F2900 /* PBXTextBookmark */ = 3F92D84C17847260001F2900 /* PBXTextBookmark */;
+			3F92D84D17847260001F2900 /* PBXTextBookmark */ = 3F92D84D17847260001F2900 /* PBXTextBookmark */;
+			3F92D84E17847260001F2900 /* PBXTextBookmark */ = 3F92D84E17847260001F2900 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 3FD898D5135DC94A00D02D21 /* Source Control */;
 		userBookmarkGroup = 3F54752C1378170E00879439 /* PBXBookmarkGroup */;
