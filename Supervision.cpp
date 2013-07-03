@@ -411,17 +411,20 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		}
 		
 	}
-	char sepPop(' ');
+	char delimMots(' ');
 	if (argc==9) 
 	{
-		if (strcmp(argv[8], "\t"))
+		string tempDelim(argv[8]);
+		if (tempDelim == "\\t")
 		{
-			sepPop='\t';
+			cout << "Word are separated by tabulations."<<endl;
+			delimMots='\t';
 		}
 		else
 		{
-			sepPop=*argv[8];
+			delimMots=tempDelim[0];
 		}
+		
 	}
 	else if (argc!=5 && argc!=7 && argc!=8 && argc!=9)
 	{
@@ -458,8 +461,8 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	sortie.setRetourLigne(&ParametresCluster::retourLigne[0]);
 	entree.setRetourLigne(&ParametresCluster::retourLigne[0]);
 	
-	sortie.setDelimMots(sepPop);
-	entree.setDelimMots(sepPop);
+	sortie.setDelimMots(delimMots);
+	entree.setDelimMots(delimMots);
 	
 	nomFichierMarq.first=argv[1];
 	
@@ -575,6 +578,27 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 			}
 			
 		}
+		
+		// Il faut vérifier le type de fin de ligne
+		if (i==0)
+		{
+			string tempRetourLigne("");
+			ifstream monfichier(nomsFichiers[0].c_str());
+			if (monfichier.fail())
+			{
+				throw Erreur("Problème lors de l'ouverture d'un fichier pour la reconnaissance des fins de lignes.");
+			}
+			else
+			{
+				toolbox::chercheRetourLigne(monfichier, tempRetourLigne);
+				sortie.setRetourLigne(tempRetourLigne);
+				entree.setRetourLigne(tempRetourLigne);
+				monfichier.close();
+
+			}
+		}
+		
+		
 		entree.initialise(nomsFichiers);
 		bool etatFlot(true);
 		etatFlot=entree.ouverture();
@@ -584,7 +608,9 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		}
 		for (int j(0); j<nbBlocs; ++j)
 		{
-			entree.lecture(j, entete);
+			
+			
+			entree.lecture(j, entete, delimMots);
 			
 			// Pour chaque ligne, il faut lire le nom et les valeurs du modèle séparément
 			if (i==0)
@@ -592,8 +618,8 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 				// On prend tous les modèles neutres.
 				while(!entree.finFichier(j))
 				{
-					entree.lectureGroupe(j, resCourant.etiquette, tailleNom);
-					entree.lecture(j, resCourant.valeurs);
+					entree.lectureGroupe(j, resCourant.etiquette, tailleNom, delimMots);
+					entree.lecture(j, resCourant.valeurs, delimMots);
 					resultats.push_back(resCourant);
 					//indiceCourant.first=nombreRes;
 					//tableRes.push_back(indiceCourant);
@@ -605,8 +631,8 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 			{
 				while(!entree.finFichier(j))
 				{
-					entree.lectureGroupe(j, resCourant.etiquette, tailleNom);
-					entree.lecture(j, resCourant.valeurs);
+					entree.lectureGroupe(j, resCourant.etiquette, tailleNom, delimMots);
+					entree.lecture(j, resCourant.valeurs,delimMots);
 					codeErreur=toolbox::conversion<int>(resCourant.valeurs[numErreur]);
 					
 					//On ne garde que les modèles sans erreurs
