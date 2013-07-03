@@ -597,7 +597,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 					codeErreur=toolbox::conversion<int>(resCourant.valeurs[numErreur]);
 					
 					//On ne garde que les modèles sans erreurs
-					if (codeErreur==0 || codeErreur==6)
+					if (codeErreur==0 || codeErreur==6 || codeErreur==7)
 					{
 						if (scoreSel==Both)
 						{
