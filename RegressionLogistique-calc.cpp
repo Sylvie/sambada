@@ -2258,6 +2258,11 @@ int RegressionLogistique::creeModelesGlobaux()
 	// On ne prend en compte que les marqueurs actifs
 	for (int i(0); i<nbMarqActifs; ++i)
 	{
+		if(sauvegardeTempsReel)
+{
+		resultats.clear();
+		resultats.resize(dimensionMax+1);
+}
 		if (i%1000==0)
 		{
 			cout << i << "\n";
