@@ -372,6 +372,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	typeScore scoreTri(Wald);
 	
 	// Lien entre le type de score et le numéro de colonne
+	// Les numéros ne changent pas en fonction de la dimension!
 	map<typeScore, int> numColonnes;
 	numColonnes.insert(make_pair(G,1));
 	numColonnes.insert(make_pair(Wald,2));
@@ -415,6 +416,9 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		throw Erreur("Nombre d'arguments incorrect.");	
 	}
 	
+	// Numeros des colonnes
+	int numErreur(3), numSel(numColonnes[scoreSel]), numTri(numColonnes[scoreTri]);
+	
 	std::istringstream iss;
 	iss.str(argv[2]);
 	iss>>nbBlocs;
@@ -436,7 +440,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		throw Erreur("Dimension des résultat incorrecte.");	
 	}
 	
-//	time_t temps_start(time(NULL));
+	//	time_t temps_start(time(NULL));
 	
 	sortie.setRetourLigne(&ParametresCluster::retourLigne[0]);
 	entree.setRetourLigne(&ParametresCluster::retourLigne[0]);
@@ -501,34 +505,34 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	
 	// En-têtes
 	vector<string> entete(0);
-	listeResultats resultats(0);
-	ligneResultat resCourant;
-	pair<int, reel> indiceCourant;
-	vector<pair<int,reel> > tableRes(0);
+	ListeModeles resultats(0);
+	Modele resCourant;
+	//pair<int, reel> indiceCourant;
+	//vector<pair<int,reel> > tableRes(0);
 	
 	typedef struct {int a; reel b;} chose;
-	cout << "& " << sizeof(ligneResultat) << " " << sizeof(pair<int,reel>)<< " " << sizeof(int)<< " " << sizeof(double)<< " " << sizeof(reel) << endl ;
-	ligneResultat v;
-	v.first=vector<string> (2,"Abracadabra343Vercingetorix");
-	v.second=vector<reel>(13, 83.6);
-	cout << "& " << sizeof(v) << " "<< sizeof(vector<string>) << " "<< sizeof(vector<reel>) << " "<< sizeof(string("Abracadabra343VercingetorixAbracadabra343VercingetorixAbracadabra343Vercingetorix"))<< endl;
-	int nombreRes(0);
+	cout << "& " << sizeof(Modele) << " " << sizeof(ListeModeles)<< " " << sizeof(int)<< " " << sizeof(double)<< " " << sizeof(reel) << endl ;
+	//ligneResultat v;
+	//v.first=vector<string> (2,"Abracadabra343Vercingetorix");
+	//v.second=vector<reel>(13, 83.6);
+	//cout << "& " << sizeof(v) << " "<< sizeof(vector<string>) << " "<< sizeof(vector<reel>) << " "<< sizeof(string("Abracadabra343VercingetorixAbracadabra343VercingetorixAbracadabra343Vercingetorix"))<< endl;
+	int nombreRes(0), codeErreur(0);
 	reel scoreCourant;
 	time_t temps_fin_prep(time(NULL));
 	cout << "Temps initialisation: " << difftime(temps_fin_prep, temps_start) << endl;
 	for (int i(0); i<=dimensionMax; ++i)
 	{
 		time_t temps_debut_lecture(time(NULL));
-
+		
 		ossDim.str("");
 		ossDim.clear();
 		ossDim << i;
 		
 		resultats.clear();
-		tableRes.clear();
+		//tableRes.clear();
 		time_t t1(time(NULL));
 		resultats.reserve(pow(10.0,7));
-		tableRes.reserve(pow(10.0,7));
+		//tableRes.reserve(pow(10.0,7));
 		time_t t2(time(NULL));
 		cout << "Temps reserve : " << difftime(t2, t1)<< endl;
 		nombreRes=0;
@@ -539,6 +543,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		// Cas où il n'y a qu'un seul fichier
 		if (nbBlocs==1) 
 		{
+			// Le vecteur a déjà la bonne taille
 			nomsFichiers[0]=(chemin+nomFichierMarq.first+ParametresCluster::suffixeResPartiel+ossDim.str()+nomFichierMarq.second);
 			cout << nomsFichiers[0] << endl;
 		}
@@ -569,79 +574,91 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 			entree.lecture(j, entete);
 			
 			// Pour chaque ligne, il faut lire le nom et les valeurs du modèle séparément
-			if (!seuilSelection || i==0) 
+			if (i==0)
 			{
-				
+				// On prend tous les modèles neutres.
 				while(!entree.finFichier(j))
 				{
-					entree.lectureGroupe(j, resCourant.first, tailleNom, ' ');
-					entree.lecture(j, resCourant.second, ' ');
+					entree.lectureGroupe(j, resCourant.etiquette, tailleNom);
+					entree.lecture(j, resCourant.valeurs);
 					resultats.push_back(resCourant);
-					indiceCourant.first=nombreRes;
-					tableRes.push_back(indiceCourant);
+					//indiceCourant.first=nombreRes;
+					//tableRes.push_back(indiceCourant);
 					++nombreRes;
 				}
+				
 			}
 			else
 			{
 				while(!entree.finFichier(j))
 				{
-					entree.lectureGroupe(j, resCourant.first, tailleNom, ' ');
-					entree.lecture(j, resCourant.second, ' ');
-					if (scoreSel==Both)
-					{
-						scoreCourant=min(resCourant.second[numColonnes[G]], resCourant.second[numColonnes[Wald]]);
-					}
-					else if (scoreSel==G)
-					{
-						//cout << numColonnes[G] << " " << resCourant.second.size() << endl;
-						scoreCourant=resCourant.second[numColonnes[G]];
-					}
-					else if (scoreSel==Wald)
-					{
-						scoreCourant=resCourant.second[numColonnes[Wald]];						
-					}
-
-					/* Au cas où on veut sélectionner les pires modèles
-					 if (scoreCourant<=seuilScore)*/
+					entree.lectureGroupe(j, resCourant.etiquette, tailleNom);
+					entree.lecture(j, resCourant.valeurs);
+					codeErreur=toolbox::conversion<int>(resCourant.valeurs[numErreur]);
 					
-					if (scoreCourant>=seuilScore)
+					//On ne garde que les modèles sans erreurs
+					if (codeErreur==0 || codeErreur==6)
 					{
+						if (scoreSel==Both)
+						{
+							scoreCourant=min(toolbox::conversion<reel>(resCourant.valeurs[numColonnes[G]]), toolbox::conversion<reel>(resCourant.valeurs[numColonnes[Wald]]));
+						}
+						else
+						{
+							//cout << numColonnes[G] << " " << resCourant.second.size() << endl;
+							scoreCourant=toolbox::conversion<reel>(resCourant.valeurs[numSel]);
+						}
 						
-						resultats.push_back(resCourant);
-						indiceCourant.first=nombreRes;
-						indiceCourant.second=scoreCourant;
-						tableRes.push_back(indiceCourant);
-						++nombreRes;
+						
+						
+						if (!seuilSelection ||  scoreCourant>=seuilScore)
+						{
+							resCourant.scoreSel=scoreCourant;
+							resCourant.scoreTri=toolbox::conversion<reel>(resCourant.valeurs[numTri]);
+							resultats.push_back(resCourant);
+							//indiceCourant.first=nombreRes;
+							//indiceCourant.second=scoreCourant;
+							//tableRes.push_back(indiceCourant);
+							++nombreRes;
+						}
 					}
+					
 				}
-				
+				cout << "% "<<resultats.size() << endl; 
 			}
-			cout << "% "<<resultats.size() << endl; 
 		}
 		time_t temps_fin_lecture(time(NULL));
 		cout << "Temps lecture (dim " << i << "):" << difftime(temps_fin_lecture, temps_debut_lecture) << endl;
 		if (i>0)
 		{
-			ComparaisonLignesResultats::setCase(2);
-			sort(tableRes.begin(), tableRes.end(), ComparaisonTablesResultats::plusGrandQue);
+			//ComparaisonLignesResultats::setCase(2);
+			if (scoreTri== G || scoreTri==Wald)
+			{
+			sort(resultats.begin(), resultats.end(), ComparaisonModeles::plusGrandQue);
+			}
+			else
+			{
+				sort(resultats.begin(), resultats.end(), ComparaisonModeles::plusPetitQue);
+
+			}
+
 		}
 		
 		time_t temps_fin_tri(time(NULL));
 		cout << "Temps tri (dim " << i << "):" << difftime(temps_fin_tri,temps_fin_lecture) << endl;
-
+		
 		
 		int nbRes(resultats.size());
 		sortie.ecriture(i, entete, true);
 		for (int k(0); k<nbRes; ++k)
 		{
-			sortie.ecriture(i, resultats[tableRes[k].first].first, false);
-			sortie.ecriture(i, resultats[tableRes[k].first].second, true);
+			sortie.ecriture(i, resultats[k].etiquette, false);
+			sortie.ecriture(i, resultats[k].valeurs, true);
 		}
 		
 		time_t temps_fin_ecriture(time(NULL));
 		cout << "Temps ecriture (dim " << i << "):" << difftime(temps_fin_ecriture, temps_fin_tri) << endl;
-
+		
 		
 		entree.fermeture();
 		
@@ -661,68 +678,75 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 Supervision::Supervision(const Supervision& s)
 {}
 
-int ComparaisonLignesResultats::caseComparaisonResultats=0;
+/*
+ int ComparaisonLignesResultats::caseComparaisonResultats=0;
+ 
+ ComparaisonLignesResultats::ComparaisonLignesResultats()
+ {}
+ 
+ ComparaisonLignesResultats::~ComparaisonLignesResultats()
+ {}
+ 
+ int ComparaisonLignesResultats::getCase()
+ {
+ return caseComparaisonResultats;
+ }
+ 
+ void ComparaisonLignesResultats::setCase(int i)
+ {
+ caseComparaisonResultats=i;
+ }
+ 
+ bool ComparaisonLignesResultats::plusPetitQue(const ligneResultat  &  r1, const ligneResultat  &  r2) 
+ {
+ return ((r1.second[caseComparaisonResultats])<(r2.second[caseComparaisonResultats]));
+ }
+ 
+ bool ComparaisonLignesResultats::plusGrandQue(const ligneResultat  &  r1, const ligneResultat  &  r2) 
+ {
+ return ((r1.second[caseComparaisonResultats])>(r2.second[caseComparaisonResultats]));
+ }
+ 
+ 
+ ComparaisonLignesResultats::ComparaisonLignesResultats(ComparaisonLignesResultats& c)
+ {}
+ 
+ ComparaisonTablesResultats::ComparaisonTablesResultats()
+ {}
+ 
+ ComparaisonTablesResultats::~ComparaisonTablesResultats()
+ {}
+ bool ComparaisonTablesResultats::plusPetitQue(const pair<int, reel>  &  r1, const pair<int, reel>  &  r2) 
+ {
+ return ((r1.second)<(r2.second));
+ }
+ 
+ bool ComparaisonTablesResultats::plusGrandQue(const pair<int, reel>  &  r1, const pair<int, reel>  &  r2) 
+ {
+ return ((r1.second)>(r2.second));
+ }
+ 
+ ComparaisonTablesResultats::ComparaisonTablesResultats(ComparaisonTablesResultats& c)
+ {}
+ */
 
-ComparaisonLignesResultats::ComparaisonLignesResultats()
+
+ComparaisonModeles::ComparaisonModeles()
 {}
 
-ComparaisonLignesResultats::~ComparaisonLignesResultats()
+ComparaisonModeles::~ComparaisonModeles()
 {}
 
-int ComparaisonLignesResultats::getCase()
+bool ComparaisonModeles::plusPetitQue(const Modele  &  r1, const Modele  &  r2) 
 {
-	return caseComparaisonResultats;
+	return ((r1.scoreTri)<(r2.scoreTri));
 }
 
-void ComparaisonLignesResultats::setCase(int i)
+bool ComparaisonModeles::plusGrandQue(const Modele  &  r1, const Modele  &  r2) 
 {
-	caseComparaisonResultats=i;
-}
-
-bool ComparaisonLignesResultats::plusPetitQue(const ligneResultat  &  r1, const ligneResultat  &  r2) 
-{
-	return ((r1.second[caseComparaisonResultats])<(r2.second[caseComparaisonResultats]));
-}
-
-bool ComparaisonLignesResultats::plusGrandQue(const ligneResultat  &  r1, const ligneResultat  &  r2) 
-{
-	return ((r1.second[caseComparaisonResultats])>(r2.second[caseComparaisonResultats]));
+	return ((r1.scoreTri)>(r2.scoreTri));
 }
 
 
-ComparaisonLignesResultats::ComparaisonLignesResultats(ComparaisonLignesResultats& c)
-{}
-
-
-
-//int ComparaisonLignesResultats::caseComparaisonResultats=0;
-
-ComparaisonTablesResultats::ComparaisonTablesResultats()
-{}
-
-ComparaisonTablesResultats::~ComparaisonTablesResultats()
-{}
-
-/*int ComparaisonLignesResultats::getCase()
-{
-	return caseComparaisonResultats;
-}
-
-void ComparaisonLignesResultats::setCase(int i)
-{
-	caseComparaisonResultats=i;
-}*/
-
-bool ComparaisonTablesResultats::plusPetitQue(const pair<int, reel>  &  r1, const pair<int, reel>  &  r2) 
-{
-	return ((r1.second)<(r2.second));
-}
-
-bool ComparaisonTablesResultats::plusGrandQue(const pair<int, reel>  &  r1, const pair<int, reel>  &  r2) 
-{
-	return ((r1.second)>(r2.second));
-}
-
-
-ComparaisonTablesResultats::ComparaisonTablesResultats(ComparaisonTablesResultats& c)
+ComparaisonModeles::ComparaisonModeles(ComparaisonModeles& c)
 {}

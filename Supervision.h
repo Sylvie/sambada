@@ -5,10 +5,22 @@
 
 using namespace std;
 
-typedef pair< vector< string >, vector< reel > > ligneResultat;
-typedef vector< ligneResultat > listeResultats;
+//typedef pair< vector< string >, vector< reel > > ligneResultat;
+//typedef vector< ligneResultat > listeResultats;
+
+typedef struct
+{
+	vector<string> etiquette;
+	vector<string> valeurs;
+	reel scoreSel;
+	reel scoreTri;
+}
+Modele;
+
+typedef vector< Modele > ListeModeles;
 
 typedef enum {G, Wald, AIC, BIC, Both} typeScore;
+
 
 namespace ParametresCluster {
 	
@@ -72,7 +84,7 @@ protected:
 	Lecteur entree;
 };
 
-class ComparaisonLignesResultats
+/*class ComparaisonLignesResultats
 {
 public:
 	ComparaisonLignesResultats();
@@ -109,7 +121,27 @@ protected:
 	//static int caseComparaisonResultats;
 	
 	ComparaisonTablesResultats(ComparaisonTablesResultats& c);
+};*/
+
+class ComparaisonModeles
+{
+public:
+	ComparaisonModeles();
+	virtual ~ComparaisonModeles();
+	
+	//static int getCase();
+	//static void setCase(int i);
+	
+	static bool plusPetitQue(const Modele  &  r1, const Modele  &  r2);
+	
+	static bool plusGrandQue(const Modele  &  r1, const Modele  &  r2);
+	
+protected:
+	//static int caseComparaisonResultats;
+	
+	ComparaisonModeles(ComparaisonModeles& c);
 };
+
 
 
 #endif // SUPERVISION_H
