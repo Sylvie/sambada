@@ -4,6 +4,7 @@
 #include <ctime>
 #include <algorithm>
 #include <map>
+#include <string>
 
 using namespace std;
 
@@ -378,7 +379,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	numColonnes.insert(make_pair(Wald,2));
 	numColonnes.insert(make_pair(AIC,9));
 	numColonnes.insert(make_pair(BIC,10));
-	if (argc==7 || argc==8)
+	if (argc>=7)
 	{
 		string lu(argv[5]);
 		if (lu=="G")
@@ -393,7 +394,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		seuilScore=atof(argv[6]);
 		seuilSelection=true;
 	}
-	if (argc==8) 
+	if (argc>=8) 
 	{
 		string lu(argv[7]);
 		if (lu=="G") 
@@ -410,7 +411,19 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		}
 		
 	}
-	else if (argc!=5 && argc!=7 && argc!=8)
+	char sepPop(' ');
+	if (argc==9) 
+	{
+		if (strcmp(argv[8], "\t"))
+		{
+			sepPop='\t';
+		}
+		else
+		{
+			sepPop=*argv[8];
+		}
+	}
+	else if (argc!=5 && argc!=7 && argc!=8 && argc!=9)
 	{
 		cout << argc << endl;
 		throw Erreur("Nombre d'arguments incorrect.");	
@@ -445,8 +458,8 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	sortie.setRetourLigne(&ParametresCluster::retourLigne[0]);
 	entree.setRetourLigne(&ParametresCluster::retourLigne[0]);
 	
-	sortie.setDelimMots(' ');
-	entree.setDelimMots(' ');
+	sortie.setDelimMots(sepPop);
+	entree.setDelimMots(sepPop);
 	
 	nomFichierMarq.first=argv[1];
 	
@@ -634,14 +647,14 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 			//ComparaisonLignesResultats::setCase(2);
 			if (scoreTri== G || scoreTri==Wald)
 			{
-			sort(resultats.begin(), resultats.end(), ComparaisonModeles::plusGrandQue);
+				sort(resultats.begin(), resultats.end(), ComparaisonModeles::plusGrandQue);
 			}
 			else
 			{
 				sort(resultats.begin(), resultats.end(), ComparaisonModeles::plusPetitQue);
-
+				
 			}
-
+			
 		}
 		
 		time_t temps_fin_tri(time(NULL));
