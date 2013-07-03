@@ -260,7 +260,7 @@ char toolbox::lectureMot(istream& entree, string& mot, char delimMots, bool gard
 		}
 		// On ôte les "
 		
-		else if (inner==0 && (lu==delimMots || lu=='\r' || lu=='\n' ||  (!gardeSignesInvisibles && ( (lu<=0x20) || (lu>=0x7F)) ) ) )
+		else if (inner==0 && (lu==delimMots || lu=='\r' || lu=='\n' ||  (!gardeSignesInvisibles && ( (lu<0x20) || (lu>=0x7F)) ) ) )	// Les espaces sont conservés
 		{
 			continueLecture=false;
 		}
