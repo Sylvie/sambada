@@ -1018,7 +1018,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 					}
 					else	// Erreur détectée -> on la note dans la ligne de validation
 					{
-						//cout << " £ " << i << " " << lineValidation[caseCourante] << "\n";
+						//cout << " % " << i << " " << lineValidation[caseCourante] << "\n";
 						// Si la variable est active et illisible, on ne s'intéresse pas à la valeur lue						
 						listeErreurs.push_back(lineValidation[caseCourante]);
 						++caseCourante;
@@ -1223,7 +1223,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			entree >> ws;
 		}
 		
-		for (int compteur(0); compteur<3;++compteur)
+/*		for (int compteur(0); compteur<3;++compteur)
 		{
 			cout << validation[compteur].size() << endl;
 			for (int ccompt(0); ccompt<validation[compteur].size(); ++ccompt)
@@ -1231,7 +1231,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 				cout << validation[compteur][ccompt] << " " ;
 			}
 			cout << endl;
-		}
+		}*/
 		
 		missingValuesEnv.resize(nbEnvActives, std::set< int > ());	
 		cout << missingValuesEnv.size() << "\n";

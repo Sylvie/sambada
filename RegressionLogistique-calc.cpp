@@ -1153,6 +1153,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			pointsCourants.masque=pointsAC.masque;
 			for (set< int >::iterator iter(missingValuesMarq[i].begin()); iter!=missingValuesMarq[i].end(); ++iter)
 			{
+				//cout << *iter << endl;
 				pointsCourants.masque[*iter]=false;
 			}
 			pointsCourants.taille=toolbox:: sommeNumerique(pointsCourants.masque);
@@ -1244,10 +1245,13 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 								voisinSuivant=voisinCourant+1;
 								while (voisinSuivant!=voisinage[pt1].end() && ((voisinSuivant)->second == voisinCourant->second))
 								{
+									if(pointsCourants.masque(voisinSuivant->first,0))
+									{
 									pointsCourants.poids[pt1].push_back(make_pair(voisinSuivant->first, 1));
+										++nbVoisins;									
+									}
 									++voisinCourant;
 									++voisinSuivant;
-									++nbVoisins;									
 								}
 								
 							}
@@ -1484,7 +1488,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				for (int j(0); j<AS_nbPermutations; ++j)
 				{
 					//listePointsValidesPerm=pointsCourants.pointsValides;
-					random_shuffle(listePointsValidesPerm.begin(), listePointsValidesPerm.end());
+					random_shuffle(listePointsValidesPerm.begin(), listePointsValidesPerm.end()); //indices locaux permutés
 					listePointsGlobauxPerm=pointsCourants.indices; // Indices locaux des points valides (originaux)
 					
 					// On veut les nouveaux indices globaux des points permutés
@@ -1495,16 +1499,19 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 							// de droite à gauche: liste [N] des indices locaux -> permutations -> indices globaux correspondants
 							listePointsGlobauxPerm[k]=pointsCourants.pointsValides[ listePointsValidesPerm[listePointsGlobauxPerm[k]] ];
 						}
+					//	cout << "*" << k << " " << listePointsGlobauxPerm[k] << endl;
 					}
 					//	toolbox::affiche(listePointsGlobauxPerm);
 					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
 					for (int  k(0); k<pointsCourants.taille; ++k)
 					{
+					//	cout << k << endl;
 						pt1=pointsCourants.pointsValides[k];
 						nbVoisins=pointsCourants.poids[pt1].size();
 						valeurIntermediaire=0;
 						for (int l(0); l<nbVoisins; ++l)
 						{
+					//		cout << pointsCourants.poids[pt1][l].first << endl;
 							valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ listePointsGlobauxPerm[ pointsCourants.poids[pt1][l].first ]];
 						}
 						
