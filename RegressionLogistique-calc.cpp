@@ -1714,9 +1714,10 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					}
 					sortieAS << delimLignes;
 				}
-				sortieAS.flush();
-				sortieAS.close();
 			}
+			sortieAS.flush();
+			sortieAS.close();
+
 		}
 		
 		// Ecriture de l'historique des permutations (autocorr globale)
