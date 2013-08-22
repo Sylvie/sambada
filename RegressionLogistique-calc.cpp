@@ -647,10 +647,13 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 								voisinSuivant=voisinCourant+1;
 								while (voisinSuivant!=voisinage[pt1].end() && ((voisinSuivant)->second == voisinCourant->second))
 								{
-									pointsCourants.poids[pt1].push_back(make_pair(voisinSuivant->first, 1));
+									if(pointsCourants.masque(voisinSuivant->first,0))
+									{
+										pointsCourants.poids[pt1].push_back(make_pair(voisinSuivant->first, 1));
+										++nbVoisins;									
+									}
 									++voisinCourant;
 									++voisinSuivant;
-									++nbVoisins;									
 								}
 								
 							}
@@ -760,111 +763,113 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			
 			
 			// Permutations!
-			
-			// Chaque fois qu'on prend un point, le nombre de points restants (=parmi lesquels on peut tirer un élément) diminue
-			// Prop = facteur d'échelle pour le tirage d'un entier entre nbPointsValides, nbPointsValides-1, ..., 2,1,0
-			// Subtilité : Le points courant reste fixe, il ne sera jamais choisi comme voisin -> nb voisins possibles = taille-1 !!!!
-			vector<double> proportion(pointsCourants.taille-1);
-			int choix(0);
-			for (int j(0); j<(pointsCourants.taille-1); ++j)
+			if (AS_autocorrLocale)
 			{
-				// Comme 0<=rand<=RAND_MAX, on divise par RM+1 pour éviter les débordements de tableau
-				//cout << "!" <<  pointsCourants.taille-1-j << endl;
-				proportion[j]=(double)(pointsCourants.taille-1-j)/((double)RAND_MAX+1);
-			}
-			
-			
-			// Itération sur les points -> tous les points n'ont pas le même nombre de voisins
-			for (int  k(0); k<pointsCourants.taille; ++k)
-			{
-				nbSimPlusGrandes=0;
-				nbSimEgales=0;
-				nbSimPlusPetites=0;
 				
-				pt1 = pointsCourants.pointsValides[k]; // Numéro global du point considéré
-				nbVoisins = pointsCourants.poids[pt1].size();
-				voisinagePerm.resize(nbVoisins);	// Redimensionnement du voisinage temporaire
-				
-				for (int j(0); j<AS_nbPermutations; ++j)
+				// Chaque fois qu'on prend un point, le nombre de points restants (=parmi lesquels on peut tirer un élément) diminue
+				// Prop = facteur d'échelle pour le tirage d'un entier entre nbPointsValides, nbPointsValides-1, ..., 2,1,0
+				// Subtilité : Le points courant reste fixe, il ne sera jamais choisi comme voisin -> nb voisins possibles = taille-1 !!!!
+				vector<double> proportion(pointsCourants.taille-1);
+				int choix(0);
+				for (int j(0); j<(pointsCourants.taille-1); ++j)
 				{
+					// Comme 0<=rand<=RAND_MAX, on divise par RM+1 pour éviter les débordements de tableau
+					//cout << "!" <<  pointsCourants.taille-1-j << endl;
+					proportion[j]=(double)(pointsCourants.taille-1-j)/((double)RAND_MAX+1);
+				}
+				
+				
+				// Itération sur les points -> tous les points n'ont pas le même nombre de voisins
+				for (int  k(0); k<pointsCourants.taille; ++k)
+				{
+					nbSimPlusGrandes=0;
+					nbSimEgales=0;
+					nbSimPlusPetites=0;
 					
-					// Les pondérations sont fixes, on réordonne les déviations
-					listePointsValidesPerm=pointsCourants.pointsValides;
-					// L'indice local du point courant est k -> on le permute avec le dernier point pour ne jamais le sélectionner
-					swap(listePointsValidesPerm[k], listePointsValidesPerm[pointsCourants.taille-1]);
+					pt1 = pointsCourants.pointsValides[k]; // Numéro global du point considéré
+					nbVoisins = pointsCourants.poids[pt1].size();
+					voisinagePerm.resize(nbVoisins);	// Redimensionnement du voisinage temporaire
 					
-					for (int l(0); l<nbVoisins; ++l)
+					for (int j(0); j<AS_nbPermutations; ++j)
 					{
-						choix=floor(rand()*proportion[l]);
-						voisinagePerm[l]=listePointsValidesPerm[choix];
-						swap(listePointsValidesPerm[choix], listePointsValidesPerm[pointsCourants.taille-2-l]);		// La dernière place est déjà occupée par le point
+						
+						// Les pondérations sont fixes, on réordonne les déviations
+						listePointsValidesPerm=pointsCourants.pointsValides;
+						// L'indice local du point courant est k -> on le permute avec le dernier point pour ne jamais le sélectionner
+						swap(listePointsValidesPerm[k], listePointsValidesPerm[pointsCourants.taille-1]);
+						
+						for (int l(0); l<nbVoisins; ++l)
+						{
+							choix=floor(rand()*proportion[l]);
+							voisinagePerm[l]=listePointsValidesPerm[choix];
+							swap(listePointsValidesPerm[choix], listePointsValidesPerm[pointsCourants.taille-2-l]);		// La dernière place est déjà occupée par le point
+						}
+						
+						random_shuffle(voisinagePerm.begin(), voisinagePerm.end());
+						// voisinagePerm contient les numéros globaux des voisins temporaires
+						
+						// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
+						
+						//nbVoisins=pointsCourants.poids[pt1].size();
+						valeurIntermediaire=0;
+						for (int l(0); l<nbVoisins; ++l)
+						{
+							valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ voisinagePerm[ l ] ];
+						}
+						// Le point courant reste le même
+						autocorrLocaleCourante(pt1, 0) = valeurIntermediaire*deviations[pt1]*facteurEchelleLocal;
+						
+						
+						
+						// p-valeur
+						/*if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
+						 ||   ( (autocorrLocale(pt1, i)<0) && (autocorrLocaleCourante(pt1, 0)<=autocorrLocale(pt1, i)))    )
+						 {
+						 pValeurLocale(pt1, i)=pValeurLocale(pt1, i)+1;
+						 }*/
+						
+						// Comparaison entre simulation et valeur réelle
+						if (abs( autocorrLocaleCourante(pt1, 0) - autocorrLocale(pt1,i)) < limiteIndicesIdentiques)
+						{
+							++nbSimEgales;
+						}
+						else if (autocorrLocaleCourante(pt1, 0) > autocorrLocale(pt1,i))
+						{
+							++nbSimPlusGrandes;
+						}
+						
+						// La p-valeur pour l'AC globale est calculée à part, tous les points sont permutés
 					}
-					
-					random_shuffle(voisinagePerm.begin(), voisinagePerm.end());
-					// voisinagePerm contient les numéros globaux des voisins temporaires
-					
-					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
-					
-					//nbVoisins=pointsCourants.poids[pt1].size();
-					valeurIntermediaire=0;
-					for (int l(0); l<nbVoisins; ++l)
-					{
-						valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ voisinagePerm[ l ] ];
-					}
-					// Le point courant reste le même
-					autocorrLocaleCourante(pt1, 0) = valeurIntermediaire*deviations[pt1]*facteurEchelleLocal;
-					
-					
 					
 					// p-valeur
-					/*if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
-					 ||   ( (autocorrLocale(pt1, i)<0) && (autocorrLocaleCourante(pt1, 0)<=autocorrLocale(pt1, i)))    )
-					 {
-					 pValeurLocale(pt1, i)=pValeurLocale(pt1, i)+1;
-					 }*/
+					// Discussions avec S. Rey et lexique ASU (pseudo p-valeurs)
 					
-					// Comparaison entre simulation et valeur réelle
-					if (abs( autocorrLocaleCourante(pt1, 0) - autocorrLocale(pt1,i)) < limiteIndicesIdentiques)
-					{
-						++nbSimEgales;
-					}
-					else if (autocorrLocaleCourante(pt1, 0) > autocorrLocale(pt1,i))
-					{
-						++nbSimPlusGrandes;
-					}
+					nbSimPlusPetites=AS_nbPermutations - nbSimPlusGrandes - nbSimEgales;
 					
-					// La p-valeur pour l'AC globale est calculée à part, tous les points sont permutés
-				}
-				
-				// p-valeur
-				// Discussions avec S. Rey et lexique ASU (pseudo p-valeurs)
-				
-				nbSimPlusPetites=AS_nbPermutations - nbSimPlusGrandes - nbSimEgales;
-				
-				if ( nbSimPlusPetites >= nbSimPlusGrandes) // a >= c
-				{
-					if ( nbSimPlusPetites >= moitieNbPerms )
+					if ( nbSimPlusPetites >= nbSimPlusGrandes) // a >= c
 					{
-						pValeurLocale(pt1, i) = (nbSimPlusGrandes + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+						if ( nbSimPlusPetites >= moitieNbPerms )
+						{
+							pValeurLocale(pt1, i) = (nbSimPlusGrandes + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+						}
+						else	// cas où les I' == I incluent la médiane de la distribution
+						{
+							pValeurLocale(pt1, i) = 0.5;
+						}
 					}
-					else	// cas où les I' == I incluent la médiane de la distribution
+					else	// a<c
 					{
-						pValeurLocale(pt1, i) = 0.5;
+						if ( nbSimPlusGrandes >= moitieNbPerms )
+						{
+							pValeurLocale(pt1, i) = (nbSimPlusPetites + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+						}
+						else // cas où les I' == I incluent la médiane de la distribution
+						{
+							pValeurLocale(pt1, i) = 0.5;
+						}
 					}
-				}
-				else	// a<c
-				{
-					if ( nbSimPlusGrandes >= moitieNbPerms )
-					{
-						pValeurLocale(pt1, i) = (nbSimPlusPetites + nbSimEgales + 1.0)/(AS_nbPermutations+1);
-					}
-					else // cas où les I' == I incluent la médiane de la distribution
-					{
-						pValeurLocale(pt1, i) = 0.5;
-					}
-				}
-			}	// Fin calcul p-valeurs locales
-			
+				}	// Fin calcul p-valeurs locales
+			}
 			if (AS_autocorrGlobale)
 			{
 				nbSimPlusGrandes=0;
@@ -1023,20 +1028,23 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			
 			
 			// AC Locales
-			for (int i(0); i<nbPoints; ++i)
+			if (AS_autocorrLocale)
 			{
-				if (existeColID)
-				{
-					sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
-				}
-				for (int j(0); j<nbEnvActives; ++j)
-				{
-					sortieAS << autocorrLocale(i, j) << " ";
-				}
-				sortieAS << delimLignes;
 				
+				for (int i(0); i<nbPoints; ++i)
+				{
+					if (existeColID)
+					{
+						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					}
+					for (int j(0); j<nbEnvActives; ++j)
+					{
+						sortieAS << autocorrLocale(i, j) << " ";
+					}
+					sortieAS << delimLignes;
+					
+				}
 			}
-			
 			sortieAS.close();
 		}
 		
@@ -1074,18 +1082,22 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				sortieAS << delimLignes;
 			}
 			
-			// AC Locales
-			for (int i(0); i<nbPoints; ++i)
+			// AC Locales			
+			if (AS_autocorrLocale)
 			{
-				if (existeColID)
+				
+				for (int i(0); i<nbPoints; ++i)
 				{
-					sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					if (existeColID)
+					{
+						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					}
+					for (int j(0); j<nbEnvActives; ++j)
+					{
+						sortieAS << pValeurLocale(i, j) << " ";
+					}
+					sortieAS << delimLignes;
 				}
-				for (int j(0); j<nbEnvActives; ++j)
-				{
-					sortieAS << pValeurLocale(i, j) << " ";
-				}
-				sortieAS << delimLignes;
 			}
 			sortieAS.flush();
 			sortieAS.close();
@@ -1247,7 +1259,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 								{
 									if(pointsCourants.masque(voisinSuivant->first,0))
 									{
-									pointsCourants.poids[pt1].push_back(make_pair(voisinSuivant->first, 1));
+										pointsCourants.poids[pt1].push_back(make_pair(voisinSuivant->first, 1));
 										++nbVoisins;									
 									}
 									++voisinCourant;
@@ -1362,114 +1374,116 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			
 			// Permutations!
 			
-			// Chaque fois qu'on prend un point, le nombre de points restants (=parmi lesquels on peut tirer un élément) diminue
-			// Prop = facteur d'échelle pour le tirage d'un entier entre nbPointsValides, nbPointsValides-1, ..., 2,1,0
-			// Subtilité : Le points courant reste fixe, il ne sera jamais choisi comme voisin -> nb voisins possibles = taille-1 !!!!
-			vector<double> proportion(pointsCourants.taille-1);
-			int choix(0);
-			for (int j(0); j<(pointsCourants.taille-1); ++j)
+			if (AS_autocorrLocale)
 			{
-				// Comme 0<=rand<=RAND_MAX, on divise par RM+1 pour éviter les débordements de tableau
-				//cout << "!" <<  pointsCourants.taille-1-j << endl;
-				proportion[j]=(double)(pointsCourants.taille-1-j)/((double)RAND_MAX+1);
-			}
-			
-			
-			// Itération sur les points -> tous les points n'ont pas le même nombre de voisins
-			for (int  k(0); k<pointsCourants.taille; ++k)
-			{
-				nbSimPlusGrandes=0;
-				nbSimEgales=0;
-				nbSimPlusPetites=0;
-								
-				pt1 = pointsCourants.pointsValides[k]; // Numéro global du point considéré
-				nbVoisins = pointsCourants.poids[pt1].size();
-				voisinagePerm.resize(nbVoisins);	// Redimensionnement du voisinage temporaire
-				
-				for (int j(0); j<AS_nbPermutations; ++j)
+				// Chaque fois qu'on prend un point, le nombre de points restants (=parmi lesquels on peut tirer un élément) diminue
+				// Prop = facteur d'échelle pour le tirage d'un entier entre nbPointsValides, nbPointsValides-1, ..., 2,1,0
+				// Subtilité : Le points courant reste fixe, il ne sera jamais choisi comme voisin -> nb voisins possibles = taille-1 !!!!
+				vector<double> proportion(pointsCourants.taille-1);
+				int choix(0);
+				for (int j(0); j<(pointsCourants.taille-1); ++j)
 				{
+					// Comme 0<=rand<=RAND_MAX, on divise par RM+1 pour éviter les débordements de tableau
+					//cout << "!" <<  pointsCourants.taille-1-j << endl;
+					proportion[j]=(double)(pointsCourants.taille-1-j)/((double)RAND_MAX+1);
+				}
+				
+				
+				// Itération sur les points -> tous les points n'ont pas le même nombre de voisins
+				for (int  k(0); k<pointsCourants.taille; ++k)
+				{
+					nbSimPlusGrandes=0;
+					nbSimEgales=0;
+					nbSimPlusPetites=0;
 					
-					// Les pondérations sont fixes, on réordonne les déviations
-					listePointsValidesPerm=pointsCourants.pointsValides;
-					// L'indice local du point courant est k -> on le permute avec le dernier point pour ne jamais le sélectionner
-					swap(listePointsValidesPerm[k], listePointsValidesPerm[pointsCourants.taille-1]);
+					pt1 = pointsCourants.pointsValides[k]; // Numéro global du point considéré
+					nbVoisins = pointsCourants.poids[pt1].size();
+					voisinagePerm.resize(nbVoisins);	// Redimensionnement du voisinage temporaire
 					
-					for (int l(0); l<nbVoisins; ++l)
+					for (int j(0); j<AS_nbPermutations; ++j)
 					{
-						choix=floor(rand()*proportion[l]);
-						voisinagePerm[l]=listePointsValidesPerm[choix];
-						swap(listePointsValidesPerm[choix], listePointsValidesPerm[pointsCourants.taille-2-l]);		// La dernière place est déjà occupée par le point
+						
+						// Les pondérations sont fixes, on réordonne les déviations
+						listePointsValidesPerm=pointsCourants.pointsValides;
+						// L'indice local du point courant est k -> on le permute avec le dernier point pour ne jamais le sélectionner
+						swap(listePointsValidesPerm[k], listePointsValidesPerm[pointsCourants.taille-1]);
+						
+						for (int l(0); l<nbVoisins; ++l)
+						{
+							choix=floor(rand()*proportion[l]);
+							voisinagePerm[l]=listePointsValidesPerm[choix];
+							swap(listePointsValidesPerm[choix], listePointsValidesPerm[pointsCourants.taille-2-l]);		// La dernière place est déjà occupée par le point
+						}
+						
+						random_shuffle(voisinagePerm.begin(), voisinagePerm.end());
+						// voisinagePerm contient les numéros globaux des voisins temporaires
+						
+						// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
+						
+						//nbVoisins=pointsCourants.poids[pt1].size();
+						valeurIntermediaire=0;
+						for (int l(0); l<nbVoisins; ++l)
+						{
+							valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ voisinagePerm[ l ] ];
+						}
+						// Le point courant reste le même
+						autocorrLocaleCourante(pt1, 0) = valeurIntermediaire*deviations[pt1]*facteurEchelleLocal;
+						
+						
+						
+						// p-valeur
+						
+						//if ( ((autocorrTempCourante(k, 0)*autocorrTemp(k, 0))>0) && (abs(autocorrTempCourante(k, 0)) >= abs(autocorrTemp(k, 0))))
+						/*if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
+						 ||   ( (autocorrLocale(pt1, i)<0) && (autocorrLocaleCourante(pt1, 0)<=autocorrLocale(pt1, i)))    )
+						 //	if ( abs(autocorrLocaleCourante(pt1, 0))>=abs(autocorrLocale(pt1, i))   )
+						 {
+						 pValeurLocale(pt1, i)=pValeurLocale(pt1, i)+1;
+						 }*/
+						
+						// Comparaison entre simulation et valeur réelle
+						if (abs( autocorrLocaleCourante(pt1, 0) - autocorrLocale(pt1,i)) < limiteIndicesIdentiques)
+						{
+							++nbSimEgales;
+						}
+						else if (autocorrLocaleCourante(pt1, 0) > autocorrLocale(pt1,i))
+						{
+							++nbSimPlusGrandes;
+						}					
+						
+						// La p-valeur pour l'AC globale est calculée à part, tous les points sont permutés
+						
 					}
-					
-					random_shuffle(voisinagePerm.begin(), voisinagePerm.end());
-					// voisinagePerm contient les numéros globaux des voisins temporaires
-					
-					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
-					
-					//nbVoisins=pointsCourants.poids[pt1].size();
-					valeurIntermediaire=0;
-					for (int l(0); l<nbVoisins; ++l)
-					{
-						valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ voisinagePerm[ l ] ];
-					}
-					// Le point courant reste le même
-					autocorrLocaleCourante(pt1, 0) = valeurIntermediaire*deviations[pt1]*facteurEchelleLocal;
-					
-					
-					
 					// p-valeur
+					// Discussions avec S. Rey et lexique ASU (pseudo p-valeurs)
 					
-					//if ( ((autocorrTempCourante(k, 0)*autocorrTemp(k, 0))>0) && (abs(autocorrTempCourante(k, 0)) >= abs(autocorrTemp(k, 0))))
-					/*if ( ( (autocorrLocale(pt1, i)>=0) && (autocorrLocaleCourante(pt1, 0)>=autocorrLocale(pt1, i))) 
-						||   ( (autocorrLocale(pt1, i)<0) && (autocorrLocaleCourante(pt1, 0)<=autocorrLocale(pt1, i)))    )
-						//	if ( abs(autocorrLocaleCourante(pt1, 0))>=abs(autocorrLocale(pt1, i))   )
-					{
-						pValeurLocale(pt1, i)=pValeurLocale(pt1, i)+1;
-					}*/
+					nbSimPlusPetites=AS_nbPermutations - nbSimPlusGrandes - nbSimEgales;
 					
-					// Comparaison entre simulation et valeur réelle
-					if (abs( autocorrLocaleCourante(pt1, 0) - autocorrLocale(pt1,i)) < limiteIndicesIdentiques)
+					if ( nbSimPlusPetites >= nbSimPlusGrandes) // a >= c
 					{
-						++nbSimEgales;
+						if ( nbSimPlusPetites >= moitieNbPerms )
+						{
+							pValeurLocale(pt1, i) = (nbSimPlusGrandes + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+						}
+						else	// cas où les I' == I incluent la médiane de la distribution
+						{
+							pValeurLocale(pt1, i) = 0.5;
+						}
 					}
-					else if (autocorrLocaleCourante(pt1, 0) > autocorrLocale(pt1,i))
+					else	// a<c
 					{
-						++nbSimPlusGrandes;
-					}					
+						if ( nbSimPlusGrandes >= moitieNbPerms )
+						{
+							pValeurLocale(pt1, i) = (nbSimPlusPetites + nbSimEgales + 1.0)/(AS_nbPermutations+1);
+						}
+						else // cas où les I' == I incluent la médiane de la distribution
+						{
+							pValeurLocale(pt1, i) = 0.5;
+						}
+					}
 					
-					// La p-valeur pour l'AC globale est calculée à part, tous les points sont permutés
-					
-				}
-				// p-valeur
-				// Discussions avec S. Rey et lexique ASU (pseudo p-valeurs)
-				
-				nbSimPlusPetites=AS_nbPermutations - nbSimPlusGrandes - nbSimEgales;
-				
-				if ( nbSimPlusPetites >= nbSimPlusGrandes) // a >= c
-				{
-					if ( nbSimPlusPetites >= moitieNbPerms )
-					{
-						pValeurLocale(pt1, i) = (nbSimPlusGrandes + nbSimEgales + 1.0)/(AS_nbPermutations+1);
-					}
-					else	// cas où les I' == I incluent la médiane de la distribution
-					{
-						pValeurLocale(pt1, i) = 0.5;
-					}
-				}
-				else	// a<c
-				{
-					if ( nbSimPlusGrandes >= moitieNbPerms )
-					{
-						pValeurLocale(pt1, i) = (nbSimPlusPetites + nbSimEgales + 1.0)/(AS_nbPermutations+1);
-					}
-					else // cas où les I' == I incluent la médiane de la distribution
-					{
-						pValeurLocale(pt1, i) = 0.5;
-					}
-				}
-				
-			}	// Fin calcul p-valeurs locales
-			
+				}	// Fin calcul p-valeurs locales
+			}
 			if (AS_autocorrGlobale)
 			{
 				nbSimPlusGrandes=0;
@@ -1499,19 +1513,19 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 							// de droite à gauche: liste [N] des indices locaux -> permutations -> indices globaux correspondants
 							listePointsGlobauxPerm[k]=pointsCourants.pointsValides[ listePointsValidesPerm[listePointsGlobauxPerm[k]] ];
 						}
-					//	cout << "*" << k << " " << listePointsGlobauxPerm[k] << endl;
+						//	cout << "*" << k << " " << listePointsGlobauxPerm[k] << endl;
 					}
 					//	toolbox::affiche(listePointsGlobauxPerm);
 					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
 					for (int  k(0); k<pointsCourants.taille; ++k)
 					{
-					//	cout << k << endl;
+						//	cout << k << endl;
 						pt1=pointsCourants.pointsValides[k];
 						nbVoisins=pointsCourants.poids[pt1].size();
 						valeurIntermediaire=0;
 						for (int l(0); l<nbVoisins; ++l)
 						{
-					//		cout << pointsCourants.poids[pt1][l].first << endl;
+							//		cout << pointsCourants.poids[pt1][l].first << endl;
 							valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ listePointsGlobauxPerm[ pointsCourants.poids[pt1][l].first ]];
 						}
 						
@@ -1529,10 +1543,10 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					
 					// p-valeur
 					/*if ( ((autocorrGlobale(0, i) >= 0) && (autocorrGlobaleCourante >= autocorrGlobale(0, i)) ) || ((autocorrGlobale(0, i) < 0) && (autocorrGlobaleCourante <= autocorrGlobale(0, i)) ))
-						//if ( abs(autocorrGlobaleCourante) >= abs(autocorrGlobale(0, i) )) 
-					{
-						pValeurGlobale(0, i)=pValeurGlobale(0, i)+1;
-					}*/
+					 //if ( abs(autocorrGlobaleCourante) >= abs(autocorrGlobale(0, i) )) 
+					 {
+					 pValeurGlobale(0, i)=pValeurGlobale(0, i)+1;
+					 }*/
 					
 					// Comparaison entre simulation et valeur réelle
 					if (abs( autocorrGlobaleCourante - autocorrGlobale(0,i)) < limiteIndicesIdentiques)
@@ -1576,11 +1590,11 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		
 		// Calcul de la p-valeur
 		/*pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
-		if (AS_autocorrGlobale)
-		{
-			pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
-			cout << "*** " << pValeurGlobale << "\n";
-		}*/
+		 if (AS_autocorrGlobale)
+		 {
+		 pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
+		 cout << "*** " << pValeurGlobale << "\n";
+		 }*/
 		
 		time_t t2(time(NULL));
 		cout << "Calcul autocorrélation : " << t2-t1 << "\n";
@@ -1627,20 +1641,23 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			
 			
 			// AC Locales
-			for (int i(0); i<nbPoints; ++i)
+			if (AS_autocorrLocale)
 			{
-				if (existeColID)
+				for (int i(0); i<nbPoints; ++i)
 				{
-					// On lit les ID dans la liste des variables environnementales 
-					// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs
-					sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					if (existeColID)
+					{
+						// On lit les ID dans la liste des variables environnementales 
+						// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs
+						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					}
+					for (int j(0); j<nbMarqActifs; ++j)
+					{
+						sortieAS << autocorrLocale(i, j) << " ";
+					}
+					sortieAS << delimLignes;
+					
 				}
-				for (int j(0); j<nbMarqActifs; ++j)
-				{
-					sortieAS << autocorrLocale(i, j) << " ";
-				}
-				sortieAS << delimLignes;
-				
 			}
 			
 			sortieAS.close();
@@ -1681,22 +1698,25 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			}
 			
 			// AC Locales
-			for (int i(0); i<nbPoints; ++i)
+			if (AS_autocorrLocale)
 			{
-				if (existeColID)
+				for (int i(0); i<nbPoints; ++i)
 				{
-					// On lit les ID dans la liste des variables environnementales 
-					// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs 
-					sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					if (existeColID)
+					{
+						// On lit les ID dans la liste des variables environnementales 
+						// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs 
+						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					}
+					for (int j(0); j<nbMarqActifs; ++j)
+					{
+						sortieAS << pValeurLocale(i, j) << " ";
+					}
+					sortieAS << delimLignes;
 				}
-				for (int j(0); j<nbMarqActifs; ++j)
-				{
-					sortieAS << pValeurLocale(i, j) << " ";
-				}
-				sortieAS << delimLignes;
+				sortieAS.flush();
+				sortieAS.close();
 			}
-			sortieAS.flush();
-			sortieAS.close();
 		}
 		
 		// Ecriture de l'historique des permutations (autocorr globale)
@@ -2266,10 +2286,10 @@ int RegressionLogistique::creeModelesGlobaux()
 	for (int i(0); i<nbMarqActifs; ++i)
 	{
 		if(sauvegardeTempsReel)
-{
-		resultats.clear();
-		resultats.resize(dimensionMax+1);
-}
+		{
+			resultats.clear();
+			resultats.resize(dimensionMax+1);
+		}
 		if (i%1000==0)
 		{
 			cout << i << "\n";
@@ -2519,7 +2539,7 @@ int RegressionLogistique::creeModelesGlobaux()
 			
 			// Parcours des modèles de dimension dim-1
 			// La fonction lower_bound permet de trouver directement le premier modèle avec le bon marqueur
-//			for (groupeResultats::iterator generationPrecedente(resultats[dim].begin());  (generationPrecedente!=resultats[dim].end()); ++generationPrecedente)
+			//			for (groupeResultats::iterator generationPrecedente(resultats[dim].begin());  (generationPrecedente!=resultats[dim].end()); ++generationPrecedente)
 			for (groupeResultats::iterator generationPrecedente(resultats[dim].lower_bound(resultatCourant.first));  (generationPrecedente!=resultats[dim].end()); ++generationPrecedente)
 			{
 				// Si le résultat considéré concerne le marqueur i:
@@ -2941,8 +2961,8 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	/*for (set< int >:: iterator iter(resultat.first.second.begin()); iter!=resultat.first.second.end(); ++iter)
 	 {
 	 cout << *iter << " " ;
-		 cout << specDataEnv[varEnvActives.at(*iter)].name<< " ";
-
+	 cout << specDataEnv[varEnvActives.at(*iter)].name<< " ";
+	 
 	 }
 	 cout << "!"<<"\n";*/
 	//cout << "ç" << resultat.first.second.size()-1 << "\n";
@@ -3045,7 +3065,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			{
 				modeleRetenu=false;
 				resultat.second[validiteModele]=7;
-
+				
 			}
 			//affiche(resultat);
 			
@@ -3065,7 +3085,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		modeleCourant=resultats[0].find(etiquetteCourante);
 		
 		loglikeZero=modeleCourant->second[valloglikelihood];
-
+		
 		
 		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-loglikeZero);
 		
@@ -3074,25 +3094,25 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		{
 			modeleRetenu=false;
 			resultat.second[validiteModele]=7;
-
+			
 		}
 		else
 		{
 			// Test avec Wald individuel
 			/*
-			// Calcul du score de Wald -> On prend la sous-matrice (1:n, 1:n) de inv_J_info et on l'inverse
-			//cout << nbParamEstimes << endl;
-			MatriceReels matInterm(nbParamEstimes, nbParamEstimes);
-			try {
-				matInterm=invpd(inv_J_info(1,1,nbParamEstimes,nbParamEstimes));
-				resultat.second[WaldScore] = (t(beta_hat(1,0,nbParamEstimes,0)) * matInterm * beta_hat(1,0,nbParamEstimes,0))(0,0); 
-				
-			}
-			catch (scythe_exception& error) {
-				//cerr << error.message() << "\n";
-				resultat.second[WaldScore]=0;
-			}
-			*/
+			 // Calcul du score de Wald -> On prend la sous-matrice (1:n, 1:n) de inv_J_info et on l'inverse
+			 //cout << nbParamEstimes << endl;
+			 MatriceReels matInterm(nbParamEstimes, nbParamEstimes);
+			 try {
+			 matInterm=invpd(inv_J_info(1,1,nbParamEstimes,nbParamEstimes));
+			 resultat.second[WaldScore] = (t(beta_hat(1,0,nbParamEstimes,0)) * matInterm * beta_hat(1,0,nbParamEstimes,0))(0,0); 
+			 
+			 }
+			 catch (scythe_exception& error) {
+			 //cerr << error.message() << "\n";
+			 resultat.second[WaldScore]=0;
+			 }
+			 */
 			
 			// On fait un test de Wald par variable (pas la constante)
 			// Simplification : on calcule le score de Wald final (= le plus petit score de Wald, un par variable)
@@ -3107,12 +3127,12 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			
 			//affiche(resultat.first);
 			//cout << "	" << WaldCourant;
-
+			
 			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
 			{
 				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
 				//cout << "	" << WaldCourant;
-
+				
 				if (WaldCourant < resultat.second[WaldScore])
 				{
 					resultat.second[WaldScore] = WaldCourant;
@@ -3123,13 +3143,13 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			
 			
 			
-
-//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
-				if (selModeles==signif && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
+			
+			//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
+			if (selModeles==signif && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
 			{
 				modeleRetenu=false;
 				resultat.second[validiteModele]=7;
-
+				
 			}
 			
 			
@@ -3142,7 +3162,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	{
 		modeleRetenu=false;
 		resultat.second[validiteModele]=7;
-
+		
 	}
 	
 	// Ici pas besoin de calculer ceci pour les modèles non signif dans le cas signif
