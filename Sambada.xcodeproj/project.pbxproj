@@ -140,7 +140,7 @@
 /* Begin PBXFileReference section */
 		3F232591140243BC002A911B /* Supervision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Supervision.h; sourceTree = "<group>"; };
 		3F232592140243BC002A911B /* Supervision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Supervision.cpp; sourceTree = "<group>"; };
-		3F2325C7140257CC002A911B /* SupervisionSAM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SupervisionSAM; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F2325C7140257CC002A911B /* Supervision */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Supervision; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F2DB23413ADE7D100F02AFB /* Toolbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toolbox.h; sourceTree = "<group>"; };
 		3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Toolbox.cpp; sourceTree = "<group>"; };
 		3F2DB2D113ADFC1B00F02AFB /* splitFiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = splitFiles.cpp; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		3F47FCD616BEC69300A7943C /* mainSambada.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainSambada.cpp; sourceTree = "<group>"; };
 		3F47FCD716BEC69300A7943C /* mainSupervision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainSupervision.cpp; sourceTree = "<group>"; };
 		3F53D9D816F38F810001FF1C /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		3F54755B1378221400879439 /* ScytheSAM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ScytheSAM; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F54755B1378221400879439 /* Sambada */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sambada; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5475B31378377500879439 /* RegressionLogistique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegressionLogistique.h; sourceTree = "<group>"; };
 		3F5475B41378377500879439 /* RegressionLogistique-io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "RegressionLogistique-io.cpp"; sourceTree = "<group>"; };
 		3F5DEAD013793F15006EDC53 /* Erreur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Erreur.h; sourceTree = "<group>"; };
@@ -323,11 +323,11 @@
 		3FD89932135DD51200D02D21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3F54755B1378221400879439 /* ScytheSAM */,
+				3F54755B1378221400879439 /* Sambada */,
 				3F2DB2D613ADFC2F00F02AFB /* splitFiles */,
 				3FCC62FF13F94D7000471BD6 /* creeEtiquettes */,
 				3FCC630113F94D7000471BD6 /* creeEtiquettes */,
-				3F2325C7140257CC002A911B /* SupervisionSAM */,
+				3F2325C7140257CC002A911B /* Supervision */,
 				3FF4C6AC146D747800AF9E37 /* TestDivers */,
 				3FF4C6AE146D747800AF9E37 /* TestDivers */,
 				3FFD22C3151F4F8C00D2189B /* libshp.a */,
@@ -518,7 +518,7 @@
 			);
 			name = Supervision;
 			productName = ScytheSAM;
-			productReference = 3F2325C7140257CC002A911B /* SupervisionSAM */;
+			productReference = 3F2325C7140257CC002A911B /* Supervision */;
 			productType = "com.apple.product-type.tool";
 		};
 		3F2DB2D513ADFC2F00F02AFB /* splitFiles */ = {
@@ -554,7 +554,7 @@
 			);
 			name = Sambada;
 			productName = ScytheSAM;
-			productReference = 3F54755B1378221400879439 /* ScytheSAM */;
+			productReference = 3F54755B1378221400879439 /* Sambada */;
 			productType = "com.apple.product-type.tool";
 		};
 		3F76142513C4A2DD0083D26E /* TestBootstrap */ = {
@@ -873,7 +873,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = SCYTHE_COMPILE_DIRECT;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
-				PRODUCT_NAME = ScytheSAM;
+				PRODUCT_NAME = Sambada;
 			};
 			name = Debug;
 		};
