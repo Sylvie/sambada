@@ -62,7 +62,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	// Analyse des paramètres
 	ParameterSet::iterator paramCourant(listeParam.begin());
 	
-	//FILENAME 
+	//INPUTFILE 
 	// S'il y a 3 ou 4 arguments, le fichier de paramètres ne contient pas les noms des fichiers de données
 	bool entete(false), uniqueFichierDonnees(true);
 	vector<string> nomFichierInput(0);
@@ -101,11 +101,21 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		// Copie des noms des fichiers
 		nomFichierInput.insert(nomFichierInput.end(), paramCourant->contents.begin(), paramCourant->contents.end());
 	}
+	// Rem: le nom des fichiers de sortie est traité juste en dessous
+	++paramCourant;
+	
+	// OUTPUTFILE
+	if (paramCourant->present && paramCourant->contents.size()==1)	// Cas où l'utilisateur a fourni un nom de fichier de sortie
+	{
+		int position(paramCourant->contents[0].rfind("."));
+		nomFichierResultats.first=paramCourant->contents[0].substr(0, position);
+		nomFichierResultats.second=paramCourant->contents[0].substr(position);
+	}
 	// Recherche du nom du fichier et de l'extension
 	// S'il y a un unique fichier de données, on place les résultats dans le même dossier
 	// S'il y en a deux, on place les résultats dans le dossier des marqueurs //variables environnementales
 	// //-> Même code
-	if (uniqueFichierDonnees)
+	else if (uniqueFichierDonnees)
 	{
 		int position(nomFichierInput[0].rfind("."));
 		nomFichierResultats.first=nomFichierInput[0].substr(0, position);
@@ -119,6 +129,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		nomFichierResultats.second=nomFichierInput[1].substr(position);		
 	}
 	++paramCourant;
+	
 	
 	// WORDDELIM
 	delimMots=' ';

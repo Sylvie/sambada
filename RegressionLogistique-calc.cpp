@@ -3657,11 +3657,15 @@ void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, Pa
 {
 	ParameterSetData paramCourant;
 	
-	// FILENAME	
-	paramCourant.name="FILENAME";
+	// INPUTFILE	
+	paramCourant.name="INPUTFILE";
 	paramCourant.mandatory=false;
 	paramCourant.present=false;
 	//paramCourant.tokenize=false;
+	listeParam.push_back(paramCourant);
+	
+	// OUTPUTFILE
+	paramCourant.name="OUTPUTFILE";
 	listeParam.push_back(paramCourant);
 	
 	// WORDDELIM
