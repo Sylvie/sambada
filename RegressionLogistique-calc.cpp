@@ -3702,6 +3702,10 @@ void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, Pa
 	// SUBSETVARENV
 	paramCourant.name="SUBSETVARENV";	
 	listeParam.push_back(paramCourant);
+
+	// SUBSETMARK
+	paramCourant.name="SUBSETMARK";	
+	listeParam.push_back(paramCourant);
 	
 	// DIMMAX
 	paramCourant.name="DIMMAX";	

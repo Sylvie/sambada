@@ -531,6 +531,57 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	}
 	++paramCourant;	
 	
+	// Sélection de marqueurs génétiques
+	// SUBSETMARK
+	if (paramCourant->present && paramCourant->contents.size()>0)
+	{
+		int nbCas(paramCourant->contents.size());
+		int colCourante(0);
+		// Principe: On repère les numéros des colonnes concernées
+		// On remplit un tableau de taille nbMarq avec la liste des variables à garder (les numéros repérés)
+		// On parcourt le tableau, toutes les colonnes qui ont la valeur 0 sont désactivées
+		vector<bool> listeConservation(nbMarq, false);
+		for (int i(0); i<nbCas; ++i)
+		{
+			if (!entete) // Cas facile : il suffit de lire les numéros
+			{
+				colCourante=toolbox::conversion<int>(paramCourant->contents[i]);
+				if (colCourante>=nbMarq) 
+				{
+					throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+colCourante);
+				}
+			}
+			else
+			{
+				// Il faut trouver le header correspondant, puis enlever son numéro de la liste des variables actives
+				
+				colCourante=find(headerMarq.begin(), headerMarq.end(), paramCourant->contents[i])-headerMarq.begin();
+				if (colCourante>=nbMarq) 
+				{
+					throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+paramCourant->contents[i]);
+				}
+				
+			}
+			
+			listeConservation[colCourante]=true;
+		}
+		
+		for (int i(0); i<nbMarq; ++i)
+		{
+			if (!listeConservation[i])
+			{
+				specDataMarq[i].isNumeric=false;
+				specDataMarq[i].isActive=false;
+			}
+		}
+		//nbEnvActives=varActives.size();
+		
+	}
+	++paramCourant;
+	
+	
+	
+	
 	// DIMMAX
 	// HEADERS
 	if (!paramCourant->present || paramCourant->contents.size()==0)
