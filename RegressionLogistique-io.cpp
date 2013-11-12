@@ -62,7 +62,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	// Analyse des paramètres
 	ParameterSet::iterator paramCourant(listeParam.begin());
 	
-	//FILENAME 
+	//INPUTFILE 
 	// S'il y a 3 ou 4 arguments, le fichier de paramètres ne contient pas les noms des fichiers de données
 	bool entete(false), uniqueFichierDonnees(true);
 	vector<string> nomFichierInput(0);
@@ -101,11 +101,21 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		// Copie des noms des fichiers
 		nomFichierInput.insert(nomFichierInput.end(), paramCourant->contents.begin(), paramCourant->contents.end());
 	}
+	// Rem: le nom des fichiers de sortie est traité juste en dessous
+	++paramCourant;
+	
+	// OUTPUTFILE
+	if (paramCourant->present && paramCourant->contents.size()==1)	// Cas où l'utilisateur a fourni un nom de fichier de sortie
+	{
+		int position(paramCourant->contents[0].rfind("."));
+		nomFichierResultats.first=paramCourant->contents[0].substr(0, position);
+		nomFichierResultats.second=paramCourant->contents[0].substr(position);
+	}
 	// Recherche du nom du fichier et de l'extension
 	// S'il y a un unique fichier de données, on place les résultats dans le même dossier
 	// S'il y en a deux, on place les résultats dans le dossier des marqueurs //variables environnementales
 	// //-> Même code
-	if (uniqueFichierDonnees)
+	else if (uniqueFichierDonnees)
 	{
 		int position(nomFichierInput[0].rfind("."));
 		nomFichierResultats.first=nomFichierInput[0].substr(0, position);
@@ -119,6 +129,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		nomFichierResultats.second=nomFichierInput[1].substr(position);		
 	}
 	++paramCourant;
+	
 	
 	// WORDDELIM
 	delimMots=' ';
@@ -530,6 +541,57 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		
 	}
 	++paramCourant;	
+	
+	// Sélection de marqueurs génétiques
+	// SUBSETMARK
+	if (paramCourant->present && paramCourant->contents.size()>0)
+	{
+		int nbCas(paramCourant->contents.size());
+		int colCourante(0);
+		// Principe: On repère les numéros des colonnes concernées
+		// On remplit un tableau de taille nbMarq avec la liste des variables à garder (les numéros repérés)
+		// On parcourt le tableau, toutes les colonnes qui ont la valeur 0 sont désactivées
+		vector<bool> listeConservation(nbMarq, false);
+		for (int i(0); i<nbCas; ++i)
+		{
+			if (!entete) // Cas facile : il suffit de lire les numéros
+			{
+				colCourante=toolbox::conversion<int>(paramCourant->contents[i]);
+				if (colCourante>=nbMarq) 
+				{
+					throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+colCourante);
+				}
+			}
+			else
+			{
+				// Il faut trouver le header correspondant, puis enlever son numéro de la liste des variables actives
+				
+				colCourante=find(headerMarq.begin(), headerMarq.end(), paramCourant->contents[i])-headerMarq.begin();
+				if (colCourante>=nbMarq) 
+				{
+					throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+paramCourant->contents[i]);
+				}
+				
+			}
+			
+			listeConservation[colCourante]=true;
+		}
+		
+		for (int i(0); i<nbMarq; ++i)
+		{
+			if (!listeConservation[i])
+			{
+				specDataMarq[i].isNumeric=false;
+				specDataMarq[i].isActive=false;
+			}
+		}
+		//nbEnvActives=varActives.size();
+		
+	}
+	++paramCourant;
+	
+	
+	
 	
 	// DIMMAX
 	// HEADERS
@@ -1018,7 +1080,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 					}
 					else	// Erreur détectée -> on la note dans la ligne de validation
 					{
-						//cout << " £ " << i << " " << lineValidation[caseCourante] << "\n";
+						//cout << " % " << i << " " << lineValidation[caseCourante] << "\n";
 						// Si la variable est active et illisible, on ne s'intéresse pas à la valeur lue						
 						listeErreurs.push_back(lineValidation[caseCourante]);
 						++caseCourante;
@@ -1223,7 +1285,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			entree >> ws;
 		}
 		
-		for (int compteur(0); compteur<3;++compteur)
+/*		for (int compteur(0); compteur<3;++compteur)
 		{
 			cout << validation[compteur].size() << endl;
 			for (int ccompt(0); ccompt<validation[compteur].size(); ++ccompt)
@@ -1231,7 +1293,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 				cout << validation[compteur][ccompt] << " " ;
 			}
 			cout << endl;
-		}
+		}*/
 		
 		missingValuesEnv.resize(nbEnvActives, std::set< int > ());	
 		cout << missingValuesEnv.size() << "\n";

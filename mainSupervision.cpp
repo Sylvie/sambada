@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {	
 	Supervision regisseur;
 	
-	if(argc!=2 && argc!=5 && argc!=7 && argc !=8)
+	if(argc!=2 && argc!=5 && argc!=7 && argc !=8 && argc!=9)
 	{
 		cerr << "Nombre d'arguments incorrects." << endl;
 		return 1;
