@@ -2781,6 +2781,8 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 				
 			}
 			
+			else	// On ne calcule pas de stats pour les modèles qui présentent une erreur de calcul
+			{
 			
 			
 			
@@ -2825,6 +2827,7 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			if (AS_GWR)
 			{
 				calculeGWR(numMarq, varContinues, resultat);
+			}
 			}
 			
 		}
