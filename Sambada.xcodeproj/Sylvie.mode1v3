@@ -216,10 +216,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F89FF4E183232AC00553E84</string>
+						<string>3F4A8A3C183287D700C605F0</string>
 						<key>history</key>
 						<array>
-							<string>3F7AC5261831402300871C8A</string>
+							<string>3F89FF4E183232AC00553E84</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -256,11 +256,11 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F89FF4F183232AC00553E84</string>
+						<string>3F4A8A3D183287D700C605F0</string>
 						<key>history</key>
 						<array>
 							<string>3F314201182C42380061FABF</string>
-							<string>3F7AC5281831402300871C8A</string>
+							<string>3F89FF4F183232AC00553E84</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -297,11 +297,11 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F89FF50183232AC00553E84</string>
+						<string>3F4A8A3E183287D700C605F0</string>
 						<key>history</key>
 						<array>
 							<string>3F70125B17F6406E0047E48F</string>
-							<string>3F7AC52A1831402300871C8A</string>
+							<string>3F89FF50183232AC00553E84</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -338,10 +338,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F89FF51183232AC00553E84</string>
+						<string>3F4A8A3F183287D700C605F0</string>
 						<key>history</key>
 						<array>
-							<string>3F7AC52B1831402300871C8A</string>
+							<string>3F89FF51183232AC00553E84</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -543,9 +543,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>3F89FF42183231F700553E84</string>
+				<string>3F4A8A2F183283F500C605F0</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>3F89FF43183231F700553E84</string>
+				<string>3F4A8A30183283F500C605F0</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -683,6 +683,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>3FD89952135DD58600D02D21</string>
 		<string>3F70125E17F6406E0047E48F</string>
 		<string>3F70125917F6406E0047E48F</string>
@@ -768,7 +769,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>3FD89952135DD58600D02D21</string>
-				<string>3F89FF4A183231F700553E84</string>
+				<string>3F4A8A35183283F500C605F0</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -892,13 +893,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>3F7AC52018313D9B00871C8A</string>
+				<string>3F4A8A36183283F500C605F0</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>3F7AC52118313D9B00871C8A</string>
-				<string>3F7AC52218313D9B00871C8A</string>
-				<string>3F7AC52318313D9B00871C8A</string>
-				<string>3F7AC52418313D9B00871C8A</string>
-				<string>3F7AC52518313D9B00871C8A</string>
+				<string>3F4A8A37183283F500C605F0</string>
+				<string>3F4A8A38183283F500C605F0</string>
+				<string>3F4A8A39183283F500C605F0</string>
+				<string>3F4A8A3A183283F500C605F0</string>
+				<string>3F4A8A3B183283F500C605F0</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
