@@ -3137,6 +3137,12 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		// Aucun parent valide -> erreur type 6
 		resultat.second[validiteModele]=6;
 		
+		//STOREY!
+		if(selModeles==best)
+		{
+			modeleRetenu=false;
+		}
+		
 		etiquetteCourante=resultat.first;
 		etiquetteCourante.second.clear();
 		modeleCourant=resultats[0].find(etiquetteCourante);
@@ -3151,7 +3157,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 
 		
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
-		if (selModeles==signif && (resultat.second[Gscore]<seuilScoreMultivarie[dimParents+1]))
+		if (selModeles!=all && (resultat.second[Gscore]<seuilScoreMultivarie[dimParents+1]))	// STOREY! (sinon selModeles==signif)
 		{
 			modeleRetenu=false;
 			resultat.second[validiteModele]=7;
