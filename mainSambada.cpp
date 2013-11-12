@@ -6,12 +6,13 @@ using namespace scythe;
 
 int main(int argc, char *argv[])
 {		
+	time_t temps_start(time(NULL));
+
 	RegressionLogistique logitModel;
 	
 	//cout << numeric_limits < double >::max() << " " << log(numeric_limits < double >::max()/2) << endl;
 	//cout << numeric_limits < long double >::max() << " " << log(numeric_limits < long double >::max()/2) << endl;
 	
-	time_t temps_start(time(NULL));
 	try
 	{
 		logitModel.initialisation(argc, argv);
@@ -38,6 +39,7 @@ int main(int argc, char *argv[])
 	time_t temps_stop(time(NULL));
 
 	cout << "Ecriture des résultats : " << difftime(temps_stop, temps_fin_calculs) << " s." << endl;
+	cout << "Temps total : " << difftime(temps_stop, temps_start) << " s." << endl;
 
 }
 
