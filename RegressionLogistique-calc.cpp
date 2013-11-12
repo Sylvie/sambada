@@ -3051,7 +3051,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			modeleCourant=resultats[dimParents].find(etiquetteCourante);	// Parent courant
 			
 			// On teste si le parent existe et s'il n'est pas dans un état d'erreur
-			if (modeleCourant!=resultats[dimParents].end() && ( (modeleCourant->second[validiteModele])==0  || (modeleCourant->second[validiteModele])==6) )
+			if (modeleCourant!=resultats[dimParents].end() && ( (modeleCourant->second[validiteModele])==0  || (modeleCourant->second[validiteModele])==6) || (modeleCourant->second[validiteModele])==7 ) // Storey!!
 			{
 				if (parentValide) //  Test si un parent valide a déjà été trouvé
 				{
@@ -3077,10 +3077,13 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		
 		// Calcul des scores
 		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-bestLoglike->second[valloglikelihood]);
+		if (resultat.second[Gscore]<0.)
+		{
+			resultat.second[Gscore]=0;	
+		}
 		
 		// Mise à jour du compteur pour la FDR
 		++storey.compteurG[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[Gscore])-storey.seuilScore.begin() ) ];
-		
 		// Si on sauve tous les modèles, on cherche le plus petit score de Wald
 		int tailleModele(dimParents+1);
 		
@@ -3151,10 +3154,12 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		
 		// Calcul des scores
 		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-loglikeZero);
-
+		if (resultat.second[Gscore]<0.)
+		{
+			resultat.second[Gscore]=0;	
+		}
 		// Mise à jour du compteur pour la FDR
 		++storey.compteurG[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[Gscore])-storey.seuilScore.begin() ) ];
-
 		
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
 		if (selModeles!=all && (resultat.second[Gscore]<seuilScoreMultivarie[dimParents+1]))	// STOREY! (sinon selModeles==signif)
