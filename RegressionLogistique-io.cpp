@@ -104,12 +104,21 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	// Rem: le nom des fichiers de sortie est traité juste en dessous
 	++paramCourant;
 	
+	cout << "%OutputFile" << endl;
 	// OUTPUTFILE
 	if (paramCourant->present && paramCourant->contents.size()==1)	// Cas où l'utilisateur a fourni un nom de fichier de sortie
 	{
 		int position(paramCourant->contents[0].rfind("."));
-		nomFichierResultats.first=paramCourant->contents[0].substr(0, position);
-		nomFichierResultats.second=paramCourant->contents[0].substr(position);
+		if (position!=string::npos)
+		{
+			nomFichierResultats.first=paramCourant->contents[0].substr(0, position);
+			nomFichierResultats.second=paramCourant->contents[0].substr(position);
+		}
+		else {
+			nomFichierResultats.first=paramCourant->contents[0];
+			nomFichierResultats.second="";
+		}
+
 	}
 	// Recherche du nom du fichier et de l'extension
 	// S'il y a un unique fichier de données, on place les résultats dans le même dossier
@@ -129,6 +138,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		nomFichierResultats.second=nomFichierInput[1].substr(position);		
 	}
 	++paramCourant;
+	cout << "%OutputFile" << endl;
 	
 	
 	// WORDDELIM
@@ -195,10 +205,23 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	{
 		nbMarqTot=toolbox::conversion<int>(paramCourant->contents[1]);
 		// S'il y a plusieurs fichiers de marqueurs, il faut repérer le numéro du premier qu'on a
-		int position(nomFichierResultats.first.rfind("-"));
-		cout << "-> "<< nomFichierResultats.first.substr(position+1) << "\n";
+		// On prend le nom du fichier d'input au cas où l'utilisateur aurait renommé le fichier de sortie
+		string temp("");
+		int position(0);
+		if (uniqueFichierDonnees) 
+		{
+			position=nomFichierInput[0].rfind(".");
+			temp=(nomFichierInput[0].substr(0, position));
+		}
+		else
+		{
+			position=nomFichierInput[1].rfind(".");
+			temp=(nomFichierInput[1].substr(0, position));
+		}
+		position=(temp.rfind("-"));
+		cout << "-> "<< temp.substr(position+1) << "\n";
 		
-		istringstream iss((nomFichierResultats.first.substr(position+1)));
+		istringstream iss((temp.substr(position+1)));
 		iss >> numPremierMarq;
 		cout << iss.str() << " " << numPremierMarq << "\n" << flush;		
 	}
@@ -640,7 +663,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			
 			// De base, la longitude et la latitude sont considérées comme des variables de régression
 			// Si l'utilisateur les a marquées comme inactives, alors elles ne seront pas utilisées pour construire des modèles
-			// En conséquence, les coordonnées peuvent être stockés soit avec les variables actives soit avec les variables passives (strings!)
+			// En conséquence, les coordonnées peuvent être stockées soit avec les variables actives soit avec les variables passives (strings!)
 			/*			
 			 //La longitude et la latitude ne sont pas considérées comme des variables de régression
 			 if (varActives.count(longitude))

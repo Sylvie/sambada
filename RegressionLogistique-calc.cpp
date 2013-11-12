@@ -2281,6 +2281,18 @@ int RegressionLogistique::creeModelesGlobaux()
 		
 	}
 	
+	// Paramètres pour la FDR : 0.01, 0.02, ..., 0.95
+	// Les p-valeurs sont dans l'ordre décroissant
+	int nbPvalStorey(95);
+	for (int i(nbPvalStorey); i>0; --i) 
+	{
+		storey.pval.push_back(0.01*i);
+		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1.-0.01*i, 1, sqrt(epsilon < reel > ())));
+		cout << 0.01*i << " " << toolbox::invCDF_ChiSquare(1.-0.01*i, 1, sqrt(epsilon < reel > ())) << endl;
+	}
+	storey.compteurG.resize(dimensionMax+1, vector<int> (nbPvalStorey,0));
+	storey.compteurWald.resize(dimensionMax+1, vector<int> (nbPvalStorey,0));
+
 	//	clock_t t1, t2;
 	
 	// On ne prend en compte que les marqueurs actifs
@@ -2576,6 +2588,44 @@ int RegressionLogistique::creeModelesGlobaux()
 		trieEtEcritResultats();
 	}
 	sortie.fermeture();
+	
+	// Storey
+	ofstream sortieStorey("res-Storey.txt");
+	sortieStorey << "P-valeurs" << delimMots;
+	for (int i(0); i<nbPvalStorey; ++i)
+	{
+		sortieStorey<< storey.pval[i] << delimMots;
+	}
+	sortieStorey<< endl;
+
+	sortieStorey << "Scores" << delimMots;
+	for (int i(0); i<nbPvalStorey; ++i)
+	{
+		sortieStorey<< storey.seuilScore[i] << delimMots;
+	}
+	sortieStorey<< endl;
+	
+	for (int i(1); i<(dimensionMax+1); ++i)
+	{
+		sortieStorey << "G" << delimMots;
+		for (int j(0); j<nbPvalStorey; ++j)
+		{
+			sortieStorey<< storey.compteurG[i][j] << delimMots;
+		}
+		sortieStorey<< endl;
+
+		sortieStorey << "Wald" << delimMots;
+		for (int j(0); j<nbPvalStorey; ++j)
+		{
+			sortieStorey<< storey.compteurWald[i][j] << delimMots;
+		}
+		sortieStorey<< endl;
+		
+		
+	}
+	
+	
+	sortieStorey.close();
 	
 	return 0;
 }
@@ -3028,6 +3078,8 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		// Calcul des scores
 		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-bestLoglike->second[valloglikelihood]);
 		
+		// Mise à jour du compteur pour la FDR
+		++storey.compteurG[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[Gscore])-storey.seuilScore.begin() ) ];
 		
 		// Si on sauve tous les modèles, on cherche le plus petit score de Wald
 		int tailleModele(dimParents+1);
@@ -3039,8 +3091,8 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			modeleRetenu=false;
 			resultat.second[validiteModele]=7;
 		}
-		else
-		{
+//		else	// STOREY!
+//		{
 			// On fait un test de Wald par variable (pas la constante)
 			// Simplification : on calcule le score de Wald final (= le plus petit score de Wald, un par variable)
 			// On teste la significativité du score à la fin.
@@ -3061,6 +3113,10 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 				}
 			}
 			//cout << endl;
+		
+		// Mise à jour du compteur pour la FDR
+		++storey.compteurWald[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[WaldScore])-storey.seuilScore.begin() ) ];
+
 			// Test du score de Wald
 			if (selModeles!=all && ( resultat.second[WaldScore] < seuilScore[tailleModele] ))
 			{
@@ -3070,10 +3126,10 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			}
 			//affiche(resultat);
 			
-		}
+//		}
 		
 	}
-	else if (selModeles!=best)
+	else //if (selModeles!=best)	// STOREY !
 		// Aucun modèle parent n'est valide -> on compare avec le modèle constant 
 		// Le modèle constant est de toute façon valide
 		//-> Attention au changement de seuil pour la p-valeur
@@ -3087,8 +3143,12 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		
 		loglikeZero=modeleCourant->second[valloglikelihood];
 		
-		
+		// Calcul des scores
 		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-loglikeZero);
+
+		// Mise à jour du compteur pour la FDR
+		++storey.compteurG[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[Gscore])-storey.seuilScore.begin() ) ];
+
 		
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
 		if (selModeles==signif && (resultat.second[Gscore]<seuilScoreMultivarie[dimParents+1]))
@@ -3097,8 +3157,8 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			resultat.second[validiteModele]=7;
 			
 		}
-		else
-		{
+//		else	//STOREY !
+//		{
 			// Test avec Wald individuel
 			/*
 			 // Calcul du score de Wald -> On prend la sous-matrice (1:n, 1:n) de inv_J_info et on l'inverse
@@ -3141,12 +3201,14 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			}
 			//cout << endl;
 			
+		// Mise à jour du compteur pour la FDR
+		++storey.compteurWald[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[WaldScore])-storey.seuilScore.begin() ) ];
+
 			
 			
-			
-			
+			// STOREY
 			//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
-			if (selModeles==signif && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
+			if (selModeles==!all && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
 			{
 				modeleRetenu=false;
 				resultat.second[validiteModele]=7;
@@ -3154,17 +3216,19 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			}
 			
 			
-		}
+		//}
+		
 		
 		
 		
 	}
-	else // Aucun parent n'est valide et on ne prend que les meilleurs modèles
+	//STOREY
+	/*else // Aucun parent n'est valide et on ne prend que les meilleurs modèles
 	{
 		modeleRetenu=false;
 		resultat.second[validiteModele]=7;
 		
-	}
+	}*/
 	
 	// Ici pas besoin de calculer ceci pour les modèles non signif dans le cas signif
 	if (modeleRetenu || selModeles==all)
