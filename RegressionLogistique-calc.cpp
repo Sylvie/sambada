@@ -2591,7 +2591,9 @@ int RegressionLogistique::creeModelesGlobaux()
 	
 	// Storey
 	cout << "Nombre de modèles valides (Storey) : " << storey.nbModelesValides << "\n";
-	ofstream sortieStorey("res-Storey.txt");
+//	ofstream sortieStorey("res-Storey.txt");
+	ofstream sortieStorey((nomFichierResultats.first+"-storey"+nomFichierResultats.second).c_str());
+	
 	sortieStorey << "P-valeurs" << delimMots;
 	for (int i(0); i<storey.nbPvalStorey; ++i)
 	{

@@ -216,10 +216,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F2E03321833CECF0015B466</string>
+						<string>3F319187183407DD00793086</string>
 						<key>history</key>
 						<array>
-							<string>3F2E03181833CE760015B466</string>
+							<string>3F2E033A1833E4750015B466</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -256,10 +256,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F2E03331833CECF0015B466</string>
+						<string>3F319188183407DD00793086</string>
 						<key>history</key>
 						<array>
-							<string>3F2E031C1833CE760015B466</string>
+							<string>3F2E033B1833E4750015B466</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -296,10 +296,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F2E03341833CECF0015B466</string>
+						<string>3F319189183407DD00793086</string>
 						<key>history</key>
 						<array>
-							<string>3F2E03201833CE760015B466</string>
+							<string>3F2E033C1833E4750015B466</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -315,7 +315,7 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>1697 -44 1386 752 1440 -300 1600 1200 </string>
+				<string>54 126 1386 752 0 0 1440 878 </string>
 			</dict>
 		</dict>
 		<dict>
@@ -336,10 +336,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F2E03351833CECF0015B466</string>
+						<string>3F31918A183407DD00793086</string>
 						<key>history</key>
 						<array>
-							<string>3F2E03261833CE760015B466</string>
+							<string>3F2E033E1833E4750015B466</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -355,7 +355,7 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>1483 148 1386 752 1440 -300 1600 1200 </string>
+				<string>11 126 1386 752 0 0 1440 878 </string>
 			</dict>
 		</dict>
 		<dict>
@@ -376,10 +376,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F2E03361833CECF0015B466</string>
+						<string>3F31918B183407DD00793086</string>
 						<key>history</key>
 						<array>
-							<string>3F4A8A3C183287D700C605F0</string>
+							<string>3F2E03401833E4750015B466</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -416,11 +416,11 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F2E03371833CECF0015B466</string>
+						<string>3F31918C183407DD00793086</string>
 						<key>history</key>
 						<array>
 							<string>3F314201182C42380061FABF</string>
-							<string>3F4A8A3D183287D700C605F0</string>
+							<string>3F2E03411833E4750015B466</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -457,11 +457,11 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F2E03381833CECF0015B466</string>
+						<string>3F31918D183407DD00793086</string>
 						<key>history</key>
 						<array>
 							<string>3F70125B17F6406E0047E48F</string>
-							<string>3F4A8A3E183287D700C605F0</string>
+							<string>3F2E03421833E4750015B466</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -498,10 +498,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F2E03391833CECF0015B466</string>
+						<string>3F31918E183407DD00793086</string>
 						<key>history</key>
 						<array>
-							<string>3F4A8A3F183287D700C605F0</string>
+							<string>3F2E03431833E4750015B466</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -552,6 +552,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -665,8 +667,6 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -703,9 +703,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>3F2E02C618328DBE0015B466</string>
+				<string>3F3191701834055900793086</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>3F2E02C718328DBE0015B466</string>
+				<string>3F3191711834055900793086</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -843,7 +843,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1CD10A99069EF8BA00B06720</string>
+		<string>3FD89952135DD58600D02D21</string>
 		<string>3F70125E17F6406E0047E48F</string>
 		<string>3F70125917F6406E0047E48F</string>
 		<string>3F3141FF182C42380061FABF</string>
@@ -853,7 +853,6 @@
 		<string>3F2E031E1833CE760015B466</string>
 		<string>3F2E031A1833CE760015B466</string>
 		<string>3F2E02D618328F6B0015B466</string>
-		<string>3FD89952135DD58600D02D21</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 243 1440 635 0 0 1440 878 </string>
@@ -872,14 +871,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RegressionLogistique-calc.cpp</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -935,7 +932,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>3FD89952135DD58600D02D21</string>
-				<string>3F2E02CC18328DBE0015B466</string>
+				<string>3F31917A1834055900793086</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -948,7 +945,7 @@
 			<key>WindowToolGUID</key>
 			<string>3FD89952135DD58600D02D21</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
