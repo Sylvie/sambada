@@ -2283,16 +2283,16 @@ int RegressionLogistique::creeModelesGlobaux()
 	
 	// Paramètres pour la FDR : 0.01, 0.02, ..., 0.95
 	// Les p-valeurs sont dans l'ordre décroissant
-	int nbPvalStorey(95);
-	for (int i(nbPvalStorey); i>0; --i) 
+	storey.nbPvalStorey=95;
+	for (int i(storey.nbPvalStorey); i>0; --i) 
 	{
 		storey.pval.push_back(0.01*i);
 		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1.-0.01*i, 1, sqrt(epsilon < reel > ())));
 		cout << 0.01*i << " " << toolbox::invCDF_ChiSquare(1.-0.01*i, 1, sqrt(epsilon < reel > ())) << endl;
 	}
-	storey.compteurG.resize(dimensionMax+1, vector<int> (nbPvalStorey,0));
-	storey.compteurWald.resize(dimensionMax+1, vector<int> (nbPvalStorey,0));
-
+	storey.compteurG.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
+	storey.compteurWald.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
+	storey.nbModelesValides=0;
 	//	clock_t t1, t2;
 	
 	// On ne prend en compte que les marqueurs actifs
@@ -2590,16 +2590,17 @@ int RegressionLogistique::creeModelesGlobaux()
 	sortie.fermeture();
 	
 	// Storey
+	cout << "Nombre de modèles valides (Storey) : " << storey.nbModelesValides << "\n";
 	ofstream sortieStorey("res-Storey.txt");
 	sortieStorey << "P-valeurs" << delimMots;
-	for (int i(0); i<nbPvalStorey; ++i)
+	for (int i(0); i<storey.nbPvalStorey; ++i)
 	{
 		sortieStorey<< storey.pval[i] << delimMots;
 	}
 	sortieStorey<< endl;
 
 	sortieStorey << "Scores" << delimMots;
-	for (int i(0); i<nbPvalStorey; ++i)
+	for (int i(0); i<storey.nbPvalStorey; ++i)
 	{
 		sortieStorey<< storey.seuilScore[i] << delimMots;
 	}
@@ -2608,14 +2609,14 @@ int RegressionLogistique::creeModelesGlobaux()
 	for (int i(1); i<(dimensionMax+1); ++i)
 	{
 		sortieStorey << "G" << delimMots;
-		for (int j(0); j<nbPvalStorey; ++j)
+		for (int j(0); j<storey.nbPvalStorey; ++j)
 		{
 			sortieStorey<< storey.compteurG[i][j] << delimMots;
 		}
 		sortieStorey<< endl;
 
 		sortieStorey << "Wald" << delimMots;
-		for (int j(0); j<nbPvalStorey; ++j)
+		for (int j(0); j<storey.nbPvalStorey; ++j)
 		{
 			sortieStorey<< storey.compteurWald[i][j] << delimMots;
 		}
@@ -2784,7 +2785,8 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			else	// On ne calcule pas de stats pour les modèles qui présentent une erreur de calcul
 			{
 			
-			
+			// Storey!
+				++storey.nbModelesValides;
 			
 			resultat.second[Efron] = 1. - (resultat.second[Efron]/sum((Y - somme/taille)%(Y - somme/taille) ));
 			//loglike_courante=resultat.second[valloglikelihood];

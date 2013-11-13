@@ -107,6 +107,7 @@ private:
 	typedef struct 
 	{
 		int nbPvalStorey;
+		int nbModelesValides;
 		
 		vector<reel> pval;
 		vector<reel> seuilScore;
