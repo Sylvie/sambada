@@ -3,7 +3,7 @@
 using namespace std;
 
 Archiviste::Archiviste()
-:nbFichiers(0), nomsFichiers(0), fichiers(0)
+:nbFichiers(0), nomsFichiers(0), fichiers(0), signeRetourLigne("\n"), delimMots(' ')
 {
 }
 

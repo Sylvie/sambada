@@ -8,17 +8,17 @@
 	};
 	3F232591140243BC002A911B /* Supervision.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1380, 1989}}";
-			sepNavSelRange = "{347, 0}";
-			sepNavVisRange = "{226, 986}";
+			sepNavIntBoundsRect = "{{0, 0}, {1380, 1924}}";
+			sepNavSelRange = "{1270, 19}";
+			sepNavVisRange = "{883, 1209}";
 			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
 		};
 	};
 	3F232592140243BC002A911B /* Supervision.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1482, 10023}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1380, 10283}}";
 			sepNavSelRange = "{14185, 0}";
-			sepNavVisRange = "{13299, 1205}";
+			sepNavVisRange = "{7743, 1186}";
 			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
 		};
 	};
@@ -84,19 +84,136 @@
 			$ftag = 1;
 		};
 	};
+	3F29D3BE17C4A5550028B7A7 /* RegressionLogistique-calc.cpp:451 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 451;
+		location = Sambada;
+		modificationTime = 405957924.417405;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F29D3CB17C4A6FC0028B7A7 /* RegressionLogistique-calc.cpp:161 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculePonderation()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 161;
+		location = Sambada;
+		modificationTime = 405957924.484454;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F29D3D117C4A7970028B7A7 /* RegressionLogistique-calc.cpp:1142 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1142;
+		location = Sambada;
+		modificationTime = 405957924.584093;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F2B625F17C56A8E0061CBA1 /* RegressionLogistique-calc.cpp:1540 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+			3F2B626817C56ACD0061CBA1 /* XCBreakpointCommandAction */,
+		);
+		breakpointStyle = 0;
+		comments = "Log stack trace and auto-continue";
+		continueAfterActions = 1;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1540;
+		location = Sambada;
+		modificationTime = 405957924.652788;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F2B626817C56ACD0061CBA1 /* XCBreakpointCommandAction */ = {
+		isa = XCBreakpointCommandAction;
+		command = bt;
+		fallbackIsa = XCBreakpointAction;
+		logCommand = 0;
+		useDebuggerSideImplementation = 1;
+	};
+	3F2B627817C56BEC0061CBA1 /* RegressionLogistique-calc.cpp:1518 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1518;
+		location = Sambada;
+		modificationTime = 405957924.743296;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F2B627A17C56C090061CBA1 /* RegressionLogistique-calc.cpp:1535 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1535;
+		location = Sambada;
+		modificationTime = 405957924.810074;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
 	3F2DB23413ADE7D100F02AFB /* Toolbox.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1440, 4329}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1381, 4381}}";
 			sepNavSelRange = "{8174, 0}";
-			sepNavVisRange = "{3893, 1761}";
+			sepNavVisRange = "{0, 1451}";
 			sepNavWindowFrame = "{{0, 82}, {1440, 766}}";
 		};
 	};
 	3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1381, 4511}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1381, 4407}}";
 			sepNavSelRange = "{5294, 0}";
-			sepNavVisRange = "{4569, 1389}";
+			sepNavVisRange = "{4399, 1438}";
 			sepNavWindowFrame = "{{0, 82}, {1440, 766}}";
 		};
 	};
@@ -154,7 +271,7 @@
 		variableFormatDictionary = {
 		};
 	};
-	3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:867 */ = {
+	3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:872 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -166,13 +283,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 867;
-		location = SupervisionSAM;
-		modificationTime = 394570396.092877;
+		lineNumber = 872;
+		location = Sambada;
+		modificationTime = 405957922.725965;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:883 */ = {
+	3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:888 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -184,13 +301,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 883;
-		location = SupervisionSAM;
-		modificationTime = 394570396.162241;
+		lineNumber = 888;
+		location = Sambada;
+		modificationTime = 405957922.822588;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:980 */ = {
+	3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:985 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -202,13 +319,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 980;
-		location = SupervisionSAM;
-		modificationTime = 394570396.211108;
+		lineNumber = 985;
+		location = Sambada;
+		modificationTime = 405957922.89128;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:1076 */ = {
+	3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:1084 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -220,9 +337,9 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 1076;
-		location = SupervisionSAM;
-		modificationTime = 394570396.270908;
+		lineNumber = 1084;
+		location = Sambada;
+		modificationTime = 405957922.987724;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -236,11 +353,10 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 381;
-		location = SupervisionSAM;
-		modificationTime = 394570400.267006;
+		modificationTime = 405957937.015817;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -254,11 +370,10 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 614;
-		location = SupervisionSAM;
-		modificationTime = 394570410.779285;
+		modificationTime = 405957937.015847;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -270,25 +385,7 @@
 			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
 		};
 	};
-	3F41F65916EE48A300A1BE7A /* RegressionLogistique-calc.cpp:28 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculePonderation()";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 28;
-		location = SupervisionSAM;
-		modificationTime = 394570396.487379;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3F41F65F16EE4B1B00A1BE7A /* RegressionLogistique-io.cpp:1099 */ = {
+	3F41F65F16EE4B1B00A1BE7A /* RegressionLogistique-io.cpp:1185 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -298,121 +395,29 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
 		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
-		hitCount = 0;
+		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 1099;
-		location = SupervisionSAM;
-		modificationTime = 394570396.56229;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3F41F66316EE4C7400A1BE7A /* RegressionLogistique-io.cpp:1235 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 1235;
-		location = SupervisionSAM;
-		modificationTime = 394570396.633003;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3F41F66516EE4C8800A1BE7A /* RegressionLogistique-io.cpp:1251 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 1251;
-		location = SupervisionSAM;
-		modificationTime = 394570396.686287;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3F41F66B16EE4E3A00A1BE7A /* RegressionLogistique-io.cpp:1375 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 1375;
-		location = SupervisionSAM;
-		modificationTime = 394570396.745246;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3F41F67316EE516200A1BE7A /* RegressionLogistique-io.cpp:1228 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 1228;
-		location = SupervisionSAM;
-		modificationTime = 394570396.787794;
+		lineNumber = 1185;
+		location = Sambada;
+		modificationTime = 405957926.123361;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
 	3F47FCD616BEC69300A7943C /* mainSambada.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1002, 668}}";
-			sepNavSelRange = "{746, 0}";
-			sepNavVisRange = "{0, 1183}";
+			sepNavIntBoundsRect = "{{0, 0}, {1002, 683}}";
+			sepNavSelRange = "{788, 0}";
+			sepNavVisRange = "{0, 1185}";
 			sepNavWindowFrame = "{{15, 77}, {1061, 796}}";
 		};
 	};
 	3F47FCD716BEC69300A7943C /* mainSupervision.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1379, 689}}";
+			sepNavIntBoundsRect = "{{0, 0}, {778, 650}}";
 			sepNavSelRange = "{469, 0}";
-			sepNavVisRange = "{348, 282}";
-			sepNavWindowFrame = "{{400, -274}, {837, 690}}";
+			sepNavVisRange = "{0, 896}";
+			sepNavWindowFrame = "{{400, 70}, {837, 690}}";
 		};
-	};
-	3F4FD4A21784A07300550826 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
-		name = "Archiviste.cpp: 117";
-		rLen = 0;
-		rLoc = 1392;
-		rType = 0;
-		vrLen = 561;
-		vrLoc = 0;
-	};
-	3F4FD4A31784A07300550826 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077613DAFD3B0002BC02 /* Archiviste.h */;
-		name = "Archiviste.h: 232";
-		rLen = 0;
-		rLoc = 4548;
-		rType = 0;
-		vrLen = 1087;
-		vrLoc = 4339;
 	};
 	3F4FD52B1784A8AE00550826 /* Supervision.cpp:434 */ = {
 		isa = PBXFileBreakpoint;
@@ -424,11 +429,10 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 434;
-		location = SupervisionSAM;
-		modificationTime = 394570401.808297;
+		modificationTime = 405957937.015955;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -442,11 +446,10 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 413;
-		location = SupervisionSAM;
-		modificationTime = 394570400.989534;
+		modificationTime = 405957937.015895;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -460,85 +463,84 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
-		hitCount = 2;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 611;
-		location = SupervisionSAM;
-		modificationTime = 394570423.237446;
+		modificationTime = 405957937.015924;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F4FD54B1784AEE400550826 /* PBXTextBookmark */ = {
+	3F5045481832535D00F46C53 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 66";
+		rLen = 0;
+		rLoc = 1820;
+		rType = 0;
+		vrLen = 1202;
+		vrLoc = 4928;
+	};
+	3F5045491832535D00F46C53 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 101";
+		rLen = 0;
+		rLoc = 3255;
+		rType = 0;
+		vrLen = 2080;
+		vrLoc = 4269;
+	};
+	3F50454B1832535D00F46C53 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 3669";
+		rLen = 0;
+		rLoc = 110568;
+		rType = 0;
+		vrLen = 1239;
+		vrLoc = 109924;
+	};
+	3F50454C1832535D00F46C53 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 3F232591140243BC002A911B /* Supervision.h */;
-		name = "Supervision.h: 20";
-		rLen = 0;
-		rLoc = 347;
+		name = "Supervision.h: 67";
+		rLen = 19;
+		rLoc = 1270;
 		rType = 0;
-		vrLen = 986;
-		vrLoc = 226;
+		vrLen = 1209;
+		vrLoc = 883;
 	};
-	3F4FD54C1784AEE400550826 /* PBXTextBookmark */ = {
+	3F50454D1832535D00F46C53 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 417";
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 115";
 		rLen = 0;
-		rLoc = 9308;
+		rLoc = 1392;
 		rType = 0;
-		vrLen = 764;
-		vrLoc = 9194;
+		vrLen = 544;
+		vrLoc = 1646;
 	};
-	3F4FD54E1784AEE400550826 /* PBXTextBookmark */ = {
+	3F50454E1832535D00F46C53 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5DEAD013793F15006EDC53 /* Erreur.h */;
+		name = "Erreur.h: 10";
+		rLen = 0;
+		rLoc = 129;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	3F50454F1832535D00F46C53 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
 		name = "Toolbox.h: 304";
 		rLen = 0;
 		rLoc = 8174;
 		rType = 0;
-		vrLen = 1761;
-		vrLoc = 3893;
+		vrLen = 1451;
+		vrLoc = 0;
 	};
-	3F4FD54F1784AEE400550826 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
-		name = "Toolbox.cpp: 219";
-		rLen = 0;
-		rLoc = 4173;
-		rType = 0;
-		vrLen = 916;
-		vrLoc = 3454;
-	};
-	3F4FD5581784B12000550826 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
-		name = "Supervision.cpp: 596";
-		rLen = 0;
-		rLoc = 14185;
-		rType = 0;
-		vrLen = 1205;
-		vrLoc = 13299;
-	};
-	3F4FD5591784B12000550826 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
-		name = "Toolbox.cpp: 263";
-		rLen = 0;
-		rLoc = 5294;
-		rType = 0;
-		vrLen = 1389;
-		vrLoc = 4569;
-	};
-	3F4FD55A1784B12000550826 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3FE1077613DAFD3B0002BC02 /* Archiviste.h */;
-		name = "Archiviste.h: 297";
-		rLen = 10;
-		rLoc = 6240;
-		rType = 0;
-		vrLen = 1031;
-		vrLoc = 5329;
-	};
-	3F53D97416F34ADC0001FF1C /* RegressionLogistique-calc.cpp:1134 */ = {
+	3F53D97616F34AFC0001FF1C /* RegressionLogistique-calc.cpp:1623 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -550,13 +552,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 1134;
-		location = SupervisionSAM;
-		modificationTime = 394570397.290079;
+		lineNumber = 1623;
+		location = Sambada;
+		modificationTime = 405957923.886963;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F53D97616F34AFC0001FF1C /* RegressionLogistique-calc.cpp:1602 */ = {
+	3F53D97816F34B070001FF1C /* RegressionLogistique-calc.cpp:1681 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -568,13 +570,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 1602;
-		location = SupervisionSAM;
-		modificationTime = 394570397.334074;
+		lineNumber = 1681;
+		location = Sambada;
+		modificationTime = 405957923.984307;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F53D97816F34B070001FF1C /* RegressionLogistique-calc.cpp:1657 */ = {
+	3F53D97A16F34B0B0001FF1C /* RegressionLogistique-calc.cpp:1735 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -586,27 +588,9 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 1657;
-		location = SupervisionSAM;
-		modificationTime = 394570397.397926;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3F53D97A16F34B0B0001FF1C /* RegressionLogistique-calc.cpp:1707 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculeAutocorrelations()";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 1707;
-		location = SupervisionSAM;
-		modificationTime = 394570397.442395;
+		lineNumber = 1735;
+		location = Sambada;
+		modificationTime = 405957924.05258;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -661,6 +645,8 @@
 			NO,
 			NO,
 			NO,
+			NO,
+			NO,
 			YES,
 		);
 		argumentStrings = (
@@ -677,7 +663,7 @@
 			"\"/Users/Sylvie/Documents/Génétique/Saif Data/TestSAMSaifData/param.txt\"",
 			"\"/Users/Sylvie/Documents/Génétique/Saif Data/TestSAMSaifData/P1data1.txt\"",
 			"\"/Users/Sylvie/Desktop/TestPauline/pauline-data.csv\"",
-			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/Arabis Alpina/param-indiv.txt\"",
+			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/Arabis Alpina/param-indiv-selection.txt\"",
 			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/Arabis Alpina/arabis.intrabiodiv.indiv.txt\"",
 			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/AC_SAM_mars12/param.txt\"",
 			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/AC_SAM_mars12/Data.csv\"",
@@ -691,9 +677,11 @@
 			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/TableEnvUG.csv\"",
 			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/Marq15.txt\"",
 			"\"/Users/Sylvie/Documents/Cours/GeoComputation 2012/Semaine 8/C. Barbata Ter/parameters-M45.txt\" \"/Users/Sylvie/Documents/Cours/GeoComputation 2012/Semaine 8/C. Barbata Ter/Cbarbata-M45.txt\"",
+			"\"/Volumes/Elements/Ouganda/ResSambada/Test/54k/subp.txt\" \"/Volumes/Elements/Ouganda/ResSambada/Test/54k/DataEnv_804.txt\" \"/Volumes/Elements/Ouganda/ResSambada/Test/54k/m.txt\"",
+			"/Volumes/Elements/Ouganda/ResSambada/Nov-13/Calculs-quadrivariés/mini-param.txt  /Volumes/Elements/Ouganda/ResSambada/Nov-13/Calculs-quadrivariés/DataEnv_804_ankole.txt  /Volumes/Elements/Ouganda/ResSambada/Nov-13/Calculs-quadrivariés/mini.txt ",
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 0;
+		breakpointsEnabled = 1;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -749,27 +737,27 @@
 	};
 	3F5475B31378377500879439 /* RegressionLogistique.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1020, 3432}}";
-			sepNavSelRange = "{1045, 0}";
-			sepNavVisRange = "{0, 1490}";
-			sepNavWindowFrame = "{{0, 183}, {1047, 695}}";
+			sepNavIntBoundsRect = "{{0, 0}, {988, 3185}}";
+			sepNavSelRange = "{3255, 0}";
+			sepNavVisRange = "{4256, 2254}";
+			sepNavWindowFrame = "{{0, 70}, {1047, 695}}";
 		};
 	};
 	3F5475B41378377500879439 /* RegressionLogistique-io.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1293, 23296}}";
-			sepNavSelRange = "{44075, 44}";
-			sepNavVisRange = "{44580, 1706}";
+			sepNavIntBoundsRect = "{{0, 0}, {1379, 24089}}";
+			sepNavSelRange = "{6439, 0}";
+			sepNavVisRange = "{5522, 1443}";
 			sepNavVisRect = "{{0, 0}, {1183, 340}}";
-			sepNavWindowFrame = "{{252, 188}, {1188, 690}}";
+			sepNavWindowFrame = "{{1, 71}, {1438, 807}}";
 		};
 	};
 	3F5DEAD013793F15006EDC53 /* Erreur.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1030, 671}}";
-			sepNavSelRange = "{527, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1030, 686}}";
+			sepNavSelRange = "{129, 0}";
 			sepNavVisRange = "{0, 529}";
-			sepNavWindowFrame = "{{20, 79}, {1089, 799}}";
+			sepNavWindowFrame = "{{351, 79}, {1089, 799}}";
 		};
 	};
 	3F5DEAD113793F15006EDC53 /* Erreur.cpp */ = {
@@ -780,25 +768,7 @@
 			sepNavWindowFrame = "{{498, -120}, {1089, 799}}";
 		};
 	};
-	3F67C143173A9A1E000FCD18 /* RegressionLogistique-io.cpp:833 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 833;
-		location = SupervisionSAM;
-		modificationTime = 394570397.504845;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3F67C1FD173AB0BE000FCD18 /* RegressionLogistique-io.cpp:1623 */ = {
+	3F67C1FD173AB0BE000FCD18 /* RegressionLogistique-io.cpp:1709 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -810,13 +780,13 @@
 		functionName = "RegressionLogistique::trieEtEcritResultats()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 1623;
-		location = SupervisionSAM;
-		modificationTime = 394570397.602866;
+		lineNumber = 1709;
+		location = Sambada;
+		modificationTime = 405957924.139123;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F67C20F173AB13C000FCD18 /* RegressionLogistique-io.cpp:1631 */ = {
+	3F67C20F173AB13C000FCD18 /* RegressionLogistique-io.cpp:1717 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -828,13 +798,13 @@
 		functionName = "RegressionLogistique::trieEtEcritResultats()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 1631;
-		location = SupervisionSAM;
-		modificationTime = 394570397.671299;
+		lineNumber = 1717;
+		location = Sambada;
+		modificationTime = 405957924.247708;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3F67C21F173AB39C000FCD18 /* RegressionLogistique-calc.cpp:2936 */ = {
+	3F67C21F173AB39C000FCD18 /* RegressionLogistique-calc.cpp:2964 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -844,11 +814,11 @@
 		delayBeforeContinue = 0;
 		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
 		functionName = "RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)";
-		hitCount = 0;
+		hitCount = 7;
 		ignoreCount = 0;
-		lineNumber = 2936;
-		location = SupervisionSAM;
-		modificationTime = 394570397.713254;
+		lineNumber = 2964;
+		location = Sambada;
+		modificationTime = 405957935.340593;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -862,11 +832,10 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 368;
-		location = SupervisionSAM;
-		modificationTime = 394570398.339807;
+		modificationTime = 405957937.015755;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -880,11 +849,10 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 522;
-		location = SupervisionSAM;
-		modificationTime = 394570402.860757;
+		modificationTime = 405957937.015989;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -898,13 +866,22 @@
 		delayBeforeContinue = 0;
 		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
 		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
-		hitCount = 2;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 603;
-		location = SupervisionSAM;
-		modificationTime = 394570422.002931;
+		modificationTime = 405957937.016021;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
+	};
+	3F70125B17F6406E0047E48F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077613DAFD3B0002BC02 /* Archiviste.h */;
+		name = "Archiviste.h: 31";
+		rLen = 0;
+		rLoc = 552;
+		rType = 0;
+		vrLen = 1028;
+		vrLoc = 3519;
 	};
 	3F76142513C4A2DD0083D26E /* TestBootstrap */ = {
 		activeExec = 0;
@@ -920,6 +897,94 @@
 			sepNavWindowFrame = "{{15, 79}, {877, 799}}";
 		};
 	};
+	3F84BAE018326C4900A135F2 /* RegressionLogistique-io.cpp:41 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 41;
+		location = Sambada;
+		modificationTime = 405957925.121947;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	3F84BB011832809400A135F2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 224";
+		rLen = 0;
+		rLoc = 6439;
+		rType = 0;
+		vrLen = 1443;
+		vrLoc = 5522;
+	};
+	3F84BB021832809400A135F2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 101";
+		rLen = 0;
+		rLoc = 3255;
+		rType = 0;
+		vrLen = 2254;
+		vrLoc = 4256;
+	};
+	3F84BB031832809400A135F2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 3669";
+		rLen = 0;
+		rLoc = 110568;
+		rType = 0;
+		vrLen = 1201;
+		vrLoc = 109924;
+	};
+	3F84BB041832809400A135F2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232591140243BC002A911B /* Supervision.h */;
+		name = "Supervision.h: 67";
+		rLen = 19;
+		rLoc = 1270;
+		rType = 0;
+		vrLen = 1209;
+		vrLoc = 883;
+	};
+	3F84BB051832809400A135F2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 115";
+		rLen = 0;
+		rLoc = 1392;
+		rType = 0;
+		vrLen = 544;
+		vrLoc = 1646;
+	};
+	3F84BB061832809400A135F2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5DEAD013793F15006EDC53 /* Erreur.h */;
+		name = "Erreur.h: 10";
+		rLen = 0;
+		rLoc = 129;
+		rType = 0;
+		vrLen = 529;
+		vrLoc = 0;
+	};
+	3F84BB071832809400A135F2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
+		name = "Toolbox.h: 304";
+		rLen = 0;
+		rLoc = 8174;
+		rType = 0;
+		vrLen = 1451;
+		vrLoc = 0;
+	};
 	3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1342, 741}}";
@@ -928,7 +993,7 @@
 			sepNavWindowFrame = "{{0, 74}, {1054, 804}}";
 		};
 	};
-	3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:763 */ = {
+	3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:768 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -940,27 +1005,9 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 763;
-		location = SupervisionSAM;
-		modificationTime = 394570396.048281;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3FA819E116EFEBDF009B04CF /* RegressionLogistique-calc.cpp:30 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
-		functionName = "RegressionLogistique::calculePonderation()";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 30;
-		location = SupervisionSAM;
-		modificationTime = 394570397.230729;
+		lineNumber = 768;
+		location = Sambada;
+		modificationTime = 405957922.658285;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -1072,12 +1119,12 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 426;
-		location = SupervisionSAM;
-		modificationTime = 394570396.312917;
+		location = Sambada;
+		modificationTime = 405957923.053837;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:532 */ = {
+	3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:562 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1089,13 +1136,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 532;
-		location = SupervisionSAM;
-		modificationTime = 394570396.378965;
+		lineNumber = 562;
+		location = Sambada;
+		modificationTime = 405957923.150183;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:744 */ = {
+	3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:747 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1107,31 +1154,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 744;
-		location = SupervisionSAM;
-		modificationTime = 394570396.420928;
+		lineNumber = 747;
+		location = Sambada;
+		modificationTime = 405957923.211661;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FD3260C16EF6A5600214530 /* RegressionLogistique-io.cpp:1247 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
-		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 1247;
-		location = SupervisionSAM;
-		modificationTime = 394570396.852977;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	3FD326D016EF989A00214530 /* RegressionLogistique-calc.cpp:669 */ = {
+	3FD326D016EF989A00214530 /* RegressionLogistique-calc.cpp:672 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1143,9 +1172,9 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 669;
-		location = SupervisionSAM;
-		modificationTime = 394570396.894898;
+		lineNumber = 672;
+		location = Sambada;
+		modificationTime = 405957923.405594;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -1162,12 +1191,12 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 581;
-		location = SupervisionSAM;
-		modificationTime = 394570396.960716;
+		location = Sambada;
+		modificationTime = 405957923.495969;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FD3270C16EF9EAD00214530 /* RegressionLogistique-calc.cpp:667 */ = {
+	3FD3270C16EF9EAD00214530 /* RegressionLogistique-calc.cpp:670 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1179,13 +1208,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 667;
-		location = SupervisionSAM;
-		modificationTime = 394570397.002717;
+		lineNumber = 670;
+		location = Sambada;
+		modificationTime = 405957923.564132;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FD3271016EF9EDA00214530 /* RegressionLogistique-calc.cpp:700 */ = {
+	3FD3271016EF9EDA00214530 /* RegressionLogistique-calc.cpp:703 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1197,13 +1226,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 700;
-		location = SupervisionSAM;
-		modificationTime = 394570397.063959;
+		lineNumber = 703;
+		location = Sambada;
+		modificationTime = 405957923.654504;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FD3271216EF9EFC00214530 /* RegressionLogistique-calc.cpp:728 */ = {
+	3FD3271216EF9EFC00214530 /* RegressionLogistique-calc.cpp:731 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1215,13 +1244,13 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 728;
-		location = SupervisionSAM;
-		modificationTime = 394570397.121008;
+		lineNumber = 731;
+		location = Sambada;
+		modificationTime = 405957923.720345;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	3FD3271416EF9FD500214530 /* RegressionLogistique-calc.cpp:968 */ = {
+	3FD3271416EF9FD500214530 /* RegressionLogistique-calc.cpp:973 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1233,49 +1262,40 @@
 		functionName = "RegressionLogistique::calculeAutocorrelations()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 968;
-		location = SupervisionSAM;
-		modificationTime = 394570397.178714;
+		lineNumber = 973;
+		location = Sambada;
+		modificationTime = 405957923.818698;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
 	3FD898D1135DC94A00D02D21 /* Project object */ = {
 		activeBuildConfigurationName = Release;
-		activeExecutable = 3F2325C8140257CC002A911B /* Supervision */;
-		activeTarget = 3F2325A3140257CC002A911B /* Supervision */;
+		activeExecutable = 3F54755C1378221400879439 /* Sambada */;
+		activeTarget = 3F54753B1378221400879439 /* Sambada */;
 		addToTargets = (
 		);
 		breakpoints = (
-			3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:763 */,
-			3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:867 */,
-			3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:883 */,
-			3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:980 */,
-			3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:1076 */,
+			3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:768 */,
+			3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:872 */,
+			3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:888 */,
+			3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:985 */,
+			3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:1084 */,
 			3FCCCFF616EE1EBE00754093 /* RegressionLogistique-calc.cpp:426 */,
-			3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:532 */,
-			3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:744 */,
-			3F41F65916EE48A300A1BE7A /* RegressionLogistique-calc.cpp:28 */,
-			3F41F65F16EE4B1B00A1BE7A /* RegressionLogistique-io.cpp:1099 */,
-			3F41F66316EE4C7400A1BE7A /* RegressionLogistique-io.cpp:1235 */,
-			3F41F66516EE4C8800A1BE7A /* RegressionLogistique-io.cpp:1251 */,
-			3F41F66B16EE4E3A00A1BE7A /* RegressionLogistique-io.cpp:1375 */,
-			3F41F67316EE516200A1BE7A /* RegressionLogistique-io.cpp:1228 */,
-			3FD3260C16EF6A5600214530 /* RegressionLogistique-io.cpp:1247 */,
-			3FD326D016EF989A00214530 /* RegressionLogistique-calc.cpp:669 */,
+			3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:562 */,
+			3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:747 */,
+			3F41F65F16EE4B1B00A1BE7A /* RegressionLogistique-io.cpp:1185 */,
+			3FD326D016EF989A00214530 /* RegressionLogistique-calc.cpp:672 */,
 			3FD326DC16EF991400214530 /* RegressionLogistique-calc.cpp:581 */,
-			3FD3270C16EF9EAD00214530 /* RegressionLogistique-calc.cpp:667 */,
-			3FD3271016EF9EDA00214530 /* RegressionLogistique-calc.cpp:700 */,
-			3FD3271216EF9EFC00214530 /* RegressionLogistique-calc.cpp:728 */,
-			3FD3271416EF9FD500214530 /* RegressionLogistique-calc.cpp:968 */,
-			3FA819E116EFEBDF009B04CF /* RegressionLogistique-calc.cpp:30 */,
-			3F53D97416F34ADC0001FF1C /* RegressionLogistique-calc.cpp:1134 */,
-			3F53D97616F34AFC0001FF1C /* RegressionLogistique-calc.cpp:1602 */,
-			3F53D97816F34B070001FF1C /* RegressionLogistique-calc.cpp:1657 */,
-			3F53D97A16F34B0B0001FF1C /* RegressionLogistique-calc.cpp:1707 */,
-			3F67C143173A9A1E000FCD18 /* RegressionLogistique-io.cpp:833 */,
-			3F67C1FD173AB0BE000FCD18 /* RegressionLogistique-io.cpp:1623 */,
-			3F67C20F173AB13C000FCD18 /* RegressionLogistique-io.cpp:1631 */,
-			3F67C21F173AB39C000FCD18 /* RegressionLogistique-calc.cpp:2936 */,
+			3FD3270C16EF9EAD00214530 /* RegressionLogistique-calc.cpp:670 */,
+			3FD3271016EF9EDA00214530 /* RegressionLogistique-calc.cpp:703 */,
+			3FD3271216EF9EFC00214530 /* RegressionLogistique-calc.cpp:731 */,
+			3FD3271416EF9FD500214530 /* RegressionLogistique-calc.cpp:973 */,
+			3F53D97616F34AFC0001FF1C /* RegressionLogistique-calc.cpp:1623 */,
+			3F53D97816F34B070001FF1C /* RegressionLogistique-calc.cpp:1681 */,
+			3F53D97A16F34B0B0001FF1C /* RegressionLogistique-calc.cpp:1735 */,
+			3F67C1FD173AB0BE000FCD18 /* RegressionLogistique-io.cpp:1709 */,
+			3F67C20F173AB13C000FCD18 /* RegressionLogistique-io.cpp:1717 */,
+			3F67C21F173AB39C000FCD18 /* RegressionLogistique-calc.cpp:2964 */,
 			3F3C4B46177731BA0027E053 /* Supervision.cpp:381 */,
 			3F3C4B9B177735720027E053 /* Supervision.cpp:614 */,
 			3F6852141778D3C90028FF0E /* Supervision.cpp:368 */,
@@ -1284,6 +1304,13 @@
 			3F4FD52B1784A8AE00550826 /* Supervision.cpp:434 */,
 			3F4FD5311784A8C700550826 /* Supervision.cpp:413 */,
 			3F4FD5331784A90A00550826 /* Supervision.cpp:611 */,
+			3F29D3BE17C4A5550028B7A7 /* RegressionLogistique-calc.cpp:451 */,
+			3F29D3CB17C4A6FC0028B7A7 /* RegressionLogistique-calc.cpp:161 */,
+			3F29D3D117C4A7970028B7A7 /* RegressionLogistique-calc.cpp:1142 */,
+			3F2B625F17C56A8E0061CBA1 /* RegressionLogistique-calc.cpp:1540 */,
+			3F2B627817C56BEC0061CBA1 /* RegressionLogistique-calc.cpp:1518 */,
+			3F2B627A17C56C090061CBA1 /* RegressionLogistique-calc.cpp:1535 */,
+			3F84BAE018326C4900A135F2 /* RegressionLogistique-io.cpp:41 */,
 		);
 		codeSenseManager = 3FD898D6135DC94A00D02D21 /* Code sense */;
 		executables = (
@@ -1412,19 +1439,25 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 394566542;
-			PBXWorkspaceStateSaveDate = 394566542;
+			PBXPerProjectTemplateStateSaveDate = 405956057;
+			PBXWorkspaceStateSaveDate = 405956057;
 		};
 		perUserProjectItems = {
-			3F4FD4A21784A07300550826 /* PBXTextBookmark */ = 3F4FD4A21784A07300550826 /* PBXTextBookmark */;
-			3F4FD4A31784A07300550826 /* PBXTextBookmark */ = 3F4FD4A31784A07300550826 /* PBXTextBookmark */;
-			3F4FD54B1784AEE400550826 /* PBXTextBookmark */ = 3F4FD54B1784AEE400550826 /* PBXTextBookmark */;
-			3F4FD54C1784AEE400550826 /* PBXTextBookmark */ = 3F4FD54C1784AEE400550826 /* PBXTextBookmark */;
-			3F4FD54E1784AEE400550826 /* PBXTextBookmark */ = 3F4FD54E1784AEE400550826 /* PBXTextBookmark */;
-			3F4FD54F1784AEE400550826 /* PBXTextBookmark */ = 3F4FD54F1784AEE400550826 /* PBXTextBookmark */;
-			3F4FD5581784B12000550826 /* PBXTextBookmark */ = 3F4FD5581784B12000550826 /* PBXTextBookmark */;
-			3F4FD5591784B12000550826 /* PBXTextBookmark */ = 3F4FD5591784B12000550826 /* PBXTextBookmark */;
-			3F4FD55A1784B12000550826 /* PBXTextBookmark */ = 3F4FD55A1784B12000550826 /* PBXTextBookmark */;
+			3F5045481832535D00F46C53 /* PBXTextBookmark */ = 3F5045481832535D00F46C53 /* PBXTextBookmark */;
+			3F5045491832535D00F46C53 /* PBXTextBookmark */ = 3F5045491832535D00F46C53 /* PBXTextBookmark */;
+			3F50454B1832535D00F46C53 /* PBXTextBookmark */ = 3F50454B1832535D00F46C53 /* PBXTextBookmark */;
+			3F50454C1832535D00F46C53 /* PBXTextBookmark */ = 3F50454C1832535D00F46C53 /* PBXTextBookmark */;
+			3F50454D1832535D00F46C53 /* PBXTextBookmark */ = 3F50454D1832535D00F46C53 /* PBXTextBookmark */;
+			3F50454E1832535D00F46C53 /* PBXTextBookmark */ = 3F50454E1832535D00F46C53 /* PBXTextBookmark */;
+			3F50454F1832535D00F46C53 /* PBXTextBookmark */ = 3F50454F1832535D00F46C53 /* PBXTextBookmark */;
+			3F70125B17F6406E0047E48F /* PBXTextBookmark */ = 3F70125B17F6406E0047E48F /* PBXTextBookmark */;
+			3F84BB011832809400A135F2 /* PBXTextBookmark */ = 3F84BB011832809400A135F2 /* PBXTextBookmark */;
+			3F84BB021832809400A135F2 /* PBXTextBookmark */ = 3F84BB021832809400A135F2 /* PBXTextBookmark */;
+			3F84BB031832809400A135F2 /* PBXTextBookmark */ = 3F84BB031832809400A135F2 /* PBXTextBookmark */;
+			3F84BB041832809400A135F2 /* PBXTextBookmark */ = 3F84BB041832809400A135F2 /* PBXTextBookmark */;
+			3F84BB051832809400A135F2 /* PBXTextBookmark */ = 3F84BB051832809400A135F2 /* PBXTextBookmark */;
+			3F84BB061832809400A135F2 /* PBXTextBookmark */ = 3F84BB061832809400A135F2 /* PBXTextBookmark */;
+			3F84BB071832809400A135F2 /* PBXTextBookmark */ = 3F84BB071832809400A135F2 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 3FD898D5135DC94A00D02D21 /* Source Control */;
 		userBookmarkGroup = 3F54752C1378170E00879439 /* PBXBookmarkGroup */;
@@ -1463,9 +1496,9 @@
 	};
 	3FD898FA135DCA4900D02D21 /* datablock.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1221, 5577}}";
-			sepNavSelRange = "{3455, 0}";
-			sepNavVisRange = "{0, 1887}";
+			sepNavIntBoundsRect = "{{0, 0}, {1379, 5577}}";
+			sepNavSelRange = "{3523, 0}";
+			sepNavVisRange = "{3046, 544}";
 			sepNavWindowFrame = "{{15, 79}, {1280, 799}}";
 		};
 	};
@@ -1519,9 +1552,9 @@
 	};
 	3FD89901135DCA4900D02D21 /* matrix.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1030, 67548}}";
-			sepNavSelRange = "{60707, 0}";
-			sepNavVisRange = "{74412, 1719}";
+			sepNavIntBoundsRect = "{{0, 0}, {703, 65962}}";
+			sepNavSelRange = "{17346, 0}";
+			sepNavVisRange = "{16826, 1104}";
 			sepNavWindowFrame = "{{15, 79}, {1089, 799}}";
 		};
 	};
@@ -1559,25 +1592,25 @@
 	3FE1077613DAFD3B0002BC02 /* Archiviste.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1058, 3952}}";
-			sepNavSelRange = "{6240, 10}";
-			sepNavVisRange = "{5329, 1031}";
+			sepNavSelRange = "{552, 0}";
+			sepNavVisRange = "{3519, 1028}";
 			sepNavWindowFrame = "{{323, 188}, {1117, 690}}";
 		};
 	};
 	3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1058, 2197}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1058, 2262}}";
 			sepNavSelRange = "{1392, 0}";
-			sepNavVisRange = "{0, 561}";
-			sepNavWindowFrame = "{{268, 107}, {1117, 758}}";
+			sepNavVisRange = "{1646, 544}";
+			sepNavWindowFrame = "{{323, 188}, {1117, 690}}";
 		};
 	};
 	3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1468, 49231}}";
-			sepNavSelRange = "{82979, 0}";
-			sepNavVisRange = "{90286, 1325}";
-			sepNavWindowFrame = "{{162, 188}, {1278, 690}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1211, 49361}}";
+			sepNavSelRange = "{110568, 0}";
+			sepNavVisRange = "{109924, 1201}";
+			sepNavWindowFrame = "{{69, 70}, {1270, 808}}";
 		};
 	};
 	3FF4C6AD146D747800AF9E37 /* TestBootstrap */ = {

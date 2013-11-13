@@ -873,7 +873,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = SCYTHE_COMPILE_DIRECT;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
-				PRODUCT_NAME = ScytheSAM;
+				PRODUCT_NAME = Sambada;
 			};
 			name = Debug;
 		};
