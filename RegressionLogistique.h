@@ -107,13 +107,13 @@ private:
 	typedef struct 
 	{
 		int nbPvalStorey;
-		int nbModelesValides;
+		vector<int> nbModelesValides;
 		
 		vector<reel> pval;
 		vector<reel> seuilScore;
 		
-		vector< vector< int > > compteurG;
-		vector< vector< int > > compteurWald;
+		vector< vector< int > > compteurG, compteurGOrphelins;
+		vector< vector< int > > compteurWald, compteurWaldOrphelins;
 	} donneesFDR;
 	
 protected:

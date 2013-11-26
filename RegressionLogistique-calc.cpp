@@ -2283,16 +2283,23 @@ int RegressionLogistique::creeModelesGlobaux()
 	
 	// Paramètres pour la FDR : 0.01, 0.02, ..., 0.95
 	// Les p-valeurs sont dans l'ordre décroissant
-	storey.nbPvalStorey=95;
-	for (int i(storey.nbPvalStorey); i>0; --i) 
+	storey.nbPvalStorey=96;	// Tient compte de la dernière valeur (p=0, score=inf)
+	for (int i(storey.nbPvalStorey-1); i>0; --i) 
 	{
 		storey.pval.push_back(0.01*i);
 		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1.-0.01*i, 1, sqrt(epsilon < reel > ())));
 		cout << 0.01*i << " " << toolbox::invCDF_ChiSquare(1.-0.01*i, 1, sqrt(epsilon < reel > ())) << endl;
 	}
+	storey.pval.push_back(0.);
+	storey.seuilScore.push_back(std::numeric_limits<reel>::infinity());
+	
 	storey.compteurG.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
 	storey.compteurWald.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
-	storey.nbModelesValides=0;
+
+	storey.compteurGOrphelins.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
+	storey.compteurWaldOrphelins.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
+
+	storey.nbModelesValides.resize(dimensionMax+1, 0);
 	//	clock_t t1, t2;
 	
 	// On ne prend en compte que les marqueurs actifs
@@ -2590,8 +2597,11 @@ int RegressionLogistique::creeModelesGlobaux()
 	sortie.fermeture();
 	
 	// Storey
-	cout << "Nombre de modèles valides (Storey) : " << storey.nbModelesValides << "\n";
-//	ofstream sortieStorey("res-Storey.txt");
+	for (int i(1); i<(dimensionMax+1); ++i)
+	{
+	cout << "Nombre de modèles valides (Storey) dim=" << i << " : " << storey.nbModelesValides[i] << "\n";
+	}
+		//	ofstream sortieStorey("res-Storey.txt");
 	ofstream sortieStorey((nomFichierResultats.first+"-storey"+nomFichierResultats.second).c_str());
 	
 	sortieStorey << "P-valeurs" << delimMots;
@@ -2610,17 +2620,31 @@ int RegressionLogistique::creeModelesGlobaux()
 	
 	for (int i(1); i<(dimensionMax+1); ++i)
 	{
-		sortieStorey << "G" << delimMots;
+		sortieStorey << "G" << i << delimMots;
 		for (int j(0); j<storey.nbPvalStorey; ++j)
 		{
 			sortieStorey<< storey.compteurG[i][j] << delimMots;
 		}
 		sortieStorey<< endl;
 
-		sortieStorey << "Wald" << delimMots;
+		sortieStorey << "GOrphelins" << i << delimMots;
+		for (int j(0); j<storey.nbPvalStorey; ++j)
+		{
+			sortieStorey<< storey.compteurGOrphelins[i][j] << delimMots;
+		}
+		sortieStorey<< endl;
+		
+		sortieStorey << "Wald" << i << delimMots;
 		for (int j(0); j<storey.nbPvalStorey; ++j)
 		{
 			sortieStorey<< storey.compteurWald[i][j] << delimMots;
+		}
+		sortieStorey<< endl;
+
+		sortieStorey << "WaldOrphelins"<< i << delimMots;
+		for (int j(0); j<storey.nbPvalStorey; ++j)
+		{
+			sortieStorey<< storey.compteurWaldOrphelins[i][j] << delimMots;
 		}
 		sortieStorey<< endl;
 		
@@ -2788,7 +2812,7 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			{
 			
 			// Storey!
-				++storey.nbModelesValides;
+				++storey.nbModelesValides[dim];
 			
 			resultat.second[Efron] = 1. - (resultat.second[Efron]/sum((Y - somme/taille)%(Y - somme/taille) ));
 			//loglike_courante=resultat.second[valloglikelihood];
@@ -3166,7 +3190,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			resultat.second[Gscore]=0;	
 		}
 		// Mise à jour du compteur pour la FDR
-		++storey.compteurG[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[Gscore])-storey.seuilScore.begin() ) ];
+		++storey.compteurGOrphelins[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[Gscore])-storey.seuilScore.begin() ) ];
 		
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
 		if (selModeles!=all && (resultat.second[Gscore]<seuilScoreMultivarie[dimParents+1]))	// STOREY! (sinon selModeles==signif)
@@ -3220,7 +3244,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			//cout << endl;
 			
 		// Mise à jour du compteur pour la FDR
-		++storey.compteurWald[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[WaldScore])-storey.seuilScore.begin() ) ];
+		++storey.compteurWaldOrphelins[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[WaldScore])-storey.seuilScore.begin() ) ];
 
 			
 			
