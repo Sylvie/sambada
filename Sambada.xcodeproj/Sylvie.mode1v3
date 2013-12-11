@@ -202,6 +202,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>3FCB291D1844FA0400E5B2BB</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>Supervision.cpp</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>3FCB291E1844FA0400E5B2BB</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>Supervision.cpp</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>3FCB29331844FC8700E5B2BB</string>
+						<key>history</key>
+						<array>
+							<string>3FCB291C1844E97C00E5B2BB</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1439, 702}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>0 135 1439 743 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>3F2E02D618328F6B0015B466</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>RegressionLogistique-calc.cpp</string>
@@ -216,7 +256,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB29131844D0A800E5B2BB</string>
+						<string>3FCB29341844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3FCB29001844CB9200E5B2BB</string>
@@ -256,7 +296,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB29141844D0A800E5B2BB</string>
+						<string>3FCB29351844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3F70EC8C1836B4CF002B9D2D</string>
@@ -296,7 +336,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB29151844D0A800E5B2BB</string>
+						<string>3FCB29361844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3F70EC871836B4CF002B9D2D</string>
@@ -336,7 +376,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB29161844D0A800E5B2BB</string>
+						<string>3FCB29371844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3F70EC841836B4CF002B9D2D</string>
@@ -376,7 +416,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB29171844D0A800E5B2BB</string>
+						<string>3FCB29391844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3F70EC881836B4CF002B9D2D</string>
@@ -416,7 +456,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB29181844D0A800E5B2BB</string>
+						<string>3FCB293B1844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3F70EC8A1836B4CF002B9D2D</string>
@@ -456,7 +496,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB29191844D0A800E5B2BB</string>
+						<string>3FCB293D1844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3F314201182C42380061FABF</string>
@@ -497,7 +537,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB291A1844D0A800E5B2BB</string>
+						<string>3FCB293E1844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3F70125B17F6406E0047E48F</string>
@@ -538,7 +578,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3FCB291B1844D0A800E5B2BB</string>
+						<string>3FCB293F1844FC8700E5B2BB</string>
 						<key>history</key>
 						<array>
 							<string>3F70EC8F1836B4CF002B9D2D</string>
@@ -638,7 +678,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>11</integer>
+									<integer>4</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -891,10 +931,11 @@
 		<string>3F2E03241833CE760015B466</string>
 		<string>3F2E031E1833CE760015B466</string>
 		<string>3F9C6CFF1835050200A1E012</string>
-		<string>/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Sambada.xcodeproj</string>
 		<string>3F2E031A1833CE760015B466</string>
 		<string>3F6AFA2F182920F6004A6735</string>
 		<string>3F2E02D618328F6B0015B466</string>
+		<string>/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Sambada.xcodeproj</string>
+		<string>3FCB291D1844FA0400E5B2BB</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 243 1440 635 0 0 1440 878 </string>
