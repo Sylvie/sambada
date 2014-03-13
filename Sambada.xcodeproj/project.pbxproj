@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0D639518E02DEC00A83929 /* TestStorey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D639418E02DEC00A83929 /* TestStorey.cpp */; };
 		3F1D2D5813F4122E0028E25A /* creeEtiquettes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F3DD9E413EAF1F200DD85A7 /* creeEtiquettes.cpp */; };
 		3F232593140243BC002A911B /* Supervision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F232592140243BC002A911B /* Supervision.cpp */; };
 		3F2325A5140257CC002A911B /* algorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FD898F9135DCA4900D02D21 /* algorithm.h */; };
@@ -112,6 +113,8 @@
 		3FC2646F13C1C3B700E2032C /* smath.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FD8990C135DCA4900D02D21 /* smath.h */; };
 		3FC2647013C1C3B700E2032C /* stat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FD8990D135DCA4900D02D21 /* stat.h */; };
 		3FC2647313C1C3D800E2032C /* TestDivers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FC2645113C1C34200E2032C /* TestDivers.cpp */; };
+		3FCBA04E18D9D5EF0081FAB8 /* recodePlink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBA04518D9D5AB0081FAB8 /* recodePlink.cpp */; };
+		3FCBA05618D9D6040081FAB8 /* recodeLFMM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FCBA04418D9D5AB0081FAB8 /* recodeLFMM.cpp */; };
 		3FCC628C13F9142000471BD6 /* parcoursModeles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FCC628B13F9142000471BD6 /* parcoursModeles.cpp */; };
 		3FDE138A14E71D2200439A75 /* Toolbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */; };
 		3FDE138B14E71D2D00439A75 /* Toolbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */; };
@@ -138,6 +141,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F0D638E18E02DD300A83929 /* TestStorey */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestStorey; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0D639418E02DEC00A83929 /* TestStorey.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestStorey.cpp; sourceTree = "<group>"; };
 		3F232591140243BC002A911B /* Supervision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Supervision.h; sourceTree = "<group>"; };
 		3F232592140243BC002A911B /* Supervision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Supervision.cpp; sourceTree = "<group>"; };
 		3F2325C7140257CC002A911B /* Supervision */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Supervision; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +162,10 @@
 		3F76144513C4A2FF0083D26E /* testBootstrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testBootstrap.cpp; sourceTree = "<group>"; };
 		3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ModeleParametres.txt; sourceTree = "<group>"; };
 		3FC2645113C1C34200E2032C /* TestDivers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestDivers.cpp; sourceTree = "<group>"; };
+		3FCBA04418D9D5AB0081FAB8 /* recodeLFMM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = recodeLFMM.cpp; sourceTree = "<group>"; };
+		3FCBA04518D9D5AB0081FAB8 /* recodePlink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = recodePlink.cpp; sourceTree = "<group>"; };
+		3FCBA04A18D9D5E70081FAB8 /* Recodage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Recodage; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FCBA05218D9D5FD0081FAB8 /* RecodageLFMM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RecodageLFMM; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FCC628B13F9142000471BD6 /* parcoursModeles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parcoursModeles.cpp; sourceTree = "<group>"; };
 		3FCC62FF13F94D7000471BD6 /* creeEtiquettes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = creeEtiquettes; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FCC630113F94D7000471BD6 /* creeEtiquettes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = creeEtiquettes; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +203,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3F0D638C18E02DD300A83929 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F1D2D5113F412030028E25A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +254,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FCBA04818D9D5E70081FAB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FCBA05018D9D5FD0081FAB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3FCC626813F9130300471BD6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -270,6 +300,8 @@
 				3FC2645113C1C34200E2032C /* TestDivers.cpp */,
 				3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */,
 				3F2DB23413ADE7D100F02AFB /* Toolbox.h */,
+				3FCBA04418D9D5AB0081FAB8 /* recodeLFMM.cpp */,
+				3FCBA04518D9D5AB0081FAB8 /* recodePlink.cpp */,
 				3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */,
 				3F5475B31378377500879439 /* RegressionLogistique.h */,
 				3F5475B41378377500879439 /* RegressionLogistique-io.cpp */,
@@ -281,6 +313,7 @@
 				3FFD2232151F4E3B00D2189B /* Shapefile */,
 				3FD898F8135DCA4900D02D21 /* scythestat */,
 				3FD89932135DD51200D02D21 /* Products */,
+				3F0D639418E02DEC00A83929 /* TestStorey.cpp */,
 			);
 			sourceTree = "<group>";
 		};
@@ -331,6 +364,9 @@
 				3FF4C6AC146D747800AF9E37 /* TestDivers */,
 				3FF4C6AE146D747800AF9E37 /* TestDivers */,
 				3FFD22C3151F4F8C00D2189B /* libshp.a */,
+				3FCBA04A18D9D5E70081FAB8 /* Recodage */,
+				3FCBA05218D9D5FD0081FAB8 /* RecodageLFMM */,
+				3F0D638E18E02DD300A83929 /* TestStorey */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -488,6 +524,22 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		3F0D638D18E02DD300A83929 /* TestStorey */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F0D639618E02DEC00A83929 /* Build configuration list for PBXNativeTarget "TestStorey" */;
+			buildPhases = (
+				3F0D638B18E02DD300A83929 /* Sources */,
+				3F0D638C18E02DD300A83929 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestStorey;
+			productName = TestStorey;
+			productReference = 3F0D638E18E02DD300A83929 /* TestStorey */;
+			productType = "com.apple.product-type.tool";
+		};
 		3F1D2D5213F412030028E25A /* creeEtiquettes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F1D2D5713F412220028E25A /* Build configuration list for PBXNativeTarget "creeEtiquettes" */;
@@ -591,6 +643,38 @@
 			productReference = 3FF4C6AE146D747800AF9E37 /* TestDivers */;
 			productType = "com.apple.product-type.tool";
 		};
+		3FCBA04918D9D5E70081FAB8 /* Recodage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FCBA06618D9D60F0081FAB8 /* Build configuration list for PBXNativeTarget "Recodage" */;
+			buildPhases = (
+				3FCBA04718D9D5E70081FAB8 /* Sources */,
+				3FCBA04818D9D5E70081FAB8 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Recodage;
+			productName = Recodage;
+			productReference = 3FCBA04A18D9D5E70081FAB8 /* Recodage */;
+			productType = "com.apple.product-type.tool";
+		};
+		3FCBA05118D9D5FD0081FAB8 /* RecodageLFMM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FCBA06718D9D60F0081FAB8 /* Build configuration list for PBXNativeTarget "RecodageLFMM" */;
+			buildPhases = (
+				3FCBA04F18D9D5FD0081FAB8 /* Sources */,
+				3FCBA05018D9D5FD0081FAB8 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RecodageLFMM;
+			productName = RecodageLFMM;
+			productReference = 3FCBA05218D9D5FD0081FAB8 /* RecodageLFMM */;
+			productType = "com.apple.product-type.tool";
+		};
 		3FCC626513F9130300471BD6 /* parcourtModeles */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3FCC626913F9130300471BD6 /* Build configuration list for PBXNativeTarget "parcourtModeles" */;
@@ -655,6 +739,9 @@
 				3FCC626513F9130300471BD6 /* parcourtModeles */,
 				3F2325A3140257CC002A911B /* Supervision */,
 				3FFD22B1151F4EE900D2189B /* shp */,
+				3FCBA04918D9D5E70081FAB8 /* Recodage */,
+				3FCBA05118D9D5FD0081FAB8 /* RecodageLFMM */,
+				3F0D638D18E02DD300A83929 /* TestStorey */,
 			);
 		};
 /* End PBXProject section */
@@ -676,6 +763,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3F0D638B18E02DD300A83929 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F0D639518E02DEC00A83929 /* TestStorey.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F1D2D5013F412030028E25A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -736,6 +831,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FCBA04718D9D5E70081FAB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FCBA04E18D9D5EF0081FAB8 /* recodePlink.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FCBA04F18D9D5FD0081FAB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FCBA05618D9D6040081FAB8 /* recodeLFMM.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3FCC626613F9130300471BD6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -767,6 +878,38 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3F0D639018E02DD300A83929 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = SCYTHE_COMPILE_DIRECT;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = TestStorey;
+			};
+			name = Debug;
+		};
+		3F0D639118E02DD300A83929 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = SCYTHE_COMPILE_DIRECT;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = TestStorey;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		3F1D2D5513F412040028E25A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -961,6 +1104,66 @@
 			};
 			name = Release;
 		};
+		3FCBA04C18D9D5E70081FAB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = Recodage;
+			};
+			name = Debug;
+		};
+		3FCBA04D18D9D5E70081FAB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = Recodage;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		3FCBA05418D9D5FD0081FAB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = RecodageLFMM;
+			};
+			name = Debug;
+		};
+		3FCBA05518D9D5FD0081FAB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = RecodageLFMM;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		3FCC626A13F9130300471BD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1038,6 +1241,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3F0D639618E02DEC00A83929 /* Build configuration list for PBXNativeTarget "TestStorey" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F0D639018E02DD300A83929 /* Debug */,
+				3F0D639118E02DD300A83929 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3F1D2D5713F412220028E25A /* Build configuration list for PBXNativeTarget "creeEtiquettes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1088,6 +1300,24 @@
 			buildConfigurations = (
 				3FC2645913C1C36600E2032C /* Debug */,
 				3FC2645A13C1C36600E2032C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FCBA06618D9D60F0081FAB8 /* Build configuration list for PBXNativeTarget "Recodage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FCBA04C18D9D5E70081FAB8 /* Debug */,
+				3FCBA04D18D9D5E70081FAB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FCBA06718D9D60F0081FAB8 /* Build configuration list for PBXNativeTarget "RecodageLFMM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FCBA05418D9D5FD0081FAB8 /* Debug */,
+				3FCBA05518D9D5FD0081FAB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
