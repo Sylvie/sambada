@@ -366,7 +366,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	
 	
 	// nomProg nomFichierInput nbBlocs tailleBlocs dimMax
-	// nomProg nomFichierInput nbBlocs tailleBlocs dimMax choixScore seuilScore choixTri
+	// nomProg nomFichierInput nbBlocs tailleBlocs dimMax choixScore seuilScore choixTri delimMots
 	bool seuilSelection(false);
 	reel seuilScore(0);
 	typeScore scoreSel(Both);
