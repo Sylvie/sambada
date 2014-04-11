@@ -1,6 +1,9 @@
-SYS_CIBLE = NATIF
-#SYS_CIBLE = WIN32
-#SYS_CIBLE = WIN64
+SHELL := /bin/bash
+
+ifndef NUMVERSION
+	NUMVERSION:=-$(shell ./update-version-number.sh)
+endif
+
 
 SHPDIR = shapelib-1.3.0
 SCYTHEDIR = scythestat-1.0.3/scythestat scythestat-1.0.3/scythestat/rng
@@ -28,37 +31,27 @@ CXXFLAGS += $(PKG_CXXFLAGS)
 # On demande le nom du systeme
 SYSTEM =  $(shell (uname | cut -b 1-6))
 
+# SYS est fourni par l'utilisateur pour le nommage des fichiers
+ifndef SYS
+	TAGSYS = 
+else
+	TAGSYS = -$(SYS)
+endif
+
+# Copie des 3 premier caractères et mise en majuscules
+SUBSTR_SYS=$(shell export SYS="$(SYS)"; echo $${SYS:0:3} | tr '[:lower:]' '[:upper:]')
+
+ifeq ($(SUBSTR_SYS), WIN)
+	SUFFIXE_SYS = .exe
+else
+	SUFFIXE_SYS = 
+endif
+
+
 ifneq ($(SYSTEM), Darwin)
  CPPFLAGS += -static
 endif
 
-ifeq ($(SYS_CIBLE), WIN32)
- PREFIXE_SYS = WIN32_
- ifeq ($(SYSTEM), Darwin)
-  CXX = i686-w64-mingw32-g++
-  CC = i686-w64-mingw32-gcc
-  AR = i686-w64-mingw32-ar
-  CPPFLAGS += -static
-  CFLAGS += -static
-  SUFFIXE_SYS = .exe
- endif
-
-else ifeq ($(SYS_CIBLE), WIN64)
- PREFIXE_SYS = WIN64_
- ifeq ($(SYSTEM), Darwin)
-  CXX = x86_64-w64-mingw32-g++
-  CC = i686-w64-mingw32-gcc  
-  AR = i686-w64-mingw32-ar
-  SUFFIXE_SYS = .exe
- endif
-
-else #  ->ifeq ($(SYS_CIBLE), NATIF)
- ifeq ($(SYSTEM), Darwin)
-  PREFIXE_SYS = OSX_
- else
-  PREFIXE_SYS = LINUX_
- endif
-endif
 
 # bibliothèques générales
 LDFLAGS =	
@@ -98,18 +91,20 @@ LINK.SHAPELIB = $(LINK.c)
 #LIBOBJ	= $(foreach var, shpopen.o dbfopen.o safileio.o shptree.o, $(SHPDIR)/$(var) )
 LIBOBJ	= shpopen.o dbfopen.o safileio.o shptree.o
 
-all : $(foreach var, Sambada Supervision RecodePlink RecodePlink-LFMM, $(BUILDDIR)/$(PREFIXE_SYS)$(var)$(SUFFIXE_SYS)) 
+all : $(foreach var, Sambada Supervision RecodePlink RecodePlink_LFMM, $(BUILDDIR)/$(var)$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS)) 
 
-$(BUILDDIR)/$(PREFIXE_SYS)Sambada$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSambada.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o libshp.a) #$(foreach var, TestSAM.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
+
+$(BUILDDIR)/Sambada$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSambada.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o libshp.a)  #$(foreach var, TestSAM.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
+	echo $(NUMVERSION)
 	$(LINK.SCYTHE) -o $@ $^
 
-$(BUILDDIR)/$(PREFIXE_SYS)Supervision$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o) #$(foreach var, TestSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
+$(BUILDDIR)/Supervision$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o)  #$(foreach var, TestSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
 	$(LINK.SCYTHE) -o $@ $^
 
-$(BUILDDIR)/$(PREFIXE_SYS)RecodePlink$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, recodePlink.o) 
+$(BUILDDIR)/RecodePlink$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, recodePlink.o) 
 	$(LINK.SCYTHE) -o $@ $^
 
-$(BUILDDIR)/$(PREFIXE_SYS)RecodePlink-LFMM$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, recodeLFMM.o) 
+$(BUILDDIR)/RecodePlink_LFMM$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, recodeLFMM.o) 
 	$(LINK.SCYTHE) -o $@ $^
 
 $(BUILDDIR)/libshp.a:	$(addprefix $(BUILDDIR)/$(SHPDIR)/, $(LIBOBJ))
@@ -122,7 +117,7 @@ $(BUILDDIR)/$(SHPDIR)/%.o: %.c
 	$(COMPILE.SHAPELIB) -o $@ $<
 
 clean :			
-	-@/bin/rm -fr $(BUILDDIR)
+	-@/bin/rm -fr $(BUILDDIR) VERSION 
 #	-@/bin/rm -fr *.o *.a $(BUILDDIR)/$(SHPDIR)/*.o $(BUILDDIR)/*.o $(BUILDDIR)/*.a
 	
 include $(subst .c,.d,$(SOURCES)) $(subst .cpp,.d,$(SOURCES))    
