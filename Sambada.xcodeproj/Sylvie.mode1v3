@@ -202,6 +202,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>3F74ACD618FE7F66001F8C82</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>publish-manual.sh</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>3F74ACD718FE7F66001F8C82</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>publish-manual.sh</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>3F74AD3D18FE820A001F8C82</string>
+						<key>history</key>
+						<array>
+							<string>3F74ACD818FE7F66001F8C82</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1086, 680}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>464 157 1086 721 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>3F74ACC618FE7947001F8C82</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>publish.sh</string>
@@ -216,7 +256,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACCA18FE7947001F8C82</string>
+						<string>3F74AD3E18FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F74ACC818FE7947001F8C82</string>
@@ -235,7 +275,7 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>38 131 1086 721 0 0 1440 878 </string>
+				<string>21 157 1086 721 0 0 1440 878 </string>
 			</dict>
 		</dict>
 		<dict>
@@ -256,7 +296,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACCC18FE7947001F8C82</string>
+						<string>3F74AD3F18FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F74AC9B18FE70B1001F8C82</string>
@@ -296,7 +336,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACCD18FE7947001F8C82</string>
+						<string>3F74AD4018FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F7474E918FD8BFB00CB664A</string>
@@ -336,7 +376,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACCE18FE7947001F8C82</string>
+						<string>3F74AD4118FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F7474EB18FD8BFB00CB664A</string>
@@ -376,7 +416,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACCF18FE7947001F8C82</string>
+						<string>3F74AD4218FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F926AEE18E9C4A30082F03B</string>
@@ -417,7 +457,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACD018FE7947001F8C82</string>
+						<string>3F74AD4318FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F7474F018FD8BFB00CB664A</string>
@@ -457,7 +497,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACD118FE7947001F8C82</string>
+						<string>3F74AD4418FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F7474F118FD8BFB00CB664A</string>
@@ -497,7 +537,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACD218FE7947001F8C82</string>
+						<string>3F74AD4518FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F70125B17F6406E0047E48F</string>
@@ -538,7 +578,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACD318FE7947001F8C82</string>
+						<string>3F74AD4618FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F7474F318FD8BFB00CB664A</string>
@@ -578,7 +618,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3F74ACD418FE7947001F8C82</string>
+						<string>3F74AD4718FE820A001F8C82</string>
 						<key>history</key>
 						<array>
 							<string>3F7474F418FD8BFB00CB664A</string>
@@ -938,6 +978,7 @@
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>3F74ACC618FE7947001F8C82</string>
+		<string>3F74ACD618FE7F66001F8C82</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 243 1440 635 0 0 1440 878 </string>
