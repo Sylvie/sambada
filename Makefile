@@ -95,7 +95,6 @@ all : $(foreach var, Sambada Supervision RecodePlink RecodePlink_LFMM, $(BUILDDI
 
 
 $(BUILDDIR)/Sambada$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSambada.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o libshp.a)  #$(foreach var, TestSAM.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
-	echo $(NUMVERSION)
 	$(LINK.SCYTHE) -o $@ $^
 
 $(BUILDDIR)/Supervision$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o)  #$(foreach var, TestSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
@@ -119,7 +118,10 @@ $(BUILDDIR)/$(SHPDIR)/%.o: %.c
 clean :			
 	-@/bin/rm -fr $(BUILDDIR) VERSION 
 #	-@/bin/rm -fr *.o *.a $(BUILDDIR)/$(SHPDIR)/*.o $(BUILDDIR)/*.o $(BUILDDIR)/*.a
-	
+
+clean-obj:
+	-@/bin/rm -fr $(BUILDDIR)/*.o VERSION 	
+
 include $(subst .c,.d,$(SOURCES)) $(subst .cpp,.d,$(SOURCES))    
 
 %.d: %.c  
