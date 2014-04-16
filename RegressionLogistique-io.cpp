@@ -1010,10 +1010,25 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		
 		
 		dataEnv.resize(nbPoints, nbEnvActives);
+		if (nbEnvActives>0)
+		{
+			dataEnv=0;
+		}
 		dataMarq.resize(nbPoints, nbMarqActifs);
+		if (nbMarqActifs>0)
+		{
+			dataMarq=0;
+		}
 		dataSupEnv.resize(nbPoints, nbEnv-nbEnvActives);
+		if (nbEnv>nbEnvActives)
+		{
+			dataSupEnv="";
+		}
 		dataSupMarq.resize(nbPoints, nbMarq-nbMarqActifs);
-		
+		if (nbMarq>nbMarqActifs)
+		{
+			dataSupMarq=0;
+		}
 		while (!entree.eof())
 		{
 			if (rows%100==0)
@@ -1232,7 +1247,15 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		
 		
 		dataEnv.resize(nbPoints, nbEnvActives);
+		if (nbEnvActives>0)
+		{
+			dataEnv=0;
+		}
 		dataSupEnv.resize(nbPoints, nbEnv-nbEnvActives);
+		if (nbEnv>nbEnvActives)
+		{
+			dataSupEnv="";
+		}
 		
 		while (!entree.eof())
 		{
@@ -1363,8 +1386,17 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		}
 		
 		
-		dataMarq.resize(nbPoints, nbMarqActifs);		
+		dataMarq.resize(nbPoints, nbMarqActifs);
+		if (nbMarqActifs>0)
+		{
+			dataMarq=0;
+		}
+		cout << dataMarq << endl;
 		dataSupMarq.resize(nbPoints, nbMarq-nbMarqActifs);
+		if (nbMarq>nbMarqActifs)
+		{
+			dataSupMarq=0;
+		}
 		
 		while (!entree.eof())
 		{
@@ -1403,7 +1435,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			caseCourante=0;
 			nombreRecuperes=lineValidation.size();
 			
-			
+
 			for (int i(0); i<nbMarq; ++i)
 			{
 				// Variable active
