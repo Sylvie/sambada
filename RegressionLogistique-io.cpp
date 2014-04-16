@@ -1391,11 +1391,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		{
 			dataMarq=0;
 		}
-		cout << dataMarq << endl;
 		dataSupMarq.resize(nbPoints, nbMarq-nbMarqActifs);
 		if (nbMarq>nbMarqActifs)
 		{
-			dataSupMarq=0;
+			dataSupMarq="";
 		}
 		
 		while (!entree.eof())
