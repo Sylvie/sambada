@@ -1,0 +1,40 @@
+Welcome to Sambada!
+
+Sambada is free software, you can redistribute it and/or modify it under certain conditions, see AUTHORS for details.
+
+The folder should contains the following files:
+
+A. Programs
+- Sambada : detects selection signatures and analyse spatial dependance.
+- Supervision : manages data files for distributed computing.
+- RecodePlink : recodes genetic data from Plink's .ped/.map files to Sambada's format.
+- RecodePlink_LFMM : recodes genetic data from Plink's .ped/.map files to LFMM format.
+
+B. Documentation
+- Sambadoc : is the manual. :-)
+- CHANGELOG : lists the changes.
+
+C. General information
+- AUTHORS : presents authors, dependancies on libraries and licensing conditions;
+- COPYING : contains the license;
+- VERSION : shows the current version;
+- README : is the present file.
+
+D. Building from sources
+1. Sources are available on our Web site (see below).
+2. Build the programs with
+	make
+or build and append information (e.g. your system name) to the program names with
+	make SYS=<info>
+as in: 
+	make SYS=OSX
+3. Programs are placed in the folder "binaries/".
+
+In case something is missing, claim your complete copy of Sambada on 
+http://lasig.epfl.ch/sambada
+
+Please feel free to share your questions and suggestions with us!
+
+Sylvie Stucki 				Stéphane Joost
+sylvie.stucki@a3.epfl.ch		stephane.joost@epfl.ch
+
