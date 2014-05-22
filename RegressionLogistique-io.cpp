@@ -63,6 +63,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	ParameterSet::iterator paramCourant(listeParam.begin());
 	
 	//INPUTFILE 
+	// Le(s) nom(s) du/des fichier(s) d'entrées sont copiés dans le vecteur nomFichierInput
 	// S'il y a 3 ou 4 arguments, le fichier de paramètres ne contient pas les noms des fichiers de données
 	bool entete(false), uniqueFichierDonnees(true);
 	vector<string> nomFichierInput(0);
@@ -109,16 +110,16 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	if (paramCourant->present && paramCourant->contents.size()==1)	// Cas où l'utilisateur a fourni un nom de fichier de sortie
 	{
 		int position(paramCourant->contents[0].rfind("."));
-		if (position!=string::npos)
+		if (position==string::npos)
+		{
+			nomFichierResultats.first=paramCourant->contents[0];
+			nomFichierResultats.second="";
+		}
+		else
 		{
 			nomFichierResultats.first=paramCourant->contents[0].substr(0, position);
 			nomFichierResultats.second=paramCourant->contents[0].substr(position);
 		}
-		else {
-			nomFichierResultats.first=paramCourant->contents[0];
-			nomFichierResultats.second="";
-		}
-
 	}
 	// Recherche du nom du fichier et de l'extension
 	// S'il y a un unique fichier de données, on place les résultats dans le même dossier
@@ -205,6 +206,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	{
 		nbMarqTot=toolbox::conversion<int>(paramCourant->contents[1]);
 		// S'il y a plusieurs fichiers de marqueurs, il faut repérer le numéro du premier qu'on a
+
 		// On prend le nom du fichier d'input au cas où l'utilisateur aurait renommé le fichier de sortie
 		string temp("");
 		int position(0);
@@ -219,11 +221,30 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			temp=(nomFichierInput[1].substr(0, position));
 		}
 		position=(temp.rfind("-"));
-		cout << "-> "<< temp.substr(position+1) << "\n";
 		
-		istringstream iss((temp.substr(position+1)));
-		iss >> numPremierMarq;
-		cout << iss.str() << " " << numPremierMarq << "\n" << flush;		
+		if (position==string::npos)
+		{
+			throw Erreur("MSG_missing-first-mark", "Missing number of the first marker. \n It must be provided in the name of the input marker file (as done by Supervision) or in the name given in the optional OUTPUTFILE entry.");
+			
+		}
+		else 
+		{
+			
+			
+			cout << "-> "<< temp.substr(position+1) << "\n";
+			
+			istringstream iss((temp.substr(position+1)));
+			iss >> numPremierMarq;
+			
+			if (iss.fail()) {
+				throw Erreur("MSG_non-integer-first-mark-number", "Non-integer entry for the number of the first marker.");
+			}
+			else
+			{
+				cout << iss.str() << " " << numPremierMarq << "\n" << flush;	
+			}
+			
+		}
 	}
 	else
 	{
@@ -1308,15 +1329,15 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			entree >> ws;
 		}
 		
-/*		for (int compteur(0); compteur<3;++compteur)
-		{
-			cout << validation[compteur].size() << endl;
-			for (int ccompt(0); ccompt<validation[compteur].size(); ++ccompt)
-			{
-				cout << validation[compteur][ccompt] << " " ;
-			}
-			cout << endl;
-		}*/
+		/*		for (int compteur(0); compteur<3;++compteur)
+		 {
+		 cout << validation[compteur].size() << endl;
+		 for (int ccompt(0); ccompt<validation[compteur].size(); ++ccompt)
+		 {
+		 cout << validation[compteur][ccompt] << " " ;
+		 }
+		 cout << endl;
+		 }*/
 		
 		missingValuesEnv.resize(nbEnvActives, std::set< int > ());	
 		cout << missingValuesEnv.size() << "\n";
@@ -1739,7 +1760,7 @@ void RegressionLogistique::trieEtEcritResultats()
 						sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
 						
 						//cout << specDataEnv[varEnvActives.at(*iter)].name<< " ";
-
+						
 					}	
 					
 					// Résultats

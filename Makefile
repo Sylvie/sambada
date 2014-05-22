@@ -98,12 +98,18 @@ LINK.SHAPELIB = $(LINK.c)
 #LIBOBJ	= $(foreach var, shpopen.o dbfopen.o safileio.o shptree.o, $(SHPDIR)/$(var) )
 LIBOBJ	= shpopen.o dbfopen.o safileio.o shptree.o
 
-all : $(foreach var, Sambada Supervision, $(BUILDDIR)/$(PREFIXE_SYS)$(var)$(SUFFIXE_SYS)) 
+all : $(foreach var, Sambada Supervision RecodePlink RecodePlink-LFMM, $(BUILDDIR)/$(PREFIXE_SYS)$(var)$(SUFFIXE_SYS)) 
 
 $(BUILDDIR)/$(PREFIXE_SYS)Sambada$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSambada.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o libshp.a) #$(foreach var, TestSAM.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
 	$(LINK.SCYTHE) -o $@ $^
 
 $(BUILDDIR)/$(PREFIXE_SYS)Supervision$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o) #$(foreach var, TestSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
+	$(LINK.SCYTHE) -o $@ $^
+
+$(BUILDDIR)/$(PREFIXE_SYS)RecodePlink$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, recodePlink.o) 
+	$(LINK.SCYTHE) -o $@ $^
+
+$(BUILDDIR)/$(PREFIXE_SYS)RecodePlink-LFMM$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, recodeLFMM.o) 
 	$(LINK.SCYTHE) -o $@ $^
 
 $(BUILDDIR)/libshp.a:	$(addprefix $(BUILDDIR)/$(SHPDIR)/, $(LIBOBJ))
