@@ -1,3 +1,9 @@
+Patch 0.4.2 (2014-04-22)
+Minor corrections (on file encoding).
+
+Patch 0.4.1 (2014-04-22)
+Minor corrections (on cross-file depedancies).
+
 Release 0.4 (2014-04-17)
 Public beta release of Sambada
 - Detection of selection signatures with univariate and multivariate models;
