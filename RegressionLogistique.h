@@ -142,6 +142,8 @@ private:
 		
 		vector< vector< int > > compteurG, compteurGOrphelins;
 		vector< vector< int > > compteurWald, compteurWaldOrphelins;
+		
+		reel scoreMin;
 	} donneesFDR;
 	
 protected:

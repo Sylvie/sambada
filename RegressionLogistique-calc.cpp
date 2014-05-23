@@ -1745,7 +1745,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			}
 			sortieAS.flush();
 			sortieAS.close();
-
+			
 		}
 		
 		// Ecriture de l'historique des permutations (autocorr globale)
@@ -2323,11 +2323,15 @@ int RegressionLogistique::creeModelesGlobaux()
 	
 	storey.compteurG.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
 	storey.compteurWald.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
-
+	
 	storey.compteurGOrphelins.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
 	storey.compteurWaldOrphelins.resize(dimensionMax+1, vector<int> (storey.nbPvalStorey,0));
-
+	
 	storey.nbModelesValides.resize(dimensionMax+1, 0);
+	
+	// Score minimal pour lequel les résultats sont sauvés (afin de calculer les q-valeurs en post-traitement)
+	storey.scoreMin=6.;
+	
 	//	clock_t t1, t2;
 	
 	// On ne prend en compte que les marqueurs actifs
@@ -2627,9 +2631,9 @@ int RegressionLogistique::creeModelesGlobaux()
 	// Storey
 	for (int i(1); i<(dimensionMax+1); ++i)
 	{
-	cout << "Nombre de modèles valides (Storey) dim=" << i << " : " << storey.nbModelesValides[i] << "\n";
+		cout << "Nombre de modèles valides (Storey) dim=" << i << " : " << storey.nbModelesValides[i] << "\n";
 	}
-		//	ofstream sortieStorey("res-Storey.txt");
+	//	ofstream sortieStorey("res-Storey.txt");
 	ofstream sortieStorey((nomFichierResultats.first+"-storey"+nomFichierResultats.second).c_str());
 	
 	sortieStorey << "P-valeurs" << delimMots;
@@ -2638,7 +2642,7 @@ int RegressionLogistique::creeModelesGlobaux()
 		sortieStorey<< storey.pval[i] << delimMots;
 	}
 	sortieStorey<< endl;
-
+	
 	sortieStorey << "Scores" << delimMots;
 	for (int i(0); i<storey.nbPvalStorey; ++i)
 	{
@@ -2654,7 +2658,7 @@ int RegressionLogistique::creeModelesGlobaux()
 			sortieStorey<< storey.compteurG[i][j] << delimMots;
 		}
 		sortieStorey<< endl;
-
+		
 		sortieStorey << "GOrphelins" << i << delimMots;
 		for (int j(0); j<storey.nbPvalStorey; ++j)
 		{
@@ -2668,7 +2672,7 @@ int RegressionLogistique::creeModelesGlobaux()
 			sortieStorey<< storey.compteurWald[i][j] << delimMots;
 		}
 		sortieStorey<< endl;
-
+		
 		sortieStorey << "WaldOrphelins"<< i << delimMots;
 		for (int j(0); j<storey.nbPvalStorey; ++j)
 		{
@@ -2732,7 +2736,12 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			// Cas où on sauvegarde les résultats au fur et à mesure
 			if (sauvegardeTempsReel)
 			{
-				ecritResultat(dim, resultat);
+				// Test storey
+				if (resultat.second[Gscore]>=storey.scoreMin || resultat.second[WaldScore]>=storey.scoreMin)
+				{
+					ecritResultat(dim, resultat);
+				}	
+				
 				/*
 				 // No de marqueur
 				 sortie.ecriture(dim, resultat.first.first, false);
@@ -2838,52 +2847,52 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			
 			else	// On ne calcule pas de stats pour les modèles qui présentent une erreur de calcul
 			{
-			
-			// Storey!
+				
+				// Storey!
 				++storey.nbModelesValides[dim];
-			
-			resultat.second[Efron] = 1. - (resultat.second[Efron]/sum((Y - somme/taille)%(Y - somme/taille) ));
-			//loglike_courante=resultat.second[valloglikelihood];
-			
-			
-			// Wald test
-			// Méthode matricielle
-			/*	Matrix<> testWald(t(beta_hat) * J_info * beta_hat);
-			 cout << beta_hat << J_info << inv_J_info << testWald ;*/
-			//statsCourantes[WaldScore] = (t(beta_hat(1,0,dim,0)) * J_info(1,1,dim,dim) * beta_hat(1,0,dim,0))(0,0); 
-			
-			/*
-			 // TRICHE
-			 MatriceReels matInterm(dim, dim);
-			 try {
-			 matInterm=invpd(inv_J_info(1,1,dim,dim));
-			 resultat.second[WaldScore] = (t(beta_hat(1,0,dim,0)) * matInterm * beta_hat(1,0,dim,0))(0,0); 
-			 
-			 }
-			 catch (scythe_exception& error) {
-			 cerr << error.message() << "\n";
-			 resultat.second[WaldScore]=0;
-			 }
-			 //statsCourantes[WaldScore] = beta_hat(1, 0)/sqrt(inv_J_info(1,1)); 
-			 */
-			
-			
-			
-			
-			
-			// Traitements des stats et comparaison du modèle avec ses "parents"
-			modeleRetenu = calculeStats(resultat, nbParam-1);
-			
-			// Copie de la valeur de beta
-			for (int i(0); i<nbParam; ++i)
-			{
-				resultat.second[nbStats+i]=beta_hat(i, 0);
-			}
-			
-			if (AS_GWR)
-			{
-				calculeGWR(numMarq, varContinues, resultat);
-			}
+				
+				resultat.second[Efron] = 1. - (resultat.second[Efron]/sum((Y - somme/taille)%(Y - somme/taille) ));
+				//loglike_courante=resultat.second[valloglikelihood];
+				
+				
+				// Wald test
+				// Méthode matricielle
+				/*	Matrix<> testWald(t(beta_hat) * J_info * beta_hat);
+				 cout << beta_hat << J_info << inv_J_info << testWald ;*/
+				//statsCourantes[WaldScore] = (t(beta_hat(1,0,dim,0)) * J_info(1,1,dim,dim) * beta_hat(1,0,dim,0))(0,0); 
+				
+				/*
+				 // TRICHE
+				 MatriceReels matInterm(dim, dim);
+				 try {
+				 matInterm=invpd(inv_J_info(1,1,dim,dim));
+				 resultat.second[WaldScore] = (t(beta_hat(1,0,dim,0)) * matInterm * beta_hat(1,0,dim,0))(0,0); 
+				 
+				 }
+				 catch (scythe_exception& error) {
+				 cerr << error.message() << "\n";
+				 resultat.second[WaldScore]=0;
+				 }
+				 //statsCourantes[WaldScore] = beta_hat(1, 0)/sqrt(inv_J_info(1,1)); 
+				 */
+				
+				
+				
+				
+				
+				// Traitements des stats et comparaison du modèle avec ses "parents"
+				modeleRetenu = calculeStats(resultat, nbParam-1);
+				
+				// Copie de la valeur de beta
+				for (int i(0); i<nbParam; ++i)
+				{
+					resultat.second[nbStats+i]=beta_hat(i, 0);
+				}
+				
+				if (AS_GWR)
+				{
+					calculeGWR(numMarq, varContinues, resultat);
+				}
 			}
 			
 		}
@@ -2891,7 +2900,11 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 		// On traite la mise en mémoire et la sauvegarde différemment
 		if ( (selModeles==all || modeleRetenu) && sauvegardeTempsReel)
 		{
-			ecritResultat(dim, resultat);
+			// Test storey
+			if (resultat.second[Gscore]>=storey.scoreMin || resultat.second[WaldScore]>=storey.scoreMin)
+			{
+				ecritResultat(dim, resultat);
+			}	
 		}
 		
 		// Il faut garder le modèle même s'il n'est pas signif dans le cas signif, pour les comparaison ultérieures
@@ -3153,42 +3166,42 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			modeleRetenu=false;
 			resultat.second[validiteModele]=7;
 		}
-//		else	// STOREY!
-//		{
-			// On fait un test de Wald par variable (pas la constante)
-			// Simplification : on calcule le score de Wald final (= le plus petit score de Wald, un par variable)
-			// On teste la significativité du score à la fin.
-			
-			// Initialisation du score de Wald
-			reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
-			resultat.second[WaldScore]=WaldCourant;
-			
-			//affiche(resultat.first);
+		//		else	// STOREY!
+		//		{
+		// On fait un test de Wald par variable (pas la constante)
+		// Simplification : on calcule le score de Wald final (= le plus petit score de Wald, un par variable)
+		// On teste la significativité du score à la fin.
+		
+		// Initialisation du score de Wald
+		reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
+		resultat.second[WaldScore]=WaldCourant;
+		
+		//affiche(resultat.first);
+		//cout << "	" << WaldCourant;
+		for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
+		{
+			WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
 			//cout << "	" << WaldCourant;
-			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
+			if (WaldCourant < resultat.second[WaldScore])
 			{
-				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
-				//cout << "	" << WaldCourant;
-				if (WaldCourant < resultat.second[WaldScore])
-				{
-					resultat.second[WaldScore] = WaldCourant;
-				}
+				resultat.second[WaldScore] = WaldCourant;
 			}
-			//cout << endl;
+		}
+		//cout << endl;
 		
 		// Mise à jour du compteur pour la FDR
 		++storey.compteurWald[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[WaldScore])-storey.seuilScore.begin() ) ];
-
-			// Test du score de Wald
-			if (selModeles!=all && ( resultat.second[WaldScore] < seuilScore[tailleModele] ))
-			{
-				modeleRetenu=false;
-				resultat.second[validiteModele]=7;
-				
-			}
-			//affiche(resultat);
+		
+		// Test du score de Wald
+		if (selModeles!=all && ( resultat.second[WaldScore] < seuilScore[tailleModele] ))
+		{
+			modeleRetenu=false;
+			resultat.second[validiteModele]=7;
 			
-//		}
+		}
+		//affiche(resultat);
+		
+		//		}
 		
 	}
 	else //if (selModeles!=best)	// STOREY !
@@ -3227,65 +3240,65 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			resultat.second[validiteModele]=7;
 			
 		}
-//		else	//STOREY !
-//		{
-			// Test avec Wald individuel
-			/*
-			 // Calcul du score de Wald -> On prend la sous-matrice (1:n, 1:n) de inv_J_info et on l'inverse
-			 //cout << nbParamEstimes << endl;
-			 MatriceReels matInterm(nbParamEstimes, nbParamEstimes);
-			 try {
-			 matInterm=invpd(inv_J_info(1,1,nbParamEstimes,nbParamEstimes));
-			 resultat.second[WaldScore] = (t(beta_hat(1,0,nbParamEstimes,0)) * matInterm * beta_hat(1,0,nbParamEstimes,0))(0,0); 
-			 
-			 }
-			 catch (scythe_exception& error) {
-			 //cerr << error.message() << "\n";
-			 resultat.second[WaldScore]=0;
-			 }
-			 */
-			
-			// On fait un test de Wald par variable (pas la constante)
-			// Simplification : on calcule le score de Wald final (= le plus petit score de Wald, un par variable)
-			// On teste la significativité du score à la fin.
-			
-			// Si on sauve tous les modèles, on cherche le plus petit score de Wald
-			int tailleModele(dimParents+1);
-			
-			// Initialisation du score de Wald
-			reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
-			resultat.second[WaldScore]=WaldCourant;
-			
-			//affiche(resultat.first);
+		//		else	//STOREY !
+		//		{
+		// Test avec Wald individuel
+		/*
+		 // Calcul du score de Wald -> On prend la sous-matrice (1:n, 1:n) de inv_J_info et on l'inverse
+		 //cout << nbParamEstimes << endl;
+		 MatriceReels matInterm(nbParamEstimes, nbParamEstimes);
+		 try {
+		 matInterm=invpd(inv_J_info(1,1,nbParamEstimes,nbParamEstimes));
+		 resultat.second[WaldScore] = (t(beta_hat(1,0,nbParamEstimes,0)) * matInterm * beta_hat(1,0,nbParamEstimes,0))(0,0); 
+		 
+		 }
+		 catch (scythe_exception& error) {
+		 //cerr << error.message() << "\n";
+		 resultat.second[WaldScore]=0;
+		 }
+		 */
+		
+		// On fait un test de Wald par variable (pas la constante)
+		// Simplification : on calcule le score de Wald final (= le plus petit score de Wald, un par variable)
+		// On teste la significativité du score à la fin.
+		
+		// Si on sauve tous les modèles, on cherche le plus petit score de Wald
+		int tailleModele(dimParents+1);
+		
+		// Initialisation du score de Wald
+		reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
+		resultat.second[WaldScore]=WaldCourant;
+		
+		//affiche(resultat.first);
+		//cout << "	" << WaldCourant;
+		
+		for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
+		{
+			WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
 			//cout << "	" << WaldCourant;
 			
-			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
+			if (WaldCourant < resultat.second[WaldScore])
 			{
-				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
-				//cout << "	" << WaldCourant;
-				
-				if (WaldCourant < resultat.second[WaldScore])
-				{
-					resultat.second[WaldScore] = WaldCourant;
-				}
+				resultat.second[WaldScore] = WaldCourant;
 			}
-			//cout << endl;
-			
+		}
+		//cout << endl;
+		
 		// Mise à jour du compteur pour la FDR
 		++storey.compteurWaldOrphelins[resultat.first.second.size()][ ( upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(),  resultat.second[WaldScore])-storey.seuilScore.begin() ) ];
-
+		
+		
+		
+		// STOREY
+		//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
+		if (selModeles==!all && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
+		{
+			modeleRetenu=false;
+			resultat.second[validiteModele]=7;
 			
-			
-			// STOREY
-			//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
-			if (selModeles==!all && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
-			{
-				modeleRetenu=false;
-				resultat.second[validiteModele]=7;
-				
-			}
-			
-			
+		}
+		
+		
 		//}
 		
 		
@@ -3294,11 +3307,11 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	}
 	//STOREY
 	/*else // Aucun parent n'est valide et on ne prend que les meilleurs modèles
-	{
-		modeleRetenu=false;
-		resultat.second[validiteModele]=7;
-		
-	}*/
+	 {
+	 modeleRetenu=false;
+	 resultat.second[validiteModele]=7;
+	 
+	 }*/
 	
 	// Ici pas besoin de calculer ceci pour les modèles non signif dans le cas signif
 	if (modeleRetenu || selModeles==all)
@@ -3840,7 +3853,7 @@ void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, Pa
 	// SUBSETVARENV
 	paramCourant.name="SUBSETVARENV";	
 	listeParam.push_back(paramCourant);
-
+	
 	// SUBSETMARK
 	paramCourant.name="SUBSETMARK";	
 	listeParam.push_back(paramCourant);
