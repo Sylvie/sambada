@@ -1,0 +1,8 @@
+Release 0.4 (2014-04-17)
+Public beta release of Sambada
+- Detection of selection signatures with univariate and multivariate models;
+- On-the-fly assessment of model significance with Bonferroni correction;
+- Analysis of spatial dependance by measuring the level of global and local spatial autocorrelation;
+- Automated management of data files for distributed computing;
+- Recoding of Plink's .ped/.map data files;
+- Please refer to the manual for the complete list of options.
