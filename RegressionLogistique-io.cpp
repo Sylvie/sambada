@@ -1188,6 +1188,15 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		
 		entree.close();	
 		
+		
+		if (rows < nbPoints)
+		{
+			std::ostringstream oss;
+			oss << "Data file contains " << (rows) << " samples, while there should be " <<  nbPoints << ".";
+			throw Erreur("MSG_falsePtNum", "Nombre de points incorrect. "+oss.str());			
+		}
+		
+		
 		//nbPoints=rows;
 		//Classe::setNbPoints(nbPoints);
 		//Partition::setNbPoints(nbPoints);
@@ -1371,6 +1380,15 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		 cout << endl;
 		 }*/
 		
+		if (rows < nbPoints)
+		{
+			std::ostringstream oss;
+			oss << "Environmental file contains " << (rows) << " samples, while there should be " <<  nbPoints << ".";
+			throw Erreur("MSG_falsePtNum", "Nombre de points incorrect. "+oss.str());			
+		}
+		
+		
+		
 		missingValuesEnv.resize(nbEnvActives, std::set< int > ());	
 		cout << missingValuesEnv.size() << "\n";
 		
@@ -1503,6 +1521,16 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		}
 		
 		entree.close();
+		
+		
+		
+		if (rows < nbPoints)
+		{
+			std::ostringstream oss;
+			oss << "Molecular file contains " << (rows) << " samples, while there should be " <<  nbPoints << ".";
+			throw Erreur("MSG_falsePtNum", "Nombre de points incorrect. "+oss.str());			
+		}
+		
 		
 		// Réunion des valeurs manquantes
 		missingValuesMarq.resize(nbMarqActifs, std::set< int > ());
