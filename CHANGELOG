@@ -1,3 +1,6 @@
+Patch 0.4.4 (2014-08-07)
+Minor change (to edit the file VERSION only when necessary).
+
 Patch 0.4.3 (2014-06-23)
 Bug fix: The program will return an error if the data file contains less samples than specified in the parameter file.
 
@@ -5,7 +8,7 @@ Patch 0.4.2 (2014-04-22)
 Minor corrections (on file encoding).
 
 Patch 0.4.1 (2014-04-22)
-Minor corrections (on cross-file depedancies).
+Minor corrections (on cross-file dependencies).
 
 Release 0.4 (2014-04-17)
 Public beta release of Sambada

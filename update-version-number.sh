@@ -4,13 +4,26 @@ FILE=VERSION
 
 if ( [ -d .git ] && ( command -v git >/dev/null 2>&1 ) )
 then
-	echo "Updating version number..." > /dev/stderr
 	VERSION_NUM=$(git describe --tags --abbrev=0)
 	BUILD_NUM=$(git describe --long --tags --dirty --always)
-	echo $VERSION_NUM > ${FILE}
-	echo $BUILD_NUM >> ${FILE}
-	echo "Version is "$VERSION_NUM" and build number is "$BUILD_NUM.  > /dev/stderr
-	echo ${VERSION_NUM}
+	OLD_VERSION_NUM=$(head -1 ${FILE})
+	OLD_BUILD_NUM=$(head -2 ${FILE} | tail -1)
+
+	#echo $VERSION_NUM
+	#echo $BUILD_NUM
+	#echo $OLD_VERSION_NUM
+	#echo $OLD_BUILD_NUM
+	
+	if ( [ "$VERSION_NUM" == "$OLD_VERSION_NUM" ] && [ "$BUILD_NUM" = "$OLD_BUILD_NUM" ] )
+	then
+		echo "Version number is up-to-date."
+	else	
+		echo "Updating version number..." > /dev/stderr
+		echo $VERSION_NUM > ${FILE}
+		echo $BUILD_NUM >> ${FILE}
+		echo "Version is "$VERSION_NUM" and build number is "$BUILD_NUM.  > /dev/stderr
+	fi
+	echo ${VERSION_NUM};
 else
 	CHECKFILE="yes"
 	if ( [ -r $FILE ] )
