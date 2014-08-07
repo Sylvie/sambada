@@ -16,7 +16,7 @@ then
 	
 	if ( [ "$VERSION_NUM" == "$OLD_VERSION_NUM" ] && [ "$BUILD_NUM" = "$OLD_BUILD_NUM" ] )
 	then
-		echo "Version number is up-to-date."
+		echo "Version number is up-to-date." > /dev/stderr
 	else	
 		echo "Updating version number..." > /dev/stderr
 		echo $VERSION_NUM > ${FILE}
