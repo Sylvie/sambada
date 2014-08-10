@@ -145,11 +145,11 @@ $(BUILDDIR)/$(SHPDIR)/%.o: %.c
 	$(COMPILE.SHAPELIB) -o $@ $<
 
 clean :			
-	-@/bin/rm -fr $(BUILDDIR) VERSION 
+	-@/bin/rm -fr $(BUILDDIR) 
 #	-@/bin/rm -fr *.o *.a $(BUILDDIR)/$(SHPDIR)/*.o $(BUILDDIR)/*.o $(BUILDDIR)/*.a
 
 clean-obj:
-	-@/bin/rm -fr $(BUILDDIR)/*.o VERSION 	
+	-@/bin/rm -fr $(BUILDDIR)/*.o 	
 
 include $(subst .c,.d,$(SOURCES)) $(subst .cpp,.d,$(SOURCES))    
 
