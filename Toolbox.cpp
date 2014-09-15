@@ -390,6 +390,10 @@ void toolbox::messageBienvenue(bool versionLongue)
 	
 }
 
+reel toolbox::notANumber()
+{
+	return numeric_limits<reel>::quiet_NaN();
+}
 
 int ComparaisonVecteurs::caseComparaisonVecteurs=0;
 

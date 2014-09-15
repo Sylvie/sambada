@@ -514,7 +514,8 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 	
 	MatriceReels deviations(nbPoints,1), deviationsCourantes(nbPoints, 1), autocorrLocale, autocorrGlobale, 
 	autocorrLocaleCourante, pValeurGlobale, pValeurLocale, historiqueAutocorrGlobale,
-	autocorrTemp, autocorrTempCourante;
+	autocorrTemp, autocorrTempCourante,
+	tableDeviations, tableSpatialLags;
 	
 	// pointsAC : pondération-type où tous les points ayant des crd sont valides
 	Domaine pointsAC, pointsCourants;
@@ -1178,6 +1179,11 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		pValeurLocale.resize(nbPoints, nbMarqActifs);
 		pValeurLocale=0;
 		
+		tableDeviations.resize(nbPoints, nbMarqActifs);
+		tableDeviations=toolbox::notANumber();
+		tableSpatialLags.resize(nbPoints, nbMarqActifs);
+		tableSpatialLags=toolbox::notANumber();
+		
 		if (AS_autocorrGlobale)
 		{
 			autocorrGlobale.resize(1, nbMarqActifs);
@@ -1331,6 +1337,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					deviations(k, 0) = dataMarq(k, i);
 					moyenne+=dataMarq(k,i);
 					sommeCarresDeviations+=dataMarq(k, i)*dataMarq(k, i);
+					
 				}
 				else 
 				{
@@ -1346,6 +1353,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			for(int u(0); u<pointsCourants.taille; ++u)
 			{
 				deviations(pointsCourants.pointsValides[u])-=moyenne;
+				tableDeviations(pointsCourants.pointsValides[u],i)=deviations(pointsCourants.pointsValides[u]);
 			}
 			
 			
@@ -1365,6 +1373,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					valeurIntermediaire+=pointsCourants.poids[pt1][k].second * deviations[pointsCourants.poids[pt1][k].first];
 				}
 				autocorrLocale(pt1, i) = valeurIntermediaire*deviations[pt1]*facteurEchelleLocal;
+				tableSpatialLags(pt1,i)=valeurIntermediaire;
 			}
 			
 			// Ecritude des valeurs dans le DBF
@@ -1782,6 +1791,49 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		
 		t2=time(NULL);
 		cout << "Ecriture autocorrélation : " << t2-t1 << "\n";
+		
+		
+		// Ecriture de l'autocorrélation
+		sortieAS.open((nomFichierResultats.first+"-AS-Mark-deviations-spatial-lag"+nomFichierResultats.second).c_str());
+		if (sortieAS.fail())
+		{
+			throw Erreur("MSG_errOpenFileACEnv", "Error while opening file for deviations and spatial lag of genetic markers.");
+		}
+		else
+		{
+			// Headers
+			if (existeColID)
+			{
+				sortieAS << "ID ";
+			}
+			for (int j(0); j<nbMarqActifs; ++j)
+			{
+				sortieAS << specDataMarq[marqActifs.at(j)].name+"-dev" << " ";
+				sortieAS << specDataMarq[marqActifs.at(j)].name+"-lag" << " ";
+			}
+			sortieAS << delimLignes;
+						
+			
+			// Dev and spatial lag
+				for (int i(0); i<nbPoints; ++i)
+				{
+					if (existeColID)
+					{
+						// On lit les ID dans la liste des variables environnementales 
+						// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs
+						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					}
+					for (int j(0); j<nbMarqActifs; ++j)
+					{
+						sortieAS << tableDeviations(i, j) << " ";
+						sortieAS << tableSpatialLags(i, j) << " ";
+					}
+					sortieAS << delimLignes;
+					
+				}
+			
+			sortieAS.close();
+		}
 		
 	}
 	

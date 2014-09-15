@@ -330,6 +330,8 @@ namespace toolbox {
 	*/
 	
 	void messageBienvenue(bool versionLongue=false);
+	
+	reel notANumber();
 }
 
 class ComparaisonVecteurs
