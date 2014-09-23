@@ -284,7 +284,7 @@ bool Lecteur::lecture(int numFichier, vector< vector< T > >& document, int nbLig
 		document.push_back(ligne);
 		++nbLignesLues;
 	}
-	
+    return validation;
 }
 
 // Retourne TRUE si tous les éléments ont pu être lus
