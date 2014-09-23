@@ -198,6 +198,23 @@ namespace toolbox {
 	}	
 	
 	string conversion(reel nombre);	
+
+    template <class T>
+    string toString(T nombre, bool& echec)
+    {
+        ostringstream oss;
+        oss.precision(precisionLecture);
+        oss << nombre;
+        echec=oss.fail();
+        return oss.str();
+    }
+
+    template <class T>
+    string toString(T nombre)
+    {
+        bool echec;
+        return toString<T>(nombre, echec);
+    }
 	
 	void enleveEspaces(string& s);
 	
