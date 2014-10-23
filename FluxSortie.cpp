@@ -2,7 +2,7 @@
 #include <iomanip>
 
 FluxSortie::FluxSortie()
-    :delimLignes("\n"), delimMots(" "), terminalActif(true), fichierActif(true), fichierValide(false), estErreur(false)
+    :delimLignes("\n"), delimMots(" "), terminalActif(true), fichierActif(true), fichierOperationnel(false), estMessageErreur(false)
 {
 }
 
@@ -86,7 +86,7 @@ bool FluxSortie::ouvertureFichier()
         return false;
     }
 
-    fichierValide=true;
+    fichierOperationnel=true;
     return true;
 }
 
@@ -99,15 +99,15 @@ bool FluxSortie::testeValiditeFichier()
 {
     if (sortie.fail())
     {
-        fichierValide=false;
+        fichierOperationnel=false;
     }
 
-    return fichierValide;
+    return fichierOperationnel;
 }
 
 void FluxSortie::erreurDetectee()
 {
-    estErreur=true;
+    estMessageErreur=true;
 }
 
 FluxSortie &FluxSortie::nouvMot()
@@ -135,9 +135,21 @@ FluxSortie& FluxSortie::operator<<(ostream &(*pf)(ostream &))
         pf(cout);
     }
 
-    if (fichierActif && fichierValide)
+    if (fichierActif && fichierOperationnel)
     {
         pf(sortie);
+    }
+    return *this;
+}
+
+FluxSortie& FluxSortie::operator<<(JournalTemporaire& jt)
+{
+    jt.synchronise();
+    while(!jt.empty())
+    {
+        ecrit(jt.front());
+        retourLigne();
+        jt.pop();
     }
     return *this;
 }
@@ -149,7 +161,7 @@ FluxSortie& nm (FluxSortie& fs)
 }
 
 
-FluxSortie& rl (FluxSortie& fs)
+FluxSortie& nl (FluxSortie& fs)
 {
     fs.retourLigne();
     return fs;
@@ -161,3 +173,4 @@ FluxSortie& erreur (FluxSortie& fs)
     fs.erreurDetectee();
     return fs;
 }
+

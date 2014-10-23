@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "JournalTemporaire.h"
 
 using namespace std;
 
@@ -54,16 +55,21 @@ public:
 
     FluxSortie& operator<<(ostream& (*pf)(ostream&));
 
+    FluxSortie& operator<<(JournalTemporaire& j);
+
 
 protected:
     string delimLignes; // caractère de retour ligne
     string delimMots; // caractère de séparation entre les mots
-    bool terminalActif, fichierActif, fichierValide, estErreur;
+    bool terminalActif;
+    bool fichierActif, fichierOperationnel;
+    bool estMessageErreur;
+
     string nomFichier;
     ofstream sortie;
 };
 
-FluxSortie& rl (FluxSortie& fs);
+FluxSortie& nl (FluxSortie& fs);
 
 FluxSortie& nm (FluxSortie& fs);
 
@@ -72,25 +78,25 @@ FluxSortie& erreur (FluxSortie& fs);
 template<class T>
 FluxSortie& FluxSortie::ecrit(const T& token)
 {
-    if (terminalActif && !estErreur)
+    if (terminalActif && !estMessageErreur)
     {
        cout << token;
     }
-    else if (terminalActif && estErreur)
+    else if (terminalActif && estMessageErreur)
     {
        cout <<token << flush;
     }
 
-    if (fichierActif && fichierValide && !estErreur)
+    if (fichierActif && fichierOperationnel && !estMessageErreur)
     {
         sortie << token;
     }
-    else if (fichierActif && fichierValide && estErreur)
+    else if (fichierActif && fichierOperationnel && estMessageErreur)
     {
         sortie << token << flush;
     }
 
-    estErreur=false;
+    estMessageErreur=false;
 
     return *this;
 }

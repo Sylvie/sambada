@@ -35,6 +35,23 @@ using namespace scythe;
 
 int main(int argc, char *argv[])
 {		
+    JournalTemporaire jt;
+    jt << "Hello World!" << nl;
+    jt << "Red is the ";
+    jt << "new black." << nl;
+    jt << "Fin";
+
+    FluxSortie fs;
+    fs.setNomFichier("log-sambada.txt");
+    fs.ouvertureFichier();
+     fs << jt;
+
+    while (!jt.empty())
+    {
+        cout << jt.front() << endl;
+        jt.pop();
+    }
+
     if (argc==1)
 	{
 		toolbox::messageBienvenue(true);
