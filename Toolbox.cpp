@@ -28,6 +28,7 @@
 
 #include "Toolbox.h"
 #include "distributions.h"
+#include <ctime>
 using namespace std;
 using namespace scythe;
 
@@ -390,6 +391,17 @@ void toolbox::messageBienvenue(bool versionLongue)
 	
 }
 
+string toolbox::timestamp()
+{
+    time_t t(time(NULL));
+    string timestamp("unknown-time");
+    char mbstr[100];
+    if (std::strftime(mbstr, sizeof(mbstr), "%Y%m%d-%H%M%S", std::localtime(&t))) {
+        timestamp=mbstr;
+    }
+    return timestamp;
+}
+
 
 int ComparaisonVecteurs::caseComparaisonVecteurs=0;
 
@@ -416,5 +428,7 @@ void ComparaisonVecteurs::setCase(int i)
 
 ComparaisonVecteurs::ComparaisonVecteurs(ComparaisonVecteurs& c)
 {}
+
+
 
 

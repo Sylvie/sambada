@@ -27,7 +27,6 @@
 
 
 #include "RegressionLogistique.h"
-#include "FluxSortie.h"
 #include <ctime>
 
 using namespace std;
@@ -48,9 +47,11 @@ int main(int argc, char *argv[])
 
     while (!jt.empty())
     {
+        cout << "pas vide!" << endl;
         cout << jt.front() << endl;
         jt.pop();
     }
+
 
     if (argc==1)
 	{

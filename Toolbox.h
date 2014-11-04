@@ -347,6 +347,8 @@ namespace toolbox {
 	*/
 	
 	void messageBienvenue(bool versionLongue=false);
+
+    string timestamp();
 }
 
 class ComparaisonVecteurs
