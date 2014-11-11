@@ -346,7 +346,7 @@ namespace toolbox {
 	void affiche(const vector< vector < pair<int, reel> > > v, int n=-1, int m=-1);
 	*/
 	
-	void messageBienvenue(bool versionLongue=false);
+
 
     string timestamp();
 }

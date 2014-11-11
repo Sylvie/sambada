@@ -34,6 +34,8 @@
 #include "Erreur.h"
 #include "Toolbox.h"
 #include "Archiviste.h"
+#include "FluxSortie.h"
+
 
 #include <set>
 #include <map>
@@ -210,6 +212,18 @@ protected:
 	Scribe sortie;
 	string delimLignes; // caractère de retour ligne
 	char delimMots; // caractère de séparation entre mots
+
+    // Journal d'exécution
+    FluxSortie journal;
+    // Journal des modèles divergents
+    FluxSortie modelesDivergents;
+
+    // Ecriture du journal temporaire en cas d'erreur fatale au début de l'initialisation
+    void dumpJournalTemporaire(JournalTemporaire& journalTemp, const string& erreur="");
+
+    vector<string> messageBienvenue(bool versionLongue=false);
+    ostream& messageBienvenue(ostream& out, bool versionLongue=false);
+    JournalTemporaire& messageBienvenue(JournalTemporaire& jt, bool versionLongue=false);
 	
 	private :
 	
@@ -218,7 +232,8 @@ protected:
 	void affiche(const etiquetteModele& label);
 	void affiche(const resModele& res);
 	void affiche(const groupeResultats::iterator res);
-	
+
+
 	//	bool plusPetitQue(const groupeResultats::value_type* const &  r1, const groupeResultats::value_type* const &  r2);
 	void trieEtEcritResultats();
 	

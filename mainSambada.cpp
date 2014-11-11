@@ -52,15 +52,6 @@ int main(int argc, char *argv[])
         jt.pop();
     }
 
-
-    if (argc==1)
-	{
-		toolbox::messageBienvenue(true);
-	}
-	else
-	{
-		toolbox::messageBienvenue();
-	}	
 	
 	RegressionLogistique logitModel;
 	

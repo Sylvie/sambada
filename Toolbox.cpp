@@ -354,42 +354,6 @@ void toolbox::	 affiche(const vector< vector < pair<int, reel> > > v, int n, int
 }
 */
 
-void toolbox::messageBienvenue(bool versionLongue)
-{
-	cout << "| Welcome to Sambada!\n"
-	<< "| Copyright (C) 2011-2014 EPFL (Ecole Polytechnique federale de Lausanne)\n"
-	<< "| Laboratory of Geographic information systems (LaSIG)\n";
-	if (!versionLongue)
-	{
-		
-		cout << "| Contact: sylvie.stucki@a3.epfl.ch, stephane.joost@epfl.ch\n"
-		<< "| Sambada is free software and comes with ABSOLUTELY NO WARRANTY.\n"
-		<< "| Please refer to the file AUTHORS for details.\n";
-	}
-	else
-	{
-		cout << "| Sambada is free software ; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation ; either version 3 of the License, or (at your option) any later version.\n"
-			<< "| Sambada is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n"
-			<< "| You should have received a copy of the GNU General Public License along with Sambada ; if not, see <http://www.gnu.org/licenses/>.\n|\n"
-			
-			<< "| Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stephane Joost (stephane.joost@epfl.ch)\n" 
-			<< "| Laboratory of Geographic information systems\n"
-			<< "| EPFL ENAC IIE LASIG\n"
-			<< "| Station 18\n"
-			<< "| CH-1015 Lausanne\n"
-			<< "| Web site : http://lasig.epfl.ch/sambada\n|\n"
-			
-			<< "| Sambada includes two libraries: Scythe Statistical Library (under GPL 3) and Shapefile C Library (under LGPL 2.1, courtesy of Frank Warmerdam).\n|\n"
-			
-			<< "| Scythe Statistical Library\n"
-			<< "| Copyright (C) 2000-2002 Andrew D. Martin and Kevin M. Quinn;\n"
-			<< "| 2002-2012 Andrew D. Martin, Kevin M. Quinn, and Daniel Pemstein.  All Rights Reserved.\n|\n"
-	
-			<< "| Shapefile C Library\n"
-			<< "| Copyright (c) 1999, Frank Warmerdam\n";
-	}
-	
-}
 
 string toolbox::timestamp()
 {
