@@ -53,6 +53,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         messageBienvenue(journalTemp);
     }
 
+	journalTemp << "Program call:" << nl;
+	for (int i(0); i<argc; ++i)
+	{
+		journalTemp << argv[i] << " ";
+	}
+	journalTemp << nl;
+	
     // Conteneur pour les paramètres
     ParameterSet listeParam;
 
@@ -67,33 +74,34 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     // 3 ou 4 si les noms sont données en arguments
     if (argc > 4 || argc < 2)
     {
-        throw Erreur("MSG_falseArgNum", "Incorrect number of arguments");
+		Erreur e("MSG_falseArgNum", "Incorrect number of arguments");
+		dumpJournalTemporaire(journalTemp, e);
+        throw e;
     }
 
     string nomFichierParam(argv[1]);
-    cout << nomFichierParam << "\n";
+    journalTemp << "Fetching parameter file: " << nomFichierParam << nl;
     ifstream entree(nomFichierParam.c_str());
-
-    /*	// Paramètres pour les variables discrètes
-     vector<int> numerosVarSpeciales(0);
-     vector<string> typesVarSpeciales(0);
-     vector< vector <int> > classesVarSymetriques(0); */
 
     if (entree.fail())
     {
-        throw Erreur("MSG_errReadParams", "Error while reading parameters.");
+		Erreur e("MSG_errReadParams", "Error while reading parameters.");
+		dumpJournalTemporaire(journalTemp, e);
+        throw e;
     }
 
     // Lecture des paramètres
     try
     {
-        // repérage du type de retour lignes pour formater les fichiers de résultats
+        // repérage du type de retour lignes pour formater les fichiers de résultats (et les logs)
         toolbox::chercheRetourLigne(entree, delimLignes);
         sortie.setRetourLigne(delimLignes);
-        lectureParametres(entree, indexParam, listeParam);
+		journal.setDelimLignes(delimLignes);
+        lectureParametres(entree, indexParam, listeParam, journalTemp);
     }
-    catch (Erreur &)
-    {
+    catch (Erreur & e)
+    {	
+		dumpJournalTemporaire(journalTemp, e);
         throw;
     }
 
@@ -124,18 +132,17 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         int nombreFichiers(paramCourant->contents.size());
         if (!paramCourant->present || nombreFichiers==0)
         {
-            throw Erreur("MSG_missDataFiles", "Missing data files.");
-        }
+			Erreur e("MSG_missDataFiles", "Missing data files.");
+			dumpJournalTemporaire(journalTemp, e);
+			throw e;
+		}
 
-        cout << "*" << nombreFichiers << "\n";
-        for (int truc(0); truc<nombreFichiers; ++truc)
-        {
-            cout << "%" << paramCourant->contents[truc] << "%" << "\n" << flush;
-        }
         if (nombreFichiers==0 || nombreFichiers>2)
         {
-            throw Erreur("MSG_falseFilesNum", "Incorrect number of data files.");
-        }
+            Erreur e("MSG_falseFilesNum", "Incorrect number of data files on line FILENAME.");
+			dumpJournalTemporaire(journalTemp, e);
+			throw e;
+		}
         else if(nombreFichiers==2)
         {
             uniqueFichierDonnees=false;
@@ -180,7 +187,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     }
     ++paramCourant;
 
-
     // WORDDELIM
     delimMots=' ';
     if (paramCourant->present && paramCourant->contents.size()==1)
@@ -188,10 +194,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         int tailleDelim((paramCourant->contents[0]).size());
         // The delimiter might be surrounded by backets
         // If size is zero, the delimiter stays set to ' '
-        cout << "Taille delim " << tailleDelim<< "\n";
+        journalTemp << "Size of word delimitor: " << tailleDelim<< nl;
         for (int i(0); i<tailleDelim; ++i)
         {
-            cout << "*" << (paramCourant->contents)[0][i] << "*" << "\n";
+            journalTemp << "*" << (paramCourant->contents)[0][i] << "*" << nl;
         }
         if (tailleDelim==1)
         {
@@ -199,11 +205,35 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         }
         else if (tailleDelim>1)
         {
+			journalTemp << "Word delimitor set to char: *" << (paramCourant->contents)[0][1] << "*" << nl;
             delimMots=(paramCourant->contents)[0][1];
         }
     }
     sortie.setDelimMots(delimMots);
+	journal.setDelimMots(&delimMots);
     ++paramCourant;
+	
+	/* Word and line delimiters are known, as well as output file name.
+	 The actual journal can be set up.*/
+	journal.setNomFichier(nomFichierResultats.first+"-log"+nomFichierResultats.second);
+	journal.ouvertureFichier();
+	if (!journal.testeValiditeFichier())
+	{
+		Erreur e("MSG_errOpenLog", "Error while opening the log file.");
+		dumpJournalTemporaire(journalTemp, e);
+        throw e;
+	}
+	// Log transfer
+	journal << journalTemp;
+	
+	modelesDivergents.setNomFichier(nomFichierResultats.first+"-unconvergedModels"+nomFichierResultats.second);
+	modelesDivergents.ouvertureFichier();
+	if (!modelesDivergents.testeValiditeFichier())
+	{
+		Erreur e("MSG_errOpenUnconvergedModelsFile", "Error while opening the file for unconverged models.");
+		journal << e.getPhrase() << nl;
+        throw e;
+	}
 
     // HEADERS
     if (!paramCourant->present || paramCourant->contents.size()==0)
@@ -228,7 +258,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     nbEnv=toolbox::conversion<int>(paramCourant->contents[0]);
     ++paramCourant;
 
-    cout << nbEnv << "\n";
+    journal << "Number of environmental variables in file: " << nbEnv << nl;
     nbEnvActives=nbEnv;
 
     /*
@@ -248,22 +278,26 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         int position(nomFichierResultats.first.rfind("-"));
         if (position==string::npos)
         {
-            throw Erreur("MSG_missing-first-mark", "Missing number of the first marker. \n It must be provided in the name of the input marker file (as done by Supervision) or in the name given in the optional OUTPUTFILE entry.");
-
+            Erreur e("MSG_missing-first-mark", "Missing number of the first marker. \n It must be provided in the name of the input marker file (as done by Supervision) or in the name given in the optional OUTPUTFILE entry.");
+			journal << e.getPhrase() << nl;
+			throw e;
         }
         else
         {
 
-            cout << "-> "<< nomFichierResultats.first.substr(position+1) << "\n";
+            journal << "Number of the first marker: "<< nomFichierResultats.first.substr(position+1) << nl;
 
             istringstream iss((nomFichierResultats.first.substr(position+1)));
             iss >> numPremierMarq;
-            if (iss.fail()) {
-                throw Erreur("MSG_non-integer-first-mark-number", "Non-integer entry for the number of the first marker.");
-            }
+            if (iss.fail()) 
+			{
+                Erreur e("MSG_non-integer-first-mark-number", "Non-integer entry for the number of the first marker.");
+				journal << e.getPhrase() << nl;
+				throw e;
+			}
             else
             {
-                cout << iss.str() << " " << numPremierMarq << "\n" << flush;
+                journal << iss.str() << "->" << numPremierMarq << nl;
             }
         }
     }
@@ -320,10 +354,14 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     }
     else if (uniqueFichierDonnees)
     {
+		journal << "Fetching data:" << nomFichierInput[0].c_str() <<nl;
         entree.open((nomFichierInput[0]).c_str());
         if (entree.fail())
         {
-            throw Erreur("MSG_errOpenFiles", "Error while opening data files.");
+            Erreur e("MSG_errOpenFiles", "Error while opening data files.");
+			journal << e.getPhrase() << nl;
+			throw e;
+
         }
 
         // Lecture de l'en-tête
@@ -336,10 +374,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         nbCols = header.size();
         if (nbEnv+nbMarq != nbCols)
         {
-            cerr << nbCols << "\n";
+            journal << "Header size: " << nbCols << nl;
             for (int q(0); q<nbCols; ++q)
-                cout << q << " " << header[q] << "\n";
-            throw Erreur("MSG_falseDimNum", "Incorrect data dimension.");
+                journal << q+1 << " " << header[q] << nl;
+            Erreur e("MSG_falseDimNum", "Incorrect data dimension: NUMVARENV and NUMMARK do not sum up to the header size ("+toolbox::conversion(nbCols)+").");
+			journal << e.getPhrase() << nl;
+			throw e;
+
         }
         headerEnv.resize(nbEnv, "");
         headerMarq.resize(nbMarq, "");
@@ -355,11 +396,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     else // Deux fichiers de données
     {
         // Lecture des données environnementales
-        cout <<"$"<< nomFichierInput[0].c_str() <<"$"<< "\n";
+        journal << "Fetching environmental data:" << nomFichierInput[0].c_str() <<nl;
         entree.open(nomFichierInput[0].c_str());
         if (entree.fail())
         {
-            throw Erreur("MSG_errOpenEnv", "Error while opening environnemental data file.");
+            Erreur e("MSG_errOpenEnv", "Error while opening environnemental data file.");
+			journal << e.getPhrase() << nl;
+			throw e;
         }
 
         // Lecture de l'en-tête
@@ -369,16 +412,21 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
         if (headerEnv.size()!=nbEnv)
         {
-            cerr << "*" << headerEnv.size() << " " << nbEnv << "\n";
-            throw Erreur("MSG_falseEnvNum", "Incorrect number of environnemental data.");
+            journal << "NUMVARENV (" <<nbEnv<< ") does not match the header size (" << headerEnv.size() << ")." <<nl;
+            Erreur e("MSG_falseEnvNum", "Incorrect number of environnemental data.");
+			journal << e.getPhrase() << nl;
+			throw e;
         }
 
 
         // Lecture des données génétiques
-        entree.open(nomFichierInput[1].c_str());
+		journal << "Fetching genetic data:" << nomFichierInput[1].c_str() <<nl;
+		entree.open(nomFichierInput[1].c_str());
         if (entree.fail())
         {
-            throw Erreur("MSG_errOpenMark", "Error while opening genetic data file.");
+            Erreur e("MSG_errOpenMark", "Error while opening genetic data file.");
+			journal << e.getPhrase() << nl;
+			throw e;
         }
 
         // Lecture de l'en-tête
@@ -388,13 +436,14 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
         if (headerMarq.size()!=nbMarq)
         {
-            cerr << "*" << headerMarq.size() << " " << nbMarq << "\n";
-
-            throw Erreur("MSG_falseMarkNum", "Incorrect number of genetic markers.");
-        }
+            journal << "NUMMARK (" <<nbMarq<< ") does not match the header size (" << headerMarq.size() << ")." <<nl;
+            Erreur e("MSG_falseMarkNum", "Incorrect number of genetic markers.");
+			journal << e.getPhrase() << nl;
+			throw e;
+		}
     }
 
-    cout << "Headers sizes : " << headerEnv.size() << " " << headerMarq.size() << "\n";
+    journal << "Headers sizes : " << headerEnv.size() << " " << headerMarq.size() << nl;
 
     // Initialisation des tableaux de spécifications
     // Le classement des variables actives et passives se fera quand tous les paramètres auront été lus
@@ -459,7 +508,9 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         }
         if ((uniqueFichierDonnees && (colIDEnv>=nbEnv || colIDMarq>=(nbEnv+nbMarq))) || (!uniqueFichierDonnees && (colIDEnv>=nbEnv || colIDMarq>=nbMarq)))
         {
-            throw Erreur("MSG_errIDcol", "Incorrect definition of ID columns.");
+            Erreur e("MSG_errIDcol", "Incorrect definition of ID columns.");
+			journal << e.getPhrase() << nl;
+			throw e;
         }
         specDataEnv[colIDEnv].isNumeric=false;
         specDataEnv[colIDEnv].isActive=false;
@@ -483,8 +534,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 colCourante=toolbox::conversion<int>(paramCourant->contents[i]);
                 if (colCourante>=nbEnv)
                 {
-                    throw Erreur("MSG_missIdleEnv", "Error: Missing idle environnemental variable : "+colCourante);
-                }
+                    Erreur e("MSG_missIdleEnv", "Error: Missing idle environnemental variable : "+colCourante);
+					journal << e.getPhrase() << nl;
+					throw e;
+				}
             }
             else
             {
@@ -493,17 +546,16 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 colCourante=find(headerEnv.begin(), headerEnv.end(), paramCourant->contents[i])-headerEnv.begin();
                 if (colCourante>=nbEnv)
                 {
-                    throw Erreur("MSG_missIdleEnv", "Error: Missing idle environnemental variable : "+paramCourant->contents[i]);
-                }
+                    Erreur e("MSG_missIdleEnv", "Error: Missing idle environnemental variable : "+paramCourant->contents[i]);
+					journal << e.getPhrase() << nl;
+					throw e;
+				}
 
             }
 
             specDataEnv[colCourante].isNumeric=false;
             specDataEnv[colCourante].isActive=false;
-            //	varActives.erase(toolbox::conversion<int>(paramCourant->contents[i]));
-            //	varActives.erase(find(headerEnv.begin(), headerEnv.end(), paramCourant->contents[i])-headerEnv.begin());
         }
-        //nbEnvActives=varActives.size();
     }
     ++paramCourant;
 
@@ -520,7 +572,9 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 colCourante=toolbox::conversion<int>(paramCourant->contents[i]);
                 if (colCourante>=nbMarq)
                 {
-                    throw Erreur("MSG_missIdleMark", "Error: Missing idle genetic marker : "+colCourante);
+                    Erreur e("MSG_missIdleMark", "Error: Missing idle genetic marker : "+colCourante);
+					journal << e.getPhrase() << nl;
+					throw e;
                 }
                 else
                 {
@@ -543,17 +597,16 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 colCourante=find(headerMarq.begin(), headerMarq.end(), paramCourant->contents[i])-headerMarq.begin();
                 if (colCourante>=nbMarq)
                 {
-                    throw Erreur("MSG_missIdleMark", "Error: Missing idle genetic marker : "+paramCourant->contents[i]);
-                }
+                    Erreur e("MSG_missIdleMark", "Error: Missing idle genetic marker : "+paramCourant->contents[i]);
+					journal << e.getPhrase() << nl;
+					throw e;
+				}
 
             }
 
             specDataMarq[colCourante].isNumeric=false;
             specDataMarq[colCourante].isActive=false;
         }
-        //	markInactifs.insert(toolbox::conversion<int>(paramCourant->contents[i]));
-        //	markInactifs.insert(find(headerMarq.begin(), headerMarq.end(), paramCourant->contents[i])-headerMarq.begin());
-        //nbMarqActifs=nbMarq-markInactifs.size();
     }
     ++paramCourant;
 
@@ -574,7 +627,9 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 colCourante=toolbox::conversion<int>(paramCourant->contents[i]);
                 if (colCourante>=nbEnv)
                 {
-                    throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+colCourante);
+                    Erreur e("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+colCourante);
+					journal << e.getPhrase() << nl;
+					throw e;
                 }
             }
             else
@@ -584,14 +639,14 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 colCourante=find(headerEnv.begin(), headerEnv.end(), paramCourant->contents[i])-headerEnv.begin();
                 if (colCourante>=nbEnv)
                 {
-                    throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+paramCourant->contents[i]);
-                }
+                    Erreur e("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+paramCourant->contents[i]);
+					journal << e.getPhrase() << nl;
+					throw e;
+				}
 
             }
 
             listeConservation[colCourante]=true;
-            //varActives.erase(toolbox::conversion<int>(paramCourant->contents[i]));
-            //varActives.erase(find(headerEnv.begin(), headerEnv.end(), paramCourant->contents[i])-headerEnv.begin());
         }
 
         for (int i(0); i<nbEnv; ++i)
@@ -602,7 +657,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 specDataEnv[i].isActive=false;
             }
         }
-        //nbEnvActives=varActives.size();
 
     }
     ++paramCourant;
@@ -624,8 +678,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 colCourante=toolbox::conversion<int>(paramCourant->contents[i]);
                 if (colCourante>=nbMarq)
                 {
-                    throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+colCourante);
-                }
+                    Erreur e("MSG_missActiveMark", "Error: Missing active genetic marker : "+colCourante);
+					journal << e.getPhrase() << nl;
+					throw e;
+				}
             }
             else
             {
@@ -634,8 +690,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 colCourante=find(headerMarq.begin(), headerMarq.end(), paramCourant->contents[i])-headerMarq.begin();
                 if (colCourante>=nbMarq)
                 {
-                    throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : "+paramCourant->contents[i]);
-                }
+                    Erreur e("MSG_missActiveMark", "Error: Missing active genetic marker : "+paramCourant->contents[i]);
+					journal << e.getPhrase() << nl;
+					throw e;
+				}
 
             }
 
@@ -650,7 +708,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 specDataMarq[i].isActive=false;
             }
         }
-        //nbEnvActives=varActives.size();
 
     }
     ++paramCourant;
@@ -670,8 +727,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         dimensionMax = toolbox::conversion<int>(paramCourant->contents[0], echec);
         if (echec)
         {
-            throw Erreur ("MSG_invalidDimMax", "Invalid maximal dimension: "+paramCourant->contents[0]);
-        }
+            Erreur e("MSG_invalidDimMax", "Invalid maximal dimension: "+paramCourant->contents[0]);
+			journal << e.getPhrase() << nl;
+			throw e;
+		}
     }
     ++paramCourant;
 
@@ -681,8 +740,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     {
         if (paramCourant->contents.size()!=5)
         {
-            throw Erreur ("MSG_spatialArgNum", "Incorrect number of arguments for SPATIAL parameter : 5 required.");
-        }
+            Erreur e("MSG_spatialArgNum", "Incorrect number of arguments for SPATIAL parameter : 5 required.");
+			journal << e.getPhrase() << nl;
+			throw e;
+		}
         else
         {
             analyseSpatiale=true;
@@ -700,25 +761,14 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
             }
             if (longitude >= nbEnv || latitude >=nbEnv)
             {
-                throw Erreur("MSG_falseCrdDef", "Incorrect definition for longitude or latitude.");
+                Erreur e("MSG_falseCrdDef", "Incorrect definition for longitude or latitude.");
+				journal << e.getPhrase() << nl;
+				throw e;
             }
 
             // De base, la longitude et la latitude sont considérées comme des variables de régression
             // Si l'utilisateur les a marquées comme inactives, alors elles ne seront pas utilisées pour construire des modèles
             // En conséquence, les coordonnées peuvent être stockés soit avec les variables actives soit avec les variables passives (strings!)
-            /*
-             //La longitude et la latitude ne sont pas considérées comme des variables de régression
-             if (varActives.count(longitude))
-             {
-             varActives.erase(longitude);
-             --nbEnvActives;
-             }
-             if (varActives.count(latitude))
-             {
-             varActives.erase(latitude);
-             --nbEnvActives;
-             }
-             */
 
             // Type de coordonnées
             if (paramCourant->contents[2]=="CARTESIAN")
@@ -766,8 +816,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     {
         if (paramCourant->contents.size()<2 || paramCourant->contents.size()>3)
         {
-            throw Erreur ("MSG_autocorrArgNum", "Incorrect number of arguments for AUTOCORR parameter : 2 required.");
-        }
+            Erreur e("MSG_autocorrArgNum", "Incorrect number of arguments for AUTOCORR parameter : 2 required.");
+			journal << e.getPhrase() << nl;
+			throw e;
+		}
         else
         {
             // Autocorrélation globale ou locale
@@ -861,12 +913,14 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
     // Gestion des sauvegardes
     // SAVETYPE
-    cout << paramCourant->name << "\n";
+    journal << paramCourant->name << nl;
     int nbParamSauvegarde(paramCourant->contents.size());
     if (nbParamSauvegarde<2 || nbParamSauvegarde>3)
     {
-        throw Erreur("MSG_savetypeArgNum", "Incorrect number of arguments for SAVETYPE parameter.");
-    }
+        Erreur e("MSG_savetypeArgNum", "Incorrect number of arguments for SAVETYPE parameter.");
+		journal << e.getPhrase() << nl;
+        throw e;
+	}
     else
     {
         if (paramCourant->contents[0]=="REAL")
@@ -880,28 +934,28 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
         if (paramCourant->contents[1]=="ALL")
         {
-            cout << "all!" << endl;
+            journal << "all!" << nl;
             selModeles=all;
         }
         else
         {
             if (paramCourant->contents[1]=="BEST")
             {
-                cout << "best!" << endl;
-
+                journal << "best!" << nl;
                 selModeles=best;
             }
             else
             {
-                cout << "signif!" << endl;
-
+                journal << "signif!" << nl;
                 selModeles=signif;
             }
 
             if(nbParamSauvegarde!=3)
             {
-                throw Erreur("MSG_savetypeThreshold", "SAVETYPE : Specify the significance threshold for best models.");
-            }
+                Erreur e("MSG_savetypeThreshold", "SAVETYPE : Specify the significance threshold for best models.");
+           		journal << e.getPhrase() << nl;
+				throw e;
+			}
             else
             {
                 seuilPValeur = toolbox::conversion<reel>(paramCourant->contents[2]);
@@ -911,15 +965,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 seuilScoreMultivarie[0]=0;
                 // Il faut repérer quelles colonnes sont actives pour calculer les seuils de Bonferroni
 
-                /*				reel nbModeles, pValeur;
-                 for (int i(1); i<=dimensionMax; ++i)
-                 {
-                 nbModeles = toolbox::combinaisons(nbEnvActives, i)*nbMarqTot;
-                 pValeur=seuilPValeur/nbModeles;
-                 seuilScore[i] = toolbox::invCDF_ChiSquare(1-pValeur, 1, sqrt(epsilon < reel > ()));
-                 seuilScoreMultivarie[i] = toolbox::invCDF_ChiSquare(1-pValeur, i, sqrt(epsilon < reel > ()));
-                 cout << "Dim "<< i << " " << nbModeles << " " << pValeur << " " << seuilScore[i] << " " << seuilScoreMultivarie[i] << "\n";
-                 }*/
             }
         }
 
@@ -933,8 +978,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     {
         if (colIDEnv==latitude || colIDEnv==longitude)
         {
-            throw Erreur("MSG_longLatID", "Longitude and latitude cannot be chosen as ID.");
-        }
+            Erreur e("MSG_longLatID", "Longitude and latitude cannot be chosen as ID.");
+			journal << e.getPhrase() << nl;
+			throw e;
+		}
     }
 
     // Décompte et repérage des colonnes actives et inactives
@@ -985,7 +1032,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     if(selModeles!=all)
     {
         // Calcul des seuils de p-valeurs
-        cout << "Chose" <<"\n";
+        journal << "Computing p-value thresholds..." << nl;
+		journal << "Dimension" << "nbModels" << "p-value" << "univariateThreshold" << "multivariateThreshold" << nl;
         reel nbModeles, pValeur;
         for (int i(1); i<=dimensionMax; ++i)
         {
@@ -993,45 +1041,25 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
             pValeur=seuilPValeur/nbModeles;
             seuilScore[i] = toolbox::invCDF_ChiSquare(1-pValeur, 1, sqrt(epsilon < reel > ()));
             seuilScoreMultivarie[i] = toolbox::invCDF_ChiSquare(1-pValeur, i, sqrt(epsilon < reel > ()));
-            cout << "Dim "<< i << " " << nbModeles << " " << pValeur << " " << seuilScore[i] << " " << seuilScoreMultivarie[i] << "\n";
+            journal << "Dim "<< i << " " << nbModeles << " " << pValeur << " " << seuilScore[i] << " " << seuilScoreMultivarie[i] << nl;
         }
-        cout << "Bidule" << "\n";
-    }
+		journal << nl;
+	}
 
 
     /*	LECTURE DES DONNEES */
 
     if (uniqueFichierDonnees)
     {
-        cout << nomFichierInput[0] << " " << nomFichierInput[0].c_str() << "\n";
-
-
-        // Ces deux traitements sont faits avant
-
-        /*
-         // Recherche de l'extension
-         int position(nomFichierInput[0].rfind("."));
-         nomFichierResultats.first=nomFichierInput[0].substr(0, position);
-         nomFichierResultats.second=nomFichierInput[0].substr(position);
-         */
-        /*
-         // Recherche du numéro du premier marqueur (s'il y a plusieurs jobs)
-         if (nbMarqTot!=nbMarq)
-         {
-         int positionBis(nomFichierInput[0].rfind("-", position));
-         cout << "-> "<< nomFichierInput[0].substr(positionBis+1, position-positionBis-1) << "\n";
-
-         istringstream iss((nomFichierInput[0].substr(positionBis+1, position-positionBis-1)));
-         iss >> numPremierMarq;
-         cout << numPremierMarq << "\n" << flush;
-         }
-         */
+        journal << "Reading data in " << nomFichierInput[0] << nl;
 
         entree.open((nomFichierInput[0]).c_str());
         entree.precision(toolbox::precisionLecture);
         if (entree.fail())
         {
-            throw Erreur("MSG_errOpenFiles", "Error while opening data files.");
+            Erreur e("MSG_errOpenFiles", "Error while opening data files.");
+			journal << e.getPhrase() << nl;
+			throw e;
         }
 
         // Lecture des données
@@ -1074,7 +1102,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         {
             if (rows%100==0)
             {
-                cout <<"Row " <<rows<<"\n";
+                journal <<"Row " << rows << nl;
             }
             line.clear();
             lineValidation.clear();
@@ -1086,29 +1114,22 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
             // ligneOriginale contient tous les mots lus
             toolbox::lectureLigne(entree, line, lineValidation, ligneOriginale, delimMots);
 
-            /*for (int k(0); k<recuperation.size(); ++k)
-             {
-             cout << rows << " # " << lineValidation[k] << " " << recuperation[k] << "\n" << flush;
-             }*/
-
-            //for (int compteur(9); compteur<20; ++compteur)
-            //	cout << line[compteur] << " ";
-            //cout << "\n";
-
-            /*if (nbCols == -1)
-             nbCols = (unsigned int) line.size();*/
 
             if(nbCols != line.size())
             {
                 //for (int compteur(0); compteur<line.size(); ++compteur) cout << compteur << " " << line[compteur] << " " << ligneOriginale[compteur] << endl;
                 std::ostringstream oss;
                 oss << "Row " << (rows + 1) << " of input file has " << line.size() << " elements, but should have " << nbCols << ".";
-                throw Erreur("MSG_falseLineSize", oss.str());
+                Erreur e("MSG_falseLineSize", oss.str());
+				journal << e.getPhrase() << nl;
+				throw e;
             }
 
             if (rows >= nbPoints)
             {
-                throw Erreur("MSG_falsePtNum", "Incorrect points number.");
+                Erreur e("MSG_tooManyPoints", "Incorrect points number, too many lines in the data file.");
+				journal << e.getPhrase() << nl;
+				throw e;
             }
 
             // Validation des résultats
@@ -1180,18 +1201,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 }
             }
 
-            /*
-             //vals.push_back(line);
-             for (int i(0); i<nbEnv; ++i)
-             {
-             dataEnv(rows, i)=line[i];
-             }
-             for (int i(0); i<nbMarq; ++i)
-             {
-             dataMarq(rows, i) = line[i+nbEnv];
-             }
-             */
-
             validation.push_back(listeErreurs);
             ++rows;
 
@@ -1205,24 +1214,17 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         {
             std::ostringstream oss;
             oss << "Data file contains " << (rows) << " samples, while there should be " <<  nbPoints << ".";
-            throw Erreur("MSG_falsePtNum", "Nombre de points incorrect. "+oss.str());
+			Erreur e("MSG_tooFewPoints", "Incorrect point number: "+oss.str());
+			journal << e.getPhrase() << nl;
+			throw e;
         }
 
 
-        //nbPoints=rows;
-        //Classe::setNbPoints(nbPoints);
-        //Partition::setNbPoints(nbPoints);
-        //dataEnv.resize(rows, nbEnv);
         missingValuesEnv.resize(nbEnvActives, std::set< int > ());
-        cout << missingValuesEnv.size() << "\n";
-        //dataMarq.resize(rows, nbMarq);
         missingValuesMarq.resize(nbMarqActifs, std::set< int > ());
 
         for (unsigned int i(0); i < rows; ++i)
         {
-            /*	Matrix<double> line(1, nbCols, vals[i].begin());
-             dataEnv(i, _) = line(0, 0, 0, nbEnv-1);
-             dataMarq(i, _) = line(0, nbEnv, 0, nbCols-1);*/
             // Pour chaque ligne de data, validation contient les colonnes manquantes
             // On note l'indice dans le tableau des variables actives!
             //cout << "*" << validation[i].size() << "\n";
@@ -1248,32 +1250,15 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     }
     else // deux fichiers pour les données
     {
-        // Ces deux traitements sont faits avant
-        /*
-         // Nom fichier de résultats
-         int position(nomFichierInput[1].rfind("."));
-         nomFichierResultats.first=nomFichierInput[1].substr(0, position);
-         nomFichierResultats.second=nomFichierInput[1].substr(position);
-         */
-        /*
-         // Recherche du numéro du premier marqueur (s'il y a plusieurs jobs)
-         if (nbMarqTot!=nbMarq)
-         {
-         int positionBis(nomFichierInput[1].rfind("-", position));
-         cout << "-> "<< nomFichierInput[1].substr(positionBis+1, position-positionBis-1) << "\n";
-
-         istringstream iss((nomFichierInput[1].substr(positionBis+1, position-positionBis-1)));
-         iss >> numPremierMarq;
-         cout << iss.str() << " " << numPremierMarq << "\n" << flush;
-         }
-         */
-
         // Lecture des données environnementales
+        journal << "Reading data in " << nomFichierInput[0] << nl;		
         entree.open(nomFichierInput[0].c_str());
         entree.precision(toolbox::precisionLecture);
         if (entree.fail())
         {
-            throw Erreur("MSG_errOpenEnv", "Error while opening environnemental data file.");
+            Erreur e("MSG_errOpenEnv", "Error while opening environnemental data file.");
+			journal << e.getPhrase() << nl;
+			throw e;
         }
 
 
@@ -1311,7 +1296,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         {
             if (rows%100==0)
             {
-                cout <<"Row " <<rows<<"\n";
+                journal <<"Row " << rows << nl;
             }
 
             line.clear();
@@ -1324,19 +1309,20 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
             // ligneOriginale contient tous les mots lus
             toolbox::lectureLigne(entree, line, lineValidation, ligneOriginale, delimMots);
 
-            /*if (nbCols == -1)
-             nbCols = (unsigned int) line.size();*/
-
             if(nbCols != line.size())
             {
                 std::ostringstream oss;
                 oss << "Row " << (rows + 1) << " of environmental input file has " << line.size() << " elements, but should have " << nbCols << ".";
-                throw Erreur("MSG_falseLineSize", oss.str());
-            }
+                Erreur e("MSG_falseLineSize", oss.str());
+				journal << e.getPhrase() << nl;
+				throw e;
+			}
 
             if (rows >= nbPoints)
             {
-                throw Erreur("MSG_falsePtNum", "Nombre de points incorrect.");
+                Erreur e("MSG_tooManyPoints", "Incorrect number of points, too many lines in environmental data file.");
+				journal << e.getPhrase() << nl;
+				throw e;
             }
 
             // Validation des résultats
@@ -1396,13 +1382,15 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         {
             std::ostringstream oss;
             oss << "Environmental file contains " << (rows) << " samples, while there should be " <<  nbPoints << ".";
-            throw Erreur("MSG_falsePtNum", "Nombre de points incorrect. "+oss.str());
+            Erreur e("MSG_tooFewPoints", "Incorrect number of points. "+oss.str());
+			journal << e.getPhrase() << nl;
+			throw e;
         }
 
 
 
         missingValuesEnv.resize(nbEnvActives, std::set< int > ());
-        cout << missingValuesEnv.size() << "\n";
+       // cout << missingValuesEnv.size() << "\n";
 
         for (unsigned int i(0); i < rows; ++i)
         {
@@ -1419,11 +1407,15 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
 
         // Lecture des données génétiques
+		journal << "Reading data in " << nomFichierInput[1] << nl;
         entree.open(nomFichierInput[1].c_str());
         entree.precision(toolbox::precisionLecture);
         if (entree.fail())
         {
-            throw Erreur("MSG_errOpenMark", "Error while opening genetic data file.");
+            Erreur e("MSG_errOpenMark", "Error while opening genetic data file.");
+			journal << e.getPhrase() << nl;
+			throw e;
+
         }
 
         nbCols = headerMarq.size();
@@ -1460,7 +1452,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         {
             if (rows%100==0)
             {
-                cout <<"Row " <<rows<<"\n";
+                journal  <<"Row " <<rows<< nl;
             }
 
             line.clear();
@@ -1474,19 +1466,20 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
 
 
-            /*if (nbCols == -1)
-             nbCols = (unsigned int) line.size();*/
-
             if(nbCols != line.size())
             {
                 std::ostringstream oss;
                 oss << "Row " << (rows + 1) << " of markers input file has " << line.size() << " elements, but should have " << nbCols << ".";
-                throw Erreur("MSG_falseLineSize", oss.str());
+                Erreur e("MSG_falseLineSize", oss.str());
+				journal << e.getPhrase() << nl;
+				throw e;
             }
 
             if (rows >= nbPoints)
             {
-                throw Erreur("MSG_falsePtNum", "Incorrect points number.");
+                Erreur e("MSG_tooManyPoints", "Incorrect points number, too many lines in data file.");
+				journal << e.getPhrase() << nl;
+				throw e;
             }
 
             // Validation des résultats
@@ -1540,7 +1533,9 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
         {
             std::ostringstream oss;
             oss << "Molecular file contains " << (rows) << " samples, while there should be " <<  nbPoints << ".";
-            throw Erreur("MSG_falsePtNum", "Nombre de points incorrect. "+oss.str());
+            Erreur e("MSG_tooFewPoints", "Nombre de points incorrect. "+oss.str());
+			journal << e.getPhrase() << nl;
+			throw e;
         }
 
 
@@ -1570,8 +1565,9 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
             masqueX((*iter), i)=0;
         }
     }
-    cout << toolbox::sommeNumerique(masqueX) << " " << nbEnv*nbPoints << "\n";
-    masqueY.resize(nbPoints, 1);
+//    cout << toolbox::sommeNumerique(masqueX) << " " << nbEnv*nbPoints << "\n";
+  
+	masqueY.resize(nbPoints, 1);
 
     //	cout << dataEnv(nbPoints-10,0,nbPoints-1,8) << endl;
     //	cout << dataMarq(nbPoints-10,0,nbPoints-1,9) << endl;
@@ -1593,7 +1589,9 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
                 std::ostringstream oss;
                 oss << "IDs do not match on line " << i << " : "
                     << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " != " << dataSupMarq(i, specDataMarq[colIDMarq].localIndex);
-                throw Erreur("MSG_unmatchIDs", oss.str());
+                Erreur e("MSG_unmatchIDs", oss.str());
+				journal << e.getPhrase() << nl;
+				throw e;
             }
         }
 
@@ -1602,6 +1600,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
     return 0;
 }
+
+
 void RegressionLogistique::ecritResultat(int numFichier, const resModele& r) const
 {
     //On écrit les numéros/noms globaux des marqueurs
@@ -1633,6 +1633,12 @@ void RegressionLogistique::dumpJournalTemporaire(JournalTemporaire& journalTemp,
     errorLog.ouvertureFichier();
     errorLog << journalTemp << flush;
     errorLog.fermetureFichier();
+}
+
+void RegressionLogistique::dumpJournalTemporaire(JournalTemporaire& journalTemp, const Erreur& e)
+{
+	string erreur(e.getPhrase());
+	dumpJournalTemporaire(journalTemp, erreur);
 }
 
 vector<string> RegressionLogistique::messageBienvenue(bool versionLongue)
@@ -1674,7 +1680,7 @@ vector<string> RegressionLogistique::messageBienvenue(bool versionLongue)
         message.push_back("| Shapefile C Library");
         message.push_back("| Copyright (c) 1999, Frank Warmerdam");
     }
-
+	return message;
 }
 
 
@@ -1936,57 +1942,58 @@ void RegressionLogistique::trieEtEcritResultats()
 
 // Cette méthode lit le fichier de paramètres et remplit la liste
 // Elle vérifie aussi si les paramètres obligatoires (et les pré-requis) sont présents
-ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) throw()
+ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres, JournalTemporaire& journalTemp) throw()
 {
     entree >> ws;
     string nomParam, lu;
     vector<string> ligne;
     ParameterSetIndex::const_iterator paramCourant; // L'itérateur doit pointer une valeur constante (index est const)
+	
+	string filler("    ");	// Indentation for parameters in the log
+	journalTemp << "Reading parameter file..." << nl;
     while(!entree.eof())
     {
         toolbox::lectureLigne(entree, ligne, ' ', true);
-        for (int i(0); i<ligne.size(); ++i)
-        {
-            cout << "%" << ligne[i] << "%" << "\n";
-        }
-        cout << "%%" << "\n";
-        // Une ligne doit commencer par le nom d'un tag
-        if (ligne.size()==0)
+        if (ligne.size()==0)	// Vérification de la taille de ligne
         {
             continue;
         }
+		
+		// Une ligne valide doit commencer par le nom d'un tag
         nomParam=ligne[0];
+        if (!isupper(nomParam[0]))
+        {
+            journalTemp << "This ligne was ignored: ";
+        }
+		journalTemp << nomParam << nl; 
+        for (int i(1); i<ligne.size(); ++i)
+        {
+            journalTemp << filler << ligne[i]  << nl;
+        }
         if (!isupper(nomParam[0]))
         {
             continue;
         }
+		
         paramCourant=index.find(nomParam);
-
         if (paramCourant==index.end())
         {
-            throw Erreur("MSG_unknownParam", "Unknown parameter : '"+nomParam+"'");
+			Erreur e("MSG_unknownParam", "Unknown parameter : '"+nomParam+"'");
+			journal << e.getPhrase() << nl;
+			throw e;
         }
         else
         {
-            cout << nomParam << " " << parametres[paramCourant->second].name << "\n";
+            /*cout << nomParam << " " << parametres[paramCourant->second].name << "\n";*/
             // Le paramètre existe
             parametres[paramCourant->second].present=true;
             parametres[paramCourant->second].contents.insert(parametres[paramCourant->second].contents.end(),ligne.begin()+1, ligne.end());
-            /*if (parametres[paramCourant->second].tokenize)
-             {
-             toolbox::lectureLigne(entree, parametres[paramCourant->second].contents, delimLignes);
-             }
-             else
-             {
-             getline(entree, lu, delimLignes);
-             parametres[paramCourant->second].contents.push_back(lu);
-             }*/
             entree >> ws;
-            cout << parametres[paramCourant->second].contents.size() << "\n";
+            /*cout << parametres[paramCourant->second].contents.size() << "\n";
             for (int compteur(0); compteur<parametres[paramCourant->second].contents.size(); ++compteur)
             {
                 cout << parametres[paramCourant->second].contents[compteur] << "\n";
-            }
+            }*/
         }
     }
     // Vérification des paramètres obligatoires et des prérequis
@@ -1995,7 +2002,10 @@ ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const Parame
     {
         if (parametres[i].mandatory && (!parametres[i].present || parametres[i].contents.size()==0))
         {
-            throw Erreur("MSG_mandParam", "Parameter "+parametres[i].name+" is mandatory ! ");
+			Erreur e("MSG_mandParam", "Parameter "+parametres[i].name+" is mandatory ! ");
+			journal << e.getPhrase() << nl;
+			throw e;
+			
         }
         nbPrereq=parametres[i].prereq.size();
         for (int j(0); j<nbPrereq; ++j)
@@ -2003,7 +2013,10 @@ ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const Parame
             paramCourant=index.find(parametres[i].prereq[j]);
             if (parametres[i].present && !parametres[paramCourant->second].present) // Cas où le paramètre est présent et où un de ses pré-requis manque
             {
-                throw Erreur("MSG_reqParam", "Parameter "+parametres[paramCourant->second].name+" is required by "+parametres[i].name);
+				Erreur e("MSG_reqParam", "Parameter "+parametres[paramCourant->second].name+" is required by "+parametres[i].name);
+				journal << e.getPhrase() << nl;
+				throw e;
+				
             }
         }
     }

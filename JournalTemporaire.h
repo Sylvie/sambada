@@ -42,7 +42,6 @@ private:
 template<class T>
 JournalTemporaire& JournalTemporaire::operator<<(const T& token)
 {
-    cerr << "Bouh" << endl;
     oss << token;
     return *this;
 }

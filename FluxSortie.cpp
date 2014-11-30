@@ -101,6 +101,11 @@ bool FluxSortie::testeValiditeFichier()
     {
         fichierOperationnel=false;
     }
+	else 
+	{
+		fichierOperationnel=true;
+	}
+
 
     return fichierOperationnel;
 }

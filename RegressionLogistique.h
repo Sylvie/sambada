@@ -220,6 +220,7 @@ protected:
 
     // Ecriture du journal temporaire en cas d'erreur fatale au début de l'initialisation
     void dumpJournalTemporaire(JournalTemporaire& journalTemp, const string& erreur="");
+    void dumpJournalTemporaire(JournalTemporaire& journalTemp, const Erreur& e=Erreur());
 
     vector<string> messageBienvenue(bool versionLongue=false);
     ostream& messageBienvenue(ostream& out, bool versionLongue=false);
@@ -257,7 +258,7 @@ protected:
 	void initialisationParametres(ParameterSet& listeParam, ParameterSetIndex& indexParam) const;
 	// Cette méthode lit le fichier de paramètres et remplit la liste
 	// Elle vérifie aussi si les paramètres obligatoires sont présents
-	ifstream& lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) throw();
+	ifstream& lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres, JournalTemporaire& journalTemp) throw();
 	
 	
 	/*	Reel calculePondDistanceMax(Reel dcarre);
