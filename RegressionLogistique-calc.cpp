@@ -55,7 +55,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 {
 	if (!analyseSpatiale)
 	{
-		throw Erreur("MSG_noSpatialAnalysis", "No spatial analysis requested", false);
+		erreurDetectee("MSG_noSpatialAnalysis", "No spatial analysis requested", false);
 	}
 	else 
 	{
@@ -117,7 +117,6 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 			for (int i(0); i<nbPoints; ++i)
 			{
 				lu.clear();
-				//	cout << i << " " << dataSupEnv(i, indiceLatitude).size() << " " << setprecision(toolbox::precisionLecture)<< dataSupEnv(i, indiceLatitude) << "\n";
 				lu.precision(toolbox::precisionLecture);
 				lu.str(dataSupEnv(i, indiceLatitude));
 				lu >> valeur;
@@ -134,8 +133,6 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 				}
 			}
 		}		
-		//cout.precision(22);
-		//cout << coordonnees(25,0,29,1) << "\n";
 		
 		// Calcul du masque total
 		pointsGeo.masque = masqueCrd(_,0) % masqueCrd(_,1);
@@ -187,8 +184,6 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 			
 		}
 		
-		//cout << distances(0,0,5,5)<<"\n";
-		
 		// Pour la pondération, on prend w_ii = 0, un point n'est pas son propre voisin (pour l'autocorrélation)
 		// Pour la GWR, le point sera rajouté parmi ses voisins
 		// Les pondérations seront normées plus tard (pour tenir compte des valeurs manquantes)
@@ -223,7 +218,6 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 					//if (distances(pt1,pt2)<=carreBandePassante)	// Tronquage pour comparaison avec pysal
 					//{
 					pondCourante=exp(-distances(pt1,pt2)/(2*carreBandePassante));
-					//cout << "*"<< i << " " << j << " " << pondCourante << endl;
 					pointsGeo.poids[pt1].push_back(make_pair(pt2, pondCourante));
 					pointsGeo.poids[pt2].push_back(make_pair(pt1, pondCourante));
 					//}
@@ -276,10 +270,6 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 				}
 				
 				sort(voisinage[pt1].begin(), voisinage[pt1].end(), ComparaisonVoisins::plusPetitQue);
-				/*for (vector<Voisin>::iterator iter(voisinage[pt1].begin()); iter!=voisinage[pt1].end(); ++iter)
-				 {
-				 cout << "*"<< pt1+1 << " " << (iter->first)+1 << " " << iter->second << " " << sqrt(iter->second)<< "\n";
-				 }*/
 			}
 			
 			double poids(1.); // On n'a normé personne pour le moment (et la norme change suivant le cas AC / GWR)
@@ -294,7 +284,6 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 					
 					for (int j(i+1); j<pointsGeo.taille; ++j)
 					{
-						//cout << i<< " " << j << endl;
 						pt2=pointsGeo.pointsValides[j];
 						voisinage[pt1].push_back(make_pair(pt2, poids));
 						voisinage[pt2].push_back(make_pair(pt1, poids));
@@ -310,7 +299,6 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 				// On sélectionne les points voisins
 				// Il peut y en avoir plus que "nbPlusProchesVoisins" si certains points sont à égale distance
 				
-				//cout << "! " << distances(9,0,9,384) << "\n";
 				reel plusPetiteDiffDist(pow(10.,-4)); // En dessous d' 1cm ça compte pas! (Les distances sont au carré)
 				for (int i(0); i<pointsGeo.taille; ++i)
 				{
@@ -332,14 +320,10 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 				}
 			}
 		}
-		//cout.precision(toolbox::precisionLecture);
-		//cout << coordonnees(0,0,10,1) << "\n" << "\n" <<sqrt( distances(0,0,10,10)) << " " << pointsGeo.poids.size()<< " "<<pointsGeo.poids[0].size() << " " << pointsGeo.poids[384].size() <<"\n" ;
-		for (int chose(0); chose<pointsGeo.poids[0].size(); ++chose)
-		{
-			cout << pointsGeo.poids[0][chose].first << " " <<  pointsGeo.poids[0][chose].second<< "\n";
-		}
-		
-		
+		/*for (int chose(0); chose<pointsGeo.poids[0].size(); ++chose)
+		 {
+		 cout << pointsGeo.poids[0][chose].first << " " <<  pointsGeo.poids[0][chose].second<< "\n";
+		 }*/
 	}	
 }
 
@@ -400,8 +384,6 @@ int RegressionLogistique::calculeCorrelations() const
 			correlationCourante[1] = j;
 			correlationCourante[2] = ( sum(dataEnv(_, i)%dataEnv(_, j))/toolbox::sommeNumerique(masqueX(_, i)%masqueX(_, j)) - moyennes[i]*moyennes[j] ) / sqrt(variances[i] * variances[j]) ;
 			correlations.push_back(correlationCourante);
-			
-			//cout << i << " " << j << " " << correlationCourante[2] << "\n";
 		}
 	}
 	
@@ -432,26 +414,24 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 {
 	try
 	{
-		
 		if (!analyseSpatiale || (!AS_autocorrVarEnv && !AS_autocorrMarq))
 		{
-			throw Erreur("MSG_noAutocorr", "No autocorrelation computation requested", false);
+			erreurDetectee("MSG_noAutocorr", "No autocorrelation computation requested", false);
 		}
 		calculePonderation();
 	}
-	catch (const Erreur& err) 
+	catch (const Erreur& e)
 	{
-		if (err.estFatale())
+		if (e.estFatale())
 		{
 			throw;
 		}
-		else
+		else 
 		{
-			cout << err.what() << "\n";
+			return 1;
 		}
-		return 1;
+
 	}
-	//cout << ponderation<<"\n";
 	
 	//****
 	// Initialisation du shapefile
@@ -553,11 +533,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		}
 	}
 	
-	//cout << distances << endl;
-	//toolbox::affiche(voisinage);
-	//toolbox::affiche(pointsGeo.poids);
-	//toolbox::affiche(pointsAC.poids);
-	
 	ofstream sortieAS;
 	
 	//Initialisation de la graine du générateur pour les permutation
@@ -614,7 +589,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 							if(pointsCourants.masque(pointsAC.poids[pt1][v].first,0))
 							{
 								pointsCourants.poids[pt1].push_back(pointsAC.poids[pt1][v]);
-								//cout << "*"<< pointsAC.poids[pt1][v].first << " " << pointsAC.poids[pt1][v].second << endl;
 								somme += (pointsAC.poids[pt1][v].second);
 							}
 						}
@@ -654,7 +628,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 						
 						vector<Voisin>::iterator voisinCourant, voisinSuivant;
 						
-						//cout << "! " << distances(9,0,9,384) << "\n";
 						for (int u(0); u<pointsCourants.taille; ++u)
 						{
 							pt1 = pointsCourants.pointsValides[u];
@@ -696,21 +669,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				}
 			}
 			
-			//toolbox::affiche(pointsCourants.poids);
-			/*
-			 for (int zut(0); zut<5; ++zut)
-			 {
-			 for (int prout(0); prout<voisinage[zut].size(); ++prout)
-			 {
-			 cout << voisinage[zut][prout].first << " " << voisinage[zut][prout].second << " " ;
-			 }
-			 cout << endl;
-			 for (int prout(0); prout<pointsCourants.poids[zut].size(); ++ prout)
-			 {
-			 cout << pointsCourants.poids[zut][prout].first<< " " << pointsCourants.poids[zut][prout].second << " ";
-			 }
-			 cout << endl;
-			 }*/
+			
 			// Calcul des déviations, moyenne et variance
 			moyenne=0;
 			sommeCarresDeviations=0;
@@ -782,11 +741,8 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			 */
 			if (AS_autocorrGlobale)
 			{
-				//cout << "\n" << autocorrLocale(_,i);
-				//cout << tailleDonnees << " " << sum(ponderationCourante) << " " << sum(autocorrLocale(_,i)) << " " << sum(deviations%deviations) << "\n";
-				
 				autocorrGlobale(0,i)=facteurEchelleGlobal*(sum(autocorrLocale(_,i)));				
-				cout << specDataEnv[varEnvActives[i]].name << " " << moyenne << " " << autocorrGlobale(0,i)  << " " << sommeCarresDeviations<< "\n";
+				//journal << specDataEnv[varEnvActives[i]].name << " " << moyenne << " " << autocorrGlobale(0,i)  << " " << sommeCarresDeviations<< "\n";
 			}
 			
 			
@@ -802,7 +758,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				for (int j(0); j<(pointsCourants.taille-1); ++j)
 				{
 					// Comme 0<=rand<=RAND_MAX, on divise par RM+1 pour éviter les débordements de tableau
-					//cout << "!" <<  pointsCourants.taille-1-j << endl;
 					proportion[j]=(double)(pointsCourants.taille-1-j)/((double)RAND_MAX+1);
 				}
 				
@@ -999,33 +954,18 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			}
 		}
 		
-		// Calcul de la p-valeur
-		/*pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
-		 if (AS_autocorrGlobale)
-		 {
-		 pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
-		 cout << "*** " << pValeurGlobale << "\n";
-		 }*/
-		
-		
-		
-		
-		
 		time_t t2(time(NULL));
 		cout << "Calcul autocorrélation : " << t2-t1 << "\n";
 		
 		
 		// Ecriture des résultats
-		
-		//cout << autocorrLocale(0,0,10,2) << "\n"<< pValeurLocale(0,0,10,2) << "\n";
-		
 		sortieAS.precision(toolbox::precisionLecture);
 		t1=time(NULL);
 		// Ecriture de l'autocorrélation
 		sortieAS.open((nomFichierResultats.first+"-AS-Env"+nomFichierResultats.second).c_str());
 		if (sortieAS.fail())
 		{
-			throw Erreur("MSG_errOpenFileACEnv", "Error while opening file for autocorrelation of environnemental variables.");
+			erreurDetectee("MSG_errOpenFileACEnv", "Error while opening file for autocorrelation of environnemental variables.");
 		}
 		else
 		{
@@ -1081,7 +1021,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		sortieAS.open((nomFichierResultats.first+"-AS-Env-pVal"+nomFichierResultats.second).c_str());
 		if (sortieAS.fail())
 		{
-			throw Erreur("MSG_errOpenFileACSigEnv", "Error while opening file for autocorrelation significance of environnementales variables.");
+			erreurDetectee("MSG_errOpenFileACSigEnv", "Error while opening file for autocorrelation significance of environnementales variables.");
 		}
 		else
 		{
@@ -1137,7 +1077,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			sortieAS.open((nomFichierResultats.first+"-AS-Env-Sim"+nomFichierResultats.second).c_str());
 			if (sortieAS.fail())
 			{
-				throw Erreur("MSG_errOpenFileACHistEnv", "Error while opening history file for autocorrelation of environnemental variables.");
+				erreurDetectee("MSG_errOpenFileACHistEnv", "Error while opening history file for autocorrelation of environnemental variables.");
 			}
 			else
 			{
@@ -1163,7 +1103,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			
 		}
 		t2=time(NULL);
-		cout << "Ecriture autocorrélation : " << t2-t1 << "\n";
+		journal << "Ecriture autocorrélation : " << t2-t1 << "s.\n";
 		
 		
 	}
@@ -1193,7 +1133,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			pointsCourants.masque=pointsAC.masque;
 			for (set< int >::iterator iter(missingValuesMarq[i].begin()); iter!=missingValuesMarq[i].end(); ++iter)
 			{
-				//cout << *iter << endl;
 				pointsCourants.masque[*iter]=false;
 			}
 			pointsCourants.taille=toolbox:: sommeNumerique(pointsCourants.masque);
@@ -1224,7 +1163,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 							if(pointsCourants.masque(pointsAC.poids[pt1][v].first,0))
 							{
 								pointsCourants.poids[pt1].push_back(pointsAC.poids[pt1][v]);
-								//cout << "*"<< pointsAC.poids[pt1][v].first << " " << pointsAC.poids[pt1][v].second << endl;
 								somme += (pointsAC.poids[pt1][v].second);
 							}
 						}
@@ -1264,7 +1202,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 						
 						vector<Voisin>::iterator voisinCourant, voisinSuivant;
 						
-						//cout << "! " << distances(9,0,9,384) << "\n";
 						for (int u(0); u<pointsCourants.taille; ++u)
 						{
 							pt1 = pointsCourants.pointsValides[u];
@@ -1306,21 +1243,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				}
 			}
 			
-			//toolbox::affiche(pointsCourants.poids);
-			/*
-			 for (int zut(0); zut<5; ++zut)
-			 {
-			 for (int prout(0); prout<voisinage[zut].size(); ++prout)
-			 {
-			 cout << voisinage[zut][prout].first << " " << voisinage[zut][prout].second << " " ;
-			 }
-			 cout << endl;
-			 for (int prout(0); prout<pointsCourants.poids[zut].size(); ++ prout)
-			 {
-			 cout << pointsCourants.poids[zut][prout].first<< " " << pointsCourants.poids[zut][prout].second << " ";
-			 }
-			 cout << endl;
-			 }*/
 			// Calcul des déviations, moyenne et variance
 			moyenne=0;
 			sommeCarresDeviations=0;
@@ -1384,16 +1306,8 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				}
 			}
 			
-			/*			autocorrTemp=(deviations%(ponderation*deviations))*facteurEchelleLocal;	// AC locale, elle est temporaire car il faut remettre les valeurs à leur place (tailleDonnees->nbPoints)
-			 for (int j(0); j<tailleDonnees; ++j)
-			 {
-			 autocorrLocale(pointsValides[j], i) =autocorrTemp(j,0);
-			 }
-			 */
 			if (AS_autocorrGlobale)
 			{
-				//cout << "\n" << autocorrLocale(_,i);
-				//cout << tailleDonnees << " " << sum(ponderationCourante) << " " << sum(autocorrLocale(_,i)) << " " << sum(deviations%deviations) << "\n";
 				
 				autocorrGlobale(0,i)=facteurEchelleGlobal*(sum(autocorrLocale(_,i)));				
 				cout << specDataMarq[marqActifs[i]].name << " " << moyenne << " " << autocorrGlobale(0,i)  << " " << sommeCarresDeviations<< "\n";
@@ -1401,7 +1315,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			
 			
 			// Permutations!
-			
 			if (AS_autocorrLocale)
 			{
 				// Chaque fois qu'on prend un point, le nombre de points restants (=parmi lesquels on peut tirer un élément) diminue
@@ -1412,7 +1325,6 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				for (int j(0); j<(pointsCourants.taille-1); ++j)
 				{
 					// Comme 0<=rand<=RAND_MAX, on divise par RM+1 pour éviter les débordements de tableau
-					//cout << "!" <<  pointsCourants.taille-1-j << endl;
 					proportion[j]=(double)(pointsCourants.taille-1-j)/((double)RAND_MAX+1);
 				}
 				
@@ -1541,19 +1453,16 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 							// de droite à gauche: liste [N] des indices locaux -> permutations -> indices globaux correspondants
 							listePointsGlobauxPerm[k]=pointsCourants.pointsValides[ listePointsValidesPerm[listePointsGlobauxPerm[k]] ];
 						}
-						//	cout << "*" << k << " " << listePointsGlobauxPerm[k] << endl;
 					}
 					//	toolbox::affiche(listePointsGlobauxPerm);
 					// On prend la position (et la pondération) du point d'origine et on utilise la valeur du point permuté
 					for (int  k(0); k<pointsCourants.taille; ++k)
 					{
-						//	cout << k << endl;
 						pt1=pointsCourants.pointsValides[k];
 						nbVoisins=pointsCourants.poids[pt1].size();
 						valeurIntermediaire=0;
 						for (int l(0); l<nbVoisins; ++l)
 						{
-							//		cout << pointsCourants.poids[pt1][l].first << endl;
 							valeurIntermediaire+=pointsCourants.poids[pt1][l].second * deviations[ listePointsGlobauxPerm[ pointsCourants.poids[pt1][l].first ]];
 						}
 						
@@ -1616,29 +1525,18 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			}
 		}
 		
-		// Calcul de la p-valeur
-		/*pValeurLocale=(pValeurLocale+1.)/(AS_nbPermutations+1.);
-		 if (AS_autocorrGlobale)
-		 {
-		 pValeurGlobale = (pValeurGlobale+1.)/(AS_nbPermutations+1.);
-		 cout << "*** " << pValeurGlobale << "\n";
-		 }*/
-		
 		time_t t2(time(NULL));
-		cout << "Calcul autocorrélation : " << t2-t1 << "\n";
+		cout << "Calcul autocorrélation : " << t2-t1 << "s.\n";
 		
 		
 		// Ecriture des résultats
-		
-		//cout << autocorrLocale(0,0,10,2) << "\n"<< pValeurLocale(0,0,10,2) << "\n";
-		
 		sortieAS.precision(toolbox::precisionLecture);
 		t1=time(NULL);
 		// Ecriture de l'autocorrélation
 		sortieAS.open((nomFichierResultats.first+"-AS-Mark"+nomFichierResultats.second).c_str());
 		if (sortieAS.fail())
 		{
-			throw Erreur("MSG_errOpenFileACEnv", "Error while opening file for autocorrelation of genetic markers.");
+			erreurDetectee("MSG_errOpenFileACEnv", "Error while opening file for autocorrelation of genetic markers.");
 		}
 		else
 		{
@@ -1696,7 +1594,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		sortieAS.open((nomFichierResultats.first+"-AS-Mark-pVal"+nomFichierResultats.second).c_str());
 		if (sortieAS.fail())
 		{
-			throw Erreur("MSG_errOpenFileACSigEnv", "Error while opening file for autocorrelation significance of genetic markers.");
+			erreurDetectee("MSG_errOpenFileACSigEnv", "Error while opening file for autocorrelation significance of genetic markers.");
 		}
 		else
 		{
@@ -1745,7 +1643,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			}
 			sortieAS.flush();
 			sortieAS.close();
-
+			
 		}
 		
 		// Ecriture de l'historique des permutations (autocorr globale)
@@ -1754,7 +1652,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 			sortieAS.open((nomFichierResultats.first+"-AS-Mark-Sim"+nomFichierResultats.second).c_str());
 			if (sortieAS.fail())
 			{
-				throw Erreur("MSG_errOpenFileACHistEnv", "Error while opening history file for autocorrelation of genetic markers.");
+				erreurDetectee("MSG_errOpenFileACHistEnv", "Error while opening history file for autocorrelation of genetic markers.");
 			}
 			else
 			{
@@ -1781,7 +1679,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		}
 		
 		t2=time(NULL);
-		cout << "Ecriture autocorrélation : " << t2-t1 << "\n";
+		cout << "Ecriture autocorrélation : " << t2-t1 << "s.\n";
 		
 	}
 	
@@ -2169,14 +2067,15 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 
 int RegressionLogistique::creeModelesGlobaux()
 {
-	cout << "Highest dimension : " << dimensionMax <<"\n";
-	cout << "List of possible errors : " << "\n"
-	<< "1: exponential divergence" << "\n"
-	<< "2: J_info is singular" << "\n"
-	<< "3: divergence of beta" << "\n"
-	<< "4: maximum number of iterations" << "\n"
-	<< "5: monomorphic marker" << "\n"
-	<< "6: non-significant parents models" << "\n";
+	journal << "Detection of selection signatures" << nl;
+	journal << "Highest dimension : " << dimensionMax <<nl;
+	journal << "List of possible errors : " << nl
+	<< "1: exponential divergence" <<  nl
+	<< "2: J_info is singular" <<  nl
+	<< "3: divergence of beta" <<  nl
+	<< "4: maximum number of iterations" << nl
+	<< "5: monomorphic marker" <<  nl
+	<< "6: non-significant parents models" << nl;
 	
 	
 	// Initialisation du conteneur de résultats et des flots de sortie
@@ -2321,7 +2220,7 @@ int RegressionLogistique::creeModelesGlobaux()
 		}
 		if (i%1000==0)
 		{
-			cout << i << "\n";
+			journal << "Genotype " << i << "\n";
 		}
 		//colMarq = nbEnv+i;
 		resultatCourant.first.first=i;
@@ -2333,7 +2232,6 @@ int RegressionLogistique::creeModelesGlobaux()
 		// Les valeurs manquantes sont un ensemble!
 		for (set< int >::iterator iter(missingValuesMarq[i].begin()); iter!=missingValuesMarq[i].end(); ++iter)
 		{
-			//cout << colMarq << " "<< missingValues[colMarq][k] << "\n";
 			masqueY[*iter]=false;
 		}
 		
@@ -2342,7 +2240,8 @@ int RegressionLogistique::creeModelesGlobaux()
 		if(sommeY == 0 || tailleY==0 || sommeY==tailleY)	// si tous les marqueurs sont nuls ou manquants ou si tous les marqueurs non-nuls sont égaux à 1
 		{
 			// On veut afficher le numéro global du marqueur
-			cout << "Y[" << marqActifs[i]+numPremierMarq << "] is constant ! " << dataMarq(0,i) << "\n";
+			modelesDivergents << 5 << " | " << i+numPremierMarq << " : " << nl;
+			//journal << "Y[" << marqActifs[i]+numPremierMarq << "] is constant ! " << dataMarq(0,i) << nl;
 			// Paramètres du modèle
 			resultatCourant.second[1]=(sommeY>0? 1 : 0);
 			resultatCourant.second[0]=0;
@@ -2583,18 +2482,11 @@ int RegressionLogistique::creeModelesGlobaux()
 						varContinues = generationPrecedente->first.second;
 						varContinues.insert(varCourante);
 						
-						//t1 = clock();
 						construitModele(i, varContinues);
-						//t2 = clock();
-						//cout << t2-t1 << " " ;
 					}
 				}
-				
 			}
-			
-			
 		}
-		//	cout << endl;
 	}
 	
 	
@@ -2612,9 +2504,6 @@ int RegressionLogistique::creeModelesGlobaux()
 
 void RegressionLogistique::construitModele(int numMarq,  const set<int> & varContinues)//, const reel loglike_zero, reel& loglike_courante)
 {
-	//cout << "!";
-	//affiche(make_pair(numMarq, varContinues));
-	//	int nbVarDisc(varDiscretes.size()), nbVarCont(varContinues.size());
 	int nbVarCont(varContinues.size());
 	int dim(nbVarCont);
 	
@@ -2730,31 +2619,21 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 		}
 		else 
 		{
-			//cout << X.cols() << " " << X(0,0,10,nbParam-1) << Y(0,0,10,0) << "\n";
-			
-			/*if (nbVarCont==2)
-			 {
-			 cout << "Coucou!" <<"\n";
-			 }*/
-			
-			
 			// Initialisation de beta_hat
 			beta_hat = 0;
-			
 			
 			int typeErreur(0);
 			typeErreur=calculeRegression(resultat.second[valloglikelihood], resultat.second[Efron]);
 			
-			
 			if (typeErreur>0)
 			{
 				resultat.second[validiteModele]=typeErreur;
-				cout << typeErreur << " | " << numMarq+numPremierMarq << " : ";
+				modelesDivergents << typeErreur << " | " << numMarq+numPremierMarq << " : ";
 				for (set<int>::iterator l(varContinues.begin()); l!=varContinues.end(); ++l)
 				{
-					cout << *l << " " ;
+					modelesDivergents << *l << " " ;
 				}
-				cout << "\n";
+				modelesDivergents << nl;
 				
 				
 			}
@@ -2864,16 +2743,8 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 			Xb=nouv_Xb;
 			exp_Xb = exp(Xb);
 			
-			//cout << nbIterations << "\n" << beta_hat << "\n" << Xb << "\n" << exp_Xb << "\n";
-			
 			pi_hat = exp_Xb / (1 + exp_Xb);
 			
-			/*if (nbIterations==26)
-			 {
-			 cout << exp_Xb << "\n" << pi_hat << "\n";
-			 }*/
-			
-			//cout << pi_hat<< "\n";
 			// Calcul ni * pi * (1 - pi)
 			interm = pi_hat % (1 - pi_hat);
 			
@@ -2895,8 +2766,6 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 				}
 			}
 			
-			//cout << "# " << nbIterations << " " << min(nouv_Xb) << " " << max(nouv_Xb) << " " << exp(max(nouv_Xb)) << " " << max(exp_Xb)<<  "\n" << scores << "\n" <<J_info<< "\n";
-			
 			/*if ( det(J_info)<=0)
 			 {
 			 singularMatrix = true;
@@ -2910,25 +2779,15 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 				}
 				catch(scythe_exception& error)
 				{
-					//cerr << error.message() << "\n";
 					singularMatrix = true;
 					continueCalcul=false;
 					typeErreur=2;
 				}
 				
-				/*			for (int m(0); m<nbParam; ++m)
-				 {
-				 if (inv_J_info(m, m) <= 0)
-				 cerr << i << " " << j << " " << inv_J_info << "\n";
-				 }
-				 */
-				
 				if(!singularMatrix)
 				{
 					// Mise à jour de beta_hat
 					nouv_beta_hat = beta_hat + inv_J_info * scores;
-					
-					//cout << inv_J_info << det(J_info) << "\n" << nouv_beta_hat << "\n" << "\n";
 					
 					for (int l(0); l<nbParam; ++l)
 					{
@@ -2958,17 +2817,10 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 						beta_hat = nouv_beta_hat;
 					}
 				}
-				//cout << nbIterations << "\n" << beta_hat << "\n";
 			}
 			// Si le calcul est terminé, on calcule l'indice d'Effron
 			if (!continueCalcul) {
-				//cout << nbIterations << "\n" << beta_hat << "\n";
-				
-				//double ratio(sum(Y)*1.0 / taille);
-				//cout << ratio << "\n";
-				// indiceEfron = 1 - (sum(intermScores%intermScores))/(sum((Y - ratio)%(Y - ratio)));
 				composantEfron = sum((intermScores%intermScores)(0,0,taille-1,0));
-				//loglikelihood = sum(Y%log(pi_hat) + (1-Y)%log(1-pi_hat));
 				loglikeCourante = sum((Y%(Xb) - log(1.+exp_Xb))(0,0,taille-1,0));
 			}
 		}
@@ -2987,15 +2839,6 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	bool modeleRetenu(true);
 	
 	// Il faut trouver les meilleurs modèles "parents"
-	/*for (set< int >:: iterator iter(resultat.first.second.begin()); iter!=resultat.first.second.end(); ++iter)
-	 {
-	 cout << *iter << " " ;
-	 cout << specDataEnv[varEnvActives.at(*iter)].name<< " ";
-	 
-	 }
-	 cout << "!"<<"\n";*/
-	//cout << "ç" << resultat.first.second.size()-1 << "\n";
-	//affiche(resultat);
 	int dimParents(resultat.first.second.size()-1); // Taille de l'étiquette - 1
 	
 	// On garde les infos des modèles plus simples que dim max
@@ -3077,29 +2920,22 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
 			resultat.second[WaldScore]=WaldCourant;
 			
-			//affiche(resultat.first);
-			//cout << "	" << WaldCourant;
 			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
 			{
 				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
-				//cout << "	" << WaldCourant;
 				if (WaldCourant < resultat.second[WaldScore])
 				{
 					resultat.second[WaldScore] = WaldCourant;
 				}
 			}
-			//cout << endl;
 			// Test du score de Wald
 			if (selModeles!=all && ( resultat.second[WaldScore] < seuilScore[tailleModele] ))
 			{
 				modeleRetenu=false;
 				resultat.second[validiteModele]=7;
 				
-			}
-			//affiche(resultat);
-			
+			}			
 		}
-		
 	}
 	else if (selModeles!=best)
 		// Aucun modèle parent n'est valide -> on compare avec le modèle constant 
@@ -3154,24 +2990,15 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
 			resultat.second[WaldScore]=WaldCourant;
 			
-			//affiche(resultat.first);
-			//cout << "	" << WaldCourant;
-			
 			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
 			{
 				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
-				//cout << "	" << WaldCourant;
 				
 				if (WaldCourant < resultat.second[WaldScore])
 				{
 					resultat.second[WaldScore] = WaldCourant;
 				}
 			}
-			//cout << endl;
-			
-			
-			
-			
 			
 			//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
 			if (selModeles==signif && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
@@ -3201,8 +3028,6 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		// Calcul des pseudos R carrés
 		loglikeCourante=resultat.second[valloglikelihood];
 		
-		//	cout << (resultat.first.first) << " " << *(resultat.first.second.begin()) << " " << loglikeCourante << " " << loglikeZero  
-		//	<< " " << 1-scythe::pchisq(resultat.second[Gscore], 1) << " " <<  1-scythe::pchisq(resultat.second[WaldScore], 1) << "\n";
 		// McFadden
 		resultat.second[McFadden] = 1 - (loglikeCourante / loglikeZero);
 		
@@ -3734,7 +3559,7 @@ void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, Pa
 	// SUBSETVARENV
 	paramCourant.name="SUBSETVARENV";	
 	listeParam.push_back(paramCourant);
-
+	
 	// SUBSETMARK
 	paramCourant.name="SUBSETMARK";	
 	listeParam.push_back(paramCourant);

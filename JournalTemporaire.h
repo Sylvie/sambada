@@ -30,12 +30,12 @@
 
 #include <sstream>
 #include <string>
-#include <queue>
+#include <deque>
 #include <iostream>
 
 using namespace std;
 
-class JournalTemporaire : public queue<string>
+class JournalTemporaire : public deque<string>
 {
 public:
     JournalTemporaire();
@@ -58,9 +58,8 @@ public:
   //  JournalTemporaire& flush(JournalTemporaire &jt);
 
 protected:
-    ostringstream oss;
+    ostringstream* oss;
     void push(const string & s);
-   // vector<string> journal;
 
 private:
 	JournalTemporaire(const JournalTemporaire& jt);
@@ -69,7 +68,11 @@ private:
 template<class T>
 JournalTemporaire& JournalTemporaire::operator<<(const T& token)
 {
-    oss << token;
+	if (oss==NULL)
+	{
+		oss = new ostringstream;
+	}
+    (*oss) << token;
     return *this;
 }
 

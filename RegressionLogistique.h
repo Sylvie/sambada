@@ -30,11 +30,10 @@
 #define REGRESSIONLOGISTIQUE_H
 
 #include "matrix.h"
-//#include "Partition.h";
 #include "Erreur.h"
 #include "Toolbox.h"
 #include "Archiviste.h"
-#include "FluxSortie.h"
+#include "Journal.h"
 
 
 #include <set>
@@ -67,7 +66,6 @@ protected:
 	 */
 	typedef enum {all, signif, best} typeSelectionModeles;
 	
-	//typedef vector< vector <double> > tableau;
 	typedef Matrix<reel, Col, Concrete> MatriceReels;
 	typedef Matrix<bool, Col, Concrete> MatriceBools;
 	typedef Matrix<string, Col, Concrete> MatriceStrings;
@@ -77,16 +75,16 @@ public:
 	RegressionLogistique();
 	virtual ~RegressionLogistique();
 	
-	//int initialisation(string nomFichierParam, string nomFichierInput) throw();
 	int initialisation(int argc, char *argv[]) throw(Erreur);
 	
-	//int analyseCategories();
 	int calculeCorrelations() const;
 	int calculeAutocorrelations() throw(Erreur);
 	
 	int creeModelesGlobaux();
 	
 	void ecritResultat(int numFichier, const resModele& r) const;
+	
+	void ecritMessage(const string& s);
 	
 	// Méthodes non utilisées pour le moment
 	/*void ecritResultats() const;
@@ -141,21 +139,12 @@ protected:
 	MatriceBools dataMarq;
 	MatriceStrings dataSupEnv, dataSupMarq;
 	vector< set< int > > missingValuesEnv, missingValuesMarq;
-	// vector< string > headerEnv, headerMarq;
 	SpecificationsDonnees specDataEnv, specDataMarq;
 	// Lien entre l'indice local et le numéro global de la variable.
 	map<int, int> varEnvActives, varEnvPassives, marqActifs, marqPassifs;
 	bool existeColID;
 	int colIDEnv, colIDMarq;
-	
-	// On note les variables environnementales actives et les marqueurs inactifs!
-	// -> On traverse plusieurs fois l'ensemble des variables env, mais une seule fois les marqueurs
-	//set<int> variables, varActives, markInactifs;
-	
-	/*set<int> varSpeciales;
-	 map < vector<int>, Partition> combinaisons;
-	 map < int, vector<int> > etiquettesCombinaisons;*/
-	
+		
 	int nbEnv;
 	int nbEnvActives;
 	int nbMarq;
@@ -214,17 +203,16 @@ protected:
 	char delimMots; // caractère de séparation entre mots
 
     // Journal d'exécution
-    FluxSortie journal;
+    Journal journal;
     // Journal des modèles divergents
     FluxSortie modelesDivergents;
 
     // Ecriture du journal temporaire en cas d'erreur fatale au début de l'initialisation
-    void dumpJournalTemporaire(JournalTemporaire& journalTemp, const string& erreur="");
-    void dumpJournalTemporaire(JournalTemporaire& journalTemp, const Erreur& e=Erreur());
+    void dumpJournalTemporaire();
 
-    vector<string> messageBienvenue(bool versionLongue=false);
+    vector<string> getMessageBienvenue(bool versionLongue=false);
     ostream& messageBienvenue(ostream& out, bool versionLongue=false);
-    JournalTemporaire& messageBienvenue(JournalTemporaire& jt, bool versionLongue=false);
+    void messageBienvenue(bool versionLongue=false);
 	
 	private :
 	
@@ -258,12 +246,10 @@ protected:
 	void initialisationParametres(ParameterSet& listeParam, ParameterSetIndex& indexParam) const;
 	// Cette méthode lit le fichier de paramètres et remplit la liste
 	// Elle vérifie aussi si les paramètres obligatoires sont présents
-	ifstream& lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres, JournalTemporaire& journalTemp) throw();
+	ifstream& lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) throw(Erreur);
 	
-	
-	/*	Reel calculePondDistanceMax(Reel dcarre);
-	 Reel calculePondGaussienne(Reel dcarre);
-	 Reel calculePondBicarree(Reel dcarre);*/
+	// This method creates a new Erreur, write the description to the log and throw the Erreur
+	void erreurDetectee(const string& nom="", const string& description="", bool arret=true) throw(Erreur);
 	
 	
 };

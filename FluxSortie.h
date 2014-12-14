@@ -67,6 +67,8 @@ public:
     bool testeValiditeFichier();
 
     void erreurDetectee();
+	
+	FluxSortie& synchronise();
 
     template<class T>
     FluxSortie& ecrit(const T& token);
@@ -91,6 +93,7 @@ protected:
     bool terminalActif;
     bool fichierActif, fichierOperationnel;
     bool estMessageErreur;
+	bool ligneVide;
 
     string nomFichier;
     ofstream sortie;

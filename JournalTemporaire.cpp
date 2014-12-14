@@ -28,7 +28,7 @@
 #include "journaltemporaire.h"
 
 JournalTemporaire::JournalTemporaire()
-: queue<string>(), oss()
+: deque<string>(), oss(NULL)
 {
 }
 
@@ -49,29 +49,37 @@ JournalTemporaire& JournalTemporaire::operator<<(JournalTemporaire& (*pf)(Journa
 
 JournalTemporaire& JournalTemporaire::operator<<(ostream& (*pf)(ostream&))
 {
-    pf(oss);
+	if (oss==NULL)
+	{
+		oss = new ostringstream;
+	}
+    pf(*oss);
     return *this;
 }
 
 JournalTemporaire& JournalTemporaire::retourLigne()
 {
-    this->push(oss.str());
-    oss.str("");
-    oss.clear();
+	if (oss!=NULL)
+	{
+		this->push(oss->str());
+		delete oss;
+		oss = NULL;
+	}
     return *this;
 }
 
 JournalTemporaire& JournalTemporaire::synchronise()
 {
-    if(oss.str()!="");
+    if( oss!=NULL && !(oss->str().empty()) );
     {
         retourLigne();
     }
+	return *this;
 }
 
 void JournalTemporaire::push(const string& s)
 {
-    queue<string>::push(s);
+    deque<string>::push_back(s);
 }
 
 /*JournalTemporaire& JournalTemporaire::flush(JournalTemporaire &jt)

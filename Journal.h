@@ -40,6 +40,7 @@ public:
 	
 	void metFlotEnPause();
 	bool sortDeLaPause();
+	bool estEnPause() const;
 	
 	void setDelimLignes(const string& delim);
     string getDelimLignes() const;
@@ -62,6 +63,10 @@ public:
 			
     void erreurDetectee();
 	
+	Journal& synchronise();
+	
+	bool estFonctionnel();
+	
     template<class T>
     Journal& ecrit(const T& token);
 	
@@ -76,6 +81,8 @@ public:
 	
     Journal& operator<<(ostream& (*pf)(ostream&));
 	
+	void afficheJournalTemporaire();
+	
 	
 protected:
 	
@@ -89,5 +96,26 @@ private:
 	Journal(const Journal& j);
 	
 };
+
+Journal& nl (Journal& j);
+
+Journal& nm (Journal& j);
+
+Journal& erreur (Journal& j);
+
+template<class T>
+Journal& Journal::operator<<(const T& token)
+{
+	if (flotEnPause)
+	{
+		temp << token;
+	}
+	else
+	{
+		flux << token;
+	}
+	return *this;
+}
+
 
 #endif // JOURNAL_H

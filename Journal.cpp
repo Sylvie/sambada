@@ -50,19 +50,26 @@ bool Journal::sortDeLaPause()
 {
 	if (flux.getActiviteFichier())
 	{
+		//cerr << "Opening file" << endl;
 		flux.ouvertureFichier();
 	}
 	bool fonctionne( (flux.getActiviteFichier()&&flux.testeValiditeFichier()) || flux.getActiviteTerminal());
 	if (fonctionne)
 	{
 		flux << temp;
+		//cerr<< "Fin" << endl;
 		flotEnPause=false;
 		return true;
 	}	
-	else {
+	else 
+	{
 		return false;
 	}
-	
+}
+
+bool Journal::estEnPause() const
+{
+	return flotEnPause;
 }
 
 void Journal::setDelimLignes(const string& delim)
@@ -133,6 +140,27 @@ void Journal::erreurDetectee()
 	}
 }
 
+Journal& Journal::synchronise()
+{
+	if (flotEnPause)
+	{
+		temp.synchronise();
+	}
+	else
+	{
+		flux.retourLigne();
+	}
+	return *this;
+}
+
+bool Journal::estFonctionnel()
+{
+	bool fichierActif(flux.getActiviteFichier()), 
+		fichierValide(flux.testeValiditeFichier()), 
+		terminalActif(flux.getActiviteTerminal());
+	bool fichierOK(!fichierActif || ( fichierActif && fichierValide ) );
+	return ( (terminalActif && fichierOK) || (!terminalActif && fichierActif && fichierValide) );
+}
 
 Journal& Journal::retourLigne()
 {
@@ -144,7 +172,7 @@ Journal& Journal::retourLigne()
 	{
 		flux.retourLigne();
 	}
-	
+	return *this;
 }
 
 Journal& Journal::nouvMot()
@@ -153,20 +181,20 @@ Journal& Journal::nouvMot()
 	{
 		flux.nouvMot();
 	}
-	
+	return *this;
 }
 
 Journal& Journal::operator<<(Journal& (*pf)(Journal&))
 {
-	if (flotEnPause)
+/*	if (flotEnPause)
 	{
-		temp << pf;
+		pf(temp);
 	}
 	else
 	{
-		flux << pf;
-	}
-	return *this;
+		pf(flux);
+	}*/
+	return pf(*this);
 }
 
 Journal& Journal::operator<<(ostream& (*pf)(ostream&))
@@ -180,4 +208,33 @@ Journal& Journal::operator<<(ostream& (*pf)(ostream&))
 		flux << pf;
 	}
 	return *this;
+}
+
+Journal& nm(Journal& j)
+{
+	j.nouvMot();
+    return j;
+}
+
+
+Journal& nl(Journal& j)
+{
+    j.retourLigne();
+    return j;
+}
+
+
+Journal& erreur (Journal& j)
+{
+	j.erreurDetectee();
+	return j;
+}
+
+void Journal::afficheJournalTemporaire()
+{
+	cout << "Journal temporaire:" << endl;
+	for (deque<string>::iterator i(temp.begin()); i!=temp.end(); ++i)
+	{
+		cout << "(" << i-temp.begin() << ") " << *i << endl;
+	}
 }

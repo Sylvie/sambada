@@ -29,7 +29,7 @@
 #include <iomanip>
 
 FluxSortie::FluxSortie()
-:delimLignes("\n"), delimMots(" "), terminalActif(true), fichierActif(true), fichierOperationnel(false), estMessageErreur(false)
+:delimLignes("\n"), delimMots(" "), terminalActif(true), fichierActif(true), fichierOperationnel(false), estMessageErreur(false), ligneVide(true)
 {
 }
 
@@ -113,7 +113,6 @@ bool FluxSortie::ouvertureFichier()
 	}
 
 	sortie.close();
-	
 	sortie.open(nomFichier.c_str());
 	if (sortie.fail())
 	{
@@ -128,17 +127,18 @@ bool FluxSortie::ouvertureFichier()
 void FluxSortie::fermetureFichier()
 {
     sortie.close();
+	fichierOperationnel=false;
 }
 
 bool FluxSortie::testeValiditeFichier()
 {
-    if (sortie.fail())
+    if (sortie.is_open() && sortie.good())
     {
-        fichierOperationnel=false;
+        fichierOperationnel=true;
     }
 	else 
 	{
-		fichierOperationnel=true;
+		fichierOperationnel=false;
 	}
 	
 	
@@ -161,10 +161,12 @@ FluxSortie &FluxSortie::nouvMot()
 FluxSortie& FluxSortie::retourLigne()
 {
     ecrit(delimLignes);
+	ligneVide=true;
     return *this;
 }
 
 FluxSortie& FluxSortie::operator<<(FluxSortie& (*pf)(FluxSortie&)) {
+	ligneVide=false;
     return pf(*this);
 }
 
@@ -179,6 +181,8 @@ FluxSortie& FluxSortie::operator<<(ostream &(*pf)(ostream &))
     {
         pf(sortie);
     }
+	
+	ligneVide=false;
     return *this;
 }
 
@@ -189,8 +193,9 @@ FluxSortie& FluxSortie::operator<<(JournalTemporaire& jt)
     {
         ecrit(jt.front());
         retourLigne();
-        jt.pop();
+        jt.pop_front();
     }
+	ligneVide=true;
     return *this;
 }
 

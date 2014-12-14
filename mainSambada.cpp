@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     {
         cout << "pas vide!" << endl;
         cout << jt.front() << endl;
-        jt.pop();
+        jt.pop_front();
     }
 
 	
