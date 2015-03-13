@@ -52,11 +52,17 @@ int Chronometre::initialisation(Journal* j, int nbTotEv, int numPremMesure, cons
 	sepCol=separateurCol;
 	distanceColonnes=sepCol.size();
 	
+	(*journal) << "Start of measurement, " << nbTotEvenements << " iterations expected." << nl;	
+	
 	return numPremMesure;
 }
 
 int Chronometre::mesureEtAffiche(int numEvenement)
 {
+	if (numEvenement < 0)
+	{
+		numEvenement = prochaineMesure;
+	}	
 	mesure(numEvenement);
 	if (mesures.size()==1)
 	{
@@ -64,7 +70,7 @@ int Chronometre::mesureEtAffiche(int numEvenement)
 		ajusteAffichage(mesures[0].tempsTotEstime);
 		tailleAffichageDurees = Duree::calculeLargeur(precision, chablon);
 
-		cout << "Taille : " << tailleAffichageDurees << endl;
+		//cout << "Taille : " << tailleAffichageDurees << endl;
 		string texteMarqueurs((((nbTotEvenements < 100) && (sepCol.size()<3)) ? "markers" : "# markers"));
 		vector<string> texteTemps(5, "");
 //		texteTemps[0] = "Computation time (*=estimation)";
@@ -111,8 +117,10 @@ int Chronometre::mesureEtAffiche(int numEvenement)
 void Chronometre::fin()
 {
 	// Ligne horizontale
-	(*journal) << sepCol << setfill('-') << setw(tailleAffichageTotal) << "" << sepCol <<nl << setfill(' ');
-
+	if (mesures.size() > 0)
+	{
+		(*journal) << sepCol << setfill('-') << setw(tailleAffichageTotal) << "" << sepCol <<nl << setfill(' ');
+	}
 	Duree d(difftime(time(NULL),tempsDebut));
 	/*(*journal) << "End of measurement, total time: "; 
 	affiche(d);
@@ -143,7 +151,6 @@ void Chronometre::mesure(int numEv)
 	mesures.push_back(m);
 	++nbMesures;
 }
-
 
 int Chronometre::calculeProchaineMesure(int numEv)
 {

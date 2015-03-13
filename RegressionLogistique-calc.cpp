@@ -27,6 +27,7 @@
 
 
 #include "RegressionLogistique.h"
+#include "Chronometre.h"
 #include "optimize.h"
 //#include "shapelib-1.3.0/shapefil.h"
 #include "shapefil.h"
@@ -42,7 +43,7 @@ RegressionLogistique::RegressionLogistique()
 :dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
 sauvegardeTempsReel(true), selModeles(all),
 analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
-eps(sqrt(epsilon < reel > ())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel)700,log(numeric_limits < reel >::max()/2))),
+eps(sqrt(epsilon < reel > ())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel)700,log(numeric_limits < reel >::max()/2))), nbModelesParMarqueur(1),
 limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsSansPseudos(4),
 tailleEtiquetteInvar(4), numPremierMarq(0),
 delimLignes("\n")
@@ -2208,7 +2209,9 @@ int RegressionLogistique::creeModelesGlobaux()
 		
 	}
 	
-	//	clock_t t1, t2;
+	// Mesure du temps de calcul
+	Chronometre chrono;
+	int prochaineMesure(chrono.initialisation(&journal, nbMarqActifs, ceil(1000./nbModelesParMarqueur), " | "));
 	
 	// On ne prend en compte que les marqueurs actifs
 	for (int i(0); i<nbMarqActifs; ++i)
@@ -2218,9 +2221,9 @@ int RegressionLogistique::creeModelesGlobaux()
 			resultats.clear();
 			resultats.resize(dimensionMax+1);
 		}
-		if (i%1000==0)
+		if (i == prochaineMesure)
 		{
-			journal << "Genotype " << i << "\n";
+			prochaineMesure = chrono.mesureEtAffiche();
 		}
 		//colMarq = nbEnv+i;
 		resultatCourant.first.first=i;
@@ -2489,6 +2492,7 @@ int RegressionLogistique::creeModelesGlobaux()
 		}
 	}
 	
+	chrono.fin();
 	
 	if (!sauvegardeTempsReel)
 	{

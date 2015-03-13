@@ -34,25 +34,6 @@ using namespace scythe;
 
 int main(int argc, char *argv[])
 {		
-    JournalTemporaire jt;
-    jt << "Hello World!" << nl;
-    jt << "Red is the ";
-    jt << "new black." << nl;
-    jt << "Fin";
-
-    FluxSortie fs;
-    fs.setNomFichier("log-sambada.txt");
-    fs.ouvertureFichier();
-     fs << jt;
-
-    while (!jt.empty())
-    {
-        cout << "pas vide!" << endl;
-        cout << jt.front() << endl;
-        jt.pop_front();
-    }
-
-	
 	RegressionLogistique logitModel;
 	
 	//cout << numeric_limits < double >::max() << " " << log(numeric_limits < double >::max()/2) << endl;
@@ -69,7 +50,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	time_t temps_interm(time(NULL));
-	cout << "Fin de la lecture : " << difftime(temps_interm, temps_start) << " s." << endl;
+	logitModel.ecritMessage("Reading of data completed : " + toolbox::toString(difftime(temps_interm, temps_start)) + " s.");
 	
 	//logitModel.analyseCategories();
 	//logitModel.calculeCorrelations();
@@ -77,14 +58,14 @@ int main(int argc, char *argv[])
 	logitModel.creeModelesGlobaux();
 	
 	time_t temps_fin_calculs(time(NULL));
-	cout << "Fin des calculs " << endl;
-	cout << "Temps écoulé : " << difftime(temps_fin_calculs, temps_interm) << " s." << endl;
+	logitModel.ecritMessage("End of computation.");
+	logitModel.ecritMessage("Elapsed time : " +  toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
 	
 	//logitModel.ecritResultats("ResultatsRegression.txt");
 	
 	time_t temps_stop(time(NULL));
 
-	cout << "Ecriture des résultats : " << difftime(temps_stop, temps_fin_calculs) << " s." << endl;
-
+	logitModel.ecritMessage("Writing of results : " + toolbox::toString(difftime(temps_stop, temps_fin_calculs)) + " s.");
+	logitModel.terminaison();
 }
 

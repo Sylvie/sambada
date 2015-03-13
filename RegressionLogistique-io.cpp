@@ -49,13 +49,22 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     {
         messageBienvenue();
     }
-	
+	time_t temps_start(time(NULL));
+	journal << " " << nl << "Analyse started on: " << asctime(localtime(&temps_start));
 	journal << "Program call:" << nl;
 	for (int i(0); i<argc; ++i)
 	{
-		journal << argv[i] << " ";
+		if (i > 0)
+		{
+			journal << "    ";
+		}
+		journal << argv[i];
+		if ( i < (argc-1) )
+		{
+			journal << " \\";
+		}
+		journal << nl;
 	}
-	journal << nl;
 	
     // Conteneur pour les paramètres
     ParameterSet listeParam;
@@ -960,15 +969,42 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     {
         // Calcul des seuils de p-valeurs
         journal << "Computing p-value thresholds..." << nl;
-		journal << "Dimension" << "nbModels" << "p-value" << "univariateThreshold" << "multivariateThreshold" << nl;
+		string sepCol(" ");
+		int nombreCol(5);
+		vector<string> colHeaders(nombreCol, "");		
+		colHeaders[0] = "Dimension";
+		colHeaders[1] = "nbModels";
+		colHeaders[2] = "p-value";
+		colHeaders[3] = "univariateThreshold";
+		colHeaders[4] = "multivariateThreshold";
+
+		vector<int> largeurCol(nombreCol, 20);
+		largeurCol[0] = 10;
+		largeurCol[1] = 12;
+		largeurCol[2] = 12;
+		
+		journal << sepCol ; 
+		for (int i(0); i < nombreCol; ++i)
+		{
+			journal << setw(largeurCol[i]) << left << colHeaders[i] << sepCol ; 
+		}
+		journal << nl;
+		
         reel nbModeles, pValeur;
+		nbModelesParMarqueur = 1;
         for (int i(1); i<=dimensionMax; ++i)
         {
             nbModeles = toolbox::combinaisons(nbEnvActives, i)*nbMarqTot;
+			nbModelesParMarqueur += nbModeles;
             pValeur=seuilPValeur/nbModeles;
             seuilScore[i] = toolbox::invCDF_ChiSquare(1-pValeur, 1, sqrt(epsilon < reel > ()));
             seuilScoreMultivarie[i] = toolbox::invCDF_ChiSquare(1-pValeur, i, sqrt(epsilon < reel > ()));
-            journal << "Dim "<< i << " " << nbModeles << " " << pValeur << " " << seuilScore[i] << " " << seuilScoreMultivarie[i] << nl;
+			journal << sepCol ; 
+			journal << setw(largeurCol[0]) << i << sepCol
+				<< setw(largeurCol[1]) << right << nbModeles << sepCol
+				<< setw(largeurCol[2]) << left << pValeur << sepCol 
+				<< setw(largeurCol[3]) << seuilScore[i] << sepCol 
+				<< setw(largeurCol[4]) << seuilScoreMultivarie[i] << nl;
         }
 		journal << nl;
 	}
@@ -1482,11 +1518,15 @@ void RegressionLogistique::ecritResultat(int numFichier, const resModele& r) con
 	
 }
 
-void RegressionLogistique::ecritMessage(const string& s)
+void RegressionLogistique::ecritMessage(const string& s, bool nouvLigne)
 {
 	if (!s.empty())
 	{
-		journal << s << nl;
+		journal << s;
+		if (nouvLigne)
+		{
+			journal << nl;
+		}
 	}
 }
 
@@ -1893,5 +1933,11 @@ void RegressionLogistique::erreurDetectee(const string& nom, const string& descr
 		dumpJournalTemporaire();
 	}
 	throw e;	
+}
+
+void RegressionLogistique::terminaison()
+{
+	time_t temps_stop(time(NULL));
+	journal << " " << nl << "Analyse completed on: " << asctime(localtime(&temps_stop));
 }
 

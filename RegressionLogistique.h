@@ -84,7 +84,9 @@ public:
 	
 	void ecritResultat(int numFichier, const resModele& r) const;
 	
-	void ecritMessage(const string& s);
+	void ecritMessage(const string& s, bool nouvLigne = true);
+	
+	void terminaison();
 	
 	// Méthodes non utilisées pour le moment
 	/*void ecritResultats() const;
@@ -176,6 +178,7 @@ protected:
 	reel seuilPValeur;
 	vector<reel> seuilScore, seuilScoreMultivarie;
 	const int limiteIter, limiteEcartType, nbStats, nbStatsSansPseudos, nbPseudosRcarres, tailleEtiquetteInvar;
+	int nbModelesParMarqueur;
 	
 	// Paramètres analyse spatiale
 	bool analyseSpatiale, crdCartesiennes; // typeCoordonnees: 0 -> sphériques, 1 -> cartésiennes
