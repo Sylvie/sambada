@@ -3528,6 +3528,14 @@ void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, Pa
 	// WORDDELIM
 	paramCourant.name="WORDDELIM";
 	listeParam.push_back(paramCourant);
+
+	// LOG
+	paramCourant.name="LOG";
+	listeParam.push_back(paramCourant);
+
+	// UNCONVERGEDMODELS
+	paramCourant.name="UNCONVERGEDMODELS";
+	listeParam.push_back(paramCourant);	
 	
 	// HEADERS
 	paramCourant.name="HEADERS";	

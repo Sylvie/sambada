@@ -208,6 +208,24 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	modelesDivergents.setDelimMots(&delimMots);
     ++paramCourant;
 	
+	// LOG
+	if (paramCourant->present && paramCourant->contents.size()>0)
+    {
+		if (paramCourant->contents[0] == "FILE")
+		{
+			journal.setActivites(false, true);
+		}
+		else if (paramCourant->contents[0] == "TERMINAL" || paramCourant->contents[0] == "CONSOLE")
+		{
+			journal.setActivites(true, false);			
+		}
+	}
+	else
+	{
+		journal.setActivites(true, true);	
+	}
+	++paramCourant;
+	
 	/* Word and line delimiters are known, as well as output file name.
 	 The actual journal can be set up.*/
 	journal.setNomFichier(nomFichierResultats.first+"-log"+nomFichierResultats.second);
@@ -217,13 +235,24 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		erreurDetectee("MSG_errOpenLog", "Error while opening the log file.");
 	}
 	
-	modelesDivergents.setActivites(false, true);
-	modelesDivergents.setNomFichier(nomFichierResultats.first+"-unconvergedModels"+nomFichierResultats.second);
-	modelesDivergents.ouvertureFichier();
-	if (!modelesDivergents.testeValiditeFichier())
-	{
-		erreurDetectee("MSG_errOpenUnconvergedModelsFile", "Error while opening the file for unconverged models.");
+	// UNCONVERGEDMODELS
+	// Désactivés par défaut
+	// Activés si le token est présent ou s'il est présent et que la réponse commence par "Y" ou "y"
+	modelesDivergents.setActivites(false, false);			
+	if (paramCourant->present)
+    {
+		if (paramCourant->contents.size()==0 || (paramCourant->contents.size()>0 &&	(paramCourant->contents[0][0] == 'Y' || paramCourant->contents[0][0] == 'y')))
+		{
+			modelesDivergents.setActivites(false, true);			
+			modelesDivergents.setNomFichier(nomFichierResultats.first+"-unconvergedModels"+nomFichierResultats.second);
+			modelesDivergents.ouvertureFichier();
+			if (!modelesDivergents.testeValiditeFichier())
+			{
+				erreurDetectee("MSG_errOpenUnconvergedModelsFile", "Error while opening the file for unconverged models.");
+			}
+		}
 	}
+	++paramCourant;
 	
     // HEADERS
     if (!paramCourant->present || paramCourant->contents.size()==0)
@@ -1825,7 +1854,9 @@ void RegressionLogistique::trieEtEcritResultats()
 			//for (groupeResultats::const_iterator fleche=(resultats[i]).begin(); fleche!=(resultats[i]).end(); ++fleche)
 			for (int j(0); j<tailleListe; ++j)
 			{
-				if (listeModeles[j]->second[validiteModele]==0 || (listeModeles[j]->second[validiteModele]==6 && selModeles==signif) || selModeles==all)
+				// On n'écrit jamais les modèles avec des erreurs de convergence
+				if (listeModeles[j]->second[validiteModele]==0 || (listeModeles[j]->second[validiteModele]==6 && selModeles==signif) ||  
+						( ( listeModeles[j]->second[validiteModele]==6 || listeModeles[j]->second[validiteModele]==7 ) && selModeles==all) )
 				{
 					
 					// No de marqueur
