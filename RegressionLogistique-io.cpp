@@ -790,7 +790,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
     {
         if (paramCourant->contents.size()<2 || paramCourant->contents.size()>3)
         {
-            erreurDetectee("MSG_autocorrArgNum", "Incorrect number of arguments for AUTOCORR parameter : 2 required.");
+            erreurDetectee("MSG_autocorrArgNum", "Incorrect number of arguments for AUTOCORR parameter : 2 or 3 required.");
 		}
         else
         {
@@ -827,7 +827,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
             }
             else
             {
-                AS_nbPermutations=9999;
+                AS_nbPermutations=99;
             }
         }
     }
