@@ -66,7 +66,6 @@ protected:
 		{}
 	};
 	IndicesResultats indicesRes;
-	typedef enum {valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC} listeStats;
 	typedef enum {pondDistanceMax, pondGaussienne, pondBicarree, pondPlusProchesVoisins} typePonderation;
 	
 	/* Type de sauvegarde

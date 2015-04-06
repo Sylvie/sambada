@@ -1855,8 +1855,8 @@ void RegressionLogistique::trieEtEcritResultats()
 			for (int j(0); j<tailleListe; ++j)
 			{
 				// On n'écrit jamais les modèles avec des erreurs de convergence
-				if (listeModeles[j]->second[validiteModele]==0 || (listeModeles[j]->second[validiteModele]==6 && selModeles==signif) ||  
-						( ( listeModeles[j]->second[validiteModele]==6 || listeModeles[j]->second[validiteModele]==7 ) && selModeles==all) )
+				if (listeModeles[j]->second[indicesRes.validiteModele]==0 || (listeModeles[j]->second[indicesRes.validiteModele]==6 && selModeles==signif) ||  
+						( ( listeModeles[j]->second[indicesRes.validiteModele]==6 || listeModeles[j]->second[indicesRes.validiteModele]==7 ) && selModeles==all) )
 				{
 					
 					// No de marqueur

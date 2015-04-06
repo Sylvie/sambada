@@ -40,7 +40,8 @@ using namespace scythe;
 
 
 RegressionLogistique::RegressionLogistique()
-:dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
+:indicesRes(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
+dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
 sauvegardeTempsReel(true), selModeles(all),
 analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
 eps(sqrt(epsilon < reel > ())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel)700,log(numeric_limits < reel >::max()/2))), nbModelesParMarqueur(1),
@@ -2532,7 +2533,7 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 	{
 		// Y est constant!
 		resultat.second.resize(nbStatsSansPseudos, 0); // loglike, Gscore et Wald -> Model non-significatif
-		resultat.second[validiteModele]=5;
+		resultat.second[indicesRes.validiteModele]=5;
 		if (somme==0)
 		{
 			resultat.second.push_back(0); // prob
@@ -2616,7 +2617,7 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 		{
 			// Y est constant!
 			resultat.second.resize(nbStatsSansPseudos, 0); // loglike, Gscore et Wald -> Model non-significatif
-			resultat.second[validiteModele]=5;
+			resultat.second[indicesRes.validiteModele]=5;
 			resultat.second.push_back(Y(0,0)); // prob
 			resultat.second.push_back(1);
 			modeleRetenu=false;
@@ -2627,11 +2628,11 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			beta_hat = 0;
 			
 			int typeErreur(0);
-			typeErreur=calculeRegression(resultat.second[valloglikelihood], resultat.second[Efron]);
+			typeErreur=calculeRegression(resultat.second[indicesRes.valloglikelihood], resultat.second[indicesRes.Efron]);
 			
 			if (typeErreur>0)
 			{
-				resultat.second[validiteModele]=typeErreur;
+				resultat.second[indicesRes.validiteModele]=typeErreur;
 				modelesDivergents << typeErreur << " | " << numMarq+numPremierMarq << " : ";
 				for (set<int>::iterator l(varContinues.begin()); l!=varContinues.end(); ++l)
 				{
@@ -2645,29 +2646,29 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			
 			
 			
-			resultat.second[Efron] = 1. - (resultat.second[Efron]/sum((Y - somme/taille)%(Y - somme/taille) ));
-			//loglike_courante=resultat.second[valloglikelihood];
+			resultat.second[indicesRes.Efron] = 1. - (resultat.second[indicesRes.Efron]/sum((Y - somme/taille)%(Y - somme/taille) ));
+			//loglike_courante=resultat.second[indicesRes.valloglikelihood];
 			
 			
 			// Wald test
 			// Méthode matricielle
 			/*	Matrix<> testWald(t(beta_hat) * J_info * beta_hat);
 			 cout << beta_hat << J_info << inv_J_info << testWald ;*/
-			//statsCourantes[WaldScore] = (t(beta_hat(1,0,dim,0)) * J_info(1,1,dim,dim) * beta_hat(1,0,dim,0))(0,0); 
+			//statsCourantes[indicesRes.WaldScore] = (t(beta_hat(1,0,dim,0)) * J_info(1,1,dim,dim) * beta_hat(1,0,dim,0))(0,0); 
 			
 			/*
 			 // TRICHE
 			 MatriceReels matInterm(dim, dim);
 			 try {
 			 matInterm=invpd(inv_J_info(1,1,dim,dim));
-			 resultat.second[WaldScore] = (t(beta_hat(1,0,dim,0)) * matInterm * beta_hat(1,0,dim,0))(0,0); 
+			 resultat.second[indicesRes.WaldScore] = (t(beta_hat(1,0,dim,0)) * matInterm * beta_hat(1,0,dim,0))(0,0); 
 			 
 			 }
 			 catch (scythe_exception& error) {
 			 cerr << error.message() << "\n";
-			 resultat.second[WaldScore]=0;
+			 resultat.second[indicesRes.WaldScore]=0;
 			 }
-			 //statsCourantes[WaldScore] = beta_hat(1, 0)/sqrt(inv_J_info(1,1)); 
+			 //statsCourantes[indicesRes.WaldScore] = beta_hat(1, 0)/sqrt(inv_J_info(1,1)); 
 			 */
 			
 			
@@ -2876,11 +2877,11 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			modeleCourant=resultats[dimParents].find(etiquetteCourante);	// Parent courant
 			
 			// On teste si le parent existe et s'il n'est pas dans un état d'erreur
-			if (modeleCourant!=resultats[dimParents].end() && ( (modeleCourant->second[validiteModele])==0  || (modeleCourant->second[validiteModele])==6) )
+			if (modeleCourant!=resultats[dimParents].end() && ( (modeleCourant->second[indicesRes.validiteModele])==0  || (modeleCourant->second[indicesRes.validiteModele])==6) )
 			{
 				if (parentValide) //  Test si un parent valide a déjà été trouvé
 				{
-					if ((modeleCourant->second[valloglikelihood]) > (bestLoglike->second[valloglikelihood]))
+					if ((modeleCourant->second[indicesRes.valloglikelihood]) > (bestLoglike->second[indicesRes.valloglikelihood]))
 					{
 						bestLoglike=modeleCourant;
 					}
@@ -2898,21 +2899,21 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	// On a trouvé un premier modèle pour comparer
 	if (parentValide==true)
 	{		
-		loglikeZero=bestLoglike->second[valloglikelihood];
+		loglikeZero=bestLoglike->second[indicesRes.valloglikelihood];
 		
 		// Calcul des scores
-		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-bestLoglike->second[valloglikelihood]);
+		resultat.second[indicesRes.Gscore] = 2.0*(resultat.second[indicesRes.valloglikelihood]-bestLoglike->second[indicesRes.valloglikelihood]);
 		
 		
 		// Si on sauve tous les modèles, on cherche le plus petit score de Wald
 		int tailleModele(dimParents+1);
 		
 		// Au cas où on choisit les modèles significatifs, on commence par tester le score G
-		if (selModeles!=all && (resultat.second[Gscore]<seuilScore[tailleModele]))
+		if (selModeles!=all && (resultat.second[indicesRes.Gscore]<seuilScore[tailleModele]))
 		{
 			// rejet car G trop petit
 			modeleRetenu=false;
-			resultat.second[validiteModele]=7;
+			resultat.second[indicesRes.validiteModele]=7;
 		}
 		else
 		{
@@ -2922,21 +2923,21 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			
 			// Initialisation du score de Wald
 			reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
-			resultat.second[WaldScore]=WaldCourant;
+			resultat.second[indicesRes.WaldScore]=WaldCourant;
 			
 			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
 			{
 				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
-				if (WaldCourant < resultat.second[WaldScore])
+				if (WaldCourant < resultat.second[indicesRes.WaldScore])
 				{
-					resultat.second[WaldScore] = WaldCourant;
+					resultat.second[indicesRes.WaldScore] = WaldCourant;
 				}
 			}
 			// Test du score de Wald
-			if (selModeles!=all && ( resultat.second[WaldScore] < seuilScore[tailleModele] ))
+			if (selModeles!=all && ( resultat.second[indicesRes.WaldScore] < seuilScore[tailleModele] ))
 			{
 				modeleRetenu=false;
-				resultat.second[validiteModele]=7;
+				resultat.second[indicesRes.validiteModele]=7;
 				
 			}			
 		}
@@ -2947,22 +2948,22 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		//-> Attention au changement de seuil pour la p-valeur
 	{
 		// Aucun parent valide -> erreur type 6
-		resultat.second[validiteModele]=6;
+		resultat.second[indicesRes.validiteModele]=6;
 		
 		etiquetteCourante=resultat.first;
 		etiquetteCourante.second.clear();
 		modeleCourant=resultats[0].find(etiquetteCourante);
 		
-		loglikeZero=modeleCourant->second[valloglikelihood];
+		loglikeZero=modeleCourant->second[indicesRes.valloglikelihood];
 		
 		
-		resultat.second[Gscore] = 2.0*(resultat.second[valloglikelihood]-loglikeZero);
+		resultat.second[indicesRes.Gscore] = 2.0*(resultat.second[indicesRes.valloglikelihood]-loglikeZero);
 		
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
-		if (selModeles==signif && (resultat.second[Gscore]<seuilScoreMultivarie[dimParents+1]))
+		if (selModeles==signif && (resultat.second[indicesRes.Gscore]<seuilScoreMultivarie[dimParents+1]))
 		{
 			modeleRetenu=false;
-			resultat.second[validiteModele]=7;
+			resultat.second[indicesRes.validiteModele]=7;
 			
 		}
 		else
@@ -2974,12 +2975,12 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			 MatriceReels matInterm(nbParamEstimes, nbParamEstimes);
 			 try {
 			 matInterm=invpd(inv_J_info(1,1,nbParamEstimes,nbParamEstimes));
-			 resultat.second[WaldScore] = (t(beta_hat(1,0,nbParamEstimes,0)) * matInterm * beta_hat(1,0,nbParamEstimes,0))(0,0); 
+			 resultat.second[indicesRes.WaldScore] = (t(beta_hat(1,0,nbParamEstimes,0)) * matInterm * beta_hat(1,0,nbParamEstimes,0))(0,0); 
 			 
 			 }
 			 catch (scythe_exception& error) {
 			 //cerr << error.message() << "\n";
-			 resultat.second[WaldScore]=0;
+			 resultat.second[indicesRes.WaldScore]=0;
 			 }
 			 */
 			
@@ -2992,23 +2993,23 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			
 			// Initialisation du score de Wald
 			reel WaldCourant(beta_hat(1, 0)*beta_hat(1,0)/inv_J_info(1, 1));
-			resultat.second[WaldScore]=WaldCourant;
+			resultat.second[indicesRes.WaldScore]=WaldCourant;
 			
 			for (int paramCourant(2); paramCourant<=tailleModele; ++paramCourant)
 			{
 				WaldCourant=beta_hat(paramCourant, 0)*beta_hat(paramCourant, 0)/inv_J_info(paramCourant, paramCourant);
 				
-				if (WaldCourant < resultat.second[WaldScore])
+				if (WaldCourant < resultat.second[indicesRes.WaldScore])
 				{
-					resultat.second[WaldScore] = WaldCourant;
+					resultat.second[indicesRes.WaldScore] = WaldCourant;
 				}
 			}
 			
-			//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
-			if (selModeles==signif && (resultat.second[WaldScore]<seuilScore[dimParents+1]))
+			//			if (selModeles==signif && (resultat.second[indicesRes.WaldScore]<seuilScoreMultivarie[dimParents+1]))
+			if (selModeles==signif && (resultat.second[indicesRes.WaldScore]<seuilScore[dimParents+1]))
 			{
 				modeleRetenu=false;
-				resultat.second[validiteModele]=7;
+				resultat.second[indicesRes.validiteModele]=7;
 				
 			}
 			
@@ -3021,7 +3022,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	else // Aucun parent n'est valide et on ne prend que les meilleurs modèles
 	{
 		modeleRetenu=false;
-		resultat.second[validiteModele]=7;
+		resultat.second[indicesRes.validiteModele]=7;
 		
 	}
 	
@@ -3030,27 +3031,27 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	{
 		
 		// Calcul des pseudos R carrés
-		loglikeCourante=resultat.second[valloglikelihood];
+		loglikeCourante=resultat.second[indicesRes.valloglikelihood];
 		
 		// McFadden
-		resultat.second[McFadden] = 1 - (loglikeCourante / loglikeZero);
+		resultat.second[indicesRes.McFadden] = 1 - (loglikeCourante / loglikeZero);
 		
 		// McFadden adjusted ->TRICHE
-		resultat.second[McFaddenAdj] = 1 - ((loglikeCourante-nbParamEstimes-1) / loglikeZero);
+		resultat.second[indicesRes.McFaddenAdj] = 1 - ((loglikeCourante-nbParamEstimes-1) / loglikeZero);
 		
 		reel exposant(2./taille);
 		
 		// Cox & Snell
-		resultat.second[CoxSnell] = 1 - pow((exp(loglikeZero) / exp(loglikeCourante)), exposant);
+		resultat.second[indicesRes.CoxSnell] = 1 - pow((exp(loglikeZero) / exp(loglikeCourante)), exposant);
 		
 		// Nagelkerke / Cragg & Uhler
-		resultat.second[Nagelkerke] = (pow(exp(loglikeCourante), exposant) - pow(exp(loglikeZero), exposant))/(1 - pow(exp(loglikeZero), exposant));
+		resultat.second[indicesRes.Nagelkerke] = (pow(exp(loglikeCourante), exposant) - pow(exp(loglikeZero), exposant))/(1 - pow(exp(loglikeZero), exposant));
 		
 		// AIC
-		resultat.second[AIC] = -2*loglikeCourante + 2*nbParam;
+		resultat.second[indicesRes.AIC] = -2*loglikeCourante + 2*nbParam;
 		
 		// BIC
-		resultat.second[BIC] = -2*loglikeCourante + 2*nbParam*log(taille);
+		resultat.second[indicesRes.BIC] = -2*loglikeCourante + 2*nbParam*log(taille);
 	}
 	return modeleRetenu;
 	
@@ -3443,7 +3444,7 @@ void RegressionLogistique::calculeGWR(int numMarq,  const set<int> & varContinue
 			
 		}
 	}
-	reel loglikeGlobale(resultat.second[valloglikelihood]);
+	reel loglikeGlobale(resultat.second[indicesRes.valloglikelihood]);
 	if (recalculeLoglikeGlobale)
 	{
 		loglikeGlobale=0;
