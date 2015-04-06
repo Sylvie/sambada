@@ -55,14 +55,14 @@ class RegressionLogistique
 {
 protected:
 	struct IndicesResultats {
-		int valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC, betaZero;
+		int valloglikelihood, Gscore, WaldScore, AIC, BIC, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, betaZero;
 		IndicesResultats()
-		: valloglikelihood(-1), Gscore(-1), WaldScore(-1), validiteModele(-1), 
-		Efron(-1), McFadden(-1), McFaddenAdj(-1), CoxSnell(-1), Nagelkerke(-1), AIC(-1), BIC(-1), betaZero(-1)
+		: valloglikelihood(-1), Gscore(-1), WaldScore(-1), AIC(-1), BIC(-1), validiteModele(-1), 
+		Efron(-1), McFadden(-1), McFaddenAdj(-1), CoxSnell(-1), Nagelkerke(-1), betaZero(-1)
 		{}
-		IndicesResultats(int log, int g, int wald, int erreur, int efron, int mcF, int mcFAdj, int cox, int nagel, int aic, int bic, int beta0 )
-		: valloglikelihood(log), Gscore(g), WaldScore(wald), validiteModele(erreur), 
-		Efron(efron), McFadden(mcF), McFaddenAdj(mcFAdj), CoxSnell(cox), Nagelkerke(nagel), AIC(aic), BIC(bic), betaZero(beta0)
+		IndicesResultats(int log, int g, int wald, int aic, int bic, int erreur, int efron, int mcF, int mcFAdj, int cox, int nagel, int beta0 )
+		: valloglikelihood(log), Gscore(g), WaldScore(wald), AIC(aic), BIC(bic), validiteModele(erreur), 
+		Efron(efron), McFadden(mcF), McFaddenAdj(mcFAdj), CoxSnell(cox), Nagelkerke(nagel), betaZero(beta0)
 		{}
 	};
 	IndicesResultats indicesRes;

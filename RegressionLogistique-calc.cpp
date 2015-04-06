@@ -45,7 +45,7 @@ dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existe
 sauvegardeTempsReel(true), selModeles(all),
 analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
 eps(sqrt(epsilon < reel > ())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel)700,log(numeric_limits < reel >::max()/2))), nbModelesParMarqueur(1),
-limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsSansPseudos(4),
+limiteIter(100), limiteEcartType(7), nbPseudosRcarres(5), nbStats(11), nbStatsSansPseudos(6),
 tailleEtiquetteInvar(4), numPremierMarq(0),
 delimLignes("\n")
 {}
@@ -2108,14 +2108,14 @@ int RegressionLogistique::creeModelesGlobaux()
 	names[2].push_back("Loglikelihood");
 	names[2].push_back("Gscore");
 	names[2].push_back("WaldScore");
+	names[2].push_back("AIC"); 
+	names[2].push_back("BIC");
 	names[2].push_back("NumError");
 	names[2].push_back("Efron");
 	names[2].push_back("McFadden");
 	names[2].push_back("McFaddenAdj");
 	names[2].push_back("CoxSnell"); 
 	names[2].push_back("Nagelkerke"); 
-	names[2].push_back("AIC"); 
-	names[2].push_back("BIC");
 	
 	sortie.ecriture(0, names[0][0]);
 	sortie.ecriture(0, names[1], true);
