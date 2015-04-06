@@ -53,9 +53,19 @@ typedef vector< vector< Voisin > > TableClassementsVoisins;
 
 class RegressionLogistique
 {
-protected:	
-	//typedef enum {Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC} listePseudosRcarres;
-	//typedef enum {valloglikelihood, Gscore, pValueG, HoG, WaldScore, pValueWald, HoW, PearsonScore, pValuePearson, HoP} longueListeStats;
+protected:
+	struct IndicesResultats {
+		int valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC, betaZero;
+		IndicesResultats()
+		: valloglikelihood(-1), Gscore(-1), WaldScore(-1), validiteModele(-1), 
+		Efron(-1), McFadden(-1), McFaddenAdj(-1), CoxSnell(-1), Nagelkerke(-1), AIC(-1), BIC(-1), betaZero(-1)
+		{}
+		IndicesResultats(int log, int g, int wald, int erreur, int efron, int mcF, int mcFAdj, int cox, int nagel, int aic, int bic, int beta0 )
+		: valloglikelihood(log), Gscore(g), WaldScore(wald), validiteModele(erreur), 
+		Efron(efron), McFadden(mcF), McFaddenAdj(mcFAdj), CoxSnell(cox), Nagelkerke(nagel), AIC(aic), BIC(bic), betaZero(beta0)
+		{}
+	};
+	IndicesResultats indicesRes;
 	typedef enum {valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC} listeStats;
 	typedef enum {pondDistanceMax, pondGaussienne, pondBicarree, pondPlusProchesVoisins} typePonderation;
 	
