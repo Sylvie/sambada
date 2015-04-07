@@ -1,3 +1,9 @@
+Release 0.5 (2015-04-07)
+Changes of log layout:
+- Logs can be printed on the screen and/or written in a file;
+- Unconverged models do not appear in logs any longer, but can be written in a separate file;
+- An estimation of the remaining computation time is provided during the analysis of selection signatures.
+
 Patch 0.4.5 (2014-08-10)
 Minor correction (Makefile update).
 
