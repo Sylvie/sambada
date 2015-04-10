@@ -1959,7 +1959,7 @@ void RegressionLogistique::erreurDetectee(const string& nom, const string& descr
 {
 	Erreur e(nom, description, arret);
 	journal << description << nl;
-	if (arret && !journal.estEnPause())
+	if (arret && journal.estEnPause())
 	{
 		dumpJournalTemporaire();
 	}
