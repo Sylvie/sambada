@@ -37,11 +37,11 @@ int main(int argc, char *argv[])
 {	
 	if (argc==1) 
 	{
-		toolbox::messageBienvenue(true);
+		RegressionLogistique::messageBienvenue(cout, true);
 	}
 	else
 	{
-		toolbox::messageBienvenue();
+		RegressionLogistique::messageBienvenue(cout);
 	}
 	
 	

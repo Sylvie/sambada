@@ -75,6 +75,8 @@ public:
 	RegressionLogistique();
 	virtual ~RegressionLogistique();
 	
+	static ostream& messageBienvenue(ostream& out, bool versionLongue=false);
+
 	int initialisation(int argc, char *argv[]) throw(Erreur);
 	
 	int calculeCorrelations() const;
@@ -132,7 +134,6 @@ private:
 		// Mise à jour à partir du masque, recalcule les nombres de points totaux et valides, les vecteurs d'indiçage et redimensionne le poids
 		bool miseAJour();
 	} Domaine;
-	
 	
 	
 protected:
@@ -213,8 +214,7 @@ protected:
     // Ecriture du journal temporaire en cas d'erreur fatale au début de l'initialisation
     void dumpJournalTemporaire();
 
-    vector<string> getMessageBienvenue(bool versionLongue=false);
-    ostream& messageBienvenue(ostream& out, bool versionLongue=false);
+    static vector<string> getMessageBienvenue(bool versionLongue=false);
     void messageBienvenue(bool versionLongue=false);
 	
 	private :

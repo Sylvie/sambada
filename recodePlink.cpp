@@ -34,7 +34,7 @@
 #include <fstream>
 #include <ctime>
 #include <cstdlib>
-#include "Toolbox.h"
+#include "RegressionLogistique.h"
 
 using namespace std;
 
@@ -105,11 +105,11 @@ int main(int argc, char** argv)
 {	
 	if (argc==1) 
 	{
-		toolbox::messageBienvenue(true);
+		RegressionLogistique::messageBienvenue(cout, true);
 	}
 	else
 	{
-		toolbox::messageBienvenue();
+		RegressionLogistique::messageBienvenue(cout);
 	}
 	
 	char sep(' '), retourLigne('\n'), sepNoms('_');
