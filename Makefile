@@ -123,16 +123,16 @@ LIBOBJ	= shpopen.o dbfopen.o safileio.o shptree.o
 all : $(foreach var, Sambada Supervision RecodePlink RecodePlink_LFMM, $(BUILDDIR)/$(var)$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS)) 
 
 
-$(BUILDDIR)/Sambada$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSambada.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o libshp.a)  #$(foreach var, TestSAM.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
+$(BUILDDIR)/Sambada$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSambada.o RegressionLogistique-io.o RegressionLogistique-calc.o RegressionLogistique-bienvenue.o Toolbox.o Archiviste.o Erreur.o Journal.o FluxSortie.o JournalTemporaire.o Chronometre.o Duree.o libshp.a)  #$(foreach var, TestSAM.o RegressionLogistique-io.o RegressionLogistique-calc.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
 	$(LINK.SCYTHE) -o $@ $^
 
-$(BUILDDIR)/Supervision$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o)  #$(foreach var, TestSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
+$(BUILDDIR)/Supervision$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, mainSupervision.o Supervision.o RegressionLogistique-bienvenue.o Toolbox.o Archiviste.o Erreur.o)  #$(foreach var, TestSupervision.o Supervision.o Toolbox.o Archiviste.o Erreur.o, $(PREFIXE_SYS)$(var))
 	$(LINK.SCYTHE) -o $@ $^
 
-$(BUILDDIR)/RecodePlink$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, Toolbox.o Erreur.o recodePlink.o) 
+$(BUILDDIR)/RecodePlink$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, Toolbox.o Erreur.o recodePlink.o RegressionLogistique-bienvenue.o) 
 	$(LINK.SCYTHE) -o $@ $^
 
-$(BUILDDIR)/RecodePlink_LFMM$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, Toolbox.o Erreur.o recodeLFMM.o) 
+$(BUILDDIR)/RecodePlink_LFMM$(NUMVERSION)$(TAGSYS)$(SUFFIXE_SYS): $(addprefix $(BUILDDIR)/, Toolbox.o Erreur.o recodeLFMM.o RegressionLogistique-bienvenue.o) 
 	$(LINK.SCYTHE) -o $@ $^
 
 $(BUILDDIR)/libshp.a:	$(addprefix $(BUILDDIR)/$(SHPDIR)/, $(LIBOBJ))
