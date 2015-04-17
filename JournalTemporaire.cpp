@@ -25,7 +25,7 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
-#include "journaltemporaire.h"
+#include "JournalTemporaire.h"
 
 JournalTemporaire::JournalTemporaire()
 : deque<string>(), oss(NULL)
