@@ -57,6 +57,7 @@ bool Journal::sortDeLaPause()
 	if (fonctionne)
 	{
 		flux << temp;
+		flux << flush;
 		//cerr<< "Fin" << endl;
 		flotEnPause=false;
 		return true;
