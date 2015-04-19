@@ -1,3 +1,7 @@
+Patch 0.5.2 (2015-04-20)
+Fixed typos when including some headers on case-sensitive systems.
+Added some clarifications in the manual.
+
 Patch 0.5.1 (2015-04-12)
 Bug fixes:
 - Writing of log file in case of error during initialisation;
