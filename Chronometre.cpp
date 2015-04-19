@@ -25,7 +25,7 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
-#include "chronometre.h"
+#include "Chronometre.h"
 #include <cmath>
 #include <iomanip>
 
