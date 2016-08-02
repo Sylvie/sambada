@@ -278,7 +278,8 @@ namespace scythe {
     T *y = new T[A.rows()];
     T *x = new T[A.rows()];
     
-    solve(M, Matrix<>(), b, x, y);
+	  // Sylvie, 2015.04.26 : Ajout de T dans les <>
+    solve(M, Matrix<T>(), b, x, y);
 
     Matrix<T,RO,RS> result(A.rows(), 1, x);
      
