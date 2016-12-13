@@ -1,0 +1,35 @@
+| Welcome to Sambada!
+| Copyright (C) 2011-2014 EPFL (Ecole Polytechnique federale de Lausanne)
+| Laboratory of Geographic information systems (LaSIG)
+| Contact: sylvie.stucki@a3.epfl.ch, stephane.joost@epfl.ch
+| Sambada is free software and comes with ABSOLUTELY NO WARRANTY.
+| Please refer to the file AUTHORS for details.
+ 
+Analyse started on: Sun Apr 12 13:42:42 2015
+Program call:
+/Users/Sylvie/Documents/Bac-à-Sable/Sambada/build/Debug/Sambada \
+    /Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/Example_parameters_input_matrix.txt \
+    /Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/1222G-118ENV-102M-colsup-ptVirgules.csv
+Fetching parameter file: /Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/Example_parameters_input_matrix.txt
+Reading parameter file...
+HEADERS
+    NO
+NUMVARENV
+    9
+NUMMARK
+    101
+NUMINDIV
+    985
+DIMMAX
+    1
+SAVETYPE
+    REAL
+    ALL
+    0.01
+Number of environmental variables in file: 9
+Headers sizes : 9 101
+SAVETYPE
+all!
+Reading data in /Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/1222G-118ENV-102M-colsup-ptVirgules.csv
+Row 0
+Row 1 of input file has 14 elements, but should have 110.

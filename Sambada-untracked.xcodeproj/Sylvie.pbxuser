@@ -1,0 +1,2623 @@
+// !$*UTF8*$!
+{
+	3F02B4271A3E1D02002A9783 /* RegressionLogistique-calc.cpp:417 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 417;
+		modificationTime = 453110465.1790971;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F02B42F1A3E1DCB002A9783 /* RegressionLogistique-calc.cpp:422 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 422;
+		modificationTime = 453110465.179175;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F02B4951A3E293E002A9783 /* chronometre.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1040}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{1470, 527}";
+			sepNavWindowFrame = "{{15, 70}, {1047, 808}}";
+		};
+	};
+	3F02B4961A3E293E002A9783 /* chronometre.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 2548}}";
+			sepNavSelRange = "{1597, 0}";
+			sepNavVisRange = "{1289, 928}";
+			sepNavWindowFrame = "{{58, 70}, {1047, 808}}";
+		};
+	};
+	3F05F40D1A59D9D3003D3DC4 /* Duree.cpp:1 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FF9609C1A47758E00947E8D /* Duree.cpp */;
+		functionName = "operator<<(Journal& j, const DureeFormatee& d)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1;
+		modificationTime = 453110465.179354;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F0CAA8D1A44AF7D00748BB5 /* TestChronometre */ = {
+		activeExec = 0;
+		executables = (
+			3F0CAA9E1A44AF7D00748BB5 /* TestChronometre */,
+		);
+	};
+	3F0CAA9E1A44AF7D00748BB5 /* TestChronometre */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = TestChronometre;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	3F0CAAA31A44AFDE00748BB5 /* TestChronometre.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 416}}";
+			sepNavSelRange = "{567, 0}";
+			sepNavVisRange = "{0, 671}";
+			sepNavWindowFrame = "{{331, 70}, {1047, 808}}";
+		};
+	};
+	3F0CAABB1A44C4B800748BB5 /* Chronometre.cpp */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = Chronometre.cpp;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Chronometre.cpp";
+		sourceTree = "<absolute>";
+	};
+	3F0E32561AAA0DCC0040007D /* TestChronometre.cpp:34 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F0CAAA31A44AFDE00748BB5 /* TestChronometre.cpp */;
+		functionName = "main(int argc, char** argv)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 34;
+		modificationTime = 453110465.179376;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F0E32ED1AAA21140040007D /* TestChronometre.cpp:22 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F0CAAA31A44AFDE00748BB5 /* TestChronometre.cpp */;
+		functionName = "main(int argc, char** argv)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 22;
+		modificationTime = 453110465.179395;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F0E334B1AAA4B210040007D /* Chronometre.cpp */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = Chronometre.cpp;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Chronometre.cpp";
+		sourceTree = "<absolute>";
+	};
+	3F11B7101A45E8AB002FD4C4 /* TestChronometre.cpp:27 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F0CAAA31A44AFDE00748BB5 /* TestChronometre.cpp */;
+		functionName = "main(int argc, char** argv)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 27;
+		modificationTime = 453110465.179243;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F11B7161A45E942002FD4C4 /* Chronometre.cpp:158 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F0CAABB1A44C4B800748BB5 /* Chronometre.cpp */;
+		functionName = "Chronometre::calculeProchaineMesure(int numEv)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 158;
+		modificationTime = 453110465.17927;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F11B7591A45F190002FD4C4 /* Chronometre.cpp */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = Chronometre.cpp;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Chronometre.cpp";
+		sourceTree = "<absolute>";
+	};
+	3F1557E11AED6B1A00D10CD1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FD898FE135DCA4900D02D21 /* ide.h */;
+		name = "ide.h: 286";
+		rLen = 0;
+		rLoc = 10373;
+		rType = 0;
+		vrLen = 703;
+		vrLoc = 6333;
+	};
+	3F1848DF192CD69C00168580 /* TestStorey-qval */ = {
+		activeExec = 0;
+		executables = (
+			3F184900192CD69C00168580 /* TestStorey-qval */,
+		);
+	};
+	3F184900192CD69C00168580 /* TestStorey-qval */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			YES,
+			NO,
+		);
+		argumentStrings = (
+			"82714  0.5256766 \"/Users/Sylvie/Documents/Bac-à-Sable/Divers_sambada/Tests/Storey/SubsetCattleSNP - copie/extrait_marq-Out-\" \".txt\" 1 1 x",
+			"82714  0.5481543 \"/Users/Sylvie/Documents/Bac-à-Sable/Divers_sambada/Tests/Storey/SubsetCattleSNP - copie/extrait_marq-Out-\" \".txt\" 1 1 Wald",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "TestStorey-qval";
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	3F1D2D5213F412030028E25A /* creeEtiquettes */ = {
+		activeExec = 0;
+		executables = (
+			3FCC630013F94D7000471BD6 /* creeEtiquettes */,
+		);
+	};
+	3F2212351E00367D00F34D93 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 3669";
+		rLen = 0;
+		rLoc = 109383;
+		rType = 0;
+		vrLen = 985;
+		vrLoc = 720;
+	};
+	3F232591140243BC002A911B /* Supervision.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 2054}}";
+			sepNavSelRange = "{101, 0}";
+			sepNavVisRange = "{954, 855}";
+			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
+		};
+	};
+	3F232592140243BC002A911B /* Supervision.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 10452}}";
+			sepNavSelRange = "{101, 0}";
+			sepNavVisRange = "{1583, 569}";
+			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
+		};
+	};
+	3F2325A3140257CC002A911B /* Supervision */ = {
+		activeExec = 0;
+		executables = (
+			3F2325C8140257CC002A911B /* Supervision */,
+		);
+	};
+	3F2325C8140257CC002A911B /* Supervision */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			YES,
+		);
+		argumentStrings = (
+			"../../Data/Split/parameters-split.txt",
+			../../Data/Split/input_matrix.csv,
+			3,
+			40,
+			1,
+			"\"/Users/Sylvie/Documents/Génétique/Ugandan cattle dataset/LandscapeGenomics/Cardiff/EchSambada-1158mark-777ind/extrait_marq.txt\" 1 0 1 G 30 AIC",
+			"markers_804.txt 1 0 1 G 30 AIC",
+			"\"/Volumes/DANIELA/Supervision/Sar_50k-Out-1_Aster10K.txt\" 1 0 1 G 5 G \",\"",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = Supervision;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+			$fctrl = 1;
+			$fioff = 1;
+			$fiseg = 1;
+			$fooff = 1;
+			$fop = 1;
+			$foseg = 1;
+			$fstat = 1;
+			$ftag = 1;
+		};
+	};
+	3F29D3CB17C4A6FC0028B7A7 /* RegressionLogistique-calc.cpp:160 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculePonderation()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 160;
+		modificationTime = 453110465.178349;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F29D3D117C4A7970028B7A7 /* RegressionLogistique-calc.cpp:1085 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1085;
+		modificationTime = 453110465.178442;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F2B625F17C56A8E0061CBA1 /* RegressionLogistique-calc.cpp:1462 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+			3F2B626817C56ACD0061CBA1 /* XCBreakpointCommandAction */,
+		);
+		breakpointStyle = 0;
+		comments = "Log stack trace and auto-continue";
+		continueAfterActions = 1;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1462;
+		modificationTime = 453110465.1785131;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F2B626817C56ACD0061CBA1 /* XCBreakpointCommandAction */ = {
+		isa = XCBreakpointCommandAction;
+		command = bt;
+		fallbackIsa = XCBreakpointAction;
+		logCommand = 0;
+		useDebuggerSideImplementation = 1;
+	};
+	3F2B627817C56BEC0061CBA1 /* RegressionLogistique-calc.cpp:1441 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1441;
+		modificationTime = 453110465.1785849;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F2B627A17C56C090061CBA1 /* RegressionLogistique-calc.cpp:1458 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1458;
+		modificationTime = 453110465.178655;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F2DB23413ADE7D100F02AFB /* Toolbox.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 4758}}";
+			sepNavSelRange = "{100, 0}";
+			sepNavVisRange = "{1015, 780}";
+			sepNavWindowFrame = "{{0, 82}, {1440, 766}}";
+		};
+	};
+	3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1361, 6539}}";
+			sepNavSelRange = "{10994, 0}";
+			sepNavVisRange = "{7507, 641}";
+			sepNavWindowFrame = "{{0, 82}, {1440, 766}}";
+		};
+	};
+	3F2DB2D113ADFC1B00F02AFB /* splitFiles.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 2418}}";
+			sepNavSelRange = "{1608, 0}";
+			sepNavVisRange = "{0, 576}";
+			sepNavWindowFrame = "{{288, 79}, {877, 799}}";
+		};
+	};
+	3F2DB2D513ADFC2F00F02AFB /* splitFiles */ = {
+		activeExec = 0;
+		executables = (
+			3F2DB2D713ADFC2F00F02AFB /* splitFiles */,
+		);
+	};
+	3F2DB2D713ADFC2F00F02AFB /* splitFiles */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			NO,
+			NO,
+			YES,
+			YES,
+		);
+		argumentStrings = (
+			"\"../../1222G-118ENV-102M - copie.csv\"",
+			"../../parameter-118-102-split.txt",
+			../../INPUT.txt,
+			../../param.txt,
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = splitFiles;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	3F2EB4361AACDC41004B95D3 /* Chronometre.cpp:73 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F0E334B1AAA4B210040007D /* Chronometre.cpp */;
+		functionName = "Chronometre::mesureEtAffiche(int numEvenement)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 73;
+		modificationTime = 453110465.179415;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:830 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 830;
+		modificationTime = 453110465.17677;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:846 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 846;
+		modificationTime = 453110465.176843;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:943 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 943;
+		modificationTime = 453110465.1769139;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:1027 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1027;
+		modificationTime = 453110465.1769831;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F36DDF91AD8248A0035FAAF /* RegressionLogistique-bienvenue.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1183}}";
+			sepNavSelRange = "{1680, 19}";
+			sepNavVisRange = "{1289, 960}";
+			sepNavWindowFrame = "{{181, 70}, {1047, 808}}";
+		};
+	};
+	3F36DE381AD82F220035FAAF /* RegressionLogistique-io.cpp:166 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 166;
+		modificationTime = 453110465.1794389;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F36DE4F1AD831B20035FAAF /* Journal.cpp:202 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FCE8E8A1A2B961600D06F9B /* Journal.cpp */;
+		functionName = "Journal::operator<<(ostream& (*pf)(ostream&))";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 202;
+		modificationTime = 453110465.1795099;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F36DEDF1ADA906D0035FAAF /* RegressionLogistique-io.cpp:256 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 256;
+		modificationTime = 453110465.1795389;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F36DEEE1ADA90DC0035FAAF /* RegressionLogistique-io.cpp:447 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 447;
+		modificationTime = 453110465.179609;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F36DEF01ADA91230035FAAF /* RegressionLogistique-io.cpp:1041 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1041;
+		modificationTime = 453110465.179679;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F36DEF21ADA91590035FAAF /* RegressionLogistique-io.cpp:1907 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::erreurDetectee(const string& nom, const string& description, bool arret)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1907;
+		modificationTime = 453110465.1826161;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F3C4B46177731BA0027E053 /* Supervision.cpp:381 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
+		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 381;
+		modificationTime = 453110465.1781599;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F3C4B9B177735720027E053 /* Supervision.cpp:614 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
+		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 614;
+		modificationTime = 453110465.1781862;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F3DD9E413EAF1F200DD85A7 /* creeEtiquettes.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 2587}}";
+			sepNavSelRange = "{1414, 2}";
+			sepNavVisRange = "{0, 782}";
+			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
+		};
+	};
+	3F3F627A1A3A29B90047CFD3 /* TestJournal.cpp:16 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FDC030B1A362A78009A1CC5 /* TestJournal.cpp */;
+		functionName = "main (int argc, char * argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 16;
+		modificationTime = 453110465.179059;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F41F65F16EE4B1B00A1BE7A /* RegressionLogistique-io.cpp:1184 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1184;
+		modificationTime = 453110465.177256;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F42FB8A19B5CB5C00AE0A3E /* SplineStorey */ = {
+		activeExec = 0;
+		executables = (
+			3F42FBAD19B5CB5C00AE0A3E /* SplineStorey */,
+		);
+	};
+	3F42FBAD19B5CB5C00AE0A3E /* SplineStorey */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			NO,
+			YES,
+		);
+		argumentStrings = (
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/Divers_sambada/Tests/Storey/Spline/goats-sambada-mark-\" \".txt\" n 0 7",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/Divers_sambada/Tests/Storey/Spline/goats-sambada\" \".txt\" s 8 660000",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = SplineStorey;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	3F43907719B47B2400464E22 /* TestStorey-qvaleurs.cpp:42 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE4EB21190FF7FA0022E9BA /* TestStorey-qvaleurs.cpp */;
+		functionName = "main (int argc, char * const argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 42;
+		modificationTime = 453110465.178936;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F47FCD616BEC69300A7943C /* mainSambada.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1002, 988}}";
+			sepNavSelRange = "{1729, 1}";
+			sepNavVisRange = "{1441, 1449}";
+			sepNavWindowFrame = "{{15, 77}, {1061, 796}}";
+		};
+	};
+	3F47FCD716BEC69300A7943C /* mainSupervision.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1183}}";
+			sepNavSelRange = "{1873, 0}";
+			sepNavVisRange = "{1025, 794}";
+			sepNavWindowFrame = "{{252, 143}, {837, 690}}";
+		};
+	};
+	3F4FD52B1784A8AE00550826 /* Supervision.cpp:434 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
+		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 434;
+		modificationTime = 453110465.178285;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F4FD5311784A8C700550826 /* Supervision.cpp:413 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
+		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 413;
+		modificationTime = 453110465.178306;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F4FD5331784A90A00550826 /* Supervision.cpp:611 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
+		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 611;
+		modificationTime = 453110465.178326;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F53D97616F34AFC0001FF1C /* RegressionLogistique-calc.cpp:1534 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1534;
+		modificationTime = 453110465.17774;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F53D97816F34B070001FF1C /* RegressionLogistique-calc.cpp:1590 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1590;
+		modificationTime = 453110465.1778089;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F53D97A16F34B0B0001FF1C /* RegressionLogistique-calc.cpp:1644 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1644;
+		modificationTime = 453110465.17788;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F53D9D816F38F810001FF1C /* Makefile */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 2132}}";
+			sepNavSelRange = "{3966, 0}";
+			sepNavVisRange = "{3364, 1367}";
+			sepNavWindowFrame = "{{162, 188}, {1278, 690}}";
+		};
+	};
+	3F54752C1378170E00879439 /* PBXBookmarkGroup */ = {
+		isa = PBXBookmarkGroup;
+		children = (
+			3F5475B01378374800879439 /* PBXBookmark */,
+			3FCC628913F913E200471BD6 /* PBXBookmark */,
+			3F74AF4618FECC8A001F8C82 /* PBXTextBookmark */,
+		);
+		name = Root;
+	};
+	3F54753B1378221400879439 /* Sambada */ = {
+		activeExec = 0;
+		executables = (
+			3F54755C1378221400879439 /* Sambada */,
+		);
+	};
+	3F54755C1378221400879439 /* Sambada */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			NO,
+			NO,
+			YES,
+			YES,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+			NO,
+		);
+		argumentStrings = (
+			"/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/parameter-118-102.txt",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/Data/1222G-118ENV-102M - copie.csv\"",
+			"/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/Example_parameters_input_matrix.txt",
+			"/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/1222G-118ENV-102M-colsup-ptVirgules.csv",
+			"/Users/Sylvie/Documents/Bac-à-Sable/Sambada/Data/input_matrix.csv",
+			"/Users/Sylvie/Documents/Bac-à-Sable/CoreSAM/Data/param-scythe.txt",
+			"/Users/Sylvie/Documents/Bac-à-Sable/CoreSAM/Data/input_matrix_env.csv",
+			"/Users/Sylvie/Documents/Bac-à-Sable/CoreSAM/Data/input_matrix_mark.csv",
+			"\"/Users/Sylvie/Desktop/TestPauline/parameters.csv\"",
+			"\"/Users/Sylvie/Desktop/TestPauline/environmental_data.csv\"",
+			"\"/Users/Sylvie/Documents/Génétique/Saif Data/TestSAMSaifData/param.txt\"",
+			"\"/Users/Sylvie/Documents/Génétique/Saif Data/TestSAMSaifData/P1data1.txt\"",
+			"\"/Users/Sylvie/Desktop/TestPauline/pauline-data.csv\"",
+			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/Arabis Alpina/param-indiv-selection.txt\"",
+			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/Arabis Alpina/arabis.intrabiodiv.indiv.txt\"",
+			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/AC_SAM_mars12/param.txt\"",
+			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion4-janvier-2012/AC_SAM_mars12/Data.csv\"",
+			"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion5-juin-2012/Scythe/param-alpina.txt",
+			"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion5-juin-2012/Scythe/Alpina.txt",
+			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion6-octobre-2012/Scythe/param-simul.txt\"",
+			"\"/Users/Sylvie/Documents/Thèse/MESSAGE/Réunion6-octobre-2012/Scythe/box_strong_MC8-300-subset.csv\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestMissings/input-AS.txt\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestMissings/Data10.txt\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/input.txt\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/TableEnvUG.csv\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/ScytheSAM-Archives/Tests-Scythe/Autocorrelation/TestTemps/Marq15.txt\"",
+			"\"/Users/Sylvie/Documents/Cours/GeoComputation 2012/Semaine 8/C. Barbata Ter/parameters-M45.txt\" \"/Users/Sylvie/Documents/Cours/GeoComputation 2012/Semaine 8/C. Barbata Ter/Cbarbata-M45.txt\"",
+			"\"/Volumes/Elements/Ouganda/ResSambada/Test/54k/subp.txt\" \"/Volumes/Elements/Ouganda/ResSambada/Test/54k/DataEnv_804.txt\" \"/Volumes/Elements/Ouganda/ResSambada/Test/54k/m.txt\"",
+			"/Volumes/Elements/Ouganda/ResSambada/Nov-13/Calculs-quadrivariés/mini-param.txt  /Volumes/Elements/Ouganda/ResSambada/Nov-13/Calculs-quadrivariés/DataEnv_804_ankole.txt  /Volumes/Elements/Ouganda/ResSambada/Nov-13/Calculs-quadrivariés/mini.txt ",
+			"\"../../Data/Exemples-manuel/DataFromManual/TwoDataFiles/param.txt\" \"../../Data/Exemples-manuel/DataFromManual/TwoDataFiles/env-data.txt\" \"../../Data/Exemples-manuel/DataFromManual/TwoDataFiles/mol-data.txt\"",
+			"\"../../Data/Exemples-manuel/DataFromManual/TwoDataFiles/param-b.txt\" \"../../Data/Exemples-manuel/DataFromManual/TwoDataFiles/env-data.txt\" \"../../Data/Exemples-manuel/DataFromManual/TwoDataFiles/mol-data-mark-1-4.txt\"",
+			"\"../../Data/Exemples-manuel/DataFromManual/OneDataFile/param-combo-b.txt\" \"../../Data/Exemples-manuel/DataFromManual/OneDataFile/combo-data-env.txt\" \"../../Data/Exemples-manuel/DataFromManual/OneDataFile/combo-data-mark-2-6.txt\"",
+			"\"/Users/Sylvie/Documents/Bac-à-Sable/Divers_sambada/Tests/Test-nombre-lignes-lues/sample-param.txt\" \"/Users/Sylvie/Documents/Bac-à-Sable/Divers_sambada/Tests/Test-nombre-lignes-lues/sample-env.txt\" \"/Users/Sylvie/Documents/Bac-à-Sable/Divers_sambada/Tests/Test-nombre-lignes-lues/sample-mark.txt\"",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = Sambada;
+		savedGlobals = {
+		};
+		showTypeColumn = 1;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+			$cs = 1;
+			$ds = 1;
+			$eax = 1;
+			$ebp = 1;
+			$ebx = 1;
+			$ecx = 1;
+			$edi = 1;
+			$edx = 1;
+			$eflags = 1;
+			$eip = 1;
+			$es = 1;
+			$esi = 1;
+			$esp = 1;
+			$fctrl = 1;
+			$fioff = 1;
+			$fiseg = 1;
+			$fooff = 1;
+			$fop = 1;
+			$foseg = 1;
+			$fs = 1;
+			$fstat = 1;
+			$ftag = 1;
+			$gs = 1;
+			$mxcsr = 1;
+			$ss = 1;
+		};
+	};
+	3F5475B01378374800879439 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 3FD898DD135DC9BB00D02D21 /* LogisticRegression_first.h */;
+	};
+	3F5475B31378377500879439 /* RegressionLogistique.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {988, 4225}}";
+			sepNavSelRange = "{5017, 0}";
+			sepNavVisRange = "{4628, 1811}";
+			sepNavWindowFrame = "{{0, 74}, {1047, 804}}";
+		};
+	};
+	3F5475B41378377500879439 /* RegressionLogistique-io.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1379, 36959}}";
+			sepNavSelRange = "{6819, 13}";
+			sepNavVisRange = "{15443, 1741}";
+			sepNavVisRect = "{{0, 0}, {1183, 340}}";
+			sepNavWindowFrame = "{{1, 74}, {1438, 804}}";
+		};
+	};
+	3F5DEAD013793F15006EDC53 /* Erreur.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 780}}";
+			sepNavSelRange = "{1691, 0}";
+			sepNavVisRange = "{1028, 749}";
+			sepNavWindowFrame = "{{351, 79}, {1089, 799}}";
+		};
+	};
+	3F5DEAD113793F15006EDC53 /* Erreur.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 806}}";
+			sepNavSelRange = "{1674, 0}";
+			sepNavVisRange = "{946, 835}";
+			sepNavWindowFrame = "{{351, 79}, {1089, 799}}";
+		};
+	};
+	3F65078D1AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD716BEC69300A7943C /* mainSupervision.cpp */;
+		name = "mainSupervision.cpp: 44";
+		rLen = 0;
+		rLoc = 1873;
+		rType = 0;
+		vrLen = 794;
+		vrLoc = 1025;
+	};
+	3F65078E1AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232591140243BC002A911B /* Supervision.h */;
+		name = "Supervision.h: 2";
+		rLen = 0;
+		rLoc = 101;
+		rType = 0;
+		vrLen = 855;
+		vrLoc = 954;
+	};
+	3F65078F1AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F232592140243BC002A911B /* Supervision.cpp */;
+		name = "Supervision.cpp: 2";
+		rLen = 0;
+		rLoc = 101;
+		rType = 0;
+		vrLen = 569;
+		vrLoc = 1583;
+	};
+	3F6507901AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F3DD9E413EAF1F200DD85A7 /* creeEtiquettes.cpp */;
+		name = "creeEtiquettes.cpp: 60";
+		rLen = 2;
+		rLoc = 1414;
+		rType = 0;
+		vrLen = 782;
+		vrLoc = 0;
+	};
+	3F6507911AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FCC628B13F9142000471BD6 /* parcoursModeles.cpp */;
+		name = "parcoursModeles.cpp: 72";
+		rLen = 4;
+		rLoc = 1692;
+		rType = 0;
+		vrLen = 769;
+		vrLoc = 0;
+	};
+	3F6507921AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077613DAFD3B0002BC02 /* Archiviste.h */;
+		name = "Archiviste.h: 299";
+		rLen = 0;
+		rLoc = 7199;
+		rType = 0;
+		vrLen = 719;
+		vrLoc = 1047;
+	};
+	3F6507931AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */;
+		name = "Archiviste.cpp: 22";
+		rLen = 0;
+		rLoc = 1360;
+		rType = 0;
+		vrLen = 752;
+		vrLoc = 1015;
+	};
+	3F6507941AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */;
+		name = "ModeleParametres.txt: 13";
+		rLen = 0;
+		rLoc = 705;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 0;
+	};
+	3F6507951AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FC2645113C1C34200E2032C /* TestDivers.cpp */;
+		name = "TestDivers.cpp: 124";
+		rLen = 61;
+		rLoc = 2267;
+		rType = 0;
+		vrLen = 506;
+		vrLoc = 0;
+	};
+	3F65079B1AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23413ADE7D100F02AFB /* Toolbox.h */;
+		name = "Toolbox.h: 2";
+		rLen = 0;
+		rLoc = 100;
+		rType = 0;
+		vrLen = 780;
+		vrLoc = 1015;
+	};
+	3F65079C1AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB23513ADE7D100F02AFB /* Toolbox.cpp */;
+		name = "Toolbox.cpp: 148";
+		rLen = 0;
+		rLoc = 3982;
+		rType = 0;
+		vrLen = 1015;
+		vrLoc = 1059;
+	};
+	3F65079E1AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5DEAD013793F15006EDC53 /* Erreur.h */;
+		name = "Erreur.h: 39";
+		rLen = 0;
+		rLoc = 1691;
+		rType = 0;
+		vrLen = 749;
+		vrLoc = 1028;
+	};
+	3F65079F1AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5DEAD113793F15006EDC53 /* Erreur.cpp */;
+		name = "Erreur.cpp: 34";
+		rLen = 0;
+		rLoc = 1674;
+		rType = 0;
+		vrLen = 835;
+		vrLoc = 946;
+	};
+	3F6507A01AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F2DB2D113ADFC1B00F02AFB /* splitFiles.cpp */;
+		name = "splitFiles.cpp: 73";
+		rLen = 0;
+		rLoc = 1608;
+		rType = 0;
+		vrLen = 576;
+		vrLoc = 0;
+	};
+	3F6507A11AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F53D9D816F38F810001FF1C /* Makefile */;
+		name = "Makefile: 126";
+		rLen = 0;
+		rLoc = 3966;
+		rType = 0;
+		vrLen = 1367;
+		vrLoc = 3364;
+	};
+	3F6507A31AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FDC030B1A362A78009A1CC5 /* TestJournal.cpp */;
+		name = "TestJournal.cpp: 15";
+		rLen = 0;
+		rLoc = 284;
+		rType = 0;
+		vrLen = 541;
+		vrLoc = 0;
+	};
+	3F6507A41AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FF960CB1A47780F00947E8D /* TestDuree.cpp */;
+		name = "TestDuree.cpp: 17";
+		rLen = 0;
+		rLoc = 233;
+		rType = 0;
+		vrLen = 299;
+		vrLoc = 0;
+	};
+	3F6507A51AE177B4002E57C6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F0CAAA31A44AFDE00748BB5 /* TestChronometre.cpp */;
+		name = "TestChronometre.cpp: 26";
+		rLen = 0;
+		rLoc = 567;
+		rType = 0;
+		vrLen = 671;
+		vrLoc = 0;
+	};
+	3F67C1FD173AB0BE000FCD18 /* RegressionLogistique-io.cpp:1643 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::trieEtEcritResultats()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1643;
+		modificationTime = 453110465.1779491;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F67C20F173AB13C000FCD18 /* RegressionLogistique-io.cpp:1651 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::trieEtEcritResultats()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1651;
+		modificationTime = 453110465.1780221;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F67C21F173AB39C000FCD18 /* RegressionLogistique-calc.cpp:2877 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 2877;
+		modificationTime = 453110465.178092;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F6852141778D3C90028FF0E /* Supervision.cpp:368 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
+		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 368;
+		modificationTime = 453110465.178215;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F68521F1778D4890028FF0E /* Supervision.cpp:522 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
+		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 522;
+		modificationTime = 453110465.178238;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F6852391778D5D60028FF0E /* Supervision.cpp:603 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F232592140243BC002A911B /* Supervision.cpp */;
+		functionName = "Supervision::fusionResultats(int argc, char* argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 603;
+		modificationTime = 453110465.17826;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F7474CC18FD897200CB664A /* RegressionLogistique-io.cpp:388 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 388;
+		modificationTime = 453110465.178723;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F74AF4518FECC8A001F8C82 /* AUTHORS */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text;
+		name = AUTHORS;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/Sambada/AUTHORS";
+		sourceTree = "<absolute>";
+	};
+	3F74AF4618FECC8A001F8C82 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F74AF4518FECC8A001F8C82 /* AUTHORS */;
+		name = cada;
+		rLen = 0;
+		rLoc = 973;
+		rType = 0;
+		vrLen = 1318;
+		vrLoc = 0;
+	};
+	3F76142513C4A2DD0083D26E /* TestBootstrap */ = {
+		activeExec = 0;
+		executables = (
+			3FF4C6AD146D747800AF9E37 /* TestBootstrap */,
+		);
+	};
+	3F76144513C4A2FF0083D26E /* testBootstrap.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {818, 1105}}";
+			sepNavSelRange = "{154, 0}";
+			sepNavVisRange = "{0, 1515}";
+			sepNavWindowFrame = "{{15, 79}, {877, 799}}";
+		};
+	};
+	3F761B7F1A1246EF00B65F72 /* FluxSortie.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 2301}}";
+			sepNavSelRange = "{1623, 0}";
+			sepNavVisRange = "{1039, 898}";
+			sepNavWindowFrame = "{{393, 70}, {1047, 808}}";
+		};
+	};
+	3F761B801A1246EF00B65F72 /* FluxSortie.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1911}}";
+			sepNavSelRange = "{3573, 0}";
+			sepNavVisRange = "{1102, 756}";
+			sepNavWindowFrame = "{{393, 70}, {1047, 808}}";
+		};
+	};
+	3F761B811A1246EF00B65F72 /* JournalTemporaire.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1157}}";
+			sepNavSelRange = "{1602, 0}";
+			sepNavVisRange = "{1039, 813}";
+			sepNavWindowFrame = "{{385, 70}, {1047, 808}}";
+		};
+	};
+	3F761B821A1246EF00B65F72 /* JournalTemporaire.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1170}}";
+			sepNavSelRange = "{2528, 21}";
+			sepNavVisRange = "{954, 841}";
+			sepNavWindowFrame = "{{385, 70}, {1047, 808}}";
+		};
+	};
+	3F7C042F1958700E001226DE /* RegressionLogistique-io.cpp:1023 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1023;
+		modificationTime = 453110465.1787939;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F7C043119587024001226DE /* RegressionLogistique-io.cpp:1216 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		functionName = "RegressionLogistique::initialisation(int argc, char *argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1216;
+		modificationTime = 453110465.178866;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3F8FCBB813D4707C00BA74DF /* ModeleParametres.txt */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 767}}";
+			sepNavSelRange = "{705, 0}";
+			sepNavVisRange = "{0, 1549}";
+			sepNavWindowFrame = "{{0, 74}, {1054, 804}}";
+		};
+	};
+	3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:730 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 730;
+		modificationTime = 453110465.176613;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FA98BED1E0010A2007FB2EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F47FCD616BEC69300A7943C /* mainSambada.cpp */;
+		name = "mainSambada.cpp: 51";
+		rLen = 0;
+		rLoc = 1762;
+		rType = 0;
+		vrLen = 612;
+		vrLoc = 1820;
+	};
+	3FA98BEE1E0010A2007FB2EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B31378377500879439 /* RegressionLogistique.h */;
+		name = "RegressionLogistique.h: 78";
+		rLen = 16;
+		rLoc = 3113;
+		rType = 0;
+		vrLen = 689;
+		vrLoc = 2803;
+	};
+	3FA98BEF1E0010A2007FB2EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F36DDF91AD8248A0035FAAF /* RegressionLogistique-bienvenue.cpp */;
+		name = "RegressionLogistique-bienvenue.cpp: 32";
+		rLen = 19;
+		rLoc = 1680;
+		rType = 0;
+		vrLen = 960;
+		vrLoc = 1289;
+	};
+	3FA98BF01E0010A2007FB2EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3F5475B41378377500879439 /* RegressionLogistique-io.cpp */;
+		name = "RegressionLogistique-io.cpp: 1755";
+		rLen = 0;
+		rLoc = 51677;
+		rType = 0;
+		vrLen = 780;
+		vrLoc = 1041;
+	};
+	3FA98BFA1E0010AC007FB2EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 3951";
+		rLen = 0;
+		rLoc = 109383;
+		rType = 0;
+		vrLen = 1000;
+		vrLoc = 720;
+	};
+	3FB7FB971E0012F70080B115 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		name = "RegressionLogistique-calc.cpp: 3669";
+		rLen = 0;
+		rLoc = 109383;
+		rType = 0;
+		vrLen = 985;
+		vrLoc = 720;
+	};
+	3FC2645113C1C34200E2032C /* TestDivers.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 5785}}";
+			sepNavSelRange = "{2267, 61}";
+			sepNavVisRange = "{0, 506}";
+			sepNavWindowFrame = "{{563, 79}, {877, 799}}";
+		};
+	};
+	3FC2645613C1C36500E2032C /* TestDivers */ = {
+		activeExec = 0;
+		executables = (
+			3FF4C6AF146D747800AF9E37 /* TestDivers */,
+		);
+	};
+	3FCC626513F9130300471BD6 /* parcourtModeles */ = {
+		activeExec = 0;
+		executables = (
+			3FCC630213F94D7000471BD6 /* parcourtModeles */,
+		);
+	};
+	3FCC628913F913E200471BD6 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 3F3DD9E413EAF1F200DD85A7 /* creeEtiquettes.cpp */;
+	};
+	3FCC628B13F9142000471BD6 /* parcoursModeles.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1911}}";
+			sepNavSelRange = "{1692, 4}";
+			sepNavVisRange = "{0, 769}";
+			sepNavWindowFrame = "{{160, 79}, {1280, 799}}";
+		};
+	};
+	3FCC630013F94D7000471BD6 /* creeEtiquettes */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = creeEtiquettes;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	3FCC630213F94D7000471BD6 /* parcourtModeles */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			YES,
+			YES,
+		);
+		argumentStrings = (
+			5,
+			4,
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = parcourtModeles;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	3FCCCFF616EE1EBE00754093 /* RegressionLogistique-calc.cpp:410 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 410;
+		modificationTime = 453110465.177049;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:540 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 540;
+		modificationTime = 453110465.177118;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:709 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 709;
+		modificationTime = 453110465.177189;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FCE8E891A2B961600D06F9B /* Journal.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1612}}";
+			sepNavSelRange = "{2993, 0}";
+			sepNavVisRange = "{1059, 741}";
+			sepNavWindowFrame = "{{15, 70}, {1047, 808}}";
+		};
+	};
+	3FCE8E8A1A2B961600D06F9B /* Journal.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 3107}}";
+			sepNavSelRange = "{2108, 0}";
+			sepNavVisRange = "{1102, 692}";
+			sepNavWindowFrame = "{{15, 70}, {1047, 808}}";
+		};
+	};
+	3FD326D016EF989A00214530 /* RegressionLogistique-calc.cpp:648 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 648;
+		modificationTime = 453110465.177335;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FD326DC16EF991400214530 /* RegressionLogistique-calc.cpp:559 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 559;
+		modificationTime = 453110465.177404;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FD3270C16EF9EAD00214530 /* RegressionLogistique-calc.cpp:646 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 646;
+		modificationTime = 453110465.177474;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FD3271016EF9EDA00214530 /* RegressionLogistique-calc.cpp:674 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 674;
+		modificationTime = 453110465.1775419;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FD3271216EF9EFC00214530 /* RegressionLogistique-calc.cpp:693 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 693;
+		modificationTime = 453110465.1776072;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FD3271416EF9FD500214530 /* RegressionLogistique-calc.cpp:931 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */;
+		functionName = "RegressionLogistique::calculeAutocorrelations()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 931;
+		modificationTime = 453110465.177674;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FD898D1135DC94A00D02D21 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 3F54755C1378221400879439 /* Sambada */;
+		activeTarget = 3F54753B1378221400879439 /* Sambada */;
+		addToTargets = (
+		);
+		breakpoints = (
+			3F91C7CE16DBCBB8006A3DA7 /* RegressionLogistique-calc.cpp:730 */,
+			3F3082ED16EA098E002A3248 /* RegressionLogistique-calc.cpp:830 */,
+			3F3082EF16EA09B6002A3248 /* RegressionLogistique-calc.cpp:846 */,
+			3F30832F16EA34AF002A3248 /* RegressionLogistique-calc.cpp:943 */,
+			3F30833316EA352E002A3248 /* RegressionLogistique-calc.cpp:1027 */,
+			3FCCCFF616EE1EBE00754093 /* RegressionLogistique-calc.cpp:410 */,
+			3FCCCFFA16EE1ED600754093 /* RegressionLogistique-calc.cpp:540 */,
+			3FCCCFFE16EE1EEE00754093 /* RegressionLogistique-calc.cpp:709 */,
+			3F41F65F16EE4B1B00A1BE7A /* RegressionLogistique-io.cpp:1184 */,
+			3FD326D016EF989A00214530 /* RegressionLogistique-calc.cpp:648 */,
+			3FD326DC16EF991400214530 /* RegressionLogistique-calc.cpp:559 */,
+			3FD3270C16EF9EAD00214530 /* RegressionLogistique-calc.cpp:646 */,
+			3FD3271016EF9EDA00214530 /* RegressionLogistique-calc.cpp:674 */,
+			3FD3271216EF9EFC00214530 /* RegressionLogistique-calc.cpp:693 */,
+			3FD3271416EF9FD500214530 /* RegressionLogistique-calc.cpp:931 */,
+			3F53D97616F34AFC0001FF1C /* RegressionLogistique-calc.cpp:1534 */,
+			3F53D97816F34B070001FF1C /* RegressionLogistique-calc.cpp:1590 */,
+			3F53D97A16F34B0B0001FF1C /* RegressionLogistique-calc.cpp:1644 */,
+			3F67C1FD173AB0BE000FCD18 /* RegressionLogistique-io.cpp:1643 */,
+			3F67C20F173AB13C000FCD18 /* RegressionLogistique-io.cpp:1651 */,
+			3F67C21F173AB39C000FCD18 /* RegressionLogistique-calc.cpp:2877 */,
+			3F3C4B46177731BA0027E053 /* Supervision.cpp:381 */,
+			3F3C4B9B177735720027E053 /* Supervision.cpp:614 */,
+			3F6852141778D3C90028FF0E /* Supervision.cpp:368 */,
+			3F68521F1778D4890028FF0E /* Supervision.cpp:522 */,
+			3F6852391778D5D60028FF0E /* Supervision.cpp:603 */,
+			3F4FD52B1784A8AE00550826 /* Supervision.cpp:434 */,
+			3F4FD5311784A8C700550826 /* Supervision.cpp:413 */,
+			3F4FD5331784A90A00550826 /* Supervision.cpp:611 */,
+			3F29D3CB17C4A6FC0028B7A7 /* RegressionLogistique-calc.cpp:160 */,
+			3F29D3D117C4A7970028B7A7 /* RegressionLogistique-calc.cpp:1085 */,
+			3F2B625F17C56A8E0061CBA1 /* RegressionLogistique-calc.cpp:1462 */,
+			3F2B627817C56BEC0061CBA1 /* RegressionLogistique-calc.cpp:1441 */,
+			3F2B627A17C56C090061CBA1 /* RegressionLogistique-calc.cpp:1458 */,
+			3F7474CC18FD897200CB664A /* RegressionLogistique-io.cpp:388 */,
+			3F7C042F1958700E001226DE /* RegressionLogistique-io.cpp:1023 */,
+			3F7C043119587024001226DE /* RegressionLogistique-io.cpp:1216 */,
+			3F43907719B47B2400464E22 /* TestStorey-qvaleurs.cpp:42 */,
+			3FDC03811A36354F009A1CC5 /* TestJournal.cpp:29 */,
+			3FDC038D1A363773009A1CC5 /* TestJournal.cpp:8 */,
+			3FDC04B41A364969009A1CC5 /* TestJournal.cpp:35 */,
+			3F3F627A1A3A29B90047CFD3 /* TestJournal.cpp:16 */,
+			3F02B4271A3E1D02002A9783 /* RegressionLogistique-calc.cpp:417 */,
+			3F02B42F1A3E1DCB002A9783 /* RegressionLogistique-calc.cpp:422 */,
+			3F11B7101A45E8AB002FD4C4 /* TestChronometre.cpp:27 */,
+			3F11B7161A45E942002FD4C4 /* Chronometre.cpp:158 */,
+			3FF960871A47682400947E8D /* TestChronometre.cpp:32 */,
+			3FF960A71A4776B500947E8D /* Chronometre.cpp:178 */,
+			3FF961161A477DBE00947E8D /* Duree.cpp:1 */,
+			3F05F40D1A59D9D3003D3DC4 /* Duree.cpp:1 */,
+			3F0E32561AAA0DCC0040007D /* TestChronometre.cpp:34 */,
+			3F0E32ED1AAA21140040007D /* TestChronometre.cpp:22 */,
+			3F2EB4361AACDC41004B95D3 /* Chronometre.cpp:73 */,
+			3F36DE381AD82F220035FAAF /* RegressionLogistique-io.cpp:166 */,
+			3F36DE4F1AD831B20035FAAF /* Journal.cpp:202 */,
+			3F36DEDF1ADA906D0035FAAF /* RegressionLogistique-io.cpp:256 */,
+			3F36DEEE1ADA90DC0035FAAF /* RegressionLogistique-io.cpp:447 */,
+			3F36DEF01ADA91230035FAAF /* RegressionLogistique-io.cpp:1041 */,
+			3F36DEF21ADA91590035FAAF /* RegressionLogistique-io.cpp:1907 */,
+		);
+		codeSenseManager = 3FD898D6135DC94A00D02D21 /* Code sense */;
+		executables = (
+			3F54755C1378221400879439 /* Sambada */,
+			3F2DB2D713ADFC2F00F02AFB /* splitFiles */,
+			3FCC630013F94D7000471BD6 /* creeEtiquettes */,
+			3FCC630213F94D7000471BD6 /* parcourtModeles */,
+			3F2325C8140257CC002A911B /* Supervision */,
+			3FF4C6AD146D747800AF9E37 /* TestBootstrap */,
+			3FF4C6AF146D747800AF9E37 /* TestDivers */,
+			3FE4EB28190FF80F0022E9BA /* TestStorey */,
+			3F184900192CD69C00168580 /* TestStorey-qval */,
+			3F42FBAD19B5CB5C00AE0A3E /* SplineStorey */,
+			3FDC03111A362ABB009A1CC5 /* TestJournal */,
+			3F0CAA9E1A44AF7D00748BB5 /* TestChronometre */,
+			3FF960C71A47776F00947E8D /* TestDuree */,
+		);
+		expressions = (
+			varDiscretes,
+			nbVarDisc,
+			"(((('scythe::DataBlockReference<double>') (((('RegressionLogistique' *) (this)))->beta_hat))).data_)",
+			"(*(((('std::_Vector_base<std::vector<std::pair<int, long double>, std::allocator<std::pair<int, long double> > >,std::allocator<std::vector<std::pair<int, long double>, std::allocator<std::pair<int, long double> > > > >') (((('RegressionLogistique' *) (this)))->voisinage)))._M_impl._M_start + 0)))",
+		);
+		ignoreBreakpointsInProjectsDict = {
+		};
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					274,
+					20,
+					175,
+					175,
+					103,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_IgnoreCountID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXBookmarksDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBookmarksDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					200,
+					802.58349609375,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBookmarksDataSource_LocationID,
+					PBXBookmarksDataSource_NameID,
+					PBXBookmarksDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					763,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					875,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFindDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFindDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					889,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFindDataSource_MessageID,
+					PBXFindDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					835,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 503330366;
+			PBXWorkspaceStateSaveDate = 503330366;
+		};
+		perUserProjectItems = {
+			3F1557E11AED6B1A00D10CD1 = 3F1557E11AED6B1A00D10CD1 /* PBXTextBookmark */;
+			3F2212351E00367D00F34D93 /* PBXTextBookmark */ = 3F2212351E00367D00F34D93 /* PBXTextBookmark */;
+			3F65078D1AE177B4002E57C6 = 3F65078D1AE177B4002E57C6 /* PBXTextBookmark */;
+			3F65078E1AE177B4002E57C6 = 3F65078E1AE177B4002E57C6 /* PBXTextBookmark */;
+			3F65078F1AE177B4002E57C6 = 3F65078F1AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507901AE177B4002E57C6 = 3F6507901AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507911AE177B4002E57C6 = 3F6507911AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507921AE177B4002E57C6 = 3F6507921AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507931AE177B4002E57C6 = 3F6507931AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507941AE177B4002E57C6 = 3F6507941AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507951AE177B4002E57C6 = 3F6507951AE177B4002E57C6 /* PBXTextBookmark */;
+			3F65079B1AE177B4002E57C6 = 3F65079B1AE177B4002E57C6 /* PBXTextBookmark */;
+			3F65079C1AE177B4002E57C6 = 3F65079C1AE177B4002E57C6 /* PBXTextBookmark */;
+			3F65079E1AE177B4002E57C6 = 3F65079E1AE177B4002E57C6 /* PBXTextBookmark */;
+			3F65079F1AE177B4002E57C6 = 3F65079F1AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507A01AE177B4002E57C6 = 3F6507A01AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507A11AE177B4002E57C6 = 3F6507A11AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507A31AE177B4002E57C6 = 3F6507A31AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507A41AE177B4002E57C6 = 3F6507A41AE177B4002E57C6 /* PBXTextBookmark */;
+			3F6507A51AE177B4002E57C6 = 3F6507A51AE177B4002E57C6 /* PBXTextBookmark */;
+			3FA98BED1E0010A2007FB2EF = 3FA98BED1E0010A2007FB2EF /* PBXTextBookmark */;
+			3FA98BEE1E0010A2007FB2EF = 3FA98BEE1E0010A2007FB2EF /* PBXTextBookmark */;
+			3FA98BEF1E0010A2007FB2EF = 3FA98BEF1E0010A2007FB2EF /* PBXTextBookmark */;
+			3FA98BF01E0010A2007FB2EF = 3FA98BF01E0010A2007FB2EF /* PBXTextBookmark */;
+			3FA98BFA1E0010AC007FB2EF = 3FA98BFA1E0010AC007FB2EF /* PBXTextBookmark */;
+			3FB7FB971E0012F70080B115 = 3FB7FB971E0012F70080B115 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 3FD898D5135DC94A00D02D21 /* Source Control */;
+		userBookmarkGroup = 3F54752C1378170E00879439 /* PBXBookmarkGroup */;
+		userBuildSettings = {
+		};
+	};
+	3FD898D5135DC94A00D02D21 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	3FD898D6135DC94A00D02D21 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	3FD898DD135DC9BB00D02D21 /* LogisticRegression_first.h */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.h;
+		name = LogisticRegression_first.h;
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/Sambada/LogisticRegression_first.h";
+		sourceTree = "<absolute>";
+	};
+	3FD898F9135DCA4900D02D21 /* algorithm.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1014, 2535}}";
+			sepNavSelRange = "{2379, 0}";
+			sepNavVisRange = "{1283, 962}";
+			sepNavWindowFrame = "{{1478, 218}, {1073, 656}}";
+		};
+	};
+	3FD898FA135DCA4900D02D21 /* datablock.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1379, 5577}}";
+			sepNavSelRange = "{3523, 0}";
+			sepNavVisRange = "{3046, 544}";
+			sepNavWindowFrame = "{{15, 79}, {1280, 799}}";
+		};
+	};
+	3FD898FB135DCA4900D02D21 /* defs.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1030, 3549}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{9016, 1481}";
+			sepNavWindowFrame = "{{15, 79}, {1089, 799}}";
+		};
+	};
+	3FD898FC135DCA4900D02D21 /* distributions.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {818, 32825}}";
+			sepNavSelRange = "{44255, 0}";
+			sepNavVisRange = "{49594, 1684}";
+			sepNavWindowFrame = "{{15, 79}, {877, 799}}";
+		};
+	};
+	3FD898FD135DCA4900D02D21 /* error.h */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{19710, 183}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 21239}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {1303, 8229}}";
+			sepNavSelRange = "{20970, 0}";
+			sepNavVisRange = "{18952, 1628}";
+			sepNavWindowFrame = "{{15, 89}, {1362, 784}}";
+		};
+	};
+	3FD898FE135DCA4900D02D21 /* ide.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1376, 23504}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{9160, 1955}";
+			sepNavWindowFrame = "{{3, 70}, {1435, 808}}";
+		};
+	};
+	3FD898FF135DCA4900D02D21 /* la.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1380, 12753}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{3709, 1479}";
+			sepNavWindowFrame = "{{1, 79}, {1439, 799}}";
+		};
+	};
+	3FD89900135DCA4900D02D21 /* lapack.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1266, 1716}}";
+			sepNavSelRange = "{1019, 1}";
+			sepNavVisRange = "{0, 1609}";
+			sepNavWindowFrame = "{{15, 78}, {1325, 800}}";
+		};
+	};
+	3FD89901135DCA4900D02D21 /* matrix.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1379, 65715}}";
+			sepNavSelRange = "{2473, 0}";
+			sepNavVisRange = "{2273, 549}";
+			sepNavWindowFrame = "{{15, 79}, {1089, 799}}";
+		};
+	};
+	3FD89903135DCA4900D02D21 /* matrix_forward_iterator.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1013, 5772}}";
+			sepNavSelRange = "{3473, 0}";
+			sepNavVisRange = "{3188, 667}";
+			sepNavWindowFrame = "{{146, 79}, {1089, 799}}";
+		};
+	};
+	3FD89904135DCA4900D02D21 /* matrix_random_access_iterator.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 7956}}";
+			sepNavSelRange = "{17519, 0}";
+			sepNavVisRange = "{17042, 896}";
+		};
+	};
+	3FD89905135DCA4900D02D21 /* optimize.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 11583}}";
+			sepNavSelRange = "{21591, 0}";
+			sepNavVisRange = "{21131, 903}";
+			sepNavWindowFrame = "{{15, 79}, {1089, 799}}";
+		};
+	};
+	3FD8990C135DCA4900D02D21 /* smath.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1014, 12493}}";
+			sepNavSelRange = "{15311, 0}";
+			sepNavVisRange = "{14811, 1103}";
+			sepNavWindowFrame = "{{108, 194}, {1073, 656}}";
+		};
+	};
+	3FDC030B1A362A78009A1CC5 /* TestJournal.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 611}}";
+			sepNavSelRange = "{284, 0}";
+			sepNavVisRange = "{0, 541}";
+			sepNavWindowFrame = "{{15, 70}, {1047, 808}}";
+		};
+	};
+	3FDC030F1A362ABB009A1CC5 /* TestJournal */ = {
+		activeExec = 0;
+		executables = (
+			3FDC03111A362ABB009A1CC5 /* TestJournal */,
+		);
+	};
+	3FDC03111A362ABB009A1CC5 /* TestJournal */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = TestJournal;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	3FDC03811A36354F009A1CC5 /* TestJournal.cpp:29 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FDC030B1A362A78009A1CC5 /* TestJournal.cpp */;
+		functionName = "main (int argc, char * argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 29;
+		modificationTime = 453110465.1789621;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FDC038D1A363773009A1CC5 /* TestJournal.cpp:8 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FDC030B1A362A78009A1CC5 /* TestJournal.cpp */;
+		functionName = "main (int argc, char * argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 8;
+		modificationTime = 453110465.178993;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FDC04B41A364969009A1CC5 /* TestJournal.cpp:35 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FDC030B1A362A78009A1CC5 /* TestJournal.cpp */;
+		functionName = "main (int argc, char * argv[])";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 35;
+		modificationTime = 453110465.179022;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FE1077613DAFD3B0002BC02 /* Archiviste.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 4329}}";
+			sepNavSelRange = "{7199, 0}";
+			sepNavVisRange = "{1047, 719}";
+			sepNavWindowFrame = "{{323, 188}, {1117, 690}}";
+		};
+	};
+	3FE1077713DAFD3B0002BC02 /* Archiviste.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 2600}}";
+			sepNavSelRange = "{1360, 0}";
+			sepNavVisRange = "{1015, 752}";
+			sepNavWindowFrame = "{{323, 188}, {1117, 690}}";
+		};
+	};
+	3FE4EB21190FF7FA0022E9BA /* TestStorey-qvaleurs.cpp */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = "TestStorey-qvaleurs.cpp";
+		path = "/Users/Sylvie/Documents/Bac-à-Sable/Sambada/TestStorey-qvaleurs.cpp";
+		sourceTree = "<absolute>";
+	};
+	3FE4EB26190FF80F0022E9BA /* TestStorey */ = {
+		activeExec = 0;
+		executables = (
+			3FE4EB28190FF80F0022E9BA /* TestStorey */,
+		);
+	};
+	3FE4EB28190FF80F0022E9BA /* TestStorey */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = TestStorey;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	3FE51E84156E8670007D71DA /* RegressionLogistique-calc.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 47164}}";
+			sepNavSelRange = "{109383, 0}";
+			sepNavVisRange = "{720, 985}";
+			sepNavWindowFrame = "{{69, 74}, {1270, 804}}";
+		};
+	};
+	3FF4C6AD146D747800AF9E37 /* TestBootstrap */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = TestBootstrap;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	3FF4C6AF146D747800AF9E37 /* TestDivers */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			YES,
+		);
+		argumentStrings = (
+			"\"/Users/Sylvie/Desktop/TestPauline/parameters.csv\"",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = TestDivers;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	3FF960871A47682400947E8D /* TestChronometre.cpp:32 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F0CAAA31A44AFDE00748BB5 /* TestChronometre.cpp */;
+		functionName = "main(int argc, char** argv)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 32;
+		modificationTime = 453110465.179292;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FF9609B1A47758E00947E8D /* Duree.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 1066}}";
+			sepNavSelRange = "{1618, 0}";
+			sepNavVisRange = "{1041, 815}";
+			sepNavWindowFrame = "{{392, 70}, {1047, 808}}";
+		};
+	};
+	3FF9609C1A47758E00947E8D /* Duree.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 2405}}";
+			sepNavSelRange = "{960, 0}";
+			sepNavVisRange = "{1039, 831}";
+			sepNavWindowFrame = "{{15, 70}, {1047, 808}}";
+		};
+	};
+	3FF960A71A4776B500947E8D /* Chronometre.cpp:178 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3F11B7591A45F190002FD4C4 /* Chronometre.cpp */;
+		functionName = "Chronometre::calculeDuree(int nombreSecondes)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 178;
+		modificationTime = 453110465.1793119;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FF960B21A47776F00947E8D /* TestDuree */ = {
+		activeExec = 0;
+		executables = (
+			3FF960C71A47776F00947E8D /* TestDuree */,
+		);
+	};
+	3FF960C71A47776F00947E8D /* TestDuree */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = TestDuree;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	3FF960CB1A47780F00947E8D /* TestDuree.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1053, 360}}";
+			sepNavSelRange = "{233, 0}";
+			sepNavVisRange = "{0, 299}";
+			sepNavWindowFrame = "{{353, 70}, {1047, 808}}";
+		};
+	};
+	3FF961161A477DBE00947E8D /* Duree.cpp:1 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 3FF9609C1A47758E00947E8D /* Duree.cpp */;
+		functionName = "Duree::ajustePrecision(PrecisionDuree& p)";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1;
+		modificationTime = 453110465.179331;
+		originalNumberOfMultipleMatches = 1;
+		state = 0;
+	};
+	3FFD22A8151F4EC200D2189B /* dbfopen.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 28587}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 565}";
+		};
+	};
+	3FFD22A9151F4EC200D2189B /* safileio.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1266, 3484}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{4220, 1724}";
+			sepNavWindowFrame = "{{15, 78}, {1325, 800}}";
+		};
+	};
+	3FFD22AA151F4EC200D2189B /* shapefil.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1412, 8424}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{21036, 1809}";
+			sepNavWindowFrame = "{{1455, 93}, {1471, 802}}";
+		};
+	};
+	3FFD22AB151F4EC200D2189B /* shpopen.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1266, 31850}}";
+			sepNavSelRange = "{48561, 2117}";
+			sepNavVisRange = "{50663, 2011}";
+		};
+	};
+	3FFD22B1151F4EE900D2189B /* shp */ = {
+		activeExec = 0;
+	};
+}
