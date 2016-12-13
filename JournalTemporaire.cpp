@@ -25,47 +25,87 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
+#include "JournalTemporaire.h"
 
-#include "RegressionLogistique.h"
-#include <ctime>
-
-using namespace std;
-using namespace scythe;
-
-int main(int argc, char *argv[])
-{		
-	RegressionLogistique logitModel;
-	
-	//cout << numeric_limits < double >::max() << " " << log(numeric_limits < double >::max()/2) << endl;
-	//cout << numeric_limits < long double >::max() << " " << log(numeric_limits < long double >::max()/2) << endl;
-	
-	time_t temps_start(time(NULL));
-	try
-	{
-		logitModel.initialisation(argc, argv);
-	}
-	catch (const Erreur& err) 
-	{
-		cout << err.what() << endl;
-		exit(1);
-	}
-	time_t temps_interm(time(NULL));
-	logitModel.ecritMessage("Reading of data completed : " + toolbox::toString(difftime(temps_interm, temps_start)) + " s.");
-	
-	//logitModel.analyseCategories();
-	//logitModel.calculeCorrelations();
-	logitModel.calculeAutocorrelations();
-	logitModel.creeModelesGlobaux();
-	
-	time_t temps_fin_calculs(time(NULL));
-	logitModel.ecritMessage("End of computation.");
-	logitModel.ecritMessage("Elapsed time : " +  toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
-	
-	//logitModel.ecritResultats("ResultatsRegression.txt");
-	
-	time_t temps_stop(time(NULL));
-
-	logitModel.ecritMessage("Writing of results : " + toolbox::toString(difftime(temps_stop, temps_fin_calculs)) + " s.");
-	logitModel.terminaison();
+JournalTemporaire::JournalTemporaire()
+: deque<string>(), oss(NULL)
+{
 }
 
+JournalTemporaire::~JournalTemporaire()
+{
+}
+
+/*JournalTemporaire& JournalTemporaire::operator<<(const string& s)
+{
+    oss.str(oss.str()+s);
+    return *this;
+}*/
+
+JournalTemporaire& JournalTemporaire::operator<<(JournalTemporaire& (*pf)(JournalTemporaire&))
+{
+    return pf(*this);
+}
+
+JournalTemporaire& JournalTemporaire::operator<<(ostream& (*pf)(ostream&))
+{
+	if (oss==NULL)
+	{
+		oss = new ostringstream;
+	}
+    pf(*oss);
+    return *this;
+}
+
+JournalTemporaire& JournalTemporaire::retourLigne()
+{
+	if (oss!=NULL)
+	{
+		this->push(oss->str());
+		delete oss;
+		oss = NULL;
+	}
+    return *this;
+}
+
+JournalTemporaire& JournalTemporaire::synchronise()
+{
+    if( oss!=NULL && !(oss->str().empty()) );
+    {
+        retourLigne();
+    }
+	return *this;
+}
+
+void JournalTemporaire::push(const string& s)
+{
+    deque<string>::push_back(s);
+}
+
+/*JournalTemporaire& JournalTemporaire::flush(JournalTemporaire &jt)
+{
+    synchronise();
+    return *this;
+}*/
+
+
+JournalTemporaire& nl (JournalTemporaire& jt)
+{
+    jt.retourLigne();
+    return jt;
+}
+
+JournalTemporaire& endl (JournalTemporaire& jt)
+{
+    jt << nl;
+    return jt;
+}
+
+JournalTemporaire& flush (JournalTemporaire& jt)
+{
+    jt.synchronise();
+    return jt;
+}
+
+JournalTemporaire::JournalTemporaire(const JournalTemporaire& jt)
+{}

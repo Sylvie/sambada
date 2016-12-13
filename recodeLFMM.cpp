@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2014 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  * 
  * This file is part of Sambada.
@@ -34,7 +34,7 @@
 #include <fstream>
 #include <ctime>
 #include <cstdlib>
-#include "Toolbox.h"
+#include "RegressionLogistique.h"
 
 using namespace std;
 
@@ -99,12 +99,12 @@ int main(int argc, char** argv)
 {	
 	if (argc==1) 
 	{
-		toolbox::messageBienvenue(true);
+		RegressionLogistique::messageBienvenue(cout, true);
 	}
 	else
 	{
-		toolbox::messageBienvenue();
-	}	
+		RegressionLogistique::messageBienvenue(cout);
+	}
 	
 	char sep(' '), retourLigne('\n'), sepNoms('_');
 	char premSymbole('a');

@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  * 
  * This file is part of Sambada.
@@ -25,47 +25,67 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
+#ifndef CHRONOMETRE_H
+#define CHRONOMETRE_H
 
-#include "RegressionLogistique.h"
 #include <ctime>
+#include <vector>
+#include "Journal.h"
+#include "Duree.h"
 
 using namespace std;
-using namespace scythe;
 
-int main(int argc, char *argv[])
-{		
-	RegressionLogistique logitModel;
+class Chronometre
+{
+public:
+	Chronometre();
+	virtual ~Chronometre();
+
+	int initialisation(Journal* j, int nbTotEv, int numPremMesure = 10, const string& separateurCol = "");
+	int mesureEtAffiche(int numEvenement = -1);
+	void fin();
 	
-	//cout << numeric_limits < double >::max() << " " << log(numeric_limits < double >::max()/2) << endl;
-	//cout << numeric_limits < long double >::max() << " " << log(numeric_limits < long double >::max()/2) << endl;
-	
-	time_t temps_start(time(NULL));
-	try
+
+protected:
+
+/*	typedef struct
 	{
-		logitModel.initialisation(argc, argv);
+		int jours, heures, minutes, secondes;
 	}
-	catch (const Erreur& err) 
+	Duree;
+	
+	typedef Duree PrecisionAffichageDuree;*/
+	
+	struct Mesure
 	{
-		cout << err.what() << endl;
-		exit(1);
-	}
-	time_t temps_interm(time(NULL));
-	logitModel.ecritMessage("Reading of data completed : " + toolbox::toString(difftime(temps_interm, temps_start)) + " s.");
+		int iteration;
+		int proportionAccomplieEnPourcent;
+		Duree tempsEcoule;
+		Duree tempsRestantEstime;
+		Duree tempsTotEstime;
+	};
 	
-	//logitModel.analyseCategories();
-	//logitModel.calculeCorrelations();
-	logitModel.calculeAutocorrelations();
-	logitModel.creeModelesGlobaux();
 	
-	time_t temps_fin_calculs(time(NULL));
-	logitModel.ecritMessage("End of computation.");
-	logitModel.ecritMessage("Elapsed time : " +  toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
+	int nbTotEvenements, nbMesures, prochaineMesure;
+	time_t tempsDebut;
+	vector<Mesure> mesures;
+	Journal* journal;
+	PrecisionDuree precision;
+	ChablonDuree chablon;
+	int distanceColonnes;
+	string sepCol;
+	int tailleAffichageIterations, tailleAffichageDurees, tailleAffichageTotal;
 	
-	//logitModel.ecritResultats("ResultatsRegression.txt");
-	
-	time_t temps_stop(time(NULL));
+	int calculeProportion(int numEv);
+	void mesure(int numEv);
+	int calculeProchaineMesure(int numEv);
+	void affiche(const Duree& d);
+	void ajusteAffichage(const Duree& dureeEstimee);
 
-	logitModel.ecritMessage("Writing of results : " + toolbox::toString(difftime(temps_stop, temps_fin_calculs)) + " s.");
-	logitModel.terminaison();
-}
+private:
+	Chronometre(const Chronometre& c);
+};
 
+
+
+#endif // CHRONOMETRE_H

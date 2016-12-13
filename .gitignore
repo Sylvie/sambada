@@ -7,3 +7,5 @@ parcoursModeles.cpp
 splitFiles.cpp
 testBootstrap.cpp
 VERSION
+build*/
+qSambada/

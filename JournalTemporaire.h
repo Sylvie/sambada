@@ -25,47 +25,63 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
+#ifndef JOURNALTEMPORAIRE_H
+#define JOURNALTEMPORAIRE_H
 
-#include "RegressionLogistique.h"
-#include <ctime>
+#include <sstream>
+#include <string>
+#include <deque>
+#include <iostream>
 
 using namespace std;
-using namespace scythe;
 
-int main(int argc, char *argv[])
-{		
-	RegressionLogistique logitModel;
-	
-	//cout << numeric_limits < double >::max() << " " << log(numeric_limits < double >::max()/2) << endl;
-	//cout << numeric_limits < long double >::max() << " " << log(numeric_limits < long double >::max()/2) << endl;
-	
-	time_t temps_start(time(NULL));
-	try
-	{
-		logitModel.initialisation(argc, argv);
-	}
-	catch (const Erreur& err) 
-	{
-		cout << err.what() << endl;
-		exit(1);
-	}
-	time_t temps_interm(time(NULL));
-	logitModel.ecritMessage("Reading of data completed : " + toolbox::toString(difftime(temps_interm, temps_start)) + " s.");
-	
-	//logitModel.analyseCategories();
-	//logitModel.calculeCorrelations();
-	logitModel.calculeAutocorrelations();
-	logitModel.creeModelesGlobaux();
-	
-	time_t temps_fin_calculs(time(NULL));
-	logitModel.ecritMessage("End of computation.");
-	logitModel.ecritMessage("Elapsed time : " +  toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
-	
-	//logitModel.ecritResultats("ResultatsRegression.txt");
-	
-	time_t temps_stop(time(NULL));
+class JournalTemporaire : public deque<string>
+{
+public:
+    JournalTemporaire();
+    virtual ~JournalTemporaire();
 
-	logitModel.ecritMessage("Writing of results : " + toolbox::toString(difftime(temps_stop, temps_fin_calculs)) + " s.");
-	logitModel.terminaison();
+
+    template<class T>
+    JournalTemporaire& operator<<(const T& token);
+
+   // JournalTemporaire& operator<<(const string& s);
+
+    JournalTemporaire& operator<<(JournalTemporaire& (*pf)(JournalTemporaire&));
+
+    JournalTemporaire& operator<<(ostream& (*pf)(ostream&));
+
+    JournalTemporaire& retourLigne();
+
+    JournalTemporaire& synchronise();
+
+  //  JournalTemporaire& flush(JournalTemporaire &jt);
+
+protected:
+    ostringstream* oss;
+    void push(const string & s);
+
+private:
+	JournalTemporaire(const JournalTemporaire& jt);
+};
+
+template<class T>
+JournalTemporaire& JournalTemporaire::operator<<(const T& token)
+{
+	if (oss==NULL)
+	{
+		oss = new ostringstream;
+	}
+    (*oss) << token;
+    return *this;
 }
 
+JournalTemporaire& nl (JournalTemporaire& jt);
+
+JournalTemporaire& endl (JournalTemporaire& jt);
+
+JournalTemporaire& flush (JournalTemporaire& jt);
+
+
+
+#endif // JOURNALTEMPORAIRE_H

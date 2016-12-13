@@ -25,47 +25,97 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
+#ifndef JOURNAL_H
+#define JOURNAL_H
 
-#include "RegressionLogistique.h"
-#include <ctime>
+#include "FluxSortie.h"
 
 using namespace std;
-using namespace scythe;
 
-int main(int argc, char *argv[])
-{		
-	RegressionLogistique logitModel;
+class Journal
+{
+public:
+	Journal();
+	virtual ~Journal();
 	
-	//cout << numeric_limits < double >::max() << " " << log(numeric_limits < double >::max()/2) << endl;
-	//cout << numeric_limits < long double >::max() << " " << log(numeric_limits < long double >::max()/2) << endl;
+	void metFlotEnPause();
+	bool sortDeLaPause();
+	bool estEnPause() const;
 	
-	time_t temps_start(time(NULL));
-	try
-	{
-		logitModel.initialisation(argc, argv);
-	}
-	catch (const Erreur& err) 
-	{
-		cout << err.what() << endl;
-		exit(1);
-	}
-	time_t temps_interm(time(NULL));
-	logitModel.ecritMessage("Reading of data completed : " + toolbox::toString(difftime(temps_interm, temps_start)) + " s.");
+	void setDelimLignes(const string& delim);
+    string getDelimLignes() const;
 	
-	//logitModel.analyseCategories();
-	//logitModel.calculeCorrelations();
-	logitModel.calculeAutocorrelations();
-	logitModel.creeModelesGlobaux();
+    void setDelimMots(const string& delim);
+    string getDelimMots() const;
 	
-	time_t temps_fin_calculs(time(NULL));
-	logitModel.ecritMessage("End of computation.");
-	logitModel.ecritMessage("Elapsed time : " +  toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
+    void setNomFichier(const string& nom);
+    string getNomFichier() const;
 	
-	//logitModel.ecritResultats("ResultatsRegression.txt");
+    void setDelims(const string& delimL, const string& delimM);
 	
-	time_t temps_stop(time(NULL));
+    void setActiviteTerminal(bool b);
+    bool getActiviteTerminal() const;
+	
+    void setActiviteFichier(bool b);
+    bool getActiviteFichier() const;
+	
+    void setActivites(bool term, bool fichier);
+			
+    void erreurDetectee();
+	
+	Journal& synchronise();
+	
+	bool estFonctionnel();
+	
+    template<class T>
+    Journal& ecrit(const T& token);
+	
+    Journal& retourLigne();
+	
+    Journal& nouvMot();
+	
+    template<class T>
+    Journal& operator<<(const T& token);
+	
+    Journal& operator<<(Journal& (*pf)(Journal&));
+	
+    Journal& operator<<(ostream& (*pf)(ostream&));
+	
+	void afficheJournalTemporaire();
+	
+	
+protected:
+	
+	FluxSortie flux;
+	JournalTemporaire temp;
+	
+	bool flotEnPause;
+	
 
-	logitModel.ecritMessage("Writing of results : " + toolbox::toString(difftime(temps_stop, temps_fin_calculs)) + " s.");
-	logitModel.terminaison();
+private: 
+	Journal(const Journal& j);
+	
+};
+
+Journal& nl (Journal& j);
+
+Journal& nm (Journal& j);
+
+Journal& erreur (Journal& j);
+
+template<class T>
+Journal& Journal::operator<<(const T& token)
+{
+	if (flotEnPause)
+	{
+		temp << token;
+	}
+	else
+	{
+		flux << token;
+	}
+	return *this;
 }
 
+
+#endif // JOURNAL_H

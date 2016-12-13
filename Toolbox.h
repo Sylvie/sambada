@@ -1,5 +1,5 @@
 /*************************************************************************
-* Copyright (©) 2011-2014 EPFL (Ecole Polytechnique fédérale de Lausanne)
+* Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
 * Laboratory of Geographic information systems (LaSIG)
 * 
 * This file is part of Sambada.
@@ -198,6 +198,23 @@ namespace toolbox {
 	}	
 	
 	string conversion(reel nombre);	
+
+    template <class T>
+    string toString(T nombre, bool& echec)
+    {
+        ostringstream oss;
+        oss.precision(precisionLecture);
+        oss << nombre;
+        echec=oss.fail();
+        return oss.str();
+    }
+
+    template <class T>
+    string toString(T nombre)
+    {
+        bool echec;
+        return toString<T>(nombre, echec);
+    }
 	
 	void enleveEspaces(string& s);
 	
@@ -328,9 +345,9 @@ namespace toolbox {
 	
 	void affiche(const vector< vector < pair<int, reel> > > v, int n=-1, int m=-1);
 	*/
-	
-	void messageBienvenue(bool versionLongue=false);
-	
+		
+    string timestamp();
+
 	reel notANumber();
 }
 

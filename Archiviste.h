@@ -1,5 +1,5 @@
 /*************************************************************************
-* Copyright (©) 2011-2014 EPFL (Ecole Polytechnique fédérale de Lausanne)
+* Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
 * Laboratory of Geographic information systems (LaSIG)
 * 
 * This file is part of Sambada.
@@ -284,7 +284,7 @@ bool Lecteur::lecture(int numFichier, vector< vector< T > >& document, int nbLig
 		document.push_back(ligne);
 		++nbLignesLues;
 	}
-	
+    return validation;
 }
 
 // Retourne TRUE si tous les éléments ont pu être lus

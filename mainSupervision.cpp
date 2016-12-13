@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2014 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  * 
  * This file is part of Sambada.
@@ -37,11 +37,11 @@ int main(int argc, char *argv[])
 {	
 	if (argc==1) 
 	{
-		toolbox::messageBienvenue(true);
+		RegressionLogistique::messageBienvenue(cout, true);
 	}
 	else
 	{
-		toolbox::messageBienvenue();
+		RegressionLogistique::messageBienvenue(cout);
 	}
 	
 	

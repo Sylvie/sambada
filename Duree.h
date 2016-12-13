@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  * 
  * This file is part of Sambada.
@@ -25,47 +25,65 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
+#ifndef DUREE_H
+#define DUREE_H
 
-#include "RegressionLogistique.h"
-#include <ctime>
+#include "Journal.h"
 
-using namespace std;
-using namespace scythe;
+struct PrecisionDuree
+{
+	int jours, heures, minutes, secondes;
+	PrecisionDuree(int j, int h, int m, int s);
+};
 
-int main(int argc, char *argv[])
-{		
-	RegressionLogistique logitModel;
-	
-	//cout << numeric_limits < double >::max() << " " << log(numeric_limits < double >::max()/2) << endl;
-	//cout << numeric_limits < long double >::max() << " " << log(numeric_limits < long double >::max()/2) << endl;
-	
-	time_t temps_start(time(NULL));
-	try
-	{
-		logitModel.initialisation(argc, argv);
-	}
-	catch (const Erreur& err) 
-	{
-		cout << err.what() << endl;
-		exit(1);
-	}
-	time_t temps_interm(time(NULL));
-	logitModel.ecritMessage("Reading of data completed : " + toolbox::toString(difftime(temps_interm, temps_start)) + " s.");
-	
-	//logitModel.analyseCategories();
-	//logitModel.calculeCorrelations();
-	logitModel.calculeAutocorrelations();
-	logitModel.creeModelesGlobaux();
-	
-	time_t temps_fin_calculs(time(NULL));
-	logitModel.ecritMessage("End of computation.");
-	logitModel.ecritMessage("Elapsed time : " +  toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
-	
-	//logitModel.ecritResultats("ResultatsRegression.txt");
-	
-	time_t temps_stop(time(NULL));
+struct ChablonDuree
+{	
+	bool zappeJours, zappeSecondes;
+	ChablonDuree(bool zJours, bool zSecondes);
+};
 
-	logitModel.ecritMessage("Writing of results : " + toolbox::toString(difftime(temps_stop, temps_fin_calculs)) + " s.");
-	logitModel.terminaison();
-}
+class Duree
+{
+public:
+	Duree(int nbSec);
+	Duree(int j, int h, int m, int s);
+	Duree(const Duree &d);
+	virtual ~Duree();
 
+	static int calculeLargeur(const PrecisionDuree& prec, const ChablonDuree& chablon);
+	
+	Journal& affiche(Journal & j, const ChablonDuree& chablon=ChablonDuree(false,false)) const;
+	Journal& affiche(Journal & j, const PrecisionDuree& precision, const ChablonDuree& chablon=ChablonDuree(false,false)) const;
+	
+	bool plusLongueOuEgale(const Duree& d) const;
+	bool plusCourte(const Duree& d) const;
+	
+	int calculeTailleAffichageJours() const;
+	
+protected:
+	int jours, heures, minutes, secondes;
+	
+	void ajustePrecision(PrecisionDuree& p) const;
+};
+
+Journal& operator<<(Journal& j, const Duree& d);
+
+class DureeFormatee
+{
+public:
+	DureeFormatee(const Duree& d, const PrecisionDuree& p, const ChablonDuree& c=ChablonDuree(false, false));
+	virtual ~DureeFormatee();
+	DureeFormatee(const DureeFormatee& d);
+
+	Journal& affiche(Journal& j) const;
+	
+protected:
+	const Duree& duree;
+	const PrecisionDuree& precision;
+	const ChablonDuree& chablon;
+	
+};
+
+Journal& operator<<(Journal& j, const DureeFormatee& d);
+
+#endif // DUREE_H
