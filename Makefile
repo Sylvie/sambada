@@ -33,9 +33,10 @@ ifndef NUMVERSION
 	NUMVERSION:=-$(shell ./update-version-number.sh)
 endif
 
+EXTERNAL_DEPENDENCIES_DIR = ext/
 
-SHPDIR = shapelib-1.3.0
-SCYTHEDIR = scythestat-1.0.3/scythestat scythestat-1.0.3/scythestat/rng
+SHPDIR = $(addprefix $(EXTERNAL_DEPENDENCIES_DIR), shapelib-1.3.0)
+SCYTHEDIR = $(addprefix $(EXTERNAL_DEPENDENCIES_DIR), scythestat-1.0.3/scythestat scythestat-1.0.3/scythestat/rng)
 # No object files produced from scythestat lib
 BUILDDIR = binaries
 
