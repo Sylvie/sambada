@@ -6,7 +6,7 @@ init:
 #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 # build cache to preserve files/folders between builds
-cache:
+#cache:
 #  - C:\ProgramData\chocolatey\bin -> appveyor.yml
 #  - C:\ProgramData\chocolatey\lib -> appveyor.yml
 #  - C:\Program Files\MiKTeX 2.9 -> appveyor.yml
@@ -29,7 +29,7 @@ build_script:
   - make.exe SYS=WIN
   - ls -R binaries
   - ls -R Data
-  - ps: .\binaries\Sambada-v0.5.3.exe Data\Example_parameters_input_matrix.txt Data\input_matrix.csv
+  - ps: .\binaries\Sambada-v0.5.3-WIN.exe Data\Example_parameters_input_matrix.txt Data\input_matrix.csv
   - ls -R Data
 
 #---------------------------------#
