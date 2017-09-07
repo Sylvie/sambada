@@ -28,7 +28,7 @@ build_script:
   - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\x86_64-w64-mingw32;
   - make.exe
   - ls -R binaries
-  - binaries/Sambada-v0.5.3 Data/Example_parameters_input_matrix.txt Data/input_matrix.csv
+  - ps: binaries/Sambada-v0.5.3 Data/Example_parameters_input_matrix.txt Data/input_matrix.csv
 
 #---------------------------------#
 #      artifacts configuration    #
