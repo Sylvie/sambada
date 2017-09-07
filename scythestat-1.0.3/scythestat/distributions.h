@@ -84,17 +84,18 @@
 #define M_2PI   6.28318530717958647692528676655
 #define M_SQRT_32 5.656854249492380195206754896838
 
-#ifndef HAVE_TRUNC
-/*! @cond */
-inline double trunc(double x) throw ()
-{
-    if (x >= 0) 
-      return std::floor(x);
-    else
-      return std::ceil(x);
-}
-/*! @endcond */
-#endif
+// Sylvie, 2017-09-07 : Fix for compilation on OSX 10.12.6
+//#ifndef HAVE_TRUNC
+///*! @cond */
+//inline double trunc(double x) throw ()
+//{
+//    if (x >= 0) 
+//      return std::floor(x);
+//    else
+//      return std::ceil(x);
+//}
+///*! @endcond */
+//#endif
 
 /* Many random number generators, pdfs, cdfs, and functions (gamma,
  * etc) in this file are based on code from the R Project, version
