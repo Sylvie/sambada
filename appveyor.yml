@@ -1,0 +1,69 @@
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+# scripts that are called at very beginning, before repo cloning
+init:
+#  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+# build cache to preserve files/folders between builds
+cache:
+#  - C:\ProgramData\chocolatey\bin -> appveyor.yml
+#  - C:\ProgramData\chocolatey\lib -> appveyor.yml
+#  - C:\Program Files\MiKTeX 2.9 -> appveyor.yml
+#  - C:\Users\appveyor\AppData\Roaming\MiKTeX\2.9 -> appveyor.yml
+
+# scripts that run after cloning repository
+install:
+#  - ps: choco install miktex
+#  - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
+#  - ps: initexmf --set-config-value [MPM]AutoInstall=1
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform: windows
+
+build_script:
+  - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\x86_64-w64-mingw32;
+  - make.exe
+  - ls -R build
+  - binaries/Sambada-v0.5.3 Data/Example_parameters_input_matrix.txt Data/input_matrix.csv
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+artifacts:
+
+# pushing entire folder as a zip archive
+#- path: build\tiny-sam-$(tinysam_version)-%PLATFORM%
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+deploy:
+  # Deploy to GitHub Releases
+#  - provider: GitHub
+#    auth_token:
+#      secure: /nU7mUteW5yQE7WTvX8WQmsR2/qhQr5p34xBndoB9YfP1pTTLxjFdem3OAsMexyR
+#    draft: false
+#    prerelease: false
+#    on:
+#      appveyor_repo_tag: true       # deploy on tag push only
+
+#---------------------------------#
+#        global handlers          #
+#---------------------------------#
+
+# on successful build
+#on_success:
+#- do something
+
+# on build failure
+#on_failure:
+#- do something
+
+# after build failure or success
+on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
