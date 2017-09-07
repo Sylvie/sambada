@@ -1,0 +1,66 @@
+# Use new trusty images, should yield newer compilers and packages
+sudo: false          # false (Docker) or required (own VM)
+dist: precise
+language: generic
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+            - libunittest++-dev
+      install:
+        - source ./manual/texlive-ubuntu.sh
+      cache:
+        directories:
+          - /tmp/texlive
+          - $HOME/.texlive
+      env: COMPILER=g++-5
+    - os: osx
+      compiler: gcc
+      env: COMPILER=g++
+      install:
+        - source ./manual/basictex-osx.sh
+        - ls /usr/local/texlive/
+        - ls -l /Library/PreferencePanes
+      cache:
+        directories:
+          - /usr/local/texlive/
+          - /usr/local/bin/texdist/
+          - /usr/texbin/
+          - /Library/TeX/
+          - /Library/PreferencePanes/
+
+
+git:
+  depth: 100
+
+script:
+  - autoreconf -i
+  - tinysam_version=$(./git-version-gen .version)
+  - mkdir build
+  - cd build
+  - ../configure tinysamhostsystemname=${TRAVIS_OS_NAME}
+  - make CXX=$COMPILER
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then make dist; fi
+  - make binary-archive
+
+deploy:
+  provider: releases
+  api_key:
+    secure: WWX4xvz3P6JDrRd+OYBAK+rz4K9rmxELgEHi1S5K+EhES3v0msIMkJUGWyqABXOSeRRQYHEaP1ZCspG4W0HiI0tERqzU0Sno/Iu1MfQf4EwpzK8ZGZyiC/LJh2iq1TJBmTzWAz+dGkyJwVBuWAdCI3lezCGnFHYyRQhvxwUCDM+KUSE93AKOD8YxfzXatgi8wCcw5AOIqgJi0GF9wuQTeT7vMjqYLGN6J9L040DOPvIzPUL/z+xQsbGx9cyfzYGm6K7jxPpyTPTp74cdyp4jUX3c/M/UiE7G5AV1SuxIuSsZWLrDgTVPeebvQNrNc2g7xoqIwPDLml6jEWE/g96mRh3uBOCJJxcscw0S0Drspki8zzooJhqp9qDANDvS4JB8ZvQ0keSSJJC9YnJ4DWZGsuP9Pr1qqWGoO86afvAiRtS6MzfVyz/kA3WY/mC4kbD19pgqooFKmnb0OJ/Yb0jWdkMGPUshkZVc3ZH0HUcBgYTVQAS/gyqfGJERrKTS56B+g7CDz3vB3HyR0uUNaVJE0eH9PhHQbKXp7QFqQ7Yjhf/FrquyjCkhubPsjo5UbhIJvh0oSCGu4yaQAAIIqFXfkePVkthum8ZD5GJzLBsfnO4M0oGpCg0eoz+3RRw1XnAmAzVixOeELuimXtrcPVAbvt9O3Rg8toCaG7/9s9Wocn0=
+  file:
+    - build/tiny-sam-${tinysam_version}-${TRAVIS_OS_NAME}.tar.gz
+    - build/tiny-sam-${tinysam_version}.tar.gz
+    - build/tiny-sam-${tinysam_version}.zip
+  skip_cleanup: true
+  draft: false
+  on:
+    tags: true
+    repo: Sylvie/tiny-sam
+
