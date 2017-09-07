@@ -39,6 +39,7 @@ SHPDIR = $(addprefix $(EXTERNAL_DEPENDENCIES_DIR), shapelib-1.3.0)
 SCYTHEDIR = $(addprefix $(EXTERNAL_DEPENDENCIES_DIR), scythestat-1.0.3/scythestat scythestat-1.0.3/scythestat/rng)
 # No object files produced from scythestat lib
 BUILDDIR = binaries
+SOURCEDIR = src
 
 REQUIRED_DIRS =	$(BUILDDIR) $(BUILDDIR)/$(SHPDIR)
 _MKDIRS := $(shell for d in "$(REQUIRED_DIRS)";	\
@@ -109,7 +110,7 @@ PKG_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 
 #	LINK.GLUT = $(LINK.cc) $(GLUTLDFLAGS)
 
-vpath %.cpp = $(SCYTHEDIR)
+vpath %.cpp = $(SCYTHEDIR) $(SOURCEDIR)
 vpath %.c = $(SHPDIR)
 
 COMPILE.SCYTHE = $(COMPILE.cc) #$(PKG_CXXFLAGS)
