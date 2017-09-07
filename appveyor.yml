@@ -29,7 +29,8 @@ build_script:
   - make.exe
   - ls -R binaries
   - ls -R Data
-  - ps: .\binaries\Sambada-v0.5.3 Data\Example_parameters_input_matrix.txt Data\input_matrix.csv
+  - ps: cp .\binaries\Sambada-v0.5.3 .\binaries\Sambada-v0.5.3.exe
+  - ps: .\binaries\Sambada-v0.5.3.exe Data\Example_parameters_input_matrix.txt Data\input_matrix.csv
   - ls -R Data
 
 #---------------------------------#
