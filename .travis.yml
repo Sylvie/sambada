@@ -4,24 +4,24 @@ dist: precise
 language: generic
 
 matrix:
-include:
-- os: linux
-compiler: gcc
-addons:
-apt:
-sources:
-- ubuntu-toolchain-r-test
-packages:
-- g++-5
-env: COMPILER=g++-5
-- os: osx
-compiler: gcc
-env: COMPILER=g++
+  include:
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+      env: COMPILER=g++-5
+    - os: osx
+      compiler: gcc
+      env: COMPILER=g++
 
 git:
-depth: 100
+  depth: 100
 
 script:
-- make CXX=$COMPILER
-- ls -R binaries
-- binaries/Sambada-v0.5.3 Data/Example_parameters_input_matrix.txt Data/input_matrix.csv
+  - make CXX=$COMPILER
+  - ls -R binaries
+  - binaries/Sambada-v0.5.3 Data/Example_parameters_input_matrix.txt Data/input_matrix.csv
