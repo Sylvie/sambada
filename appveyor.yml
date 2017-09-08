@@ -32,7 +32,7 @@ build_script:
   - bash -c "../configure sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 LDFLAGS=-static"
   - make.exe
   - ls -R binaries
-  - ps: .\binaries\sambada.exe Data\Example_parameters_input_matrix.txt Data\input_matrix.csv
+  - ps: .\binaries\sambada.exe ..\Data\Example_parameters_input_matrix.txt ..\Data\input_matrix.csv
 
 #---------------------------------#
 #      artifacts configuration    #

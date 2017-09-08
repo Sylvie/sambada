@@ -30,4 +30,4 @@ script:
   - make CXX=$COMPILER
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then make distcheck; fi
   - ls -R
-  - binaries/sambada Data/Example_parameters_input_matrix.txt Data/input_matrix.csv
+  - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
