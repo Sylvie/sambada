@@ -27,11 +27,11 @@ MOSTLYCLEANFILES =
 CLEANFILES =
 DISTCLEANFILES =
 MAINTAINERCLEANFILES =
-REPOCLEANFILES = $(addprefix $(srcdir)/, aclocal.m4 configure config.guess config.sub depcomp install-sh Makefile.in missing)
+REPOCLEANFILES = $(addprefix $(srcdir)/, aclocal.m4 compile configure config.guess config.sub depcomp install-sh Makefile.in missing)
 
 clean-local: #clean-local-manual
 
-distclean-local: distclean-local-manual
+distclean-local: #distclean-local-manual
 
 repo-clean: maintainer-clean
 	rm -rf $(REPOCLEANFILES)
