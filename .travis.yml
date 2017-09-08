@@ -28,6 +28,6 @@ script:
   - cd build
   - ../configure sambadahostsystemname=${TRAVIS_OS_NAME}
   - make CXX=$COMPILER
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then make clean distcheck; fi
-  - ls -R
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
+  - ls -R
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then make clean distcheck; fi
