@@ -22,6 +22,12 @@ git:
   depth: 100
 
 script:
+  - autoreconf -i
+  - sambada_version=$(./git-version-gen .version)
+  - mkdir build
+  - cd build
+  - ../configure sambadahostsystemname=${TRAVIS_OS_NAME}
   - make CXX=$COMPILER
-  - ls -R binaries
-  - binaries/Sambada-v0.5.3 Data/Example_parameters_input_matrix.txt Data/input_matrix.csv
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then make distcheck; fi
+  - ls -R
+  - binaries/sambada Data/Example_parameters_input_matrix.txt Data/input_matrix.csv
