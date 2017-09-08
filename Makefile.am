@@ -7,6 +7,8 @@ $(top_srcdir)/.version:
 dist-hook:
 	echo $(VERSION) > $(distdir)/.tarball-version
 
+EXTRA_DIST += $(top_srcdir)/ext/scythestat-1.0.3 $(top_srcdir)/ext/shapelib-1.3.0
+
 include src/Makefile.mk
 
 pdf-local: pdf-local-manual
