@@ -51,6 +51,7 @@ ifxetex		  \
 latexmk       \
 lm-math       \
 logreq        \
+mdframed	  \
 multirow	  \
 tracklang     \
 units         \

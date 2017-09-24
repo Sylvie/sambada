@@ -78,7 +78,9 @@ ec            \
 etoolbox      \
 float		  \
 ifxetex		  \
+hyperref	  \
 latexmk       \
+mdframed	  \
 multirow	  \
 lm-math       \
 logreq        \
