@@ -48,6 +48,6 @@ script:
   - make CXX=$COMPILER
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
   - ls -R
-  - make distcheck
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then make dist; fi
+  - make clean distcheck
+  - ls -R
   - cd ..
