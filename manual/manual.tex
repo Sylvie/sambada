@@ -8,15 +8,22 @@
 \usepackage[utf8]{inputenc}
 \usepackage[french,english]{babel}
 
-\ifdefined\versionnum
+\usepackage[useregional]{datetime2}
+
+\def\printdate#1{\expandafter\printdateprivate#1\relax}
+\def\printdateprivate#1-#2-#3\relax{ \expandafter\DTMdisplaydate{#1}{#2}{#3}{-1} }
+
+\ifdefined\versionnumber
 
 \else
-  \newcommand{\versionnum}{unknown} 
+	\newcommand{\versionnumber}{unknown} 
 \fi
 
-
-
-
+\ifdefined\releasedate
+	\date{ \printdate{\releasedate} }
+\else
+ 
+\fi
 
 \usepackage{url}
 \usepackage{graphicx}
@@ -154,14 +161,13 @@
 Laboratory of Geographic Information Systems (LASIG), School of Civil and Environmental Engineering (ENAC), Ecole Polytechnique Fédérale de Lausanne (EPFL), Bâtiment GC, Station 18, 1015 Lausanne, Switzerland \newline
 Webpage: \protect\url{lasig.epfl.ch/sambada} \newline Contact: sylvie.stucki@a3.epfl.ch, stephane.joost@epfl.ch
 }}
-
 \begin{document}
 
 \maketitle
 
 \vspace{-1.25cm}
 \begin{center}
-\small Version \versionnum
+\small Version \versionnumber
 \end{center}
 
 \vfill
@@ -538,9 +544,9 @@ However the actual names of the compiled programs also contain the version numbe
 When running the commands provided as examples, please use the names of the programs found in the directory \enquote{Binaries}.
 For instance: \\
 \begin{tabular}{lll}
-\prog{Sambada}		& $\Rightarrow$ & \prog{Sambada-\versionnum-Win64.exe}	\\
-\prog{Supervision}		& $\Rightarrow$ & \prog{Supervision-\versionnum-OSX}		\\
-\prog{RecodePLINK}	& $\Rightarrow$ & \prog{RecodePlink-\versionnum-Ubuntu}	 \\
+\prog{Sambada}		& $\Rightarrow$ & \prog{Sambada-\versionnumber-Win64.exe}	\\
+\prog{Supervision}		& $\Rightarrow$ & \prog{Supervision-\versionnumber-OSX}		\\
+\prog{RecodePLINK}	& $\Rightarrow$ & \prog{RecodePlink-\versionnumber-Ubuntu}	 \\
 \end{tabular} \\
 Hint: Most terminal/console interpreters enable auto-completion of names by hitting the \enquote{TAB} key.
 

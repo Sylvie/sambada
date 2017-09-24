@@ -2,21 +2,21 @@
 #    environment configuration    #
 #---------------------------------#
 # scripts that are called at very beginning, before repo cloning
-init:
+#init:
 #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 # build cache to preserve files/folders between builds
 #cache:
-#  - C:\ProgramData\chocolatey\bin -> appveyor.yml
-#  - C:\ProgramData\chocolatey\lib -> appveyor.yml
-#  - C:\Program Files\MiKTeX 2.9 -> appveyor.yml
-#  - C:\Users\appveyor\AppData\Roaming\MiKTeX\2.9 -> appveyor.yml
+  - C:\ProgramData\chocolatey\bin -> appveyor.yml
+  - C:\ProgramData\chocolatey\lib -> appveyor.yml
+  - C:\Program Files\MiKTeX 2.9 -> appveyor.yml
+  - C:\Users\appveyor\AppData\Roaming\MiKTeX\2.9 -> appveyor.yml
 
 # scripts that run after cloning repository
 install:
-#  - ps: choco install miktex
-#  - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
-#  - ps: initexmf --set-config-value [MPM]AutoInstall=1
+  - ps: choco install miktex
+  - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
+  - ps: initexmf --set-config-value [MPM]AutoInstall=1
 
 #---------------------------------#
 #       build configuration       #
@@ -26,6 +26,7 @@ platform: windows
 
 build_script:
   - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\x86_64-w64-mingw32;
+  - ps: $env:sambada_version=(bash -c './git-version-gen .version')
   - bash -c "autoreconf -i"
   - mkdir build
   - cd build
@@ -40,7 +41,7 @@ build_script:
 artifacts:
 
 # pushing entire folder as a zip archive
-#- path: build\tiny-sam-$(tinysam_version)-%PLATFORM%
+#- path: build\sambada-$(sambada_version)-%PLATFORM%
 
 #---------------------------------#
 #     deployment configuration    #
@@ -68,6 +69,6 @@ deploy:
 #- do something
 
 # after build failure or success
-on_finish:
+#on_finish:
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 

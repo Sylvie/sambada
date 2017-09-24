@@ -1,0 +1,27 @@
+#!/bin/sh
+# Print a release date string as YYYY-MM-DD.
+# The script returns the first value found in:
+# 1. the file provided as argument if present;
+# 2. the date of the last commit if no change was made since then;
+# 3. the current date.
+
+releasedate=
+gitdiffindex=
+
+if test $# -gt 0; then
+	releasedate_file="$1";
+	if [ -f $releasedate_file ]; then
+		releasedate=`cat .releasedate`;
+	fi
+fi
+
+if test "x$releasedate" != x; then
+	: # use releasedate
+elif test "`git log -1 --pretty=format:x . 2>&1`" = x \
+	&& gitdiffindex=`git diff-index HEAD -- | wc -l` \
+	&& test $gitdiffindex'x' = '0x' ; then
+	releasedate=`git log -1 --format=%ad --date=short`
+else
+	releasedate=`date "+%Y-%m-%d"`
+fi
+echo $releasedate

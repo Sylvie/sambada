@@ -5,6 +5,9 @@ dnl Finally run make to generate the project.
 AC_INIT([Sambada], m4_esyscmd([./git-version-gen .tarball-version]), [sylvie.stucki@a3.epfl.ch], [sambada], [lasig.epfl.ch/sambada])
 AM_INIT_AUTOMAKE([foreign subdir-objects dist-zip])
 
+sambada_releasedate=m4_esyscmd([./git-releasedate-gen .tarball-releasedate])
+AC_SUBST(sambada_releasedate)
+
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_RANLIB
@@ -20,7 +23,7 @@ AC_MSG_NOTICE([host_os = ${host_os}])
 build_linux=no
 build_windows=no
 build_mac=no
-tiny_sam_system_name=""
+system_name=""
 
 # Detect the target system
 case "${host_os}" in
