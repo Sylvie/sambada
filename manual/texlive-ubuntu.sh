@@ -68,9 +68,11 @@ biber         \
 biblatex      \
 caption		  \
 carlisle	  \
+csquote		  \
 datetime2     \
 datetime2-english \
 datetime2-french  \
+enumitem	  \
 etoolbox      \
 ec            \
 etoolbox      \

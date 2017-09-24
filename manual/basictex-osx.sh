@@ -41,6 +41,7 @@ adobemapping  \
 biber         \
 biblatex      \
 caption		  \
+csquote		  \
 datetime2     \
 datetime2-english \
 datetime2-french  \
