@@ -45,6 +45,7 @@ csquotes	  \
 datetime2     \
 datetime2-english \
 datetime2-french  \
+dirtree		  \
 enumitem	  \
 etoolbox	  \
 ifxetex		  \

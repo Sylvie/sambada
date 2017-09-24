@@ -72,6 +72,7 @@ csquotes	  \
 datetime2     \
 datetime2-english \
 datetime2-french  \
+dirtree		  \
 enumitem	  \
 etoolbox      \
 ec            \
@@ -80,6 +81,7 @@ float		  \
 ifxetex		  \
 hyperref	  \
 latexmk       \
+l3kernel	  \
 l3packages	  \
 lm-math       \
 logreq        \
