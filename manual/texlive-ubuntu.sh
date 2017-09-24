@@ -74,6 +74,7 @@ datetime2-french  \
 etoolbox      \
 ec            \
 etoolbox      \
+float		  \
 ifxetex		  \
 latexmk       \
 multirow	  \

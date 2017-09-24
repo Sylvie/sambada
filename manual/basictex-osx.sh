@@ -44,6 +44,7 @@ caption		  \
 datetime2     \
 datetime2-english \
 datetime2-french  \
+enumitem	  \
 etoolbox	  \
 ifxetex		  \
 latexmk       \
