@@ -40,6 +40,7 @@ siunitx       \
 adobemapping  \
 biber         \
 biblatex      \
+caption		  \
 datetime2     \
 datetime2-english \
 datetime2-french  \
@@ -51,7 +52,8 @@ logreq        \
 tracklang     \
 units         \
 xkeyval		  \
-xstring
+xstring		  \
+was
 
 # Keep no backups (not required, simply makes cache bigger)
 sudo tlmgr option -- autobackup 0

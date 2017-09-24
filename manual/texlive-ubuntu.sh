@@ -66,6 +66,7 @@ babel-english \
 babel-french  \
 biber         \
 biblatex      \
+caption		  \
 carlisle	  \
 datetime2     \
 datetime2-english \
@@ -86,7 +87,8 @@ url           \
 xcolor        \
 xkeyval		  \
 xstring       \
-xunicode
+xunicode	  \
+was
 
 # Keep no backups (not required, simply makes cache bigger)
 tlmgr option -- autobackup 0
