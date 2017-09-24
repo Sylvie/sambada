@@ -49,6 +49,7 @@ ifxetex		  \
 latexmk       \
 lm-math       \
 logreq        \
+multirow	  \
 tracklang     \
 units         \
 xkeyval		  \

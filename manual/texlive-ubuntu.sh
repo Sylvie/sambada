@@ -76,6 +76,7 @@ ec            \
 etoolbox      \
 ifxetex		  \
 latexmk       \
+multirow	  \
 lm-math       \
 logreq        \
 pgf           \
