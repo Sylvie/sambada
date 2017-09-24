@@ -53,6 +53,7 @@ lm-math       \
 logreq        \
 mdframed	  \
 multirow	  \
+needspace	  \
 tracklang     \
 units         \
 xkeyval		  \

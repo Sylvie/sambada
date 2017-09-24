@@ -80,10 +80,12 @@ float		  \
 ifxetex		  \
 hyperref	  \
 latexmk       \
-mdframed	  \
-multirow	  \
+l3packages	  \
 lm-math       \
 logreq        \
+mdframed	  \
+multirow	  \
+needspace	  \
 pgf           \
 tools         \
 tracklang     \
