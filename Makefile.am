@@ -16,6 +16,11 @@ include src/Makefile.mk
 
 pdf-local: pdf-local-manual
 
+include manual/Makefile.mk
+
+dist_pkgdata_DATA =
+include examples/Makefile.mk
+
 archive_basename = $(builddir)/$(PACKAGE)-$(VERSION)-$(system_name)
 archive_binaries_basename = $(archive_basename)/binaries
 
@@ -41,4 +46,4 @@ distclean-local: distclean-local-manual
 repo-clean: maintainer-clean
 	rm -rf $(REPOCLEANFILES)
 
-include manual/Makefile.mk
+
