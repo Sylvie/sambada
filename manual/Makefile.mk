@@ -37,7 +37,7 @@ pdf-local-manual: $(manual_pdf) manual/latexmkrc
 binary-archive-local-manual:
 	cp -f $(manual_pdf) $(archive_basename)
 
-clean-local-manual:
+clean-local-manual: prepare_latexmkrc_file
 	if [ -d "$(manual_directory)" ] && [ -e "$(manual_directory)$(manual_filename)" ] ; then \
 		cd $(manual_directory) && \
 		pwd && \
