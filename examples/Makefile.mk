@@ -1,4 +1,4 @@
-dist_pkgdata_DATA += \
+example_files = \
 	examples/DataFromManual \
 	examples/DataFromManual/OneDataFile \
 	examples/DataFromManual/OneDataFile/combo-data.txt \
@@ -20,3 +20,5 @@ dist_pkgdata_DATA += \
 	examples/SubsetCattleSNP/extrait_marq.txt \
 	examples/SubsetCattleSNP/paramTest.txt \
 	examples/SubsetCattleSNP/TableEnvUG.csv
+
+dist_pkgdata_DATA += $(example_files)

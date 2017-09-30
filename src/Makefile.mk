@@ -1,4 +1,6 @@
-bin_PROGRAMS = binaries/sambada binaries/supervision binaries/recode-plink binaries/recode-plink-lfmm
+sambada_binaries = binaries/sambada binaries/supervision binaries/recode-plink binaries/recode-plink-lfmm
+
+bin_PROGRAMS += binaries/sambada binaries/supervision binaries/recode-plink binaries/recode-plink-lfmm
 
 binaries_sambada_SOURCES = src/mainSambada.cpp \
 	src/RegressionLogistique-io.cpp \
