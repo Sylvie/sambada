@@ -1,6 +1,8 @@
+## Building binaries ##
+
 sambada_binaries = binaries/sambada binaries/supervision binaries/recode-plink binaries/recode-plink-lfmm
 
-bin_PROGRAMS += binaries/sambada binaries/supervision binaries/recode-plink binaries/recode-plink-lfmm
+bin_PROGRAMS += $(sambada_binaries)
 
 binaries_sambada_SOURCES = src/mainSambada.cpp \
 	src/RegressionLogistique-io.cpp \
@@ -74,3 +76,6 @@ libshp_a_SOURCES = ext/shapelib-1.3.0/shpopen.c \
 	ext/shapelib-1.3.0/safileio.c \
 	ext/shapelib-1.3.0/shptree.c \
 	ext/shapelib-1.3.0/shapefil.h
+## Cleaning ##
+clean-local-src:
+	 $(RM) -rf $(addsuffix .dSYM , $(sambada_binaries))

@@ -40,7 +40,7 @@ DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 REPOCLEANFILES = $(addprefix $(srcdir)/, aclocal.m4 compile configure config.guess config.sub depcomp install-sh Makefile.in missing)
 
-clean-local: clean-local-manual
+clean-local: clean-local-src clean-local-manual
 
 distclean-local: distclean-local-manual
 
