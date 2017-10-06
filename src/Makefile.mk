@@ -76,6 +76,16 @@ libshp_a_SOURCES = ext/shapelib-1.3.0/shpopen.c \
 	ext/shapelib-1.3.0/safileio.c \
 	ext/shapelib-1.3.0/shptree.c \
 	ext/shapelib-1.3.0/shapefil.h
+
+## Building archive ##
+archive_binaries_basename = $(archive_basename)/binaries
+
+create-archive-binaries-folder:
+	mkdir -p $(archive_binaries_basename)
+
+binary-archive-local-binaries: $(sambada_binaries) create-archive-binaries-folder
+	cp $(sambada_binaries) $(archive_binaries_basename)
+
 ## Cleaning ##
 clean-local-src:
 	 $(RM) -rf $(addsuffix .dSYM , $(sambada_binaries))

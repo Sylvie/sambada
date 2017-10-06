@@ -1,3 +1,5 @@
+## Examples ##
+
 example_files = \
 	examples/DataFromManual/OneDataFile/combo-data.txt \
 	examples/DataFromManual/OneDataFile/param-combo-a.txt \
@@ -17,3 +19,12 @@ example_files = \
 	examples/SubsetCattleSNP/TableEnvUG.csv
 
 dist_pkgdata_DATA += $(example_files)
+
+## Building archive ##
+archive_examples_basename = $(archive_basename)/examples
+
+create-archive-example-folder:
+	mkdir -p $(archive_examples_basename)
+
+binary-archive-local-examples: create-archive-example-folder
+	cp $(example_files) $(archive_examples_basename)
