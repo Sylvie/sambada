@@ -25,6 +25,7 @@ archive_examples_basename = $(archive_basename)/examples
 
 create-archive-example-folder:
 	mkdir -p $(archive_examples_basename)
+	$(subst ^, , $(addprefix mkdir^-p^, $(patsubst %,^%;,$(sort $(dir $(addprefix $(archive_basename)/, $(example_files)))))))
 
 binary-archive-local-examples: create-archive-example-folder
-	cp $(example_files) $(archive_examples_basename)
+	$(subst ^, ,$(join $(addprefix cp^, $(addprefix $(top_srcdir)/, $(example_files))),$(patsubst %,^%;,$(dir $(addprefix $(archive_basename)/, $(example_files))))))
