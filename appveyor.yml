@@ -35,6 +35,8 @@ build_script:
   - make.exe
   - ls -R binaries
   - ps: .\binaries\sambada.exe ..\Data\Example_parameters_input_matrix.txt ..\Data\input_matrix.csv
+  - make binary-archive
+  - ls -R
 
 #---------------------------------#
 #      artifacts configuration    #
@@ -49,13 +51,13 @@ artifacts:
 #---------------------------------#
 deploy:
   # Deploy to GitHub Releases
-#  - provider: GitHub
-#    auth_token:
-#      secure: /nU7mUteW5yQE7WTvX8WQmsR2/qhQr5p34xBndoB9YfP1pTTLxjFdem3OAsMexyR
-#    draft: false
-#    prerelease: false
-#    on:
-#      appveyor_repo_tag: true       # deploy on tag push only
+  - provider: GitHub
+    auth_token:
+      secure: /nU7mUteW5yQE7WTvX8WQmsR2/qhQr5p34xBndoB9YfP1pTTLxjFdem3OAsMexyR
+    draft: false
+    prerelease: false
+    on:
+      appveyor_repo_tag: true       # deploy on tag push only
 
 #---------------------------------#
 #        global handlers          #
