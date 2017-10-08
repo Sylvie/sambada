@@ -44,7 +44,7 @@ build_script:
 artifacts:
 
 # pushing entire folder as a zip archive
-#- path: build\sambada-$(sambada_version)-%PLATFORM%
+  - path: build\sambada-$(sambada_version)-%PLATFORM%
 
 #---------------------------------#
 #     deployment configuration    #
