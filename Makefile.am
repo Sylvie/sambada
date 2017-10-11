@@ -3,7 +3,7 @@
 ## Version and release date ##
 
 EXTRA_DIST = $(top_srcdir)/.version $(top_srcdir)/.releasedate
-BUILT_SOURCES = $(top_srcdir)/.version $(top_srcdir)/.releasedate
+BUILT_SOURCES = $(top_srcdir)/.version $(top_srcdir)/.releasedate VERSION
 $(top_srcdir)/.version:
 	echo $(VERSION) > $@-t && mv $@-t $@
 $(top_srcdir)/.releasedate:
@@ -30,6 +30,15 @@ include manual/Makefile.mk
 dist_pkgdata_DATA =
 include examples/Makefile.mk
 
+## General information ##
+general_info_files = AUTHORS CHANGELOG COPYING README
+dist_doc_DATA = $(general_info_files) VERSION
+
+VERSION: $(top_srcdir)/.version $(top_srcdir)/.releasedate
+	echo Version: $(VERSION) > $@-t && \
+	echo Release date: $(sambada_releasedate) >> $@-t && \
+	mv $@-t $@
+
 ## Building archive ##
 
 archive_basename = $(builddir)/$(PACKAGE)-$(VERSION)-$(system_name)
@@ -41,6 +50,8 @@ binary-archive: all pdf create-archive-folder
 	$(MAKE) binary-archive-local-binaries
 	$(MAKE) binary-archive-local-manual
 	$(MAKE) binary-archive-local-examples
+	cp $(addprefix $(top_srcdir)/, $(general_info_files)) $(archive_basename)
+	cp VERSION $(archive_basename)
 	tar -zcvf $(archive_basename).tar.gz $(archive_basename)
 
 ## Cleaning ##
