@@ -1,7 +1,8 @@
 manual_filename = manual.tex
 manual_directory := "manual/"
 manual_sources := $(top_srcdir)/manual/$(manual_filename) $(top_srcdir)/manual/manual.bib
-manual_pdf := $(builddir)/manual/manual.pdf
+manual_output_filename := sambadoc
+manual_pdf := $(builddir)/manual/$(manual_output_filename).pdf
 
 EXTRA_DIST += $(manual_sources) $(top_srcdir)/manual/latexmkrc_template $(builddir)/manual/latexmkrc
 BUILT_SOURCES += manual/latexmkrc
@@ -10,8 +11,8 @@ if HAVE_LATEXMK
 EXTRA_DIST += $(manual_pdf)
 endif
 
-LATEXMK_BUILD = $(LATEXMK) -r $(builddir)/manual/latexmkrc -output-directory=$(manual_directory)
-LATEXMK_CLEAN = $(LATEXMK) -r ../$(builddir)/manual/latexmkrc
+LATEXMK_BUILD = $(LATEXMK) -r $(builddir)/manual/latexmkrc -output-directory=$(manual_directory) -jobname=$(manual_output_filename)
+LATEXMK_CLEAN = $(LATEXMK) -r ../$(builddir)/manual/latexmkrc -jobname=$(manual_output_filename)
 
 prepare_manual_directory:
 	if [ "$(top_srcdir)" != "$(top_builddir)" ]; then \
@@ -30,6 +31,9 @@ prepare_latexmkrc_file: | prepare_manual_directory
 manual/latexmkrc: prepare_latexmkrc_file
 
 pdf-local-manual: $(manual_pdf) manual/latexmkrc
+
+manual/$(manual_output_filename).pdf : $(top_srcdir)/manual/$(manual_filename) manual/latexmkrc
+	$(LATEXMK_BUILD) -pdf $<
 
 %.pdf : %.tex manual/latexmkrc
 	$(LATEXMK_BUILD) -pdf $<
