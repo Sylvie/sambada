@@ -1,22 +1,22 @@
 ## Examples ##
 
 example_files = \
-	examples/DataFromManual/OneDataFile/combo-data.txt \
-	examples/DataFromManual/OneDataFile/param-combo-a.txt \
-	examples/DataFromManual/OneDataFile/param-combo-b.txt \
-	examples/DataFromManual/OneDataFile/param-combo.txt \
-	examples/DataFromManual/OneDataFile/param-split-combo.txt \
-	examples/DataFromManual/TwoDataFiles/env-data.txt \
-	examples/DataFromManual/TwoDataFiles/mol-data.txt \
-	examples/DataFromManual/TwoDataFiles/param-a.txt \
-	examples/DataFromManual/TwoDataFiles/param-b.txt \
-	examples/DataFromManual/TwoDataFiles/param-split.txt \
-	examples/DataFromManual/TwoDataFiles/param.txt \
-	examples/RandomData/input-Sample100.txt \
-	examples/RandomData/Sample100.txt \
-	examples/SubsetCattleSNP/extrait_marq.txt \
-	examples/SubsetCattleSNP/paramTest.txt \
-	examples/SubsetCattleSNP/TableEnvUG.csv
+	examples/data-from-manual/one-data-file/combo-data.txt \
+	examples/data-from-manual/one-data-file/param-combo-a.txt \
+	examples/data-from-manual/one-data-file/param-combo-b.txt \
+	examples/data-from-manual/one-data-file/param-combo.txt \
+	examples/data-from-manual/one-data-file/param-split-combo.txt \
+	examples/data-from-manual/two-data-files/env-data.txt \
+	examples/data-from-manual/two-data-files/mol-data.txt \
+	examples/data-from-manual/two-data-files/param-a.txt \
+	examples/data-from-manual/two-data-files/param-b.txt \
+	examples/data-from-manual/two-data-files/param-split.txt \
+	examples/data-from-manual/two-data-files/param.txt \
+	examples/random-data/param-sample100.txt \
+	examples/random-data/sample100.txt \
+	examples/subset-cattle-SNP/subset-mark.txt \
+	examples/subset-cattle-SNP/param-subset.txt \
+	examples/subset-cattle-SNP/table-env-UG.csv
 
 dist_pkgdata_DATA += $(example_files)
 
