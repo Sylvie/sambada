@@ -17,10 +17,14 @@ matrix:
       directories:
       - "/tmp/texlive"
       - "$HOME/.texlive"
-    env: COMPILER=g++-5
+    env:
+      - COMPILER=g++-5
+      - SAMBADA_OS_NAME=ubuntu
   - os: osx
     compiler: gcc
-    env: COMPILER=g++
+    env:
+      - COMPILER=g++
+      - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
     - ls /usr/local/texlive/
@@ -39,7 +43,7 @@ script:
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
   - cd build
-  - "../configure sambadahostsystemname=${TRAVIS_OS_NAME}"
+  - "../configure sambadahostsystemname=${SAMBADA_OS_NAME}"
   - make pdf
   - make CXX=$COMPILER
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
@@ -54,7 +58,7 @@ deploy:
   api_key:
     secure: CzbfMbZGdbn0y6mATV2wN8trTAmJ6QHvXI7LxLjV4P45v3/9fAKD/nXM49xdxnhv+FZZ56mW9qi42FrHzYk/n5f73kHqgpKyRyVIiox5wtgQH/de4J0N1gmR8BbP8bC7v3k2pfKwbtcKcWDtmrnpnb86XJe9XZ2wSaD1Tetifb/uZC8SIdf9X0pxcnfFcG3+Rg0Dvvn7YQ0M1yDXtMZ0AdOICQ2HxfGz+x/rMvC0hE+qY0T3a7LqFA6+gOaV9cP8SfbM9ZSvT5Von8VibTZOD78HF+PEZg4CCE99zvW4iO2VfnQWmMgIUTE6yIrE8G3rxCTWWRX8H91PLVSE+RWNFYaNbLeXTkapuWsLLRR+PLDhgE/H+gBUcji3XcSwUrG7M8QAfuzhv1aiS/p7WvhE/3CXU2SkhllQTi6/PWcJn9MmTd2NCFJEkuy0L6Jo+lw+dKbztt2kMol6pM2fjByf5XThhuPjGX81cVX2iGpbHBqL0agiSkLUybwPevJcAKS8UKJPkFRsCe+Nwt9iPm8R/ZdUOQW/0PJYLDBSuB8nalnEhlqik5BJ4T/9fIu24Hc8SyiI/PZ5ZxMPmuMkuBhAs5NcO/Mae82Ugvuj5zBtSvD5RMx1fMKuG4eyhtgbI9vsSgpKWduRGkyxZp9tysgaCWcrYSsSyGv/HO2shp2Fn6w=
   file:
-    - build/sambada-${sambada_version}-${TRAVIS_OS_NAME}.tar.gz
+    - build/sambada-${sambada_version}-${SAMBADA_OS_NAME}.tar.gz
     - build/sambada-${sambada_version}.tar.gz
     - build/sambada-${sambada_version}.zip
   skip_cleanup: true
