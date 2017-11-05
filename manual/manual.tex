@@ -190,18 +190,31 @@ Underlying models are kept simple to put emphasis on process efficiency and user
 
 
 \section{Installation}
-Software, source code, documentation and examples are available on our webpage \url{lasig.epfl.ch/sambada}.
+Software, source code, documentation and examples are available on our webpage \url{lasig.epfl.ch/sambada} and on GitHub \url{https://github.com/Sylvie/sambada/releases}.
 
 \subsubsection*{Executable binaires}
 Compiled versions of \smb\ are already packaged for Windows, Mac OS and Ubuntu.
 Download and expand the archive at the location of your choice.
 
 \subsubsection*{Compiling from sources}
-Just run \prog{make} in the source folder, the executables are placed in the subfolder \prog{binaries}.
+\smb\ can be built from source using the GNU Build System (a.k.a Autotools).
+The distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) contains all files needed for the compilation. 
+Provided that \prog{make} is installed on your machine, the simplest build process consists in:
+\begin{itemize}
+\item{downloading and expanding the distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) at the location of your choice;} 
+\item{running \prog{./configure \&\& make} in the folder \prog{sambada-\versionnumber}.}
+\end{itemize}
+The executables are placed in the subfolder \prog{binaries}.
+
+Some further information: 
+\begin{itemize}
+\item{The folder containing all artefacts for the end-user can be built with \prog{make binary-archive}.}
+\item{The script \prog{configure} provides the option \prog{sambadahostsystemname} to choose the system name used for naming the artefacts' folder.}
+\end{itemize}
 
 \subsubsection*{Documentation}
 Software usage is explained in this manual.
-Theoretical background is covered by \smb's release article [in preparation] and \textcite{joost:2007}.
+Theoretical background is covered by \smb's release article \textcite{stucki:2016} and \textcite{joost:2007}.
 Extended information on methods and implementation can be found in \textcite{stucki:2014} (in French).
 
 \subsubsection*{Examples}

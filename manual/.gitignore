@@ -9,5 +9,8 @@
 *.pdf
 *.run.xml
 *.toc
+*.top
+*.tui
+*-mpgraph.mp
 *.synctex.gz
 latexmkrc
