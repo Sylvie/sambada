@@ -232,18 +232,37 @@ In this case, the spatial autocorrelation takes some time to compute.
 
 Provided you have the file tree shown on fig.~\ref{fig:filetree},
 if you launch a shell\footnote{\prog{Command Line} or \prog{PowerShell} on Windows, \prog{Terminal} on Mac OS and Linux, see p.~\pageref{faq:commandline}.} and navigate to the folder \prog{RandomData} or \prog{SubsetCattleSNP}, examples can be run using: \\
-\verb+../../Binaries/Sambada.exe input-Sample100.txt Sample100.txt+ or\\
-\verb+../../Binaries/Sambada.exe paramTest.txt TableEnvUG.csv extrait\_marq.txt+
+\verb+../../Binaries/sambada.exe input-Sample100.txt Sample100.txt+ or\\
+\verb+../../Binaries/sambada.exe paramTest.txt TableEnvUG.csv extrait\_marq.txt+ \\
 \label{sec:examples-launch}
+on Windows, and \\
+\verb+../../Binaries/sambada input-Sample100.txt Sample100.txt+ or\\
+\verb+../../Binaries/sambada paramTest.txt TableEnvUG.csv extrait\_marq.txt+
+on Linux and OS~X.
+
+\paragraph{Note on programs' names} 
+In the main text of this manual, the programs are identified with proper nouns (\prog{Sambada}, \prog{Supervision} and \prog{RecodePLINK}).
+However the names of the compiled programs are written in lowercase to ease typing in the Console and Terminal.
+This alternate spelling is also used in the command examples of this manual.
+Please note that Windows uses the suffix ".exe" for program names.
+These considerations lead to the following naming conventions: \\
+\begin{tabular}{llll}
+Name in main text		& Software name on & Windows  &	Linux \& OS~X		\\
+\prog{Sambada}		& $\Rightarrow$ & \prog{sambada.exe} & \prog{sambada} 	\\
+\prog{Supervision}		& $\Rightarrow$ & \prog{supervision.exe}	& \prog{supervision}	\\
+\prog{RecodePLINK}		& $\Rightarrow$ & \prog{recode-plink.exe}	 & \prog{recode-plink}	 \\
+\end{tabular} \\
+In case of doubt, please use the names of the programs found in the directory \enquote{Binaries}.
+Hint: Most command line interpreters enable auto-completion of names by hitting the \enquote{TAB} key.
 
 \begin{figure}[htbp]
 \dirtree{% 
 .1 Sambada. 
 .2 Manual.pdf. 
 .2 Binaries. 
-.3 Sambada.exe.
-.3 Supervision.exe.
-.3 RecodePLINK.exe.
+.3 sambada.exe.
+.3 supervision.exe.
+.3 recode-plink.exe.
 .2 Examples.
 .3 DataFromManual.
 .4 OneDataFile.
@@ -540,28 +559,16 @@ Sample names are provided once, thus there is one molecular column less.}
 \subsubsection{Program launch}
 
 \smb\ is launched as follows if environmental and molecular data are stored in the same file:
-\begin{launch} Sambada parameterFile dataFile\end{launch}
+\begin{launch} sambada parameterFile dataFile\end{launch}
 The command changes slightly if there are two separated input files:\\
-\begin{launch} Sambada parameterFile envFile molecularFile \end{launch}
+\begin{launch} sambada parameterFile envFile molecularFile \end{launch}
 
 \noindent Therefore examples 1 and 2 would be launched with:\\
-\verb+ Sambada param.txt env-data.txt mol-data.txt+\\
+\verb+ sambada param.txt env-data.txt mol-data.txt+\\
 and\\
-\verb+ Sambada param-combo.txt combo-data.txt+\\
+\verb+ sambada param-combo.txt combo-data.txt+\\
 respectively.
 Futher examples are provided on p.~\pageref{sec:examples-launch}.
-
-\paragraph{Note on programs' names} 
-In this manual, the programs are designated by their canonical names (\prog{Sambada}, \prog{Supervision} and \prog{RecodePLINK}).
-However the actual names of the compiled programs also contain the version number and the name of the target operating system.
-When running the commands provided as examples, please use the names of the programs found in the directory \enquote{Binaries}.
-For instance: \\
-\begin{tabular}{lll}
-\prog{Sambada}		& $\Rightarrow$ & \prog{Sambada-\versionnumber-Win64.exe}	\\
-\prog{Supervision}		& $\Rightarrow$ & \prog{Supervision-\versionnumber-OSX}		\\
-\prog{RecodePLINK}	& $\Rightarrow$ & \prog{RecodePlink-\versionnumber-Ubuntu}	 \\
-\end{tabular} \\
-Hint: Most terminal/console interpreters enable auto-completion of names by hitting the \enquote{TAB} key.
 
 \subsubsection{List of options\label{seq:liste-options}}
 
@@ -1163,7 +1170,7 @@ Arrows show processing order for environmental data (dashed line) and for molecu
 \subsubsection{Split process}
 Information about splitting are provided by a parameter file and the processed is launched as follow: 
 \begin{launch}
-Supervision parameterFile
+supervision parameterFile
 \end{launch}
 The parameter file must contain the six following lines (in the same order):
 \begin{figure}[H]
@@ -1193,7 +1200,7 @@ The molecular file names contains two numbers, the first one is the block number
 \paragraph{Example 1} 
 Let's assume the data of fig. \ref{fig:molfile} is stored in \verb+mol-data.txt+ and that we want blocks of four markers.
 The corresponding parameter file is shown on fig. \ref{fig:paramSupervision-mol} and the splitting is performed as follows:\\
-\verb+Supervision param-split.txt+\\
+\verb+supervision param-split.txt+\\
 The resulting data files (\texttt{mol-data-env.txt}, \texttt{mol-data-mark-0-0.txt} and \texttt{mol-data-1-4.txt}) are displayed on fig. \ref{fig:molfile-split}.
 
 \begin{figure}[H]
@@ -1275,7 +1282,7 @@ Thus it must be indicated as a supplementary column to \smb\ (option COLSUPENV, 
 \prog{Supervision} can split combined data files, containing both environmental and molecular information. 
 Figure \ref{fig:paramSupervision-molenv} shows the parameter file used to split data from fig. \ref{fig:molenvfile} (stored in \texttt{combo-data.txt}) in blocks of three markers.
 The splitting is performed as follows:\\
-\verb+Supervision param-split-combo.txt+\\
+\verb+supervision param-split-combo.txt+\\
 The data files will be named \texttt{combo-data-env.txt}, \texttt{combo-data-mark-0-0.txt}, \texttt{combo-data-mark-1-3.txt} and \texttt{combo-data-mark-2-6.txt}, the latter will have only one column (see fig. \ref{fig:combo-split}).
 In this case, \texttt{combo-data-env.txt} will contain environmental data and can be used in \smb's analysis.
 As in the previous example, the column NAME cannot be used as an identifier since it was not copied to the molecular data.
@@ -1444,8 +1451,8 @@ SAVETYPE END ALL 0.01\\
 \end{figure}
 
 The analysis is launched with two commands:\\
-\verb+Sambada param-a.txt env-data.txt mol-data-mark-0-0.txt+\\
-\verb+Sambada param-b.txt env-data.txt mol-data-mark-1-4.txt+\\
+\verb+sambada param-a.txt env-data.txt mol-data-mark-0-0.txt+\\
+\verb+sambada param-b.txt env-data.txt mol-data-mark-1-4.txt+\\
 
 
 \paragraph{Example 2}
@@ -1509,16 +1516,16 @@ SAVETYPE END ALL 0.01\\
 \end{figure}
 
 The analysis is launched with three commands:\\
-\verb+Sambada param-combo-a.txt combo-data-env.txt combo-data-mark-0-0.txt+\\
-\verb+Sambada param-combo-a.txt combo-data-env.txt combo-data-mark-1-3.txt +\\
-\verb+Sambada param-combo-b.txt combo-data-env.txt combo-data-mark-2-6.txt+\\
+\verb+sambada param-combo-a.txt combo-data-env.txt combo-data-mark-0-0.txt+\\
+\verb+sambada param-combo-a.txt combo-data-env.txt combo-data-mark-1-3.txt +\\
+\verb+sambada param-combo-b.txt combo-data-env.txt combo-data-mark-2-6.txt+\\
 
 
 \subsubsection{Merge process}
 Once all blocks of markers have been analysed with \smb, \prog{Supervision} can merge the results.
 Copy every output file (whose name contains \prog{"-Out-"}) to a single folder, then launch the program as follows:
 \begin{launch}
-Supervision base-name.txt numBlock blockSize maxDimension
+supervision base-name.txt numBlock blockSize maxDimension
 \end{launch}
 \verb+base-name.txt+ is the name of the molecular or combined data file which was split in blocks.
 \verb+numBlocks+ and \verb+blockSize+ refer to the number of data blocks (including the last one) and to the size of the \enquote{complete} ones.
@@ -1530,15 +1537,15 @@ If the original data file is called \verb+base-name.txt+, the results files are 
 
 \paragraph{Example 1}
 Data file \verb+mol-data.txt+ was split in two blocks of four markers and the analysis involved univariate models:\\
- \verb+Supervision mol-data.txt 2 4 1+\\
+ \verb+supervision mol-data.txt 2 4 1+\\
 
 \paragraph{Example 2}
 Data file \verb+combo-data.txt+ was split in three blocks of three markers and the analysis involved univariate models:\\
- \verb+Supervision combo-data.txt 3 3 1+\\
+ \verb+supervision combo-data.txt 3 3 1+\\
  
 \prog{Supervision} also takes some optional arguments. The complete call is:
 \begin{launch}
-Supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
+supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
 \indent selScore scoreThreshold sortScore wordDelim
 \end{launch}
 \noindent \verb+selScore+ indicates which score(s) is/are used to select significant models; possible values are \verb+G+, \verb+Wald+ and \verb+BOTH+ (the default).
@@ -1559,22 +1566,22 @@ Optional arguments may be omitted from right to left. Thus the possible sets of 
 %\indent \verb+selScore scoreThreshold sortScore wordDelim+
 %\end{itemize}
 
-\begin{launch}Supervision base-name.txt numBlock blockSize maxDimension\end{launch}
-\begin{launch}Supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
+\begin{launch}supervision base-name.txt numBlock blockSize maxDimension\end{launch}
+\begin{launch}supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
 \indent selScore scoreThreshold\end{launch}
-\begin{launch}Supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
+\begin{launch}supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
 \indent selScore scoreThreshold sortScore \end{launch}
-\begin{launch}Supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
+\begin{launch}supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
 \indent selScore scoreThreshold sortScore wordDelim \end{launch}
 
 
 \subsection{\prog{RecodePLINK}}
 This tools allows the recoding of \prog{PLINK}'s \prog{.ped} and \prog{.map} files to \smb's format \parencite[see][for further information on this format]{purcell:2009}.
 \prog{RecodePLINK} is called as follows:\\
-\verb+RecodePLINK nbSamples nbSNPs inputFile outputFile+\\
+\verb+recode-plink nbSamples nbSNPs inputFile outputFile+\\
 In case only a subset of the samples are to be used, the list of sample names may be provided in a separate file (one name per line):\\
-\verb+RecodePLINK nbSamples nbSNPs inputFile outputFile subsetFile+\\
-Please note that RecodePLINK does not recognise comment lines in \prog{.ped}/\prog{.map} files at the moment. 
+\verb+recode-plink nbSamples nbSNPs inputFile outputFile subsetFile+\\
+Please note that \prog{RecodePLINK} does not recognise comment lines in \prog{.ped}/\prog{.map} files at the moment. 
 Please remove them before recoding.
 
 \clearpage
@@ -1586,7 +1593,7 @@ Don't panic, there are a couple of online tutorials.
 For Windows, you can start with \url{http://www.cs.princeton.edu/courses/archive/spr05/cos126/cmd-prompt.html}.
 (Hint: Use \prog{PowerShell} instead of the \prog{Command Line}.)
 
-Mac OS and Linux \prog{Terminal}s are basically the same, see for instance: \url{http://www.davidbaumgold.com/tutorials/command-line/}. 
+Mac OS~X and Linux \prog{Terminal}s are basically the same, see for instance: \url{http://www.davidbaumgold.com/tutorials/command-line/}. 
 
 \subsection*{My results do not make any sense! \label{faq:nonsense}}
 Check whether the samples in the environmental data are in the same order as those in the molecular data.
