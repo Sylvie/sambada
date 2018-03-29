@@ -225,19 +225,19 @@ The examples from this manual are build on this dataset in order to illustrate d
 \item[RandomSample] is a random set of 100 georeferenced points with two environmental variables and a molecular marker.
 The first environmental parameter is random, while the second one is correlated to longitude in order to provide some spatial autocorrelation.
 The molecular marker is random.
-\item[SubsetSNPCattle] contains 386 SNPs from Ugandan cattle [lien approprié].
+\item[SubsetCattleSNP] contains 386 SNPs from Ugandan cattle [lien approprié].
 They are already recoded for \smb, so there is three binary markers per loci.
 In this case, the spatial autocorrelation takes some time to compute.
 \end{description}
 
 Provided you have the file tree shown on fig.~\ref{fig:filetree},
-if you launch a shell\footnote{\prog{Command Line} or \prog{PowerShell} on Windows, \prog{Terminal} on Mac OS and Linux, see p.~\pageref{faq:commandline}.} and navigate to the folder \prog{RandomData} or \prog{SubsetCattleSNP}, examples can be run using: \\
-\verb+../../Binaries/sambada.exe input-Sample100.txt Sample100.txt+ or\\
-\verb+../../Binaries/sambada.exe paramTest.txt TableEnvUG.csv extrait\_marq.txt+ \\
+if you launch a shell\footnote{\prog{Command Line} or \prog{PowerShell} on Windows, \prog{Terminal} on Mac OS and Linux, see p.~\pageref{faq:commandline}.} and navigate to the folder \prog{random-data} or \prog{subset-cattle-SNP}, examples can be run using: \\
+\verb+../../binaries/sambada.exe param-sample100.txt sample100.txt+ or\\
+\verb+../../binaries/sambada.exe param-subset.txt table-env-UG.csv subset-mark.txt+ \\
 \label{sec:examples-launch}
 on Windows, and \\
-\verb+../../Binaries/sambada input-Sample100.txt Sample100.txt+ or\\
-\verb+../../Binaries/sambada paramTest.txt TableEnvUG.csv extrait\_marq.txt+
+\verb+../../binaries/sambada param-sample100.txt sample100.txt+ or\\
+\verb+../../binaries/sambada param-subset.txt table-env-UG.csv subset-mark.txt+
 on Linux and OS~X.
 
 \paragraph{Note on programs' names} 
@@ -252,27 +252,27 @@ Name in main text		& Software name on & Windows  &	Linux \& OS~X		\\
 \prog{Supervision}		& $\Rightarrow$ & \prog{supervision.exe}	& \prog{supervision}	\\
 \prog{RecodePLINK}		& $\Rightarrow$ & \prog{recode-plink.exe}	 & \prog{recode-plink}	 \\
 \end{tabular} \\
-In case of doubt, please use the names of the programs found in the directory \enquote{Binaries}.
+In case of doubt, please use the names of the programs found in the directory \enquote{binaries}.
 Hint: Most command line interpreters enable auto-completion of names by hitting the \enquote{TAB} key.
 
 \begin{figure}[htbp]
 \dirtree{% 
-.1 Sambada. 
-.2 Manual.pdf. 
-.2 Binaries. 
+.1 sambada-\versionnumber. 
+.2 sambadoc.pdf. 
+.2 binaries. 
 .3 sambada.exe.
 .3 supervision.exe.
 .3 recode-plink.exe.
-.2 Examples.
-.3 DataFromManual.
-.4 OneDataFile.
+.2 examples.
+.3 data-from-manual.
+.4 one-data-file.
 .5 combo-data.txt.
 .5 param-combo.txt.
 .5 $\dots$.
 %.5 param-combo-a.txt.
 %.5 param-combo-b.txt.
 %.5 param-split-combo.txt.
-.4 TwoDataFiles.
+.4 two-data-files.
 .5 env-data.txt.
 .5 mol-data.txt.
 .5 param.txt.
@@ -280,13 +280,13 @@ Hint: Most command line interpreters enable auto-completion of names by hitting 
 %.5 param-a.txt.
 %.5 param-b.txt.
 %.5 param-split.txt.
-.3 RandomData.
-.4 input-Sample100.txt.
-.4 Sample100.txt.
-.3 SubsetCattleSNP.
-.4 extrait\_marq.txt.
-.4 paramTest.txt.
-.4 TableEnvUG.csv.
+.3 random-data.
+.4 param-sample100.txt.
+.4 sample100.txt.
+.3 subset-cattle-SNP.
+.4 param-subset.txt.
+.4 subset-mark.txt.
+.4 table-env-UG.csv.
 }
 \caption{Suggested file tree to run the examples.}
 \label{fig:filetree}
@@ -1322,7 +1322,7 @@ ID4 & 32 & 987 & NaN & 232 & 83 \\
 ID5 & 32 & 987 & 238 & 232 & 83 \\ 
 ID6 & 35 & 1021 & 235 & 230 & 87 \\ 		\end{tabular}
 	\end{mdframed}
-	\parbox[l]{\textwidth}{\caption{File \texttt{mol-data-env.txt}\label{fig:combo-split-env}}}
+	\parbox[l]{\textwidth}{\caption{File \texttt{combo-data-env.txt}\label{fig:combo-split-env}}}
 	\end{subfigure}%
 	
 \vspace{2mm}	
