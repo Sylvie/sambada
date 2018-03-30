@@ -421,7 +421,7 @@ ID6	&	35	&	1021	&	235	&	230	&	87	& 	0	&1	&0	&0	&0	&1	&0\\
 	\end{mdframed}
 	\caption{Example of combined file for environmental and molecular data, corresponding to fig.~\ref{fig:envfile} and \ref{fig:molfile} (\texttt{combo-data.txt}).
 	Environmental data must be provided in the first columns (left part of the tabular), and molecular data in the last columns (right part).
-	The dentifier, if any, is considered as an environmental variable.}
+	The identifier, if any, is considered as an environmental variable.}
 	\label{fig:molenvfile}
 	\end{center}
 \end{figure}
@@ -623,7 +623,7 @@ The paragraph is completed by a description of the option.
 
 \textline{NUMVARENV}{M}{(int)}{-}
 {Number of columns with environmental variables, including ignored variables and the column of identifiers (if any).
-If there is one input file, this counts the number of columns that don't concern molecular data\footnotemark.
+If there is one input file, this counts the number of columns that do not concern molecular data\footnotemark.
 If there are two input files, NUMVARENV counts the total number of columns in the environmental data file.}
 
 \textline{NUMMARK}{M}{(int)}{-}
@@ -1198,7 +1198,7 @@ New data files are named automatically.
 The molecular file names contains two numbers, the first one is the block number (starting from 0) and the second one is the number of the first marker in the block (starting from 0 in the first block).
 
 \paragraph{Example 1} 
-Let's assume the data of fig. \ref{fig:molfile} is stored in \verb+mol-data.txt+ and that we want blocks of four markers.
+Let us assume the data of fig. \ref{fig:molfile} is stored in \verb+mol-data.txt+ and that we want blocks of four markers.
 The corresponding parameter file is shown on fig. \ref{fig:paramSupervision-mol} and the splitting is performed as follows:\\
 \verb+supervision param-split.txt+\\
 The resulting data files (\texttt{mol-data-env.txt}, \texttt{mol-data-mark-0-0.txt} and \texttt{mol-data-1-4.txt}) are displayed on fig. \ref{fig:molfile-split}.
