@@ -12,8 +12,8 @@ example_files = \
 	examples/data-from-manual/two-data-files/param-b.txt \
 	examples/data-from-manual/two-data-files/param-split.txt \
 	examples/data-from-manual/two-data-files/param.txt \
-	examples/random-data/param-sample100.txt \
-	examples/random-data/sample100.txt \
+	examples/random-data/param-random-sample.txt \
+	examples/random-data/random-sample.txt \
 	examples/subset-cattle-SNP/subset-mark.txt \
 	examples/subset-cattle-SNP/param-subset.txt \
 	examples/subset-cattle-SNP/table-env-UG.csv
