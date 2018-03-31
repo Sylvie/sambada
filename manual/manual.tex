@@ -52,6 +52,9 @@
 \newcommand{\smb}{\textsf{Sam$\upbeta$ada}}
 \newcommand{\prog}[1]{\texttt{#1}}
 \newcommand{\smbtitre}{\protect\texorpdfstring{\smb}{Samßada}}
+\newcommand{\pathtodatafrommanual}{\texttt{sambada-\versionnumber/examples/data-from-manual/}}
+\newcommand{\pathtoonedatafile}{\pathtodatafrommanual\texttt{one-data-file/}}
+\newcommand{\pathtotwodatafiles}{\pathtodatafrommanual\texttt{two-data-files/}}
 
 \captionsetup[figure]{name=Figure}
 \captionsetup[table]{name=Table}
@@ -363,7 +366,8 @@ If data is split between two files, sample must be in the same order in both fil
 Missing data can be coded as any character string, for instance \prog{NaN} or \prog{?}.
 Fig.~\ref{fig:envfile} and \ref{fig:molfile} are examples of environmental and molecular files.
 Fig.~\ref{fig:molenvfile} is the combined file for the same data.
-
+The files used in this manual are distributed with \smb. 
+Please refer to \pathtodatafrommanual.
 
 \begin{figure}[htbp]
 
@@ -380,7 +384,10 @@ ID6	&	35	&	1021	&	235	&	230	&	87		\\
 \end{tabular}
 	\end{mdframed}
 	\end{center}
-	\caption{Example of environmental file (\texttt{env-data.txt}).}
+	\caption{Example of environmental file (\texttt{env-data.txt}).
+	This file is part of the distribution, see 
+	\pathtotwodatafiles\texttt{env-data.txt}.
+	}
 	\label{fig:envfile}
 \end{figure}
 
@@ -400,7 +407,10 @@ ID5& 0	&0	&1	&0	&0	&1	&0\\
 ID6& 0	&1	&0	&0	&0	&1	&0\\
 		\end{tabular}
 	\end{mdframed}
-	\caption{Example of molecular file (\texttt{mol-data.txt}).}
+	\caption{Example of molecular file (\texttt{mol-data.txt}).
+	This file is part of the distribution, see 
+	\pathtotwodatafiles\texttt{mol-data.txt}.
+	}
 	\label{fig:molfile}
 	\end{center}
 \end{figure}
@@ -421,7 +431,10 @@ ID6	&	35	&	1021	&	235	&	230	&	87	& 	0	&1	&0	&0	&0	&1	&0\\
 	\end{mdframed}
 	\caption{Example of combined file for environmental and molecular data, corresponding to fig.~\ref{fig:envfile} and \ref{fig:molfile} (\texttt{combo-data.txt}).
 	Environmental data must be provided in the first columns (left part of the tabular), and molecular data in the last columns (right part).
-	The identifier, if any, is considered as an environmental variable.}
+	The identifier, if any, is considered as an environmental variable.
+	This file is part of the distribution, see 
+	\pathtoonedatafile\texttt{combo-data.txt}.
+	}
 	\label{fig:molenvfile}
 	\end{center}
 \end{figure}
@@ -528,7 +541,9 @@ SAVETYPE END ALL 0.01\\
 \hline
 \end{tabular}%
 \caption{Parameter file to analyse data from fig. \ref{fig:envfile} and \ref{fig:molfile} (\texttt{param.txt}). 
-\texttt{NUMVARENV} and \texttt{NUMMARK} count the total number of columns in the data files.}
+\texttt{NUMVARENV} and \texttt{NUMMARK} count the total number of columns in the data files.
+This file is part of the distribution, see \pathtotwodatafiles\texttt{param.txt}.
+}
 \label{fig:fichier-param}
 \end{figure}
 
@@ -551,7 +566,9 @@ SAVETYPE END ALL 0.01\\
 \hline
 \end{tabular}%
 \caption{Parameter file to analyse data from fig. \ref{fig:molenvfile} (\texttt{param-combo.txt}).
-Sample names are provided once, thus there is one molecular column less.}
+Sample names are provided once, thus there is one molecular column less.
+This file is part of the distribution, see \pathtoonedatafile\texttt{param-combo.txt}.
+}
 \label{fig:fichier-param-combo}
 \end{figure}
 
@@ -1215,7 +1232,9 @@ thingy.txt &\\
 4&blockSize\\
 \cline{1-1}
  \end{tabular}%
- \caption{Parameter file for \prog{Supervision} in case molecular data of fig. \ref{fig:molfile} is stored in \texttt{mol-data.txt} and is to be split in blocks of four markers.}
+ \caption{Parameter file for \prog{Supervision} in case molecular data of fig. \ref{fig:molfile} is stored in \texttt{mol-data.txt} and is to be split in blocks of four markers.
+ This file is part of the distribution, see \pathtotwodatafiles\texttt{param-split.txt}.
+ }
  \label{fig:paramSupervision-mol}
 \end{figure}
 
@@ -1302,7 +1321,9 @@ thingy.txt &\\
 3&blockSize\\
 \cline{1-1}
  \end{tabular}%
- \caption{Parameter file for \prog{Supervision} in case molecular data of fig. \ref{fig:molenvfile} is stored in \texttt{combo-data.txt} and is to be split in blocks of three markers.}
+ \caption{Parameter file for \prog{Supervision} in case molecular data of fig. \ref{fig:molenvfile} is stored in \texttt{combo-data.txt} and is to be split in blocks of three markers.
+ This file is part of the distribution, see \pathtoonedatafile\texttt{param-split-combo.txt}.
+}
  \label{fig:paramSupervision-molenv}
 \end{figure}
 
@@ -1446,6 +1467,7 @@ SAVETYPE END ALL 0.01\\
 	File \texttt{param-a.txt} is used for data from fig. \ref{fig:envfile} and \ref{fig:molfile-split-mol-0}.
 	Usually there are more blocks of molecular data, and all blocks containing the same number of markers would be analysed with this set of parameters.
 	File \texttt{param-b.txt} is used for the last block of molecular data, when it contains less markers (data from fig. \ref{fig:envfile} and \ref{fig:molfile-split-mol-1}).
+	These files are part of the distribution, see \texttt{param-a.txt} and \texttt{param-b.txt} in \pathtotwodatafiles.
 }
 \label{fig:fichier-param-parallele}
 \end{figure}
@@ -1511,6 +1533,7 @@ SAVETYPE END ALL 0.01\\
 	Parameter files for distributed analysis with \smb.
 	Data file \texttt{combo-data.txt} has been split in fig. \ref{fig:combo-split}, all computations use environmental data from subfig. \emph{\subref{fig:combo-split-env}}.
 	File \texttt{param-combo-a.txt} is used to analyse markers from subfig. \emph{\subref{fig:combo-split-mol-0}} and \emph{\subref{fig:combo-split-mol-1}}, while file \texttt{param-combo-b.txt} is used for the last block of molecular data (subfig. \emph{\subref{fig:combo-split-mol-2}}).
+	These files are part of the distribution, see \texttt{param-combo-a.txt} and \texttt{param-combo-b.txt} in \pathtoonedatafile.
 }
 \label{fig:fichier-param-parallele-combo}
 \end{figure}
