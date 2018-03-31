@@ -14,9 +14,9 @@ example_files = \
 	examples/data-from-manual/two-data-files/param.txt \
 	examples/random-data/param-random-sample.txt \
 	examples/random-data/random-sample.txt \
-	examples/subset-cattle-SNP/subset-mark.txt \
-	examples/subset-cattle-SNP/param-subset.txt \
-	examples/subset-cattle-SNP/table-env-UG.csv
+	examples/subset-cattle-SNP/cattle-env.csv \
+	examples/subset-cattle-SNP/cattle-mark.txt \
+	examples/subset-cattle-SNP/param-cattle.txt
 
 dist_pkgdata_DATA += $(example_files)
 
