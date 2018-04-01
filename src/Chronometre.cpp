@@ -1,26 +1,26 @@
 /*************************************************************************
- * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
- * 
+ *
  * This file is part of Sambada.
- *  
+ *
  * Sambada is free software ; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation ; either version 3 of the License, or (at your option) any later version.
  * Sambada is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with Sambada ; if not, see <http://www.gnu.org/licenses/>.
- * 
- * Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stéphane Joost (stephane.joost@epfl.ch) 
+ *
+ * Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stéphane Joost (stephane.joost@epfl.ch)
  * Laboratory of Geographic information systems
  * EPFL ENAC IIE LASIG
  * Station 18
  * CH-1015 Lausanne
  * Web site : http://lasig.epfl.ch/sambada
- * 
+ *
  * Sambada includes two libraries: Scythe Statistical Library (under GPL 3) and Shapefile C Library (under LGPL 2.1, courtesy of Frank Warmerdam).
- * 
+ *
  * Scythe Statistical Library
  * Copyright (C) 2000-2002 Andrew D. Martin and Kevin M. Quinn;
  * 2002-2012 Andrew D. Martin, Kevin M. Quinn, and Daniel Pemstein.  All Rights Reserved.
- * 
+ *
  * Shapefile C Library
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
@@ -48,12 +48,12 @@ int Chronometre::initialisation(Journal* j, int nbTotEv, int numPremMesure, cons
 	prochaineMesure=numPremMesure;
 	//int nbCourant(numPremMesure);
 	tempsDebut=time(NULL);
-	
+
 	sepCol=separateurCol;
 	distanceColonnes=sepCol.size();
-	
-	(*journal) << "Start of measurement, " << nbTotEvenements << " iterations expected." << nl;	
-	
+
+	(*journal) << "Start of measurement, " << nbTotEvenements << " iterations expected." << nl;
+
 	return numPremMesure;
 }
 
@@ -62,7 +62,7 @@ int Chronometre::mesureEtAffiche(int numEvenement)
 	if (numEvenement < 0)
 	{
 		numEvenement = prochaineMesure;
-	}	
+	}
 	mesure(numEvenement);
 	if (mesures.size()==1)
 	{
@@ -82,34 +82,34 @@ int Chronometre::mesureEtAffiche(int numEvenement)
 		tailleAffichageDurees = max(tailleAffichageDurees, (int)texteTemps[2].size());
 		texteTemps[3] = "Total*";
 		tailleAffichageDurees = max(tailleAffichageDurees, (int)texteTemps[3].size());
-		
+
 		tailleAffichageTotal = tailleAffichageIterations + 3*tailleAffichageDurees + 4*sepCol.size() + 4;
-		
+
 		// Ligne horizontale
 		(*journal) << sepCol << setfill('-') << setw(tailleAffichageTotal) << "" << sepCol <<nl << setfill(' ');
 
 		(*journal) << sepCol <<setw(tailleAffichageIterations + sepCol.size() + 4) << texteMarqueurs << sepCol
 			<< setw(3*tailleAffichageDurees + 2*sepCol.size() - texteTemps[4].size()) << left << texteTemps[0] << texteTemps[4] << sepCol << nl;
-		
+
 		(*journal) << sepCol << setw(tailleAffichageIterations + sepCol.size() + 4) << left << "" << sepCol
 			//<< setw(4) << "%" << sepCol
 			<< setw(tailleAffichageDurees) << left << texteTemps[1] << sepCol
 			<< setw(tailleAffichageDurees) << left << texteTemps[2] << sepCol
 			<< setw(tailleAffichageDurees) << left << texteTemps[3] << sepCol << nl;
-		
+
 		// Ligne horizontale
 		(*journal) << sepCol << setfill('-') << setw(tailleAffichageTotal) << "" << sepCol <<nl << setfill(' ');
 
 	}
-	
-	(*journal) << sepCol << setw(tailleAffichageIterations) << right << numEvenement << sepCol 
+
+	(*journal) << sepCol << setw(tailleAffichageIterations) << right << numEvenement << sepCol
 		<< setw(3) << right << mesures[nbMesures-1].proportionAccomplieEnPourcent << "%" << sepCol
 		<< setw(tailleAffichageDurees) << right <<  DureeFormatee(mesures[nbMesures-1].tempsEcoule, precision, chablon) << sepCol
-		<< setw(tailleAffichageDurees) << right << DureeFormatee(mesures[nbMesures-1].tempsTotEstime, precision, chablon) << sepCol	
+		<< setw(tailleAffichageDurees) << right << DureeFormatee(mesures[nbMesures-1].tempsTotEstime, precision, chablon) << sepCol
 		<< setw(tailleAffichageDurees) << right << DureeFormatee(mesures[nbMesures-1].tempsRestantEstime, precision, chablon) << sepCol << nl;
-	
+
 	prochaineMesure=calculeProchaineMesure(numEvenement);
-	
+
 	return prochaineMesure;
 
 }
@@ -122,7 +122,7 @@ void Chronometre::fin()
 		(*journal) << sepCol << setfill('-') << setw(tailleAffichageTotal) << "" << sepCol <<nl << setfill(' ');
 	}
 	Duree d(difftime(time(NULL),tempsDebut));
-	/*(*journal) << "End of measurement, total time: "; 
+	/*(*journal) << "End of measurement, total time: ";
 	affiche(d);
 	(*journal) << nl;*/
 	(*journal) << "End of measurement, total time: " << DureeFormatee(d, precision, chablon) << nl;
@@ -140,14 +140,14 @@ void Chronometre::mesure(int numEv)
 	time_t tempsCourant(time(NULL));
 	int tempsEcoule(difftime(tempsCourant, tempsDebut));
 	int tempsTotEstime(ceil(1.*nbTotEvenements/numEv * tempsEcoule));
-	
+
 	Mesure m={numEv, calculeProportion(numEv), Duree(tempsEcoule), Duree(tempsTotEstime), Duree(tempsTotEstime-tempsEcoule)};
 	/*m.iteration=numEv;
 	m.proportionAccomplieEnPourcent=calculeProportion(numEv);
 	m.tempsEcoule=Duree(tempsEcoule);
 	m.tempsTotEstime=Duree(tempsTotEstime);
 	m.tempsRestantEstime=Duree(tempsTotEstime-tempsEcoule);*/
-	
+
 	mesures.push_back(m);
 	++nbMesures;
 }
@@ -155,14 +155,14 @@ void Chronometre::mesure(int numEv)
 int Chronometre::calculeProchaineMesure(int numEv)
 {
 	double prop(1.*(numEv+1.)/nbTotEvenements);
-	
+
 	if (prop < 0.01)
 	{
 		prochaineMesure=ceil(0.01*nbTotEvenements);
 	}
 	else if (prop < 0.05)
 	{
-		prochaineMesure=ceil(0.05*nbTotEvenements);		
+		prochaineMesure=ceil(0.05*nbTotEvenements);
 	}
 	/*else if (prop < 0.1)
 	{
@@ -190,16 +190,15 @@ void Chronometre::ajusteAffichage(const Duree& dureeEstimee)
 		chablon.zappeSecondes=false;
 	}
 	// Si la durée est en 1 et 20 heures, on affiche seulement les heures et les minutes
-	else if (dureeEstimee.plusCourte(Duree(0,20,0,0)))	
+	else if (dureeEstimee.plusCourte(Duree(0,20,0,0)))
 	{
 		chablon.zappeJours=true;
-		chablon.zappeSecondes=true;		
+		chablon.zappeSecondes=true;
 	}
-	else 
+	else
 	{
 		chablon.zappeJours=false;
 		chablon.zappeSecondes=true;
 		precision.jours=dureeEstimee.calculeTailleAffichageJours();
-	}	
+	}
 }
-

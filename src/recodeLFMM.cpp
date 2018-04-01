@@ -1,26 +1,26 @@
 /*************************************************************************
- * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
- * 
+ *
  * This file is part of Sambada.
- *  
+ *
  * Sambada is free software ; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation ; either version 3 of the License, or (at your option) any later version.
  * Sambada is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with Sambada ; if not, see <http://www.gnu.org/licenses/>.
- * 
- * Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stéphane Joost (stephane.joost@epfl.ch) 
+ *
+ * Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stéphane Joost (stephane.joost@epfl.ch)
  * Laboratory of Geographic information systems
  * EPFL ENAC IIE LASIG
  * Station 18
  * CH-1015 Lausanne
  * Web site : http://lasig.epfl.ch/sambada
- * 
+ *
  * Sambada includes two libraries: Scythe Statistical Library (under GPL 3) and Shapefile C Library (under LGPL 2.1, courtesy of Frank Warmerdam).
- * 
+ *
  * Scythe Statistical Library
  * Copyright (C) 2000-2002 Andrew D. Martin and Kevin M. Quinn;
  * 2002-2012 Andrew D. Martin, Kevin M. Quinn, and Daniel Pemstein.  All Rights Reserved.
- * 
+ *
  * Shapefile C Library
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
@@ -40,7 +40,7 @@ using namespace std;
 
 typedef enum { A, C, G, T, M } Base;
 
-typedef struct 
+typedef struct
 {
 	char premNuc;
 	char secNuc;
@@ -96,8 +96,8 @@ string construitValeurManquante(int nbCar, string valeurManquante, char sep)
 }
 
 int main(int argc, char** argv)
-{	
-	if (argc==1) 
+{
+	if (argc==1)
 	{
 		RegressionLogistique::messageBienvenue(cout, true);
 	}
@@ -105,17 +105,17 @@ int main(int argc, char** argv)
 	{
 		RegressionLogistique::messageBienvenue(cout);
 	}
-	
+
 	char sep(' '), retourLigne('\n'), sepNoms('_');
 	char premSymbole('a');
 	string valeurManquante("-9");
-	
+
 	//cout << sizeof(char) << " " << sizeof(int) <<  endl;
-	
+
 	time_t temps1(time(NULL));
-	
+
 	// Création des infos alléliques
-	
+
 	// Calcul de la table de conversion pour la lecture
 	const int nbBases(5);	// Il y a le caractère manquant
 	const int nbAlleles(11);
@@ -125,35 +125,35 @@ int main(int argc, char** argv)
 	pair<char, Allele> alleleCourante;
 	Dictionnaire code;
 	// Le dictionnaire envoie un caractère (codage interne) sur les spécifications de codage de l'allèle
-	
+
 	for (int i(0); i<nbAlleles; ++i)
 	{
-		alleleCourante.first=listeEtiquette[i]; 
+		alleleCourante.first=listeEtiquette[i];
 		alleleCourante.second.premNuc=listeAlleles[i][0];
 		alleleCourante.second.secNuc=listeAlleles[i][1];
 		alleleCourante.second.etiquette=listeEtiquette[i];
 		alleleCourante.second.nom=listeAlleles[i];
-		
+
 		code.insert(alleleCourante);
 	}
-	
+
 	char tabEncodage[nbBases][nbBases] = { { 'a', 'e', 'f', 'g', 'k' }, { 'e', 'b', 'h', 'i', 'k' }, { 'f', 'h', 'c', 'j', 'k' }, { 'g', 'i', 'j', 'd', 'k' }, { 'k', 'k', 'k', 'k', 'k' }  };
 	for (int i(0); i< nbBases; ++i)
 	{
 		for (int j(0); j<nbBases; ++j)
 		{
-			cout << "(" << tabEncodage[i][j]  << " " << code[tabEncodage[i][j]].nom << ") "; 
+			cout << "(" << tabEncodage[i][j]  << " " << code[tabEncodage[i][j]].nom << ") ";
 		}
 		cout << endl;
 	}
-	
+
 	// Calcul des tables de conversion pour l'écriture
 	EncodageBinaire transcription;
 	vector< Base > etiquette;
 	vector< string > valeursPossibles, valeursDepart;
 	ElementEncodage motif;
 	int tailleRecodage(0);
-	
+
 	// Deux allèles
 	tailleRecodage=3;
 	construitValeursPossibles(valeursPossibles, tailleRecodage, sep);
@@ -166,7 +166,7 @@ int main(int argc, char** argv)
 			etiquette.clear();
 			etiquette.push_back((Base)i);
 			etiquette.push_back((Base)j);
-			
+
 			motif.valeurs=valeursDepart;
 			motif.noms.resize(tailleRecodage);
 			// 11
@@ -183,13 +183,13 @@ int main(int argc, char** argv)
 			// 22
 			motif.valeurs[tabEncodage[etiquette[1]][etiquette[1]]-premSymbole]=valeursPossibles[2];
 			motif.noms[2]=code[tabEncodage[etiquette[1]][etiquette[1]]].nom;
-			
+
 			transcription.insert(make_pair(etiquette, motif));
-			
+
 			EncodageBinaire::iterator iter(transcription.find(etiquette));
 			for (int k(0); k<nbAlleles; ++k)
 			{
-				cout << listeAlleles[k] << " : " << iter->second.valeurs[k] << endl; 
+				cout << listeAlleles[k] << " : " << iter->second.valeurs[k] << endl;
 			}
 			cout << endl;
 		}
@@ -211,8 +211,8 @@ int main(int argc, char** argv)
 				etiquette.push_back((Base)j);
 			}
 		}
-		
-				
+
+
 		motif.valeurs=valeursDepart;
 		motif.noms.resize(tailleRecodage);
 		// 11
@@ -224,7 +224,7 @@ int main(int argc, char** argv)
 		// 33
 		motif.valeurs[tabEncodage[etiquette[2]][etiquette[2]]-premSymbole]=valeursPossibles[2];
 		motif.noms[2]=code[tabEncodage[etiquette[2]][etiquette[2]]].nom;
-		
+
 		// 12
 		motif.valeurs[tabEncodage[etiquette[0]][etiquette[1]]-premSymbole]=valeursPossibles[3];
 		motif.noms[3]=code[tabEncodage[etiquette[0]][etiquette[1]]].nom;
@@ -234,17 +234,17 @@ int main(int argc, char** argv)
 		// 23
 		motif.valeurs[tabEncodage[etiquette[1]][etiquette[2]]-premSymbole]=valeursPossibles[5];
 		motif.noms[5]=code[tabEncodage[etiquette[1]][etiquette[2]]].nom;
-		
+
 		transcription.insert(make_pair(etiquette, motif));
-		
+
 		EncodageBinaire::iterator iter(transcription.find(etiquette));
 		for (int k(0); k<nbAlleles; ++k)
 		{
-			cout << listeAlleles[k] << " : " << iter->second.valeurs[k] << endl; 
+			cout << listeAlleles[k] << " : " << iter->second.valeurs[k] << endl;
 		}
 		cout << endl;
 	}
-	
+
 	// Quatre allèles
 	tailleRecodage=10;
 	construitValeursPossibles(valeursPossibles, tailleRecodage, sep);
@@ -256,12 +256,12 @@ int main(int argc, char** argv)
 	copy(listeAlleles, listeAlleles+(nbAlleles-1), motif.noms.begin());
 	transcription.insert(make_pair(etiquette, motif));
 	*/
-	
+
 	// Lecture de l'encodage des nucléotides choisi par l'utilisateur
 	map<char, Base> tableNuc;
 	//ifstream listeNucleotides("../../listeNucleotides.txt");
 	ifstream listeNucleotides("listeNucleotides.txt");
-	
+
 	if (listeNucleotides.fail())
 	{
 		// 11 fév 2014: liste des nucléotides facultative -> valeur par défaut
@@ -284,44 +284,44 @@ int main(int argc, char** argv)
 		}
 		listeNucleotides.close();
 	}
-	
+
 	//cout << tableNuc['A'] << " "  << tableNuc['C'] << " " << tableNuc['G'] << " " << tableNuc['T'] << " " <<tableNuc['0'] << endl;
-	
+
 	string nomFichierPlink, nomFichierSel, nomFichierSortie, nomFichierPed, nomFichierMap;
-	
+
 	bool prendTousEch(true);
-	
+
 	if (argc < 5)
 	{
 		cerr << "At least 4 arguments required." << endl;
 		return 1;
 	}
-	
+
 	// nbEch, nbSNP, nomFichierPlink, nomFichierSortie, nomFichierSel
-	
+
 	int nbEch(atoi(argv[1]));
 	int nbSNP(atoi(argv[2]));
 	cout << nbEch << " £ " << nbSNP << endl;
 	nomFichierPlink=argv[3];
 	nomFichierSortie=argv[4];
-	
+
 	if (argc==6)
 	{
 		nomFichierSel=argv[5];
 		prendTousEch=false;
 	}
-	
+
 	if (argc>6)
 	{
 		cerr << "Up to 5 arguments needed." << endl;
 		return 1;
 	}
-	
+
 	int position(nomFichierPlink.find(".ped"));
 	if (position!=string::npos)
 	{
 		nomFichierPed=nomFichierPlink;
-		nomFichierMap=nomFichierPlink.substr(0,position)+".map";		
+		nomFichierMap=nomFichierPlink.substr(0,position)+".map";
 	}
 	else
 	{
@@ -329,32 +329,32 @@ int main(int argc, char** argv)
 		if (position!=string::npos)
 		{
 			nomFichierMap=nomFichierPlink;
-			nomFichierPed=nomFichierPlink.substr(0,position)+".ped";		
+			nomFichierPed=nomFichierPlink.substr(0,position)+".ped";
 		}
 		else
 		{
-			nomFichierPed=nomFichierPlink+".ped";		
+			nomFichierPed=nomFichierPlink+".ped";
 			nomFichierMap=nomFichierPlink+".map";
 		}
 	}
 	cout << nomFichierPlink << " " << nomFichierPed << " " << nomFichierMap <<endl;
-	
-	
+
+
 	//cout << nomFichierAnimaux << " " << nomFichierCrd << " " << nomFichierSortie << endl;
-	
+
 	ifstream entreePed(nomFichierPed.c_str()), /*entreeMap(nomFichierMap.c_str()),*/ entreeSel(NULL);
 	if (!prendTousEch)
 	{
 		entreeSel.open(nomFichierSel.c_str());
 	}
 	ofstream sortie(nomFichierSortie.c_str());
-	
+
 	if (entreePed.fail() /*|| entreeMap.fail()*/ || (!prendTousEch && entreeSel.fail()) || sortie.fail())
 	{
 		cerr << "Error while opening files" << endl;
 		return 2;
 	}
-	
+
 	// Lecture des échantillons sélectionnés
 	// On utilise un ensemble pour tester si un nom est présent
 	set<string> nomsSel;
@@ -377,11 +377,11 @@ int main(int argc, char** argv)
 		nbSel=nomsSel.size();
 		cout << "..." << nbSel << " names read." << endl;		// N_g
 	}
-	
+
 	// La taille du tableau est connue
 	vector< vector< char > > data(nbSel, vector<char> (nbSNP));
 	vector< vector< int > > comptage(nbSNP, vector<int> (nbBases, 0));
-	
+
 	// Lecture des données moléculaires
 	const int nbColFixes(6);
 	vector< vector<string> > description(nbSel, vector<string> (nbColFixes, ""));
@@ -410,17 +410,17 @@ int main(int argc, char** argv)
 		else
 		{
 			description[echCourant]=descriptionCourante;
-			
+
 			//cout << etiquette[1] << endl;
 			for (int j(0); j<nbSNP; ++j)
 			{
 				//cout << "Truc " << i << " " << j << " ";
 				entreePed >> premNuc >>ws >> secNuc >> ws;
-				
+
 				premBase=tableNuc[premNuc];
 				secBase=tableNuc[secNuc];
 				//cout << premBase << secBase << endl;
-				
+
 				data[echCourant][j] = tabEncodage[premBase][secBase];
 				++comptage[j][premBase];
 				++comptage[j][secBase];
@@ -431,18 +431,18 @@ int main(int argc, char** argv)
 	entreePed.close();
 	time_t temps2(time(NULL));
 	cout << "Temps de lecture: "<< difftime(temps2,temps1) << endl;
-	
+
 	// Calibration des colonnes et écriture de l'en-tête
 	// Il n'y a pas d'espaces dans les identifiants de marqueurs .map -> lecture basée sur les espaces et tabulations
 	//sortie << "ID_indiv" << sep;
 	vector < pair<bool, EncodageBinaire::iterator > > caracSNP(nbSNP);
 	const int nbColMap(4);
 	vector<string>ligneMap(nbColMap,"");
-	
+
 	for (int i(0); i<nbSNP; ++i)
 	{
 		etiquette.clear();
-		
+
 		for (int j(0); j<(nbBases-1); ++j)
 		{
 			if (comptage[i][j]>0)
@@ -459,22 +459,22 @@ int main(int argc, char** argv)
 		{
 			caracSNP[i].first=false;
 		}
-		
-		
+
+
 		// Lecture du fichier map
 		/*for (int j(0); j<nbColMap; ++j)
 		{
 			entreeMap >> ligneMap[j] >> ws;
 		}
-		
+
 		if (caracSNP[i].first)
 		{
 			if (etiquette.size()>2)
 			{
 				cout << ligneMap[1] << endl;
 			}
-			
-			
+
+
 			for (vector<string>::iterator iter(caracSNP[i].second->second.noms.begin()); iter!=caracSNP[i].second->second.noms.end(); ++iter)
 			{
 				sortie << ligneMap[1]+sepNoms+*iter<<sep;
@@ -483,14 +483,14 @@ int main(int argc, char** argv)
 	}
 	//sortie << retourLigne;
 	//entreeMap.close();
-	
+
 	// Ecriture des marqueurs
 	cout<< description.size() << " " << description[0].size() << " " << description[0][1] << endl;
 	for (int i(0); i<nbSel; ++i)
 	{
 		// nom de l'échantillon
 		//sortie << description[i][1] << sep;
-		
+
 		for (int j(0); j<(nbSNP-1); ++j)
 		{
 			if (caracSNP[j].first)
@@ -501,9 +501,9 @@ int main(int argc, char** argv)
 		sortie << caracSNP[nbSNP-1].second->second.valeurs[data[i][nbSNP-1]-premSymbole] ;
 		sortie << retourLigne;
 	}
-	
+
 	sortie.close();
-	
+
 	return 0;
-	
+
 }

@@ -1,26 +1,26 @@
 /*************************************************************************
-* Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
+* Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
 * Laboratory of Geographic information systems (LaSIG)
-* 
+*
 * This file is part of Sambada.
-*  
+*
 * Sambada is free software ; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation ; either version 3 of the License, or (at your option) any later version.
 * Sambada is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 * You should have received a copy of the GNU General Public License along with Sambada ; if not, see <http://www.gnu.org/licenses/>.
-* 
-* Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stéphane Joost (stephane.joost@epfl.ch) 
+*
+* Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stéphane Joost (stephane.joost@epfl.ch)
 * Laboratory of Geographic information systems
 * EPFL ENAC IIE LASIG
 * Station 18
 * CH-1015 Lausanne
 * Web site : http://lasig.epfl.ch/sambada
-* 
+*
 * Sambada includes two libraries: Scythe Statistical Library (under GPL 3) and Shapefile C Library (under LGPL 2.1, courtesy of Frank Warmerdam).
-* 
+*
 * Scythe Statistical Library
 * Copyright (C) 2000-2002 Andrew D. Martin and Kevin M. Quinn;
 * 2002-2012 Andrew D. Martin, Kevin M. Quinn, and Daniel Pemstein.  All Rights Reserved.
-* 
+*
 * Shapefile C Library
 * Copyright (c) 1999, Frank Warmerdam
 *************************************************************************/
@@ -43,16 +43,16 @@ class Archiviste
 	public :
 	Archiviste();
 	virtual ~Archiviste();
-	
+
 	virtual void initialise(const vector<string>& noms);
 	virtual bool ouverture()=0;
-	
-	
+
+
 	virtual void fermeture();
-	
+
 	virtual void precision(int p);
 	virtual int precision() const;
-	
+
 	virtual string getRetourLigne() const;
 	virtual void setRetourLigne(const string& s);
 
@@ -61,12 +61,12 @@ class Archiviste
 
 protected:
 	Archiviste(const Archiviste&);
-	
+
 	int nbFichiers;
 	bool enService;
 	vector<string> nomsFichiers;
 	vector<fstream*> fichiers;
-	
+
 	string signeRetourLigne;
 	char delimMots;
 };
@@ -76,32 +76,32 @@ class Scribe : public Archiviste
 	public :
 	Scribe();
 	virtual ~Scribe();
-	
+
 	virtual bool ouverture();
-	
+
 	template <typename T>
 	bool ecriture(int numFichier, T element, bool retourLigne=false) const;
-	
+
 	template <class T>
 	bool ecriture(int numFichier, const vector<T>& ligne, bool retourLigne=false) const;
-	
+
 	template <class T>
 	bool ecriture(int numFichier, const set<T>& ligne, bool retourLigne=false) const;
-	
+
 	template <typename T>
 	bool ecriture(int numFichier, const vector< vector< T > >& document) const;
-	
-	
-	
+
+
+
 	//virtual void fermeture();
-	
-	
-	
+
+
+
 protected:
 	Scribe(const Scribe&);
-	
-	
-	
+
+
+
 };
 
 class Lecteur : public Archiviste
@@ -109,34 +109,34 @@ class Lecteur : public Archiviste
 	public :
 	Lecteur();
 	virtual ~Lecteur();
-	
+
 	virtual bool ouverture();
-	
-	// Lecture d'une ligne jusqu'au caractère de fin 
-	
+
+	// Lecture d'une ligne jusqu'au caractère de fin
+
 	// Retourne TRUE si tous les éléments ont pu être lus
 	template <class T>
 	bool lecture(int numFichier, vector<T>& ligne, char delimMots=' ') const;
-		
+
 	// Retourne TRUE si tous les éléments ont pu être lus
 	template <class T>
 	bool lecture(int numFichier, vector< vector<T> >& document, int nbLignes=-1, bool ajout=false, char delimMots=' ') const;
-	
+
 	// Lecture d'un groupe de mots
-	
+
 	// Retourne TRUE si tous les éléments ont pu être lus
 	template <class T>
 	bool lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char delimMots=' ') const;
-	
+
 	bool finFichier(int numFichier);
-		
+
 	//virtual void fermeture();
-	
-	
+
+
 protected:
 	Lecteur(const Lecteur&);
-	
-	
+
+
 };
 
 
@@ -148,18 +148,18 @@ bool Scribe::ecriture(int numFichier, T element, bool retourLigne) const
 	{
 		return false;
 	}
-	else 
+	else
 	{
-		
+
 		*(fichiers[numFichier]) << element << delimMots;
-		
+
 		if (retourLigne)
 		{
 			*(fichiers[numFichier]) << signeRetourLigne;
 		}
 		return true;
 	}
-}	
+}
 
 
 template <class T>
@@ -169,7 +169,7 @@ bool Scribe::ecriture(int numFichier, const vector<T>& ligne, bool retourLigne) 
 	{
 		return false;
 	}
-	else 
+	else
 	{
 		int taille(ligne.size());
 		for (int i(0); i<taille; ++i)
@@ -182,7 +182,7 @@ bool Scribe::ecriture(int numFichier, const vector<T>& ligne, bool retourLigne) 
 		}
 		return true;
 	}
-	
+
 }
 
 template <class T>
@@ -192,7 +192,7 @@ bool Scribe::ecriture(int numFichier, const set< T >& ligne, bool retourLigne) c
 	{
 		return false;
 	}
-	else 
+	else
 	{
 		for (typename set< T >::iterator i(ligne.begin()); i!=ligne.end(); ++i)
 		{
@@ -204,7 +204,7 @@ bool Scribe::ecriture(int numFichier, const set< T >& ligne, bool retourLigne) c
 		}
 		return true;
 	}
-	
+
 }
 
 template <typename T>
@@ -214,7 +214,7 @@ bool Scribe::ecriture(int numFichier, const vector< vector< T > >& document) con
 	{
 		return false;
 	}
-	else 
+	else
 	{
 		int nbLignes(document.size()), nbMots(0);
 		for (int i(0); i<nbLignes; ++i)
@@ -222,15 +222,15 @@ bool Scribe::ecriture(int numFichier, const vector< vector< T > >& document) con
 			nbMots=document[i].size();
 			for (int j(0); j<nbMots; ++j)
 			{
-	
+
 				*(fichiers[numFichier]) << document[i][j] << delimMots;
 			}
 			*(fichiers[numFichier]) << signeRetourLigne;
-			
+
 		}
 		return true;
 	}
-	
+
 }
 
 // Retourne TRUE si tous les éléments ont pu être lus
@@ -298,7 +298,7 @@ bool Lecteur::lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char 
 		toolbox::lectureMot(*fichiers[numFichier], mot, delimMots);
 		groupeBrut.push_back(mot);
 	}
-	
+
 	groupe.clear();
 	bool testEchec;
 	T valeur(0);
@@ -330,4 +330,4 @@ bool Lecteur::lectureGroupe<string>(int numFichier, vector<string>& groupe, int 
 }
 
 
-#endif // ARCHIVISTE_H 
+#endif // ARCHIVISTE_H

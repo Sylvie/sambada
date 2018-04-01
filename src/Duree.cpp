@@ -1,26 +1,26 @@
 /*************************************************************************
- * Copyright (©) 2011-2015 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
- * 
+ *
  * This file is part of Sambada.
- *  
+ *
  * Sambada is free software ; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation ; either version 3 of the License, or (at your option) any later version.
  * Sambada is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with Sambada ; if not, see <http://www.gnu.org/licenses/>.
- * 
- * Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stéphane Joost (stephane.joost@epfl.ch) 
+ *
+ * Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stéphane Joost (stephane.joost@epfl.ch)
  * Laboratory of Geographic information systems
  * EPFL ENAC IIE LASIG
  * Station 18
  * CH-1015 Lausanne
  * Web site : http://lasig.epfl.ch/sambada
- * 
+ *
  * Sambada includes two libraries: Scythe Statistical Library (under GPL 3) and Shapefile C Library (under LGPL 2.1, courtesy of Frank Warmerdam).
- * 
+ *
  * Scythe Statistical Library
  * Copyright (C) 2000-2002 Andrew D. Martin and Kevin M. Quinn;
  * 2002-2012 Andrew D. Martin, Kevin M. Quinn, and Daniel Pemstein.  All Rights Reserved.
- * 
+ *
  * Shapefile C Library
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
@@ -49,12 +49,12 @@ Duree::Duree(int nbSec)
 {
 	secondes = nbSec%60;
 	nbSec /= 60;
-	
+
 	minutes = nbSec%60;
 	nbSec /= 60;
-	
+
 	heures = nbSec%24;
-	jours = nbSec / 24;	
+	jours = nbSec / 24;
 }
 
 Duree::Duree(int j, int h, int m, int s)
@@ -67,9 +67,9 @@ Duree::~Duree()
 int Duree::calculeLargeur(const PrecisionDuree& prec, const ChablonDuree& chablon)
 {
 	// La précision doit avoir été ajustée au préalable!
-	
+
 	int taille(0);
-	
+
 	if (!chablon.zappeJours)
 	{
 		taille = taille + prec.jours + 2; // size of " d" = 2
@@ -101,7 +101,7 @@ Journal& Duree::affiche(Journal& j, const ChablonDuree& chablon) const
 
 Journal& Duree::affiche(Journal& j, const PrecisionDuree& prec, const ChablonDuree& chablon) const
 {
-	ostringstream oss;	
+	ostringstream oss;
 	PrecisionDuree precision(prec);
 	ajustePrecision(precision);
 	if (!chablon.zappeJours)
@@ -149,8 +149,8 @@ bool Duree::plusLongueOuEgale(const Duree& d) const
 		else if (heures < d.heures)
 		{
 			return false;
-		}	
-		else 
+		}
+		else
 		{
 			if (minutes > d.minutes)
 			{
@@ -159,8 +159,8 @@ bool Duree::plusLongueOuEgale(const Duree& d) const
 			else if (minutes < d.minutes)
 			{
 				return false;
-			}	
-			else 
+			}
+			else
 			{
 				if (secondes >= d.secondes)
 				{
@@ -169,7 +169,7 @@ bool Duree::plusLongueOuEgale(const Duree& d) const
 				else
 				{
 					return false;
-				}	
+				}
 			}
 		}
 	}
@@ -177,7 +177,7 @@ bool Duree::plusLongueOuEgale(const Duree& d) const
 
 bool Duree::plusCourte(const Duree& d) const
 {
-	return d.plusLongueOuEgale(*this);	
+	return d.plusLongueOuEgale(*this);
 }
 
 int Duree::calculeTailleAffichageJours() const
@@ -212,4 +212,3 @@ Journal& operator<<(Journal& j, const DureeFormatee& d)
 	d.affiche(j);
 	return j;
 }
-
