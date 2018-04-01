@@ -1,4 +1,4 @@
-Copyright (©) 2011-2014 EPFL (Ecole Polytechnique fédérale de Lausanne)
+Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
 Laboratory of Geographic information systems (LaSIG)
 
 Sambada is free software ; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation ; either version 3 of the License, or (at your option) any later version.
@@ -10,7 +10,7 @@ Laboratory of Geographic information systems
 EPFL ENAC IIE LASIG
 Station 18
 CH-1015 Lausanne
-Web site : http://lasig.epfl.ch/sambada
+Web site : http://lasig.epfl.ch/sambada, https://github.com/Sylvie/sambada
 
 Sambada includes two libraries: Scythe Statistical Library (under GPL 3) and Shapefile C Library (under LGPL 2.1, courtesy of Frank Warmerdam).
 
