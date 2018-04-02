@@ -38,6 +38,8 @@ matrix:
       - "/usr/texbin/"
       - "/Library/TeX/"
       - "/Library/PreferencePanes/"
+before_install:
+    - eval "${MATRIX_EVAL}"
 git:
   depth: 100
 script:
