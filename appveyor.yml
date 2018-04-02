@@ -16,7 +16,7 @@ cache:
 install:
   - ps: choco install miktex
   - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
-  - ps: initexmf --set-config-value [MPM]AutoInstall=1
+  - ps: initexmf --admin --set-config-value [MPM]AutoInstall=1
 
 #---------------------------------#
 #       build configuration       #
@@ -74,4 +74,3 @@ deploy:
 # after build failure or success
 #on_finish:
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
