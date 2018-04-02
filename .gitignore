@@ -39,3 +39,7 @@ testBootstrap.cpp
 VERSION
 build*/
 qSambada/
+.atom-dbg.cson
+.build-tools.cson
+dev-autoreconf
+distcheck
