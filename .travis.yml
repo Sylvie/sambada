@@ -22,7 +22,8 @@ matrix:
       - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
       - SAMBADA_OS_NAME=ubuntu
   - os: osx
-    compiler: gcc
+    #compiler: gcc
+    osx_image: xcode8
     env:
 #      - COMPILER=g++
       - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
