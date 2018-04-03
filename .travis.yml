@@ -26,7 +26,7 @@ matrix:
     osx_image: xcode8
     env:
 #      - COMPILER=g++
-      - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+      - MATRIX_EVAL="brew upgrade && brew install gcc && CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
