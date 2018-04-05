@@ -22,11 +22,11 @@ matrix:
       - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
       - SAMBADA_OS_NAME=ubuntu
   - os: osx
-    #compiler: gcc
+    compiler: gcc
     osx_image: xcode8
     env:
-#      - COMPILER=g++
-      - MATRIX_EVAL="brew upgrade && brew install gcc && CC=gcc-7 && CXX=g++-7"
+      - COMPILER=g++
+#      - MATRIX_EVAL="brew upgrade && brew install gcc && CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
@@ -40,17 +40,18 @@ matrix:
       - "/Library/TeX/"
       - "/Library/PreferencePanes/"
 before_install:
-    - eval "${MATRIX_EVAL}"
+#    - eval "${MATRIX_EVAL}"
 git:
   depth: 100
 script:
   - autoreconf -i
+  - g++ -v ; gcc -v 
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
   - cd build
   - "../configure sambadahostsystemname=${SAMBADA_OS_NAME}"
   - make pdf
-#  - make CXX=$COMPILER
+  - make CXX=$COMPILER
   - make
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
   - binaries/sambada ../examples/subset-cattle-SNP/param-cattle.txt ../examples/subset-cattle-SNP/cattle-env.csv  ../examples/subset-cattle-SNP/cattle-mark.txt
