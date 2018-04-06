@@ -1,6 +1,6 @@
 sudo: false
 dist: trusty
-language: generic
+language: cpp
 matrix:
   include:
   - os: linux
@@ -26,7 +26,7 @@ matrix:
     osx_image: xcode8
     env:
       - COMPILER=g++
-#      - MATRIX_EVAL="brew upgrade && brew install gcc && CC=gcc-7 && CXX=g++-7"
+      - MATRIX_EVAL="brew upgrade && brew install gcc@5 && CC=gcc-5 && CXX=g++-5"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
@@ -40,12 +40,12 @@ matrix:
       - "/Library/TeX/"
       - "/Library/PreferencePanes/"
 before_install:
-#    - eval "${MATRIX_EVAL}"
+    - eval "${MATRIX_EVAL}"
 git:
   depth: 100
 script:
   - autoreconf -i
-  - g++ -v ; gcc -v 
+  - g++ -v ; gcc -v
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
   - cd build
