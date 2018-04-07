@@ -25,8 +25,8 @@ matrix:
     compiler: gcc
     osx_image: xcode8
     env:
-      - COMPILER=g++
-      - MATRIX_EVAL="brew update  && brew install gcc@5 && CC=gcc-5 && CXX=g++-5"
+#      - COMPILER=g++
+      - MATRIX_EVAL="brew update && brew install gcc@5 && CC=gcc-5 && CXX=g++-5"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
@@ -46,12 +46,14 @@ git:
 script:
   - autoreconf -i
   - g++ -v ; gcc -v
+  - g++-5 -v ; gcc-5 -v
+  - echo $CC $CXX
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
   - cd build
   - "../configure sambadahostsystemname=${SAMBADA_OS_NAME}"
   - make pdf
-  - make CXX=$COMPILER
+  - make
   - make
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
   - binaries/sambada ../examples/subset-cattle-SNP/param-cattle.txt ../examples/subset-cattle-SNP/cattle-env.csv  ../examples/subset-cattle-SNP/cattle-mark.txt
