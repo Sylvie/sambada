@@ -18,14 +18,12 @@ matrix:
       - "/tmp/texlive"
       - "$HOME/.texlive"
     env:
-#      - COMPILER=g++-5
       - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
       - SAMBADA_OS_NAME=ubuntu
   - os: osx
     compiler: gcc
     osx_image: xcode8
     env:
-#      - COMPILER=g++
       - MATRIX_EVAL="brew update && brew install gcc@5 && CC=gcc-5 && CXX=g++-5"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
@@ -53,7 +51,6 @@ script:
   - cd build
   - "../configure sambadahostsystemname=${SAMBADA_OS_NAME}"
   - make pdf
-  - make
   - make
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
   - binaries/sambada ../examples/subset-cattle-SNP/param-cattle.txt ../examples/subset-cattle-SNP/cattle-env.csv  ../examples/subset-cattle-SNP/cattle-mark.txt
