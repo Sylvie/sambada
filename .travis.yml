@@ -20,6 +20,7 @@ matrix:
     env:
       - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
       - SAMBADA_OS_NAME=ubuntu
+      - LDFLAGS=-static
   - os: osx
     compiler: gcc
     osx_image: xcode8
