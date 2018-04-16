@@ -23,9 +23,9 @@ matrix:
       - LDFLAGS=-static
   - os: osx
     compiler: gcc
-    osx_image: xcode8
+    osx_image: xcode6.4
     env:
-      - MATRIX_EVAL="brew update && brew install gcc@5 && CC=gcc-5 && CXX=g++-5"
+      - MATRIX_EVAL="CC=gcc && CXX=g++"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
@@ -45,7 +45,7 @@ git:
 script:
   - autoreconf -i
   - g++ -v ; gcc -v
-  - g++-5 -v ; gcc-5 -v
+  #  - g++-5 -v ; gcc-5 -v
   - echo $CC $CXX
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
