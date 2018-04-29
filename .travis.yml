@@ -10,7 +10,7 @@ matrix:
         sources:
         - ubuntu-toolchain-r-test
         packages:
-        - g++-5
+        - g++-7
     install:
     - source ./manual/texlive-ubuntu.sh
     cache:
@@ -18,14 +18,13 @@ matrix:
       - "/tmp/texlive"
       - "$HOME/.texlive"
     env:
-      - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=ubuntu
       - LDFLAGS=-static
   - os: osx
     compiler: gcc
-    osx_image: xcode6.4
     env:
-      - MATRIX_EVAL="CC=gcc && CXX=g++"
+      - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
