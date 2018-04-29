@@ -9,7 +9,7 @@
 # required
 
 # See if there is a cached version of TL available
-export PATH=$PATH:"/usr/local/texlive/2017basic/bin/x86_64-darwin"
+export PATH=$PATH:"/usr/local/texlive/2018basic/bin/x86_64-darwin"
 if ! command -v latexmk > /dev/null; then
 
 # Obtain BasicTeX
@@ -64,7 +64,7 @@ was
 # Keep no backups (not required, simply makes cache bigger)
 sudo tlmgr option -- autobackup 0
 
-cat /usr/local/texlive/2017basic/texmf-dist/web2c/updmap.cfg
+cat /usr/local/texlive/2018basic/texmf-dist/web2c/updmap.cfg
 
 # Update the TL install but add nothing new
 sudo tlmgr update --self --all --no-auto-install
