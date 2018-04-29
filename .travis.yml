@@ -24,7 +24,7 @@ matrix:
   - os: osx
     compiler: gcc
     env:
-      - MATRIX_EVAL="brew update && brew install gcc && CC=gcc-7 && CXX=g++-7"
+      - MATRIX_EVAL="brew cask uninstall oclint && brew install gcc && CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
