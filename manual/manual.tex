@@ -195,11 +195,27 @@ Underlying models are kept simple to put emphasis on process efficiency and user
 \section{Installation}
 Software, source code, documentation and examples are available on our webpage \url{lasig.epfl.ch/sambada} and on GitHub \url{https://github.com/Sylvie/sambada/releases}.
 
-\subsubsection*{Executable binaires}
-Compiled versions of \smb\ are already packaged for Windows, Mac OS and Ubuntu.
+\subsection*{Executable binaires}
+Compiled versions of \smb\ are already packaged for Windows, macOS and Ubuntu.
+
+\subsubsection*{Windows and Ubuntu}
 Download and expand the archive at the location of your choice.
 
-\subsubsection*{Compiling from sources}
+\subsubsection*{macOS}
+\smb\ requires the GNU Compiler Collection (GCC) to be installed on the computer.
+Here are the installation steps using the package manager  \prog{Homebrew\footnote{\url{https://brew.sh/}}}:
+\begin{enumerate}
+\item{Open a Terminal prompt (located at \prog{/Applications/Utilities/Terminal.app}).}
+\item{Browse to \prog{Homebrew}'s home page (\url{https://brew.sh/}) and copy the installation command into the Terminal.
+At the time of writing, the command is: \\
+\verb+/usr/bin/ruby -e "$(curl -fsSL \+ \\*
+\verb+https://raw.githubusercontent.com/Homebrew/install/master/install)"+
+Press "Enter" and follow the instructions.}
+\item{Install GCC with the Terminal command: \prog{brew install gcc}.}
+\item{Download and expand \smb's archive at the location of your choice.}
+\end{enumerate}
+
+\subsection*{Compiling from sources}
 \smb\ can be built from source using the GNU Build System (a.k.a Autotools).
 The distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) contains all files needed for the compilation. 
 Provided that \prog{make} is installed on your machine, the simplest build process consists in:
@@ -215,12 +231,12 @@ Some further information:
 \item{The script \prog{configure} provides the option \prog{sambadahostsystemname} to choose the system name used for naming the artefacts' folder.}
 \end{itemize}
 
-\subsubsection*{Documentation}
+\subsection*{Documentation}
 Software usage is explained in this manual.
 Theoretical background is covered by \smb's release article \textcite{stucki:2016} and \textcite{joost:2007}.
 Extended information on methods and implementation can be found in \textcite{stucki:2014} (in French).
 
-\subsubsection*{Examples}
+\subsection*{Examples}
 Three sample cases are provided with the software.
 \begin{description}
 \item[DataFromManual] is a tiny set of six samples with fives environmental variables and seven molecular markers.
