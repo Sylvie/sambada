@@ -57,6 +57,10 @@ include manual/Makefile.mk
 dist_pkgdata_DATA =
 include examples/Makefile.mk
 
+## Scripts ##
+
+include scripts/Makefile.mk
+
 ## General information ##
 general_info_files = AUTHORS CHANGELOG COPYING README
 dist_doc_DATA = $(general_info_files) VERSION
@@ -77,6 +81,7 @@ binary-archive: all pdf create-archive-folder
 	$(MAKE) binary-archive-local-binaries
 	$(MAKE) binary-archive-local-manual
 	$(MAKE) binary-archive-local-examples
+	$(MAKE) binary-archive-local-scripts
 	cp $(addprefix $(top_srcdir)/, $(general_info_files)) $(archive_basename)
 	cp VERSION $(archive_basename)
 	tar -zcvf $(archive_basename).tar.gz $(archive_basename)

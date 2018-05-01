@@ -250,14 +250,14 @@ In this case, the spatial autocorrelation takes some time to compute.
 \end{description}
 
 Provided you have the file tree shown on fig.~\ref{fig:filetree},
-if you launch a shell\footnote{\prog{Command Line} or \prog{PowerShell} on Windows, \prog{Terminal} on Mac OS and Linux, see p.~\pageref{faq:commandline}.} and navigate to the folder \prog{random-data} or \prog{subset-cattle-SNP}, examples can be run using: \\
+if you launch a shell\footnote{\prog{Command Line} or \prog{PowerShell} on Windows, \prog{Terminal} on macOS and Linux, see p.~\pageref{faq:commandline}.} and navigate to the folder \prog{random-data} or \prog{subset-cattle-SNP}, examples can be run using: \\
 \verb+../../binaries/sambada.exe param-random-sample.txt random-sample.txt+ or\\
 \verb+../../binaries/sambada.exe param-cattle.txt cattle-env.csv cattle-mark.txt+ \\
 \label{sec:examples-launch}
 on Windows, and \\
 \verb+../../binaries/sambada param-random-sample.txt random-sample.txt+ or\\
 \verb+../../binaries/sambada param-cattle.txt cattle-env.csv cattle-mark.txt+
-on Linux and OS~X.
+on Linux and macOS.
 
 \paragraph{Note on programs' names} 
 In the main text of this manual, the programs are identified with proper nouns (\prog{Sambada}, \prog{Supervision} and \prog{RecodePLINK}).
@@ -266,12 +266,12 @@ This alternate spelling is also used in the command examples of this manual.
 Please note that Windows uses the suffix ".exe" for program names.
 These considerations lead to the following naming conventions: \\
 \begin{tabular}{llll}
-Name in main text		& Software name on & Windows  &	Linux \& OS~X		\\
+Name in main text		& Software name on & Windows  &	Linux \& macOS		\\
 \prog{Sambada}		& $\Rightarrow$ & \prog{sambada.exe} & \prog{sambada} 	\\
 \prog{Supervision}		& $\Rightarrow$ & \prog{supervision.exe}	& \prog{supervision}	\\
 \prog{RecodePLINK}		& $\Rightarrow$ & \prog{recode-plink.exe}	 & \prog{recode-plink}	 \\
 \end{tabular} \\
-In case of doubt, please use the names of the programs found in the directory \enquote{binaries}.
+In case of doubt, please use the names of the programs found in the directory \prog{binaries/}.
 Hint: Most command line interpreters enable auto-completion of names by hitting the \enquote{TAB} key.
 
 \begin{figure}[htbp]
@@ -306,6 +306,8 @@ Hint: Most command line interpreters enable auto-completion of names by hitting 
 .4 cattle-env.csv.
 .4 cattle-mark.txt.
 .4 param-cattle.txt.
+.2 scripts.
+.3 bonferroniModelSelection.R.
 }
 \caption{Suggested file tree to run the examples.}
 \label{fig:filetree}
@@ -1623,6 +1625,20 @@ In case only a subset of the samples are to be used, the list of sample names ma
 Please note that \prog{RecodePLINK} does not recognise comment lines in \prog{.ped}/\prog{.map} files at the moment. 
 Please remove them before recoding.
 
+\section{Pre- and post-processing with \prog{R}}
+
+Your analyses with \smb\ may require some pre- or post-processing.
+This section presents a couple of examples using \prog{R}\footnote{\url{https://www.r-project.org/}}.
+These examples are distributed in the directory \prog{scripts/}.
+
+\subsection*{Model selection with Bonferroni correction}
+
+When performing model selection with the options \prog{SIGNIF} or \prog{BEST}, \smb\ applies the Bonferroni correction to the provided $p$-value threshold.
+Models with $p$-values lower than this corrected threshold for both the G and Wald statistics are retained as significant.
+However you may want to use another selection method, for instance by applying several thresholds or by using only the G or the Wald score.
+In this case, we suggest running \smb\ with a more liberal selection method (for instance with the option \prog{ALL} or \prog{BEST 0.1}) and then selecting the models with \prog{R}.
+The script \prog{bonferroniModelSelection.R} provides an example of model selection using the Bonferroni correction.
+
 \clearpage
 
 \section{Frequently Asked Questions}
@@ -1632,7 +1648,7 @@ Don't panic, there are a couple of online tutorials.
 For Windows, you can start with \url{http://www.cs.princeton.edu/courses/archive/spr05/cos126/cmd-prompt.html}.
 (Hint: Use \prog{PowerShell} instead of the \prog{Command Line}.)
 
-Mac OS~X and Linux \prog{Terminal}s are basically the same, see for instance: \url{http://www.davidbaumgold.com/tutorials/command-line/}. 
+MacOS and Linux \prog{Terminal}s are basically the same, see for instance: \url{http://www.davidbaumgold.com/tutorials/command-line/}. 
 
 \subsection*{My results do not make any sense! \label{faq:nonsense}}
 Check whether the samples in the environmental data are in the same order as those in the molecular data.
