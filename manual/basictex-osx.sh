@@ -13,10 +13,17 @@ export PATH=$PATH:"/usr/local/texlive/2018basic/bin/x86_64-darwin"
 if ! command -v latexmk > /dev/null; then
 
 # Obtain BasicTeX
-wget --retry-connrefused http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg -O BasicTeX.pkg
+wget http://mirror.switch.ch/ftp/mirror/tex/systems/mac/mactex/mactex-basictex-20180417.pkg -O BasicTeX.pkg
 
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
+
+# Setting non-persistent downloads for tlmgr
+# Source: https://darrengoossens.wordpress.com/2016/07/03/a-further-little-trick-with-tlmgr-trouble-downloading-and-unzipping/
+tlmgr conf tlmgr persistent-downloads 0
+
+# Setting a fixed repository
+tlmgr option repository http://mirror.switch.ch/ftp/mirror/tex/systems/texlive/tlnet/
 
 # Updating the installation
 sudo tlmgr update --self --all
@@ -67,4 +74,4 @@ sudo tlmgr option -- autobackup 0
 cat /usr/local/texlive/2018basic/texmf-dist/web2c/updmap.cfg
 
 # Update the TL install but add nothing new
-sudo tlmgr update --self --all --no-auto-install --no-persistent-downloads
+sudo tlmgr update --self --all --no-auto-install
