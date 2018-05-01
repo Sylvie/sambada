@@ -15,10 +15,11 @@ if ! command -v latexmk > /dev/null; then
 # Obtain BasicTeX
 wget http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg
 
+pwd
 ls
 
 # Install a minimal system
-sudo installer -pkg mactex-basictex-20180417.pkg -target /
+sudo installer -pkg BasicTeX.pkg -target /
 
 # Updating the installation
 sudo tlmgr update --self --all
