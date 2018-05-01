@@ -20,10 +20,10 @@ sudo installer -pkg BasicTeX.pkg -target /
 
 # Setting non-persistent downloads for tlmgr
 # Source: https://darrengoossens.wordpress.com/2016/07/03/a-further-little-trick-with-tlmgr-trouble-downloading-and-unzipping/
-tlmgr conf tlmgr persistent-downloads 0
+sudo tlmgr conf tlmgr persistent-downloads 0
 
 # Setting a fixed repository
-tlmgr option repository http://mirror.switch.ch/ftp/mirror/tex/systems/texlive/tlnet/
+sudo tlmgr option repository http://mirror.switch.ch/ftp/mirror/tex/systems/texlive/tlnet/
 
 # Updating the installation
 sudo tlmgr update --self --all
