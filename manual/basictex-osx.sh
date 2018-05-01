@@ -15,10 +15,6 @@ if ! command -v latexmk > /dev/null; then
 # Obtain BasicTeX
 wget http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg
 
-pwd
-ls
-
-
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
 
