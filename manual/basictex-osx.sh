@@ -13,7 +13,7 @@ export PATH=$PATH:"/usr/local/texlive/2018basic/bin/x86_64-darwin"
 if ! command -v latexmk > /dev/null; then
 
 # Obtain BasicTeX
-wget http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg
+wget --retry-connrefused http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg -O BasicTeX.pkg
 
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
@@ -67,4 +67,4 @@ sudo tlmgr option -- autobackup 0
 cat /usr/local/texlive/2018basic/texmf-dist/web2c/updmap.cfg
 
 # Update the TL install but add nothing new
-sudo tlmgr update --self --all --no-auto-install
+sudo tlmgr update --self --all --no-auto-install --no-persistent-downloads
