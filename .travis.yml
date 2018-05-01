@@ -28,7 +28,7 @@ matrix:
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
     - source ./manual/basictex-osx.sh
-    - ls /usr/local/texlive/
+    - ls -la /usr/local/texlive/
     - ls -l /Library/PreferencePanes
 #    cache:
 #      directories:

@@ -18,6 +18,9 @@ wget http://mirror.switch.ch/ftp/mirror/tex/systems/mac/mactex/mactex-basictex-2
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
 
+# Creating the directory for tlmgr config, otherwise the permissions are too restrictive
+mkdir -p /Users/travis/Library/texlive/2018basic/texmf-config/tlmgr/
+
 # Setting non-persistent downloads for tlmgr
 # Source: https://darrengoossens.wordpress.com/2016/07/03/a-further-little-trick-with-tlmgr-trouble-downloading-and-unzipping/
 sudo tlmgr conf tlmgr persistent-downloads 0
