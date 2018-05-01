@@ -30,13 +30,13 @@ matrix:
     - source ./manual/basictex-osx.sh
     - ls /usr/local/texlive/
     - ls -l /Library/PreferencePanes
-    cache:
-      directories:
-      - "/usr/local/texlive/"
-      - "/usr/local/bin/texdist/"
-      - "/usr/texbin/"
-      - "/Library/TeX/"
-      - "/Library/PreferencePanes/"
+#    cache:
+#      directories:
+#      - "/usr/local/texlive/"
+#      - "/usr/local/bin/texdist/"
+#      - "/usr/texbin/"
+#      - "/Library/TeX/"
+#      - "/Library/PreferencePanes/"
 before_install:
     - eval "${MATRIX_EVAL}"
 git:
