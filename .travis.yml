@@ -43,9 +43,10 @@ git:
   depth: 100
 script:
   - autoreconf -i
-  - g++ -v ; gcc -v
+  - g++-7 -v ; gcc-7 -v
   #  - g++-5 -v ; gcc-5 -v
   - echo $CC $CXX
+  - ${CC} -v; ${CXX} -v
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
   - cd build
