@@ -49,7 +49,7 @@ script:
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
   - cd build
-  - "../configure sambadahostsystemname=${SAMBADA_OS_NAME}"
+  - "../configure sambadahostsystemname=${SAMBADA_OS_NAME} CC=${CC} CXX=${CXX}"
   - make pdf
   - make
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
