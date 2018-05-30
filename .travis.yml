@@ -43,8 +43,6 @@ git:
   depth: 100
 script:
   - autoreconf -i
-  - g++-8 -v ; gcc-8 -v
-  #  - g++-5 -v ; gcc-5 -v
   - echo $CC $CXX
   - ${CC} -v; ${CXX} -v
   - sambada_version=$(./git-version-gen .version)
