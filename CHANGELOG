@@ -1,3 +1,13 @@
+Release 0.6 (2018-06-01)
+Change of tooling:
+- Migration to GitHub;
+- Building with Autotools;
+- Continuous integration with Travis and AppVeyor.
+Other changes:
+- Added an R script for selecting models using the Bonferroni correction;
+- Minor corrections of the manual and integration thereof into the code base;
+- Renaming of some example files.
+
 Patch 0.5.3 (2016-08-05)
 Updated the manual with explanations on using prior knowledge in multivariate models.
 

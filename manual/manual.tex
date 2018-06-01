@@ -1,0 +1,1666 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+%\renewcommand{\rmdefault}{cmr}
+%\renewcommand{\sfdefault}{cmss}
+%\renewcommand{\ttdefault}{cmtt}
+\usepackage[utf8]{inputenc}
+\usepackage[french,english]{babel}
+
+\usepackage[useregional]{datetime2}
+
+\def\printdate#1{\expandafter\printdateprivate#1\relax}
+\def\printdateprivate#1-#2-#3\relax{ \expandafter\DTMdisplaydate{#1}{#2}{#3}{-1} }
+
+\ifdefined\versionnumber
+
+\else
+	\newcommand{\versionnumber}{unknown} 
+\fi
+
+\ifdefined\releasedate
+	\date{ \printdate{\releasedate} }
+\else
+ 
+\fi
+
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{upgreek}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{ifthen}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{float}
+
+\usetikzlibrary{matrix,decorations.pathreplacing, positioning, decorations.markings, intersections,decorations.pathmorphing}
+
+\pgfdeclarelayer{bg}    % declare background layer
+\pgfsetlayers{bg,main}  % set the order of the layers (main is the standard layer)
+
+\usepackage[inline]{enumitem}
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\usepackage{mdframed}
+\usepackage{rotating}
+
+
+\newcommand{\smb}{\textsf{Sam$\upbeta$ada}}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\smbtitre}{\protect\texorpdfstring{\smb}{Samßada}}
+\newcommand{\pathtodatafrommanual}{\texttt{sambada-\versionnumber/examples/data-from-manual/}}
+\newcommand{\pathtoonedatafile}{\pathtodatafrommanual\texttt{one-data-file/}}
+\newcommand{\pathtotwodatafiles}{\pathtodatafrommanual\texttt{two-data-files/}}
+
+\captionsetup[figure]{name=Figure}
+\captionsetup[table]{name=Table}
+
+\newcommand\textline[6][t]{%
+\par\smallskip\noindent\parbox[#1]
+{2.5cm}{\raggedright
+\texttt{\large #2}}%
+\parbox[#1]{\dimexpr .5\textwidth - 2.5cm}
+{\ifthenelse{\equal{#3}{M}}{Mandatory}{Optional}}
+\parbox[#1]{.25\textwidth}
+{\centering#4}%
+\parbox[#1]{.25\textwidth}
+{\raggedleft\texttt{#5}}
+\par\smallskip\noindent\hspace{\dimexpr 2.5cm }
+\begin{minipage}{\dimexpr\textwidth - 2.5cm }
+#6
+\end{minipage}%
+\bigskip
+}
+
+\setcounter{tocdepth}{2}
+
+\newenvironment{launch}{\begin{mdframed}\ttfamily}{\end{mdframed}}
+
+
+% bibliographie
+\usepackage[
+	backend=biber,
+	style=authoryear,
+	labelalpha=true,
+	labeldate=true,
+	labelyear=true,
+	uniquelist=minyear,
+	uniquename=false,
+	sorting=nyt,
+	isbn=false,
+	url=false,
+	doi=true,
+	mincitenames=1,
+	maxcitenames=2,
+	minbibnames=3,
+	maxbibnames=5,
+	language=english
+]{biblatex}
+		
+\AtEveryBibitem{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+   \clearfield{labelmonth}%
+  \clearfield{labelday}%
+  \clearlist{language}%
+}
+
+\renewcommand*{\newunitpunct}{\addcomma\space}
+
+\DefineBibliographyExtras{french}{   
+\renewcommand{\mkbibnamelast}[1]{\textnormal{#1}}
+} 
+
+\renewcommand{\nameyeardelim}{\addcomma\space}
+\DeclareFieldFormat
+  [article,inbook,incollection,inproceedings,patent,thesis,unpublished]
+  {title}{\enquote{#1}}
+
+\renewbibmacro{in:}{%
+  \ifentrytype{article}{%
+  }{%
+    \printtext{\bibstring{in}\intitlepunct}%
+  }%
+}
+
+\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+
+
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+%  \setunit*{\adddot}% DELETED
+  \printfield{number}%
+  \setunit{\addcomma\space}%
+  \printfield{eid}}
+
+\DeclareFieldFormat{pages}{#1}
+\DeclareFieldFormat[book,inbook]{pages}{#1}
+
+\addbibresource{manual.bib}
+
+
+\usepackage{dirtree}
+\renewcommand*\DTstylecomment{\ttfamily\scriptsize} 
+\renewcommand*\DTstyle{\ttfamily\footnotesize}
+
+\setlength{\DTbaselineskip}{9pt}
+
+\usepackage{bm}
+
+
+
+
+
+\title{\smb: User manual}
+\author{Sylvie Stucki and Stéphane Joost\footnote{
+%Lab. of geographic information systems (LASIG)
+Laboratory of Geographic Information Systems (LASIG), School of Civil and Environmental Engineering (ENAC), Ecole Polytechnique Fédérale de Lausanne (EPFL), Bâtiment GC, Station 18, 1015 Lausanne, Switzerland \newline
+Webpage: \protect\url{lasig.epfl.ch/sambada} \newline Contact: sylvie.stucki@a3.epfl.ch, stephane.joost@epfl.ch
+}}
+\begin{document}
+
+\maketitle
+
+\vspace{-1.25cm}
+\begin{center}
+\small Version \versionnumber
+\end{center}
+
+\vfill
+
+\tableofcontents
+
+\vfill
+
+\clearpage
+
+\section{What is \smbtitre?}
+
+\smb\ is an integrated software for landscape genomic analysis of large datasets. 
+The key features are the study of local adaptation in relationship with environment and the measure of spatial autocorrelation in environmental and molecular datasets.
+When studying local adaptation, \smb\ uses logistic regressions to estimate the probability that an individual carries a specific genetic marker given the habitat that characterises its sampling site.
+Multivariate analysis, i.e.~including several predictors variables simultaneously in the models, enables the user to assess the effect of a combination of environmental variables or to include prior knowledge, e.g. the population structure, in the analysis.
+Regarding spatial statistics, \smb\ measures spatial autocorrelation with Moran's I and local indicators of spatial association, in order to assess whether the observed data in each location depends on the values in the neighbouring locations.
+Underlying models are kept simple to put emphasis on process efficiency and user-available options.
+
+
+
+\section{Installation}
+Software, source code, documentation and examples are available on our webpage \url{lasig.epfl.ch/sambada} and on GitHub \url{https://github.com/Sylvie/sambada/releases}.
+
+\subsection*{Executable binaires}
+Compiled versions of \smb\ are already packaged for Windows, macOS and Ubuntu.
+
+\subsubsection*{Windows and Ubuntu}
+Download and expand the archive at the location of your choice.
+
+\subsubsection*{macOS}
+\smb\ requires the GNU Compiler Collection (GCC) version 7 to be installed on the computer.
+Here are the installation steps using the package manager  \prog{Homebrew\footnote{\url{https://brew.sh/}}}:
+\begin{enumerate}
+\item{Open a Terminal prompt (located at \prog{/Applications/Utilities/Terminal.app}).}
+\item{Browse to \prog{Homebrew}'s home page (\url{https://brew.sh/}) and copy the installation command into the Terminal.
+At the time of writing, the command is: \\
+\verb+/usr/bin/ruby -e "$(curl -fsSL \+ \\*
+\verb+https://raw.githubusercontent.com/Homebrew/install/master/install)"+
+Press "Enter" and follow the instructions.}
+\item{Install GCC with the Terminal command: \prog{brew install gcc@7}.}
+\item{Download and expand \smb's archive at the location of your choice.}
+\end{enumerate}
+
+\subsection*{Compiling from sources}
+\smb\ can be built from source using the GNU Build System (a.k.a Autotools) and GCC (in versions 4.4.7 to 7.x).
+We noticed some incompatibilities with GCC version 8 and with Clang, which are under investigation.
+The distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) contains all files needed for the compilation. 
+Provided that \prog{make} is installed on your machine, the simplest build process consists in:
+\begin{itemize}
+\item{downloading and expanding the distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) at the location of your choice;} 
+\item{running \prog{./configure \&\& make} in the folder \prog{sambada-\versionnumber} for building with your default version of GCC;}
+\item{or running \prog{./configure CC=gcc-7 CXX=g++-7 \&\& make} for building with GCC~7.}
+\end{itemize}
+The executables are placed in the subfolder \prog{binaries}.
+
+Some further information: 
+\begin{itemize}
+\item{The folder containing all artefacts for the end-user can be built with \prog{make binary-archive}.}
+\item{The script \prog{configure} provides the option \prog{sambadahostsystemname} to choose the system name used for naming the artefacts' folder.}
+\end{itemize}
+
+\subsection*{Documentation}
+Software usage is explained in this manual.
+Theoretical background is covered by \smb's release article \textcite{stucki:2016} and \textcite{joost:2007}.
+Extended information on methods and implementation can be found in \textcite{stucki:2014} (in French).
+
+\subsection*{Examples}
+Three sample cases are provided with the software.
+\begin{description}
+\item[DataFromManual] is a tiny set of six samples with fives environmental variables and seven molecular markers.
+The examples from this manual are build on this dataset in order to illustrate data format, analysis workflow and distributed computing. 
+\item[RandomSample] is a random set of 100 georeferenced points with two environmental variables and a molecular marker.
+The first environmental parameter is random, while the second one is correlated to longitude in order to provide some spatial autocorrelation.
+The molecular marker is random.
+\item[SubsetCattleSNP] contains 386 SNPs from Ugandan cattle [lien approprié].
+They are already recoded for \smb, so there is three binary markers per loci.
+In this case, the spatial autocorrelation takes some time to compute.
+\end{description}
+
+Provided you have the file tree shown on fig.~\ref{fig:filetree},
+if you launch a shell\footnote{\prog{Command Line} or \prog{PowerShell} on Windows, \prog{Terminal} on macOS and Linux, see p.~\pageref{faq:commandline}.} and navigate to the folder \prog{random-data} or \prog{subset-cattle-SNP}, examples can be run using: \\
+\verb+../../binaries/sambada.exe param-random-sample.txt random-sample.txt+ or\\
+\verb+../../binaries/sambada.exe param-cattle.txt cattle-env.csv cattle-mark.txt+ \\
+\label{sec:examples-launch}
+on Windows, and \\
+\verb+../../binaries/sambada param-random-sample.txt random-sample.txt+ or\\
+\verb+../../binaries/sambada param-cattle.txt cattle-env.csv cattle-mark.txt+
+on Linux and macOS.
+
+\paragraph{Note on programs' names} 
+In the main text of this manual, the programs are identified with proper nouns (\prog{Sambada}, \prog{Supervision} and \prog{RecodePLINK}).
+However the names of the compiled programs are written in lowercase to ease typing in the Console and Terminal.
+This alternate spelling is also used in the command examples of this manual.
+Please note that Windows uses the suffix ".exe" for program names.
+These considerations lead to the following naming conventions: \\
+\begin{tabular}{llll}
+Name in main text		& Software name on & Windows  &	Linux \& macOS		\\
+\prog{Sambada}		& $\Rightarrow$ & \prog{sambada.exe} & \prog{sambada} 	\\
+\prog{Supervision}		& $\Rightarrow$ & \prog{supervision.exe}	& \prog{supervision}	\\
+\prog{RecodePLINK}		& $\Rightarrow$ & \prog{recode-plink.exe}	 & \prog{recode-plink}	 \\
+\end{tabular} \\
+In case of doubt, please use the names of the programs found in the directory \prog{binaries/}.
+Hint: Most command line interpreters enable auto-completion of names by hitting the \enquote{TAB} key.
+
+\begin{figure}[htbp]
+\dirtree{% 
+.1 sambada-\versionnumber. 
+.2 sambadoc.pdf. 
+.2 binaries. 
+.3 sambada.exe.
+.3 supervision.exe.
+.3 recode-plink.exe.
+.2 examples.
+.3 data-from-manual.
+.4 one-data-file.
+.5 combo-data.txt.
+.5 param-combo.txt.
+.5 $\dots$.
+%.5 param-combo-a.txt.
+%.5 param-combo-b.txt.
+%.5 param-split-combo.txt.
+.4 two-data-files.
+.5 env-data.txt.
+.5 mol-data.txt.
+.5 param.txt.
+.5 $\dots$.
+%.5 param-a.txt.
+%.5 param-b.txt.
+%.5 param-split.txt.
+.3 random-data.
+.4 param-random-sample.txt.
+.4 random-sample.txt.
+.3 subset-cattle-SNP.
+.4 cattle-env.csv.
+.4 cattle-mark.txt.
+.4 param-cattle.txt.
+.2 scripts.
+.3 bonferroniModelSelection.R.
+}
+\caption{Suggested file tree to run the examples.}
+\label{fig:filetree}
+\end{figure}
+
+\clearpage
+
+\section{Analysis overview}
+
+Three programs are available:
+\begin{description}
+\item[\smb] processes univariate and multivariate logistic models for the landscape genomics analysis and optionally measures the spatial autocorrelation in environmental and molecular datasets;
+\item[Supervision] can split molecular data in blocks in order to run the analysis on several computers, and can merge the results afterwards;
+\item[RecodePLINK] can translate molecular data from \prog{PLINK}'s to \smb's format.
+\end{description}
+
+The user must provide \smb\ with a parameter file to set up the analysis as well as environmental and molecular data.
+The workflow is summarised on fig.~\ref{fig:workflow} and the data format is presented in the next section.
+
+\begin{figure}[htbp]
+\begin{center}
+\newlength{\sepVert}
+
+	\begin{tikzpicture}
+\setlength{\sepVert}{1.5cm}
+
+\newcommand{\couleurObl}{gray!20}
+\newcommand{\couleurFac}{white}
+
+\node[draw, text width=4cm, text centered, fill=\couleurObl] (E) at (-3.5, 0.75\sepVert) {\textbf{Environmental data}};
+\node[draw, text width=3cm, text centered, fill=\couleurObl] (M) at (3.5, 0.75\sepVert) {\textbf{Molecular data}};
+
+\node[draw, rounded corners, fill=\couleurFac] (R) at (0,0) {\prog{RecodePLINK}}; 
+\node[draw, rounded corners, fill=\couleurFac] (Sp) at (0,-\sepVert) {\prog{Supervision} : split};
+\node[draw, rounded corners=3pt, thick, minimum width=3cm, minimum height=1cm, fill=\couleurObl] (Sb) at (0,-2\sepVert) {\Large \textbf{\smb}}; 
+\node[draw,  rounded corners, fill=\couleurFac] (Sm) at (0,-3\sepVert) {\prog{Supervision} : merge}; 
+%\draw[->,>=stealth] (M) to[out=-170,in=10] (R);
+\draw[->,>=stealth] (M.south west) -- (R.north east);
+\coordinate[shift={(7mm,0mm)}] (n) at (Sb.east);
+\draw[->,>=stealth] (R) -- (Sp);
+\draw[->,>=stealth] (Sp) -- (Sb);
+\draw[->,>=stealth] (Sb) -- (Sm);
+%\draw[dashed] (Sp) to[out=180,in=180] (Sm);
+%\draw[dashed, rounded corners=5pt] (Sp) -| (n) |- (Sm);
+\draw[decorate,decoration={snake,amplitude=1mm,pre length=1mm, post length=0mm}] (Sp) to[in=0,out=0] (Sm);
+\draw[->, >=stealth,dashed] (E) to[out=270, in=155] (Sb);
+\end{tikzpicture}
+\caption{Workflow of analysis. 
+Rectangles stand for data and round-cornered figures stand for programs.
+Grey elements are mandatory and white ones are optional.
+\smb\ computes correlative models and spatial autocorrelation. 
+The two other features are optional:
+\prog{Supervision} enables distributed computing while \prog{RecodePLINK} transforms .ped/.map files to comply with \smb's format.
+Arrows show processing order; \smb\ input consists in environmental data (dashed line) and molecular data (solid line).
+The zigzag line indicates that \prog{Supervision} is used before and after the main analysis.}
+\label{fig:workflow}
+\end{center}
+\end{figure}
+
+\section{Data format\label{sec:data}}
+
+\smb's input consist of molecular and environmental data.
+They can be provided as a single or two separate files.
+Files may have any name and extension. 
+Each line provides information for an individual, each column contains an environmental variable or a binary molecular marker.
+Examples are provided on fig. \ref{fig:envfile}, \ref{fig:molfile} and \ref{fig:molenvfile}.
+Information about data format and analysis options are specified separately in the parameter file.
+
+Data files are organised as follows: the header line is optional and the column separator is up to the user.
+Sample names (identifiers) are optional, and some columns may be excluded from the analysis (for instance phenotypical information stored with the environmental data).
+If there is a single data file, environmental data must be provided in the first columns, and molecular data in the last ones.
+Sample names and coordinates are considered as environmental data.
+If data is split between two files, sample must be in the same order in both files.
+Missing data can be coded as any character string, for instance \prog{NaN} or \prog{?}.
+Fig.~\ref{fig:envfile} and \ref{fig:molfile} are examples of environmental and molecular files.
+Fig.~\ref{fig:molenvfile} is the combined file for the same data.
+The files used in this manual are distributed with \smb. 
+Please refer to \pathtodatafrommanual.
+
+\begin{figure}[htbp]
+
+\begin{center}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=9.5cm,align=center]
+		\begin{tabular}{llllll}
+NAME&	ENV1	&ENV2	&ENV3	&ENV4	&ENV5	\\
+ID1	&	46	&	972	&	236	&	230	&	132		\\
+ID2	&	32	&	987	&	238	&	232	&	83		\\
+ID3	&	32	&	987	&	238	&	232	&	83		\\
+ID4	&	32	&	987	&	NaN	&	232	&	83		\\
+ID5	&	32	&	987	&	238	&	232	&	83		\\
+ID6	&	35	&	1021	&	235	&	230	&	87		\\		
+\end{tabular}
+	\end{mdframed}
+	\end{center}
+	\caption{Example of environmental file (\texttt{env-data.txt}).
+	This file is part of the distribution, see 
+	\pathtotwodatafiles\texttt{env-data.txt}.
+	}
+	\label{fig:envfile}
+\end{figure}
+
+
+
+\begin{figure}[htbp]
+
+\begin{center}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=10cm,align=center]
+		\begin{tabular}{llllllll}
+NAME&	M4	&M7	&M8	&M9	&M16	&M17	&M18\\
+ID1&	 1	&1	&1	&0	&1	&1	&1\\
+ID2& 0	&0	&0	&0	&0	&0	&NaN\\
+ID3& 0	&1	&0	&0	&0	&0	&1\\
+ID4& 0	&0	&1	&1	&0	&1	&1\\
+ID5& 0	&0	&1	&0	&0	&1	&0\\
+ID6& 0	&1	&0	&0	&0	&1	&0\\
+		\end{tabular}
+	\end{mdframed}
+	\caption{Example of molecular file (\texttt{mol-data.txt}).
+	This file is part of the distribution, see 
+	\pathtotwodatafiles\texttt{mol-data.txt}.
+	}
+	\label{fig:molfile}
+	\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\scriptsize
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=14.5cm,align=center]
+		\begin{tabular}{*{13}{l}}
+NAME&	ENV1	&ENV2	&ENV3	&ENV4	&ENV5		&	M4	&M7	&M8	&M9	&M16	&M17	&M18\\
+ID1	&	46	&	972	&	236	&	230	&	132	&		1	&1	&1	&0	&1	&1	&1\\
+ID2	&	32	&	987	&	238	&	232	&	83	&	 0	&0	&0	&0	&0	&0	&NaN\\	
+ID3	&	32	&	987	&	238	&	232	&	83	&	 0	&1	&0	&0	&0	&0	&1\\	
+ID4	&	32	&	987	&	NaN	&	232	&	83	&	 0	&0	&1	&1	&0	&1	&1\\	
+ID5	&	32	&	987	&	238	&	232	&	83	& 	0	&0	&1	&0	&0	&1	&0\\	
+ID6	&	35	&	1021	&	235	&	230	&	87	& 	0	&1	&0	&0	&0	&1	&0\\	
+		\end{tabular}
+	\end{mdframed}
+	\caption{Example of combined file for environmental and molecular data, corresponding to fig.~\ref{fig:envfile} and \ref{fig:molfile} (\texttt{combo-data.txt}).
+	Environmental data must be provided in the first columns (left part of the tabular), and molecular data in the last columns (right part).
+	The identifier, if any, is considered as an environmental variable.
+	This file is part of the distribution, see 
+	\pathtoonedatafile\texttt{combo-data.txt}.
+	}
+	\label{fig:molenvfile}
+	\end{center}
+\end{figure}
+
+\section{Program use}
+
+
+\subsection{\texorpdfstring{\smb}{Sam$beta$ada}}
+
+\subsubsection{Input files}
+The required input for \smb\ consists of environmental and molecular data, formatted as explained in sec.~\ref{sec:data}.
+A parameter file is needed as well to set up the analysis.
+
+The parameter file contains one line per parameter, they can be specified
+in any order. Each line begins with the name of the current parameter,
+followed by the values separated by spaces. 
+
+Some parameters are mandatory, otherwise the entire line may be omitted.
+Any line beginning with a hash character (\#) will be ignored. 
+
+Fig.~\ref{fig:fichier-param-general} presents a working parameter file.
+
+\begin{figure}[htbp]
+\centering
+%\begin{boxedverbatim}
+% HEADERS YES	
+% WORDDELIM " "	
+% NUMVARENV 24	
+% NUMMARK 120103	
+% NUMINDIV 804
+% IDINDIV short_name ID_indiv
+% SPATIAL longitude latitude SPHERICAL NEAREST 20  
+% AUTOCORR BOTH MARK 1000
+% DIMMAX 1
+% SAVETYPE END ALL 0.01
+%\end{boxedverbatim}
+%
+%\fbox{%
+%\begin{minipage}{10cm}
+%\ttfamily
+% HEADERS YES\\	
+% WORDDELIM " "\\	
+% \textbf{NUMVARENV 24\\	
+% NUMMARK 120103	\\
+% NUMINDIV 804\\}
+% IDINDIV short\_name ID\_indiv\\
+% SPATIAL longitude latitude SPHERICAL NEAREST 20  \\
+% AUTOCORR BOTH MARK 1000\\
+% \textbf{DIMMAX 1\\
+% SAVETYPE END ALL 0.01}
+% \end{minipage}%
+%}
+{
+\ttfamily
+\begin{tabular}{c|l|}
+\cline{2-2}
+& HEADERS YES\\	
+& WORDDELIM " "\\	
+$\ast$ & NUMVARENV 24\\	
+$\ast$ & NUMMARK 120103	\\
+$\ast$ & NUMINDIV 804\\
+& IDINDIV short\_name ID\_indiv\\
+& SPATIAL longitude latitude SPHERICAL NEAREST 20  \\
+& AUTOCORR BOTH MARK 1000\\
+$\ast$ & DIMMAX 1\\
+$\ast$ & SAVETYPE END BEST 0.01\\
+\cline{2-2}
+ \end{tabular}%
+}
+%SUBSETVARENV alt_SRTM aspect bio12 bio15 bio18 bio2 bio3 bio7 bio9
+%	latitude longitude prec10 prec11 prec2 prec3 prec4 prec5 prec6
+%	prec7 prec9 slope tmax10 tmin10
+\caption[Exemple de fichier de paramètres pour \smb.]
+{Example of a parameter file for setting up \smb's analysis.
+Each line contains an option for the computation, those marked with a sign in the margin are mandatory.
+The line order has no influence.
+In this example, the two first lines indicate that data files contain a header line and that columns are separated by spaces.
+The next lines state the number of environmental variables, the number of molecular markers and the number of individuals/samples.
+The option \texttt{IDINDIV} indicates which columns contain identifiers of individuals; here environmental and molecular data are recorded in two separated files.
+The next two lines address the measure of the spatial autocorrelation, with the coordinates names, which are spherical, the weighting scheme and the bandwidth; here the 20 nearest neighbours are taken into account.
+The analysis will include both global and local autocorrelation (\texttt{BOTH}) of molecular markers (\texttt{MARK}) and the significance will be assessed with 1,000 permutations.
+The next option means that the detection of selection signatures will rely on univariate models (\texttt{DIMMAX 1}).
+The last ligne indicates that results will be stored at the end of the process, that only significant models with a significant parent will be stored and that the threshold for significance is set to 1\% (before Bonferroni's correction).
+}
+\label{fig:fichier-param-general}
+\end{figure}
+
+\paragraph{Example 1} 
+Let's assume we want to analyse \verb+mol-data.txt+ (fig. \ref{fig:molfile}) with \verb+env-data.txt+ (fig. \ref{fig:envfile}).
+The simplest parameter file is shown on fig. \ref{fig:fichier-param}.
+
+\begin{figure}[htbp]
+\centering
+\ttfamily
+\begin{tabular}{|l|}
+\hline
+HEADERS YES\\	
+NUMVARENV 6\\	
+NUMMARK 8	\\
+NUMINDIV 6\\
+IDINDIV NAME\\
+DIMMAX 1\\
+SAVETYPE END ALL 0.01\\
+\hline
+\end{tabular}%
+\caption{Parameter file to analyse data from fig. \ref{fig:envfile} and \ref{fig:molfile} (\texttt{param.txt}). 
+\texttt{NUMVARENV} and \texttt{NUMMARK} count the total number of columns in the data files.
+This file is part of the distribution, see \pathtotwodatafiles\texttt{param.txt}.
+}
+\label{fig:fichier-param}
+\end{figure}
+
+
+\paragraph{Example 2} 
+
+When environmental and molecular data are provided altogether, slight changes in the parameter file reflect the new data size, see fig.~\ref{fig:fichier-param-combo}.
+\begin{figure}[htbp]
+\centering
+\ttfamily
+\begin{tabular}{|l|}
+\hline
+HEADERS YES\\	
+NUMVARENV 6\\	
+NUMMARK 7	\\
+NUMINDIV 6\\
+IDINDIV NAME\\
+DIMMAX 1\\
+SAVETYPE END ALL 0.01\\
+\hline
+\end{tabular}%
+\caption{Parameter file to analyse data from fig. \ref{fig:molenvfile} (\texttt{param-combo.txt}).
+Sample names are provided once, thus there is one molecular column less.
+This file is part of the distribution, see \pathtoonedatafile\texttt{param-combo.txt}.
+}
+\label{fig:fichier-param-combo}
+\end{figure}
+
+
+\subsubsection{Program launch}
+
+\smb\ is launched as follows if environmental and molecular data are stored in the same file:
+\begin{launch} sambada parameterFile dataFile\end{launch}
+The command changes slightly if there are two separated input files:\\
+\begin{launch} sambada parameterFile envFile molecularFile \end{launch}
+
+\noindent Therefore examples 1 and 2 would be launched with:\\
+\verb+ sambada param.txt env-data.txt mol-data.txt+\\
+and\\
+\verb+ sambada param-combo.txt combo-data.txt+\\
+respectively.
+Futher examples are provided on p.~\pageref{sec:examples-launch}.
+
+\subsubsection{List of options\label{seq:liste-options}}
+
+This section presents the available parameters for \smb.
+
+%The parameter file contains one line per parameter, they can be specified
+%in any order. Each line begins with the name of the current parameter,
+%followed by the values separated by spaces. 
+
+%Some parameters are mandatory, otherwise the entire line may be omitted.
+%Any line beginning with a hash character (\#) will be ignored. 
+
+The options are presented in the following way: the first line shows the parameter
+name, whether it is mandatory, the list of possible values (or the
+expected type in parenthesis) and the default value.
+The paragraph is completed by a description of the option.
+
+\subsubsection*{Data files and format}
+%\bigskip
+\textline{INPUTFILE}{O}{(string)}{-}
+{Name(s) of the data file(s). If there are two files, indicate first the environmental file then the molecular file.\\ This information may also be given as an argument to the program.}
+
+
+\textline{OUTPUTFILE}{O}{(string)}{-}
+{Base name(s) for the results file(s). If this option is omitted, the output files will be named after the molecular input file. The different ouput files are distinguished by adding suffixes (\enquote{-Out-}, \enquote{-AS-}, \dots), thus the input files are untouched. With this option, the results can be saved in a different folder than the data.}
+
+\textline{HEADERS}{O}{Yes / No}{No}
+{Presence or absence of variable names. If present, they are read on the first line of the data file, otherwise the environmental variables are labelled P1, P2, P3,\dots\ and molecular markers are labelled M1, M2, M3,\dots.}
+
+\textline{WORDDELIM}{O}{(char)}{` '}
+{Word delimiter, it must be a single character. This option applies to both molecular and environmental data, while the parameter file is assumed to be space-separated.}
+
+\textline{LOG}{O}{\emph{1 value, see descr.}}{BOTH}
+{Location of log information.\\
+\begin{tikzpicture}[ remember picture]
+\matrix (mlog) [matrix of nodes,column 1/.style={anchor=west, text width=2.5cm}, column 2/.style={anchor=west, text width={\textwidth - 2.5cm}}, ampersand replacement=\&, inner xsep=0pt] 
+{
+ 	%TERMINAL \linebreak CONSOLE \linebreak FILE \linebreak BOTH \& TERMINAL and CONSOLE print the log on the standard output, FILE writes the log in a file with the suffix \enquote{-log}, and BOTH uses both methods. \\
+ 	TERMINAL \linebreak CONSOLE \& print the log on the standard output, \\
+	FILE  \& writes the log in a file with the suffix \enquote{-log},  \\
+	BOTH \& uses both methods. \\
+};
+\end{tikzpicture}
+\begin{tikzpicture}[node distance=2mm, remember picture,overlay, decoration={brace,amplitude=0.2cm,mirror}]
+  \path [draw, decorate,gray]
+        (mlog-1-1.north -| mlog.west) --   coordinate (mlog)  (mlog-3-1.south -| mlog.west); 
+        \node[color=gray, left=of mlog]{1};
+\end{tikzpicture}
+}
+
+\subsubsection*{Data size}
+
+\textline{NUMVARENV}{M}{(int)}{-}
+{Number of columns with environmental variables, including ignored variables and the column of identifiers (if any).
+If there is one input file, this counts the number of columns that do not concern molecular data\footnotemark.
+If there are two input files, NUMVARENV counts the total number of columns in the environmental data file.}
+
+\textline{NUMMARK}{M}{(int)}{-}
+{Number of columns with molecular data, including ignored data and identifiers if applicable.
+If there is one input file, this counts the number of columns concerning molecular markers\footnotemark[\thefootnote].
+If there are two input files, NUMMARK counts the total number of columns in the molecular data file.\newline
+For distributed analysis, this parameter must indicate the number of markers for the current block of data followed by the total number of markers\footnotemark.}
+\addtocounter{footnote}{-1}
+\footnotetext[\thefootnote]{In this case, NUMVARENV + NUMMARK is the total number of columns in the molecular data file. The first NUMVARENV columns contain environmental data and the following NUMMARK columns hold molecular markers.}\label{param:nummark}
+\addtocounter{footnote}{1}
+\footnotetext{The total number of markers is used to compute the Bonferroni correction. Thus ignored data should be excluded of this total.}
+
+\textline{NUMINDIV}{M}{(int)}{-}
+{Number of samples included in the data file(s). }
+
+\subsubsection*{Active and inactive columns}
+
+\textline{IDINDIV}{O}{(string or int)}{-}
+{Name(s) of the column(s) containing sample identifiers\footnotemark.
+These optional identifiers are used to label samples in the output files for local spatial autocorrelation (otherwise the line numbers are used).
+If there are two data files, two names (or numbers) can be provided, the first one is for the environmental data and the second one is for molecular data.
+The identifier columns are automatically set as inactive.
+Moreover if this option is specified with two data files, the two identifiers must match on each line. (Sample must be in the same order in each file.)}
+
+\textline{COLSUPENV}{O}{(string or int)}{-}
+{Name(s) of the column(s) in the environmental data to be excluded from the analysis\footnotemark[\thefootnote]. These columns are set as inactive. (For instance, COLSUPENV can indicate columns such as the sampling date or the name of the area.)}\label{param:colsupenv}
+
+
+\textline{COLSUPMARK}{O}{(string or int)}{-}
+{Name(s) of the column(s) in the molecular data to be excluded from the analysis\footnotemark[\thefootnote]. These columns are set as inactive.}
+
+\textline{SUBSETVARENV}{O}{(string or int)}{-}
+{Name(s) of the column(s) in the environmental data to be included in the analysis while the other columns are set as inactive.
+The different options cumulate: the active columns are those listed here, minus those specified with COLSUPENV as well as IDINDIV.}
+
+\textline{SUBSETMARK}{O}{(string or int)}{-}
+{Name(s) of the column(s) in the molecular data to be included in the analysis while the other columns are set as inactive.
+The different options cumulate: the active columns are those listed here, minus those specified with COLSUPMARK as well as IDINDIV.}
+
+\footnotetext{The column numbers replace their names in case there is no header line.}
+
+\subsubsection*{Logistic model and results storage.}
+\textline{DIMMAX}{M}{(int)}{-}
+{Maximum number of environmental variables included in the logistic models. 
+The models with less parameters are computed as well.
+Use 1 for univariate models, 2 for univariate and bivariates models, \dots \\
+Please refer to section \ref{sec:prior-knowledge} for more information on including prior knowledge in multivariate models.}
+
+\textline{SAVETYPE}{M}{\emph{3 values, see descr.}}{-}
+{Saving method and model selection.\\
+\begin{tikzpicture}[ remember picture]
+\matrix (msave) [matrix of nodes,column 1/.style={anchor=west, text width=2.5cm}, column 2/.style={anchor=west, text width={\textwidth - 2.5cm}}, ampersand replacement=\&, inner xsep=0pt] 
+{
+ 	REAL \linebreak END  \&   Storage mode: REAL saves results during processing, END writes them upon completion of computation. The second option enables sorting the models according to their Wald scores before saving. \\
+	ALL \linebreak SIGNIF \linebreak BEST \&   Model selection: ALL saves all models, SIGNIF saves significant models (according to the $G$ and Wald scores) and BEST saves significant models with at least a significant parent.\\
+ 	(double)	 \&   Significance threshold ($p$-value) for options SIGNIF and BEST. The Bonferroni correction is applied on this threshold.\\
+    } ;
+%  \path [draw,decoration={brace,amplitude=0.2cm,mirror}, decorate,gray]
+%        (m-1-1.north -| m.west) --   coordinate (hello)  (m-1-1.south -| m.west); 
+%        \node[color=gray, left=of hello]{1};
+%    \path [decoration={brace,amplitude=0.2cm,mirror}, decorate,gray]
+%        (m-2-1.north -| m.west) -- (m-2-1.south -| m.west);
+%          \draw [decoration={brace,amplitude=0.2cm,mirror}, decorate,gray]
+%        (m-3-1.north -| m.west) -- (m-3-1.south -| m.west);
+\end{tikzpicture}
+
+\begin{tikzpicture}[node distance=2mm, remember picture,overlay, decoration={brace,amplitude=0.2cm,mirror}]
+  \path [draw, decorate,gray]
+        (msave-1-1.north -| msave.west) --   coordinate (msave1)  (msave-1-1.south -| msave.west); 
+        \node[color=gray, left=of msave1]{1};
+    \path [draw,decorate,gray]
+        (msave-2-1.north -| msave.west) -- coordinate (msave2) (msave-2-1.south -| msave.west);
+                \node[color=gray, left=of msave2]{2};
+   \path [draw, decorate,gray]
+        (msave-3-1.north -| msave.west) -- coordinate (msave3) (msave-3-1.south -| msave.west);
+                \node[color=gray, left=of msave3]{3};
+\end{tikzpicture}
+Example: \prog{SAVETYPE END BEST 0.01}}
+
+\par\smallskip\noindent\parbox
+{4cm}{\raggedright
+\texttt{\large UNCONVERGEDMODELS}}%
+\parbox{\dimexpr .5\textwidth - 4cm}
+{\ifthenelse{\equal{O}{M}}{Mandatory}{Optional}}
+\parbox{.25\textwidth}
+{\centering Yes / No}%
+\parbox{.25\textwidth}
+{\raggedleft\texttt{No}}
+\par\smallskip\noindent\hspace{\dimexpr 2.5cm }
+\begin{minipage}{\dimexpr\textwidth - 2.5cm }
+This option controls the back-up of unconverged models.
+If enabled, these models are saved in a separate file with the suffix \enquote{-unconvergedModels}.
+\end{minipage}%
+\bigskip
+
+
+\subsubsection*{Spatial autocorrelation}
+
+%\textline{SPATIAL}{O}{\emph{5 values, see descr.}}{-}
+%{\begin{tabular}{@{}m{3cm}l@{}}
+%(string or int)	&	Column name (or number) for longitude.\\
+%(string or int)	&	Column name (or number) for latitude.\\
+%$\left[  \begin{tabular}{@{}m{2.5cm}@{}}SPHERICAL/ \linebreak CARTESIAN\end{tabular} \right.$	& Type of coordinates (spherical or projected)\\
+%$\left[  \begin{tabular}{@{}m{2.5cm}@{}}DISTANCE/ \linebreak GAUSSIAN/ \linebreak  BISQUARE/ \linebreak  NEAREST\end{tabular} \right.$	& Type of weighting scheme\\
+%(double or int)	& \multicolumn{1}{p{7cm}}{Bandwidth of the weighting function \linebreak(double for the first three cases (in m), int for the last).}\\
+%\end{tabular}
+%Example: \prog{SPATIAL X Y CARTESIAN BISQUARE 10}}
+
+\textline{SPATIAL}{O}{\emph{5 values, see descr.}}{-}
+{
+\begin{tikzpicture}[remember picture]
+    \matrix (ms) [matrix of nodes,column 1/.style={anchor=west, text width=2.5cm}, column 2/.style={anchor=west, text width={\textwidth - 2.5cm}},ampersand replacement=\&, inner xsep=0pt] 
+    {
+ 	(string or int)	\&	Column name (or number) for longitude.\\
+	(string or int)	\&	Column name (or number) for latitude.\\
+	SPHERICAL  CARTESIAN \&  Type of coordinates (spherical or projected). \\
+	DISTANCE  GAUSSIAN   BISQUARE   NEAREST  \&  Type of weighting scheme, see fig.~\ref{fig:weightingscheme}\\
+ 	(double or int)	 \&   Bandwidth of the weighting function \linebreak  
+	{\small \begin{itemize*}
+	 	\item Cases \textsc{distance, gaussian, bisquare}:  \linebreak
+		Input type is (double). Units are in~[m] for \textsc{spherical} coordinates; for \textsc{cartesian} coordinates, units match those of the samples' positions. \linebreak 
+		\item Case \textsc{nearest}: Input type is (int).
+	 \end{itemize*}} \\
+    };
+    \end{tikzpicture}
+
+\begin{tikzpicture}[remember picture,overlay,decoration={brace,amplitude=0.2cm,mirror}, node distance=2mm]
+  \path [draw, decorate,gray]
+        (ms-1-1.north -| ms.west) -- coordinate (ma1)  (ms-1-1.south -| ms.west);
+  \node[color=gray, left=of ma1]{1};
+
+  \path [draw, decorate,gray]
+        (ms-2-1.north -| ms.west) -- coordinate (ma2)  (ms-2-1.south -| ms.west);
+  \node[color=gray, left=of ma2]{2};
+
+    
+  \path [draw, decorate,gray]
+        (ms-3-1.north -| ms.west) -- coordinate (ma3)  (ms-3-1.south -| ms.west);
+  \node[color=gray, left=of ma3]{3};
+
+  \path [draw, decorate,gray]
+        (ms-4-1.north -| ms.west) -- coordinate (ma4)  (ms-4-1.south -| ms.west);
+  \node[color=gray, left=of ma4]{4};
+
+
+  \path [draw, decorate,gray]
+        (ms-5-2.north -| ms.west) -- coordinate (ma5)  (ms-5-2.south -| ms.west);
+  \node[color=gray, left=of ma5]{5};
+
+
+\end{tikzpicture}
+
+Example: \prog{SPATIAL X Y CARTESIAN BISQUARE 120}}
+
+
+\textline{AUTOCORR}{O}{\emph{3 values, see descr.}}{-}
+{This entry requires the specification of SPATIAL.\\
+\begin{tikzpicture}[ remember picture]
+\matrix (ma) [matrix of nodes,column 1/.style={anchor=west, text width=2.5cm}, column 2/.style={anchor=west, text width={\textwidth - 2.5cm}}, ampersand replacement=\&, inner xsep=0pt] 
+    {
+GLOBAL \linebreak LOCAL \linebreak BOTH \&  Type of indices to compute: Moran's $I$ for the global spatial autocorrelation, LISA for the local one. \\
+ ENV \linebreak MARK \linebreak BOTH  \&   Variables for the analysis.\\
+  (int)	 \&   Number of permutations for computing the pseudo $p$-values (default=99). \\ % Level of significance for the permutations (pseudo $p$-value).\\
+    } ;
+%  \path [draw,decoration={brace,amplitude=0.2cm,mirror}, decorate,gray]
+%        (m-1-1.north -| m.west) --   coordinate (hello)  (m-1-1.south -| m.west); 
+%        \node[color=gray, left=of hello]{1};
+%    \path [decoration={brace,amplitude=0.2cm,mirror}, decorate,gray]
+%        (m-2-1.north -| m.west) -- (m-2-1.south -| m.west);
+%          \draw [decoration={brace,amplitude=0.2cm,mirror}, decorate,gray]
+%        (m-3-1.north -| m.west) -- (m-3-1.south -| m.west);
+\end{tikzpicture}
+
+\begin{tikzpicture}[node distance=2mm, remember picture,overlay, decoration={brace,amplitude=0.2cm,mirror}]
+  \path [draw, decorate,gray]
+        (ma-1-1.north -| ma.west) --   coordinate (ma1)  (ma-1-1.south -| ma.west); 
+        \node[color=gray, left=of ma1]{1};
+    \path [draw,decorate,gray]
+        (ma-2-1.north -| ma.west) -- coordinate (ma2) (ma-2-1.south -| ma.west);
+                \node[color=gray, left=of ma2]{2};
+   \path [draw, decorate,gray]
+        (ma-3-1.north -| ma.west) -- coordinate (ma3) (ma-3-1.south -| ma.west);
+                \node[color=gray, left=of ma3]{3};
+\end{tikzpicture}
+Example: \prog{AUTOCORR GLOBAL BOTH 999}}
+
+
+%\textline{AUTOCORR}{O}{\emph{3 values, see descr.}}{-}
+%{This entry requires the specification of SPATIAL.\\
+%\begin{tabular}{@{}m{2.5cm}l@{}}
+%$\left[  \begin{tabular}{@{}m{2.5cm}@{}}GLOBAL/ \linebreak LOCAL/ \linebreak BOTH\end{tabular} \right.$&  \multicolumn{1}{m{7cm}}{Type of indices to compute: Moran's $I$ for the global spatial autocorrelation, LISA for the local one}\\
+%$\left[ \begin{tabular}{@{}m{2.5cm}@{}}ENV/ \linebreak MARK/ \linebreak BOTH\end{tabular} \right.$		& Variables for the analysis\\
+%\rule{3pt}{0pt}(double) 	& \multicolumn{1}{m{7cm}}{Level of significance for the permutations (pseudo $p$-value).}\\
+%\end{tabular}
+%Example: \prog{AUTOCORR GLOBAL BOTH 0.01}}
+
+\textline{SHAPEFILE}{O}{YES / NO}{NO}
+{With this option, the LISA are saved as a shapefile (in addition to the usual output). This format is composed of three files: .shp, .shx and .bdf. 
+These files can be loaded together in any GIS software to map the local autocorrelation.
+This entry requires the specification of SPATIAL.}
+
+\begin{figure}[htbp]
+\begin{description}
+	\item[Moving window]
+	{\hspace{1cm}\\
+	\begin{minipage}{6cm}
+	\begin{align*}
+			w_{ij} =\begin{cases} 
+			1	& \text{if } d_{ij} < b  \\
+			0  	& \text{otherwise}
+			\end{cases}
+	\end{align*}
+	\end{minipage}%
+	\begin{minipage}{6cm}
+	%
+	%\begin{figure}[h]
+	%\centering
+	\begin{tikzpicture}[domain=-3.5:3.5, scale=1] 
+		\draw[->,gray] (-3.5,0) -- (3.5,0) node[right] {$x$}; 
+		\draw[->,gray] (0,-.5) -- (0,1.25) node[above] {$w(x)$};
+		\foreach \x in {-3,...,3} \draw[gray] (\x,-1pt) -- (\x,1pt);
+		\draw[gray,below]  (1,0) node {$b$}   (-1,0)   node   {-$b$};
+		\draw[gray] (-1pt,1) -- (1pt, 1) ;
+		\draw (-3.5,0) -- (-1,0) (-1,1) -- (1,1) (1,0) -- (3.5,0); 
+	\end{tikzpicture}
+	%\end{figure}
+	\end{minipage}
+	}
+	
+	\item[Gaussian kernel]
+	{\hspace{1cm}\\
+		\begin{minipage}{6cm}
+	\begin{align*}
+			w_{ij} = \exp \left[ - \frac{1}{2} \left ( { \frac{d_{ij}}{b} } \right )^2 \right]
+	\end{align*}
+	\end{minipage}%
+	\begin{minipage}{6cm}
+	%\begin{figure}[h]
+	%\centering
+	\begin{tikzpicture}[domain=-3.5:3.5, scale=1] 
+		\draw[->,gray] (-3.5,0) -- (3.5,0) node[right] {$x$}; 
+		\draw[->,gray] (0,-.5) -- (0,1.25) node[above] {$w(x)$};
+		\foreach \x in {-3,...,3} \draw[gray] (\x,-1pt) -- (\x,1pt);
+		\draw[gray,below]  (1,0) node {$b$}   (-1,0)   node   {-$b$};
+		\draw[gray] (-1pt,1) -- (1pt, 1) ;
+		\draw	plot (\x,{exp(-(\x*\x)*0.5)})	; 
+	\end{tikzpicture}
+	%\end{figure}
+		\end{minipage}
+
+	}
+	
+	\item[Bisquare kernel]
+{\hspace{1cm}\\
+		\begin{minipage}{6cm}
+	\begin{align*}
+			w_{ij} =\begin{cases} 
+			\left[ 1 - \left( \frac{d_{ij}}{b} \right) ^2 \right] ^2	& \text{if } d_{ij} < b  \\
+			0  	& \text{otherwise}
+			\end{cases}
+		\end{align*}
+	\end{minipage}%
+	\begin{minipage}{6cm}
+	%\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[domain=-3.5:3.5, scale=1] 
+		\draw[->,gray] (-3.5,0) -- (3.5,0) node[right] {$x$}; 
+		\draw[->,gray] (0,-.5) -- (0,1.25) node[above] {$w(x)$};
+		\foreach \x in {-3,...,3} \draw[gray] (\x,-1pt) -- (\x,1pt);
+		\draw[gray,below]  (1,0) node {$b$}   (-1,0)   node   {-$b$};
+		\draw[gray] (-1pt,1) -- (1pt, 1) ;		
+		\draw[domain=-1:1]	(-3.5,0) -- (-1,0) -- plot (\x,{ (1-\x*\x)^2 }) (1,0) -- (3.5,0);
+	\end{tikzpicture}
+	%\end{figure}
+		\end{minipage}
+
+	}
+	
+	\item[N nearest neighbours]
+{\hspace{1cm}\\
+		\begin{minipage}{5cm}
+	\begin{align*}
+			w_{ij} =\begin{cases} 
+			\frac{1}{N} 		& \text{if $j$ is amongst the $N$ nearest neighbours of $i$}  \\
+			0				 & \text{otherwise}
+			\end{cases}
+		\end{align*}
+	\end{minipage}
+	
+		\begin{center}
+		\vspace{-0.5cm}
+	\begin{minipage}{6cm}
+	%\begin{figure}[h]
+	\begin{tikzpicture}[domain=-3.5:3.5, scale=1] 
+		\draw[->,gray] (-3.5,0) -- (3.5,0) node[right] {$x$}; 
+		\draw[->,gray] (0,-.5) -- (0,1.25) node[above] {$w(x)$};
+		\foreach \x in {-3,...,3} \draw[gray] (\x,-1pt) -- (\x,1pt);
+		\draw[gray,below]  (1,0) node {$b$}   (-1,0)   node   {-$b$};
+		\draw[gray] (-1pt,1) -- (1pt, 1) ;		
+		\draw (-3.5,0) -- (-1.5,0) (-1.5,.666) -- (1.5,.666) (1.5,0) -- (3.5,0); 
+	\end{tikzpicture}
+	%\end{figure}
+	\end{minipage}
+	\end{center}
+	}
+\end{description}
+\caption{Weighting schemes available for measuring spatial autocorrelation.}
+\label{fig:weightingscheme}
+\end{figure} 
+
+\subsubsection{Output}
+
+\smb\ produces several output files.
+To illustrate the naming scheme, let us assume that the molecular data file is named \prog{data.ext}.
+If the log is saved for future reference, the corresponding file is named \prog{data-log.ext}.
+For logistic regressions, there is one file for constant models, which are not sorted (see fig.~\ref{fig:fichier-res-const}).
+There is also one file per distinct number of parameters (univariate, bivariate, trivariate models and so on, see fig.~\ref{fig:fichier-res-univ}).
+In these files, models are sorted according to their Wald scores.
+Fig.~\ref{fig:errors} lists possible errors for logistic models.
+If the back-up of unconverged models is enabled, the output file is named \prog{data-unconvergedModels.ext}.
+Results files are named as follows: constant models are saved in the file \prog{data-Out-0.ext}, univariate models in the file \prog{data-Out-1.ext}, bivariate models the file \prog{data-Out-2.ext}, and so on.
+%
+\begin{figure}[htbp]
+\begin{tabular}{ll}
+0 & Success \\
+1 & Exponential divergence ($\bm{X \beta}$ is diverging)\\
+2 & Singular matrix (impossible to invert the information matrix) \\
+3 & Too large $\bm{\beta}$ (divergence)\\
+4 & Maximal number of iteration number reached without convergence\\
+5 & Monomorphic marker (appears in the output file for constant models)\\
+6 & Significant model with non-significant parents (multivariate analysis with option \texttt{SIGNIF})\\
+\end{tabular}
+\caption{List of possible errors for logistic models.}
+\label{fig:errors}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\scriptsize
+\framebox{%
+%\begin{minipage}{\textheight}
+\begin{tabular}{ll*{4}{r}}
+Marker	&	Loglikelihood	&	AverageProb	&	Beta\_0	&	NumError	\\
+Hapmap43437-BTA-101873\_AA	&	-228.2100569	&	0.082089552	&	-2.414289083	&	0	\\
+Hapmap43437-BTA-101873\_AG	&	-542.450042	&	0.404228856	&	-0.387875415	&	0	\\
+Hapmap43437-BTA-101873\_GG	&	-556.9893006	&	0.513681592	&	0.054740033	&	0	\\
+ARS-BFGL-NGS-16466\_AA	&	-44.84132815	&	0.009950249	&	-4.600157644	&	0	\\
+ARS-BFGL-NGS-16466\_AG	&	-389.8189189	&	0.189054726	&	-1.456164041	&	0	\\
+ARS-BFGL-NGS-16466\_GG	&	-401.2120224	&	0.800995025	&	1.392524911	&	0	\\
+Hapmap34944-BES1\_Contig627\_1906\_AA	&	-456.4590694	&	0.254975124	&	-1.072251619	&	0	\\
+Hapmap34944-BES1\_Contig627\_1906\_AC	&	-555.856645	&	0.470149254	&	-0.119545151	&	0	\\
+Hapmap34944-BES1\_Contig627\_1906\_CC	&	-472.7907257	&	0.274875622	&	-0.970024485	&	0	\\
+\end{tabular}
+}\\
+\\
+\caption[Extrait d'un fichier de résultats de \smb\ pour des modèles univariés.]
+{Exemple of \smb's results for constant models, there is one marker per line.
+The first column is the name of the molecular marker, here the locus name combined with the allele name.
+The following columns are the log-likelihood, the frequency of the marker, the estimate of parameter $\beta_0$ for the logistic model and the error code ($0$ if success).
+Constant models are not sorted and thus are in the same order as the markers in the input file.
+When considered markers are SNPs like here, there are three binary markers per locus.
+}
+\label{fig:fichier-res-const}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\vspace{-4cm}
+\begin{turn}{90}
+\scriptsize
+\begin{tabular}{c}
+\framebox{%
+%\begin{minipage}{\textheight}
+\begin{tabular}{ll*{13}{r}}
+Marker	&	Env\_1	&	Loglikelihood	&	Gscore	&	WaldScore	&	NumError	&	Efron	&	McFadden	&	McFaddenAdj	&	CoxSnell	&	Nagelkerke	&	AIC	&	BIC	&	Beta\_0	&	Beta\_1	\\
+Hapmap41074-BTA-73520\_AA	&	prec7	&	-443.11	&	208.53	&	151.72	&	0	&	0.25	&	0.19	&	0.19	&	0.23	&	0.10	&	890.22	&	912.98	&	-2.04	&	0.03	\\
+ARS-BFGL-NGS-113888\_GG	&	prec7	&	-441.73	&	208.67	&	151.70	&	0	&	0.25	&	0.19	&	0.19	&	0.23	&	0.10	&	887.47	&	910.23	&	-2.02	&	0.03	\\
+Hapmap41762-BTA-117570\_GG	&	prec7	&	-435.96	&	202.93	&	148.43	&	0	&	0.24	&	0.19	&	0.19	&	0.22	&	0.10	&	875.92	&	898.68	&	-1.86	&	0.03	\\
+ARS-BFGL-NGS-46098\_GG	&	prec7	&	-440.04	&	200.82	&	147.60	&	0	&	0.24	&	0.19	&	0.18	&	0.22	&	0.10	&	884.07	&	906.83	&	-1.88	&	0.03	\\
+ARS-BFGL-NGS-113888\_GG	&	latitude	&	-449.13	&	193.89	&	146.89	&	0	&	0.23	&	0.18	&	0.17	&	0.21	&	0.09	&	902.25	&	925.01	&	-0.73	&	0.86	\\
+Hapmap41074-BTA-73520\_AA	&	latitude	&	-450.81	&	193.13	&	146.61	&	0	&	0.23	&	0.18	&	0.17	&	0.21	&	0.09	&	905.62	&	928.38	&	-0.75	&	0.85	\\
+Hapmap41762-BTA-117570\_GG	&	latitude	&	-444.40	&	186.04	&	141.99	&	0	&	0.21	&	0.17	&	0.17	&	0.21	&	0.09	&	892.80	&	915.56	&	-0.57	&	0.84	\\
+ARS-BFGL-NGS-113888\_GG	&	prec6	&	-455.48	&	181.19	&	138.85	&	0	&	0.21	&	0.17	&	0.16	&	0.20	&	0.09	&	914.95	&	937.71	&	-2.22	&	0.03	\\
+Hapmap41074-BTA-73520\_AA	&	prec6	&	-457.38	&	179.99	&	138.13	&	0	&	0.21	&	0.16	&	0.16	&	0.20	&	0.09	&	918.77	&	941.53	&	-2.23	&	0.03	\\
+ARS-BFGL-NGS-46098\_GG	&	latitude	&	-451.22	&	178.45	&	138.11	&	0	&	0.21	&	0.17	&	0.16	&	0.20	&	0.09	&	906.44	&	929.20	&	-0.59	&	0.82	\\
+Hapmap41813-BTA-27442\_AA	&	prec7	&	-462.30	&	179.89	&	137.52	&	0	&	0.22	&	0.16	&	0.16	&	0.20	&	0.08	&	928.60	&	951.36	&	-1.92	&	0.03	\\
+ARS-BFGL-NGS-46098\_GG	&	prec6	&	-451.51	&	177.87	&	137.27	&	0	&	0.21	&	0.16	&	0.16	&	0.20	&	0.09	&	907.03	&	929.78	&	-2.11	&	0.03	\\
+BTA-73516-no-rs\_AA	&	prec7	&	-460.18	&	177.43	&	136.04	&	0	&	0.21	&	0.16	&	0.16	&	0.20	&	0.08	&	924.35	&	947.11	&	-1.83	&	0.03	\\
+Hapmap41813-BTA-27442\_AA	&	latitude	&	-469.89	&	164.71	&	130.98	&	0	&	0.20	&	0.15	&	0.15	&	0.19	&	0.08	&	943.77	&	966.53	&	-0.76	&	0.76	\\
+Hapmap41762-BTA-117570\_GG	&	prec6	&	-454.17	&	166.51	&	130.97	&	0	&	0.20	&	0.15	&	0.15	&	0.19	&	0.08	&	912.33	&	935.09	&	-1.96	&	0.03	\\
+ARS-BFGL-NGS-46098\_GG	&	longitude	&	-458.86	&	163.18	&	130.95	&	0	&	0.18	&	0.15	&	0.15	&	0.18	&	0.08	&	921.72	&	944.48	&	-23.95	&	0.76	\\
+Hapmap41074-BTA-73520\_AA	&	bio7	&	-457.07	&	180.61	&	129.73	&	0	&	0.21	&	0.16	&	0.16	&	0.20	&	0.09	&	918.14	&	940.90	&	-11.85	&	0.08	\\
+ARS-BFGL-NGS-113888\_GG	&	bio7	&	-456.32	&	179.50	&	128.90	&	0	&	0.20	&	0.16	&	0.16	&	0.20	&	0.09	&	916.64	&	939.40	&	-11.82	&	0.08	\\
+BTA-73516-no-rs\_AA	&	latitude	&	-468.36	&	161.06	&	128.61	&	0	&	0.19	&	0.15	&	0.14	&	0.18	&	0.08	&	940.72	&	963.48	&	-0.67	&	0.76	\\
+Hapmap28985-BTA-73836\_CC	&	prec6	&	-457.78	&	157.45	&	125.68	&	0	&	0.19	&	0.15	&	0.14	&	0.18	&	0.08	&	919.57	&	942.33	&	1.87	&	-0.03	\\
+Hapmap31863-BTA-27454\_GG	&	prec7	&	-474.85	&	155.28	&	123.46	&	0	&	0.19	&	0.14	&	0.14	&	0.18	&	0.07	&	953.70	&	976.43	&	-1.91	&	0.02	\\
+ARS-BFGL-NGS-46098\_GG	&	bio7	&	-456.70	&	167.50	&	121.71	&	0	&	0.20	&	0.15	&	0.15	&	0.19	&	0.08	&	917.39	&	940.15	&	-11.35	&	0.08	\\
+BTA-73516-no-rs\_AA	&	prec6	&	-474.90	&	147.99	&	119.50	&	0	&	0.17	&	0.13	&	0.13	&	0.17	&	0.07	&	953.79	&	976.55	&	-1.97	&	0.03	\\
+Hapmap41762-BTA-117570\_GG	&	bio7	&	-460.77	&	153.30	&	113.69	&	0	&	0.18	&	0.14	&	0.14	&	0.17	&	0.07	&	925.54	&	948.30	&	-10.71	&	0.07	\\
+Hapmap28985-BTA-73836\_GG	&	bio3	&	-381.27	&	160.94	&	111.21	&	0	&	0.21	&	0.17	&	0.17	&	0.18	&	0.10	&	766.54	&	789.30	&	19.98	&	-0.26	\\
+ARS-BFGL-NGS-113888\_GG	&	bio3	&	-471.77	&	148.61	&	106.51	&	0	&	0.17	&	0.14	&	0.13	&	0.17	&	0.07	&	947.53	&	970.29	&	20.21	&	-0.24	\\
+	\end{tabular}
+%\end{minipage}%
+}\\
+\\
+\begin{minipage}{1.2\textheight}
+\caption[Extrait d'un fichier de résultats de \smb\ pour des modèles univariés.]
+{Exemple of \smb's results for univariate models, there is one marker per line.
+The first column is the name of the molecular marker, here the locus name combined with the allele name.
+The second column is the name of the environmental variable.
+The following columns are the log-likelihood, $G$ score, Wald score and the error code ($0$ if success).
+The five next columns are goodness-of-fit measures for the regression (pseudo-$R^2$).
+The analysis includes the AIC (\textit{Akaike information criterion}) and BIC (\textit{Bayesian information criterion}) as well.
+The two last column contain the parameters $\beta$ for the regression, one constant parameter and one corresponding to the environmental variable.
+Results file for multivariate models contain additional columns for environmental variables (Env\_2, Env\_3, $\dots$) and for regression parameters (Beta\_2, Beta\_3, $\dots$).
+}
+\label{fig:fichier-res-univ}
+\end{minipage}\\
+\end{tabular}
+\end{turn}
+\hfill
+\end{figure}
+
+
+Concerning the measure of spatial autocorrelation, results are stored separately for environmental data and molecular markers.
+In each case, there are three output files.
+The first one is named \prog{Data-AS-Env.ext} (or \prog{Data-AS-Mark.ext}) and stores Moran's I and local indicators of spatial association \parencite{anselin:1995}.
+If provided, the sample names appear in the first column.
+If both Moran's I and LISAs are computed, the first line is the global index and each subsequent line is a local index, samples are in the same order as in the data file.
+The second file is either named \prog{Data-AS-Env-Sim.ext} (or \prog{Data-AS-Mark-Sim.ext}) and stores the simulated values of the global Moran's I for each variable.
+This file can be used to plot their distribution and compare it to the actual value of the index.
+Simulation results are not stored for LISAs in order to save disk space.
+The third file is named \prog{Data-AS-Env-pVal.ext} (or \prog{Data-AS-Mark-pVal.ext}) and stores the pseudo $p$-values for the permutations-based significance tests.
+For $R$ permutations and $M$ events \enquote{$I_{sim}$ is equal or more extreme than $I$}, the $p$-value is $\frac{M+1}{R+1}$.
+
+If requested, LISAs are also stored as a shapefile whose parts are named \prog{data.shp}, \prog{data.shx} and \prog{data.dbf} (for data file \prog{data.ext}).
+This format is read by any GIS software, for instance \prog{QuantumGIS\footnote{\url{www.qgis.org}}}.
+
+
+\subsubsection{Including prior knowledge in multivariate models\label{sec:prior-knowledge}}
+Multivariate analysis can be used not only to assess the effect of a combination of predictor variables on the occurrence of molecular markers, but it also makes it possible to include pre-existing knowledge into the analysis, provided the data constitutes a continuous variable. 
+In particular, if population structure was analysed beforehand and can be represented as a coefficient of membership for each individual, this information can be included in the modelling as a  \enquote{population structure} variable added to the set of environmental variables.
+For models involving both an environmental variable and this new variable, the selection procedure will assess whether the environmental variable is associated with the genotype while taking into account the possible effect of admixture.
+In case there are many ancestral populations, several \enquote{population structure} variables may be included in the analysis.
+
+In the current implementation of \smb, the selection procedure with the option \prog{BEST} will retain only the models showing a significant association with all predictor variables.
+However, it is possible to use the \enquote{population variables} to compute a \enquote{null model} including the population structure for each marker, and then to build the models to be tested by adding one (or several) environmental variables to the set of \enquote{population variables}.
+The proposed approach relies on multivariate models including potentially many variables.
+Since the computation time grows linearly with the number of markers but exponentially with the number of predictor variables for multivariate models (the power being equal to the maximum number of predictor variables included in the models, i. e. the param \texttt{DIMMAX}), the total computation time might be consequent.
+Therefore you might wish to estimate the required time by running the analysis (step 3) on a subset (for instance 1\%) of the markers, before launching the computation on the whole dataset.
+
+The procedure consists of the followings steps, assuming there are $K$ clusters in your dataset ($K>1$):
+\begin{enumerate}
+\item{Determine a set of $P$ \enquote{population variables} representing the population structure of your dataset, for instance by taking:
+\begin{itemize}
+\item{$K-1$ coefficients of membership, since the $K^{\mbox{\footnotesize th}}$ coefficient is redundant with the other ones;}
+\item{the $K-1$ first principal axes from a PCA on the coefficients of membership, this is equivalent to the first possibility;}
+\item{one, two or three principal axes from the PCA if they explain most of the variance in your dataset}
+\end{itemize}}
+\item{Create a file of predictors variables with the $E$ environmental variables and the $P$ \enquote{population variables}.}
+\item{Compute all the models from 1 to $P+1$ variables, e.g. \texttt{DIMMAX 3} if there are 2 \enquote{population variables}.}
+\item{Extract the models of interest: 
+\begin{itemize}
+\item{the \enquote{null models} of dimension $P$ including the $P$ \enquote{population variables};}
+\item{the models of dimension $P+1$ including the $P$ \enquote{population variables} and one environmental variable;}
+\end{itemize}}
+\item{Among the models of interest, match each model of dimension $P+1$ with its corresponding \enquote{null model} involving the same genotype and the $P$ \enquote{population variables}.}
+\item{Compute the G score for each model, using the log-likelihoods stored in the results files for dimensions $P$ and $P+1$ ($G = 2*(l_{P+1}-l_P)$).}
+\item{Compute the $p$-values based on the $G$ score, the expected distribution is a $\chi^2$ with one degree of freedom, since the models tested (of dimension $P+1$) include one variable more than their corresponding \enquote{null model} of dimension $P$.}
+\item{Select the candidate loci while taking into account the multiple comparisons, for instance with a Bonferroni correction (potentially over-conservative in this case) or with \textcite{storey:2003} or \textcite{benjamini:1995} approaches.}
+\end{enumerate}
+
+
+
+\subsection{\prog{Supervision}}
+
+For large molecular datasets, computation workload may be distributed among several computers.
+To this end, \prog{Supervision} is called prior to the analysis to split the molecular dataset in blocks (see fig. \ref{fig:workflow-supervision}).
+The new files are named automatically on the basis of the molecular data file.
+The last file will contain less markers if the total number is not divisible by the block size.
+Each share of data is processed separately, either on the same multi-core computer or on distrinct computers.
+Environmental data must provided to each processing node.
+Results are gathered afterwards so \prog{Supervision}\ can merge them and produce the same output as if the whole analysis were run on a single node.
+
+
+\begin{figure}[htbp]
+\begin{center}
+
+\begin{tikzpicture}
+\setlength{\sepVert}{2cm}
+\newlength{\sepHor}
+\setlength{\sepHor}{2.5cm}
+\newcommand{\couleurObl}{gray!20}
+\newcommand{\couleurFac}{white}
+
+
+\node[draw, text width=4cm, text centered, fill=\couleurObl] (E) at (-3.5, 1.5\sepVert) {\textbf{Environmental data}};
+\node[draw, text width=3cm, text centered, fill=\couleurObl] (M) at (3.5, 1.5\sepVert) {\textbf{Molecular data}};
+
+\node[draw, rounded corners, fill=\couleurFac] (R) at (0,.75\sepVert) {\prog{RecodePLINK}}; 
+
+\node[draw, rounded corners, fill=\couleurObl] (Sp) at (0,0) {\Large \textbf{\prog{Supervision}} : split};
+\node[draw, rounded corners=3pt, thick, minimum width=2.2cm, minimum height=1cm, fill=\couleurObl, align=center] (Sb1) at (-1.5\sepHor,-1\sepVert) {\smb\ 1}; 
+\node[draw, rounded corners=3pt, thick, minimum width=2.2cm, minimum height=1cm, fill=\couleurObl, align=center] (Sb2) at (-.5\sepHor,-1\sepVert) {\smb\ 2}; 
+\node[draw, rounded corners=3pt, thick, minimum width=2.2cm, minimum height=1cm, fill=\couleurObl, align=center] (Sb3) at (.5\sepHor,-1\sepVert) {\smb\ 3}; 
+\node[draw, rounded corners=3pt, thick, minimum width=2.2cm, minimum height=1cm, fill=\couleurObl, align=center] (Sb4) at (1.5\sepHor,-1\sepVert) {\smb\ 4}; 
+
+\node[draw,  rounded corners, fill=\couleurObl] (Sm) at (0,-2\sepVert) {\Large {\textbf{\prog{Supervision}}} : merge}; 
+
+\draw[->,>=stealth] (M.south west) -- (R.north east);
+\draw[->,>=stealth] (R) -- (Sp);
+
+
+\draw[->,>=stealth] (Sp) -- (Sb1.north);
+\draw[->,>=stealth] (Sp) -- (Sb2.north);
+\draw[->,>=stealth] (Sp) -- (Sb3.north);
+\draw[->,>=stealth] (Sp) -- (Sb4.north);
+
+\draw[->,>=stealth] (Sb1.south) -- (Sm);
+\draw[->,>=stealth] (Sb2.south) -- (Sm);
+\draw[->,>=stealth] (Sb3.south) -- (Sm);
+\draw[->,>=stealth] (Sb4.south) -- (Sm);
+
+\begin{pgfonlayer}{bg}
+\draw[->, >=stealth,dashed] (E) to[out=240, in=140] (Sb1);
+\draw[->, >=stealth,dashed] (E) to[out=270, in=140] (Sb2);
+\draw[->, >=stealth,dashed] (E) to[out=300, in=140] (Sb3);
+%\draw[->, >=stealth,dashed] (E) to[out=330, in=140] (Sb4);
+\draw[->, >=stealth,dashed] (E) to (Sp) -- (Sb4);
+
+\end{pgfonlayer}
+
+
+\end{tikzpicture}
+\caption{Workflow of analysis for distributed computing.
+Rectangles stand for data and round-cornered figures stand for programs.
+Grey elements are mandatory and white ones are optional.
+Arrows show processing order for environmental data (dashed line) and for molecular data (solid line).
+\prog{Supervision} is used before \smb\  to split molecular data in blocks and afterwards to merge results.}
+\label{fig:workflow-supervision}
+\end{center}
+\end{figure}
+
+\subsubsection{Split process}
+Information about splitting are provided by a parameter file and the processed is launched as follow: 
+\begin{launch}
+supervision parameterFile
+\end{launch}
+The parameter file must contain the six following lines (in the same order):
+\begin{figure}[H]
+\centering
+\begin{tabular}{|>{\ttfamily}l|l}
+\cline{1-1}
+dataFile &		name of the data or molecular file \scriptsize(beware of trailing tabulations)\\	
+paramFile & 	name of the parameter file (not used yet)\\	
+numEnv	&	number of environmental parameters$^{\ast}$\\	
+numMark	&  	number of molecular markers\\
+numLines	&	number of lines in the data file\\
+blockSize	&	size of blocks of molecular data\\
+\cline{1-1}
+ \end{tabular}%
+ \caption{Instance of parameter file for \prog{Supervision}.}
+ \label{fig:paramSupervision}
+\end{figure}
+\noindent
+$^{\ast}$\texttt{numEnv} indicates the number of non-molecular columns in the file to be recoded.
+These variables will be copied to a separate file.
+If the molecular file contains no ID or environmental column, \texttt{numEnv} is to be set to 0.
+Please also note that the fifth parameter counts the total number of lines, including the header line if any.
+
+New data files are named automatically.
+The molecular file names contains two numbers, the first one is the block number (starting from 0) and the second one is the number of the first marker in the block (starting from 0 in the first block).
+
+\paragraph{Example 1} 
+Let us assume the data of fig. \ref{fig:molfile} is stored in \verb+mol-data.txt+ and that we want blocks of four markers.
+The corresponding parameter file is shown on fig. \ref{fig:paramSupervision-mol} and the splitting is performed as follows:\\
+\verb+supervision param-split.txt+\\
+The resulting data files (\texttt{mol-data-env.txt}, \texttt{mol-data-mark-0-0.txt} and \texttt{mol-data-1-4.txt}) are displayed on fig. \ref{fig:molfile-split}.
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{|>{\ttfamily}l|>{\itshape}l}
+\cline{1-1}
+mol-data.txt& \\	
+thingy.txt &\\	
+1&numEnv\\	
+7&numMark\\
+7&numLines\\
+4&blockSize\\
+\cline{1-1}
+ \end{tabular}%
+ \caption{Parameter file for \prog{Supervision} in case molecular data of fig. \ref{fig:molfile} is stored in \texttt{mol-data.txt} and is to be split in blocks of four markers.
+ This file is part of the distribution, see \pathtotwodatafiles\texttt{param-split.txt}.
+ }
+ \label{fig:paramSupervision-mol}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{subfigure}{0.27\textwidth}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=2cm,align=center]
+		\begin{tabular}{l}
+NAME\\
+ID1\\
+ID2\\
+ID3\\
+ID4\\
+ID5\\
+ID6\\
+		\end{tabular}
+	\end{mdframed}
+	\parbox[l]{\textwidth}{\caption{File \newline \texttt{mol-data-env.txt}\label{fig:molfile-split-env}}}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[c]{0.35\textwidth}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=4.2cm,align=center]
+		\begin{tabular}{llll}
+	M4	&M7	&M8	&M9\\
+	 1	&1	&1	&0	\\
+ 0	&0	&0	&0		\\
+ 0	&1	&0	&0	\\
+ 0	&0	&1	&1	\\
+ 0	&0	&1	&0	\\
+ 0	&1	&0	&0	\\
+		\end{tabular}
+	\end{mdframed}
+	\parbox[l]{\textwidth}{\caption{File \newline \texttt{mol-data-mark-0-0.txt}\label{fig:molfile-split-mol-0}}}
+	\end{subfigure}%
+	\hfill
+\begin{subfigure}{0.35\textwidth}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=4.2cm,align=center]
+		\begin{tabular}{lll}
+M16	&M17	&M18\\
+1	&1	&1\\
+0	&0	&NaN\\
+0	&0	&1\\
+0	&1	&1\\
+0	&1	&0\\
+0	&1	&0\\
+		\end{tabular}
+	\end{mdframed}
+	\parbox[l]{\textwidth}{\caption{File \newline \texttt{mol-data-mark-1-4.txt}\label{fig:molfile-split-mol-1}}}
+	\end{subfigure}	
+	
+	\caption{Molecular data of fig. \ref{fig:molfile} after splitting in block of four markers.}
+	\label{fig:molfile-split}
+	\end{center}
+\end{figure}
+
+\noindent
+In this case, the column NAME is considered as an environmental variable (since it is not a molecular marker).
+NAME will be copied to the file \texttt{mol-data-env.txt} which will not be used for \smb's analysis.
+The actual environmental data (\verb+env-data.txt+) is shown on fig. \ref{fig:envfile}.
+The column NAME cannot be used as an identifier since it was not copied to the molecular data.
+Thus it must be indicated as a supplementary column to \smb\ (option COLSUPENV, see p. \pageref{param:colsupenv}).
+
+\paragraph{Example 2} 
+\prog{Supervision} can split combined data files, containing both environmental and molecular information. 
+Figure \ref{fig:paramSupervision-molenv} shows the parameter file used to split data from fig. \ref{fig:molenvfile} (stored in \texttt{combo-data.txt}) in blocks of three markers.
+The splitting is performed as follows:\\
+\verb+supervision param-split-combo.txt+\\
+The data files will be named \texttt{combo-data-env.txt}, \texttt{combo-data-mark-0-0.txt}, \texttt{combo-data-mark-1-3.txt} and \texttt{combo-data-mark-2-6.txt}, the latter will have only one column (see fig. \ref{fig:combo-split}).
+In this case, \texttt{combo-data-env.txt} will contain environmental data and can be used in \smb's analysis.
+As in the previous example, the column NAME cannot be used as an identifier since it was not copied to the molecular data.
+Thus it must be indicated as a supplementary column to \smb\ (option COLSUPENV, see p. \pageref{param:colsupenv}).
+
+
+
+\begin{figure}[htbp]
+\centering
+\begin{tabular}{|>{\ttfamily}l|>{\itshape}l}
+\cline{1-1}
+combo-data.txt& \\	
+thingy.txt &\\	
+6&numEnv\\	
+7&numMark\\
+7&numLines\\
+3&blockSize\\
+\cline{1-1}
+ \end{tabular}%
+ \caption{Parameter file for \prog{Supervision} in case molecular data of fig. \ref{fig:molenvfile} is stored in \texttt{combo-data.txt} and is to be split in blocks of three markers.
+ This file is part of the distribution, see \pathtoonedatafile\texttt{param-split-combo.txt}.
+}
+ \label{fig:paramSupervision-molenv}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\begin{minipage}{1.2\textwidth}
+
+\centering
+\begin{subfigure}{\textwidth}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=9.5cm,align=center]
+		\begin{tabular}{*6{l}}
+NAME & ENV1 & ENV2 & ENV3 & ENV4 & ENV5 \\ 
+ID1 & 46 & 972 & 236 & 230 & 132 \\ 
+ID2 & 32 & 987 & 238 & 232 & 83 \\ 
+ID3 & 32 & 987 & 238 & 232 & 83 \\ 
+ID4 & 32 & 987 & NaN & 232 & 83 \\ 
+ID5 & 32 & 987 & 238 & 232 & 83 \\ 
+ID6 & 35 & 1021 & 235 & 230 & 87 \\ 		\end{tabular}
+	\end{mdframed}
+	\parbox[l]{\textwidth}{\caption{File \texttt{combo-data-env.txt}\label{fig:combo-split-env}}}
+	\end{subfigure}%
+	
+\vspace{2mm}	
+	
+	\begin{subfigure}[t]{.45\textwidth}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=3.7cm,align=center]
+		\begin{tabular}{lll}
+M4 & M7 & M8 \\ 
+1 & 1 & 1 \\ 
+0 & 0 & 0 \\ 
+0 & 1 & 0 \\ 
+0 & 0 & 1 \\ 
+0 & 0 & 1 \\ 
+0 & 1 & 0 \\ 
+		\end{tabular}
+	\end{mdframed}
+	\parbox[l]{\textwidth}{\caption{File \texttt{combo-data-mark-0-0.txt}\label{fig:combo-split-mol-0}}}
+	\end{subfigure}%
+	%
+	\begin{subfigure}[t]{.45\textwidth}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=3.7cm,align=center]
+		\begin{tabular}{lll}
+M9 & M16 & M17 \\ 
+0 & 1 & 1 \\ 
+0 & 0 & 0 \\ 
+0 & 0 & 0 \\ 
+1 & 0 & 1 \\ 
+0 & 0 & 1 \\ 
+0 & 0 & 1 \\ 
+		\end{tabular}
+	\end{mdframed}
+	\parbox[l]{\textwidth}{\caption{File \texttt{combo-data-mark-1-3.txt}\label{fig:combo-split-mol-1}}}
+	\end{subfigure}	
+	\hfill
+
+\vspace{2mm}	
+
+	\begin{subfigure}[t]{.45\textwidth}
+		\begin{mdframed}[backgroundcolor=white,userdefinedwidth=2.2cm,align=center]
+		\begin{tabular}{l}
+			M18 \\
+			1 \\
+			NaN \\
+			1 \\
+			1 \\
+			0 \\
+			0 \\
+		\end{tabular}
+		\end{mdframed}
+		\parbox[l]{\textwidth}{\caption{File \texttt{combo-data-mark-2-6.txt}\label{fig:combo-split-mol-2}}}
+	\end{subfigure}%
+
+	\caption{Molecular data of fig. \ref{fig:molenvfile} after splitting in blocks of three markers.}
+	\label{fig:combo-split}
+\end{minipage}
+
+\end{figure}
+
+
+
+
+\subsubsection{Analysis with \smbtitre}
+The distributed analysis follows the same process as the single-node one.
+The parameter file has to be modified to include both the current and the total number of molecular markers (parameter \texttt{NUMMARK}, see p. \pageref{param:nummark}).
+Thus if the last block has less markers than the other ones, there will be a common parameter file for the first blocks and another one for the last block.
+The total number of markers is used to adjust the significance threshold with the Bonferroni correction (if relevant).
+
+\paragraph{Example 1}
+Fig. \ref{fig:fichier-param-parallele} shows the parameter files needed to analyse molecular data from fig. \ref{fig:molfile-split} (\subref{fig:molfile-split-mol-0} and \subref{fig:molfile-split-mol-1}) with environmental data from fig. \ref{fig:envfile}.
+For comparison, the parameter file for single node analysis is shown on fig. \ref{fig:fichier-param}.
+Beside the change in the number of markers, the column NAME has to be indicated as supplementary data (COLSUPENV) since it is not available in the molecular files.
+
+\begin{figure}[htbp]
+\centering
+
+\hfill%
+\begin{subfigure}{6cm}
+\centering
+\ttfamily
+\begin{tabular}{|l|}
+\hline
+HEADERS YES\\	
+NUMVARENV 6\\	
+NUMMARK 4 7	\\
+NUMINDIV 6\\
+COLSUPENV NAME\\
+DIMMAX 1\\
+SAVETYPE END ALL 0.01\\
+\hline
+\end{tabular}%
+\caption{\texttt{param-a.txt}}
+\label{fig:fichier-param-parallele-a}
+\end{subfigure}%
+\hfill%
+\begin{subfigure}{6cm}
+\centering
+\ttfamily
+\begin{tabular}{|l|}
+\hline
+HEADERS YES\\	
+NUMVARENV 6\\	
+NUMMARK 3 7	\\
+NUMINDIV 6\\
+COLSUPENV NAME\\
+DIMMAX 1\\
+SAVETYPE END ALL 0.01\\
+\hline
+\end{tabular}%
+\caption{\texttt{param-b.txt}}
+\label{fig:fichier-param-parallele-b}
+\end{subfigure}%
+\hfill
+
+\caption[Exemple de fichier de paramètres pour \smb.]
+{
+%	\subref{fig:fichier-param-parallele-tot}) Parameter file to analyse data from fig. \ref{fig:envfile}\ and  \ref{fig:molfile}.
+%	The numbers of environmental and molecular variables count the total number of columns in the files.
+%	The number of samples does not count the header line if any.
+%	NAME can be used as an identifier since it appears in both files.
+	Parameter files for distributed analysis with \smb.
+	File \texttt{param-a.txt} is used for data from fig. \ref{fig:envfile} and \ref{fig:molfile-split-mol-0}.
+	Usually there are more blocks of molecular data, and all blocks containing the same number of markers would be analysed with this set of parameters.
+	File \texttt{param-b.txt} is used for the last block of molecular data, when it contains less markers (data from fig. \ref{fig:envfile} and \ref{fig:molfile-split-mol-1}).
+	These files are part of the distribution, see \texttt{param-a.txt} and \texttt{param-b.txt} in \pathtotwodatafiles.
+}
+\label{fig:fichier-param-parallele}
+\end{figure}
+
+The analysis is launched with two commands:\\
+\verb+sambada param-a.txt env-data.txt mol-data-mark-0-0.txt+\\
+\verb+sambada param-b.txt env-data.txt mol-data-mark-1-4.txt+\\
+
+
+\paragraph{Example 2}
+
+Fig. \ref{fig:fichier-param-parallele-combo} shows the parameter files needed to analyse molecular data from fig. \ref{fig:combo-split} (\subref{fig:combo-split-mol-0}, \subref{fig:combo-split-mol-1} and \subref{fig:combo-split-mol-2}) with environmental data from fig. \ref{fig:combo-split-env}.
+For comparison, the parameter file for single node analysis is shown on fig. \ref{fig:fichier-param-combo}.
+Beside the change in the number of markers, the column NAME has to be indicated as supplementary data (COLSUPENV) since it is not available in the molecular files.
+
+\begin{figure}[htbp]
+\centering
+
+\hfill%
+\begin{subfigure}{6cm}
+\centering
+\ttfamily
+\begin{tabular}{|l|}
+\hline
+HEADERS YES\\	
+NUMVARENV 6\\	
+NUMMARK 3 7	\\
+NUMINDIV 6\\
+COLSUPENV NAME\\
+DIMMAX 1\\
+SAVETYPE END ALL 0.01\\
+\hline
+\end{tabular}%
+\caption{\texttt{param-combo-a.txt}}
+\label{fig:fichier-param-parallele-combo-a}
+\end{subfigure}%
+\hfill%
+\begin{subfigure}{6cm}
+\centering
+\ttfamily
+\begin{tabular}{|l|}
+\hline
+HEADERS YES\\	
+NUMVARENV 6\\	
+NUMMARK 1 7	\\
+NUMINDIV 6\\
+COLSUPENV NAME\\
+DIMMAX 1\\
+SAVETYPE END ALL 0.01\\
+\hline
+\end{tabular}%
+\caption{\texttt{param-combo-b.txt}}
+\label{fig:fichier-param-parallele-combo-b}
+\end{subfigure}%
+\hfill
+
+\caption[Exemple de fichier de paramètres pour \smb.]
+{
+%	\subref{fig:fichier-param-parallele-tot}) Parameter file to analyse data from fig. \ref{fig:envfile}\ and  \ref{fig:molfile}.
+%	The numbers of environmental and molecular variables count the total number of columns in the files.
+%	The number of samples does not count the header line if any.
+%	NAME can be used as an identifier since it appears in both files.
+	Parameter files for distributed analysis with \smb.
+	Data file \texttt{combo-data.txt} has been split in fig. \ref{fig:combo-split}, all computations use environmental data from subfig. \emph{\subref{fig:combo-split-env}}.
+	File \texttt{param-combo-a.txt} is used to analyse markers from subfig. \emph{\subref{fig:combo-split-mol-0}} and \emph{\subref{fig:combo-split-mol-1}}, while file \texttt{param-combo-b.txt} is used for the last block of molecular data (subfig. \emph{\subref{fig:combo-split-mol-2}}).
+	These files are part of the distribution, see \texttt{param-combo-a.txt} and \texttt{param-combo-b.txt} in \pathtoonedatafile.
+}
+\label{fig:fichier-param-parallele-combo}
+\end{figure}
+
+The analysis is launched with three commands:\\
+\verb+sambada param-combo-a.txt combo-data-env.txt combo-data-mark-0-0.txt+\\
+\verb+sambada param-combo-a.txt combo-data-env.txt combo-data-mark-1-3.txt +\\
+\verb+sambada param-combo-b.txt combo-data-env.txt combo-data-mark-2-6.txt+\\
+
+
+\subsubsection{Merge process}
+Once all blocks of markers have been analysed with \smb, \prog{Supervision} can merge the results.
+Copy every output file (whose name contains \prog{"-Out-"}) to a single folder, then launch the program as follows:
+\begin{launch}
+supervision base-name.txt numBlock blockSize maxDimension
+\end{launch}
+\verb+base-name.txt+ is the name of the molecular or combined data file which was split in blocks.
+\verb+numBlocks+ and \verb+blockSize+ refer to the number of data blocks (including the last one) and to the size of the \enquote{complete} ones.
+\verb+maxDimension+ is the maximum number of environmental parameters included in the models (1 for univariate analysis, 2 for bivariate analysis, \dots)
+
+\prog{Supervision} merges all results, discards unconverged models (error numbers 1-5) and sort models according to their Wald score.
+One output file is produced for each dimension of modeling, as in the single-node \smb's analysis.
+If the original data file is called \verb+base-name.txt+, the results files are named \verb+base-name-res-0.txt+, \verb+base-name-res-1.txt+, \verb+base-name-res-2.txt+,~\dots
+
+\paragraph{Example 1}
+Data file \verb+mol-data.txt+ was split in two blocks of four markers and the analysis involved univariate models:\\
+ \verb+supervision mol-data.txt 2 4 1+\\
+
+\paragraph{Example 2}
+Data file \verb+combo-data.txt+ was split in three blocks of three markers and the analysis involved univariate models:\\
+ \verb+supervision combo-data.txt 3 3 1+\\
+ 
+\prog{Supervision} also takes some optional arguments. The complete call is:
+\begin{launch}
+supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
+\indent selScore scoreThreshold sortScore wordDelim
+\end{launch}
+\noindent \verb+selScore+ indicates which score(s) is/are used to select significant models; possible values are \verb+G+, \verb+Wald+ and \verb+BOTH+ (the default).
+\verb+scoreThreshold+ indicates the minimum score for which a model is considered as significant. 
+This option can be used either to apply Bonferroni correction when all models were saved during the analysis or to select a subset of models, for instance for a post-processing analysis in \prog{R}.
+\verb+selScore+ and \verb+scoreThreshold+ must be provided together.
+\verb+sortScore+ indicates which score is used to sort the models; possibles values are \verb+G+, \verb+Wald+ (the default), \verb+AIC+ and \verb+BIC+.
+\verb+wordDelim+ shows the current word delimiter (space is the default).
+
+Optional arguments may be omitted from right to left. Thus the possible sets of arguments are:
+%\begin{itemize}
+%\item \verb+Supervision base-name.txt numBlock blockSize maxDimension+
+%\item  \verb+Supervision base-name.txt numBlock blockSize maxDimension+ $\quad \cdots$\\
+%\indent \verb+selScore scoreThreshold+
+%\item \verb+Supervision base-name.txt numBlock blockSize maxDimension+ $\quad \cdots$\\
+%\indent \verb+selScore scoreThreshold sortScore+
+%\item \verb+Supervision base-name.txt numBlock blockSize maxDimension+ $\quad \cdots$\\
+%\indent \verb+selScore scoreThreshold sortScore wordDelim+
+%\end{itemize}
+
+\begin{launch}supervision base-name.txt numBlock blockSize maxDimension\end{launch}
+\begin{launch}supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
+\indent selScore scoreThreshold\end{launch}
+\begin{launch}supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
+\indent selScore scoreThreshold sortScore \end{launch}
+\begin{launch}supervision base-name.txt numBlock blockSize maxDimension $\; \cdots$\\
+\indent selScore scoreThreshold sortScore wordDelim \end{launch}
+
+
+\subsection{\prog{RecodePLINK}}
+This tools allows the recoding of \prog{PLINK}'s \prog{.ped} and \prog{.map} files to \smb's format \parencite[see][for further information on this format]{purcell:2009}.
+\prog{RecodePLINK} is called as follows:\\
+\verb+recode-plink nbSamples nbSNPs inputFile outputFile+\\
+In case only a subset of the samples are to be used, the list of sample names may be provided in a separate file (one name per line):\\
+\verb+recode-plink nbSamples nbSNPs inputFile outputFile subsetFile+\\
+Please note that \prog{RecodePLINK} does not recognise comment lines in \prog{.ped}/\prog{.map} files at the moment. 
+Please remove them before recoding.
+
+\section{Pre- and post-processing with \prog{R}}
+
+Your analyses with \smb\ may require some pre- or post-processing.
+This section presents a couple of examples using \prog{R}\footnote{\url{https://www.r-project.org/}}.
+These examples are distributed in the directory \prog{scripts/}.
+
+\subsection*{Model selection with Bonferroni correction}
+
+When performing model selection with the options \prog{SIGNIF} or \prog{BEST}, \smb\ applies the Bonferroni correction to the provided $p$-value threshold.
+Models with $p$-values lower than this corrected threshold for both the G and Wald statistics are retained as significant.
+However you may want to use another selection method, for instance by applying several thresholds or by using only the G or the Wald score.
+In this case, we suggest running \smb\ with a more liberal selection method (for instance with the option \prog{ALL} or \prog{BEST 0.1}) and then selecting the models with \prog{R}.
+The script \prog{bonferroniModelSelection.R} provides an example of model selection using the Bonferroni correction.
+
+\clearpage
+
+\section{Frequently Asked Questions}
+
+\subsection*{I am lost with the Command Line! \label{faq:commandline}}
+Don't panic, there are a couple of online tutorials.
+For Windows, you can start with \url{http://www.cs.princeton.edu/courses/archive/spr05/cos126/cmd-prompt.html}.
+(Hint: Use \prog{PowerShell} instead of the \prog{Command Line}.)
+
+MacOS and Linux \prog{Terminal}s are basically the same, see for instance: \url{http://www.davidbaumgold.com/tutorials/command-line/}. 
+
+\subsection*{My results do not make any sense! \label{faq:nonsense}}
+Check whether the samples in the environmental data are in the same order as those in the molecular data.
+What could have happened is that one of your files got sorted by some column during data preparation.
+
+\vspace{1cm}
+
+\textit{To be continued...}
+\clearpage
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
