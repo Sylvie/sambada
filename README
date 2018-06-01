@@ -22,8 +22,9 @@ C. General information
 
 D. Building from sources
 1. Sources are available on GitHub or on our Web site (see below).
-2. Build the programs with
-	./configure
+2. Sambada is best built with GCC version 4.2-7.x. We noticed
+  Build the programs with
+	./configure (or ./configure CC=gcc-7 CXX=g++-7 for explicitly building with GCC 7)
 	make
 3. Programs are placed in the folder "binaries/".
 4. The folder containing all artefacts for the end-user can be built with
