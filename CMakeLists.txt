@@ -1,0 +1,93 @@
+cmake_minimum_required(VERSION 3.10)
+project(sambada)
+
+set(CMAKE_CXX_STANDARD 11)
+
+include_directories(ext/scythestat-1.0.3)
+include_directories(ext/scythestat-1.0.3/scythestat)
+include_directories(ext/scythestat-1.0.3/scythestat/rng)
+include_directories(ext/shapelib-1.3.0)
+include_directories(src)
+
+add_library(shp
+        ext/shapelib-1.3.0/dbfopen.c
+        ext/shapelib-1.3.0/safileio.c
+        ext/shapelib-1.3.0/shapefil.h
+        ext/shapelib-1.3.0/shpopen.c
+        ext/shapelib-1.3.0/shptree.c
+        )
+
+add_library(intermediate
+        src/RegressionLogistique-bienvenue.cpp
+        src/RegressionLogistique.h
+        src/Toolbox.cpp
+        src/Toolbox.h
+        src/Erreur.cpp
+        src/Erreur.h
+        )
+
+add_executable(sambada
+        src/Archiviste.cpp
+        src/Archiviste.h
+        src/Chronometre.cpp
+        src/Chronometre.h
+        src/Duree.cpp
+        src/Duree.h
+        src/FluxSortie.cpp
+        src/FluxSortie.h
+        src/Journal.cpp
+        src/Journal.h
+        src/JournalTemporaire.cpp
+        src/JournalTemporaire.h
+        src/mainSambada.cpp
+        src/RegressionLogistique-calc.cpp
+        src/RegressionLogistique-io.cpp
+        src/Supervision.cpp
+        src/Supervision.h
+        )
+
+target_link_libraries(sambada
+        PRIVATE
+        shp
+        intermediate
+        )
+
+add_executable(supervision
+        src/Archiviste.cpp
+        src/Archiviste.h
+        src/mainSupervision.cpp
+        src/RegressionLogistique.h
+        src/Supervision.cpp
+        src/Supervision.h
+        src/Toolbox.cpp
+        src/Toolbox.h
+        )
+
+target_link_libraries(supervision
+        PRIVATE
+        intermediate
+        )
+
+add_executable(recodePlink
+        src/Erreur.h
+        src/recodePlink.cpp
+        src/RegressionLogistique.h
+        src/Toolbox.h
+        )
+
+target_link_libraries(recodePlink
+        PRIVATE
+        intermediate
+        )
+
+add_executable(recodePlinkLFMM
+        src/Erreur.h
+        src/recodeLFMM.cpp
+        src/RegressionLogistique.h
+        src/Toolbox.h
+        )
+
+target_link_libraries(recodePlinkLFMM
+        PRIVATE
+        intermediate
+        )
