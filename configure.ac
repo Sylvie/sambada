@@ -86,6 +86,11 @@ AM_CONDITIONAL([LINUX], [test "$build_linux" = "yes"])
 AM_CONDITIONAL([WINDOWS], [test "$build_windows" = "yes"])
 AM_CONDITIONAL([OSX], [test "$build_mac" = "yes"])
 
+# Pass the system's extension for executable to automake
+sambada_executable_extension=${EXEEXT}
+AC_MSG_NOTICE([sambada_executable_extension = ${sambada_executable_extension}])
+AC_SUBST(sambada_executable_extension)
+
 # Check for presence of latexmk
 AC_CHECK_PROG(LATEXMK, latexmk, latexmk)
 if test -z "$LATEXMK"; then

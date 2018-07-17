@@ -41,10 +41,20 @@ dist-hook:
 
 ## Binaries ##
 
-bin_PROGRAMS = 
+bin_PROGRAMS =
+noinst_PROGRAMS =
+noinst_LIBRARIES =
 include src/Makefile.mk
 
 EXTRA_DIST += $(top_srcdir)/ext/scythestat-1.0.3 $(top_srcdir)/ext/shapelib-1.3.0
+
+## Tests ##
+
+AM_CPPFLAGS = -I$(top_srcdir)/src
+
+TESTS =
+
+include test/Makefile.mk
 
 ## Manual ##
 
@@ -94,7 +104,7 @@ DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 REPOCLEANFILES = $(addprefix $(srcdir)/, aclocal.m4 compile configure config.guess config.sub depcomp install-sh Makefile.in missing)
 
-clean-local: clean-local-src clean-local-manual
+clean-local: clean-local-src clean-local-test clean-local-manual
 
 distclean-local: distclean-local-manual
 

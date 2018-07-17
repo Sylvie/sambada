@@ -86,7 +86,7 @@ binaries_recode_plink_lfmm_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scyt
 binaries_recode_plink_lfmm_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 binaries_recode_plink_lfmm_LDADD = libintermediate.a
 
-noinst_LIBRARIES = libshp.a libintermediate.a
+noinst_LIBRARIES += libshp.a libintermediate.a
 
 libintermediate_a_SOURCES = src/RegressionLogistique-bienvenue.cpp \
 	src/RegressionLogistique.h \

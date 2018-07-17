@@ -3,11 +3,19 @@ project(sambada)
 
 set(CMAKE_CXX_STANDARD 11)
 
+add_definitions(
+        -Dsambada_executable_extension="${CMAKE_EXECUTABLE_SUFFIX}"
+        -Dsambada_top_source_dir="${PROJECT_SOURCE_DIR}"
+        )
+
 include_directories(ext/scythestat-1.0.3)
 include_directories(ext/scythestat-1.0.3/scythestat)
 include_directories(ext/scythestat-1.0.3/scythestat/rng)
 include_directories(ext/shapelib-1.3.0)
 include_directories(src)
+include_directories(test)
+include_directories(test/utils)
+include_directories(test/integration/utils)
 
 add_library(shp
         ext/shapelib-1.3.0/dbfopen.c
@@ -90,4 +98,40 @@ add_executable(recodePlinkLFMM
 target_link_libraries(recodePlinkLFMM
         PRIVATE
         intermediate
+        )
+
+# Tests
+
+set(CatchSources
+        test/utils/catch.hpp
+        test/utils/main-catch.cpp
+        )
+
+set(TestUtils
+        ${CatchSources}
+        test/utils/SambadaRegressionResults.h
+        test/utils/SambadaRegressionResults.cpp
+        )
+
+set(IntegrationTestUtils
+        test/integration/utils/SambadaIntegrationTestUtils.h
+        test/integration/utils/SambadaIntegrationTestUtils.cpp
+        )
+
+if (WIN32)
+    set(IntegrationTestUtils
+            ${IntegrationTestUtils}
+            test/integration/utils/SambadaIntegrationTestUtilsWindows.cpp
+            )
+else ()
+    set(IntegrationTestUtils
+            ${IntegrationTestUtils}
+            test/integration/utils/SambadaIntegrationTestUtilsUnix.cpp
+            )
+endif (WIN32)
+
+add_executable(SambadaIntegrationTests
+        #${IntegrationTests}
+        ${IntegrationTestUtils}
+        ${TestUtils}
         )
