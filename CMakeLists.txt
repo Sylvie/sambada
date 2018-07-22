@@ -100,6 +100,14 @@ target_link_libraries(recodePlinkLFMM
         intermediate
         )
 
+set_target_properties(sambada
+        supervision
+        recodePlink
+        recodePlinkLFMM
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/binaries/"
+        )
+
 # Tests
 
 set(CatchSources
@@ -131,7 +139,12 @@ else ()
 endif (WIN32)
 
 add_executable(SambadaIntegrationTests
-        #${IntegrationTests}
+        test/integration/sambada/regressionResultsIntTests/regressionResultsDim1IntTests.cpp
         ${IntegrationTestUtils}
         ${TestUtils}
+        )
+
+set_target_properties(SambadaIntegrationTests
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/sambada/"
         )
