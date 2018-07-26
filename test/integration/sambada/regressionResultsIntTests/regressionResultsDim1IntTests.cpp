@@ -16,16 +16,19 @@ SCENARIO("Test that regression results are correct for models of dimension 1", "
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
 
-        std::string fileName("./test/integration/sambada/choice-mark-cattle-Out-1.txt");
 
-        std::string pathToInputDirectory(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/regressionResultsIntTests/");
+        std::string pathToOutputFolder("./test/integration/sambada/regressionResultsIntTests/");
+        std::string fileNameOut0(pathToOutputFolder + "choice-mark-cattle-Out-0.txt");
+        std::string fileNameOut1(pathToOutputFolder + "choice-mark-cattle-Out-1.txt");
+        std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
 
+        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/regressionResultsIntTests/");
 
-        std::string fileNameParam(pathToInputDirectory + "param-dim-1.txt");
-        std::string fileNameEnv(pathToInputDirectory + "choice-env-cattle.csv");
-        std::string fileNameMark(pathToInputDirectory + "choice-mark-cattle.txt");
+        std::string fileNameParam(pathToInputFolder + "param-dim-1.txt");
+        std::string fileNameEnv(pathToInputFolder + "choice-env-cattle.csv");
+        std::string fileNameMark(pathToInputFolder + "choice-mark-cattle.txt");
 
-        std::string fileNameExpectedResults(pathToInputDirectory + "expected-results-cattle-dim-1.txt");
+        std::string fileNameExpectedResults(pathToInputFolder + "expected-results-cattle-dim-1.txt");
 
         std::ifstream lecteurCorrige(fileNameExpectedResults.c_str());
         REQUIRE(lecteurCorrige.good());
@@ -36,9 +39,9 @@ SCENARIO("Test that regression results are correct for models of dimension 1", "
         WHEN("the program is run")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
-            //INFO(output);
+            INFO(output);
 
-            std::ifstream lecteur(fileName.c_str());
+            std::ifstream lecteur(fileNameOut1.c_str());
 
             THEN("the output file is found")
             {
@@ -62,7 +65,9 @@ SCENARIO("Test that regression results are correct for models of dimension 1", "
             }
 
             lecteur.close();
-            //std::remove(fileName.c_str());
+            std::remove(fileNameOut0.c_str());
+            std::remove(fileNameOut1.c_str());
+            std::remove(fileNameLogs.c_str());
         }
     }
 }

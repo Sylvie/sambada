@@ -148,3 +148,5 @@ set_target_properties(SambadaIntegrationTests
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/sambada/"
         )
+
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/")
