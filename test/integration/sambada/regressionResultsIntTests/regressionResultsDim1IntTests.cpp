@@ -15,8 +15,6 @@ SCENARIO("Test that regression results are correct for models of dimension 1", "
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-
-
         std::string pathToOutputFolder("./test/integration/sambada/regressionResultsIntTests/");
         std::string fileNameOut0(pathToOutputFolder + "choice-mark-cattle-Out-0.txt");
         std::string fileNameOut1(pathToOutputFolder + "choice-mark-cattle-Out-1.txt");
@@ -47,20 +45,17 @@ SCENARIO("Test that regression results are correct for models of dimension 1", "
             {
                 REQUIRE(lecteur.good());
                 REQUIRE(lecteur.is_open());
-            }
 
-            AND_WHEN("the file is read")
-            {
-                SambadaRegressionResults results(SambadaIntegrationTestUtils::readRegressionResults(lecteur, true, 1));
-
-                THEN("the results have the expected size")
+                AND_WHEN("the file is read")
                 {
-                    results.verifieTailles(true, 1, 30);
-                }
+                    SambadaRegressionResults results(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteur, true, 1));
 
-                AND_THEN("the results match the expectation")
-                {
-                    results.compare(expectedResults);
+                    THEN("the results match the expectation")
+                    {
+                        results.verifieTailles(true, 1, 30);
+                        results.compare(expectedResults);
+                    }
                 }
             }
 
