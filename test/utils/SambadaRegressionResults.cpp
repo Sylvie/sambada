@@ -26,6 +26,7 @@ void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int
 
     for (int i(0); i < nombreModeles; ++i)
     {
+        INFO("Modèle numéro: " + std::to_string(i));
         CHECK(etiquettes[i].size() == tailleEtiquettes);
         CHECK(valeurs[i].size() == tailleValeurs);
     }
