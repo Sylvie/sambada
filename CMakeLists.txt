@@ -140,6 +140,7 @@ endif (WIN32)
 
 add_executable(SambadaIntegrationTests
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim1IntTests.cpp
+        test/integration/sambada/regressionResultsIntTests/regressionResultsDim4IntTests.cpp
         ${IntegrationTestUtils}
         ${TestUtils}
         )
