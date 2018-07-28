@@ -150,4 +150,6 @@ set_target_properties(SambadaIntegrationTests
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/sambada/"
         )
 
+add_dependencies(SambadaIntegrationTests sambada)
+
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/")
