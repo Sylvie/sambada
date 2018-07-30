@@ -46,7 +46,7 @@ SCENARIO("Test that regression results are correct for models of dimension 1", "
         WHEN("the program is run")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
-            INFO(output);
+            //INFO(output);
 
             THEN("the output file of dimension 0 is found")
             {
