@@ -59,6 +59,7 @@ script:
   - ls -R
   - make binary-archive
   - cd ..
+  - ls -R
 
 deploy:
   provider: releases
