@@ -30,7 +30,7 @@ dnl Then run ./configure to generate a Makefile.
 dnl Finally run make to generate the project.
 
 AC_INIT([Sambada], m4_esyscmd([./git-version-gen .tarball-version]), [sylvie.stucki@a3.epfl.ch], [sambada], [lasig.epfl.ch/sambada])
-AM_INIT_AUTOMAKE([foreign subdir-objects dist-zip])
+AM_INIT_AUTOMAKE([foreign subdir-objects dist-zip tar-pax])
 
 sambada_releasedate=m4_esyscmd([./git-releasedate-gen .tarball-releasedate])
 AC_SUBST(sambada_releasedate)
