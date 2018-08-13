@@ -49,6 +49,7 @@ script:
   - mkdir build
   - cd build
   - "../configure sambadahostsystemname=${SAMBADA_OS_NAME}"
+  - cat config.log
   - make pdf
   - make
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
