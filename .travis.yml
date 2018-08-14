@@ -24,7 +24,7 @@ matrix:
   - os: osx
     compiler: gcc
     env:
-      - MATRIX_EVAL="softwareupdate -l && sudo softwareupdate -i "Command Line Tools (macOS High Sierra version 10.13) for Xcode-9.4" && brew cask uninstall oclint && brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
+      - MATRIX_EVAL="softwareupdate -l && sudo softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-9.4\" && brew cask uninstall oclint && brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
       - source ./manual/basictex-osx.sh
