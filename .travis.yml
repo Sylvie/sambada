@@ -48,7 +48,7 @@ script:
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
   - cd build
-  - "../configure sambadahostsystemname=${SAMBADA_OS_NAME}"
+  - ../configure CXXFLAGS="-std=c++11" sambadahostsystemname=${SAMBADA_OS_NAME}
   - cat config.log
   - make pdf
   - make
@@ -56,7 +56,8 @@ script:
   - binaries/sambada ../examples/subset-cattle-SNP/param-cattle.txt ../examples/subset-cattle-SNP/cattle-env.csv  ../examples/subset-cattle-SNP/cattle-mark.txt
   - head  ../examples/subset-cattle-SNP/cattle-mark-Out-1.txt
   - ls -R
-  - make clean distcheck
+  - make clean
+  - make distcheck CXXFLAGS="-std=c++11"
   - ls -R
   - make binary-archive
   - cd ..
