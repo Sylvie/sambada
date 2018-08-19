@@ -35,8 +35,19 @@ build_script:
   - make.exe
   - ls -R binaries
   - ps: .\binaries\sambada.exe ..\Data\Example_parameters_input_matrix.txt ..\Data\input_matrix.csv
+  - make.exe dist DIST_TARGETS=dist-gzip
   - make binary-archive
   - ls -R
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+# to run your custom scripts instead of automatic tests
+test_script:
+  - make check
+  - ls -R
+  - make.exe clean
+  - make.exe distcheck DIST_TARGETS=dist-gzip sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 LDFLAGS=-static
 
 #---------------------------------#
 #      artifacts configuration    #
