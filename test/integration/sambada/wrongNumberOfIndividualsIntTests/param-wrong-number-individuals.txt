@@ -4,5 +4,5 @@ NUMVARENV 6
 NUMMARK 5
 NUMINDIV 777
 DIMMAX 1
-OUTPUTFILE "test/integration/sambada/regressionResultsIntTests/choice-mark-cattle.txt"
+OUTPUTFILE "test/integration/sambada/wrongNumberOfIndividualsIntTests/choice-mark-cattle.txt"
 SAVETYPE END BEST 0.01
