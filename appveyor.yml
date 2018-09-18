@@ -14,7 +14,7 @@ cache:
 
 # scripts that run after cloning repository
 install:
-  - ps: choco install miktex --version=2.9.6813
+  - ps: choco install miktex --version 2.9.6813
   - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
   - ps: initexmf --admin --set-config-value [MPM]AutoInstall=1
 
