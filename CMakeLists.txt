@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 add_definitions(
         -Dsambada_executable_extension="${CMAKE_EXECUTABLE_SUFFIX}"
         -Dsambada_top_source_dir="${PROJECT_SOURCE_DIR}"
-        )
+)
 
 include_directories(ext/scythestat-1.0.3)
 include_directories(ext/scythestat-1.0.3/scythestat)
@@ -141,6 +141,8 @@ endif (WIN32)
 add_executable(SambadaIntegrationTests
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim1IntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim4IntTests.cpp
+        test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
+        test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp
         ${IntegrationTestUtils}
         ${TestUtils}
         )
@@ -152,4 +154,7 @@ set_target_properties(SambadaIntegrationTests
 
 add_dependencies(SambadaIntegrationTests sambada)
 
-file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/")
+file(MAKE_DIRECTORY
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
+        )

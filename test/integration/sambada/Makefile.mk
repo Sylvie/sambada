@@ -13,6 +13,7 @@ test_integration_SambadaIntegrationTests_LDADD = \
 		$(top_builddir)/test/utils/libSambadaTestUtils.a
 
 include test/integration/sambada/regressionResultsIntTests/Makefile.mk
+include test/integration/sambada/wrongNumberOfIndividualsIntTests/Makefile.mk
 
 ## Listing tests ##
 check-local-test-integration-sambada: ${sambada_integration_tests}
