@@ -16,7 +16,8 @@ cache:
 install:
   - ps: choco install miktex.portable
   - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
-#  - ps: initexmf --admin --set-config-value [MPM]AutoInstall=1
+  - set "PATH=%PATH%;c:\miktex\texmfs\install\miktex\bin"
+  - ps: initexmf --admin --set-config-value [MPM]AutoInstall=1
 
 #---------------------------------#
 #       build configuration       #
