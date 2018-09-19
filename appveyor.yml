@@ -15,11 +15,11 @@ cache:
 # scripts that run after cloning repository
 install:
   - ps: choco install miktex.portable
-  - ps: ls C:\ProgramData\chocolatey\lib\miktex.portable\tools
+  - ps: ls C:\ProgramData\chocolatey\lib\miktex.portable\tools\texmfs\install\miktex\bin
   - SET PATH=C:\ProgramData\chocolatey\lib\miktex.portable\tools;C:\ProgramData\chocolatey\lib\miktex.portable\tools\texmfs\install\miktex\bin;%PATH%
 #  - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
 #  - set "PATH=%PATH%;c:\miktex\texmfs\install\miktex\bin"
-  - ps: initexmf --set-config-value [MPM]AutoInstall=1
+#  - ps: initexmf --set-config-value [MPM]AutoInstall=1
 
 #---------------------------------#
 #       build configuration       #
