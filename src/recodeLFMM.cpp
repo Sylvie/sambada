@@ -342,7 +342,7 @@ int main(int argc, char** argv)
 
 	//cout << nomFichierAnimaux << " " << nomFichierCrd << " " << nomFichierSortie << endl;
 
-	ifstream entreePed(nomFichierPed.c_str()), /*entreeMap(nomFichierMap.c_str()),*/ entreeSel(NULL);
+	ifstream entreePed(nomFichierPed.c_str()), /*entreeMap(nomFichierMap.c_str()),*/ entreeSel;
 	if (!prendTousEch)
 	{
 		entreeSel.open(nomFichierSel.c_str());
