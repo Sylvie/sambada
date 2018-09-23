@@ -28,7 +28,7 @@ install:
 platform: windows
 
 build_script:
-  - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\x86_64-w64-mingw32;
+  - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64;C:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64\x86_64-w64-mingw32;
   - ps: $env:sambada_version=(bash -c './git-version-gen .version')
   - bash -c "autoreconf -i"
   - mkdir build
