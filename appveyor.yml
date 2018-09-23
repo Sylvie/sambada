@@ -2,7 +2,7 @@
 #    environment configuration    #
 #---------------------------------#
 # Build worker image (VM template)
-image: Visual Studio 2017
+image: Visual Studio 2015
 
 # scripts that are called at very beginning, before repo cloning
 init:
@@ -28,7 +28,7 @@ install:
 platform: windows
 
 build_script:
-  - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64;C:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64\x86_64-w64-mingw32;
+  - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64;C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\x86_64-w64-mingw32;
   - ps: $env:sambada_version=(bash -c './git-version-gen .version')
   - bash -c "autoreconf -i"
   - mkdir build
@@ -38,6 +38,8 @@ build_script:
   - make.exe
   - ls -R binaries
   - ps: .\binaries\sambada.exe ..\Data\Example_parameters_input_matrix.txt ..\Data\input_matrix.csv
+  - ps: .\binaries\sambada.exe ..\examples\subset-cattle-SNP\param-cattle.txt ..\examples\subset-cattle-SNP\cattle-env.csv  ..\examples\subset-cattle-SNP\cattle-mark.txt
+  - ps: head  ..\examples\subset-cattle-SNP\cattle-mark-Out-1.txt
   - make.exe dist DIST_TARGETS=dist-gzip
   - make binary-archive
   - ls -R
