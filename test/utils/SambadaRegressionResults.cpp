@@ -87,8 +87,8 @@ void SambadaRegressionResults::compare(const SambadaRegressionResults &autre) co
             {
                 for (int j(0); j < nombreValeurs; ++j)
                 {
-                    INFO("Étiquette numéro: " + std::to_string(j));
-                    // CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
+                    INFO("Valeur numéro: " + std::to_string(j));
+                    CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
                 }
             }
         }
