@@ -3050,7 +3050,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		resultat.second[AIC] = -2*loglikeCourante + 2*nbParam;
 
 		// BIC
-		resultat.second[BIC] = -2*loglikeCourante + 2*nbParam*log(taille);
+		resultat.second[BIC] = -2*loglikeCourante + nbParam*log(taille);
 	}
 	return modeleRetenu;
 
