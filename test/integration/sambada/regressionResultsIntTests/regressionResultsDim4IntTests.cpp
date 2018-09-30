@@ -9,7 +9,7 @@
 
 SCENARIO("Test that regression results are correct for models of dimension 4", "[models-dim-4-int]") {
 
-    std::cout << "Starting there: " << SambadaIntegrationTestUtils::runCommand("pwd") << std::endl;
+    INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
     GIVEN("A program to run, its expected output file, and the file of expected results")
     {
