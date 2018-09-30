@@ -54,6 +54,8 @@ AM_CPPFLAGS = -I$(top_srcdir)/src
 
 TESTS =
 
+check-local: check-local-test
+
 include test/Makefile.mk
 
 ## Manual ##

@@ -14,6 +14,11 @@ test_integration_SambadaIntegrationTests_LDADD = \
 
 include test/integration/sambada/regressionResultsIntTests/Makefile.mk
 
+## Listing tests ##
+check-local-test-integration-sambada: ${sambada_integration_tests}
+	-${sambada_integration_tests} -l
+	echo "Ignored error: The return value actually counts the numbers of tests."
+
 ## Cleaning ##
 clean-local-test-integration-sambada:
 	 $(RM) -rf $(addsuffix .dSYM , $(sambada_integration_tests))
