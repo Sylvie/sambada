@@ -139,6 +139,7 @@ else ()
 endif (WIN32)
 
 add_executable(SambadaIntegrationTests
+        test/integration/sambada/noNewLinesEndOfFilesIntTests/noNewLinesEndOfFilesIntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim1IntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim4IntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
@@ -155,6 +156,7 @@ set_target_properties(SambadaIntegrationTests
 add_dependencies(SambadaIntegrationTests sambada)
 
 file(MAKE_DIRECTORY
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/noNewLinesEndOfFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         )

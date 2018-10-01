@@ -12,6 +12,7 @@ test_integration_SambadaIntegrationTests_LDADD = \
 		$(top_builddir)/test/integration/utils/libSambadaIntegrationTestUtils.a \
 		$(top_builddir)/test/utils/libSambadaTestUtils.a
 
+include test/integration/sambada/noNewLinesEndOfFilesIntTests/Makefile.mk
 include test/integration/sambada/regressionResultsIntTests/Makefile.mk
 include test/integration/sambada/wrongNumberOfIndividualsIntTests/Makefile.mk
 
