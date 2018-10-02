@@ -10,10 +10,12 @@ test_integration_SambadaIntegrationTests_CPPFLAGS = -I $(top_srcdir)/src \
  		-Dsambada_executable_extension=\"${sambada_executable_extension}\"
 test_integration_SambadaIntegrationTests_LDADD = \
 		$(top_builddir)/test/integration/utils/libSambadaIntegrationTestUtils.a \
-		$(top_builddir)/test/utils/libSambadaTestUtils.a
+		$(top_builddir)/test/utils/libSambadaTestUtils.a \
+		-lstdc++fs
 
 include test/integration/sambada/noNewLinesEndOfFilesIntTests/Makefile.mk
 include test/integration/sambada/regressionResultsIntTests/Makefile.mk
+include test/integration/sambada/resultFilesLocationIntTests/Makefile.mk
 include test/integration/sambada/wrongNumberOfIndividualsIntTests/Makefile.mk
 
 ## Listing tests ##
