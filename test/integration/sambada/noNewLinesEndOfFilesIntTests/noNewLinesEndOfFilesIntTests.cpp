@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include <vector>
+#include <sstream>
 
 SCENARIO("Test that regression results are correct when there are no new lines at the end of data files", "[no-newlines-eof-int]") {
 
@@ -95,14 +95,18 @@ SCENARIO("Test that regression results are correct when there are no new lines a
             INFO(output);
 
             // Checking if the last line of param was read
-            std::size_t location(output.find("SAVETYPE\n"));
+            std::size_t location(output.find("SAVETYPE"));
             CHECK(location != std::string::npos);
-            location = output.find("END\n", location);
-            CHECK(location != std::string::npos);
-            location = output.find("BEST\n", location);
-            CHECK(location != std::string::npos);
-            location = output.find("0.01\n", location);
-            CHECK(location != std::string::npos);
+            std::istringstream iss(output.substr(location));
+            std::string token("");
+            iss >> token >> std::ws;
+            CHECK(token == "SAVETYPE");
+            iss >> token >> std::ws;
+            CHECK(token == "END");
+            iss >> token >> std::ws;
+            CHECK(token == "BEST");
+            iss >> token >> std::ws;
+            CHECK(token == "0.01");
 
             THEN("the output files are found")
             {
