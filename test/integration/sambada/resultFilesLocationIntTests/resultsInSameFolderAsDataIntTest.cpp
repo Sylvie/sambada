@@ -33,9 +33,9 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         std::string fileNameEnv(pathToOutputFolder + bareFileNameEnv);
         std::string fileNameMark(pathToOutputFolder + bareFileNameMark);
 
-        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameParam).c_str(), pathToOutputFolder.c_str());
-        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameEnv).c_str(), pathToOutputFolder.c_str());
-        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameMark).c_str(), pathToOutputFolder.c_str());
+        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameParam).c_str(), (pathToOutputFolder + bareFileNameParam).c_str());
+        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameEnv).c_str(), (pathToOutputFolder + bareFileNameEnv).c_str());
+        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameMark).c_str(), (pathToOutputFolder + bareFileNameMark).c_str());
 
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-cattle-dim-0.txt");
         std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-cattle-dim-1.txt");
