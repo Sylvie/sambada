@@ -52,7 +52,7 @@ test_script:
   - make check
   - ls -R
   - make.exe clean
-  - make.exe distcheck DIST_TARGETS=dist-gzip sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 LDFLAGS=-static
+  - make.exe distcheck DIST_TARGETS=dist-gzip sambadahostsystemname=%PLATFORM% CXX=x86_64-w64-mingw32-g++ CC=x86_64-w64-mingw32-gcc LDFLAGS=-static
 
 #---------------------------------#
 #      artifacts configuration    #
