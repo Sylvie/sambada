@@ -9,6 +9,20 @@
 
 namespace fs = std::experimental::filesystem;
 
+void demo_perms(fs::perms p)
+{
+    std::cout << ((p & fs::perms::owner_read) != fs::perms::none ? "r" : "-")
+              << ((p & fs::perms::owner_write) != fs::perms::none ? "w" : "-")
+              << ((p & fs::perms::owner_exec) != fs::perms::none ? "x" : "-")
+              << ((p & fs::perms::group_read) != fs::perms::none ? "r" : "-")
+              << ((p & fs::perms::group_write) != fs::perms::none ? "w" : "-")
+              << ((p & fs::perms::group_exec) != fs::perms::none ? "x" : "-")
+              << ((p & fs::perms::others_read) != fs::perms::none ? "r" : "-")
+              << ((p & fs::perms::others_write) != fs::perms::none ? "w" : "-")
+              << ((p & fs::perms::others_exec) != fs::perms::none ? "x" : "-")
+              << '\n';
+}
+
 SCENARIO("Test that result files are writen in the same folder as the molecular data file", "[results-same-folder-molecular-data-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
@@ -29,13 +43,19 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         std::string bareFileNameEnv("choice-env-cattle.csv");
         std::string bareFileNameMark("choice-mark-cattle.txt");
 
+        demo_perms(fs::status(fs::path((pathToInputFolder + bareFileNameParam).c_str())).permissions());
+        demo_perms(fs::status(fs::path((pathToInputFolder + bareFileNameEnv).c_str())).permissions());
+        demo_perms(fs::status(fs::path((pathToInputFolder + bareFileNameMark).c_str())).permissions());
         std::string fileNameParam(pathToOutputFolder + bareFileNameParam);
         std::string fileNameEnv(pathToOutputFolder + bareFileNameEnv);
         std::string fileNameMark(pathToOutputFolder + bareFileNameMark);
+        demo_perms(fs::status(fs::path(fileNameParam.c_str())).permissions());
+        demo_perms(fs::status(fs::path(fileNameEnv.c_str())).permissions());
+        demo_perms(fs::status(fs::path(fileNameMark.c_str())).permissions());
 
-        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameParam).c_str(), (pathToOutputFolder + bareFileNameParam).c_str());
-        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameEnv).c_str(), (pathToOutputFolder + bareFileNameEnv).c_str());
-        std::experimental::filesystem::copy((pathToInputFolder + bareFileNameMark).c_str(), (pathToOutputFolder + bareFileNameMark).c_str());
+        std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameParam).c_str()), fs::path(fileNameParam.c_str()));
+        std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameEnv).c_str()), fs::path(fileNameEnv.c_str()));
+        std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameMark).c_str()), fs::path(fileNameMark.c_str()));
 
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-cattle-dim-0.txt");
         std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-cattle-dim-1.txt");
