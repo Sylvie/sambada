@@ -5,22 +5,26 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;
 
-void demo_perms(fs::perms p)
+std::string infoPerms(fs::path path)
 {
-    std::cout << ((p & fs::perms::owner_read) != fs::perms::none ? "r" : "-")
-              << ((p & fs::perms::owner_write) != fs::perms::none ? "w" : "-")
-              << ((p & fs::perms::owner_exec) != fs::perms::none ? "x" : "-")
-              << ((p & fs::perms::group_read) != fs::perms::none ? "r" : "-")
-              << ((p & fs::perms::group_write) != fs::perms::none ? "w" : "-")
-              << ((p & fs::perms::group_exec) != fs::perms::none ? "x" : "-")
-              << ((p & fs::perms::others_read) != fs::perms::none ? "r" : "-")
-              << ((p & fs::perms::others_write) != fs::perms::none ? "w" : "-")
-              << ((p & fs::perms::others_exec) != fs::perms::none ? "x" : "-")
-              << '\n';
+    fs::perms p(fs::status(path).permissions());
+    std::ostringstream oss;
+    oss << ((p & fs::perms::owner_read) != fs::perms::none ? "r" : "-")
+        << ((p & fs::perms::owner_write) != fs::perms::none ? "w" : "-")
+        << ((p & fs::perms::owner_exec) != fs::perms::none ? "x" : "-")
+        << ((p & fs::perms::group_read) != fs::perms::none ? "r" : "-")
+        << ((p & fs::perms::group_write) != fs::perms::none ? "w" : "-")
+        << ((p & fs::perms::group_exec) != fs::perms::none ? "x" : "-")
+        << ((p & fs::perms::others_read) != fs::perms::none ? "r" : "-")
+        << ((p & fs::perms::others_write) != fs::perms::none ? "w" : "-")
+        << ((p & fs::perms::others_exec) != fs::perms::none ? "x" : "-")
+        << '\n';
+    return oss.str();
 }
 
 SCENARIO("Test that result files are writen in the same folder as the molecular data file", "[results-same-folder-molecular-data-int]") {
@@ -38,32 +42,43 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         std::string fileNameOut1(pathToOutputFolder + "choice-mark-cattle-Out-1.txt");
         std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
 
+        // Defining filenames and path to original data
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/resultFilesLocationIntTests/");
         std::string bareFileNameParam("param-without-outputfile-setting.txt");
         std::string bareFileNameEnv("choice-env-cattle.csv");
         std::string bareFileNameMark("choice-mark-cattle.txt");
+        fs::path pathOriginalParam(fs::path(pathToInputFolder + bareFileNameParam));
+        fs::path pathOriginalEnv(fs::path(pathToInputFolder + bareFileNameEnv));
+        fs::path pathOriginalMark(fs::path(pathToInputFolder + bareFileNameMark));
+        INFO("Original param:\t" + infoPerms(pathOriginalParam));
+        INFO("Original env:\t\t" + infoPerms(pathOriginalEnv));
+        INFO("Original mark:\t" + infoPerms(pathOriginalMark));
 
-        demo_perms(fs::status(fs::path((pathToInputFolder + bareFileNameParam).c_str())).permissions());
-        demo_perms(fs::status(fs::path((pathToInputFolder + bareFileNameEnv).c_str())).permissions());
-        demo_perms(fs::status(fs::path((pathToInputFolder + bareFileNameMark).c_str())).permissions());
+        // Defining filenames and path to copied data
         std::string fileNameParam(pathToOutputFolder + bareFileNameParam);
         std::string fileNameEnv(pathToOutputFolder + bareFileNameEnv);
         std::string fileNameMark(pathToOutputFolder + bareFileNameMark);
+        fs::path pathParam(fileNameParam.c_str());
+        fs::path pathEnv(fileNameEnv.c_str());
+        fs::path pathMark(fileNameMark.c_str());
 
-        std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameParam).c_str()), fs::path(fileNameParam.c_str()));
-        std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameEnv).c_str()), fs::path(fileNameEnv.c_str()));
-        std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameMark).c_str()), fs::path(fileNameMark.c_str()));
-        demo_perms(fs::status(fs::path(fileNameParam.c_str())).permissions());
-        demo_perms(fs::status(fs::path(fileNameEnv.c_str())).permissions());
-        demo_perms(fs::status(fs::path(fileNameMark.c_str())).permissions());
+        // Copying data
+        std::experimental::filesystem::copy(pathOriginalParam, pathParam, fs::copy_options::overwrite_existing);
+        std::experimental::filesystem::copy(pathOriginalEnv, pathEnv, fs::copy_options::overwrite_existing);
+        std::experimental::filesystem::copy(pathOriginalMark, pathMark, fs::copy_options::overwrite_existing);
+        INFO("Copied param:\t\t" + infoPerms(pathParam));
+        INFO("Copied env:\t\t" + infoPerms(pathEnv));
+        INFO("Copied mark:\t\t" + infoPerms(pathMark));
 
-        fs::permissions(fs::path(fileNameParam.c_str()), fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
-        fs::permissions(fs::path(fileNameEnv.c_str()), fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
-        fs::permissions(fs::path(fileNameMark.c_str()), fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
-        demo_perms(fs::status(fs::path(fileNameParam.c_str())).permissions());
-        demo_perms(fs::status(fs::path(fileNameEnv.c_str())).permissions());
-        demo_perms(fs::status(fs::path(fileNameMark.c_str())).permissions());
+        // Changing data permissions
+        fs::permissions(pathParam, fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
+        fs::permissions(fs::path(fileNameEnv.c_str()), fs::perms::owner_read | fs::perms::owner_write | fs::perms::group_read | fs::perms::group_write | fs::perms::others_read);
+        fs::permissions(fs::path(fileNameMark.c_str()), fs::perms::owner_read | fs::perms::owner_write | fs::perms::group_read | fs::perms::group_write | fs::perms::others_read);
+        INFO("Chmod'ed param:\t" + infoPerms(pathParam));
+        INFO("Chmod'ed env:\t\t" + infoPerms(pathEnv));
+        INFO("Chmod'ed mark:\t" + infoPerms(pathMark));
 
+        // Reading expected results
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-cattle-dim-0.txt");
         std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-cattle-dim-1.txt");
 
