@@ -49,13 +49,20 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         std::string fileNameParam(pathToOutputFolder + bareFileNameParam);
         std::string fileNameEnv(pathToOutputFolder + bareFileNameEnv);
         std::string fileNameMark(pathToOutputFolder + bareFileNameMark);
-        demo_perms(fs::status(fs::path(fileNameParam.c_str())).permissions());
-        demo_perms(fs::status(fs::path(fileNameEnv.c_str())).permissions());
-        demo_perms(fs::status(fs::path(fileNameMark.c_str())).permissions());
 
         std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameParam).c_str()), fs::path(fileNameParam.c_str()));
         std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameEnv).c_str()), fs::path(fileNameEnv.c_str()));
         std::experimental::filesystem::copy(fs::path((pathToInputFolder + bareFileNameMark).c_str()), fs::path(fileNameMark.c_str()));
+        demo_perms(fs::status(fs::path(fileNameParam.c_str())).permissions());
+        demo_perms(fs::status(fs::path(fileNameEnv.c_str())).permissions());
+        demo_perms(fs::status(fs::path(fileNameMark.c_str())).permissions());
+
+        fs::permissions(fs::path(fileNameParam.c_str()), fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
+        fs::permissions(fs::path(fileNameEnv.c_str()), fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
+        fs::permissions(fs::path(fileNameMark.c_str()), fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
+        demo_perms(fs::status(fs::path(fileNameParam.c_str())).permissions());
+        demo_perms(fs::status(fs::path(fileNameEnv.c_str())).permissions());
+        demo_perms(fs::status(fs::path(fileNameMark.c_str())).permissions());
 
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-cattle-dim-0.txt");
         std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-cattle-dim-1.txt");
