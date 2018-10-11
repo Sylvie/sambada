@@ -139,6 +139,7 @@ else ()
 endif (WIN32)
 
 add_executable(SambadaIntegrationTests
+        test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesIntTests.cpp
         test/integration/sambada/noNewLinesEndOfFilesIntTests/noNewLinesEndOfFilesIntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim1IntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim4IntTests.cpp
@@ -160,6 +161,7 @@ add_dependencies(SambadaIntegrationTests sambada)
 target_link_libraries(SambadaIntegrationTests -lstdc++fs)
 
 file(MAKE_DIRECTORY
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/noExtensionsToFilenamesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noNewLinesEndOfFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/resultFilesLocationIntTests/"
