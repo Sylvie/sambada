@@ -6,6 +6,18 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
+
+void copyFileAndUpdatePermissions(const std::string& inputFile, const std::string& outputFile)
+{
+    fs::path pathInputFile(fs::path(inputFile.c_str()));
+    fs::path pathOutputFile(fs::path(outputFile.c_str()));
+
+    fs::copy(pathInputFile, pathOutputFile, fs::copy_options::overwrite_existing);
+    fs::permissions(pathOutputFile, fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
+}
 
 SCENARIO("Test that regression results are correct when the molecular data is split in several files with filename extensions",
          "[split-input-files-with-extensions-int]") {
@@ -14,9 +26,27 @@ SCENARIO("Test that regression results are correct when the molecular data is sp
 
     GIVEN("Molecular data split in several files with extensions to their names")
     {
+        // Common declarations
+
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
+        std::string pathToInputFolder(
+                SambadaIntegrationTestUtils::getTopSourceDirectory() +
+                "test/integration/sambada/splitInputFilesIntTests/");
+
         std::string pathToOutputFolder("./test/integration/sambada/splitInputFilesIntTests/");
+
+        std::string fileNameEnv(pathToInputFolder + "choice-env-cattle.csv");
+
+        // Expected results
+
+        std::string fileNameExpectedResultsDim0FirstBatch(pathToInputFolder + "expected-results-cattle-dim-0-0-0.txt");
+        std::string fileNameExpectedResultsDim1FirstBatch(pathToInputFolder + "expected-results-cattle-dim-1-0-0.txt");
+
+        std::string fileNameExpectedResultsDim0SecondBatch(pathToInputFolder + "expected-results-cattle-dim-0-1-3.txt");
+        std::string fileNameExpectedResultsDim1SecondBatch(pathToInputFolder + "expected-results-cattle-dim-1-1-3.txt");
+
+        // Output files with extensions
 
         std::string fileNameOut0FirstBatch(pathToOutputFolder + "choice-mark-cattle-mark-0-0-Out-0.txt");
         std::string fileNameOut0SecondBatch(pathToOutputFolder + "choice-mark-cattle-mark-1-3-Out-0.txt");
@@ -27,23 +57,35 @@ SCENARIO("Test that regression results are correct when the molecular data is sp
         std::string fileNameLogsFirstBatch(pathToOutputFolder + "choice-mark-cattle-mark-0-0-log.txt");
         std::string fileNameLogsSecondBatch(pathToOutputFolder + "choice-mark-cattle-mark-1-3-log.txt");
 
-        std::string pathToInputFolder(
-                SambadaIntegrationTestUtils::getTopSourceDirectory() +
-                "test/integration/sambada/splitInputFilesIntTests/");
+        // Output files without extensions
+
+        std::string fileNameOut0FirstBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-0-0-Out-0");
+        std::string fileNameOut0SecondBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-1-3-Out-0");
+
+        std::string fileNameOut1FirstBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-0-0-Out-1");
+        std::string fileNameOut1SecondBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-1-3-Out-1");
+
+        std::string fileNameLogsFirstBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-0-0-log");
+        std::string fileNameLogsSecondBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-1-3-log");
+
+        // Testing with param outputfile with extension
 
         std::string fileNameParamsFirstBatch(pathToInputFolder + "param-0-0.txt");
         std::string fileNameParamsSecondBatch(pathToInputFolder + "param-1-3.txt");
 
-        std::string fileNameEnv(pathToInputFolder + "choice-env-cattle.csv");
-
         std::string fileNameMarkFirstBatch(pathToInputFolder + "choice-mark-cattle-mark-0-0.txt");
         std::string fileNameMarkSecondBatch(pathToInputFolder + "choice-mark-cattle-mark-1-3.txt");
 
-        std::string fileNameExpectedResultsDim0FirstBatch(pathToInputFolder + "expected-results-cattle-dim-0-0-0.txt");
-        std::string fileNameExpectedResultsDim1FirstBatch(pathToInputFolder + "expected-results-cattle-dim-1-0-0.txt");
+        // Testing with param outputfile without extension
+        std::string fileNameParamsFirstBatchOutputFileNoExt(pathToInputFolder + "param-0-0-outputfile-no-ext.txt");
+        std::string fileNameParamsSecondBatchOutputFileNoExt(pathToInputFolder + "param-1-3-outputfile-no-ext.txt");
 
-        std::string fileNameExpectedResultsDim0SecondBatch(pathToInputFolder + "expected-results-cattle-dim-0-1-3.txt");
-        std::string fileNameExpectedResultsDim1SecondBatch(pathToInputFolder + "expected-results-cattle-dim-1-1-3.txt");
+        // Testing without param outputfile
+        std::string fileNameParamsFirstBatchNoOutputFile(pathToInputFolder + "param-0-0-no-outputfile.txt");
+        std::string fileNameParamsSecondBatchNoOutputFile(pathToInputFolder + "param-1-3-no-outputfile.txt");
+
+        std::string fileNameMarkFirstBatchNoOutputFile(pathToOutputFolder + "choice-mark-cattle-mark-0-0.txt");
+        std::string fileNameMarkSecondBatchNoOutputFile(pathToOutputFolder + "choice-mark-cattle-mark-1-3.txt");
 
         WHEN("Sambada runs the first batch of analyses")
         {
@@ -158,7 +200,246 @@ SCENARIO("Test that regression results are correct when the molecular data is sp
                 std::remove(fileNameLogsSecondBatch.c_str());
                 std::remove(fileNameOut0SecondBatch.c_str());
                 std::remove(fileNameOut1SecondBatch.c_str());
+            }
+        }
 
+        WHEN("Sambada runs the first batch of analyses using outputfile param without extension")
+        {
+            std::ifstream lecteurCorrige(fileNameExpectedResultsDim0FirstBatch.c_str());
+            REQUIRE(lecteurCorrige.good());
+            REQUIRE(lecteurCorrige.is_open());
+            SambadaRegressionResults expectedNullResults(
+                    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 0));
+            lecteurCorrige.close();
+            expectedNullResults.verifieTailles(true, 0, 3);
+
+            lecteurCorrige.open(fileNameExpectedResultsDim1FirstBatch.c_str());
+            REQUIRE(lecteurCorrige.good());
+            REQUIRE(lecteurCorrige.is_open());
+            SambadaRegressionResults expectedResults(
+                    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
+            lecteurCorrige.close();
+            expectedResults.verifieTailles(true, 1, 18);
+
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsFirstBatchOutputFileNoExt + " " + fileNameEnv + " " + fileNameMarkFirstBatch);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0FirstBatchOutputFileNoExt.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1FirstBatchOutputFileNoExt.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 3);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 18);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+
+                std::remove(fileNameLogsFirstBatchOutputFileNoExt.c_str());
+                std::remove(fileNameOut0FirstBatchOutputFileNoExt.c_str());
+                std::remove(fileNameOut1FirstBatchOutputFileNoExt.c_str());
+            }
+        }
+
+        WHEN("Sambada runs the second batch of analyses using outputfile param without extension")
+        {
+            std::ifstream lecteurCorrige(fileNameExpectedResultsDim0SecondBatch.c_str());
+            REQUIRE(lecteurCorrige.good());
+            REQUIRE(lecteurCorrige.is_open());
+            SambadaRegressionResults expectedNullResults(
+                    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 0));
+            lecteurCorrige.close();
+            expectedNullResults.verifieTailles(true, 0, 2);
+
+            lecteurCorrige.open(fileNameExpectedResultsDim1SecondBatch.c_str());
+            REQUIRE(lecteurCorrige.good());
+            REQUIRE(lecteurCorrige.is_open());
+            SambadaRegressionResults expectedResults(
+                    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
+            lecteurCorrige.close();
+            expectedResults.verifieTailles(true, 1, 12);
+
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsSecondBatchOutputFileNoExt + " " + fileNameEnv + " " + fileNameMarkSecondBatch);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0SecondBatchOutputFileNoExt.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1SecondBatchOutputFileNoExt.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 2);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 12);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+
+                std::remove(fileNameLogsSecondBatchOutputFileNoExt.c_str());
+                std::remove(fileNameOut0SecondBatchOutputFileNoExt.c_str());
+                std::remove(fileNameOut1SecondBatchOutputFileNoExt.c_str());
+            }
+        }
+
+        WHEN("Sambada runs the first batch of analyses without the outputfile param")
+        {
+            copyFileAndUpdatePermissions(fileNameMarkFirstBatch, fileNameMarkFirstBatchNoOutputFile);
+
+            std::ifstream lecteurCorrige(fileNameExpectedResultsDim0FirstBatch.c_str());
+            REQUIRE(lecteurCorrige.good());
+            REQUIRE(lecteurCorrige.is_open());
+            SambadaRegressionResults expectedNullResults(
+                    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 0));
+            lecteurCorrige.close();
+            expectedNullResults.verifieTailles(true, 0, 3);
+
+            lecteurCorrige.open(fileNameExpectedResultsDim1FirstBatch.c_str());
+            REQUIRE(lecteurCorrige.good());
+            REQUIRE(lecteurCorrige.is_open());
+            SambadaRegressionResults expectedResults(
+                    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
+            lecteurCorrige.close();
+            expectedResults.verifieTailles(true, 1, 18);
+
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsFirstBatchNoOutputFile + " " + fileNameEnv + " " + fileNameMarkFirstBatchNoOutputFile);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0FirstBatch.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1FirstBatch.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 3);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 18);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+
+                std::remove(fileNameLogsFirstBatch.c_str());
+                std::remove(fileNameOut0FirstBatch.c_str());
+                std::remove(fileNameOut1FirstBatch.c_str());
+
+                std::remove(fileNameMarkFirstBatchNoOutputFile.c_str());
+            }
+        }
+
+        WHEN("Sambada runs the second batch of analyses without the outputfile param")
+        {
+            copyFileAndUpdatePermissions(fileNameMarkSecondBatch, fileNameMarkSecondBatchNoOutputFile);
+
+            std::ifstream lecteurCorrige(fileNameExpectedResultsDim0SecondBatch.c_str());
+            REQUIRE(lecteurCorrige.good());
+            REQUIRE(lecteurCorrige.is_open());
+            SambadaRegressionResults expectedNullResults(
+                    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 0));
+            lecteurCorrige.close();
+            expectedNullResults.verifieTailles(true, 0, 2);
+
+            lecteurCorrige.open(fileNameExpectedResultsDim1SecondBatch.c_str());
+            REQUIRE(lecteurCorrige.good());
+            REQUIRE(lecteurCorrige.is_open());
+            SambadaRegressionResults expectedResults(
+                    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
+            lecteurCorrige.close();
+            expectedResults.verifieTailles(true, 1, 12);
+
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsSecondBatchNoOutputFile + " " + fileNameEnv + " " + fileNameMarkSecondBatchNoOutputFile);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0SecondBatch.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1SecondBatch.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 2);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 12);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+
+                std::remove(fileNameLogsSecondBatch.c_str());
+                std::remove(fileNameOut0SecondBatch.c_str());
+                std::remove(fileNameOut1SecondBatch.c_str());
+
+                std::remove(fileNameMarkSecondBatchNoOutputFile.c_str());
             }
         }
     }
