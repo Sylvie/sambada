@@ -145,6 +145,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim4IntTests.cpp
         test/integration/sambada/resultFilesLocationIntTests/resultsInDifferentFolderAsDataIntTest.cpp
         test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsDataIntTest.cpp
+        test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp
         ${IntegrationTestUtils}
@@ -165,5 +166,6 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noNewLinesEndOfFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/resultFilesLocationIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/splitInputFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         )
