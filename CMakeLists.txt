@@ -147,6 +147,8 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/resultFilesLocationIntTests/resultsInDifferentFolderAsUniqueDataFileIntTest.cpp
         test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsDataFilesIntTest.cpp
         test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsDataFilesWithoutExtensionsIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileWithoutExtensionIntTest.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
