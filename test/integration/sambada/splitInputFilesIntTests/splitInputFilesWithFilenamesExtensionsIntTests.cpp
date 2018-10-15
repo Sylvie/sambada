@@ -10,14 +10,6 @@
 
 namespace fs = std::experimental::filesystem;
 
-void copyFileAndUpdatePermissions(const std::string &inputFile, const std::string &outputFile) {
-    fs::path pathInputFile(fs::path(inputFile.c_str()));
-    fs::path pathOutputFile(fs::path(outputFile.c_str()));
-
-    fs::copy(pathInputFile, pathOutputFile, fs::copy_options::overwrite_existing);
-    fs::permissions(pathOutputFile, fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
-}
-
 SCENARIO(
         "Test that regression results are correct when the molecular data is split in several files with filename extensions",
         "[split-input-files-with-extensions-int]") {
@@ -293,7 +285,7 @@ SCENARIO(
 
         WHEN("Sambada runs the first batch of analyses without the outputfile param")
         {
-            copyFileAndUpdatePermissions(fileNameMarkFirstBatch, fileNameMarkFirstBatchNoOutputFile);
+            SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(fileNameMarkFirstBatch, fileNameMarkFirstBatchNoOutputFile);
 
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsFirstBatchNoOutputFile + " " + fileNameEnv + " " +
@@ -340,7 +332,7 @@ SCENARIO(
 
         WHEN("Sambada runs the second batch of analyses without the outputfile param")
         {
-            copyFileAndUpdatePermissions(fileNameMarkSecondBatch, fileNameMarkSecondBatchNoOutputFile);
+            SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(fileNameMarkSecondBatch, fileNameMarkSecondBatchNoOutputFile);
 
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsSecondBatchNoOutputFile + " " + fileNameEnv + " " +

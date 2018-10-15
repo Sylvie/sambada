@@ -2,6 +2,9 @@
 
 #include <fstream>
 #include <sstream>
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
 
 std::string SambadaIntegrationTestUtils::computePlatformSpecificProgramName(const std::string &baseProgramName) {
     std::string programName(baseProgramName);
@@ -82,4 +85,12 @@ SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std:
     }
 
     return results;
+}
+
+void SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(const std::string &inputFile, const std::string &outputFile) {
+    fs::path pathInputFile(fs::path(inputFile.c_str()));
+    fs::path pathOutputFile(fs::path(outputFile.c_str()));
+
+    fs::copy(pathInputFile, pathOutputFile, fs::copy_options::overwrite_existing);
+    fs::permissions(pathOutputFile, fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
 }
