@@ -143,8 +143,10 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/noNewLinesEndOfFilesIntTests/noNewLinesEndOfFilesIntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim1IntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim4IntTests.cpp
-        test/integration/sambada/resultFilesLocationIntTests/resultsInDifferentFolderAsDataIntTest.cpp
-        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsDataIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInDifferentFolderAsDataFilesIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInDifferentFolderAsUniqueDataFileIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsDataFilesIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileIntTest.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
