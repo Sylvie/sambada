@@ -36,6 +36,7 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
         std::string pathToOutputFolder("./test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsMolecularData/");
+        std::string pathToOutputFolderWithoutLeadingDot("test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsMolecularData/");
         fs::create_directory(pathToOutputFolder.c_str());
 
         std::string fileNameOut0(pathToOutputFolder + "choice-mark-cattle-Out-0.txt");
@@ -58,9 +59,11 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         std::string fileNameParam(pathToOutputFolder + bareFileNameParam);
         std::string fileNameEnv(pathToOutputFolder + bareFileNameEnv);
         std::string fileNameMark(pathToOutputFolder + bareFileNameMark);
+        std::string fileNameMarkWithoutLeadingDot(pathToOutputFolderWithoutLeadingDot + bareFileNameMark);
         fs::path pathParam(fileNameParam.c_str());
         fs::path pathEnv(fileNameEnv.c_str());
         fs::path pathMark(fileNameMark.c_str());
+        fs::path pathMarkWithoutLeadingDot(fileNameMarkWithoutLeadingDot.c_str());
 
         // Copying data
         std::experimental::filesystem::copy(pathOriginalParam, pathParam, fs::copy_options::overwrite_existing);
@@ -96,7 +99,7 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         lecteurCorrige.close();
         expectedResults.verifieTailles(true, 1, 30);
 
-        WHEN("the program is run")
+        WHEN("the program is run using the path with a leading dot")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
             INFO(output);
@@ -131,17 +134,54 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
                 lecteurOut0.close();
                 lecteurOut1.close();
             }
-
-            std::remove(fileNameParam.c_str());
-            std::remove(fileNameEnv.c_str());
-            std::remove(fileNameMark.c_str());
-
-            std::remove(fileNameOut0.c_str());
-            std::remove(fileNameOut1.c_str());
-            std::remove(fileNameLogs.c_str());
-
-            std::remove(pathToOutputFolder.c_str());
         }
+
+        WHEN("the program is run using the path without a leading dot")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMarkWithoutLeadingDot);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+            }
+        }
+
+        std::remove(fileNameParam.c_str());
+        std::remove(fileNameEnv.c_str());
+        std::remove(fileNameMark.c_str());
+
+        std::remove(fileNameOut0.c_str());
+        std::remove(fileNameOut1.c_str());
+        std::remove(fileNameLogs.c_str());
+
+        std::remove(pathToOutputFolder.c_str());
     }
 }
 
