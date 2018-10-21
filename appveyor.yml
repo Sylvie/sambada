@@ -38,8 +38,6 @@ build_script:
   - make.exe
   - ls -R binaries
   - ps: .\binaries\sambada.exe ..\Data\Example_parameters_input_matrix.txt ..\Data\input_matrix.csv
-  - ps: .\binaries\sambada.exe ..\examples\subset-cattle-SNP\param-cattle.txt ..\examples\subset-cattle-SNP\cattle-env.csv  ..\examples\subset-cattle-SNP\cattle-mark.txt
-  - ps: head  ..\examples\subset-cattle-SNP\cattle-mark-Out-1.txt
   - make.exe dist DIST_TARGETS=dist-gzip
   - make binary-archive
   - ls -R

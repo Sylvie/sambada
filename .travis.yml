@@ -54,8 +54,6 @@ script:
   - make
   - make check
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
-  - binaries/sambada ../examples/subset-cattle-SNP/param-cattle.txt ../examples/subset-cattle-SNP/cattle-env.csv  ../examples/subset-cattle-SNP/cattle-mark.txt
-  - head  ../examples/subset-cattle-SNP/cattle-mark-Out-1.txt
   - ls -R
   - make clean
   - make distcheck CXXFLAGS="-std=c++11" sambadahostsystemname=${SAMBADA_OS_NAME}
