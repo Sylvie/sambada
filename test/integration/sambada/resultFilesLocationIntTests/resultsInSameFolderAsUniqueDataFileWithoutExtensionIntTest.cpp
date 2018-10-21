@@ -21,6 +21,7 @@ SCENARIO("Test that result files are writen in the same folder as the unique dat
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
         std::string pathToOutputFolder("./test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileNoExt/");
+        std::string pathToOutputFolderWithoutLeadingDot("test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileNoExt/");
         fs::create_directory(pathToOutputFolder.c_str());
 
         std::string fileNameOut0(pathToOutputFolder + "choice-data-cattle-Out-0");
@@ -39,6 +40,7 @@ SCENARIO("Test that result files are writen in the same folder as the unique dat
         // Defining filenames and path to copied data
         std::string fileNameParam(pathToOutputFolder + bareFileNameParam);
         std::string fileNameData(pathToOutputFolder + bareFileNameData);
+        std::string fileNameDataWithoutLeadingDot(pathToOutputFolderWithoutLeadingDot + bareFileNameData);
         fs::path pathParam(fileNameParam.c_str());
         fs::path pathData(fileNameData.c_str());
 
@@ -72,9 +74,55 @@ SCENARIO("Test that result files are writen in the same folder as the unique dat
         lecteurCorrige.close();
         expectedResults.verifieTailles(true, 1, 30);
 
-        WHEN("the program is run")
+        WHEN("the program is run using the path with a leading dot")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameData);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+            }
+
+            std::remove(fileNameParam.c_str());
+            std::remove(fileNameData.c_str());
+
+            std::remove(fileNameOut0.c_str());
+            std::remove(fileNameOut1.c_str());
+            std::remove(fileNameLogs.c_str());
+
+            std::remove(pathToOutputFolder.c_str());
+        }
+
+        WHEN("the program is run using the path without a leading dot")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameDataWithoutLeadingDot);
             INFO(output);
 
             THEN("the output files are found")
