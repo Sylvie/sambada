@@ -716,7 +716,7 @@ Please refer to section \ref{sec:prior-knowledge} for more information on includ
 \matrix (msave) [matrix of nodes,column 1/.style={anchor=west, text width=2.5cm}, column 2/.style={anchor=west, text width={\textwidth - 2.5cm}}, ampersand replacement=\&, inner xsep=0pt] 
 {
  	REAL \linebreak END  \&   Storage mode: REAL saves results during processing, END writes them upon completion of computation. The second option enables sorting the models according to their Wald scores before saving. \\
-	ALL \linebreak SIGNIF \linebreak BEST \&   Model selection: ALL saves all models, SIGNIF saves significant models (according to the $G$ and Wald scores) and BEST saves significant models with at least a significant parent.\\
+	ALL \linebreak {\color{gray}SIGNIF} \linebreak BEST \&   Model selection: ALL saves all models, {\color{gray}SIGNIF} saves significant models (according to the $G$ and Wald scores) and BEST saves significant models with at least a significant parent. \newline 	Notice: The option {\color{gray}SIGNIF} is deprecated and will be removed in a future release. \\
  	(double)	 \&   Significance threshold ($p$-value) for options SIGNIF and BEST. The Bonferroni correction is applied on this threshold.\\
     } ;
 %  \path [draw,decoration={brace,amplitude=0.2cm,mirror}, decorate,gray]

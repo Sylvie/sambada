@@ -1,7 +1,8 @@
 Release 0.6.1 (2018-10-xx)
 - Fixed errors in the computation of BIC and Nagelkerke's coefficient of determination;
 - Added an overview of the computed goodness-of-fit statistics to the manual;
-- Fixed a bug in the output of durations.
+- Fixed a bug in the output of durations;
+- Notice: The option SAVETYPE=SIGNIF is deprecated and will be removed in a future release.
 
 Release 0.6 (2018-06-01)
 Change of tooling:

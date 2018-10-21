@@ -917,6 +917,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
             else
             {
                 journal << "signif!" << nl;
+                journal << "Notice: The option SAVETYPE=SIGNIF is deprecated and will be removed in a future release." << nl;
                 selModeles=signif;
             }
 
@@ -1924,4 +1925,5 @@ void RegressionLogistique::terminaison()
 {
 	time_t temps_stop(time(NULL));
 	journal << " " << nl << "Analyse completed on: " << asctime(localtime(&temps_stop));
+    journal << "Notice: The option SAVETYPE=SIGNIF is deprecated and will be removed in a future release." << nl;
 }
