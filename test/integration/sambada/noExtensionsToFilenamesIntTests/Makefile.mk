@@ -1,6 +1,7 @@
 
 test_integration_SambadaIntegrationTests_SOURCES += \
-		test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesIntTests.cpp
+		test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesIntTests.cpp \
+		test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesUniqueFileIntTests.cpp
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/noExtensionsToFilenamesIntTests/choice-env-cattle.csv \
