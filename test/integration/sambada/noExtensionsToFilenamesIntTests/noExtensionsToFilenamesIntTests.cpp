@@ -34,6 +34,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
         std::string fileNameParams(pathToInputFolder + "param-marker-file.txt");
         std::string fileNameParamsNoExt(pathToInputFolder + "param-marker-file");
         std::string fileNameParamsMarkFileNoExt(pathToInputFolder + "param-marker-file-no-ext.txt");
+        std::string fileNameParamsWithPrefix(pathToInputFolder + "param-marker-file-with-prefix.txt");
+        std::string fileNameParamsWithPrefixNoExt(pathToInputFolder + "param-marker-file-with-prefix-no-ext.txt");
 
         std::string fileNameEnv(pathToInputFolder + "choice-env-cattle.csv");
         std::string fileNameEnvNoExt(pathToInputFolder + "choice-env-cattle");
@@ -231,14 +233,256 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
         }
 
+        WHEN("Sambada is run using the molecular file without the filename extension and the param OUTPUTFILE with an extension")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParams + " " + fileNameEnv + " " + fileNameMarkNoExt);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+            }
+
+        }
+
+        WHEN("Sambada is run using the molecular file with the filename extension and the param OUTPUTFILE without an extension")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsMarkFileNoExt + " " + fileNameEnv + " " + fileNameMark);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0NoExt.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1NoExt.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+
+                std::remove(fileNameLogsNoExt.c_str());
+                std::remove(fileNameOut0NoExt.c_str());
+                std::remove(fileNameOut1NoExt.c_str());
+            }
+
+        }
+
+        WHEN("Sambada is run using the molecular file with the filename extension and the param OUTPUTFILE with a prefix and an extension")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsWithPrefix + " " + fileNameEnv + " " + fileNameMark);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+            }
+
+        }
+
+        WHEN("Sambada is run using the molecular file with the filename extension and the param OUTPUTFILE with a prefix but no extension")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsWithPrefixNoExt + " " + fileNameEnv + " " + fileNameMark);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0NoExt.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1NoExt.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+
+                std::remove(fileNameLogsNoExt.c_str());
+                std::remove(fileNameOut0NoExt.c_str());
+                std::remove(fileNameOut1NoExt.c_str());
+            }
+
+        }
+
+        WHEN("Sambada is run using the molecular file without the filename extension and the param OUTPUTFILE with a prefix and an extension")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsWithPrefix + " " + fileNameEnv + " " + fileNameMarkNoExt);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+            }
+
+        }
+
+        WHEN("Sambada is run using the molecular file without the filename extension and the param OUTPUTFILE with a prefix but no extension")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(
+                    program + " " + fileNameParamsWithPrefixNoExt + " " + fileNameEnv + " " + fileNameMarkNoExt);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0NoExt.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1NoExt.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+
+                std::remove(fileNameLogsNoExt.c_str());
+                std::remove(fileNameOut0NoExt.c_str());
+                std::remove(fileNameOut1NoExt.c_str());
+            }
+
+        }
 
         std::remove(fileNameLogs.c_str());
         std::remove(fileNameOut0.c_str());
         std::remove(fileNameOut1.c_str());
-
     }
-
-
 
 
 }
