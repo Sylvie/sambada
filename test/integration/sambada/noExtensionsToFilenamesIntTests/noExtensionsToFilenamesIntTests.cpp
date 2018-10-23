@@ -31,8 +31,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
                 SambadaIntegrationTestUtils::getTopSourceDirectory() +
                 "test/integration/sambada/noExtensionsToFilenamesIntTests/");
 
-        std::string fileNameParams(pathToInputFolder + "param.txt");
-        std::string fileNameParamsNoExt(pathToInputFolder + "param");
+        std::string fileNameParams(pathToInputFolder + "param-marker-file.txt");
+        std::string fileNameParamsNoExt(pathToInputFolder + "param-marker-file");
         std::string fileNameParamsMarkFileNoExt(pathToInputFolder + "param-marker-file-no-ext.txt");
 
         std::string fileNameEnv(pathToInputFolder + "choice-env-cattle.csv");
