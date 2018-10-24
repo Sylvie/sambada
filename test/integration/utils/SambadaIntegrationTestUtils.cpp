@@ -94,3 +94,29 @@ void SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(const std::string
     fs::copy(pathInputFile, pathOutputFile, fs::copy_options::overwrite_existing);
     fs::permissions(pathOutputFile, fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
 }
+
+bool SambadaIntegrationTestUtils::doesFileExist(const std::string& filename)
+{
+    return fs::exists(fs::path(filename.c_str()));
+}
+
+bool SambadaIntegrationTestUtils::doesAnyFileExist(const std::vector<std::string>& filenames)
+{
+    bool result(false);
+    for (size_t i(0); i<filenames.size() && !result; ++i)
+    {
+        if (doesFileExist(filenames[i]))
+        {
+            result = true;
+        }
+    }
+    return result;
+}
+
+void SambadaIntegrationTestUtils::removeFiles(const std::vector<std::string>& filenames)
+{
+    for (size_t i(0); i<filenames.size(); ++i)
+    {
+        remove(filenames[i].c_str());
+    }
+}

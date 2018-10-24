@@ -11,6 +11,9 @@ public:
     static std::string getTopSourceDirectory();
     static SambadaRegressionResults readRegressionResults(std::ifstream& lecteur, bool hasHeader, int dimension);
     static void copyFileAndUpdatePermissions(const std::string& inputFile, const std::string& outputFile);
+    static bool doesFileExist(const std::string& filename);
+    static bool doesAnyFileExist(const std::vector<std::string>& filenames);
+    static void removeFiles(const std::vector<std::string>& filenames);
 };
 
 #endif //SAMBADA_SAMBADAINTEGRATIONTESTUTILS_H

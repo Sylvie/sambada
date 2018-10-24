@@ -27,6 +27,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
         std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
         std::string fileNameLogsNoExt(pathToOutputFolder + "choice-mark-cattle-log");
 
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut0NoExt, fileNameOut1, fileNameOut1NoExt, fileNameLogs, fileNameLogsNoExt});
+
         std::string pathToInputFolder(
                 SambadaIntegrationTestUtils::getTopSourceDirectory() +
                 "test/integration/sambada/noExtensionsToFilenamesIntTests/");
@@ -64,6 +66,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
         WHEN("Sambada is run using the input files with filename extensions")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParams + " " + fileNameEnv + " " + fileNameMark);
             INFO(output);
@@ -102,6 +106,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
         WHEN("Sambada is run using the parameter file without the filename extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsNoExt + " " + fileNameEnv + " " + fileNameMark);
             INFO(output);
@@ -154,6 +160,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
         WHEN("Sambada is run using the environmental file without the filename extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParams + " " + fileNameEnvNoExt + " " + fileNameMark);
             INFO(output);
@@ -192,6 +200,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
         WHEN("Sambada is run using the molecular file without the filename extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsMarkFileNoExt + " " + fileNameEnv + " " + fileNameMarkNoExt);
             INFO(output);
@@ -225,16 +235,14 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsNoExt.c_str());
-                std::remove(fileNameOut0NoExt.c_str());
-                std::remove(fileNameOut1NoExt.c_str());
             }
 
         }
 
         WHEN("Sambada is run using the molecular file without the filename extension and the param OUTPUTFILE with an extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParams + " " + fileNameEnv + " " + fileNameMarkNoExt);
             INFO(output);
@@ -274,6 +282,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
         WHEN("Sambada is run using the molecular file with the filename extension and the param OUTPUTFILE without an extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsMarkFileNoExt + " " + fileNameEnv + " " + fileNameMark);
             INFO(output);
@@ -307,16 +317,14 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsNoExt.c_str());
-                std::remove(fileNameOut0NoExt.c_str());
-                std::remove(fileNameOut1NoExt.c_str());
             }
 
         }
 
         WHEN("Sambada is run using the molecular file with the filename extension and the param OUTPUTFILE with a prefix and an extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsWithPrefix + " " + fileNameEnv + " " + fileNameMark);
             INFO(output);
@@ -356,6 +364,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
         WHEN("Sambada is run using the molecular file with the filename extension and the param OUTPUTFILE with a prefix but no extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsWithPrefixNoExt + " " + fileNameEnv + " " + fileNameMark);
             INFO(output);
@@ -389,16 +399,14 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsNoExt.c_str());
-                std::remove(fileNameOut0NoExt.c_str());
-                std::remove(fileNameOut1NoExt.c_str());
             }
 
         }
 
         WHEN("Sambada is run using the molecular file without the filename extension and the param OUTPUTFILE with a prefix and an extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsWithPrefix + " " + fileNameEnv + " " + fileNameMarkNoExt);
             INFO(output);
@@ -438,6 +446,8 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
         WHEN("Sambada is run using the molecular file without the filename extension and the param OUTPUTFILE with a prefix but no extension")
         {
+            CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParamsWithPrefixNoExt + " " + fileNameEnv + " " + fileNameMarkNoExt);
             INFO(output);
@@ -471,19 +481,10 @@ SCENARIO("Test that regression results are correct when the filenames have no ex
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsNoExt.c_str());
-                std::remove(fileNameOut0NoExt.c_str());
-                std::remove(fileNameOut1NoExt.c_str());
             }
-
         }
 
-        std::remove(fileNameLogs.c_str());
-        std::remove(fileNameOut0.c_str());
-        std::remove(fileNameOut1.c_str());
+        SambadaIntegrationTestUtils::removeFiles(outputFileNames);
     }
-
-
 }
 
