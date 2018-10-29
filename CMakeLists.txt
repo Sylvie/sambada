@@ -16,6 +16,7 @@ include_directories(src)
 include_directories(test)
 include_directories(test/utils)
 include_directories(test/integration/utils)
+include_directories(test/unit)
 
 add_library(shp
         ext/shapelib-1.3.0/dbfopen.c
@@ -52,7 +53,8 @@ add_executable(sambada
         src/RegressionLogistique-io.cpp
         src/Supervision.cpp
         src/Supervision.h
-        )
+        src/LecteurCheminAcces.cpp
+        src/LecteurCheminAcces.h)
 
 target_link_libraries(sambada
         PRIVATE
@@ -174,4 +176,12 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/resultFilesLocationIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/splitInputFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
+        )
+
+add_executable(SambadaUnitTests
+        test/unit/sambada/CheminAccesTests.cpp
+        test/unit/sambada/LecteurCheminAccesTests.cpp
+        src/LecteurCheminAcces.h
+        src/LecteurCheminAcces.cpp
+        ${TestUtils}
         )
