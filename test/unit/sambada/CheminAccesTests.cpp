@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-SCENARIO("Test that CheminAccess are compared correctly")
+SCENARIO("Test that CheminAcces are compared correctly")
 {
     GIVEN("An empty CheminAccess")
     {

@@ -58,7 +58,33 @@ LecteurCheminAcces::~LecteurCheminAcces() {
 }
 
 CheminAcces LecteurCheminAcces::decompose(const std::string &cheminComplet) {
-    return CheminAcces();
+    CheminAcces cheminAcces;
+    size_t positionSlash(cheminComplet.rfind("/"));
+    std::string nomFichier("");
+
+    if (positionSlash == std::string::npos)
+    {
+        nomFichier = cheminComplet;
+    }
+    else
+    {
+        cheminAcces.chemin = cheminComplet.substr(0, positionSlash+1);
+        nomFichier = cheminComplet.substr(positionSlash+1);
+    }
+
+    size_t positionPoint(nomFichier.rfind("."));
+
+    if (positionPoint == std::string::npos)
+    {
+        cheminAcces.radical = nomFichier;
+    }
+    else
+    {
+        cheminAcces.radical = nomFichier.substr(0, positionPoint);
+        cheminAcces.extension = nomFichier.substr(positionPoint);
+    }
+
+    return cheminAcces;
 }
 
 
