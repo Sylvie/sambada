@@ -3,7 +3,7 @@
 
 #include <string>
 
-SCENARIO("Test that complete paths are parsed correctly") {
+SCENARIO("Test that LecteurCheminAcces parses complete paths correctly") {
     LecteurCheminAcces lecteur;
 
     GIVEN("An empty path")
