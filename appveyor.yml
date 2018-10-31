@@ -84,9 +84,9 @@ deploy:
 
 # on build failure
 on_failure:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   - ps: cat build/test-suite.log
   - ps: cat test-suite-results.log
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 # after build failure or success
 #on_finish:
