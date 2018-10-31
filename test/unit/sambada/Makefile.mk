@@ -18,3 +18,7 @@ test_unit_SambadaUnitTests_LDADD = \
 check-local-test-unit-sambada: ${sambada_unit_tests}
 	-${sambada_unit_tests} -l
 	echo "Ignored error: The return value actually counts the numbers of tests."
+
+## Cleaning ##
+clean-local-test-unit-sambada:
+	 $(RM) -rf $(addsuffix .dSYM , $(sambada_unit_tests))
