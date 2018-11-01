@@ -48,7 +48,9 @@ binaries_sambada_SOURCES = src/mainSambada.cpp \
 	src/Chronometre.cpp \
 	src/Chronometre.h \
 	src/Duree.cpp \
-	src/Duree.h
+	src/Duree.h \
+	src/LecteurCheminAcces.cpp \
+    src/LecteurCheminAcces.h
 binaries_sambada_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
 	-I $(top_srcdir)/ext/shapelib-1.3.0
