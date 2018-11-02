@@ -28,15 +28,12 @@
 #include "LecteurCheminAcces.h"
 
 CheminAcces::CheminAcces(const std::string &chemin, const std::string &radical, const std::string &extension)
-        : chemin(chemin), radical(radical), extension(extension)
-{}
+        : chemin(chemin), radical(radical), extension(extension) {}
 
 CheminAcces::CheminAcces(const CheminAcces &cheminAcces)
-:CheminAcces(cheminAcces.chemin, cheminAcces.radical, cheminAcces.extension)
-{}
+        : CheminAcces(cheminAcces.chemin, cheminAcces.radical, cheminAcces.extension) {}
 
-CheminAcces::CheminAcces()
-{}
+CheminAcces::CheminAcces() {}
 
 CheminAcces::~CheminAcces() {
 
@@ -47,11 +44,9 @@ bool CheminAcces::operator==(const CheminAcces &autre) const {
 }
 
 
-LecteurCheminAcces::LecteurCheminAcces()
-{}
+LecteurCheminAcces::LecteurCheminAcces() {}
 
-LecteurCheminAcces::LecteurCheminAcces(const LecteurCheminAcces &cheminAcces)
-{}
+LecteurCheminAcces::LecteurCheminAcces(const LecteurCheminAcces &cheminAcces) {}
 
 LecteurCheminAcces::~LecteurCheminAcces() {
 
@@ -59,17 +54,19 @@ LecteurCheminAcces::~LecteurCheminAcces() {
 
 CheminAcces LecteurCheminAcces::decompose(const std::string &cheminComplet) {
     CheminAcces cheminAcces;
-    size_t positionSlash(cheminComplet.rfind("/"));
-    std::string nomFichier("");
 
+    std::string separateur(getSeparateurChemin());
+    size_t positionSlash(cheminComplet.rfind(separateur));
+
+    std::string nomFichier("");
     if (positionSlash == std::string::npos)
     {
         nomFichier = cheminComplet;
     }
     else
     {
-        cheminAcces.chemin = cheminComplet.substr(0, positionSlash+1);
-        nomFichier = cheminComplet.substr(positionSlash+1);
+        cheminAcces.chemin = cheminComplet.substr(0, positionSlash + 1);
+        nomFichier = cheminComplet.substr(positionSlash + 1);
     }
 
     size_t positionPoint(nomFichier.rfind("."));
@@ -85,6 +82,19 @@ CheminAcces LecteurCheminAcces::decompose(const std::string &cheminComplet) {
     }
 
     return cheminAcces;
+}
+
+std::string LecteurCheminAcces::getSeparateurChemin() const {
+    std::string separateur("/");
+    std::string separateurSysteme("");
+#ifdef sambada_folder_separator
+    separateurSysteme = sambada_folder_separator;
+#endif
+    if (separateurSysteme.size() > 0)
+    {
+        separateur = separateurSysteme;
+    }
+    return separateur;
 }
 
 

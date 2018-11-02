@@ -54,6 +54,8 @@ public:
 
     CheminAcces decompose(const std::string& cheminComplet);
 
+    std::string getSeparateurChemin() const;
+
 protected:
     LecteurCheminAcces(const LecteurCheminAcces& cheminAcces);
 };

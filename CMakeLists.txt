@@ -8,6 +8,16 @@ add_definitions(
         -Dsambada_top_source_dir="${PROJECT_SOURCE_DIR}"
 )
 
+if (WIN32)
+    add_definitions(
+            -Dsambada_folder_separator="\""
+    )
+else ()
+    add_definitions(
+            -Dsambada_folder_separator="/"
+    )
+endif (WIN32)
+
 include_directories(ext/scythestat-1.0.3)
 include_directories(ext/scythestat-1.0.3/scythestat)
 include_directories(ext/scythestat-1.0.3/scythestat/rng)
