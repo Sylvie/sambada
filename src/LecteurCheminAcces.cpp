@@ -27,6 +27,8 @@
 
 #include "LecteurCheminAcces.h"
 
+#include <iostream>
+
 CheminAcces::CheminAcces(const std::string &chemin, const std::string &radical, const std::string &extension)
         : chemin(chemin), radical(radical), extension(extension) {}
 
@@ -88,6 +90,7 @@ std::string LecteurCheminAcces::getSeparateurChemin() const {
     std::string separateur("/");
     std::string separateurSysteme("");
 #ifdef sambada_folder_separator
+    std::cout << "Separateur: ==" << sambada_folder_separator << "==" << std::endl;
     separateurSysteme = sambada_folder_separator;
 #endif
     if (separateurSysteme.size() > 0)
