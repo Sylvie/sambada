@@ -91,6 +91,11 @@ sambada_executable_extension=${EXEEXT}
 AC_MSG_NOTICE([sambada_executable_extension = ${sambada_executable_extension}])
 AC_SUBST(sambada_executable_extension)
 
+# Pass the system's folder delimiter to automake
+AS_IF([test "x${build_windows}" = xyes], [sambada_folder_separator="\\\\"], [sambada_folder_separator="/"])
+AC_MSG_NOTICE([sambada_folder_separator = ${sambada_folder_separator}])
+AC_DEFINE_UNQUOTED([sambada_folder_separator], ["${sambada_folder_separator}"])
+
 # Check for presence of latexmk
 AC_CHECK_PROG(LATEXMK, latexmk, latexmk)
 if test -z "$LATEXMK"; then

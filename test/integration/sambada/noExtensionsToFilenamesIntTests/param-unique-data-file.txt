@@ -1,0 +1,8 @@
+HEADERS YES
+WORDDELIM " "
+NUMVARENV 6
+NUMMARK 5
+NUMINDIV 777
+DIMMAX 1
+OUTPUTFILE "test/integration/sambada/noExtensionsToFilenamesIntTests/choice-data-cattle.csv"
+SAVETYPE END BEST 0.01

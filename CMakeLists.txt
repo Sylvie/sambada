@@ -8,6 +8,16 @@ add_definitions(
         -Dsambada_top_source_dir="${PROJECT_SOURCE_DIR}"
 )
 
+if (WIN32)
+    add_definitions(
+            -Dsambada_folder_separator="\\\\"
+    )
+else ()
+    add_definitions(
+            -Dsambada_folder_separator="/"
+    )
+endif (WIN32)
+
 include_directories(ext/scythestat-1.0.3)
 include_directories(ext/scythestat-1.0.3/scythestat)
 include_directories(ext/scythestat-1.0.3/scythestat/rng)
@@ -16,6 +26,7 @@ include_directories(src)
 include_directories(test)
 include_directories(test/utils)
 include_directories(test/integration/utils)
+include_directories(test/unit)
 
 add_library(shp
         ext/shapelib-1.3.0/dbfopen.c
@@ -52,7 +63,8 @@ add_executable(sambada
         src/RegressionLogistique-io.cpp
         src/Supervision.cpp
         src/Supervision.h
-        )
+        src/LecteurCheminAcces.cpp
+        src/LecteurCheminAcces.h)
 
 target_link_libraries(sambada
         PRIVATE
@@ -139,11 +151,19 @@ else ()
 endif (WIN32)
 
 add_executable(SambadaIntegrationTests
+        test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesIntTests.cpp
+        test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesUniqueFileIntTests.cpp
         test/integration/sambada/noNewLinesEndOfFilesIntTests/noNewLinesEndOfFilesIntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim1IntTests.cpp
         test/integration/sambada/regressionResultsIntTests/regressionResultsDim4IntTests.cpp
-        test/integration/sambada/resultFilesLocationIntTests/resultsInDifferentFolderAsDataIntTest.cpp
-        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsDataIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInDifferentFolderAsDataFilesIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInDifferentFolderAsUniqueDataFileIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsDataFilesIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsDataFilesWithoutExtensionsIntTest.cpp
+        test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileWithoutExtensionIntTest.cpp
+        test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
+        test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp
         ${IntegrationTestUtils}
@@ -160,8 +180,18 @@ add_dependencies(SambadaIntegrationTests sambada)
 target_link_libraries(SambadaIntegrationTests -lstdc++fs)
 
 file(MAKE_DIRECTORY
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/noExtensionsToFilenamesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noNewLinesEndOfFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/resultFilesLocationIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/splitInputFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
+        )
+
+add_executable(SambadaUnitTests
+        test/unit/sambada/CheminAccesTests.cpp
+        test/unit/sambada/LecteurCheminAccesTests.cpp
+        src/LecteurCheminAcces.h
+        src/LecteurCheminAcces.cpp
+        ${TestUtils}
         )

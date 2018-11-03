@@ -13,9 +13,11 @@ test_integration_SambadaIntegrationTests_LDADD = \
 		$(top_builddir)/test/utils/libSambadaTestUtils.a \
 		-lstdc++fs
 
+include test/integration/sambada/noExtensionsToFilenamesIntTests/Makefile.mk
 include test/integration/sambada/noNewLinesEndOfFilesIntTests/Makefile.mk
 include test/integration/sambada/regressionResultsIntTests/Makefile.mk
 include test/integration/sambada/resultFilesLocationIntTests/Makefile.mk
+include test/integration/sambada/splitInputFilesIntTests/Makefile.mk
 include test/integration/sambada/wrongNumberOfIndividualsIntTests/Makefile.mk
 
 ## Listing tests ##

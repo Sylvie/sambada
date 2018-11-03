@@ -3,6 +3,7 @@ Notice:
 - The option SAVETYPE=SIGNIF is deprecated and will be removed in a future release.
 Bug fixes:
 - Fixed errors in the computation of BIC and Nagelkerke's coefficient of determination;
+- Fixed a crash related to relative paths and filenames without extensions;
 - Fixed a bug in the output of durations.
 Documentation:
 - Added an overview of the computed goodness-of-fit statistics to the manual;

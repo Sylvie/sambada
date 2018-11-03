@@ -22,6 +22,7 @@ matrix:
       - SAMBADA_OS_NAME=ubuntu
       - LDFLAGS=-static
   - os: osx
+    osx_image: xcode10.1
     compiler: gcc
     env:
       - MATRIX_EVAL="softwareupdate -l && sudo softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-9.4\" && brew cask uninstall oclint && brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
@@ -53,6 +54,7 @@ script:
   - make pdf
   - make
   - make check
+  - cp test-suite.log ../test-suite-results.log
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
   - ls -R
   - make clean
@@ -63,7 +65,7 @@ script:
   - ls -R
 
 after_failure:
-  - cat build/test-suite.log
+  - cat test-suite-results.log
 
 deploy:
   provider: releases

@@ -10,24 +10,9 @@
 
 namespace fs = std::experimental::filesystem;
 
-std::string infoPerms(fs::path path)
-{
-    fs::perms p(fs::status(path).permissions());
-    std::ostringstream oss;
-    oss << ((p & fs::perms::owner_read) != fs::perms::none ? "r" : "-")
-        << ((p & fs::perms::owner_write) != fs::perms::none ? "w" : "-")
-        << ((p & fs::perms::owner_exec) != fs::perms::none ? "x" : "-")
-        << ((p & fs::perms::group_read) != fs::perms::none ? "r" : "-")
-        << ((p & fs::perms::group_write) != fs::perms::none ? "w" : "-")
-        << ((p & fs::perms::group_exec) != fs::perms::none ? "x" : "-")
-        << ((p & fs::perms::others_read) != fs::perms::none ? "r" : "-")
-        << ((p & fs::perms::others_write) != fs::perms::none ? "w" : "-")
-        << ((p & fs::perms::others_exec) != fs::perms::none ? "x" : "-")
-        << '\n';
-    return oss.str();
-}
+extern std::string infoPerms(fs::path path);
 
-SCENARIO("Test that result files are writen in the same folder as the molecular data file", "[results-same-folder-molecular-data-int]") {
+SCENARIO("Test that result files are writen in the same folder as the unique data file when it has no extension to its filename", "[results-same-folder-unique-data-without-extension-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -35,48 +20,41 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToOutputFolder("./test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsMolecularData/");
+        std::string pathToOutputFolder("./test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileNoExt/");
+        std::string pathToOutputFolderWithoutLeadingDot("test/integration/sambada/resultFilesLocationIntTests/resultsInSameFolderAsUniqueDataFileNoExt/");
         fs::create_directory(pathToOutputFolder.c_str());
 
-        std::string fileNameOut0(pathToOutputFolder + "choice-mark-cattle-Out-0.txt");
-        std::string fileNameOut1(pathToOutputFolder + "choice-mark-cattle-Out-1.txt");
-        std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
+        std::string fileNameOut0(pathToOutputFolder + "choice-data-cattle-Out-0");
+        std::string fileNameOut1(pathToOutputFolder + "choice-data-cattle-Out-1");
+        std::string fileNameLogs(pathToOutputFolder + "choice-data-cattle-log");
 
         // Defining filenames and path to original data
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/resultFilesLocationIntTests/");
         std::string bareFileNameParam("param-without-outputfile-setting.txt");
-        std::string bareFileNameEnv("choice-env-cattle.csv");
-        std::string bareFileNameMark("choice-mark-cattle.txt");
+        std::string bareFileNameData("choice-data-cattle");
         fs::path pathOriginalParam(fs::path(pathToInputFolder + bareFileNameParam));
-        fs::path pathOriginalEnv(fs::path(pathToInputFolder + bareFileNameEnv));
-        fs::path pathOriginalMark(fs::path(pathToInputFolder + bareFileNameMark));
+        fs::path pathOriginalData(fs::path(pathToInputFolder + bareFileNameData));
         INFO("Original param:\t" + infoPerms(pathOriginalParam));
-        INFO("Original env:\t\t" + infoPerms(pathOriginalEnv));
-        INFO("Original mark:\t" + infoPerms(pathOriginalMark));
+        INFO("Original data:\t" + infoPerms(pathOriginalData));
 
         // Defining filenames and path to copied data
         std::string fileNameParam(pathToOutputFolder + bareFileNameParam);
-        std::string fileNameEnv(pathToOutputFolder + bareFileNameEnv);
-        std::string fileNameMark(pathToOutputFolder + bareFileNameMark);
+        std::string fileNameData(pathToOutputFolder + bareFileNameData);
+        std::string fileNameDataWithoutLeadingDot(pathToOutputFolderWithoutLeadingDot + bareFileNameData);
         fs::path pathParam(fileNameParam.c_str());
-        fs::path pathEnv(fileNameEnv.c_str());
-        fs::path pathMark(fileNameMark.c_str());
+        fs::path pathData(fileNameData.c_str());
 
         // Copying data
         std::experimental::filesystem::copy(pathOriginalParam, pathParam, fs::copy_options::overwrite_existing);
-        std::experimental::filesystem::copy(pathOriginalEnv, pathEnv, fs::copy_options::overwrite_existing);
-        std::experimental::filesystem::copy(pathOriginalMark, pathMark, fs::copy_options::overwrite_existing);
+        std::experimental::filesystem::copy(pathOriginalData, pathData, fs::copy_options::overwrite_existing);
         INFO("Copied param:\t\t" + infoPerms(pathParam));
-        INFO("Copied env:\t\t" + infoPerms(pathEnv));
-        INFO("Copied mark:\t\t" + infoPerms(pathMark));
+        INFO("Copied data:datat\t" + infoPerms(pathData));
 
         // Changing data permissions
         fs::permissions(pathParam, fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
-        fs::permissions(fs::path(fileNameEnv.c_str()), fs::perms::owner_read | fs::perms::owner_write | fs::perms::group_read | fs::perms::group_write | fs::perms::others_read);
-        fs::permissions(fs::path(fileNameMark.c_str()), fs::perms::owner_read | fs::perms::owner_write | fs::perms::group_read | fs::perms::group_write | fs::perms::others_read);
+        fs::permissions(fs::path(fileNameData.c_str()), fs::perms::owner_read | fs::perms::owner_write | fs::perms::group_read | fs::perms::group_write | fs::perms::others_read);
         INFO("Chmod'ed param:\t" + infoPerms(pathParam));
-        INFO("Chmod'ed env:\t\t" + infoPerms(pathEnv));
-        INFO("Chmod'ed mark:\t" + infoPerms(pathMark));
+        INFO("Chmod'ed data:\t" + infoPerms(pathData));
 
         // Reading expected results
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-cattle-dim-0.txt");
@@ -96,9 +74,9 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         lecteurCorrige.close();
         expectedResults.verifieTailles(true, 1, 30);
 
-        WHEN("the program is run")
+        WHEN("the program is run using the path with a leading dot")
         {
-            std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
+            std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameData);
             INFO(output);
 
             THEN("the output files are found")
@@ -133,8 +111,53 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
             }
 
             std::remove(fileNameParam.c_str());
-            std::remove(fileNameEnv.c_str());
-            std::remove(fileNameMark.c_str());
+            std::remove(fileNameData.c_str());
+
+            std::remove(fileNameOut0.c_str());
+            std::remove(fileNameOut1.c_str());
+            std::remove(fileNameLogs.c_str());
+
+            std::remove(pathToOutputFolder.c_str());
+        }
+
+        WHEN("the program is run using the path without a leading dot")
+        {
+            std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameDataWithoutLeadingDot);
+            INFO(output);
+
+            THEN("the output files are found")
+            {
+                std::ifstream lecteurOut0(fileNameOut0.c_str());
+                REQUIRE(lecteurOut0.good());
+                REQUIRE(lecteurOut0.is_open());
+
+                std::ifstream lecteurOut1(fileNameOut1.c_str());
+                REQUIRE(lecteurOut1.good());
+                REQUIRE(lecteurOut1.is_open());
+
+                AND_WHEN("the output files are read")
+                {
+                    SambadaRegressionResults resultsDim0(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
+                    SambadaRegressionResults resultsDim1(
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
+
+                    THEN("the results match the expectations")
+                    {
+                        resultsDim0.verifieTailles(true, 0, 5);
+                        resultsDim0.compare(expectedNullResults);
+
+                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.compare(expectedResults);
+                    }
+                }
+
+                lecteurOut0.close();
+                lecteurOut1.close();
+            }
+
+            std::remove(fileNameParam.c_str());
+            std::remove(fileNameData.c_str());
 
             std::remove(fileNameOut0.c_str());
             std::remove(fileNameOut1.c_str());
