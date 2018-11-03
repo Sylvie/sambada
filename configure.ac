@@ -30,7 +30,7 @@ dnl Then run ./configure to generate a Makefile.
 dnl Finally run make to generate the project.
 
 AC_INIT([Sambada], m4_esyscmd([./git-version-gen .tarball-version]), [sylvie.stucki@a3.epfl.ch], [sambada], [lasig.epfl.ch/sambada])
-AM_INIT_AUTOMAKE([foreign subdir-objects dist-zip])
+AM_INIT_AUTOMAKE([foreign subdir-objects dist-zip tar-pax])
 
 sambada_releasedate=m4_esyscmd([./git-releasedate-gen .tarball-releasedate])
 AC_SUBST(sambada_releasedate)
@@ -85,6 +85,16 @@ AC_SUBST(system_name)
 AM_CONDITIONAL([LINUX], [test "$build_linux" = "yes"])
 AM_CONDITIONAL([WINDOWS], [test "$build_windows" = "yes"])
 AM_CONDITIONAL([OSX], [test "$build_mac" = "yes"])
+
+# Pass the system's extension for executable to automake
+sambada_executable_extension=${EXEEXT}
+AC_MSG_NOTICE([sambada_executable_extension = ${sambada_executable_extension}])
+AC_SUBST(sambada_executable_extension)
+
+# Pass the system's folder delimiter to automake
+AS_IF([test "x${build_windows}" = xyes], [sambada_folder_separator="\\\\"], [sambada_folder_separator="/"])
+AC_MSG_NOTICE([sambada_folder_separator = ${sambada_folder_separator}])
+AC_DEFINE_UNQUOTED([sambada_folder_separator], ["${sambada_folder_separator}"])
 
 # Check for presence of latexmk
 AC_CHECK_PROG(LATEXMK, latexmk, latexmk)

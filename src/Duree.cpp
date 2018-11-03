@@ -201,6 +201,7 @@ DureeFormatee::~DureeFormatee()
 Journal& DureeFormatee::affiche(Journal& j) const
 {
 	duree.affiche(j, precision, chablon);
+	return j;
 }
 
 DureeFormatee::DureeFormatee(const DureeFormatee& d)

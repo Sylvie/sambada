@@ -35,6 +35,7 @@
 \usepackage{tikz}
 \usepackage{amsmath}
 \usepackage{float}
+\usepackage{xfrac}
 
 \usetikzlibrary{matrix,decorations.pathreplacing, positioning, decorations.markings, intersections,decorations.pathmorphing}
 
@@ -246,7 +247,7 @@ The examples from this manual are build on this dataset in order to illustrate d
 \item[RandomSample] is a random set of 100 georeferenced points with two environmental variables and a molecular marker.
 The first environmental parameter is random, while the second one is correlated to longitude in order to provide some spatial autocorrelation.
 The molecular marker is random.
-\item[SubsetCattleSNP] contains 386 SNPs from Ugandan cattle [lien approprié].
+\item[SubsetCattleSNP] contains 386 SNPs from Ugandan cattle \parencite{vajana:2018}.
 They are already recoded for \smb, so there is three binary markers per loci.
 In this case, the spatial autocorrelation takes some time to compute.
 \end{description}
@@ -715,7 +716,7 @@ Please refer to section \ref{sec:prior-knowledge} for more information on includ
 \matrix (msave) [matrix of nodes,column 1/.style={anchor=west, text width=2.5cm}, column 2/.style={anchor=west, text width={\textwidth - 2.5cm}}, ampersand replacement=\&, inner xsep=0pt] 
 {
  	REAL \linebreak END  \&   Storage mode: REAL saves results during processing, END writes them upon completion of computation. The second option enables sorting the models according to their Wald scores before saving. \\
-	ALL \linebreak SIGNIF \linebreak BEST \&   Model selection: ALL saves all models, SIGNIF saves significant models (according to the $G$ and Wald scores) and BEST saves significant models with at least a significant parent.\\
+	ALL \linebreak {\color{gray}SIGNIF} \linebreak BEST \&   Model selection: ALL saves all models, {\color{gray}SIGNIF} saves significant models (according to the $G$ and Wald scores) and BEST saves significant models with at least a significant parent. \newline 	Notice: The option {\color{gray}SIGNIF} is deprecated and will be removed in a future release. \\
  	(double)	 \&   Significance threshold ($p$-value) for options SIGNIF and BEST. The Bonferroni correction is applied on this threshold.\\
     } ;
 %  \path [draw,decoration={brace,amplitude=0.2cm,mirror}, decorate,gray]
@@ -982,6 +983,7 @@ In these files, models are sorted according to their Wald scores.
 Fig.~\ref{fig:errors} lists possible errors for logistic models.
 If the back-up of unconverged models is enabled, the output file is named \prog{data-unconvergedModels.ext}.
 Results files are named as follows: constant models are saved in the file \prog{data-Out-0.ext}, univariate models in the file \prog{data-Out-1.ext}, bivariate models the file \prog{data-Out-2.ext}, and so on.
+Fig.~\ref{fig:goodness-of-fit-statistics} provides an overview of the goodness-of-fit statistics computed by \smb.
 %
 \begin{figure}[htbp]
 \begin{tabular}{ll}
@@ -1084,6 +1086,40 @@ Results file for multivariate models contain additional columns for environmenta
 \hfill
 \end{figure}
 
+\begin{figure}[htbp]
+\scriptsize
+\framebox{%
+%\begin{minipage}{\textheight}
+\begin{tabular}{*{3}l}
+Name	&	Formula	&	References 	\\
+Akaike Informatic Criterion (AIC)	&	\(\displaystyle -2l + 2p \)			&	\textcite{akaike:1974}	\\
+Bayesian Informatic Criterion (BIC)	&	\(\displaystyle -2l + p \cdot \ln n \)	&	\textcite{schwarz:1978}	\\
+Efron pseudo-$R^2$				&	\(\displaystyle 1 - \frac{\sum_{i=1}^n (y_i - \pi_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2} \)  &	\textcite{efron:1978}	\\
+McFadden pseudo-$R^2$			& 	\(\displaystyle 1-\frac{l}{l_0} \) 	&	\textcite{mcfadden:1974}		\\
+McFaddenAdj pseudo-$R^2$ 		&	\(\displaystyle 1-\frac{l - p}{l_0} \) 	&	\textcite{smith:2013b}	\\
+CoxSnell pseudo-$R^2$	 		&	\(\displaystyle 1-\left(\frac{L_0}{L}\right)^{\sfrac{2}{n}} \) 	&	\textcite{snell:1989}	\\
+Nagelkerke  pseudo-$R^2$ 		&	\(\displaystyle \frac{1-\left(\frac{L_0}{L}\right)^{\sfrac{2}{n}}}{1 - L_0^{\sfrac{2}{n}}} \)    &  \textcite{nagelkerke:1991}	\\
+\end{tabular}
+}\\
+\\
+\caption[Goodness of fit statistics computed by \smb\ for the logistic models.]
+{Goodness of fit statistics computed by \smb\ for the logistic models. 
+The first column is the name of the statistic, the second one contains the formula and the third one refers to the bibliography. 
+The following notation is used: \\
+$n$:~number of samples, \\
+$y_i$:~value of the (binary) molecular marker for sample $i$, \\
+$\bar{y}$:~average value of $y_i$ over all samples, \\
+$p$:~number of parameters included in the model ($p$ = number of explanatory variables + 1), \\
+$\pi_i$:~estimated probability of occurrence of the marker for sample $i$ \( \left( \pi_i = \frac{ \exp{\bm{x_i}^T \bm{\beta} }}{1 + \exp{\bm{x_i}^T \bm{\beta} }} \mbox{ where } \bm{x_i}^T \bm{\beta} = \beta_0 + x_{i1} \cdot \beta_1 + \dots + x_{i(p-1)} \cdot \beta_{p-1} \right) \), \\
+$\bm{x_i}$:~vector of environmental variables at location of sample $i$, \\
+$\bm{\beta}$:~vector of estimated regression parameters, \\
+$l$:~log-likelihood of the model of interest, \\
+$l_0$:~log-likelihood of the reference (null) model, \\
+$L$:~likelihood of the model of interest, \\
+$L_0$:~likelihood of the reference (null) model.
+}
+\label{fig:goodness-of-fit-statistics}
+\end{figure}
 
 Concerning the measure of spatial autocorrelation, results are stored separately for environmental data and molecular markers.
 In each case, there are three output files.

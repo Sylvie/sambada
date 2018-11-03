@@ -1,3 +1,15 @@
+Release 0.6.1 (2018-11-03)
+Notice:
+- The option SAVETYPE=SIGNIF is deprecated and will be removed in a future release.
+Bug fixes:
+- Fixed errors in the computation of BIC and Nagelkerke's coefficient of determination;
+- Fixed a crash related to relative paths and filenames without extensions;
+- Fixed a bug in the output of durations.
+Documentation:
+- Added an overview of the computed goodness-of-fit statistics to the manual;
+Change of tooling:
+- Introduction of automated tests with Catch2.
+
 Release 0.6 (2018-06-01)
 Change of tooling:
 - Migration to GitHub;

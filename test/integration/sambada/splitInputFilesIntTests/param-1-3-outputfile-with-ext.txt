@@ -1,0 +1,8 @@
+HEADERS YES
+WORDDELIM " "
+NUMVARENV 6
+NUMMARK 2 5
+NUMINDIV 777
+DIMMAX 1
+OUTPUTFILE "test/integration/sambada/splitInputFilesIntTests/choice-mark-cattle-mark-1-3.txt"
+SAVETYPE END BEST 0.01

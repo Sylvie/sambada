@@ -28,6 +28,7 @@
 
 
 #include "RegressionLogistique.h"
+#include "LecteurCheminAcces.h"
 #include "optimize.h"
 #include <limits>
 #include <list>
@@ -148,19 +149,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	++paramCourant;
 
 	// OUTPUTFILE
+    std::string cheminFichierResultats("");
 	if (paramCourant->present && paramCourant->contents.size()==1)	// Cas où l'utilisateur a fourni un nom de fichier de sortie
 	{
-		int position(paramCourant->contents[0].rfind("."));
-		if (position==string::npos)
-		{
-			nomFichierResultats.first=paramCourant->contents[0];
-			nomFichierResultats.second="";
-		}
-		else
-		{
-			nomFichierResultats.first=paramCourant->contents[0].substr(0, position);
-			nomFichierResultats.second=paramCourant->contents[0].substr(position);
-		}
+	    cheminFichierResultats = paramCourant->contents[0];
 	}
 	// Recherche du nom du fichier et de l'extension
 	// S'il y a un unique fichier de données, on place les résultats dans le même dossier
@@ -168,18 +160,18 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	// //-> Même code
 	else if (uniqueFichierDonnees)
 	{
-		int position(nomFichierInput[0].rfind("."));
-		nomFichierResultats.first=nomFichierInput[0].substr(0, position);
-		nomFichierResultats.second=nomFichierInput[0].substr(position);
-
+	    cheminFichierResultats = nomFichierInput[0];
 	}
 	else
 	{
-		int position(nomFichierInput[1].rfind("."));
-		nomFichierResultats.first=nomFichierInput[1].substr(0, position);
-		nomFichierResultats.second=nomFichierInput[1].substr(position);
+        cheminFichierResultats = nomFichierInput[1];
 	}
-	++paramCourant;
+	// Découpage du chemin d'accès
+    LecteurCheminAcces lecteurCheminAcces;
+    CheminAcces cheminAcces = lecteurCheminAcces.decompose(cheminFichierResultats);
+    nomFichierResultats.first = cheminAcces.chemin + cheminAcces.radical;
+    nomFichierResultats.second = cheminAcces.extension;
+    ++paramCourant;
 
 	// WORDDELIM
 	delimMots=' ';
@@ -917,6 +909,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
             else
             {
                 journal << "signif!" << nl;
+                journal << "Notice: The option SAVETYPE=SIGNIF is deprecated and will be removed in a future release." << nl;
                 selModeles=signif;
             }
 
@@ -1924,4 +1917,5 @@ void RegressionLogistique::terminaison()
 {
 	time_t temps_stop(time(NULL));
 	journal << " " << nl << "Analyse completed on: " << asctime(localtime(&temps_stop));
+    journal << "Notice: The option SAVETYPE=SIGNIF is deprecated and will be removed in a future release." << nl;
 }

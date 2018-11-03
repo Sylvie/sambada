@@ -122,9 +122,9 @@ void Chronometre::fin()
 		(*journal) << sepCol << setfill('-') << setw(tailleAffichageTotal) << "" << sepCol <<nl << setfill(' ');
 	}
 	Duree d(difftime(time(NULL),tempsDebut));
-	/*(*journal) << "End of measurement, total time: ";
+	/* (*journal) << "End of measurement, total time: ";
 	affiche(d);
-	(*journal) << nl;*/
+	(*journal) << nl; */
 	(*journal) << "End of measurement, total time: " << DureeFormatee(d, precision, chablon) << nl;
 }
 

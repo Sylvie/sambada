@@ -1,6 +1,9 @@
 #---------------------------------#
 #    environment configuration    #
 #---------------------------------#
+# Build worker image (VM template)
+image: Visual Studio 2015
+
 # scripts that are called at very beginning, before repo cloning
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -25,7 +28,7 @@ install:
 platform: windows
 
 build_script:
-  - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64;C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\x86_64-w64-mingw32;
+  - SET PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%;C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64;C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\x86_64-w64-mingw32;
   - ps: $env:sambada_version=(bash -c './git-version-gen .version')
   - bash -c "autoreconf -i"
   - mkdir build
@@ -35,8 +38,20 @@ build_script:
   - make.exe
   - ls -R binaries
   - ps: .\binaries\sambada.exe ..\Data\Example_parameters_input_matrix.txt ..\Data\input_matrix.csv
+  - make.exe dist DIST_TARGETS=dist-gzip
   - make binary-archive
   - ls -R
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+# to run your custom scripts instead of automatic tests
+test_script:
+  - make check
+  - cp test-suite.log ../test-suite-results.log
+  - ls -R
+  - make.exe clean
+  - make.exe DISTCHECK_CONFIGURE_FLAGS="sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 LDFLAGS=-static" distcheck DIST_TARGETS=dist-gzip
 
 #---------------------------------#
 #      artifacts configuration    #
@@ -69,6 +84,8 @@ deploy:
 
 # on build failure
 on_failure:
+  - ps: if (Test-Path test-suite.log) { cat test-suite.log }
+  - ps: if (Test-Path ../test-suite-results.log) { cat ../test-suite-results.log }
   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 # after build failure or success

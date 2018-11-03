@@ -22,9 +22,10 @@ matrix:
       - SAMBADA_OS_NAME=ubuntu
       - LDFLAGS=-static
   - os: osx
+    osx_image: xcode10.1
     compiler: gcc
     env:
-      - MATRIX_EVAL="brew cask uninstall oclint && brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
+      - MATRIX_EVAL="softwareupdate -l && sudo softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-9.4\" && brew cask uninstall oclint && brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
     install:
       - source ./manual/basictex-osx.sh
@@ -38,7 +39,7 @@ matrix:
         - "/Library/TeX/"
         - "/Library/PreferencePanes/"
 before_install:
-    - eval "${MATRIX_EVAL}"
+  - eval "${MATRIX_EVAL}"
 git:
   depth: 100
 script:
@@ -48,17 +49,23 @@ script:
   - sambada_version=$(./git-version-gen .version)
   - mkdir build
   - cd build
-  - "../configure sambadahostsystemname=${SAMBADA_OS_NAME}"
+  - ../configure CXXFLAGS="-std=c++11" sambadahostsystemname=${SAMBADA_OS_NAME}
+  - cat config.log
   - make pdf
   - make
+  - make check
+  - cp test-suite.log ../test-suite-results.log
   - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
-  - binaries/sambada ../examples/subset-cattle-SNP/param-cattle.txt ../examples/subset-cattle-SNP/cattle-env.csv  ../examples/subset-cattle-SNP/cattle-mark.txt
-  - head  ../examples/subset-cattle-SNP/cattle-mark-Out-1.txt
   - ls -R
-  - make clean distcheck
+  - make clean
+  - make distcheck CXXFLAGS="-std=c++11" sambadahostsystemname=${SAMBADA_OS_NAME}
   - ls -R
   - make binary-archive
   - cd ..
+  - ls -R
+
+after_failure:
+  - cat test-suite-results.log
 
 deploy:
   provider: releases
