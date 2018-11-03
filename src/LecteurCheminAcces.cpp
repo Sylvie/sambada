@@ -57,18 +57,37 @@ LecteurCheminAcces::~LecteurCheminAcces() {
 CheminAcces LecteurCheminAcces::decompose(const std::string &cheminComplet) {
     CheminAcces cheminAcces;
 
-    std::string separateur(getSeparateurChemin());
-    size_t positionSlash(cheminComplet.rfind(separateur));
+    std::string separateurStandard(getSeparateurCheminStandard());
+    std::string separateurSysteme(getSeparateurCheminSysteme());
+    size_t positionSeparateurStandard(cheminComplet.rfind(separateurStandard));
+    size_t positionSeparateurSysteme(cheminComplet.rfind(separateurSysteme));
 
     std::string nomFichier("");
-    if (positionSlash == std::string::npos)
+    if (positionSeparateurStandard == std::string::npos)
     {
-        nomFichier = cheminComplet;
+        if (positionSeparateurSysteme == std::string::npos)
+        {
+            nomFichier = cheminComplet;
+        }
+        else
+        {
+            cheminAcces.chemin = cheminComplet.substr(0, positionSeparateurSysteme + 1);
+            nomFichier = cheminComplet.substr(positionSeparateurSysteme + 1);
+        }
     }
     else
     {
-        cheminAcces.chemin = cheminComplet.substr(0, positionSlash + 1);
-        nomFichier = cheminComplet.substr(positionSlash + 1);
+        if (positionSeparateurSysteme == std::string::npos)
+        {
+            cheminAcces.chemin = cheminComplet.substr(0, positionSeparateurStandard + 1);
+            nomFichier = cheminComplet.substr(positionSeparateurStandard + 1);
+        }
+        else
+        {
+            size_t positionSeparateur(std::max(positionSeparateurStandard, positionSeparateurSysteme));
+            cheminAcces.chemin = cheminComplet.substr(0, positionSeparateur + 1);
+            nomFichier = cheminComplet.substr(positionSeparateur + 1);
+        }
     }
 
     size_t positionPoint(nomFichier.rfind("."));
@@ -86,8 +105,8 @@ CheminAcces LecteurCheminAcces::decompose(const std::string &cheminComplet) {
     return cheminAcces;
 }
 
-std::string LecteurCheminAcces::getSeparateurChemin() const {
-    std::string separateur("/");
+std::string LecteurCheminAcces::getSeparateurCheminSysteme() const {
+    std::string separateur(getSeparateurCheminStandard());
     std::string separateurSysteme("");
 #ifdef sambada_folder_separator
     std::cout << "Separateur: ==" << sambada_folder_separator << "==" << std::endl;
@@ -97,6 +116,11 @@ std::string LecteurCheminAcces::getSeparateurChemin() const {
     {
         separateur = separateurSysteme;
     }
+    return separateur;
+}
+
+std::string LecteurCheminAcces::getSeparateurCheminStandard() const {
+    std::string separateur("/");
     return separateur;
 }
 
