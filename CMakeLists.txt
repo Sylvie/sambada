@@ -10,7 +10,7 @@ add_definitions(
 
 if (WIN32)
     add_definitions(
-            -Dsambada_folder_separator="\""
+            -Dsambada_folder_separator="\\\\"
     )
 else ()
     add_definitions(
