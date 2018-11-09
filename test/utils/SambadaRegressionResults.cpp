@@ -10,6 +10,7 @@
 void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int nombreModeles) const {
     if (hasHeader)
     {
+        INFO(colleHeaders());
         verifieTailleHeader(dimension);
     }
 
@@ -81,16 +82,44 @@ void SambadaRegressionResults::compare(const SambadaRegressionResults &autre) co
     {
         for (int i(0); i < nombreModeles; ++i)
         {
-            INFO("Modèle numéro: " + std::to_string(i));
+            INFO("Modèle numéro: " + std::to_string(i) + " (" + colleChaines(etiquettes[i]) + ")");
             int nombreValeurs(valeurs[i].size());
             CHECKED_IF(nombreValeurs == autre.valeurs[i].size())
             {
-                for (int j(0); j < nombreValeurs; ++j)
+                int tailleEtiquette(etiquettes[i].size());
+                /* SMB-47: Désactivation des tests pour les coefficient de qualité de l'ajustement
+                 * for (int j(0); j < nombreValeurs; ++j)
+                 {
+                     INFO("Valeur numéro: " + std::to_string(j) + " (" + header[j+tailleEtiquette] +")");
+                     CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
+                 }
+                 */
+
+                for (int j(0); j < indiceEfron; ++j)
                 {
-                    INFO("Valeur numéro: " + std::to_string(j));
+                    INFO("Valeur numéro: " + std::to_string(j) + " (" + header[j + tailleEtiquette] + ")");
+                    CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
+                }
+
+                for (int j(indiceAIC); j < nombreValeurs; ++j)
+                {
+                    INFO("Valeur numéro: " + std::to_string(j) + " (" + header[j + tailleEtiquette] + ")");
                     CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
                 }
             }
         }
     }
+}
+
+std::string SambadaRegressionResults::colleHeaders() const {
+    return colleChaines(header);
+}
+
+std::string SambadaRegressionResults::colleChaines(const std::vector<std::string> &morceaux) const {
+    std::string resultat("");
+    for (size_t i(0); i < morceaux.size(); ++i)
+    {
+        resultat = resultat + morceaux[i] + " ";
+    }
+    return resultat;
 }

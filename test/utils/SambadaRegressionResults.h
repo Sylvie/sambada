@@ -17,6 +17,11 @@ public:
 
 private:
     void verifieTailleHeader(int dimension) const;
+    std::string colleHeaders() const;
+    std::string colleChaines(const std::vector< std::string >& morceaux) const;
+
+    const static size_t indiceEfron = 4;
+    const static size_t indiceAIC = 9;
 };
 
 
