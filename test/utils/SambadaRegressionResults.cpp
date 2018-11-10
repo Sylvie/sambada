@@ -7,11 +7,11 @@
 // 1: h=15, e=2, v=13
 //2: h=17, e=3, v=14
 
-void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int nombreModeles) const {
+void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int nombreModeles, bool hasPop) const {
     if (hasHeader)
     {
         INFO(colleHeaders());
-        verifieTailleHeader(dimension);
+        verifieTailleHeader(dimension, hasPop);
     }
 
     REQUIRE(etiquettes.size() == nombreModeles);
@@ -22,7 +22,14 @@ void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int
 
     if (dimension > 0)
     {
-        tailleValeurs = dimension + 12;
+        if (!hasPop)
+        {
+            tailleValeurs = dimension + 12;
+        }
+        else
+        {
+            tailleValeurs = dimension + 14;
+        }
     }
 
     for (int i(0); i < nombreModeles; ++i)
@@ -33,7 +40,7 @@ void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int
     }
 }
 
-void SambadaRegressionResults::verifieTailleHeader(int dimension) const {
+void SambadaRegressionResults::verifieTailleHeader(int dimension, bool hasPop) const {
     if (dimension == 0)
     {
         CHECK(header.size() == 5);
