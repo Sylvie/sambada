@@ -31,7 +31,7 @@ SCENARIO("Test that regression results are correct when the population structure
                 "test/integration/sambada/basicPopulationStructureIntTests/");
 
         std::string fileNameParams(pathToInputFolder + "param-pop-last.txt");
-        std::string fileNameEnv(pathToInputFolder + "cattle-pop-env.csv");
+        std::string fileNameEnv(pathToInputFolder + "cattle-pop-env-last.csv");
         std::string fileNameMark(pathToInputFolder + "cattle-pop-mark.txt");
 
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-no-pop-dim-0.txt");
@@ -73,7 +73,7 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim3(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 3));
         lecteurCorrige.close();
-        expectedResultsDim3.verifieTailles(true, 3, 1050);
+        expectedResultsDim3.verifieTailles(true, 3, 1050, true);
 
         WHEN("Sambada is run using the population variables as normal environmental variables")
         {
@@ -131,7 +131,7 @@ SCENARIO("Test that regression results are correct when the population structure
                         resultsDim2.compare(expectedResultsDim2);
 
                         INFO("Verifying results dim 3");
-                        resultsDim3.verifieTailles(true, 3, 1050);
+                        resultsDim3.verifieTailles(true, 3, 1050, true);
                         resultsDim3.compare(expectedResultsDim3);
                     }
                 }

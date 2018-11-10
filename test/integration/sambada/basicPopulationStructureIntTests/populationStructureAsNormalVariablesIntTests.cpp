@@ -31,7 +31,7 @@ SCENARIO("Test that regression results are correct when the population structure
                 "test/integration/sambada/basicPopulationStructureIntTests/");
 
         std::string fileNameParams(pathToInputFolder + "param-no-pop.txt");
-        std::string fileNameEnv(pathToInputFolder + "cattle-pop-env.csv");
+        std::string fileNameEnv(pathToInputFolder + "cattle-pop-env-last.csv");
         std::string fileNameMark(pathToInputFolder + "cattle-pop-mark.txt");
 
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-no-pop-dim-0.txt");
