@@ -47,7 +47,14 @@ void SambadaRegressionResults::verifieTailleHeader(int dimension, bool hasPop) c
     }
     else
     {
-        CHECK(header.size() == (2 * dimension + 13));
+        if (!hasPop)
+        {
+            CHECK(header.size() == (2 * dimension + 13));
+        }
+        else
+        {
+            CHECK(header.size() == (2 * dimension + 15));
+        }
     }
 }
 
