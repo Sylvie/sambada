@@ -102,6 +102,14 @@ if test -z "$LATEXMK"; then
 	AC_MSG_WARN([Unable to create PDF version of the user manual.])
 fi
 
-AM_CONDITIONAL([HAVE_LATEXMK], test -n "$LATEXMK")
+# Check if the user disabled the manual
+AC_ARG_ENABLE([manual],
+            [AS_HELP_STRING([--disable-manual],
+              [disable compilation of user manual])],
+            [],
+            [with_manual=yes])
+
+# The manual is compiled if latexmk is available and if the user did not disable it
+AM_CONDITIONAL([HAVE_LATEXMK], test -n "$LATEXMK" -a x${with_manual} = xyes )
 
 AC_OUTPUT
