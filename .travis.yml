@@ -75,6 +75,7 @@ deploy:
     - build/sambada-${sambada_version}-${SAMBADA_OS_NAME}.tar.gz
     - build/sambada-${sambada_version}.tar.gz
     - build/sambada-${sambada_version}.zip
+    - build/manual/sambadoc.pdf
   skip_cleanup: true
   draft: false
   on:
