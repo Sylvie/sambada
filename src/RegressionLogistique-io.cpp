@@ -928,9 +928,31 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
             }
         }
-
-
     }
+	++paramCourant;
+
+	// Prise en compte de la structure de population
+	// POPULATIONVAR
+	structurePop = pasStructurePop;
+	if (paramCourant->present)
+	{
+		if (paramCourant->contents.size() != 1)
+		{
+			erreurDetectee("MSG_populationVarArgNum", "Incorrect number of arguments for POPULATIONVAR parameter.");
+		}
+		else
+		{
+			if (paramCourant->contents[0] == "FIRST")
+			{
+				structurePop = structurePopPremier;
+			}
+			else if (
+					paramCourant->contents[0] == "LAST")
+			{
+				structurePop = structurePopDernier;
+			}
+		}
+	}
 
     /* FIN DU TRAITEMENT DES PARAMETRES */
 

@@ -44,7 +44,7 @@ RegressionLogistique::RegressionLogistique()
 sauvegardeTempsReel(true), selModeles(all),
 analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
 eps(sqrt(epsilon < reel > ())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel)700,log(numeric_limits < reel >::max()/2))), nbModelesParMarqueur(1),
-limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsSansPseudos(4),
+limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
 tailleEtiquetteInvar(4), numPremierMarq(0),
 delimLignes("\n")
 {}
@@ -2096,7 +2096,7 @@ int RegressionLogistique::creeModelesGlobaux()
 	sortie.precision(toolbox::precisionLecture);
 
 	// Ecriture des noms de colonnes pour s'y repérer
-	vector< vector<string> > names(3);
+	vector< vector<string> > names(4);
 	names[0].push_back("Marker");
 	names[0].push_back("Env_");
 	names[0].push_back("Beta_");
@@ -2116,6 +2116,9 @@ int RegressionLogistique::creeModelesGlobaux()
 	names[2].push_back("AIC");
 	names[2].push_back("BIC");
 
+	names[3].push_back("GscorePop");
+	names[3].push_back("WaldScorePop");
+
 	sortie.ecriture(0, names[0][0]);
 	sortie.ecriture(0, names[1], true);
 
@@ -2126,7 +2129,15 @@ int RegressionLogistique::creeModelesGlobaux()
 		{
 			sortie.ecriture(i, names[0][1]+toolbox::conversion(j));
 		}
-		sortie.ecriture(i, names[2]);
+		if (!calculeStructurePop(i))
+		{
+			sortie.ecriture(i, names[2]);
+		}
+		else
+			{
+			sortie.ecriture(i, names[2], false);
+			sortie.ecriture(i, names[3]);
+		}
 		for (int j(0); j<i; ++j)
 		{
 			sortie.ecriture(i, names[0][2]+toolbox::conversion(j));
@@ -2567,6 +2578,11 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 	{
 		nbParam=dim+1;
 		resultat.second.resize(nbStats+nbParam);
+
+		if (calculeStructurePop(dim))
+		{
+			resultat.second.resize(nbStatsAvecPop+nbParam);
+		}
 		// On connaît la taille de l'échantillon pour la regression -> construction des matrices
 		// Matrice des paramètres
 		/*beta_hat.resize(nbParam, 1);
@@ -2678,9 +2694,14 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 			modeleRetenu = calculeStats(resultat, nbParam-1);
 
 			// Copie de la valeur de beta
+					int nbStatCourantes(nbStats);
+					if (calculeStructurePop(nbParam-1))
+					{
+						nbStatCourantes = nbStatsAvecPop;
+					}
 			for (int i(0); i<nbParam; ++i)
 			{
-				resultat.second[nbStats+i]=beta_hat(i, 0);
+				resultat.second[nbStatCourantes+i]=beta_hat(i, 0);
 			}
 
 			if (AS_GWR)
@@ -2858,6 +2879,10 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	// Il faut trouver un modèle valide pour la comparaison
 	bool parentValide(false);
 
+	// Calcul des scores G et Wald avec les variables de pop
+	reel scoreWaldPop(0);
+	groupeResultats::iterator modeleParentPop;
+
 	if (dimParents==0)	// Modèle univarié -> un seul parent
 	{
 		parentValide=true;
@@ -2865,6 +2890,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		etiquetteCourante.second.clear();
 		modeleCourant=resultats[dimParents].find(etiquetteCourante);
 		bestLoglike=modeleCourant;
+		modeleParentPop=modeleCourant;
 	}
 	else // Recherche d'un parent valide et sélection du parent avec la meilleure loglike
 	{
@@ -3024,6 +3050,38 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		resultat.second[validiteModele]=7;
 
 	}
+
+
+	// Selection du modèle parent pour la structure de pop
+	if (calculeStructurePop(resultat.first.second.size()))
+	{
+		etiquetteCourante = resultat.first;
+		if (structurePop == structurePopPremier)
+		{
+			// La variable env est à la fin
+			set< int >::reverse_iterator variableCourante(resultat.first.second.rbegin());
+			etiquetteCourante.second.erase(*variableCourante);
+
+			resultat.second[WaldScorePop]=beta_hat((dimParents+1), 0)*beta_hat((dimParents+1), 0)/inv_J_info((dimParents+1), (dimParents+1));
+		}
+		else{
+			// La variable env est au début
+			set< int >::iterator variableCourante(resultat.first.second.begin());
+			etiquetteCourante.second.erase(*variableCourante);
+
+			resultat.second[WaldScorePop]=beta_hat(1, 0)*beta_hat(1, 0)/inv_J_info(1, 1);
+		}
+		modeleParentPop = resultats[dimParents].find(etiquetteCourante);
+
+		resultat.second[GscorePop] = 2*(resultat.second[valloglikelihood] - modeleParentPop->second[valloglikelihood]);
+
+	}
+
+
+
+
+
+
 
 	// Ici pas besoin de calculer ceci pour les modèles non signif dans le cas signif
 	if (modeleRetenu || selModeles==all)
@@ -3608,11 +3666,20 @@ void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, Pa
 	paramCourant.mandatory=true;
 	listeParam.push_back(paramCourant);
 
+	// POPULATIONVAR
+	paramCourant.name="POPULATIONVAR";
+	paramCourant.mandatory=false;
+	listeParam.push_back(paramCourant);
+
 	int nbTotParam(listeParam.size());
 	for (int i(0); i<nbTotParam; ++i)
 	{
 		indexParam.insert(make_pair(listeParam[i].name, i));
 	}
+}
+
+bool RegressionLogistique::calculeStructurePop(int dimensionCourante) const {
+	return (dimensionCourante == dimensionMax) && (structurePop == structurePopPremier || structurePop == structurePopDernier);
 }
 
 ComparaisonVoisins::ComparaisonVoisins()
