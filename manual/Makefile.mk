@@ -53,12 +53,12 @@ prepare_manual_directory:
 		fi \
 	fi
 
-if HAVE_LATEXMK
 prepare_latexmkrc_file: | prepare_manual_directory
 	sed "s/%versionNumber%/$(VERSION)/g; s/%releaseDate%/$(sambada_releasedate)/g" $(top_srcdir)/$(manual_directory)/latexmkrc_template > $(builddir)/$(manual_directory)/latexmkrc ;
 
 $(manual_directory)/latexmkrc: prepare_latexmkrc_file
 
+if HAVE_LATEXMK
 pdf-local-manual: $(manual_pdf) $(manual_directory)/latexmkrc
 
 $(manual_directory)/$(manual_output_filename).pdf : $(top_srcdir)/$(manual_directory)/$(manual_filename) $(manual_directory)/latexmkrc
@@ -101,5 +101,12 @@ clean-local-manual:
 	rm -f $(manual_txt)
 
 distclean-local-manual:
-
+	if [ -d "$(manual_directory)" ] && [ "$(top_srcdir)" != "$(top_builddir)" ]; then \
+		rm -f $(manual_directory)/manual.bib ; \
+		rm -f $(manual_directory)/manual.tex ; \
+	fi
+	if [ -d "$(manual_directory)" ]; then \
+		rm -f $(manual_directory)/latexmkrc ; \
+	fi
+	
 endif
