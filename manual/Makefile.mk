@@ -30,6 +30,7 @@ manual_directory := manual
 manual_sources := $(top_srcdir)/$(manual_directory)/$(manual_filename) $(top_srcdir)/$(manual_directory)/manual.bib
 manual_output_filename := sambadoc
 manual_pdf := $(builddir)/$(manual_directory)/$(manual_output_filename).pdf
+manual_txt := $(builddir)/$(manual_directory)/manual.txt
 
 EXTRA_DIST += $(manual_sources) $(top_srcdir)/$(manual_directory)/latexmkrc_template $(builddir)/$(manual_directory)/latexmkrc
 BUILT_SOURCES += $(manual_directory)/latexmkrc
@@ -52,6 +53,7 @@ prepare_manual_directory:
 		fi \
 	fi
 
+if HAVE_LATEXMK
 prepare_latexmkrc_file: | prepare_manual_directory
 	sed "s/%versionNumber%/$(VERSION)/g; s/%releaseDate%/$(sambada_releasedate)/g" $(top_srcdir)/$(manual_directory)/latexmkrc_template > $(builddir)/$(manual_directory)/latexmkrc ;
 
@@ -87,3 +89,17 @@ distclean-local-manual:
 	if [ -d "$(manual_directory)" ]; then \
 		rm -f $(manual_directory)/latexmkrc ; \
 	fi
+
+else
+pdf-local-manual: | prepare_manual_directory
+	sed "s/%versionNumber%/$(VERSION)/g" $(top_srcdir)/$(manual_directory)/no_manual_template > $(manual_txt) ;
+
+binary-archive-local-manual:
+	cp -f $(manual_txt) $(archive_basename)
+
+clean-local-manual:
+	rm -f $(manual_txt)
+
+distclean-local-manual:
+
+endif
