@@ -56,7 +56,7 @@ class RegressionLogistique
 protected:
 	//typedef enum {Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC} listePseudosRcarres;
 	//typedef enum {valloglikelihood, Gscore, pValueG, HoG, WaldScore, pValueWald, HoW, PearsonScore, pValuePearson, HoP} longueListeStats;
-	typedef enum {valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC} listeStats;
+	typedef enum {valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC, GscorePop, WaldScorePop} listeStats;
 	typedef enum {pondDistanceMax, pondGaussienne, pondBicarree, pondPlusProchesVoisins} typePonderation;
 
 	/* Type de sauvegarde
@@ -65,6 +65,13 @@ protected:
 	 BEST: sauvegarde des modèles significatifs ayant au moins un parent valide
 	 */
 	typedef enum {all, signif, best} typeSelectionModeles;
+
+	/* Type de structure de population
+ 	pasStructurePop : structure de pop pas prise en compte
+ 	structurePopPremier: variables de pop avant les variables environnementales
+ 	structurePopDernier: variables de pop après les variables environnementales
+ 	*/
+	typedef enum {pasStructurePop, structurePopPremier, structurePopDernier} typeStructurePop;
 
 	typedef Matrix<reel, Col, Concrete> MatriceReels;
 	typedef Matrix<bool, Col, Concrete> MatriceBools;
@@ -173,12 +180,13 @@ protected:
 	bool sauvegardeTempsReel;
 	typeSelectionModeles selModeles;
 	pair<string, string> nomFichierResultats;
+	typeStructurePop structurePop;
 
 	// Paramètres numériques
 	const reel eps, convCrit, limiteNaN, limiteExp;
 	reel seuilPValeur;
 	vector<reel> seuilScore, seuilScoreMultivarie;
-	const int limiteIter, limiteEcartType, nbStats, nbStatsSansPseudos, nbPseudosRcarres, tailleEtiquetteInvar;
+	const int limiteIter, limiteEcartType, nbStats, nbStatsAvecPop, nbStatsSansPseudos, nbPseudosRcarres, tailleEtiquetteInvar;
 	int nbModelesParMarqueur;
 
 	// Paramètres analyse spatiale
@@ -254,7 +262,7 @@ protected:
 	// This method creates a new Erreur, write the description to the log and throw the Erreur
 	void erreurDetectee(const string& nom="", const string& description="", bool arret=true) throw(Erreur);
 
-
+	bool calculeStructurePop(int dimensionCourante) const;
 };
 
 class ComparaisonVoisins
