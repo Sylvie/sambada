@@ -17,9 +17,9 @@ cache:
 
 # scripts that run after cloning repository
 install:
-  - ps: choco install miktex
-  - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
-  - ps: initexmf --admin --set-config-value [MPM]AutoInstall=1
+#  - ps: choco install miktex
+#  - SET PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;%PATH%
+#  - ps: initexmf --admin --set-config-value [MPM]AutoInstall=1
 
 #---------------------------------#
 #       build configuration       #
@@ -33,7 +33,7 @@ build_script:
   - bash -c "autoreconf -i"
   - mkdir build
   - cd build
-  - bash -c "../configure sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 LDFLAGS=-static"
+  - bash -c "../configure sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 LDFLAGS=-static --disable-manual"
   - make pdf
   - make.exe
   - ls -R binaries
