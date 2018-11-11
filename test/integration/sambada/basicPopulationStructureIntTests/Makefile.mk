@@ -5,7 +5,8 @@ test_integration_SambadaIntegrationTests_SOURCES += \
 		test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsLastVariablesIntTests.cpp
 
 EXTRA_DIST += \
- 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-env.csv \
+		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-env-first.csv \
+		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-env-last.csv \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-mark.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-no-pop-dim-0.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-no-pop-dim-1.txt \
