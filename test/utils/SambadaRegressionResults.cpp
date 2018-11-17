@@ -101,25 +101,11 @@ void SambadaRegressionResults::compare(const SambadaRegressionResults &autre) co
             CHECKED_IF(nombreValeurs == autre.valeurs[i].size())
             {
                 int tailleEtiquette(etiquettes[i].size());
-                /* SMB-47: Désactivation des tests pour les coefficient de qualité de l'ajustement
-                 * for (int j(0); j < nombreValeurs; ++j)
+                for (int j(0); j < nombreValeurs; ++j)
                  {
                      INFO("Valeur numéro: " + std::to_string(j) + " (" + header[j+tailleEtiquette] +")");
                      CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
                  }
-                 */
-
-                for (int j(0); j < indiceEfron; ++j)
-                {
-                    INFO("Valeur numéro: " + std::to_string(j) + " (" + header[j + tailleEtiquette] + ")");
-                    CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
-                }
-
-                for (int j(indiceAIC); j < nombreValeurs; ++j)
-                {
-                    INFO("Valeur numéro: " + std::to_string(j) + " (" + header[j + tailleEtiquette] + ")");
-                    CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
-                }
             }
         }
     }
