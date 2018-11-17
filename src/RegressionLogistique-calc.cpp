@@ -3098,10 +3098,12 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		reel exposant(2./taille);
 
 		// Cox & Snell
-		resultat.second[CoxSnell] = 1 - pow((exp(loglikeZero) / exp(loglikeCourante)), exposant);
+//		resultat.second[CoxSnell] = 1 - pow((exp(loglikeZero) / exp(loglikeCourante)), exposant);
+		resultat.second[CoxSnell] = 1 - exp(exposant * (loglikeZero - loglikeCourante));
 
 		// Nagelkerke / Cragg & Uhler
-		resultat.second[Nagelkerke] = resultat.second[CoxSnell] / (1 - pow(exp(loglikeZero), exposant));
+//		resultat.second[Nagelkerke] = resultat.second[CoxSnell] / (1 - pow(exp(loglikeZero), exposant));
+		resultat.second[Nagelkerke] = resultat.second[CoxSnell] / (1 - exp(exposant * loglikeZero));
 
 		// AIC
 		resultat.second[AIC] = -2*loglikeCourante + 2*nbParam;
