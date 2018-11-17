@@ -2658,10 +2658,9 @@ void RegressionLogistique::construitModele(int numMarq,  const set<int> & varCon
 
 			}
 
+			reel denominateur(somme*(1.-somme/taille)*(1.-somme/taille)+(taille-somme)*(somme/taille)*(somme/taille));
+			resultat.second[Efron] = 1. - (resultat.second[Efron]/denominateur);
 
-
-
-			resultat.second[Efron] = 1. - (resultat.second[Efron]/sum((Y - somme/taille)%(Y - somme/taille) ));
 			//loglike_courante=resultat.second[valloglikelihood];
 
 
