@@ -951,6 +951,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			{
 				structurePop = structurePopDernier;
 			}
+
+			if (structurePop != pasStructurePop && selModeles != all)
+			{
+				erreurDetectee("MSG_populationVarOnlyCompatibleWithSavetypeBest", "POPULATIONVAR : Please set \"SAVETYPE ALL\" when enabling \"POPULATIONVAR\".");
+			}
 		}
 	}
 

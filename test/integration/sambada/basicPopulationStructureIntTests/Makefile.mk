@@ -2,7 +2,8 @@
 test_integration_SambadaIntegrationTests_SOURCES += \
 		test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsNormalVariablesIntTests.cpp \
 		test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsFirstVariablesIntTests.cpp \
-		test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsLastVariablesIntTests.cpp
+		test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsLastVariablesIntTests.cpp \
+		test/integration/sambada/basicPopulationStructureIntTests/populationStructureWithSavetypeBestIntTests.cpp
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-env-first.csv \
@@ -17,4 +18,5 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-pop-last-dim-3.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-no-pop.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-first.txt \
+		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-first-savetype-best.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-last.txt
