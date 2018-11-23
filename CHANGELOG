@@ -1,3 +1,7 @@
+Release 0.7.0 (2018-11-24)
+Bug fix:
+- Fixed an error in the computation of Efron's coefficient in case there were missing (molecular or environmental) values.
+
 Release 0.6.1 (2018-11-03)
 Notice:
 - The option SAVETYPE=SIGNIF is deprecated and will be removed in a future release.
