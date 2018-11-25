@@ -250,6 +250,9 @@ The molecular marker is random.
 \item[SubsetCattleSNP] contains 386 SNPs from Ugandan cattle \parencite{vajana:2018}.
 They are already recoded for \smb, so there is three binary markers per loci.
 In this case, the spatial autocorrelation takes some time to compute.
+\item[AnalysisWithPopulationStructure] contains 10 SNPs from Ugandan cattle \parencite{vajana:2018}.
+They are already recoded for \smb, so there is three binary markers per loci.
+This example illustrates how to include variables representing the population structure in the analysis.
 \end{description}
 
 Provided you have the file tree shown on fig.~\ref{fig:filetree},
@@ -1168,18 +1171,23 @@ This format is read by any GIS software, for instance \prog{QuantumGIS\footnote{
 
 
 \subsubsection{Including prior knowledge in multivariate models\label{sec:prior-knowledge}}
-Multivariate analysis can be used not only to assess the effect of a combination of predictor variables on the occurrence of molecular markers, but it also makes it possible to include pre-existing knowledge into the analysis, provided the data constitutes a continuous variable. 
+Multivariate analysis can be used to assess the effect of a combination of predictor variables on the occurrence of molecular markers.
+Moreover it also makes it possible to include pre-existing knowledge into the analysis, provided the data constitutes a continuous variable. 
 In particular, if population structure was analysed beforehand and can be represented as a coefficient of membership for each individual, this information can be included in the modelling as a  \enquote{population structure} variable added to the set of environmental variables.
 For models involving both an environmental variable and this new variable, the selection procedure will assess whether the environmental variable is associated with the genotype while taking into account the possible effect of admixture.
 In case there are many ancestral populations, several \enquote{population structure} variables may be included in the analysis.
 
-In the current implementation of \smb, the selection procedure with the option \prog{BEST} will retain only the models showing a significant association with all predictor variables.
-However, it is possible to use the \enquote{population variables} to compute a \enquote{null model} including the population structure for each marker, and then to build the models to be tested by adding one (or several) environmental variables to the set of \enquote{population variables}.
-The proposed approach relies on multivariate models including potentially many variables.
+In the current implementation of \smb, the proposed approach relies on multivariate models including potentially many variables.
+The idea is to build models with one or several \enquote{population variables} and one environmental variable.
+These models will be considered as univariate when assessing their significance, since their corresponding null model will be their parent with only the \enquote{population variables}.
+The selection procedure with the option \prog{SAVETYPE BEST} is not convenient for taking the population structure into account, because it would retain only the models showing a significant association with all predictor variables.
+Thus the analysis must be run with the option \prog{SAVETYPE ALL}.
 Since the computation time grows linearly with the number of markers but exponentially with the number of predictor variables for multivariate models (the power being equal to the maximum number of predictor variables included in the models, i. e. the param \texttt{DIMMAX}), the total computation time might be consequent.
 Therefore you might wish to estimate the required time by running the analysis (step 3) on a subset (for instance 1\%) of the markers, before launching the computation on the whole dataset.
+%However, it is possible to use the \enquote{population variables} to compute a \enquote{null model} including the population structure for each marker, and then to build the models to be tested by adding one (or several) environmental variables to the set of \enquote{population variables}.
 
-The procedure consists of the followings steps, assuming there are $K$ clusters in your dataset ($K>1$):
+The procedure consists of the followings steps, assuming there are $K$ clusters in your dataset ($K>1$).
+Steps 2 to 9 are also illustrated by the example \enquote{AnalysisWithPopulationStructure}.
 \begin{enumerate}
 \item{Determine a set of $P$ \enquote{population variables} representing the population structure of your dataset, for instance by taking:
 \begin{itemize}
@@ -1187,19 +1195,37 @@ The procedure consists of the followings steps, assuming there are $K$ clusters 
 \item{the $K-1$ first principal axes from a PCA on the coefficients of membership, this is equivalent to the first possibility;}
 \item{one, two or three principal axes from the PCA if they explain most of the variance in your dataset}
 \end{itemize}}
-\item{Create a file of predictors variables with the $E$ environmental variables and the $P$ \enquote{population variables}.}
-\item{Compute all the models from 1 to $P+1$ variables, e.g. \texttt{DIMMAX 3} if there are 2 \enquote{population variables}.}
+\item{Create a file of predictors variables with the $E$ environmental variables and the $P$ \enquote{population variables}.
+In the input file, the columns containing the \enquote{population variables} should stick together, and form a group either on the left or on the right of the group of the environmental variables.}
+\item{Create a parameter file with the following options:
+\begin{itemize}
+\item{\texttt{DIMMAX} $P+1$, e.g. \texttt{DIMMAX 3} if there are 2 \enquote{population variables};}
+\item{\texttt{POPULATIONVAR FIRST} (or \texttt{LAST}) if the \enquote{population variables} are placed on the left (or on the right) of the environmental variables in the input file;}
+\item{The option \texttt{SAVETYPE} should set to \texttt{ALL}, e.g. \texttt{SAVETYPE ALL END 0.01}.}
+\end{itemize}
+The other options can be configured as usual.
+When selecting a subset of environmental variables with \texttt{SUBSETVARENV}, the selected \enquote{population variables} must also appear in the list.
+The order in which the variables will be considered during the analysis is determined by the order of the columns in the input file.}
+\item{Run the analysis.}
+\item{The output files for the dimensions $0$ to $\texttt{DIMMAX}-1$ are the same as usual.
+The output file of dimension \texttt{DIMMAX} contains two extra columns: \enquote{GscorePop} and \enquote{WaldScorePop}.
+For the models involving all \enquote{population variables} and one environmental variable, these columns provide the G and Wald scores taking the population structure into account.
+The models are still sorted according to the \enquote{usual} Wald score.
+Model selection is done in post-processing.}
 \item{Extract the models of interest: 
 \begin{itemize}
-\item{the \enquote{null models} of dimension $P$ including the $P$ \enquote{population variables};}
+\item{optionally the \enquote{null models} of dimension $P$ including the $P$ \enquote{population variables};}
 \item{the models of dimension $P+1$ including the $P$ \enquote{population variables} and one environmental variable;}
-\end{itemize}}
-\item{Among the models of interest, match each model of dimension $P+1$ with its corresponding \enquote{null model} involving the same genotype and the $P$ \enquote{population variables}.}
-\item{Compute the G score for each model, using the log-likelihoods stored in the results files for dimensions $P$ and $P+1$ ($G = 2*(l_{P+1}-l_P)$).}
-\item{Compute the $p$-values based on the $G$ score, the expected distribution is a $\chi^2$ with one degree of freedom, since the models tested (of dimension $P+1$) include one variable more than their corresponding \enquote{null model} of dimension $P$.}
+\end{itemize}
+Although this step can be performed with \prog{R} (or similar), it is usually faster to filter the results in the Terminal. 
+For instance with three \enquote{population variables} called P1, P2 and P3, the command \\
+\verb+grep "P1 P2 P3" myfile-Out-4.txt" > filtered-results.txt+ \\
+will select the models containing the three \enquote{population variables} and one environmental variable in the output file of dimension 4.}
+\item{Load the filtered results in your favourite statistics software. \\
+The last two steps are explained in more details in section \ref{model-selection-R}:}
+\item{Compute the $p$-values based on the $G$ and/or Wald scores, the expected distribution is a $\chi^2$ with one degree of freedom, since the models tested (of dimension $P+1$) include one variable more than their corresponding \enquote{null model} of dimension $P$.}
 \item{Select the candidate loci while taking into account the multiple comparisons, for instance with a Bonferroni correction (potentially over-conservative in this case) or with \textcite{storey:2003} or \textcite{benjamini:1995} approaches.}
 \end{enumerate}
-
 
 
 \subsection{\prog{Supervision}}
@@ -1700,7 +1726,7 @@ Your analyses with \smb\ may require some pre- or post-processing.
 This section presents a couple of examples using \prog{R}\footnote{\url{https://www.r-project.org/}}.
 These examples are distributed in the directory \prog{scripts/}.
 
-\subsection*{Model selection with Bonferroni correction}
+\subsection*{Model selection with Bonferroni correction\label{model-selection-R}}
 
 When performing model selection with the options \prog{SIGNIF} or \prog{BEST}, \smb\ applies the Bonferroni correction to the provided $p$-value threshold.
 Models with $p$-values lower than this corrected threshold for both the G and Wald statistics are retained as significant.
