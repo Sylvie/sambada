@@ -757,6 +757,37 @@ If enabled, these models are saved in a separate file with the suffix \enquote{-
 \end{minipage}%
 \bigskip
 
+\subsubsection*{Population structure}
+
+\par\smallskip\noindent\parbox
+{4cm}{\raggedright
+\texttt{\large POPULATIONVAR}}%
+\parbox{\dimexpr .5\textwidth - 4cm}
+{\ifthenelse{\equal{O}{M}}{Mandatory}{Optional}}
+\parbox{.25\textwidth}
+{\centering \emph{1 value, see descr.}}%
+\parbox{.25\textwidth}
+{\raggedleft\texttt{NONE}}
+\par\smallskip\noindent\hspace{\dimexpr 2.5cm }
+\begin{minipage}{\dimexpr\textwidth - 2.5cm }
+This option indicates whether any explanatory variables represent the population structure. 
+If present, the said population variables must be gathered in the input file, either on the left or on the right side of the group of environmental variables. \\
+Please refer to section \ref{sec:prior-knowledge} for more information on including prior knowledge in multivariate models. \\
+\begin{tikzpicture}[ remember picture]
+\matrix (mlog) [matrix of nodes,column 1/.style={anchor=west, text width=2.5cm}, column 2/.style={anchor=west, text width={\textwidth - 2.5cm}}, ampersand replacement=\&, inner xsep=0pt] 
+{
+	FIRST  \& population variables are on the left of the environmental variables in the input file,  \\
+	LAST   \& population variables are on the right of the environmental variables in the input file, \\
+	NONE  \& disables the feature. \\
+};
+\end{tikzpicture}
+\begin{tikzpicture}[node distance=2mm, remember picture,overlay, decoration={brace,amplitude=0.2cm,mirror}]
+  \path [draw, decorate,gray]
+        (mlog-1-1.north -| mlog.west) --   coordinate (mlog)  (mlog-3-1.south -| mlog.west); 
+        \node[color=gray, left=of mlog]{1};
+\end{tikzpicture}
+\end{minipage}%
+\bigskip
 
 \subsubsection*{Spatial autocorrelation}
 
