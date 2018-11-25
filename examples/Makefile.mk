@@ -28,6 +28,12 @@
 ## Examples ##
 
 example_files = \
+	examples/analysis-with-population-structure/cattle-pop-env-first.csv \
+	examples/analysis-with-population-structure/cattle-pop-env-last.csv \
+	examples/analysis-with-population-structure/cattle-pop-mark.txt \
+	examples/analysis-with-population-structure/param-pop-first.txt \
+	examples/analysis-with-population-structure/param-pop-last.txt \
+	examples/analysis-with-population-structure/ReadMe.txt \
 	examples/data-from-manual/one-data-file/combo-data.txt \
 	examples/data-from-manual/one-data-file/param-combo-a.txt \
 	examples/data-from-manual/one-data-file/param-combo-b.txt \
