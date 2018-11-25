@@ -1,4 +1,6 @@
-Release 0.7.0 (2018-11-24)
+Release 0.7.0 (2018-11-26)
+New feature:
+- Added the parameter POPULATIONVAR, which enables including the population structure into the analysis in a semi-automated way.
 Bug fix:
 - Fixed an error in the computation of Efron's coefficient in case there were missing (molecular or environmental) values.
 
