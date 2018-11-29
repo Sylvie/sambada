@@ -36,6 +36,9 @@ int main(int argc, char *argv[])
 {
 	RegressionLogistique logitModel;
 
+	cout << "sizeof(bool): " << sizeof(bool) << ", sizeof(double): "<< sizeof(double)
+		 << ", sizeof(long double): " << sizeof(long double) << ", sizeof(reel): "<< sizeof(reel) << endl;
+
 	//cout << numeric_limits < double >::max() << " " << log(numeric_limits < double >::max()/2) << endl;
 	//cout << numeric_limits < long double >::max() << " " << log(numeric_limits < long double >::max()/2) << endl;
 
@@ -64,6 +67,8 @@ int main(int argc, char *argv[])
 	//logitModel.ecritResultats("ResultatsRegression.txt");
 
 	time_t temps_stop(time(NULL));
+
+
 
 	logitModel.ecritMessage("Writing of results : " + toolbox::toString(difftime(temps_stop, temps_fin_calculs)) + " s.");
 	logitModel.terminaison();
