@@ -9,6 +9,8 @@ matrix:
       apt:
         sources:
         - ubuntu-toolchain-r-test
+        packages:
+        - g++-7
     env:
       - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=ubuntu
@@ -24,7 +26,7 @@ matrix:
         packages:
         - g++-7
     install:
-    - source ./manual/texlive-ubuntu.sh
+      - source ./manual/texlive-ubuntu.sh
     cache:
       directories:
       - "/tmp/texlive"
