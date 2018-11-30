@@ -106,7 +106,7 @@ DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 REPOCLEANFILES = $(addprefix $(srcdir)/, aclocal.m4 compile configure config.guess config.sub depcomp install-sh Makefile.in missing)
 
-gcov_filename_suffixes: **/*.gcov **/*.gcno **/*.gcda
+gcov_filename_suffixe = **/*.gcov **/*.gcno **/*.gcda
 
 clean-local: clean-local-src clean-local-test clean-local-manual
 
