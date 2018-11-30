@@ -14,3 +14,7 @@ test_integration_utils_libSambadaIntegrationTestUtils_a_SOURCES += test/integrat
 else
 test_integration_utils_libSambadaIntegrationTestUtils_a_SOURCES += test/integration/utils/SambadaIntegrationTestUtilsUnix.cpp
 endif
+
+## Cleaning ##
+clean-local-test-integration-utils:
+	$(RM) -rf $(gcov_filename_suffixes)
