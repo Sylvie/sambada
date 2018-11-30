@@ -101,7 +101,7 @@ binary-archive: all pdf create-archive-folder
 ## Cleaning ##
 
 MOSTLYCLEANFILES =
-CLEANFILES =
+CLEANFILES = **/*.gcno **/*.gcda
 DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 REPOCLEANFILES = $(addprefix $(srcdir)/, aclocal.m4 compile configure config.guess config.sub depcomp install-sh Makefile.in missing)
