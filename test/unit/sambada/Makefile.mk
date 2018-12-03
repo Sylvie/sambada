@@ -21,5 +21,5 @@ check-local-test-unit-sambada: ${sambada_unit_tests}
 
 ## Cleaning ##
 clean-local-test-unit-sambada:
-	$(RM) -rf $(addsuffix .dSYM , $(sambada_unit_tests)) *.gcno *.gcda
+	$(call clean_extra_generated_files, "test/unit/sambada/")
 

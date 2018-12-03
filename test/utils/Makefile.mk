@@ -12,4 +12,4 @@ test_utils_libSambadaTestUtils_a_CPPFLAGS = -I $(top_srcdir)/test/utils/
 
 ## Cleaning ##
 clean-local-test-utils:
-	$(call clean_extra_generated_files, $(test_utils_libSambadaTestUtils_a_SOURCES))
+	$(call clean_extra_generated_files, "test/utils/")

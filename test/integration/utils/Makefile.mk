@@ -17,4 +17,4 @@ endif
 
 ## Cleaning ##
 clean-local-test-integration-utils:
-	$(call clean_extra_generated_files, $(test_integration_utils_libSambadaIntegrationTestUtils_a_SOURCES))
+	$(call clean_extra_generated_files, "test/integration/utils/")
