@@ -17,4 +17,4 @@ endif
 
 ## Cleaning ##
 clean-local-test-integration-utils:
-	$(call clean_extra_generated_files, "test/integration/utils/")
+	$(call clean_extra_generated_files, test/integration/utils/**/)
