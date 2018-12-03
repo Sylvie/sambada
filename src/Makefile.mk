@@ -117,5 +117,4 @@ binary-archive-local-binaries: $(sambada_binaries) create-archive-binaries-folde
 
 ## Cleaning ##
 clean-local-src:
-	$(RM) -rf $(addsuffix .dSYM , $(sambada_binaries))
-	$(RM) $(gcov_filename_suffixes)
+	$(call clean_extra_files, $(binaries_sambada_SOURCES))

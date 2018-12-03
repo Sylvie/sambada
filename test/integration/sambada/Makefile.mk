@@ -28,5 +28,4 @@ check-local-test-integration-sambada: ${sambada_integration_tests}
 
 ## Cleaning ##
 clean-local-test-integration-sambada:
-	 $(RM) -rf $(addsuffix .dSYM , $(sambada_integration_tests))
-	 $(RM) $(gcov_filename_suffixes)
+	$(call clean_extra_files, $(test_integration_SambadaIntegrationTests_SOURCES))

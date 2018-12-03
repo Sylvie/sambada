@@ -12,4 +12,4 @@ test_utils_libSambadaTestUtils_a_CPPFLAGS = -I $(top_srcdir)/test/utils/
 
 ## Cleaning ##
 clean-local-test-utils:
-	 $(RM) -rf $(gcov_filename_suffixes)
+	$(call clean_extra_files, $(test_utils_libSambadaTestUtils_a_SOURCES))

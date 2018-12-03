@@ -17,4 +17,4 @@ endif
 
 ## Cleaning ##
 clean-local-test-integration-utils:
-	$(RM) -rf $(gcov_filename_suffixes)
+	$(call clean_extra_files, $(test_integration_utils_libSambadaIntegrationTestUtils_a_SOURCES))

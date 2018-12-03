@@ -114,3 +114,8 @@ distclean-local: distclean-local-manual
 
 repo-clean: maintainer-clean
 	rm -rf $(REPOCLEANFILES)
+
+define clean_extra_files
+    suffixes := .dSYM $(gcov_filename_suffixes)
+    $(foreach suffixe, $(suffixes), $(RM) -rf $(addsuffix $(suffixe) , $(1)))
+endef
