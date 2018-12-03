@@ -13,7 +13,7 @@ export PATH=$PATH:"/usr/local/texlive/2018basic/bin/x86_64-darwin"
 if ! command -v latexmk > /dev/null; then
 
 # Obtain BasicTeX
-wget http://www.pirbot.com/mirrors/ctan/systems/mac/mactex/mactex-basictex-20180417.pkg -O BasicTeX.pkg
+wget http://mirror.ox.ac.uk/sites/ctan.org/systems/mac/mactex/mactex-basictex-20180417.pkg -O BasicTeX.pkg
 
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
@@ -26,7 +26,7 @@ mkdir -p /Users/travis/Library/texlive/2018basic/texmf-config/tlmgr/
 sudo tlmgr conf tlmgr persistent-downloads 0
 
 # Setting a fixed repository
-sudo tlmgr option repository http://www.pirbot.com/mirrors/ctan/systems/texlive/tlnet/
+sudo tlmgr option repository http://mirror.ox.ac.uk/sites/ctan.org/systems/texlive/tlnet/
 
 # Updating the installation
 sudo tlmgr update --self --all
