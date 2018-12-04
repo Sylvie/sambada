@@ -22,5 +22,6 @@ if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
     cd ..
     ls -R
 else
-    echo "TODO: measuring code coverage"
+    pwd
+    source ./scripts-ci/travis-gcov.sh
 fi
