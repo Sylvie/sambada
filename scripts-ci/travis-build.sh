@@ -23,5 +23,5 @@ if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
     ls -R
 else
     pwd
-    source ./scripts-ci/travis-gcov.sh
+    source ${TRAVIS_BUILD_DIR}/scripts-ci/travis-gcov.sh
 fi
