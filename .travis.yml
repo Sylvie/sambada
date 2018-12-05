@@ -12,7 +12,7 @@ matrix:
         packages:
         - g++-7
     env:
-      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && GCOV=gcov-7"
       - SAMBADA_OS_NAME=ubuntu
       - SAMBADA_BUILD_TYPE=CODE_COVERAGE
       - CXXFLAGS="-std=c++11 -Wall --coverage"
@@ -56,11 +56,14 @@ matrix:
         - "/usr/texbin/"
         - "/Library/TeX/"
         - "/Library/PreferencePanes/"
+
 before_install:
   - eval "${MATRIX_EVAL}"
 git:
   depth: 100
+before_script: ./scripts-ci/travis-before-script.sh
 script: ./scripts-ci/travis-build.sh
+after_script: ./scripts-ci/travis-after-script.sh
 
 after_failure:
   - cat test-suite-results.log
