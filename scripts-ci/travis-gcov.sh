@@ -5,4 +5,5 @@ pwd
 whoami
 ls -l ../src
 ls -l src/
+echo ${GCOV}
 ${GCOV} ../src/Archiviste.cpp src/binaries_sambada-Archiviste.o
