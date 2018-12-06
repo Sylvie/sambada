@@ -12,7 +12,7 @@ matrix:
         packages:
         - g++-7
     env:
-      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && GCOV=gcov-7"
+      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && export GCOV=gcov-7"
       - SAMBADA_OS_NAME=ubuntu
       - SAMBADA_BUILD_TYPE=CODE_COVERAGE
       - CXXFLAGS="-std=c++11 -Wall --coverage"
