@@ -5,7 +5,7 @@ if [ "${SAMBADA_BUILD_TYPE}" = "CODE_COVERAGE" ]; then
     cd build
     ls -l
     ./cc-test-reporter format-coverage -d \
-        --add-prefix "/home/travis/build/Sylvie/sambada/build/"
+        --prefix "/home/travis/build/Sylvie/sambada/build/"
     cat coverage/codeclimate.json
     ./cc-test-reporter upload-coverage -d
 fi
