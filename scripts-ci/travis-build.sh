@@ -4,7 +4,6 @@ autoreconf -i
 echo $CC $CXX
 ${CC} -v; ${CXX} -v
 sambada_version=$(./git-version-gen .version)
-mkdir build
 cd build
 ../configure sambadahostsystemname=${SAMBADA_OS_NAME}
 cat config.log
