@@ -17,6 +17,7 @@ matrix:
       - SAMBADA_BUILD_TYPE=CODE_COVERAGE
       - CXXFLAGS="-std=c++11 -Wall --coverage"
       - LDFLAGS=-static
+      - CC_TEST_REPORTER_ID=a255dacf87a9616a60330b2959945e4e670e0857056d34dae0a9408bf54103c0
   - os: linux
     compiler: gcc
     addons:
