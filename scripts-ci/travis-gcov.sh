@@ -6,4 +6,4 @@ whoami
 ls -l ../src
 ls -l src/
 echo ${GCOV}
-${GCOV} -r ${TRAVIS_BUILD_DIR}/src/Archiviste.cpp src/binaries_sambada-Archiviste.o
+${GCOV} -r ${TRAVIS_BUILD_DIR}/src/Archiviste.cpp -o src/binaries_sambada-Archiviste.o
