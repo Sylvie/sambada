@@ -4,8 +4,10 @@ if [ "${SAMBADA_BUILD_TYPE}" = "CODE_COVERAGE" ]; then
     pwd
     cd build
     ls -l
-    ../cc-test-reporter after-build      \
+    ../cc-test-reporter format-coverage \
         --exit-code $TRAVIS_TEST_RESULT \
-        -p "/home/travis/build/Sylvie/sambada/build/" \
-        -t gcov
+        -t gcov \
+        -d
+    cat coverage/codeclimate.json
+    ../cc-test-reporter upload-coverage -d
 fi
