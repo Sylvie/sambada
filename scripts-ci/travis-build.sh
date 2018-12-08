@@ -29,4 +29,5 @@ if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
 else
     pwd
     source ${TRAVIS_BUILD_DIR}/scripts-ci/travis-gcov.sh
+    sonar-scanner -X -Dproject.settings=../sonar-project.properties
 fi
