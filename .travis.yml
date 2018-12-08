@@ -13,8 +13,8 @@ matrix:
         - g++-7
       - sonarcloud:
         organization: "sylvie-github" # the key of the org you chose at step #3
-          token:
-            secure: ${SONAR_TOKEN} # encrypted value of your token
+        token:
+          secure: ${SONAR_TOKEN} # encrypted value of your token
     env:
       - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && export GCOV=gcov-7"
       - SAMBADA_OS_NAME=ubuntu
