@@ -12,7 +12,7 @@ make pdf
 if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
     make
 else
-    build-wrapper --out-dir bw-outputs make
+    build-wrapper-linux-x86-64 --out-dir bw-outputs make
 fi
 make check
 cp test-suite.log ../test-suite-results.log
