@@ -66,9 +66,7 @@ before_install:
   - eval "${MATRIX_EVAL}"
 git:
   depth: 100
-before_script: ./scripts-ci/travis-before-script.sh
 script: ./scripts-ci/travis-build.sh
-after_script: ./scripts-ci/travis-after-script.sh
 
 after_failure:
   - cat test-suite-results.log
