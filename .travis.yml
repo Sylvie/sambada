@@ -6,12 +6,12 @@ matrix:
   - os: linux
     compiler: gcc
     addons:
-      - apt:
+      apt:
         sources:
         - ubuntu-toolchain-r-test
         packages:
         - g++-7
-      - sonarcloud:
+      sonarcloud:
         organization: "sylvie-github" # the key of the org you chose at step #3
         token:
           secure: ${SONAR_TOKEN} # encrypted value of your token
