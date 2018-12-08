@@ -9,7 +9,11 @@ cd build
 ../configure sambadahostsystemname=${SAMBADA_OS_NAME}
 cat config.log
 make pdf
-make
+if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
+    make
+else
+    build-wrapper --out-dir bw-outputs make
+fi
 make check
 cp test-suite.log ../test-suite-results.log
 if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
