@@ -13,6 +13,7 @@ if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
     make
 else
     build-wrapper-linux-x86-64 --out-dir bw-outputs make
+    ls bw-outputs
 fi
 make check
 cp test-suite.log ../test-suite-results.log
