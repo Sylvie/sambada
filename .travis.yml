@@ -71,6 +71,9 @@ script: ./scripts-ci/travis-build.sh
 after_failure:
   - cat test-suite-results.log
 
+before_deploy:
+  - sambada_version=$(./git-version-gen .version)
+
 deploy:
   provider: releases
   api_key:
