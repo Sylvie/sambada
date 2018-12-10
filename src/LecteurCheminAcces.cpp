@@ -109,7 +109,6 @@ std::string LecteurCheminAcces::getSeparateurCheminSysteme() const {
     std::string separateur(getSeparateurCheminStandard());
     std::string separateurSysteme("");
 #ifdef sambada_folder_separator
-    std::cout << "Separateur: ==" << sambada_folder_separator << "==" << std::endl;
     separateurSysteme = sambada_folder_separator;
 #endif
     if (separateurSysteme.size() > 0)
