@@ -33,7 +33,7 @@ build_script:
   - bash -c "autoreconf -i"
   - mkdir build
   - cd build
-  - bash -c "../configure sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 LDFLAGS=-static --disable-manual"
+  - bash -c "../configure sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 CXXFLAGS="-O2" LDFLAGS=-static --disable-manual"
   - make pdf
   - make.exe
   - ls -R binaries
@@ -51,7 +51,7 @@ test_script:
   - cp test-suite.log ../test-suite-results.log
   - ls -R
   - make.exe clean
-  - make.exe DISTCHECK_CONFIGURE_FLAGS="sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 LDFLAGS=-static  --disable-manual" distcheck DIST_TARGETS=dist-gzip
+  - make.exe DISTCHECK_CONFIGURE_FLAGS="sambadahostsystemname=%PLATFORM% --host=x86_64-w64-mingw32 CXXFLAGS=-O2 LDFLAGS=-static  --disable-manual" distcheck DIST_TARGETS=dist-gzip
 
 #---------------------------------#
 #      artifacts configuration    #

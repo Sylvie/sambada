@@ -11,8 +11,27 @@ matrix:
         - ubuntu-toolchain-r-test
         packages:
         - g++-7
+      sonarcloud:
+        organization: "sylvie-github" # the key of the org you chose at step #3
+        token:
+          secure: ${SONAR_TOKEN} # encrypted value of your token
+    env:
+      - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && export GCOV=gcov-7"
+      - SAMBADA_OS_NAME=ubuntu
+      - SAMBADA_BUILD_TYPE=CODE_COVERAGE
+      - CXXFLAGS="-std=c++11 -Wall -O0 --coverage"
+      - LDFLAGS=-static
+      - CC_TEST_REPORTER_ID=a255dacf87a9616a60330b2959945e4e670e0857056d34dae0a9408bf54103c0
+  - os: linux
+    compiler: gcc
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-7
     install:
-    - source ./manual/texlive-ubuntu.sh
+      - source ./manual/texlive-ubuntu.sh
     cache:
       directories:
       - "/tmp/texlive"
@@ -20,6 +39,8 @@ matrix:
     env:
       - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=ubuntu
+      - SAMBADA_BUILD_TYPE=PACKAGE
+      - CXXFLAGS="-std=c++11 -Wall -O2"
       - LDFLAGS=-static
   - os: osx
     osx_image: xcode10.1
@@ -27,6 +48,8 @@ matrix:
     env:
       - MATRIX_EVAL="softwareupdate -l && sudo softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-9.4\" && brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
+      - SAMBADA_BUILD_TYPE=PACKAGE
+      - CXXFLAGS="-std=c++11 -Wall -O2"
     install:
       - source ./manual/basictex-osx.sh
       - ls -la /usr/local/texlive/
@@ -38,34 +61,18 @@ matrix:
         - "/usr/texbin/"
         - "/Library/TeX/"
         - "/Library/PreferencePanes/"
+
 before_install:
   - eval "${MATRIX_EVAL}"
 git:
   depth: 100
-script:
-  - autoreconf -i
-  - echo $CC $CXX
-  - ${CC} -v; ${CXX} -v
-  - sambada_version=$(./git-version-gen .version)
-  - mkdir build
-  - cd build
-  - ../configure CXXFLAGS="-std=c++11" sambadahostsystemname=${SAMBADA_OS_NAME}
-  - cat config.log
-  - make pdf
-  - make
-  - make check
-  - cp test-suite.log ../test-suite-results.log
-  - binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
-  - ls -R
-  - make clean
-  - make distcheck CXXFLAGS="-std=c++11" sambadahostsystemname=${SAMBADA_OS_NAME}
-  - ls -R
-  - make binary-archive
-  - cd ..
-  - ls -R
+script: ./scripts-ci/travis-build.sh
 
 after_failure:
   - cat test-suite-results.log
+
+before_deploy:
+  - sambada_version=$(./git-version-gen .version)
 
 deploy:
   provider: releases
@@ -81,3 +88,4 @@ deploy:
   on:
     repo: Sylvie/sambada
     tags: true
+    condition: ${SAMBADA_BUILD_TYPE} = PACKAGE

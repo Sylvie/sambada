@@ -117,4 +117,4 @@ binary-archive-local-binaries: $(sambada_binaries) create-archive-binaries-folde
 
 ## Cleaning ##
 clean-local-src:
-	 $(RM) -rf $(addsuffix .dSYM , $(sambada_binaries))
+	$(call clean_extra_generated_files, src/)

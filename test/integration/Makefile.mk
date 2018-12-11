@@ -6,4 +6,4 @@ include test/integration/sambada/Makefile.mk
 check-local-test-integration: check-local-test-integration-sambada
 
 ## Cleaning ##
-clean-local-test-integration: clean-local-test-integration-sambada
+clean-local-test-integration: clean-local-test-integration-sambada clean-local-test-integration-utils

@@ -8,4 +8,4 @@ include test/unit/Makefile.mk
 check-local-test: check-local-test-integration check-local-test-unit
 
 ## Cleaning ##
-clean-local-test: clean-local-test-integration clean-local-test-unit
+clean-local-test: clean-local-test-integration clean-local-test-unit clean-local-test-utils
