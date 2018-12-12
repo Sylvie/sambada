@@ -1,3 +1,10 @@
+Release 0.7.1 (2018-12-12)
+Bug fix:
+- Reactivated compiler optimisation (GCC level -O2), which reduces computation times.
+  This option was missing for releases 0.6.x and 0.7.0 on Ubuntu and macOS.
+Change of tooling:
+- Introduction of code coverage reports with gcov and Sonar.
+
 Release 0.7.0 (2018-11-26)
 New feature:
 - Added the parameter POPULATIONVAR, which enables including the population structure into the analysis in a semi-automated way.
