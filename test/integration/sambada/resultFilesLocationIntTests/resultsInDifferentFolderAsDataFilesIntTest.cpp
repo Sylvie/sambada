@@ -24,6 +24,8 @@ SCENARIO("Test that result files are writen in a different folder than the molec
         std::string fileNameOut1(pathToOutputFolder + "choice-mark-cattle-Out-1.txt");
         std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
 
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameLogs});
+
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/resultFilesLocationIntTests/");
         std::string fileNameParam(pathToInputFolder + "param-with-outputfile-setting.txt");
         std::string fileNameEnv(pathToInputFolder + "choice-env-cattle.csv");
@@ -82,9 +84,7 @@ SCENARIO("Test that result files are writen in a different folder than the molec
                 lecteurOut1.close();
             }
 
-            std::remove(fileNameOut0.c_str());
-            std::remove(fileNameOut1.c_str());
-            std::remove(fileNameLogs.c_str());
+            SambadaIntegrationTestUtils::removeFiles(outputFileNames);
 
             std::remove(pathToOutputFolder.c_str());
         }

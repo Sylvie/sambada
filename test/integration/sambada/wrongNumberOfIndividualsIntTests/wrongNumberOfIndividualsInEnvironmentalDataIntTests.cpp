@@ -46,8 +46,6 @@ SCENARIO("Test that wrong number of individuals in environmental data is detecte
                 CHECK(output.find("Incorrect number of points, too many lines in environmental data file.") !=
                       std::string::npos);
             }
-
-            std::remove(fileNameLogs.c_str());
         }
 
         WHEN("Sambada is run using the environmental file with too few individuals")
@@ -62,8 +60,6 @@ SCENARIO("Test that wrong number of individuals in environmental data is detecte
                         "Incorrect number of points. Environmental file contains 776 samples, while there should be 777.") !=
                       std::string::npos);
             }
-
-            std::remove(fileNameLogs.c_str());
         }
 
         WHEN("Sambada is run using the environmental file with too many individuals and no new line at end of file")
@@ -77,8 +73,6 @@ SCENARIO("Test that wrong number of individuals in environmental data is detecte
                 CHECK(output.find("Incorrect number of points, too many lines in environmental data file.") !=
                       std::string::npos);
             }
-
-            std::remove(fileNameLogs.c_str());
         }
 
         WHEN("Sambada is run using the environmental file with too few individuals and no new line at end of file")
@@ -93,9 +87,9 @@ SCENARIO("Test that wrong number of individuals in environmental data is detecte
                         "Incorrect number of points. Environmental file contains 776 samples, while there should be 777.") !=
                       std::string::npos);
             }
-
-            std::remove(fileNameLogs.c_str());
         }
+
+        std::remove(fileNameLogs.c_str());
     }
 }
 

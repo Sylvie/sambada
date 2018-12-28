@@ -24,6 +24,8 @@ SCENARIO("Test that result files are writen in a different folder than the uniqu
         std::string fileNameOut1(pathToOutputFolder + "choice-data-cattle-Out-1.txt");
         std::string fileNameLogs(pathToOutputFolder + "choice-data-cattle-log.txt");
 
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameLogs});
+
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/resultFilesLocationIntTests/");
         std::string fileNameParam(pathToInputFolder + "param-with-outputfile-setting-unique-data-file.txt");
         std::string fileNameData(pathToInputFolder + "choice-data-cattle.csv");
@@ -81,9 +83,7 @@ SCENARIO("Test that result files are writen in a different folder than the uniqu
                 lecteurOut1.close();
             }
 
-            std::remove(fileNameOut0.c_str());
-            std::remove(fileNameOut1.c_str());
-            std::remove(fileNameLogs.c_str());
+            SambadaIntegrationTestUtils::removeFiles(outputFileNames);
 
             std::remove(pathToOutputFolder.c_str());
         }
