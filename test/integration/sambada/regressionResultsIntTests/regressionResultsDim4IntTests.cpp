@@ -48,6 +48,8 @@ SCENARIO("Test that regression results are correct for models of dimension 4", "
         lecteurCorrige.close();
         expectedResults.verifieTailles(true, 4, 75);
 
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
         WHEN("the program is run")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);

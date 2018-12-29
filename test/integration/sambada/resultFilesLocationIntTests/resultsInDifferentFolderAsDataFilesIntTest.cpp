@@ -48,6 +48,8 @@ SCENARIO("Test that result files are writen in a different folder than the molec
         lecteurCorrige.close();
         expectedResults.verifieTailles(true, 1, 30);
 
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
         WHEN("the program is run")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);

@@ -52,6 +52,8 @@ SCENARIO("Test that regression results are correct when there are no new lines a
         lecteurCorrige.close();
         expectedResults.verifieTailles(true, 1, 30);
 
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
         WHEN("Sambada is run using the input files with new lines at the end")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(

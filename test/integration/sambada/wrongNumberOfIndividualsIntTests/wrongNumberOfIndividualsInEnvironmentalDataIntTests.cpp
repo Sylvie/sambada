@@ -35,6 +35,8 @@ SCENARIO("Test that wrong number of individuals in environmental data is detecte
 
         std::string fileNameMark(pathToInputFolder + "choice-mark-cattle.txt");
 
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist({fileNameLogs}));
+
         WHEN("Sambada is run using the environmental file with too many individuals")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(
