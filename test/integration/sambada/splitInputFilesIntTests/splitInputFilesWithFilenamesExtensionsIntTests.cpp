@@ -81,6 +81,8 @@ SCENARIO(
         std::string fileNameLogsFirstBatch(pathToOutputFolder + "choice-mark-cattle-mark-0-0-log.txt");
         std::string fileNameLogsSecondBatch(pathToOutputFolder + "choice-mark-cattle-mark-1-3-log.txt");
 
+        std::vector<std::string> outputFileNames({fileNameOut0FirstBatch, fileNameOut0SecondBatch, fileNameOut1FirstBatch, fileNameOut1SecondBatch, fileNameLogsFirstBatch, fileNameLogsSecondBatch});
+
         // Output files without extensions
 
         std::string fileNameOut0FirstBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-0-0-Out-0");
@@ -91,6 +93,8 @@ SCENARIO(
 
         std::string fileNameLogsFirstBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-0-0-log");
         std::string fileNameLogsSecondBatchOutputFileNoExt(pathToOutputFolder + "choice-mark-cattle-mark-1-3-log");
+
+        outputFileNames.insert(outputFileNames.end(), {fileNameOut0FirstBatchOutputFileNoExt, fileNameOut0SecondBatchOutputFileNoExt, fileNameOut1FirstBatchOutputFileNoExt, fileNameOut1SecondBatchOutputFileNoExt, fileNameLogsFirstBatchOutputFileNoExt, fileNameLogsSecondBatchOutputFileNoExt});
 
         // Testing with param outputfile with extension
 
@@ -110,6 +114,10 @@ SCENARIO(
 
         std::string fileNameMarkFirstBatchNoOutputFile(pathToOutputFolder + "choice-mark-cattle-mark-0-0.txt");
         std::string fileNameMarkSecondBatchNoOutputFile(pathToOutputFolder + "choice-mark-cattle-mark-1-3.txt");
+
+        outputFileNames.insert(outputFileNames.end(), {fileNameMarkFirstBatchNoOutputFile, fileNameMarkSecondBatchNoOutputFile});
+
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
         WHEN("Sambada runs the first batch of analyses using outputfile param with extension")
         {
@@ -147,10 +155,6 @@ SCENARIO(
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsFirstBatch.c_str());
-                std::remove(fileNameOut0FirstBatch.c_str());
-                std::remove(fileNameOut1FirstBatch.c_str());
             }
         }
 
@@ -190,10 +194,6 @@ SCENARIO(
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsSecondBatch.c_str());
-                std::remove(fileNameOut0SecondBatch.c_str());
-                std::remove(fileNameOut1SecondBatch.c_str());
             }
         }
 
@@ -233,10 +233,6 @@ SCENARIO(
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsFirstBatchOutputFileNoExt.c_str());
-                std::remove(fileNameOut0FirstBatchOutputFileNoExt.c_str());
-                std::remove(fileNameOut1FirstBatchOutputFileNoExt.c_str());
             }
         }
 
@@ -276,10 +272,6 @@ SCENARIO(
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsSecondBatchOutputFileNoExt.c_str());
-                std::remove(fileNameOut0SecondBatchOutputFileNoExt.c_str());
-                std::remove(fileNameOut1SecondBatchOutputFileNoExt.c_str());
             }
         }
 
@@ -321,12 +313,6 @@ SCENARIO(
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsFirstBatch.c_str());
-                std::remove(fileNameOut0FirstBatch.c_str());
-                std::remove(fileNameOut1FirstBatch.c_str());
-
-                std::remove(fileNameMarkFirstBatchNoOutputFile.c_str());
             }
         }
 
@@ -368,14 +354,10 @@ SCENARIO(
 
                 lecteurOut0.close();
                 lecteurOut1.close();
-
-                std::remove(fileNameLogsSecondBatch.c_str());
-                std::remove(fileNameOut0SecondBatch.c_str());
-                std::remove(fileNameOut1SecondBatch.c_str());
-
-                std::remove(fileNameMarkSecondBatchNoOutputFile.c_str());
             }
         }
+
+        SambadaIntegrationTestUtils::removeFiles(outputFileNames);
     }
 }
 
