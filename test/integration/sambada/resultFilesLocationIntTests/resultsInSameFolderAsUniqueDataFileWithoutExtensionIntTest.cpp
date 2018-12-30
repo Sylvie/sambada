@@ -44,7 +44,7 @@ SCENARIO("Test that result files are writen in the same folder as the unique dat
         fs::path pathParam(fileNameParam.c_str());
         fs::path pathData(fileNameData.c_str());
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameLogs, pathParam, pathData});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameLogs, fileNameParam, fileNameData});
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 

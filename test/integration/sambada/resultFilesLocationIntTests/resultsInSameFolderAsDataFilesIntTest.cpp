@@ -65,7 +65,7 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         fs::path pathMark(fileNameMark.c_str());
         fs::path pathMarkWithoutLeadingDot(fileNameMarkWithoutLeadingDot.c_str());
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameLogs, pathParam, pathEnv, pathMark});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameLogs, fileNameParam, fileNameEnv, fileNameMark});
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
