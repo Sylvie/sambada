@@ -19,7 +19,7 @@ matrix:
       - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && export GCOV=gcov-7"
       - SAMBADA_OS_NAME=ubuntu
       - SAMBADA_BUILD_TYPE=CODE_COVERAGE
-      - CXXFLAGS="-std=c++11 -Wall -O0 --coverage"
+      - CXXFLAGS="-Wall -O0 --coverage"
       - LDFLAGS=-static
       - CC_TEST_REPORTER_ID=a255dacf87a9616a60330b2959945e4e670e0857056d34dae0a9408bf54103c0
   - os: linux
@@ -40,7 +40,7 @@ matrix:
       - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=ubuntu
       - SAMBADA_BUILD_TYPE=PACKAGE
-      - CXXFLAGS="-std=c++11 -Wall -O2"
+      - CXXFLAGS="-Wall -O2"
       - LDFLAGS=-static
   - os: osx
     osx_image: xcode10.1
@@ -49,7 +49,7 @@ matrix:
       - MATRIX_EVAL="softwareupdate -l && sudo softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-9.4\" && brew install gcc@7 && CC=gcc-7 && CXX=g++-7"
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
       - SAMBADA_BUILD_TYPE=PACKAGE
-      - CXXFLAGS="-std=c++11 -Wall -O2"
+      - CXXFLAGS="-Wall -O2"
     install:
       - source ./manual/basictex-osx.sh
       - ls -la /usr/local/texlive/
