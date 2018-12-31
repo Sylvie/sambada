@@ -38,7 +38,7 @@ sambada_releasedate=m4_esyscmd([./git-releasedate-gen .tarball-releasedate])
 AC_SUBST(sambada_releasedate)
 
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+AX_CXX_COMPILE_STDCXX_11([ext], [mandatory])
 AC_PROG_CC
 AC_PROG_RANLIB
 
