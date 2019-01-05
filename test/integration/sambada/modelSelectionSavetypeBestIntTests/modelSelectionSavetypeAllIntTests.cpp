@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that significant models are correctly selected with option \"SAVETYPE ALL\"",
-         "[model-selection-with-savetype-best-all]") {
+         "[model-selection-with-savetype-best-all-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
