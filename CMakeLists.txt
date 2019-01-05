@@ -131,6 +131,8 @@ set(TestUtils
         ${CatchSources}
         test/utils/SambadaRegressionResults.h
         test/utils/SambadaRegressionResults.cpp
+        test/utils/SambadaSpatialAutocorrelationResults.h
+        test/utils/SambadaSpatialAutocorrelationResults.cpp
         )
 
 set(IntegrationTestUtils
@@ -155,6 +157,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsFirstVariablesIntTests.cpp
         test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsLastVariablesIntTests.cpp
         test/integration/sambada/basicPopulationStructureIntTests/populationStructureWithSavetypeBestIntTests.cpp
+        test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationIntTests.cpp
         test/integration/sambada/modelSelectionSavetypeBestIntTests/modelSelectionSavetypeAllIntTests.cpp
         test/integration/sambada/modelSelectionSavetypeBestIntTests/modelSelectionSavetypeBestIntTests.cpp
         test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesIntTests.cpp
@@ -187,6 +190,7 @@ target_link_libraries(SambadaIntegrationTests -lstdc++fs)
 
 file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/basicSpatialAutocorrelationIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/modelSelectionSavetypeBestIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noExtensionsToFilenamesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noNewLinesEndOfFilesIntTests/"

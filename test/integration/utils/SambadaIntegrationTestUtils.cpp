@@ -87,6 +87,11 @@ SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std:
     return results;
 }
 
+SambadaSpatialAutocorrelationResults SambadaIntegrationTestUtils::readSpatialAutocorrelationResults(std::ifstream &lecteur, int nombreVariables)
+{
+    return SambadaSpatialAutocorrelationResults();
+}
+
 void SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(const std::string &inputFile, const std::string &outputFile) {
     fs::path pathInputFile(fs::path(inputFile.c_str()));
     fs::path pathOutputFile(fs::path(outputFile.c_str()));
