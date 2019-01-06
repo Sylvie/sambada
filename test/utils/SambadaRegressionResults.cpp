@@ -90,7 +90,7 @@ void SambadaRegressionResults::compare(const SambadaRegressionResults &autre) co
         }
     }
 
-    /* Etiquettes */
+    /* Valeurs */
     nombreModeles = valeurs.size();
     CHECKED_IF(nombreModeles == autre.valeurs.size())
     {
