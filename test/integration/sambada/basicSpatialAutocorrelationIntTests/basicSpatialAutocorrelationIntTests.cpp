@@ -90,7 +90,6 @@ SCENARIO("Test that spatial autocorrelation is computed correctly for a simple c
             THEN("the output files are found")
             {
                 INFO("Reading results AS Env");
-                INFO(fileNameOutASEnv);
                 std::ifstream lecteurOutASEnv(fileNameOutASEnv.c_str());
                 REQUIRE(lecteurOutASEnv.good());
                 REQUIRE(lecteurOutASEnv.is_open());
@@ -129,7 +128,7 @@ SCENARIO("Test that spatial autocorrelation is computed correctly for a simple c
 
                         INFO("Verifying results dim 1");
                         resultsASEnvPVal.verifieTailles(100, 2);
-                        resultsASEnvPVal.compare(expectedResultsASEnvPVal);
+                        resultsASEnvPVal.comparePValeurs(expectedResultsASEnvPVal);
 
                         INFO("Verifying results dim 2");
                         resultsASMark.verifieTailles(100, 1);
@@ -137,7 +136,7 @@ SCENARIO("Test that spatial autocorrelation is computed correctly for a simple c
 
                         INFO("Verifying results dim 3");
                         resultsASMarkPVal.verifieTailles(100, 1);
-                        resultsASMarkPVal.compare(expectedResultsASMarkPVal);
+                        resultsASMarkPVal.comparePValeurs(expectedResultsASMarkPVal);
                     }
                 }
 

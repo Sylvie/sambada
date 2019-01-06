@@ -16,12 +16,16 @@ public:
 
 	void compare(const SambadaSpatialAutocorrelationResults &autre) const;
 
+	void comparePValeurs(const SambadaSpatialAutocorrelationResults &autre) const;
+
 private:
 	void verifieTailleHeader(int nombreVariables) const;
 
 	std::string colleHeaders() const;
 
 	std::string colleChaines(const std::vector<std::string> &morceaux) const;
+
+	void compare(const SambadaSpatialAutocorrelationResults &autre, double marge) const;
 };
 
 
