@@ -14,12 +14,14 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/cattle-pop-env.csv \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/cattle-pop-mark.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/random-sample.txt \
-		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-cartesian-bisqure.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-cartesian-bisquare.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-cartesian-distance.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-cartesian-nearest.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-spherical-bisquare.txt \
-		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-random-sample-cartesian-gausian.txt \
-		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-random-sample-spherical-gausian.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-spherical-distance.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-spherical-nearest.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-random-sample-cartesian-gaussian.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/param-random-sample-spherical-gaussian.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-cartesian-bisquare-env.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-cartesian-bisquare-env-pval.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-cartesian-bisquare-mark.txt \
