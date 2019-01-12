@@ -175,6 +175,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationCartesianDistanceIntTests.cpp
         test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationCartesianGaussianIntTests.cpp
         test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationCartesianNearestIntTests.cpp
+        test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationSphericalBisquareIntTests.cpp
         test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationSphericalGaussianIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
