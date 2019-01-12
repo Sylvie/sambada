@@ -122,19 +122,19 @@ SCENARIO("Test that spatial autocorrelation is computed correctly for a simple c
 
                     THEN("the results match the expectations")
                     {
-                        INFO("Verifying results dim 0");
+                        INFO("Verifying results env");
                         resultsASEnv.verifieTailles(100, 2);
                         resultsASEnv.compare(expectedResultsASEnv);
 
-                        INFO("Verifying results dim 1");
+                        INFO("Verifying p-values env");
                         resultsASEnvPVal.verifieTailles(100, 2);
                         resultsASEnvPVal.comparePValeurs(expectedResultsASEnvPVal);
 
-                        INFO("Verifying results dim 2");
+                        INFO("Verifying results mark");
                         resultsASMark.verifieTailles(100, 1);
                         resultsASMark.compare(expectedResultsASMark);
 
-                        INFO("Verifying results dim 3");
+                        INFO("Verifying p-values mark");
                         resultsASMarkPVal.verifieTailles(100, 1);
                         resultsASMarkPVal.comparePValeurs(expectedResultsASMarkPVal);
                     }
