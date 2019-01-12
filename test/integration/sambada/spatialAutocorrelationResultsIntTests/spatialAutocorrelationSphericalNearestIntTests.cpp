@@ -87,7 +87,7 @@ SCENARIO("Test that spatial autocorrelation is computed correctly for spherical 
 
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParams + " " + fileNameEnv + " " + fileNameMark);
-            //INFO(output);
+            INFO(output);
 
             THEN("the output files are found")
             {
