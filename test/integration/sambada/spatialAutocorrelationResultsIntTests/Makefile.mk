@@ -6,7 +6,8 @@ test_integration_SambadaIntegrationTests_SOURCES += \
 		test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationCartesianNearestIntTests.cpp \
 		test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationSphericalBisquareIntTests.cpp \
 		test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationSphericalDistanceIntTests.cpp \
-		test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationSphericalGaussianIntTests.cpp
+		test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationSphericalGaussianIntTests.cpp \
+		test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationSphericalNearestIntTests.cpp
 
 
 EXTRA_DIST += \
@@ -46,4 +47,8 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-gaussian-env.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-gaussian-env-pval.txt \
 		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-gaussian-mark.txt \
-		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-gaussian-mark-pval.txt
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-gaussian-mark-pval.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-nearest-env.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-nearest-env-pval.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-nearest-mark.txt \
+		$(top_srcdir)/test/integration/sambada/spatialAutocorrelationResultsIntTests/expected-results-spherical-nearest-mark-pval.txt
