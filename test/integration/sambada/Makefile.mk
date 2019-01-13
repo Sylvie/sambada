@@ -14,6 +14,7 @@ test_integration_SambadaIntegrationTests_LDADD = \
 		-lstdc++fs
 
 include test/integration/sambada/basicPopulationStructureIntTests/Makefile.mk
+include test/integration/sambada/basicSpatialAutocorrelationIntTests/Makefile.mk
 include test/integration/sambada/modelSelectionSavetypeBestIntTests/Makefile.mk
 include test/integration/sambada/noExtensionsToFilenamesIntTests/Makefile.mk
 include test/integration/sambada/noNewLinesEndOfFilesIntTests/Makefile.mk
