@@ -52,7 +52,7 @@ delimLignes("\n")
 RegressionLogistique::~RegressionLogistique()
 {}
 
-bool RegressionLogistique::calculePonderation() throw(Erreur)
+void RegressionLogistique::calculePonderation() throw(Erreur)
 {
 	if (!analyseSpatiale)
 	{

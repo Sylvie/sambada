@@ -111,7 +111,7 @@ protected:
 	int calculeRegression(reel& loglikeCourante, reel& indiceEfron);
 	void calculeGWR(int numMarq,  const set<int> & varContinues,   resModele& resultat);
 
-	bool calculePonderation() throw(Erreur);
+	void calculePonderation() throw(Erreur);
 
 
 private:
