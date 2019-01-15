@@ -541,7 +541,7 @@ The option \texttt{IDINDIV} indicates which columns contain identifiers of indiv
 The next two lines address the measure of the spatial autocorrelation, with the coordinates names, which are spherical, the weighting scheme and the bandwidth; here the 20 nearest neighbours are taken into account.
 The analysis will include both global and local autocorrelation (\texttt{BOTH}) of molecular markers (\texttt{MARK}) and the significance will be assessed with 1,000 permutations.
 The next option means that the detection of selection signatures will rely on univariate models (\texttt{DIMMAX 1}).
-The last ligne indicates that results will be stored at the end of the process, that only significant models with a significant parent will be stored and that the threshold for significance is set to 1\% (before Bonferroni's correction).
+The last line indicates that results will be stored at the end of the process, that only significant models with a significant parent will be stored and that the threshold for significance is set to 1\% (before Bonferroni's correction).
 }
 \label{fig:fichier-param-general}
 \end{figure}
@@ -561,7 +561,7 @@ NUMMARK 8	\\
 NUMINDIV 6\\
 IDINDIV NAME\\
 DIMMAX 1\\
-SAVETYPE END ALL 0.01\\
+SAVETYPE END ALL\\
 \hline
 \end{tabular}%
 \caption{Parameter file to analyse data from fig. \ref{fig:envfile} and \ref{fig:molfile} (\texttt{param.txt}). 
@@ -586,7 +586,7 @@ NUMMARK 7	\\
 NUMINDIV 6\\
 IDINDIV NAME\\
 DIMMAX 1\\
-SAVETYPE END ALL 0.01\\
+SAVETYPE END ALL\\
 \hline
 \end{tabular}%
 \caption{Parameter file to analyse data from fig. \ref{fig:molenvfile} (\texttt{param-combo.txt}).
@@ -742,7 +742,10 @@ Please refer to section \ref{sec:prior-knowledge} for more information on includ
         (msave-3-1.north -| msave.west) -- coordinate (msave3) (msave-3-1.south -| msave.west);
                 \node[color=gray, left=of msave3]{3};
 \end{tikzpicture}
-Example: \prog{SAVETYPE END BEST 0.01}}
+ \begin{tabular}{ll}
+ Examples: & \prog{SAVETYPE END BEST 0.01} \\
+  & \prog{SAVETYPE END ALL} \\
+ \end{tabular}}
 
 \par\smallskip\noindent\parbox
 {4cm}{\raggedright
@@ -1201,7 +1204,7 @@ In the input file, the columns containing the \enquote{population variables} sho
 \begin{itemize}
 \item{\texttt{DIMMAX} $P+1$, e.g. \texttt{DIMMAX 3} if there are 2 \enquote{population variables};}
 \item{\texttt{POPULATIONVAR FIRST} (or \texttt{LAST}) if the \enquote{population variables} are placed on the left (or on the right) of the environmental variables in the input file;}
-\item{The option \texttt{SAVETYPE} should set to \texttt{ALL}, e.g. \texttt{SAVETYPE ALL END 0.01}.}
+\item{The option \texttt{SAVETYPE} should be set to \texttt{ALL}, e.g. \texttt{SAVETYPE END ALL}.}
 \end{itemize}
 The other options can be configured as usual.
 When selecting a subset of environmental variables with \texttt{SUBSETVARENV}, the selected \enquote{population variables} must also appear in the list.
@@ -1544,7 +1547,7 @@ NUMMARK 4 7	\\
 NUMINDIV 6\\
 COLSUPENV NAME\\
 DIMMAX 1\\
-SAVETYPE END ALL 0.01\\
+SAVETYPE END ALL\\
 \hline
 \end{tabular}%
 \caption{\texttt{param-a.txt}}
@@ -1562,7 +1565,7 @@ NUMMARK 3 7	\\
 NUMINDIV 6\\
 COLSUPENV NAME\\
 DIMMAX 1\\
-SAVETYPE END ALL 0.01\\
+SAVETYPE END ALL\\
 \hline
 \end{tabular}%
 \caption{\texttt{param-b.txt}}
@@ -1611,7 +1614,7 @@ NUMMARK 3 7	\\
 NUMINDIV 6\\
 COLSUPENV NAME\\
 DIMMAX 1\\
-SAVETYPE END ALL 0.01\\
+SAVETYPE END ALL\\
 \hline
 \end{tabular}%
 \caption{\texttt{param-combo-a.txt}}
@@ -1629,7 +1632,7 @@ NUMMARK 1 7	\\
 NUMINDIV 6\\
 COLSUPENV NAME\\
 DIMMAX 1\\
-SAVETYPE END ALL 0.01\\
+SAVETYPE END ALL\\
 \hline
 \end{tabular}%
 \caption{\texttt{param-combo-b.txt}}
