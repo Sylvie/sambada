@@ -36,7 +36,7 @@ void SambadaSpatialAutocorrelationResults::compare(const SambadaSpatialAutocorre
 
 void SambadaSpatialAutocorrelationResults::comparePValeurs(const SambadaSpatialAutocorrelationResults &autre) const
 {
-	this->compare(autre, 0.22);
+	this->compare(autre, 0.25);
 }
 
 void SambadaSpatialAutocorrelationResults::compare(const SambadaSpatialAutocorrelationResults &autre, double marge) const
