@@ -29,39 +29,40 @@
 #include "Toolbox.h"
 #include "distributions.h"
 #include <ctime>
+
 using namespace std;
 using namespace scythe;
 
-void toolbox::segmentationString(string ligne, vector<string>& resultat, const string& separateur, bool elimineEspaces)
+void toolbox::segmentationString(string ligne, vector<string> &resultat, const string &separateur, bool elimineEspaces)
 {
 	resultat.clear();
 	string dustbin, token, word;
 	int position(0), tailleSep(separateur.size());
-	cout << ligne <<  endl <<flush;
+	cout << ligne << endl << flush;
 	//cout << "£" << tailleSep << "£" <<separateur << "£"<< endl;
-	while(ligne.size()>0)
+	while (ligne.size() > 0)
 	{
 		position = ligne.find(separateur);
 		if (position == 0)
 		{
 			token = "";
 			ligne = ligne.substr(tailleSep);
-			cout << "*" << token <<"* *" << ligne << "*" << endl;
+			cout << "*" << token << "* *" << ligne << "*" << endl;
 
 		}
 		else if (position != std::string::npos)
 		{
 			token = ligne.substr(0, position);
-			ligne = ligne.substr(position+tailleSep);
-			cout << "=" << token <<"= =" << ligne << "=" << endl;
+			ligne = ligne.substr(position + tailleSep);
+			cout << "=" << token << "= =" << ligne << "=" << endl;
 		}
 		else
 		{
 			token = ligne;
 			enleveEspaces(token);
-			if (token==separateur)
+			if (token == separateur)
 			{
-				token ="";
+				token = "";
 			}
 			ligne = "";
 			//cout << "?1" << token <<"?2 ?3" << ligne << "?4 " << token.size() << endl << 'ç' << token << 'ç' << endl;
@@ -69,16 +70,16 @@ void toolbox::segmentationString(string ligne, vector<string>& resultat, const s
 		}
 		if (elimineEspaces)
 		{
-			while (token[0]==' ')
+			while (token[0] == ' ')
 			{
-				token=token.substr(1);
+				token = token.substr(1);
 			}
-			while (token[token.size()-1] == ' ')
+			while (token[token.size() - 1] == ' ')
 			{
-				token=token.substr(0, token.size()-1);
+				token = token.substr(0, token.size() - 1);
 			}
 		}
-		if (token.size()>0)
+		if (token.size() > 0)
 		{
 			resultat.push_back(token);
 		}
@@ -88,16 +89,15 @@ void toolbox::segmentationString(string ligne, vector<string>& resultat, const s
 reel toolbox::invCDF_ChiSquare(reel pValeur, int deglib, reel seuilConv)
 {
 	reel score(1.0);
-	reel residu(pchisq(score, deglib)-pValeur);
+	reel residu(pchisq(score, deglib) - pValeur);
 	int compteur(0), limiteIter(1000);
 	do
 	{
-		score = score - (pchisq(score, deglib)-pValeur)/dchisq(score, deglib);
-		residu=pchisq(score, deglib);
+		score = score - (pchisq(score, deglib) - pValeur) / dchisq(score, deglib);
+		residu = pchisq(score, deglib);
 		++compteur;
 		//cout << x << " " << chisq.prob(x)+chisq.valeur <<" " << valeur << endl;
-	}
-	while ((abs(residu)>seuilConv) && (compteur<limiteIter));
+	} while ((abs(residu) > seuilConv) && (compteur < limiteIter));
 
 	return score;
 }
@@ -105,18 +105,18 @@ reel toolbox::invCDF_ChiSquare(reel pValeur, int deglib, reel seuilConv)
 
 double toolbox::combinaisons(int taille, int nb)
 {
-	if (taille==0 || nb ==0 || taille<nb)
+	if (taille == 0 || nb == 0 || taille < nb)
 	{
 		return 1;
 	}
 	double resultat(1);
-	for (int i(nb+1); i<=taille; ++i)
+	for (int i(nb + 1); i <= taille; ++i)
 	{
-		resultat*=i;
+		resultat *= i;
 	}
-	for (int i(1); i<=(taille-nb); ++i)
+	for (int i(1); i <= (taille - nb); ++i)
 	{
-		resultat/=i;
+		resultat /= i;
 
 	}
 	return resultat;
@@ -223,47 +223,47 @@ string toolbox::conversion(reel nombre)
  return lectureLigne(entree, ligne, false, truc);
  }*/
 
-void toolbox::enleveEspaces(string& s)
+void toolbox::enleveEspaces(string &s)
 {
-	while (s[0]==' ')
+	while (s[0] == ' ')
 	{
-		s=s.substr(1);
+		s = s.substr(1);
 	}
-	int dernierCar(s.size()-1);
-	while (s[dernierCar]==' ')
+	int dernierCar(s.size() - 1);
+	while (s[dernierCar] == ' ')
 	{
-		s=s.substr(0, dernierCar);
+		s = s.substr(0, dernierCar);
 		--dernierCar;
 	}
 }
 
 // Cette fonction repère le type de fin de ligne
 // Elle sert à formater les fichiers de résultats
-istream& toolbox::chercheRetourLigne(istream& entree, string& retourLigne)
+istream &toolbox::chercheRetourLigne(istream &entree, string &retourLigne)
 {
 	retourLigne.clear();
 	char lu;
 	bool continueLecture(true);
-	while (continueLecture && !( (entree.get(lu)).eof() ) )
+	while (continueLecture && !((entree.get(lu)).eof()))
 	{
 		//cout << "&" << (int)lu << "&" << endl;
 		if (lu == '\r')
 		{
 			if (entree.peek() == '\n')
 			{
-				retourLigne="\r\n";
+				retourLigne = "\r\n";
 			}
 			else
 			{
-				retourLigne="\r";
+				retourLigne = "\r";
 			}
-			continueLecture=false;
+			continueLecture = false;
 
 		}
-		else if (lu=='\n')
+		else if (lu == '\n')
 		{
-			retourLigne='\n';
-			continueLecture=false;
+			retourLigne = '\n';
+			continueLecture = false;
 		}
 	}
 	entree.clear();
@@ -276,24 +276,24 @@ istream& toolbox::chercheRetourLigne(istream& entree, string& retourLigne)
 // Si un '"' est lu, la lecture continue jusqu'au '"' suivant,
 // les caractères invisibles sont ignorés, mais les espaces sont conservés
 // La fonction retourne le dernier caractère lu
-char toolbox::lectureMot(istream& entree, string& mot, char delimMots, bool gardeSignesInvisibles)
+char toolbox::lectureMot(istream &entree, string &mot, char delimMots, bool gardeSignesInvisibles)
 {
 	mot.clear();
-	char  lu=0x00;
+	char lu = 0x00;
 	bool inner(false), continueLecture(true);
 	while (continueLecture && !((entree.get(lu)).eof()))
 	{
-		if (lu=='"')
+		if (lu == '"')
 		{
 			inner = !inner;
 		}
-		// On ôte les "
+			// On ôte les "
 
-		else if (inner==0 && (lu==delimMots || lu=='\r' || lu=='\n' ||  (!gardeSignesInvisibles && ( (lu<0x20) || (lu>=0x7F)) ) ) )	// Les espaces sont conservés
+		else if (inner == 0 && (lu == delimMots || lu == '\r' || lu == '\n' || (!gardeSignesInvisibles && ((lu < 0x20) || (lu >= 0x7F)))))    // Les espaces sont conservés
 		{
-			continueLecture=false;
+			continueLecture = false;
 		}
-		else if( gardeSignesInvisibles  ||( lu>0x19 && lu<0x7F) )	// On est à l'intérieur, les espaces sont conservés
+		else if (gardeSignesInvisibles || (lu > 0x19 && lu < 0x7F))    // On est à l'intérieur, les espaces sont conservés
 		{
 			mot.push_back(lu);
 		}
@@ -301,22 +301,22 @@ char toolbox::lectureMot(istream& entree, string& mot, char delimMots, bool gard
 	return lu;
 }
 
-bool toolbox::lectureLigne(istream& entree, vector<string>& ligne, char delimMots, bool gardeSignesInvisibles)
+bool toolbox::lectureLigne(istream &entree, vector<string> &ligne, char delimMots, bool gardeSignesInvisibles)
 {
 	ligne.clear();
 	string mot("");
-	char lu=0x00;
+	char lu = 0x00;
 	bool continueLecture(true);
 	while (continueLecture && !entree.eof())
 	{
-		lu=lectureMot(entree, mot, delimMots, gardeSignesInvisibles);
-		if (mot.size()>0)
+		lu = lectureMot(entree, mot, delimMots, gardeSignesInvisibles);
+		if (mot.size() > 0)
 		{
 			ligne.push_back(mot);
 		}
-		if (lu=='\n' || lu=='\r')
+		if (lu == '\n' || lu == '\r')
 		{
-			continueLecture=false;
+			continueLecture = false;
 			while (iscntrl(entree.peek()))
 			{
 				entree.get(lu);
@@ -325,6 +325,7 @@ bool toolbox::lectureLigne(istream& entree, vector<string>& ligne, char delimMot
 	}
 	return entree.eof();
 }
+
 /*
 void toolbox::	 affiche(const vector< vector < pair<int, reel> > > v, int n, int m)
 {
@@ -357,17 +358,18 @@ void toolbox::	 affiche(const vector< vector < pair<int, reel> > > v, int n, int
 
 string toolbox::timestamp()
 {
-    time_t t(time(NULL));
-    string timestamp("unknown-time");
-    char mbstr[100];
-    if (std::strftime(mbstr, sizeof(mbstr), "%Y%m%d-%H%M%S", std::localtime(&t))) {
-        timestamp=mbstr;
-    }
-    return timestamp;
+	time_t t(time(NULL));
+	string timestamp("unknown-time");
+	char mbstr[100];
+	if (std::strftime(mbstr, sizeof(mbstr), "%Y%m%d-%H%M%S", std::localtime(&t)))
+	{
+		timestamp = mbstr;
+	}
+	return timestamp;
 }
 
 
-int ComparaisonVecteurs::caseComparaisonVecteurs=0;
+int ComparaisonVecteurs::caseComparaisonVecteurs = 0;
 
 ComparaisonVecteurs::ComparaisonVecteurs()
 {}
@@ -382,7 +384,7 @@ int ComparaisonVecteurs::getCase()
 
 void ComparaisonVecteurs::setCase(int i)
 {
-	caseComparaisonVecteurs=i;
+	caseComparaisonVecteurs = i;
 }
 
 /*bool ComparaisonVecteurs::compare(const vector<reel>& v1, const vector<reel>& v2)
@@ -390,5 +392,5 @@ void ComparaisonVecteurs::setCase(int i)
 	return (v1[caseComparaisonVecteurs] < v2[caseComparaisonVecteurs]);
 }*/
 
-ComparaisonVecteurs::ComparaisonVecteurs(ComparaisonVecteurs& c)
+ComparaisonVecteurs::ComparaisonVecteurs(ComparaisonVecteurs &c)
 {}

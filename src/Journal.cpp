@@ -30,7 +30,7 @@
 using namespace std;
 
 Journal::Journal()
-: flotEnPause(true)
+		: flotEnPause(true)
 {}
 
 Journal::~Journal()
@@ -43,7 +43,7 @@ Journal::~Journal()
 
 void Journal::metFlotEnPause()
 {
-	flotEnPause=true;
+	flotEnPause = true;
 }
 
 bool Journal::sortDeLaPause()
@@ -53,13 +53,13 @@ bool Journal::sortDeLaPause()
 		//cerr << "Opening file" << endl;
 		flux.ouvertureFichier();
 	}
-	bool fonctionne( (flux.getActiviteFichier()&&flux.testeValiditeFichier()) || flux.getActiviteTerminal());
+	bool fonctionne((flux.getActiviteFichier() && flux.testeValiditeFichier()) || flux.getActiviteTerminal());
 	if (fonctionne)
 	{
 		flux << temp;
 		flux << flush;
 		//cerr<< "Fin" << endl;
-		flotEnPause=false;
+		flotEnPause = false;
 		return true;
 	}
 	else
@@ -73,7 +73,7 @@ bool Journal::estEnPause() const
 	return flotEnPause;
 }
 
-void Journal::setDelimLignes(const string& delim)
+void Journal::setDelimLignes(const string &delim)
 {
 	flux.setDelimLignes(delim);
 }
@@ -83,7 +83,7 @@ string Journal::getDelimLignes() const
 	return flux.getDelimLignes();
 }
 
-void Journal::setDelimMots(const string& delim)
+void Journal::setDelimMots(const string &delim)
 {
 	flux.setDelimMots(delim);
 }
@@ -93,7 +93,7 @@ string Journal::getDelimMots() const
 	return flux.getDelimMots();
 }
 
-void Journal::setNomFichier(const string& nom)
+void Journal::setNomFichier(const string &nom)
 {
 	flux.setNomFichier(nom);
 }
@@ -103,7 +103,7 @@ string Journal::getNomFichier() const
 	return flux.getNomFichier();
 }
 
-void Journal::setDelims(const string& delimL, const string& delimM)
+void Journal::setDelims(const string &delimL, const string &delimM)
 {
 	flux.setDelims(delimL, delimM);
 }
@@ -135,13 +135,13 @@ void Journal::setActivites(bool term, bool fichier)
 
 void Journal::erreurDetectee()
 {
-	if(!flotEnPause)
+	if (!flotEnPause)
 	{
 		flux.erreurDetectee();
 	}
 }
 
-Journal& Journal::synchronise()
+Journal &Journal::synchronise()
 {
 	if (flotEnPause)
 	{
@@ -157,13 +157,13 @@ Journal& Journal::synchronise()
 bool Journal::estFonctionnel()
 {
 	bool fichierActif(flux.getActiviteFichier()),
-		fichierValide(flux.testeValiditeFichier()),
-		terminalActif(flux.getActiviteTerminal());
-	bool fichierOK(!fichierActif || ( fichierActif && fichierValide ) );
-	return ( (terminalActif && fichierOK) || (!terminalActif && fichierActif && fichierValide) );
+			fichierValide(flux.testeValiditeFichier()),
+			terminalActif(flux.getActiviteTerminal());
+	bool fichierOK(!fichierActif || (fichierActif && fichierValide));
+	return ((terminalActif && fichierOK) || (!terminalActif && fichierActif && fichierValide));
 }
 
-Journal& Journal::retourLigne()
+Journal &Journal::retourLigne()
 {
 	if (flotEnPause)
 	{
@@ -176,16 +176,16 @@ Journal& Journal::retourLigne()
 	return *this;
 }
 
-Journal& Journal::nouvMot()
+Journal &Journal::nouvMot()
 {
-	if(!flotEnPause)
+	if (!flotEnPause)
 	{
 		flux.nouvMot();
 	}
 	return *this;
 }
 
-Journal& Journal::operator<<(Journal& (*pf)(Journal&))
+Journal &Journal::operator<<(Journal &(*pf)(Journal &))
 {
 /*	if (flotEnPause)
 	{
@@ -198,7 +198,7 @@ Journal& Journal::operator<<(Journal& (*pf)(Journal&))
 	return pf(*this);
 }
 
-Journal& Journal::operator<<(ostream& (*pf)(ostream&))
+Journal &Journal::operator<<(ostream &(*pf)(ostream &))
 {
 	if (flotEnPause)
 	{
@@ -211,21 +211,21 @@ Journal& Journal::operator<<(ostream& (*pf)(ostream&))
 	return *this;
 }
 
-Journal& nm(Journal& j)
+Journal &nm(Journal &j)
 {
 	j.nouvMot();
-    return j;
+	return j;
 }
 
 
-Journal& nl(Journal& j)
+Journal &nl(Journal &j)
 {
-    j.retourLigne();
-    return j;
+	j.retourLigne();
+	return j;
 }
 
 
-Journal& erreur (Journal& j)
+Journal &erreur(Journal &j)
 {
 	j.erreurDetectee();
 	return j;
@@ -234,8 +234,8 @@ Journal& erreur (Journal& j)
 void Journal::afficheJournalTemporaire()
 {
 	cout << "Journal temporaire:" << endl;
-	for (deque<string>::iterator i(temp.begin()); i!=temp.end(); ++i)
+	for (deque<string>::iterator i(temp.begin()); i != temp.end(); ++i)
 	{
-		cout << "(" << i-temp.begin() << ") " << *i << endl;
+		cout << "(" << i - temp.begin() << ") " << *i << endl;
 	}
 }

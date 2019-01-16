@@ -60,26 +60,26 @@ namespace toolbox {
 	 template <class T>
 	 T conversion(const string& lu);*/
 
-	void segmentationString(string ligne, vector<string>& resultat, const string& separateur=" ", bool elimineEspaces=false);
+	void segmentationString(string ligne, vector<string> &resultat, const string &separateur = " ", bool elimineEspaces = false);
 
 	double combinaisons(int taille, int nb);
 
 	//int calculeIndice(const vector<int>& v, int nbVar);
 
-	template <typename T, scythe::matrix_order PO, scythe::matrix_style PS>
-	reel sommeNumerique(const scythe::Matrix<T,PO,PS> &A)
+	template<typename T, scythe::matrix_order PO, scythe::matrix_style PS>
+	reel sommeNumerique(const scythe::Matrix<T, PO, PS> &A)
 	{
 		return (std::accumulate(A.begin_f(), A.end_f(), (reel) 0));
 	}
 
-	template <typename T, scythe::matrix_order PO, scythe::matrix_style PS>
-	scythe::Matrix<T,PO,PS> sommeNumeriqueCol(const scythe::Matrix<T,PO,PS> &A)
+	template<typename T, scythe::matrix_order PO, scythe::matrix_style PS>
+	scythe::Matrix<T, PO, PS> sommeNumeriqueCol(const scythe::Matrix<T, PO, PS> &A)
 	{
 		int nbColonnes(A.cols());
 		scythe::Matrix<T, PO, PS> sommes(1, nbColonnes, true, 0);
-		for (int i(0); i<nbColonnes; ++i)
+		for (int i(0); i < nbColonnes; ++i)
 		{
-			sommes(0, i) = toolbox::sommeNumerique( A(scythe::_, i) );
+			sommes(0, i) = toolbox::sommeNumerique(A(scythe::_, i));
 		}
 		return sommes;
 	}
@@ -178,20 +178,20 @@ namespace toolbox {
 	 }
 	 */
 
-	template <class T>
-	T conversion(const string& lu, bool& echec)
+	template<class T>
+	T conversion(const string &lu, bool &echec)
 	{
 		T resultat;
 		istringstream iss;
 		iss.precision(precisionLecture);
 		iss.str(lu);
 		iss >> resultat;
-		echec=iss.fail();
+		echec = iss.fail();
 		return resultat;
 	}
 
-	template <class T>
-	T conversion(const string& lu)
+	template<class T>
+	T conversion(const string &lu)
 	{
 		bool echec;
 		return conversion<T>(lu, echec);
@@ -199,28 +199,28 @@ namespace toolbox {
 
 	string conversion(reel nombre);
 
-    template <class T>
-    string toString(T nombre, bool& echec)
-    {
-        ostringstream oss;
-        oss.precision(precisionLecture);
-        oss << nombre;
-        echec=oss.fail();
-        return oss.str();
-    }
+	template<class T>
+	string toString(T nombre, bool &echec)
+	{
+		ostringstream oss;
+		oss.precision(precisionLecture);
+		oss << nombre;
+		echec = oss.fail();
+		return oss.str();
+	}
 
-    template <class T>
-    string toString(T nombre)
-    {
-        bool echec;
-        return toString<T>(nombre, echec);
-    }
+	template<class T>
+	string toString(T nombre)
+	{
+		bool echec;
+		return toString<T>(nombre, echec);
+	}
 
-	void enleveEspaces(string& s);
+	void enleveEspaces(string &s);
 
 	// Cette fonction repère le type de fin de ligne
 	// Elle sert à formater les fichiers de résultats
-	istream& chercheRetourLigne(istream& entree, string& retourLigne);
+	istream &chercheRetourLigne(istream &entree, string &retourLigne);
 
 
 	// Lit les caractères du flots et forme un mot
@@ -228,21 +228,20 @@ namespace toolbox {
 	// Si un '"' est lu, la lecture continue jusqu'au '"' suivant,
 	// les caractères invisibles sont ignorés, mais les espaces sont conservés
 	// La fonction retourne le dernier caractère lu
-	char lectureMot(istream& entree, string& mot, char delimMots=' ', bool gardeSignesInvisibles=false);
+	char lectureMot(istream &entree, string &mot, char delimMots = ' ', bool gardeSignesInvisibles = false);
 
 	// Lit une ligne mot-à-mot jusqu'à trouver un caractère de fin de ligne
 	// Si la fin du fichier est détectée, la fonction renvoie TRUE
 	// Les mots vides (0 car) ne sont pas enregistrés
-	bool lectureLigne(istream& entree, vector<string>& ligne, char delimMots=' ', bool gardeSignesInvisibles=false);
-
+	bool lectureLigne(istream &entree, vector<string> &ligne, char delimMots = ' ', bool gardeSignesInvisibles = false);
 
 
 	// Lit une ligne puis tente de la convertir dans le type T
 	// Le vecteur validation permet de connaître les indices des mots qui n'ont pas pu être convertis
 	// Le vecteur ligneOriginale permet de récupérer la ligne telle qu'elle a été lue (sous forme de chaînes)
 	// Les booléens "validation" et "recuperation" permettent de sélectionner les options
-	template <class T>
-	istream& lectureLigne(istream& entree, vector< T >& ligne, bool validation, vector<int>& lineValidation, bool recuperation, vector<string>& ligneOriginale, char delimMots=' ')
+	template<class T>
+	istream &lectureLigne(istream &entree, vector<T> &ligne, bool validation, vector<int> &lineValidation, bool recuperation, vector<string> &ligneOriginale, char delimMots = ' ')
 	{
 
 		ligne.clear();
@@ -268,9 +267,9 @@ namespace toolbox {
 		bool echec;
 		// Pour chaque mot, on essaie de le convertir, puis on le copie dans la ligne de résultats
 		// Si la conversion échoue, le résultat vaut 0 (via l'initalisation de "ligne") et l'indice du mot inconvertible est ajouté dans "lineValidation"
-		for (int i(0); i<tailleLigne; ++i)
+		for (int i(0); i < tailleLigne; ++i)
 		{
-			currentValue=conversion<T>(ligneOriginale[i], echec);
+			currentValue = conversion<T>(ligneOriginale[i], echec);
 			if (echec)
 			{
 				if (validation)
@@ -280,7 +279,7 @@ namespace toolbox {
 			}
 			else
 			{
-				ligne[i]=currentValue;
+				ligne[i] = currentValue;
 			}
 		}
 		return entree;
@@ -288,23 +287,23 @@ namespace toolbox {
 
 	// Lit une ligne et tente de convertir les mots en T
 	// Surcharge de la fonction principale, plus pratique à utiliser, si les vecteurs sont présents, les options sont réglées sur TRUE
-	template <class T>
-	istream& lectureLigne(istream& entree, vector< T >& ligne, vector<int>& lineValidation, vector<string>& ligneOriginale, char delimMots=' ')
+	template<class T>
+	istream &lectureLigne(istream &entree, vector<T> &ligne, vector<int> &lineValidation, vector<string> &ligneOriginale, char delimMots = ' ')
 	{
 		return lectureLigne(entree, ligne, true, lineValidation, true, ligneOriginale, delimMots);
 	}
 
 	// Lecture et conversion d'une ligne sans récupérer les mots
-	template <class T>
-	istream& lectureLigne(istream& entree, vector< T >& ligne, vector<int>& lineValidation, char delimMots=' ')
+	template<class T>
+	istream &lectureLigne(istream &entree, vector<T> &ligne, vector<int> &lineValidation, char delimMots = ' ')
 	{
 		vector<string> tokens(0);
 		return lectureLigne(entree, ligne, true, lineValidation, false, tokens, delimMots);
 	}
 
 	// Lecture et conversion d'une ligne sans récupérer ni les mots, ni les indices des mots n'ayant pas pu être convertis
-	template <class T>
-	istream& lectureLigne(istream& entree, vector< T >& ligne, char delimMots=' ')
+	template<class T>
+	istream &lectureLigne(istream &entree, vector<T> &ligne, char delimMots = ' ')
 	{
 		vector<int> truc(0);
 		vector<string> tokens(0);
@@ -348,26 +347,28 @@ namespace toolbox {
 
 
 
-    string timestamp();
+	string timestamp();
 }
 
 class ComparaisonVecteurs
 {
 public:
 	ComparaisonVecteurs();
+
 	virtual ~ComparaisonVecteurs();
 
 	static int getCase();
+
 	static void setCase(int i);
 
 	template<class T>
-	static bool plusPetitQue(const vector< T >& v1, const vector< T >& v2)
+	static bool plusPetitQue(const vector<T> &v1, const vector<T> &v2)
 	{
 		return (v1[caseComparaisonVecteurs] < v2[caseComparaisonVecteurs]);
 	}
 
 	template<class T>
-	static bool plusGrandQue(const vector< T >& v1, const vector< T >& v2)
+	static bool plusGrandQue(const vector<T> &v1, const vector<T> &v2)
 	{
 		return (v1[caseComparaisonVecteurs] > v2[caseComparaisonVecteurs]);
 	}
@@ -375,7 +376,7 @@ public:
 protected:
 	static int caseComparaisonVecteurs;
 
-	ComparaisonVecteurs(ComparaisonVecteurs& c);
+	ComparaisonVecteurs(ComparaisonVecteurs &c);
 };
 
 #endif // TOOLBOX_H

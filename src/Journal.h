@@ -36,50 +36,58 @@ class Journal
 {
 public:
 	Journal();
+
 	virtual ~Journal();
 
 	void metFlotEnPause();
+
 	bool sortDeLaPause();
+
 	bool estEnPause() const;
 
-	void setDelimLignes(const string& delim);
-    string getDelimLignes() const;
+	void setDelimLignes(const string &delim);
 
-    void setDelimMots(const string& delim);
-    string getDelimMots() const;
+	string getDelimLignes() const;
 
-    void setNomFichier(const string& nom);
-    string getNomFichier() const;
+	void setDelimMots(const string &delim);
 
-    void setDelims(const string& delimL, const string& delimM);
+	string getDelimMots() const;
 
-    void setActiviteTerminal(bool b);
-    bool getActiviteTerminal() const;
+	void setNomFichier(const string &nom);
 
-    void setActiviteFichier(bool b);
-    bool getActiviteFichier() const;
+	string getNomFichier() const;
 
-    void setActivites(bool term, bool fichier);
+	void setDelims(const string &delimL, const string &delimM);
 
-    void erreurDetectee();
+	void setActiviteTerminal(bool b);
 
-	Journal& synchronise();
+	bool getActiviteTerminal() const;
+
+	void setActiviteFichier(bool b);
+
+	bool getActiviteFichier() const;
+
+	void setActivites(bool term, bool fichier);
+
+	void erreurDetectee();
+
+	Journal &synchronise();
 
 	bool estFonctionnel();
 
-    template<class T>
-    Journal& ecrit(const T& token);
+	template<class T>
+	Journal &ecrit(const T &token);
 
-    Journal& retourLigne();
+	Journal &retourLigne();
 
-    Journal& nouvMot();
+	Journal &nouvMot();
 
-    template<class T>
-    Journal& operator<<(const T& token);
+	template<class T>
+	Journal &operator<<(const T &token);
 
-    Journal& operator<<(Journal& (*pf)(Journal&));
+	Journal &operator<<(Journal &(*pf)(Journal &));
 
-    Journal& operator<<(ostream& (*pf)(ostream&));
+	Journal &operator<<(ostream &(*pf)(ostream &));
 
 	void afficheJournalTemporaire();
 
@@ -93,18 +101,18 @@ protected:
 
 
 private:
-	Journal(const Journal& j);
+	Journal(const Journal &j);
 
 };
 
-Journal& nl (Journal& j);
+Journal &nl(Journal &j);
 
-Journal& nm (Journal& j);
+Journal &nm(Journal &j);
 
-Journal& erreur (Journal& j);
+Journal &erreur(Journal &j);
 
 template<class T>
-Journal& Journal::operator<<(const T& token)
+Journal &Journal::operator<<(const T &token)
 {
 	if (flotEnPause)
 	{

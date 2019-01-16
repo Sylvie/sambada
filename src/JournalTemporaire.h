@@ -38,50 +38,51 @@ using namespace std;
 class JournalTemporaire : public deque<string>
 {
 public:
-    JournalTemporaire();
-    virtual ~JournalTemporaire();
+	JournalTemporaire();
+
+	virtual ~JournalTemporaire();
 
 
-    template<class T>
-    JournalTemporaire& operator<<(const T& token);
+	template<class T>
+	JournalTemporaire &operator<<(const T &token);
 
-   // JournalTemporaire& operator<<(const string& s);
+	// JournalTemporaire& operator<<(const string& s);
 
-    JournalTemporaire& operator<<(JournalTemporaire& (*pf)(JournalTemporaire&));
+	JournalTemporaire &operator<<(JournalTemporaire &(*pf)(JournalTemporaire &));
 
-    JournalTemporaire& operator<<(ostream& (*pf)(ostream&));
+	JournalTemporaire &operator<<(ostream &(*pf)(ostream &));
 
-    JournalTemporaire& retourLigne();
+	JournalTemporaire &retourLigne();
 
-    JournalTemporaire& synchronise();
+	JournalTemporaire &synchronise();
 
-  //  JournalTemporaire& flush(JournalTemporaire &jt);
+	//  JournalTemporaire& flush(JournalTemporaire &jt);
 
 protected:
-    ostringstream* oss;
-    void push(const string & s);
+	ostringstream *oss;
+
+	void push(const string &s);
 
 private:
-	JournalTemporaire(const JournalTemporaire& jt);
+	JournalTemporaire(const JournalTemporaire &jt);
 };
 
 template<class T>
-JournalTemporaire& JournalTemporaire::operator<<(const T& token)
+JournalTemporaire &JournalTemporaire::operator<<(const T &token)
 {
-	if (oss==NULL)
+	if (oss == NULL)
 	{
 		oss = new ostringstream;
 	}
-    (*oss) << token;
-    return *this;
+	(*oss) << token;
+	return *this;
 }
 
-JournalTemporaire& nl (JournalTemporaire& jt);
+JournalTemporaire &nl(JournalTemporaire &jt);
 
-JournalTemporaire& endl (JournalTemporaire& jt);
+JournalTemporaire &endl(JournalTemporaire &jt);
 
-JournalTemporaire& flush (JournalTemporaire& jt);
-
+JournalTemporaire &flush(JournalTemporaire &jt);
 
 
 #endif // JOURNALTEMPORAIRE_H

@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	{
 		logitModel.initialisation(argc, argv);
 	}
-	catch (const Erreur& err)
+	catch (const Erreur &err)
 	{
 		cout << err.what() << endl;
 		exit(1);
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
 	time_t temps_fin_calculs(time(NULL));
 	logitModel.ecritMessage("End of computation.");
-	logitModel.ecritMessage("Elapsed time : " +  toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
+	logitModel.ecritMessage("Elapsed time : " + toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
 
 	//logitModel.ecritResultats("ResultatsRegression.txt");
 
