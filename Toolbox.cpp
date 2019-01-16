@@ -28,39 +28,40 @@
 
 #include "Toolbox.h"
 #include "distributions.h"
+
 using namespace std;
 using namespace scythe;
 
-void toolbox::segmentationString(string ligne, vector<string>& resultat, const string& separateur, bool elimineEspaces)
+void toolbox::segmentationString(string ligne, vector <string> &resultat, const string &separateur, bool elimineEspaces)
 {
 	resultat.clear();
 	string dustbin, token, word;
 	int position(0), tailleSep(separateur.size());
-	cout << ligne <<  endl <<flush;
+	cout << ligne << endl << flush;
 	//cout << "£" << tailleSep << "£" <<separateur << "£"<< endl;
-	while(ligne.size()>0)
+	while (ligne.size() > 0)
 	{
 		position = ligne.find(separateur);
 		if (position == 0)
 		{
 			token = "";
 			ligne = ligne.substr(tailleSep);
-			cout << "*" << token <<"* *" << ligne << "*" << endl;
+			cout << "*" << token << "* *" << ligne << "*" << endl;
 
 		}
 		else if (position != std::string::npos)
 		{
 			token = ligne.substr(0, position);
-			ligne = ligne.substr(position+tailleSep);
-			cout << "=" << token <<"= =" << ligne << "=" << endl;
+			ligne = ligne.substr(position + tailleSep);
+			cout << "=" << token << "= =" << ligne << "=" << endl;
 		}
-		else 
+		else
 		{
 			token = ligne;
 			enleveEspaces(token);
-			if (token==separateur)
+			if (token == separateur)
 			{
-				token ="";
+				token = "";
 			}
 			ligne = "";
 			//cout << "?1" << token <<"?2 ?3" << ligne << "?4 " << token.size() << endl << 'ç' << token << 'ç' << endl;
@@ -68,67 +69,65 @@ void toolbox::segmentationString(string ligne, vector<string>& resultat, const s
 		}
 		if (elimineEspaces)
 		{
-			while (token[0]==' ')
+			while (token[0] == ' ')
 			{
-				token=token.substr(1);	
+				token = token.substr(1);
 			}
-			while (token[token.size()-1] == ' ')
+			while (token[token.size() - 1] == ' ')
 			{
-				token=token.substr(0, token.size()-1);
+				token = token.substr(0, token.size() - 1);
 			}
 		}
-		if (token.size()>0)
+		if (token.size() > 0)
 		{
 			resultat.push_back(token);
 		}
-	}	
+	}
 }
 
 reel toolbox::invCDF_ChiSquare(reel pValeur, int deglib, reel seuilConv)
 {
 	reel score(1.0), limiteDomaine(0.45);
 
-	if (pValeur>limiteDomaine)
+	if (pValeur > limiteDomaine)
 	{
-	reel residu(pchisq(score, deglib)-pValeur);
-	int compteur(0), limiteIter(1000);
-	do
-	{
-		score = score - (pchisq(score, deglib)-pValeur)/dchisq(score, deglib);
-		residu=pchisq(score, deglib);
-		++compteur;
-		//cout << x << " " << chisq.prob(x)+chisq.valeur <<" " << valeur << endl;
-	}
-	while ((abs(residu)>seuilConv) && (compteur<limiteIter));
+		reel residu(pchisq(score, deglib) - pValeur);
+		int compteur(0), limiteIter(1000);
+		do
+		{
+			score = score - (pchisq(score, deglib) - pValeur) / dchisq(score, deglib);
+			residu = pchisq(score, deglib);
+			++compteur;
+			//cout << x << " " << chisq.prob(x)+chisq.valeur <<" " << valeur << endl;
+		} while ((abs(residu) > seuilConv) && (compteur < limiteIter));
 	}
 	else
 	{
 		reel p1(0.), p2(limiteDomaine), p3(0.); // p1 < p, p2 >p;
-		reel q1(0.), q2(0.37), q3((q1+q2)/2);
+		reel q1(0.), q2(0.37), q3((q1 + q2) / 2);
 		reel residu(0);
 		int compteur(0), limiteIter(1000);
 		//cout << pValeur << ":" << endl;
 		do
 		{
-			p3=pchisq(q3, deglib);
+			p3 = pchisq(q3, deglib);
 			//cout << "q->p " << q3 << " " << p3 << endl;
-			residu=p3-pValeur;
-			if (residu>=0)	// p3 >= p
+			residu = p3 - pValeur;
+			if (residu >= 0)    // p3 >= p
 			{
-				q2=q3;
-				p2=p3;
+				q2 = q3;
+				p2 = p3;
 			}
 			else // p >p3
 			{
-				q1=q3;
-				p1=p3;
+				q1 = q3;
+				p1 = p3;
 			}
-			q3=(q1+q2)/2;
-			
+			q3 = (q1 + q2) / 2;
+
 			++compteur;
-		}
-		while ((abs(residu)>seuilConv) && (compteur<limiteIter));
-		score=q3;								
+		} while ((abs(residu) > seuilConv) && (compteur < limiteIter));
+		score = q3;
 	}
 	return score;
 }
@@ -136,19 +135,19 @@ reel toolbox::invCDF_ChiSquare(reel pValeur, int deglib, reel seuilConv)
 
 double toolbox::combinaisons(int taille, int nb)
 {
-	if (taille==0 || nb ==0 || taille<nb)
+	if (taille == 0 || nb == 0 || taille < nb)
 	{
 		return 1;
 	}
 	double resultat(1);
-	for (int i(nb+1); i<=taille; ++i)
+	for (int i(nb + 1); i <= taille; ++i)
 	{
-		resultat*=i;
+		resultat *= i;
 	}
-	for (int i(1); i<=(taille-nb); ++i)
+	for (int i(1); i <= (taille - nb); ++i)
 	{
-		resultat/=i;
-		
+		resultat /= i;
+
 	}
 	return resultat;
 }
@@ -254,47 +253,47 @@ string toolbox::conversion(reel nombre)
  return lectureLigne(entree, ligne, false, truc);
  }*/
 
-void toolbox::enleveEspaces(string& s)
+void toolbox::enleveEspaces(string &s)
 {
-	while (s[0]==' ')
+	while (s[0] == ' ')
 	{
-		s=s.substr(1);
+		s = s.substr(1);
 	}
-	int dernierCar(s.size()-1);
-	while (s[dernierCar]==' ')
+	int dernierCar(s.size() - 1);
+	while (s[dernierCar] == ' ')
 	{
-		s=s.substr(0, dernierCar);
+		s = s.substr(0, dernierCar);
 		--dernierCar;
 	}
-}	
+}
 
 // Cette fonction repère le type de fin de ligne
 // Elle sert à formater les fichiers de résultats
-istream& toolbox::chercheRetourLigne(istream& entree, string& retourLigne)
+istream &toolbox::chercheRetourLigne(istream &entree, string &retourLigne)
 {
 	retourLigne.clear();
 	char lu;
 	bool continueLecture(true);
-	while (continueLecture && !( (entree.get(lu)).eof() ) ) 
+	while (continueLecture && !((entree.get(lu)).eof()))
 	{
 		//cout << "&" << (int)lu << "&" << endl;
 		if (lu == '\r')
 		{
 			if (entree.peek() == '\n')
 			{
-				retourLigne="\r\n";
+				retourLigne = "\r\n";
 			}
 			else
 			{
-				retourLigne="\r";
+				retourLigne = "\r";
 			}
-			continueLecture=false;
+			continueLecture = false;
 
 		}
-		else if (lu=='\n')
+		else if (lu == '\n')
 		{
-			retourLigne='\n';
-			continueLecture=false;
+			retourLigne = '\n';
+			continueLecture = false;
 		}
 	}
 	entree.clear();
@@ -307,24 +306,24 @@ istream& toolbox::chercheRetourLigne(istream& entree, string& retourLigne)
 // Si un '"' est lu, la lecture continue jusqu'au '"' suivant, 
 // les caractères invisibles sont ignorés, mais les espaces sont conservés
 // La fonction retourne le dernier caractère lu
-char toolbox::lectureMot(istream& entree, string& mot, char delimMots, bool gardeSignesInvisibles)
+char toolbox::lectureMot(istream &entree, string &mot, char delimMots, bool gardeSignesInvisibles)
 {
 	mot.clear();
-	char  lu=0x00;
+	char lu = 0x00;
 	bool inner(false), continueLecture(true);
-	while (continueLecture && !((entree.get(lu)).eof())) 
+	while (continueLecture && !((entree.get(lu)).eof()))
 	{
-		if (lu=='"')
+		if (lu == '"')
 		{
 			inner = !inner;
 		}
-		// On ôte les "
-		
-		else if (inner==0 && (lu==delimMots || lu=='\r' || lu=='\n' ||  (!gardeSignesInvisibles && ( (lu<0x20) || (lu>=0x7F)) ) ) )	// Les espaces sont conservés
+			// On ôte les "
+
+		else if (inner == 0 && (lu == delimMots || lu == '\r' || lu == '\n' || (!gardeSignesInvisibles && ((lu < 0x20) || (lu >= 0x7F)))))    // Les espaces sont conservés
 		{
-			continueLecture=false;
+			continueLecture = false;
 		}
-		else if( gardeSignesInvisibles  ||( lu>0x19 && lu<0x7F) )	// On est à l'intérieur, les espaces sont conservés
+		else if (gardeSignesInvisibles || (lu > 0x19 && lu < 0x7F))    // On est à l'intérieur, les espaces sont conservés
 		{
 			mot.push_back(lu);
 		}
@@ -332,22 +331,22 @@ char toolbox::lectureMot(istream& entree, string& mot, char delimMots, bool gard
 	return lu;
 }
 
-bool toolbox::lectureLigne(istream& entree, vector<string>& ligne, char delimMots, bool gardeSignesInvisibles)
+bool toolbox::lectureLigne(istream &entree, vector <string> &ligne, char delimMots, bool gardeSignesInvisibles)
 {
 	ligne.clear();
 	string mot("");
-	char lu=0x00;
+	char lu = 0x00;
 	bool continueLecture(true);
 	while (continueLecture && !entree.eof())
 	{
-		lu=lectureMot(entree, mot, delimMots, gardeSignesInvisibles);
-		if (mot.size()>0)
+		lu = lectureMot(entree, mot, delimMots, gardeSignesInvisibles);
+		if (mot.size() > 0)
 		{
 			ligne.push_back(mot);
 		}
-		if (lu=='\n' || lu=='\r')
+		if (lu == '\n' || lu == '\r')
 		{
-			continueLecture=false;
+			continueLecture = false;
 			while (iscntrl(entree.peek()))
 			{
 				entree.get(lu);
@@ -356,6 +355,7 @@ bool toolbox::lectureLigne(istream& entree, vector<string>& ligne, char delimMot
 	}
 	return entree.eof();
 }
+
 /*
 void toolbox::	 affiche(const vector< vector < pair<int, reel> > > v, int n, int m)
 {
@@ -388,42 +388,42 @@ void toolbox::	 affiche(const vector< vector < pair<int, reel> > > v, int n, int
 void toolbox::messageBienvenue(bool versionLongue)
 {
 	cout << "| Welcome to Sambada!\n"
-	<< "| Copyright (C) 2011-2014 EPFL (Ecole Polytechnique federale de Lausanne)\n"
-	<< "| Laboratory of Geographic information systems (LaSIG)\n";
+	     << "| Copyright (C) 2011-2014 EPFL (Ecole Polytechnique federale de Lausanne)\n"
+	     << "| Laboratory of Geographic information systems (LaSIG)\n";
 	if (!versionLongue)
 	{
-		
+
 		cout << "| Contact: sylvie.stucki@a3.epfl.ch, stephane.joost@epfl.ch\n"
-		<< "| Sambada is free software and comes with ABSOLUTELY NO WARRANTY.\n"
-		<< "| Please refer to the file AUTHORS for details.\n";
+		     << "| Sambada is free software and comes with ABSOLUTELY NO WARRANTY.\n"
+		     << "| Please refer to the file AUTHORS for details.\n";
 	}
 	else
 	{
 		cout << "| Sambada is free software ; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation ; either version 3 of the License, or (at your option) any later version.\n"
-			<< "| Sambada is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n"
-			<< "| You should have received a copy of the GNU General Public License along with Sambada ; if not, see <http://www.gnu.org/licenses/>.\n|\n"
-			
-			<< "| Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stephane Joost (stephane.joost@epfl.ch)\n" 
-			<< "| Laboratory of Geographic information systems\n"
-			<< "| EPFL ENAC IIE LASIG\n"
-			<< "| Station 18\n"
-			<< "| CH-1015 Lausanne\n"
-			<< "| Web site : http://lasig.epfl.ch/sambada\n|\n"
-			
-			<< "| Sambada includes two libraries: Scythe Statistical Library (under GPL 3) and Shapefile C Library (under LGPL 2.1, courtesy of Frank Warmerdam).\n|\n"
-			
-			<< "| Scythe Statistical Library\n"
-			<< "| Copyright (C) 2000-2002 Andrew D. Martin and Kevin M. Quinn;\n"
-			<< "| 2002-2012 Andrew D. Martin, Kevin M. Quinn, and Daniel Pemstein.  All Rights Reserved.\n|\n"
-	
-			<< "| Shapefile C Library\n"
-			<< "| Copyright (c) 1999, Frank Warmerdam\n";
+		     << "| Sambada is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY ; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n"
+		     << "| You should have received a copy of the GNU General Public License along with Sambada ; if not, see <http://www.gnu.org/licenses/>.\n|\n"
+
+		     << "| Authors : Sylvie Stucki (sylvie.stucki@a3.epfl.ch), Stephane Joost (stephane.joost@epfl.ch)\n"
+		     << "| Laboratory of Geographic information systems\n"
+		     << "| EPFL ENAC IIE LASIG\n"
+		     << "| Station 18\n"
+		     << "| CH-1015 Lausanne\n"
+		     << "| Web site : http://lasig.epfl.ch/sambada\n|\n"
+
+		     << "| Sambada includes two libraries: Scythe Statistical Library (under GPL 3) and Shapefile C Library (under LGPL 2.1, courtesy of Frank Warmerdam).\n|\n"
+
+		     << "| Scythe Statistical Library\n"
+		     << "| Copyright (C) 2000-2002 Andrew D. Martin and Kevin M. Quinn;\n"
+		     << "| 2002-2012 Andrew D. Martin, Kevin M. Quinn, and Daniel Pemstein.  All Rights Reserved.\n|\n"
+
+		     << "| Shapefile C Library\n"
+		     << "| Copyright (c) 1999, Frank Warmerdam\n";
 	}
-	
+
 }
 
 
-int ComparaisonVecteurs::caseComparaisonVecteurs=0;
+int ComparaisonVecteurs::caseComparaisonVecteurs = 0;
 
 ComparaisonVecteurs::ComparaisonVecteurs()
 {}
@@ -438,7 +438,7 @@ int ComparaisonVecteurs::getCase()
 
 void ComparaisonVecteurs::setCase(int i)
 {
-	caseComparaisonVecteurs=i;
+	caseComparaisonVecteurs = i;
 }
 
 /*bool ComparaisonVecteurs::compare(const vector<reel>& v1, const vector<reel>& v2)
@@ -446,7 +446,7 @@ void ComparaisonVecteurs::setCase(int i)
 	return (v1[caseComparaisonVecteurs] < v2[caseComparaisonVecteurs]);
 }*/
 
-ComparaisonVecteurs::ComparaisonVecteurs(ComparaisonVecteurs& c)
+ComparaisonVecteurs::ComparaisonVecteurs(ComparaisonVecteurs &c)
 {}
 
 

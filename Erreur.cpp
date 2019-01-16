@@ -30,11 +30,11 @@
 
 using namespace std;
 
-Erreur::Erreur(const string& n, const string& p, bool arret) throw()
-:nom(n), phrase(p), fatale(arret)
+Erreur::Erreur(const string &n, const string &p, bool arret) throw()
+		: nom(n), phrase(p), fatale(arret)
 {}
 
-const char* Erreur::what() const throw()
+const char *Erreur::what() const throw()
 {
 	return phrase.c_str();
 }

@@ -38,43 +38,43 @@ using namespace std;
 
 typedef struct
 {
-	vector<string> etiquette;
-	vector<string> valeurs;
+	vector <string> etiquette;
+	vector <string> valeurs;
 	reel scoreSel;
 	reel scoreTri;
 }
-Modele;
+		Modele;
 
-typedef vector< Modele > ListeModeles;
+typedef vector <Modele> ListeModeles;
 
-typedef enum {G, Wald, AIC, BIC, Both} typeScore;
+typedef enum { G, Wald, AIC, BIC, Both } typeScore;
 
 
 namespace ParametresCluster {
-	
-	typedef enum {Windows, Unix} TypeFichier;
-	
+
+	typedef enum { Windows, Unix } TypeFichier;
+
 	// Architecture
 	const string Intel("INTEL");
 	const string Intel64("X86_64");
-	const string PPC("PPC");	
+	const string PPC("PPC");
 	const string PPC64("PPC64");
-	
+
 	// Système d'exploitation
 	const string Linux("LINUX");
 	const string WinXP("WINNT51");
 
 	// Gestion des formats
 	const string sepExt(".");
-	
+
 	const string retourLigne("\n");
 	const string retourLigne_Unix("\n");
 	const string retourLigne_Win("\r\n");
 
-	
+
 	const string sepRep_Unix("/");
 	const string sepRep_Win("\\");
-	
+
 	const string suffixeMarq("-mark-");
 	const string suffixeEnv("-env");
 	const string suffixeParam("-param");
@@ -84,31 +84,30 @@ namespace ParametresCluster {
 }
 
 
-
 class Supervision
 {
 public:
 	Supervision();
-	
+
 	virtual ~Supervision();
-	
-	int preparationsCalculs(const string& nomFichierParam);
-	
-	int fusionResultats(int argc, char* argv[]) throw();
-	
+
+	int preparationsCalculs(const string &nomFichierParam);
+
+	int fusionResultats(int argc, char *argv[]) throw();
+
 protected:
-	
+
 	ParametresCluster::TypeFichier typeFichierOrigine, typeFichierCalcul;
-	
+
 	int nbEnv, nbMarq, nbLignes, tailleBlocs, nbBlocs, nbBlocsComplets, TailleDernierBloc, nbNoeudsWindows, nbNoeudsUnix;
-	
+
 	string chemin;
-	pair<string, string> nomFichierParam, nomFichierMarq, nomFichierEnv;
-	
-	Supervision(const Supervision& s);
-	
+	pair <string, string> nomFichierParam, nomFichierMarq, nomFichierEnv;
+
+	Supervision(const Supervision &s);
+
 	Scribe sortie;
-	
+
 	Lecteur entree;
 };
 
@@ -155,21 +154,21 @@ class ComparaisonModeles
 {
 public:
 	ComparaisonModeles();
+
 	virtual ~ComparaisonModeles();
-	
+
 	//static int getCase();
 	//static void setCase(int i);
-	
-	static bool plusPetitQue(const Modele  &  r1, const Modele  &  r2);
-	
-	static bool plusGrandQue(const Modele  &  r1, const Modele  &  r2);
-	
+
+	static bool plusPetitQue(const Modele &r1, const Modele &r2);
+
+	static bool plusGrandQue(const Modele &r1, const Modele &r2);
+
 protected:
 	//static int caseComparaisonResultats;
-	
-	ComparaisonModeles(ComparaisonModeles& c);
-};
 
+	ComparaisonModeles(ComparaisonModeles &c);
+};
 
 
 #endif // SUPERVISION_H
