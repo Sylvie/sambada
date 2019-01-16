@@ -26,7 +26,7 @@
  *************************************************************************/
 
 
-#ifndef	REGRESSIONLOGISTIQUE_H
+#ifndef    REGRESSIONLOGISTIQUE_H
 #define REGRESSIONLOGISTIQUE_H
 
 #include "matrix.h"
@@ -42,13 +42,12 @@
 using namespace std;
 using namespace scythe;
 
-typedef pair< int, set< int > > etiquetteModele;
-typedef pair< etiquetteModele, vector< reel > > resModele;
-typedef map< etiquetteModele , vector< reel > > groupeResultats;
+typedef pair<int, set<int> > etiquetteModele;
+typedef pair<etiquetteModele, vector<reel> > resModele;
+typedef map<etiquetteModele, vector<reel> > groupeResultats;
 
 typedef pair<int, reel> Voisin;
-typedef vector< vector< Voisin > > TableClassementsVoisins;
-
+typedef vector<vector<Voisin> > TableClassementsVoisins;
 
 
 class RegressionLogistique
@@ -56,37 +55,39 @@ class RegressionLogistique
 protected:
 	//typedef enum {Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC} listePseudosRcarres;
 	//typedef enum {valloglikelihood, Gscore, pValueG, HoG, WaldScore, pValueWald, HoW, PearsonScore, pValuePearson, HoP} longueListeStats;
-	typedef enum {valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC, GscorePop, WaldScorePop} listeStats;
-	typedef enum {pondDistanceMax, pondGaussienne, pondBicarree, pondPlusProchesVoisins} typePonderation;
+	typedef enum { valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC, GscorePop, WaldScorePop } listeStats;
+	typedef enum { pondDistanceMax, pondGaussienne, pondBicarree, pondPlusProchesVoisins } typePonderation;
 
 	/* Type de sauvegarde
 	 ALL : sauvegarde exhaustive
 	 VALID: sauvegarde des modèles significatifs
 	 BEST: sauvegarde des modèles significatifs ayant au moins un parent valide
 	 */
-	typedef enum {all, signif, best} typeSelectionModeles;
+	typedef enum { all, signif, best } typeSelectionModeles;
 
 	/* Type de structure de population
  	pasStructurePop : structure de pop pas prise en compte
  	structurePopPremier: variables de pop avant les variables environnementales
  	structurePopDernier: variables de pop après les variables environnementales
  	*/
-	typedef enum {pasStructurePop, structurePopPremier, structurePopDernier} typeStructurePop;
+	typedef enum { pasStructurePop, structurePopPremier, structurePopDernier } typeStructurePop;
 
-	typedef Matrix<reel, Col, Concrete> MatriceReels;
+	typedef Matrix <reel, Col, Concrete> MatriceReels;
 	typedef Matrix<bool, Col, Concrete> MatriceBools;
-	typedef Matrix<string, Col, Concrete> MatriceStrings;
+	typedef Matrix <string, Col, Concrete> MatriceStrings;
 
 
 public:
 	RegressionLogistique();
+
 	virtual ~RegressionLogistique();
 
-	static ostream& messageBienvenue(ostream& out, bool versionLongue=false);
+	static ostream& messageBienvenue(ostream& out, bool versionLongue = false);
 
 	int initialisation(int argc, char *argv[]) throw(Erreur);
 
 	int calculeCorrelations() const;
+
 	int calculeAutocorrelations() throw(Erreur);
 
 	int creeModelesGlobaux();
@@ -105,11 +106,13 @@ public:
 protected:
 
 	//void generePartitions();
-	void construitModele(int numMarq, const set<int> & varContinues); //, const reel loglike_zero, reel& loglike_courante);
+	void construitModele(int numMarq, const set<int>& varContinues); //, const reel loglike_zero, reel& loglike_courante);
 	//	void calculeStats(reel loglikeCourante, reel loglikeZero, int nbParamEstimes, vector<double>& statsCourantes, vector<double>& pseudosRcarresCourants);
 	bool calculeStats(resModele& resultat, int nbParamEstimes);
+
 	int calculeRegression(reel& loglikeCourante, reel& indiceEfron);
-	void calculeGWR(int numMarq,  const set<int> & varContinues,   resModele& resultat);
+
+	void calculeGWR(int numMarq, const set<int>& varContinues, resModele& resultat);
 
 	void calculePonderation() throw(Erreur);
 
@@ -125,7 +128,7 @@ private:
 		bool isActive;
 		int localIndex;
 	}
-	DetailsVariable;
+			DetailsVariable;
 
 	typedef vector<DetailsVariable> SpecificationsDonnees;
 
@@ -133,8 +136,8 @@ private:
 	typedef struct
 	{
 	public:
-		int nbPoints, taille;	// taille = nb points valides
-		MatriceBools masque;	// taille du masque = nbPoints
+		int nbPoints, taille;    // taille = nb points valides
+		MatriceBools masque;    // taille du masque = nbPoints
 		vector<int> pointsValides, indices; // pointsValides = liste de taille "taille", indices= indices locaux des points valides
 		TableClassementsVoisins poids;
 
@@ -148,7 +151,7 @@ protected:
 	MatriceReels dataEnv;
 	MatriceBools dataMarq;
 	MatriceStrings dataSupEnv, dataSupMarq;
-	vector< set< int > > missingValuesEnv, missingValuesMarq;
+	vector<set<int> > missingValuesEnv, missingValuesMarq;
 	SpecificationsDonnees specDataEnv, specDataMarq;
 	// Lien entre l'indice local et le numéro global de la variable.
 	map<int, int> varEnvActives, varEnvPassives, marqActifs, marqPassifs;
@@ -161,8 +164,8 @@ protected:
 	int nbMarqActifs;
 	int nbMarqTot;
 	int numPremierMarq;
-	int nbPoints;	// Nombre points totaux dans l'échantillon
-	int taille;		// Nombre de points valides-> dépend du marqueur considéré
+	int nbPoints;    // Nombre points totaux dans l'échantillon
+	int taille;        // Nombre de points valides-> dépend du marqueur considéré
 	int nbParam;
 	int dimensionMax;
 
@@ -172,11 +175,11 @@ protected:
 
 
 	MatriceReels X, Y,
-	beta_hat, nouv_beta_hat, diff_beta_hat,
-	scores, J_info, inv_J_info,
-	Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
+			beta_hat, nouv_beta_hat, diff_beta_hat,
+			scores, J_info, inv_J_info,
+			Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
 
-	vector< groupeResultats > resultats;
+	vector<groupeResultats> resultats;
 	bool sauvegardeTempsReel;
 	typeSelectionModeles selModeles;
 	pair<string, string> nomFichierResultats;
@@ -205,32 +208,35 @@ protected:
 	bool AS_GWR, AS_autocorrGlobale, AS_autocorrLocale, AS_autocorrVarEnv, AS_autocorrMarq, AS_shapefile;
 	// Variables pour la régression locale (et le jackknife)
 	MatriceReels X_l, Y_l,
-	beta_hat_l, nouv_beta_hat_l, diff_beta_hat_l,
-	scores_l, J_info_l, inv_J_info_l,
-	Xb_l, nouv_Xb_l, exp_Xb_l, pi_hat_l, interm_l, intermScores_l, hat_matrix_l;
+			beta_hat_l, nouv_beta_hat_l, diff_beta_hat_l,
+			scores_l, J_info_l, inv_J_info_l,
+			Xb_l, nouv_Xb_l, exp_Xb_l, pi_hat_l, interm_l, intermScores_l, hat_matrix_l;
 
 	// Flots d'écriture des résultats
 	Scribe sortie;
 	string delimLignes; // caractère de retour ligne
 	char delimMots; // caractère de séparation entre mots
 
-    // Journal d'exécution
-    Journal journal;
-    // Journal des modèles divergents
-    FluxSortie modelesDivergents;
+	// Journal d'exécution
+	Journal journal;
+	// Journal des modèles divergents
+	FluxSortie modelesDivergents;
 
-    // Ecriture du journal temporaire en cas d'erreur fatale au début de l'initialisation
-    void dumpJournalTemporaire();
+	// Ecriture du journal temporaire en cas d'erreur fatale au début de l'initialisation
+	void dumpJournalTemporaire();
 
-    static vector<string> getMessageBienvenue(bool versionLongue=false);
-    void messageBienvenue(bool versionLongue=false);
+	static vector<string> getMessageBienvenue(bool versionLongue = false);
 
-	private :
+	void messageBienvenue(bool versionLongue = false);
+
+private :
 
 	RegressionLogistique(const RegressionLogistique& lr);
 
 	void affiche(const etiquetteModele& label);
+
 	void affiche(const resModele& res);
+
 	void affiche(const groupeResultats::iterator res);
 
 
@@ -244,23 +250,23 @@ protected:
 		bool mandatory;
 		bool present;
 		//bool tokenize;
-		vector<string> prereq;	// Liste des pré-requis
+		vector<string> prereq;    // Liste des pré-requis
 		vector<string> contents;
 	}
-	ParameterSetData;
+			ParameterSetData;
 
 	typedef vector<ParameterSetData> ParameterSet;
 	typedef map<string, int> ParameterSetIndex;
 
 
-
 	void initialisationParametres(ParameterSet& listeParam, ParameterSetIndex& indexParam) const;
+
 	// Cette méthode lit le fichier de paramètres et remplit la liste
 	// Elle vérifie aussi si les paramètres obligatoires sont présents
 	ifstream& lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) throw(Erreur);
 
 	// This method creates a new Erreur, write the description to the log and throw the Erreur
-	void erreurDetectee(const string& nom="", const string& description="", bool arret=true) throw(Erreur);
+	void erreurDetectee(const string& nom = "", const string& description = "", bool arret = true) throw(Erreur);
 
 	bool calculeStructurePop(int dimensionCourante) const;
 };
@@ -269,9 +275,13 @@ class ComparaisonVoisins
 {
 public:
 	ComparaisonVoisins();
+
 	virtual ~ComparaisonVoisins();
+
 	static bool plusPetitQue(const Voisin& v1, const Voisin& v2);
+
 	static bool plusGrandQue(const Voisin& v1, const Voisin& v2);
+
 protected:
 	ComparaisonVoisins(const ComparaisonVoisins& c);
 };
@@ -280,14 +290,16 @@ class ComparaisonResultats
 {
 public:
 	ComparaisonResultats();
+
 	virtual ~ComparaisonResultats();
 
 	static int getCase();
+
 	static void setCase(int i);
 
-	static bool plusPetitQue(const groupeResultats::value_type* const &  r1, const groupeResultats::value_type* const &  r2);
+	static bool plusPetitQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2);
 
-	static bool plusGrandQue(const groupeResultats::value_type* const &  r1, const groupeResultats::value_type* const &  r2);
+	static bool plusGrandQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2);
 
 protected:
 	static int caseComparaisonResultats;

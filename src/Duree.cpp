@@ -64,7 +64,7 @@ Duree::Duree(int j, int h, int m, int s)
 Duree::~Duree()
 {}
 
-int Duree::calculeLargeur(const PrecisionDuree &prec, const ChablonDuree &chablon)
+int Duree::calculeLargeur(const PrecisionDuree& prec, const ChablonDuree& chablon)
 {
 	// La précision doit avoir été ajustée au préalable!
 
@@ -82,7 +82,7 @@ int Duree::calculeLargeur(const PrecisionDuree &prec, const ChablonDuree &chablo
 	return taille;
 }
 
-Journal &Duree::affiche(Journal &j, const ChablonDuree &chablon) const
+Journal& Duree::affiche(Journal& j, const ChablonDuree& chablon) const
 {
 	ostringstream oss;
 	if (!chablon.zappeJours)
@@ -99,7 +99,7 @@ Journal &Duree::affiche(Journal &j, const ChablonDuree &chablon) const
 	return j;
 }
 
-Journal &Duree::affiche(Journal &j, const PrecisionDuree &prec, const ChablonDuree &chablon) const
+Journal& Duree::affiche(Journal& j, const PrecisionDuree& prec, const ChablonDuree& chablon) const
 {
 	ostringstream oss;
 	PrecisionDuree precision(prec);
@@ -118,7 +118,7 @@ Journal &Duree::affiche(Journal &j, const PrecisionDuree &prec, const ChablonDur
 	return j;
 }
 
-void Duree::ajustePrecision(PrecisionDuree &p) const
+void Duree::ajustePrecision(PrecisionDuree& p) const
 {
 	p.jours = max(ceil(log10((double) jours)), (double) p.jours);
 	p.heures = max(ceil(log10((double) heures)), (double) p.heures);
@@ -126,11 +126,11 @@ void Duree::ajustePrecision(PrecisionDuree &p) const
 	p.secondes = max(ceil(log10((double) secondes)), (double) p.secondes);
 }
 
-Duree::Duree(const Duree &d)
+Duree::Duree(const Duree& d)
 		: jours(d.jours), heures(d.heures), minutes(d.minutes), secondes(d.secondes)
 {}
 
-bool Duree::plusLongueOuEgale(const Duree &d) const
+bool Duree::plusLongueOuEgale(const Duree& d) const
 {
 	if (jours > d.jours)
 	{
@@ -175,7 +175,7 @@ bool Duree::plusLongueOuEgale(const Duree &d) const
 	}
 }
 
-bool Duree::plusCourte(const Duree &d) const
+bool Duree::plusCourte(const Duree& d) const
 {
 	return d.plusLongueOuEgale(*this);
 }
@@ -185,30 +185,30 @@ int Duree::calculeTailleAffichageJours() const
 	return (int) ceil(log10(1.0 * jours));
 }
 
-Journal &operator<<(Journal &j, const Duree &d)
+Journal& operator<<(Journal& j, const Duree& d)
 {
 	d.affiche(j);
 	return j;
 }
 
-DureeFormatee::DureeFormatee(const Duree &d, const PrecisionDuree &p, const ChablonDuree &c)
+DureeFormatee::DureeFormatee(const Duree& d, const PrecisionDuree& p, const ChablonDuree& c)
 		: duree(d), precision(p), chablon(c)
 {}
 
 DureeFormatee::~DureeFormatee()
 {}
 
-Journal &DureeFormatee::affiche(Journal &j) const
+Journal& DureeFormatee::affiche(Journal& j) const
 {
 	duree.affiche(j, precision, chablon);
 	return j;
 }
 
-DureeFormatee::DureeFormatee(const DureeFormatee &d)
+DureeFormatee::DureeFormatee(const DureeFormatee& d)
 		: duree(d.duree), precision(d.precision), chablon(d.chablon)
 {}
 
-Journal &operator<<(Journal &j, const DureeFormatee &d)
+Journal& operator<<(Journal& j, const DureeFormatee& d)
 {
 	d.affiche(j);
 	return j;

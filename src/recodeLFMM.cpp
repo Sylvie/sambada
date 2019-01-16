@@ -75,7 +75,7 @@ typedef map<vector<Base>, ElementEncodage> EncodageBinaire;
  }
  }*/
 
-void construitValeursPossibles(vector<string> &v, int nbCar, char sep)
+void construitValeursPossibles(vector<string>& v, int nbCar, char sep)
 {
 	v.clear();
 	if (nbCar == 3)

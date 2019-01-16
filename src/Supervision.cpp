@@ -42,7 +42,7 @@ Supervision::Supervision()
 Supervision::~Supervision()
 {}
 
-int Supervision::preparationsCalculs(const string &nomFichier)
+int Supervision::preparationsCalculs(const string& nomFichier)
 {
 	time_t temps_start(time(NULL));
 
@@ -740,7 +740,7 @@ int Supervision::fusionResultats(int argc, char *argv[]) throw()
 
 }
 
-Supervision::Supervision(const Supervision &s)
+Supervision::Supervision(const Supervision& s)
 {}
 
 /*
@@ -802,16 +802,16 @@ ComparaisonModeles::ComparaisonModeles()
 ComparaisonModeles::~ComparaisonModeles()
 {}
 
-bool ComparaisonModeles::plusPetitQue(const Modele &r1, const Modele &r2)
+bool ComparaisonModeles::plusPetitQue(const Modele& r1, const Modele& r2)
 {
 	return ((r1.scoreTri) < (r2.scoreTri));
 }
 
-bool ComparaisonModeles::plusGrandQue(const Modele &r1, const Modele &r2)
+bool ComparaisonModeles::plusGrandQue(const Modele& r1, const Modele& r2)
 {
 	return ((r1.scoreTri) > (r2.scoreTri));
 }
 
 
-ComparaisonModeles::ComparaisonModeles(ComparaisonModeles &c)
+ComparaisonModeles::ComparaisonModeles(ComparaisonModeles& c)
 {}

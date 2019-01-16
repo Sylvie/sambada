@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 		}
 
 	}
-	catch (const Erreur &err)
+	catch (const Erreur& err)
 	{
 		cout << err.what() << endl;
 		exit(1);

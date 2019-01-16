@@ -421,7 +421,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		}
 		calculePonderation();
 	}
-	catch (const Erreur &e)
+	catch (const Erreur& e)
 	{
 		if (e.estFatale())
 		{
@@ -2515,7 +2515,7 @@ int RegressionLogistique::creeModelesGlobaux()
 }
 
 
-void RegressionLogistique::construitModele(int numMarq, const set<int> &varContinues)//, const reel loglike_zero, reel& loglike_courante)
+void RegressionLogistique::construitModele(int numMarq, const set<int>& varContinues)//, const reel loglike_zero, reel& loglike_courante)
 {
 	int nbVarCont(varContinues.size());
 	int dim(nbVarCont);
@@ -2734,7 +2734,7 @@ void RegressionLogistique::construitModele(int numMarq, const set<int> &varConti
 // 4: max iterations atteint
 // 5: marqueur constant
 // 6: modèle avec parents non-significatifs
-int RegressionLogistique::calculeRegression(reel &loglikeCourante, reel &composantEfron)
+int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composantEfron)
 {
 
 	// Test de convergence
@@ -2798,7 +2798,7 @@ int RegressionLogistique::calculeRegression(reel &loglikeCourante, reel &composa
 				{
 					inv_J_info = invpd(J_info);
 				}
-				catch (scythe_exception &error)
+				catch (scythe_exception& error)
 				{
 					singularMatrix = true;
 					continueCalcul = false;
@@ -2856,7 +2856,7 @@ int RegressionLogistique::calculeRegression(reel &loglikeCourante, reel &composa
 	return typeErreur;
 }
 
-bool RegressionLogistique::calculeStats(resModele &resultat, int nbParamEstimes)
+bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 {
 	bool modeleRetenu(true);
 
@@ -3113,7 +3113,7 @@ bool RegressionLogistique::calculeStats(resModele &resultat, int nbParamEstimes)
 
 }
 
-void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues, resModele &resultat)
+void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues, resModele& resultat)
 {
 	cout << "%" << numMarq << endl;
 	int nbVarCont(varContinues.size());
@@ -3397,7 +3397,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 					{
 						inv_J_info_l = invpd(J_info_l);
 					}
-					catch (scythe_exception &error)
+					catch (scythe_exception& error)
 					{
 						//cerr << error.message() << "\n";
 						singularMatrix = true;
@@ -3485,7 +3485,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 			{
 				invXtWX = invpd(XtW * X_l(0, 0, limiteLignes, nbParam - 1));
 			}
-			catch (scythe_exception &error)
+			catch (scythe_exception& error)
 			{
 				pointsValides(i, 0) = false;
 				recalculeLoglikeGlobale = true;
@@ -3565,7 +3565,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 }
 
 
-void RegressionLogistique::initialisationParametres(ParameterSet &listeParam, ParameterSetIndex &indexParam) const
+void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, ParameterSetIndex& indexParam) const
 {
 	ParameterSetData paramCourant;
 
@@ -3686,17 +3686,17 @@ ComparaisonVoisins::ComparaisonVoisins()
 ComparaisonVoisins::~ComparaisonVoisins()
 {}
 
-bool ComparaisonVoisins::plusPetitQue(const Voisin &v1, const Voisin &v2)
+bool ComparaisonVoisins::plusPetitQue(const Voisin& v1, const Voisin& v2)
 {
 	return (v1.second < v2.second);
 }
 
-bool ComparaisonVoisins::plusGrandQue(const Voisin &v1, const Voisin &v2)
+bool ComparaisonVoisins::plusGrandQue(const Voisin& v1, const Voisin& v2)
 {
 	return (v1.second > v2.second);
 }
 
-ComparaisonVoisins::ComparaisonVoisins(const ComparaisonVoisins &c)
+ComparaisonVoisins::ComparaisonVoisins(const ComparaisonVoisins& c)
 {}
 
 int ComparaisonResultats::caseComparaisonResultats = 0;
@@ -3717,16 +3717,16 @@ void ComparaisonResultats::setCase(int i)
 	caseComparaisonResultats = i;
 }
 
-bool ComparaisonResultats::plusPetitQue(const groupeResultats::value_type *const &r1, const groupeResultats::value_type *const &r2)
+bool ComparaisonResultats::plusPetitQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2)
 {
 	return ((r1->second[caseComparaisonResultats]) < (r2->second[caseComparaisonResultats]));
 }
 
-bool ComparaisonResultats::plusGrandQue(const groupeResultats::value_type *const &r1, const groupeResultats::value_type *const &r2)
+bool ComparaisonResultats::plusGrandQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2)
 {
 	return ((r1->second[caseComparaisonResultats]) > (r2->second[caseComparaisonResultats]));
 }
 
 
-ComparaisonResultats::ComparaisonResultats(ComparaisonResultats &c)
+ComparaisonResultats::ComparaisonResultats(ComparaisonResultats& c)
 {}

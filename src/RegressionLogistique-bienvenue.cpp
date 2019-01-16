@@ -72,7 +72,7 @@ vector<string> RegressionLogistique::getMessageBienvenue(bool versionLongue)
 }
 
 
-ostream &RegressionLogistique::messageBienvenue(ostream &out, bool versionLongue)
+ostream& RegressionLogistique::messageBienvenue(ostream& out, bool versionLongue)
 {
 	vector<string> message(getMessageBienvenue(versionLongue));
 	for (int i(0); i < message.size(); ++i)

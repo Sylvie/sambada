@@ -45,19 +45,19 @@ public:
 
 	bool estEnPause() const;
 
-	void setDelimLignes(const string &delim);
+	void setDelimLignes(const string& delim);
 
 	string getDelimLignes() const;
 
-	void setDelimMots(const string &delim);
+	void setDelimMots(const string& delim);
 
 	string getDelimMots() const;
 
-	void setNomFichier(const string &nom);
+	void setNomFichier(const string& nom);
 
 	string getNomFichier() const;
 
-	void setDelims(const string &delimL, const string &delimM);
+	void setDelims(const string& delimL, const string& delimM);
 
 	void setActiviteTerminal(bool b);
 
@@ -71,23 +71,23 @@ public:
 
 	void erreurDetectee();
 
-	Journal &synchronise();
+	Journal& synchronise();
 
 	bool estFonctionnel();
 
 	template<class T>
-	Journal &ecrit(const T &token);
+	Journal& ecrit(const T& token);
 
-	Journal &retourLigne();
+	Journal& retourLigne();
 
-	Journal &nouvMot();
+	Journal& nouvMot();
 
 	template<class T>
-	Journal &operator<<(const T &token);
+	Journal& operator<<(const T& token);
 
-	Journal &operator<<(Journal &(*pf)(Journal &));
+	Journal& operator<<(Journal& (*pf)(Journal&));
 
-	Journal &operator<<(ostream &(*pf)(ostream &));
+	Journal& operator<<(ostream& (*pf)(ostream&));
 
 	void afficheJournalTemporaire();
 
@@ -101,18 +101,18 @@ protected:
 
 
 private:
-	Journal(const Journal &j);
+	Journal(const Journal& j);
 
 };
 
-Journal &nl(Journal &j);
+Journal& nl(Journal& j);
 
-Journal &nm(Journal &j);
+Journal& nm(Journal& j);
 
-Journal &erreur(Journal &j);
+Journal& erreur(Journal& j);
 
 template<class T>
-Journal &Journal::operator<<(const T &token)
+Journal& Journal::operator<<(const T& token)
 {
 	if (flotEnPause)
 	{

@@ -51,10 +51,10 @@ Archiviste::~Archiviste()
  */
 }
 
-Archiviste::Archiviste(const Archiviste &)
+Archiviste::Archiviste(const Archiviste&)
 {}
 
-void Archiviste::initialise(const vector<string> &noms)
+void Archiviste::initialise(const vector<string>& noms)
 {
 	nbFichiers = noms.size();
 	nomsFichiers = noms;
@@ -109,7 +109,7 @@ string Archiviste::getRetourLigne() const
 }
 
 
-void Archiviste::setRetourLigne(const string &s)
+void Archiviste::setRetourLigne(const string& s)
 {
 	signeRetourLigne = s;
 }

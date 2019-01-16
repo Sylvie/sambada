@@ -73,7 +73,7 @@ bool Journal::estEnPause() const
 	return flotEnPause;
 }
 
-void Journal::setDelimLignes(const string &delim)
+void Journal::setDelimLignes(const string& delim)
 {
 	flux.setDelimLignes(delim);
 }
@@ -83,7 +83,7 @@ string Journal::getDelimLignes() const
 	return flux.getDelimLignes();
 }
 
-void Journal::setDelimMots(const string &delim)
+void Journal::setDelimMots(const string& delim)
 {
 	flux.setDelimMots(delim);
 }
@@ -93,7 +93,7 @@ string Journal::getDelimMots() const
 	return flux.getDelimMots();
 }
 
-void Journal::setNomFichier(const string &nom)
+void Journal::setNomFichier(const string& nom)
 {
 	flux.setNomFichier(nom);
 }
@@ -103,7 +103,7 @@ string Journal::getNomFichier() const
 	return flux.getNomFichier();
 }
 
-void Journal::setDelims(const string &delimL, const string &delimM)
+void Journal::setDelims(const string& delimL, const string& delimM)
 {
 	flux.setDelims(delimL, delimM);
 }
@@ -141,7 +141,7 @@ void Journal::erreurDetectee()
 	}
 }
 
-Journal &Journal::synchronise()
+Journal& Journal::synchronise()
 {
 	if (flotEnPause)
 	{
@@ -163,7 +163,7 @@ bool Journal::estFonctionnel()
 	return ((terminalActif && fichierOK) || (!terminalActif && fichierActif && fichierValide));
 }
 
-Journal &Journal::retourLigne()
+Journal& Journal::retourLigne()
 {
 	if (flotEnPause)
 	{
@@ -176,7 +176,7 @@ Journal &Journal::retourLigne()
 	return *this;
 }
 
-Journal &Journal::nouvMot()
+Journal& Journal::nouvMot()
 {
 	if (!flotEnPause)
 	{
@@ -185,7 +185,7 @@ Journal &Journal::nouvMot()
 	return *this;
 }
 
-Journal &Journal::operator<<(Journal &(*pf)(Journal &))
+Journal& Journal::operator<<(Journal& (*pf)(Journal&))
 {
 /*	if (flotEnPause)
 	{
@@ -198,7 +198,7 @@ Journal &Journal::operator<<(Journal &(*pf)(Journal &))
 	return pf(*this);
 }
 
-Journal &Journal::operator<<(ostream &(*pf)(ostream &))
+Journal& Journal::operator<<(ostream& (*pf)(ostream&))
 {
 	if (flotEnPause)
 	{
@@ -211,21 +211,21 @@ Journal &Journal::operator<<(ostream &(*pf)(ostream &))
 	return *this;
 }
 
-Journal &nm(Journal &j)
+Journal& nm(Journal& j)
 {
 	j.nouvMot();
 	return j;
 }
 
 
-Journal &nl(Journal &j)
+Journal& nl(Journal& j)
 {
 	j.retourLigne();
 	return j;
 }
 
 
-Journal &erreur(Journal &j)
+Journal& erreur(Journal& j)
 {
 	j.erreurDetectee();
 	return j;

@@ -1546,7 +1546,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 }
 
 
-void RegressionLogistique::ecritResultat(int numFichier, const resModele &r) const
+void RegressionLogistique::ecritResultat(int numFichier, const resModele& r) const
 {
 	//On écrit les numéros/noms globaux des marqueurs
 	// Le décalage du numéro de marqueur dans les jobs multiples a déjà été pris en compte
@@ -1564,7 +1564,7 @@ void RegressionLogistique::ecritResultat(int numFichier, const resModele &r) con
 
 }
 
-void RegressionLogistique::ecritMessage(const string &s, bool nouvLigne)
+void RegressionLogistique::ecritMessage(const string& s, bool nouvLigne)
 {
 	if (!s.empty())
 	{
@@ -1742,7 +1742,7 @@ void RegressionLogistique::messageBienvenue(bool versionLongue)
  return sortie;
  }
  */
-void RegressionLogistique::affiche(const etiquetteModele &label)
+void RegressionLogistique::affiche(const etiquetteModele& label)
 {
 	cout << label.first << " : ";
 	for (set<int>::iterator i(label.second.begin()); i != label.second.end(); ++i)
@@ -1752,7 +1752,7 @@ void RegressionLogistique::affiche(const etiquetteModele &label)
 	cout << "\n";
 }
 
-void RegressionLogistique::affiche(const resModele &res)
+void RegressionLogistique::affiche(const resModele& res)
 {
 	affiche(res.first);
 	cout << "    ";
@@ -1839,7 +1839,7 @@ void RegressionLogistique::trieEtEcritResultats()
 
 // Cette méthode lit le fichier de paramètres et remplit la liste
 // Elle vérifie aussi si les paramètres obligatoires (et les pré-requis) sont présents
-ifstream &RegressionLogistique::lectureParametres(ifstream &entree, const ParameterSetIndex &index, ParameterSet &parametres) throw(Erreur)
+ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) throw(Erreur)
 {
 	entree >> ws;
 	string nomParam, lu;
@@ -1915,7 +1915,7 @@ ifstream &RegressionLogistique::lectureParametres(ifstream &entree, const Parame
 	return entree;
 }
 
-void RegressionLogistique::erreurDetectee(const string &nom, const string &description, bool arret) throw(Erreur)
+void RegressionLogistique::erreurDetectee(const string& nom, const string& description, bool arret) throw(Erreur)
 {
 	Erreur e(nom, description, arret);
 	journal << description << nl;

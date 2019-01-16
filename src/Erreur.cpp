@@ -30,7 +30,7 @@
 
 using namespace std;
 
-Erreur::Erreur(const string &n, const string &p, bool arret) throw()
+Erreur::Erreur(const string& n, const string& p, bool arret) throw()
 		: nom(n), phrase(p), fatale(arret)
 {}
 

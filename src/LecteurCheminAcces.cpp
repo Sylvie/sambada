@@ -29,11 +29,11 @@
 
 #include <iostream>
 
-CheminAcces::CheminAcces(const std::string &chemin, const std::string &radical, const std::string &extension)
+CheminAcces::CheminAcces(const std::string& chemin, const std::string& radical, const std::string& extension)
 		: chemin(chemin), radical(radical), extension(extension)
 {}
 
-CheminAcces::CheminAcces(const CheminAcces &cheminAcces)
+CheminAcces::CheminAcces(const CheminAcces& cheminAcces)
 		: CheminAcces(cheminAcces.chemin, cheminAcces.radical, cheminAcces.extension)
 {}
 
@@ -45,7 +45,7 @@ CheminAcces::~CheminAcces()
 
 }
 
-bool CheminAcces::operator==(const CheminAcces &autre) const
+bool CheminAcces::operator==(const CheminAcces& autre) const
 {
 	return chemin == autre.chemin && radical == autre.radical && extension == autre.extension;
 }
@@ -54,7 +54,7 @@ bool CheminAcces::operator==(const CheminAcces &autre) const
 LecteurCheminAcces::LecteurCheminAcces()
 {}
 
-LecteurCheminAcces::LecteurCheminAcces(const LecteurCheminAcces &cheminAcces)
+LecteurCheminAcces::LecteurCheminAcces(const LecteurCheminAcces& cheminAcces)
 {}
 
 LecteurCheminAcces::~LecteurCheminAcces()
@@ -62,7 +62,7 @@ LecteurCheminAcces::~LecteurCheminAcces()
 
 }
 
-CheminAcces LecteurCheminAcces::decompose(const std::string &cheminComplet)
+CheminAcces LecteurCheminAcces::decompose(const std::string& cheminComplet)
 {
 	CheminAcces cheminAcces;
 

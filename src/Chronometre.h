@@ -42,7 +42,7 @@ public:
 
 	virtual ~Chronometre();
 
-	int initialisation(Journal *j, int nbTotEv, int numPremMesure = 10, const string &separateurCol = "");
+	int initialisation(Journal *j, int nbTotEv, int numPremMesure = 10, const string& separateurCol = "");
 
 	int mesureEtAffiche(int numEvenement = -1);
 
@@ -85,12 +85,12 @@ protected:
 
 	int calculeProchaineMesure(int numEv);
 
-	void affiche(const Duree &d);
+	void affiche(const Duree& d);
 
-	void ajusteAffichage(const Duree &dureeEstimee);
+	void ajusteAffichage(const Duree& dureeEstimee);
 
 private:
-	Chronometre(const Chronometre &c);
+	Chronometre(const Chronometre& c);
 };
 
 

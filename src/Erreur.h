@@ -38,7 +38,7 @@ using namespace std;
 class Erreur : public exception
 {
 public:
-	Erreur(const string &n = "", const string &p = "", bool arret = true) throw();
+	Erreur(const string& n = "", const string& p = "", bool arret = true) throw();
 
 	virtual const char *what() const throw();
 

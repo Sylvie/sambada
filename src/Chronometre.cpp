@@ -40,7 +40,7 @@ Chronometre::Chronometre()
 Chronometre::~Chronometre()
 {}
 
-int Chronometre::initialisation(Journal *j, int nbTotEv, int numPremMesure, const string &separateurCol)
+int Chronometre::initialisation(Journal *j, int nbTotEv, int numPremMesure, const string& separateurCol)
 {
 	journal = j;
 	nbTotEvenements = nbTotEv;
@@ -176,12 +176,12 @@ int Chronometre::calculeProchaineMesure(int numEv)
 }
 
 
-void Chronometre::affiche(const Duree &d)
+void Chronometre::affiche(const Duree& d)
 {
 	d.affiche((*journal), precision, chablon);
 }
 
-void Chronometre::ajusteAffichage(const Duree &dureeEstimee)
+void Chronometre::ajusteAffichage(const Duree& dureeEstimee)
 {
 	// Si la durée est de moins d'une heure, on affiche les secondes
 	if (dureeEstimee.plusCourte(Duree(0, 1, 0, 0)))

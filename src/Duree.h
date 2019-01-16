@@ -51,48 +51,48 @@ public:
 
 	Duree(int j, int h, int m, int s);
 
-	Duree(const Duree &d);
+	Duree(const Duree& d);
 
 	virtual ~Duree();
 
-	static int calculeLargeur(const PrecisionDuree &prec, const ChablonDuree &chablon);
+	static int calculeLargeur(const PrecisionDuree& prec, const ChablonDuree& chablon);
 
-	Journal &affiche(Journal &j, const ChablonDuree &chablon = ChablonDuree(false, false)) const;
+	Journal& affiche(Journal& j, const ChablonDuree& chablon = ChablonDuree(false, false)) const;
 
-	Journal &affiche(Journal &j, const PrecisionDuree &precision, const ChablonDuree &chablon = ChablonDuree(false, false)) const;
+	Journal& affiche(Journal& j, const PrecisionDuree& precision, const ChablonDuree& chablon = ChablonDuree(false, false)) const;
 
-	bool plusLongueOuEgale(const Duree &d) const;
+	bool plusLongueOuEgale(const Duree& d) const;
 
-	bool plusCourte(const Duree &d) const;
+	bool plusCourte(const Duree& d) const;
 
 	int calculeTailleAffichageJours() const;
 
 protected:
 	int jours, heures, minutes, secondes;
 
-	void ajustePrecision(PrecisionDuree &p) const;
+	void ajustePrecision(PrecisionDuree& p) const;
 };
 
-Journal &operator<<(Journal &j, const Duree &d);
+Journal& operator<<(Journal& j, const Duree& d);
 
 class DureeFormatee
 {
 public:
-	DureeFormatee(const Duree &d, const PrecisionDuree &p, const ChablonDuree &c = ChablonDuree(false, false));
+	DureeFormatee(const Duree& d, const PrecisionDuree& p, const ChablonDuree& c = ChablonDuree(false, false));
 
 	virtual ~DureeFormatee();
 
-	DureeFormatee(const DureeFormatee &d);
+	DureeFormatee(const DureeFormatee& d);
 
-	Journal &affiche(Journal &j) const;
+	Journal& affiche(Journal& j) const;
 
 protected:
-	const Duree &duree;
-	const PrecisionDuree &precision;
-	const ChablonDuree &chablon;
+	const Duree& duree;
+	const PrecisionDuree& precision;
+	const ChablonDuree& chablon;
 
 };
 
-Journal &operator<<(Journal &j, const DureeFormatee &d);
+Journal& operator<<(Journal& j, const DureeFormatee& d);
 
 #endif // DUREE_H

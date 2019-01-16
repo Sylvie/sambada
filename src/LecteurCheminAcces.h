@@ -35,9 +35,9 @@ class CheminAcces
 public:
 	CheminAcces();
 
-	CheminAcces(const CheminAcces &cheminAcces);
+	CheminAcces(const CheminAcces& cheminAcces);
 
-	CheminAcces(const std::string &chemin, const std::string &radical, const std::string &extension);
+	CheminAcces(const std::string& chemin, const std::string& radical, const std::string& extension);
 
 	virtual ~CheminAcces();
 
@@ -45,7 +45,7 @@ public:
 	std::string radical;
 	std::string extension;
 
-	bool operator==(const CheminAcces &autre) const;
+	bool operator==(const CheminAcces& autre) const;
 };
 
 class LecteurCheminAcces
@@ -55,14 +55,14 @@ public:
 
 	virtual ~LecteurCheminAcces();
 
-	CheminAcces decompose(const std::string &cheminComplet);
+	CheminAcces decompose(const std::string& cheminComplet);
 
 	std::string getSeparateurCheminSysteme() const;
 
 	std::string getSeparateurCheminStandard() const;
 
 protected:
-	LecteurCheminAcces(const LecteurCheminAcces &cheminAcces);
+	LecteurCheminAcces(const LecteurCheminAcces& cheminAcces);
 };
 
 #endif //SAMBADA_LECTEURCHEMINACCES_H

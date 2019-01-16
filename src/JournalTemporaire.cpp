@@ -42,12 +42,12 @@ JournalTemporaire::~JournalTemporaire()
     return *this;
 }*/
 
-JournalTemporaire &JournalTemporaire::operator<<(JournalTemporaire &(*pf)(JournalTemporaire &))
+JournalTemporaire& JournalTemporaire::operator<<(JournalTemporaire& (*pf)(JournalTemporaire&))
 {
 	return pf(*this);
 }
 
-JournalTemporaire &JournalTemporaire::operator<<(ostream &(*pf)(ostream &))
+JournalTemporaire& JournalTemporaire::operator<<(ostream& (*pf)(ostream&))
 {
 	if (oss == NULL)
 	{
@@ -57,7 +57,7 @@ JournalTemporaire &JournalTemporaire::operator<<(ostream &(*pf)(ostream &))
 	return *this;
 }
 
-JournalTemporaire &JournalTemporaire::retourLigne()
+JournalTemporaire& JournalTemporaire::retourLigne()
 {
 	if (oss != NULL)
 	{
@@ -68,7 +68,7 @@ JournalTemporaire &JournalTemporaire::retourLigne()
 	return *this;
 }
 
-JournalTemporaire &JournalTemporaire::synchronise()
+JournalTemporaire& JournalTemporaire::synchronise()
 {
 	if (oss != NULL && !(oss->str().empty()))
 	{}
@@ -78,7 +78,7 @@ JournalTemporaire &JournalTemporaire::synchronise()
 	return *this;
 }
 
-void JournalTemporaire::push(const string &s)
+void JournalTemporaire::push(const string& s)
 {
 	deque<string>::push_back(s);
 }
@@ -90,23 +90,23 @@ void JournalTemporaire::push(const string &s)
 }*/
 
 
-JournalTemporaire &nl(JournalTemporaire &jt)
+JournalTemporaire& nl(JournalTemporaire& jt)
 {
 	jt.retourLigne();
 	return jt;
 }
 
-JournalTemporaire &endl(JournalTemporaire &jt)
+JournalTemporaire& endl(JournalTemporaire& jt)
 {
 	jt << nl;
 	return jt;
 }
 
-JournalTemporaire &flush(JournalTemporaire &jt)
+JournalTemporaire& flush(JournalTemporaire& jt)
 {
 	jt.synchronise();
 	return jt;
 }
 
-JournalTemporaire::JournalTemporaire(const JournalTemporaire &jt)
+JournalTemporaire::JournalTemporaire(const JournalTemporaire& jt)
 {}

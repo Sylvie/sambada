@@ -43,19 +43,19 @@ public:
 
 	virtual ~FluxSortie();
 
-	void setDelimLignes(const string &delim);
+	void setDelimLignes(const string& delim);
 
 	string getDelimLignes() const;
 
-	void setDelimMots(const string &delim);
+	void setDelimMots(const string& delim);
 
 	string getDelimMots() const;
 
-	void setNomFichier(const string &nom);
+	void setNomFichier(const string& nom);
 
 	string getNomFichier() const;
 
-	void setDelims(const string &delimL, const string &delimM);
+	void setDelims(const string& delimL, const string& delimM);
 
 	void setActiviteTerminal(bool b);
 
@@ -75,23 +75,23 @@ public:
 
 	void erreurDetectee();
 
-	FluxSortie &synchronise();
+	FluxSortie& synchronise();
 
 	template<class T>
-	FluxSortie &ecrit(const T &token);
+	FluxSortie& ecrit(const T& token);
 
-	FluxSortie &retourLigne();
+	FluxSortie& retourLigne();
 
-	FluxSortie &nouvMot();
+	FluxSortie& nouvMot();
 
 	template<class T>
-	FluxSortie &operator<<(const T &token);
+	FluxSortie& operator<<(const T& token);
 
-	FluxSortie &operator<<(FluxSortie &(*pf)(FluxSortie &));
+	FluxSortie& operator<<(FluxSortie& (*pf)(FluxSortie&));
 
-	FluxSortie &operator<<(ostream &(*pf)(ostream &));
+	FluxSortie& operator<<(ostream& (*pf)(ostream&));
 
-	FluxSortie &operator<<(JournalTemporaire &j);
+	FluxSortie& operator<<(JournalTemporaire& j);
 
 
 protected:
@@ -106,17 +106,17 @@ protected:
 	ofstream sortie;
 
 private:
-	FluxSortie(const FluxSortie &fs);
+	FluxSortie(const FluxSortie& fs);
 };
 
-FluxSortie &nl(FluxSortie &fs);
+FluxSortie& nl(FluxSortie& fs);
 
-FluxSortie &nm(FluxSortie &fs);
+FluxSortie& nm(FluxSortie& fs);
 
-FluxSortie &erreur(FluxSortie &fs);
+FluxSortie& erreur(FluxSortie& fs);
 
 template<class T>
-FluxSortie &FluxSortie::ecrit(const T &token)
+FluxSortie& FluxSortie::ecrit(const T& token)
 {
 	if (terminalActif && !estMessageErreur)
 	{
@@ -142,7 +142,7 @@ FluxSortie &FluxSortie::ecrit(const T &token)
 }
 
 template<class T>
-FluxSortie &FluxSortie::operator<<(const T &token)
+FluxSortie& FluxSortie::operator<<(const T& token)
 {
 	return ecrit(token);
 }

@@ -38,7 +38,7 @@ FluxSortie::~FluxSortie()
 	fermetureFichier();
 }
 
-void FluxSortie::setDelimLignes(const string &delim)
+void FluxSortie::setDelimLignes(const string& delim)
 {
 	delimLignes = delim;
 }
@@ -48,7 +48,7 @@ string FluxSortie::getDelimLignes() const
 	return delimLignes;
 }
 
-void FluxSortie::setDelimMots(const string &delim)
+void FluxSortie::setDelimMots(const string& delim)
 {
 	delimMots = delim;
 }
@@ -58,7 +58,7 @@ string FluxSortie::getDelimMots() const
 	return delimMots;
 }
 
-void FluxSortie::setNomFichier(const string &nom)
+void FluxSortie::setNomFichier(const string& nom)
 {
 	nomFichier = nom;
 }
@@ -68,7 +68,7 @@ string FluxSortie::getNomFichier() const
 	return nomFichier;
 }
 
-void FluxSortie::setDelims(const string &delimL, const string &delimM)
+void FluxSortie::setDelims(const string& delimL, const string& delimM)
 {
 	delimLignes = delimL;
 	delimMots = delimM;
@@ -150,27 +150,27 @@ void FluxSortie::erreurDetectee()
 	estMessageErreur = true;
 }
 
-FluxSortie &FluxSortie::nouvMot()
+FluxSortie& FluxSortie::nouvMot()
 {
 	ecrit(delimMots);
 	return *this;
 }
 
 
-FluxSortie &FluxSortie::retourLigne()
+FluxSortie& FluxSortie::retourLigne()
 {
 	ecrit(delimLignes);
 	ligneVide = true;
 	return *this;
 }
 
-FluxSortie &FluxSortie::operator<<(FluxSortie &(*pf)(FluxSortie &))
+FluxSortie& FluxSortie::operator<<(FluxSortie& (*pf)(FluxSortie&))
 {
 	ligneVide = false;
 	return pf(*this);
 }
 
-FluxSortie &FluxSortie::operator<<(ostream &(*pf)(ostream &))
+FluxSortie& FluxSortie::operator<<(ostream& (*pf)(ostream&))
 {
 	if (terminalActif)
 	{
@@ -186,7 +186,7 @@ FluxSortie &FluxSortie::operator<<(ostream &(*pf)(ostream &))
 	return *this;
 }
 
-FluxSortie &FluxSortie::operator<<(JournalTemporaire &jt)
+FluxSortie& FluxSortie::operator<<(JournalTemporaire& jt)
 {
 	jt.synchronise();
 	while (!jt.empty())
@@ -199,25 +199,25 @@ FluxSortie &FluxSortie::operator<<(JournalTemporaire &jt)
 	return *this;
 }
 
-FluxSortie &nm(FluxSortie &fs)
+FluxSortie& nm(FluxSortie& fs)
 {
 	fs.nouvMot();
 	return fs;
 }
 
 
-FluxSortie &nl(FluxSortie &fs)
+FluxSortie& nl(FluxSortie& fs)
 {
 	fs.retourLigne();
 	return fs;
 }
 
 
-FluxSortie &erreur(FluxSortie &fs)
+FluxSortie& erreur(FluxSortie& fs)
 {
 	fs.erreurDetectee();
 	return fs;
 }
 
-FluxSortie::FluxSortie(const FluxSortie &fs)
+FluxSortie::FluxSortie(const FluxSortie& fs)
 {}
