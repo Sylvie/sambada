@@ -42,11 +42,11 @@ using namespace std;
 using namespace scythe;
 
 typedef pair<int, set<int> > etiquetteModele;
-typedef pair <etiquetteModele, vector<reel>> resModele;
-typedef map <etiquetteModele, vector<reel>> groupeResultats;
+typedef pair<etiquetteModele, vector<reel>> resModele;
+typedef map<etiquetteModele, vector<reel>> groupeResultats;
 
 typedef pair<int, reel> Voisin;
-typedef vector <vector<Voisin>> TableClassementsVoisins;
+typedef vector<vector<Voisin>> TableClassementsVoisins;
 
 
 class RegressionLogistique
@@ -65,9 +65,9 @@ protected:
 	typedef enum { all, signif, best } typeSelectionModeles;
 
 	//typedef vector< vector <double> > tableau;
-	typedef Matrix <reel, Col, Concrete> MatriceReels;
+	typedef Matrix<reel, Col, Concrete> MatriceReels;
 	typedef Matrix<bool, Col, Concrete> MatriceBools;
-	typedef Matrix <string, Col, Concrete> MatriceStrings;
+	typedef Matrix<string, Col, Concrete> MatriceStrings;
 
 
 public:
@@ -119,7 +119,7 @@ private:
 	}
 			DetailsVariable;
 
-	typedef vector <DetailsVariable> SpecificationsDonnees;
+	typedef vector<DetailsVariable> SpecificationsDonnees;
 
 	// Domaine: sous-ensemble des points muni d'une pondération
 	typedef struct
@@ -140,11 +140,11 @@ private:
 		int nbPvalStorey;
 		vector<int> nbModelesValides;
 
-		vector <reel> pval;
-		vector <reel> seuilScore;
+		vector<reel> pval;
+		vector<reel> seuilScore;
 
-		vector <vector<int>> compteurG, compteurGOrphelins;
-		vector <vector<int>> compteurWald, compteurWaldOrphelins;
+		vector<vector<int>> compteurG, compteurGOrphelins;
+		vector<vector<int>> compteurWald, compteurWaldOrphelins;
 
 		reel scoreMin;
 	} donneesFDR;
@@ -154,7 +154,7 @@ protected:
 	MatriceReels dataEnv;
 	MatriceBools dataMarq;
 	MatriceStrings dataSupEnv, dataSupMarq;
-	vector <set<int>> missingValuesEnv, missingValuesMarq;
+	vector<set<int>> missingValuesEnv, missingValuesMarq;
 	// vector< string > headerEnv, headerMarq;
 	SpecificationsDonnees specDataEnv, specDataMarq;
 	// Lien entre l'indice local et le numéro global de la variable.
@@ -191,15 +191,15 @@ protected:
 			scores, J_info, inv_J_info,
 			Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
 
-	vector <groupeResultats> resultats;
+	vector<groupeResultats> resultats;
 	bool sauvegardeTempsReel;
 	typeSelectionModeles selModeles;
-	pair <string, string> nomFichierResultats;
+	pair<string, string> nomFichierResultats;
 
 	// Paramètres numériques
 	const reel eps, convCrit, limiteNaN, limiteExp;
 	reel seuilPValeur;
-	vector <reel> seuilScore, seuilScoreMultivarie;
+	vector<reel> seuilScore, seuilScoreMultivarie;
 	const int limiteIter, limiteEcartType, nbStats, nbStatsSansPseudos, nbPseudosRcarres, tailleEtiquetteInvar;
 
 	// Paramètres FDR selon Storey
@@ -250,12 +250,12 @@ private :
 		bool mandatory;
 		bool present;
 		//bool tokenize;
-		vector <string> prereq;    // Liste des pré-requis
-		vector <string> contents;
+		vector<string> prereq;    // Liste des pré-requis
+		vector<string> contents;
 	}
 			ParameterSetData;
 
-	typedef vector <ParameterSetData> ParameterSet;
+	typedef vector<ParameterSetData> ParameterSet;
 	typedef map<string, int> ParameterSetIndex;
 
 

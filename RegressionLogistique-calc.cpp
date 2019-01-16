@@ -389,8 +389,8 @@ int RegressionLogistique::calculeCorrelations() const
 	moyennes /= taillesDonnees;
 	variances = variances / taillesDonnees - moyennes % moyennes;
 
-	vector <vector<reel>> correlations(0);
-	vector <reel> correlationCourante(3);
+	vector<vector<reel>> correlations(0);
+	vector<reel> correlationCourante(3);
 
 	for (int i(0); i < nbEnv; ++i)
 	{
@@ -2181,7 +2181,7 @@ int RegressionLogistique::creeModelesGlobaux()
 	// Initialisation du conteneur de résultats et des flots de sortie
 	resultats.clear();
 	resultats.resize(dimensionMax + 1);
-	vector <string> nomsFichiers(dimensionMax + 1);
+	vector<string> nomsFichiers(dimensionMax + 1);
 	for (int i(0); i <= dimensionMax; ++i)
 	{
 		ostringstream oss;
@@ -2195,7 +2195,7 @@ int RegressionLogistique::creeModelesGlobaux()
 	sortie.precision(toolbox::precisionLecture);
 
 	// Ecriture des noms de colonnes pour s'y repérer
-	vector <vector<string>> names(3);
+	vector<vector<string>> names(3);
 	names[0].push_back("Marker");
 	names[0].push_back("Env_");
 	names[0].push_back("Beta_");
@@ -2239,17 +2239,17 @@ int RegressionLogistique::creeModelesGlobaux()
 	// int colMarq(0);
 	reel tailleY(0), sommeY(0); //, tailleX(0), beta_zero(0), val_loglikelihood_zero(0);
 	// pseudosRcarresCourants(nbPseudosRcarres), statsCourantes(nbStats), betaCourant(0); */
-	vector <reel> loglikelihood(dimensionMax + 1, 0.0);//, resultatsCourants(tailleEtiquetteInvar, 0.0); // Il y a le modèle sans paramètres!
+	vector<reel> loglikelihood(dimensionMax + 1, 0.0);//, resultatsCourants(tailleEtiquetteInvar, 0.0); // Il y a le modèle sans paramètres!
 
 	// Iteration sur les paramètres environnementaux
-	vector <set<int>::iterator> cavalier(dimensionMax);
+	vector<set<int>::iterator> cavalier(dimensionMax);
 	//vector<bool> varDiscrete(dimensionMax, false);
 	int niveau(0);
 	bool fini(false), avance(false);
 	//vector<int> varDiscretes(0), varContinues(0);
 	set<int> varContinues;
 
-	pair <etiquetteModele, vector<reel>> resultatCourant;
+	pair<etiquetteModele, vector<reel>> resultatCourant;
 	resultatCourant.second.resize(tailleEtiquetteInvar, 0.0);
 
 	// Ces matrices ne changent pas de taille

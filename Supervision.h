@@ -38,14 +38,14 @@ using namespace std;
 
 typedef struct
 {
-	vector <string> etiquette;
-	vector <string> valeurs;
+	vector<string> etiquette;
+	vector<string> valeurs;
 	reel scoreSel;
 	reel scoreTri;
 }
 		Modele;
 
-typedef vector <Modele> ListeModeles;
+typedef vector<Modele> ListeModeles;
 
 typedef enum { G, Wald, AIC, BIC, Both } typeScore;
 
@@ -102,7 +102,7 @@ protected:
 	int nbEnv, nbMarq, nbLignes, tailleBlocs, nbBlocs, nbBlocsComplets, TailleDernierBloc, nbNoeudsWindows, nbNoeudsUnix;
 
 	string chemin;
-	pair <string, string> nomFichierParam, nomFichierMarq, nomFichierEnv;
+	pair<string, string> nomFichierParam, nomFichierMarq, nomFichierEnv;
 
 	Supervision(const Supervision &s);
 

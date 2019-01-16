@@ -13,15 +13,15 @@ typedef struct
 	int nbPvalStorey;
 	int nbModelesValidesG, nbModelesValidesWald;
 
-	vector <reel> pval;
-	vector <reel> seuilScore;
+	vector<reel> pval;
+	vector<reel> seuilScore;
 
 	vector<int> compteurG, compteurGOrphelins;
 	vector<int> compteurWald, compteurWaldOrphelins;
 
 } donneesFDR;
 
-typedef Matrix <reel, Col, Concrete> MatriceReels;
+typedef Matrix<reel, Col, Concrete> MatriceReels;
 
 
 int main(int argc, char *const argv[])
@@ -31,7 +31,7 @@ int main(int argc, char *const argv[])
 		cerr << "Usage: SplineStorey nomFichier-prefixe nomFichier-suffixe n numPremierFichier numDernierFichier ou \nSplineStorey nomFichier-prefixe nomFichier-suffixe s nbBlocs tailleBlocs" << endl;
 	}
 
-	pair <string, string> nomFichierMarq;
+	pair<string, string> nomFichierMarq;
 	nomFichierMarq.first = argv[1];
 	nomFichierMarq.second = argv[2];
 
@@ -53,7 +53,7 @@ int main(int argc, char *const argv[])
 		return 2;
 	}
 
-	vector <string> nomsFichiers;
+	vector<string> nomsFichiers;
 	int nbFichiers(0);
 
 	if (fichiersNumerotes)
@@ -111,7 +111,7 @@ int main(int argc, char *const argv[])
 	vector<int> ligne(0), validation(0);
 	string retourLigne("");
 	int nbLignesEntete(2), nbLignesLues(4);
-	vector < pair < string, vector < int > * > > etiquettes(nbLignesLues);
+	vector<pair<string, vector<int> *> > etiquettes(nbLignesLues);
 	etiquettes[0] = make_pair("G1", &(storey.compteurG));
 	etiquettes[1] = make_pair("GOrphelins1", &(storey.compteurGOrphelins));
 	etiquettes[2] = make_pair("Wald1", &(storey.compteurWald));

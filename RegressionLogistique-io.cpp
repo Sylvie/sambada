@@ -95,7 +95,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	// Le(s) nom(s) du/des fichier(s) d'entrées sont copiés dans le vecteur nomFichierInput
 	// S'il y a 3 ou 4 arguments, le fichier de paramètres ne contient pas les noms des fichiers de données
 	bool entete(false), uniqueFichierDonnees(true);
-	vector <string> nomFichierInput(0);
+	vector<string> nomFichierInput(0);
 	if (argc == 3)
 	{
 		nomFichierInput.push_back(argv[2]); // Marqueurs
@@ -295,7 +295,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
 
 	int nbCols(nbEnv + nbMarq);
-	vector <string> headerEnv, headerMarq;
+	vector<string> headerEnv, headerMarq;
 	//	headerEnv.clear();
 	//	headerMarq.clear();
 
@@ -336,7 +336,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		}
 
 		// Lecture de l'en-tête
-		vector <string> header(0);
+		vector<string> header(0);
 		toolbox::lectureLigne(entree, header, delimMots);
 
 		entree.close();
@@ -1044,13 +1044,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		}
 
 		// Lecture des données
-		vector <vector<int>> validation;
+		vector<vector<int>> validation;
 		unsigned int rows(0), caseCourante(0), nombreRecuperes(0); // Nombre de lignes lues & la case actuelle dans la liste de validation
 
 		// Variables temporaires
-		vector <reel> line(0);
+		vector<reel> line(0);
 		vector<int> lineValidation(0), listeErreurs(0);
-		vector <string> ligneOriginale(0);
+		vector<string> ligneOriginale(0);
 
 		// S'il y a un en-tête, on passe la première ligne
 		if (entete)
@@ -1280,13 +1280,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		nbCols = headerEnv.size();
 
 		// Lecture des données
-		vector <vector<int>> validation;
+		vector<vector<int>> validation;
 		unsigned int rows(0), caseCourante(0), nombreRecuperes(0);
 
 		// Variables temporaires
-		vector <reel> line(0);
+		vector<reel> line(0);
 		vector<int> lineValidation(0), listeErreurs(0);
-		vector <string> ligneOriginale(0);
+		vector<string> ligneOriginale(0);
 
 
 		// S'il y a un en-tête, on passe la première ligne
@@ -1772,7 +1772,7 @@ void RegressionLogistique::affiche(const groupeResultats::iterator res)
 void RegressionLogistique::trieEtEcritResultats()
 {
 	cout << "Coucou" << "\n";
-	vector < groupeResultats::value_type * > listeModeles(0);
+	vector<groupeResultats::value_type *> listeModeles(0);
 	int tailleListe(0);
 	// On ne trie pas les modèles constants
 	// On ne peut pas trier une map! Il faut trier un vecteur
@@ -1840,7 +1840,7 @@ ifstream &RegressionLogistique::lectureParametres(ifstream &entree, const Parame
 {
 	entree >> ws;
 	string nomParam, lu;
-	vector <string> ligne;
+	vector<string> ligne;
 	ParameterSetIndex::const_iterator paramCourant; // L'itérateur doit pointer une valeur constante (index est const)
 	while (!entree.eof())
 	{

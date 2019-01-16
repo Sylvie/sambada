@@ -279,7 +279,7 @@ int Supervision::preparationsCalculs(const string &nomFichier)
 	}
 
 	// Noms des fichiers et flots
-	vector <string> nomsFichiers(nbBlocs);
+	vector<string> nomsFichiers(nbBlocs);
 	for (int i(0); i < nbBlocs; ++i)
 	{
 		oss.str("");
@@ -299,7 +299,7 @@ int Supervision::preparationsCalculs(const string &nomFichier)
 	sortie.ouverture();
 
 	// Début de la copie
-	vector <string> ligne(nbCols, "");
+	vector<string> ligne(nbCols, "");
 	int rows(0);
 
 	time_t temps_interm(time(NULL));
@@ -530,7 +530,7 @@ int Supervision::fusionResultats(int argc, char *argv[]) throw()
 	// Il faut créer les fichiers d'entrée (un par noeud) et les fichiers de sortie (un par dimension)
 
 	// Noms des fichiers et flots
-	vector <string> nomsFichiers(dimensionMax + 1);
+	vector<string> nomsFichiers(dimensionMax + 1);
 	for (int i(0); i <= dimensionMax; ++i)
 	{
 		oss.str("");
@@ -547,7 +547,7 @@ int Supervision::fusionResultats(int argc, char *argv[]) throw()
 	nomsFichiers.resize(nbBlocs);
 
 	// En-têtes
-	vector <string> entete(0);
+	vector<string> entete(0);
 	ListeModeles resultats(0);
 	Modele resCourant;
 	//pair<int, reel> indiceCourant;

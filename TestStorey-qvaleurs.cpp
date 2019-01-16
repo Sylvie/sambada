@@ -53,7 +53,7 @@ int main(int argc, char *const argv[])
 	int nbModelesTot(toolbox::conversion<int>(argv[1])), numPremierFichier(toolbox::conversion<int>(argv[5])), numDernierFichier(toolbox::conversion<int>(argv[6]));
 	reel piZero(toolbox::conversion<reel>(argv[2]));
 
-	pair <string, string> nomFichierMarq;
+	pair<string, string> nomFichierMarq;
 	nomFichierMarq.first = argv[3];
 	nomFichierMarq.second = argv[4];
 
@@ -110,7 +110,7 @@ int main(int argc, char *const argv[])
 
 	char delimMots(' ');
 
-	vector <string> nomsFichiers(nbBlocs);
+	vector<string> nomsFichiers(nbBlocs);
 	std::ostringstream oss, ossMark;
 
 	for (int j(0); j < nbBlocs; ++j)
@@ -160,14 +160,14 @@ int main(int argc, char *const argv[])
 	//reel piZero(0.9856094);
 
 
-	vector <vector<string>> modeles;
-	vector <string> ligne;
+	vector<vector<string>> modeles;
+	vector<string> ligne;
 
 	reel valeur(0);
 	int numErreur(0), nbModeles(0);
-	vector <string> header, lu;
+	vector<string> header, lu;
 	trombone modele = {0, 0., 0.};
-	vector <trombone> pile;
+	vector<trombone> pile;
 
 	for (int i(0); i < nbBlocs; ++i)
 	{
