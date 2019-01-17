@@ -67,16 +67,16 @@ namespace toolbox {
 	//int calculeIndice(const vector<int>& v, int nbVar);
 
 	template<typename T, scythe::matrix_order PO, scythe::matrix_style PS>
-	reel sommeNumerique(const scythe::Matrix <T, PO, PS>& A)
+	reel sommeNumerique(const scythe::Matrix<T, PO, PS>& A)
 	{
 		return (std::accumulate(A.begin_f(), A.end_f(), (reel) 0));
 	}
 
 	template<typename T, scythe::matrix_order PO, scythe::matrix_style PS>
-	scythe::Matrix <T, PO, PS> sommeNumeriqueCol(const scythe::Matrix <T, PO, PS>& A)
+	scythe::Matrix<T, PO, PS> sommeNumeriqueCol(const scythe::Matrix<T, PO, PS>& A)
 	{
 		int nbColonnes(A.cols());
-		scythe::Matrix <T, PO, PS> sommes(1, nbColonnes, true, 0);
+		scythe::Matrix<T, PO, PS> sommes(1, nbColonnes, true, 0);
 		for (int i(0); i < nbColonnes; ++i)
 		{
 			sommes(0, i) = toolbox::sommeNumerique(A(scythe::_, i));

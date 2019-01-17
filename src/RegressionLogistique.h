@@ -72,9 +72,9 @@ protected:
  	*/
 	typedef enum { pasStructurePop, structurePopPremier, structurePopDernier } typeStructurePop;
 
-	typedef Matrix <reel, Col, Concrete> MatriceReels;
+	typedef Matrix<reel, Col, Concrete> MatriceReels;
 	typedef Matrix<bool, Col, Concrete> MatriceBools;
-	typedef Matrix <string, Col, Concrete> MatriceStrings;
+	typedef Matrix<string, Col, Concrete> MatriceStrings;
 
 
 public:
