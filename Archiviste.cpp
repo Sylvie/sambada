@@ -54,7 +54,7 @@ Archiviste::~Archiviste()
 Archiviste::Archiviste(const Archiviste&)
 {}
 
-void Archiviste::initialise(const vector< string >& noms)
+void Archiviste::initialise(const vector<string>& noms)
 {
 	nbFichiers = noms.size();
 	nomsFichiers = noms;

@@ -8,13 +8,13 @@ using namespace std;
 typedef struct
 {
 	int nbPvalStorey;
-	vector< int > nbModelesValides;
+	vector<int> nbModelesValides;
 
-	vector< reel > pval;
-	vector< reel > seuilScore;
+	vector<reel> pval;
+	vector<reel> seuilScore;
 
-	vector< vector< int>> compteurG, compteurGOrphelins;
-	vector< vector< int>> compteurWald, compteurWaldOrphelins;
+	vector<vector<int>> compteurG, compteurGOrphelins;
+	vector<vector<int>> compteurWald, compteurWaldOrphelins;
 } donneesFDR;
 
 
@@ -23,7 +23,7 @@ int main(int argc, char *const argv[])
 	time_t temps_debut(time(NULL));
 
 	int nbBlocs(1), colG(3), colWald(4), validiteModele, dimensionMax(1), dimCourante(1), tailleBlocs(660000);
-	pair< string, string > nomFichierMarq;
+	pair<string, string> nomFichierMarq;
 
 	//nomFichierMarq.first="../../../TestsDivers/Storey/Data/part-";
 //	nomFichierMarq.first="/Volumes/Elements/Maroc/Results/sheep/sambada/sheep-sambada-mark";
@@ -39,7 +39,7 @@ int main(int argc, char *const argv[])
 
 	char delimMots(' ');
 
-	vector< string > nomsFichiers(nbBlocs);
+	vector<string> nomsFichiers(nbBlocs);
 	std::ostringstream oss, ossMark;
 
 	for (int j(0); j < nbBlocs; ++j)
@@ -75,34 +75,34 @@ int main(int argc, char *const argv[])
 	for (int i(storey.nbPvalStorey - 1); i > 0; --i)
 	{
 		storey.pval.push_back(0.01 * i);
-		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(std::numeric_limits< reel >::epsilon())));
-		cout << 0.01 * i << " " << toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(std::numeric_limits< reel >::epsilon())) << endl;
+		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(std::numeric_limits<reel>::epsilon())));
+		cout << 0.01 * i << " " << toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(std::numeric_limits<reel>::epsilon())) << endl;
 	}
 	storey.pval.push_back(0.);
-	storey.seuilScore.push_back(std::numeric_limits< reel >::infinity());
+	storey.seuilScore.push_back(std::numeric_limits<reel>::infinity());
 
-	storey.compteurG.resize(dimensionMax + 1, vector< int >(storey.nbPvalStorey, 0));
-	storey.compteurWald.resize(dimensionMax + 1, vector< int >(storey.nbPvalStorey, 0));
+	storey.compteurG.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
+	storey.compteurWald.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
 
-	storey.compteurGOrphelins.resize(dimensionMax + 1, vector< int >(storey.nbPvalStorey, 0));
-	storey.compteurWaldOrphelins.resize(dimensionMax + 1, vector< int >(storey.nbPvalStorey, 0));
+	storey.compteurGOrphelins.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
+	storey.compteurWaldOrphelins.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
 
 	storey.nbModelesValides.resize(dimensionMax + 1, 0);
 
 
-	vector< string > texte;
-	vector< reel > valeurs(2);
-	vector< int > numErreur(1);
+	vector<string> texte;
+	vector<reel> valeurs(2);
+	vector<int> numErreur(1);
 	for (int i(0); i < nbBlocs; ++i)
 	{
-		entree.lecture< string >(i, texte, delimMots);
+		entree.lecture<string>(i, texte, delimMots);
 
 		while (!entree.finFichier(i))
 		{
-			entree.lectureGroupe< string >(i, texte, colG);
-			entree.lectureGroupe< reel >(i, valeurs, 2);
-			entree.lectureGroupe< int >(i, numErreur, 1);
-			entree.lecture< string >(i, texte);
+			entree.lectureGroupe<string>(i, texte, colG);
+			entree.lectureGroupe<reel>(i, valeurs, 2);
+			entree.lectureGroupe<int>(i, numErreur, 1);
+			entree.lecture<string>(i, texte);
 
 			if (numErreur[0] == 0 || numErreur[0] == 6 || numErreur[0] == 7)
 			{

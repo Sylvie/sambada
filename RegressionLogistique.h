@@ -41,12 +41,12 @@
 using namespace std;
 using namespace scythe;
 
-typedef pair< int, set< int > > etiquetteModele;
-typedef pair< etiquetteModele, vector< reel>> resModele;
-typedef map< etiquetteModele, vector< reel>> groupeResultats;
+typedef pair<int, set<int> > etiquetteModele;
+typedef pair<etiquetteModele, vector<reel>> resModele;
+typedef map<etiquetteModele, vector<reel>> groupeResultats;
 
-typedef pair< int, reel > Voisin;
-typedef vector< vector< Voisin>> TableClassementsVoisins;
+typedef pair<int, reel> Voisin;
+typedef vector<vector<Voisin>> TableClassementsVoisins;
 
 
 class RegressionLogistique
@@ -65,9 +65,9 @@ protected:
 	typedef enum { all, signif, best } typeSelectionModeles;
 
 	//typedef vector< vector <double> > tableau;
-	typedef Matrix< reel, Col, Concrete > MatriceReels;
-	typedef Matrix< bool, Col, Concrete > MatriceBools;
-	typedef Matrix< string, Col, Concrete > MatriceStrings;
+	typedef Matrix<reel, Col, Concrete> MatriceReels;
+	typedef Matrix<bool, Col, Concrete> MatriceBools;
+	typedef Matrix<string, Col, Concrete> MatriceStrings;
 
 
 public:
@@ -95,13 +95,13 @@ public:
 protected:
 
 	//void generePartitions();
-	void construitModele(int numMarq, const set< int >& varContinues); //, const reel loglike_zero, reel& loglike_courante);
+	void construitModele(int numMarq, const set<int>& varContinues); //, const reel loglike_zero, reel& loglike_courante);
 	//	void calculeStats(reel loglikeCourante, reel loglikeZero, int nbParamEstimes, vector<double>& statsCourantes, vector<double>& pseudosRcarresCourants);
 	bool calculeStats(resModele& resultat, int nbParamEstimes);
 
 	int calculeRegression(reel& loglikeCourante, reel& indiceEfron);
 
-	void calculeGWR(int numMarq, const set< int >& varContinues, resModele& resultat);
+	void calculeGWR(int numMarq, const set<int>& varContinues, resModele& resultat);
 
 	bool calculePonderation() throw(Erreur);
 
@@ -119,7 +119,7 @@ private:
 	}
 			DetailsVariable;
 
-	typedef vector< DetailsVariable > SpecificationsDonnees;
+	typedef vector<DetailsVariable> SpecificationsDonnees;
 
 	// Domaine: sous-ensemble des points muni d'une pondération
 	typedef struct
@@ -127,7 +127,7 @@ private:
 	public:
 		int nbPoints, taille;    // taille = nb points valides
 		MatriceBools masque;    // taille du masque = nbPoints
-		vector< int > pointsValides, indices; // pointsValides = liste de taille "taille", indices= indices locaux des points valides
+		vector<int> pointsValides, indices; // pointsValides = liste de taille "taille", indices= indices locaux des points valides
 		TableClassementsVoisins poids;
 
 		// Mise à jour à partir du masque, recalcule les nombres de points totaux et valides, les vecteurs d'indiçage et redimensionne le poids
@@ -138,13 +138,13 @@ private:
 	typedef struct
 	{
 		int nbPvalStorey;
-		vector< int > nbModelesValides;
+		vector<int> nbModelesValides;
 
-		vector< reel > pval;
-		vector< reel > seuilScore;
+		vector<reel> pval;
+		vector<reel> seuilScore;
 
-		vector< vector< int>> compteurG, compteurGOrphelins;
-		vector< vector< int>> compteurWald, compteurWaldOrphelins;
+		vector<vector<int>> compteurG, compteurGOrphelins;
+		vector<vector<int>> compteurWald, compteurWaldOrphelins;
 
 		reel scoreMin;
 	} donneesFDR;
@@ -154,11 +154,11 @@ protected:
 	MatriceReels dataEnv;
 	MatriceBools dataMarq;
 	MatriceStrings dataSupEnv, dataSupMarq;
-	vector< set< int>> missingValuesEnv, missingValuesMarq;
+	vector<set<int>> missingValuesEnv, missingValuesMarq;
 	// vector< string > headerEnv, headerMarq;
 	SpecificationsDonnees specDataEnv, specDataMarq;
 	// Lien entre l'indice local et le numéro global de la variable.
-	map< int, int > varEnvActives, varEnvPassives, marqActifs, marqPassifs;
+	map<int, int> varEnvActives, varEnvPassives, marqActifs, marqPassifs;
 	bool existeColID;
 	int colIDEnv, colIDMarq;
 
@@ -191,15 +191,15 @@ protected:
 			scores, J_info, inv_J_info,
 			Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
 
-	vector< groupeResultats > resultats;
+	vector<groupeResultats> resultats;
 	bool sauvegardeTempsReel;
 	typeSelectionModeles selModeles;
-	pair< string, string > nomFichierResultats;
+	pair<string, string> nomFichierResultats;
 
 	// Paramètres numériques
 	const reel eps, convCrit, limiteNaN, limiteExp;
 	reel seuilPValeur;
-	vector< reel > seuilScore, seuilScoreMultivarie;
+	vector<reel> seuilScore, seuilScoreMultivarie;
 	const int limiteIter, limiteEcartType, nbStats, nbStatsSansPseudos, nbPseudosRcarres, tailleEtiquetteInvar;
 
 	// Paramètres FDR selon Storey
@@ -250,13 +250,13 @@ private :
 		bool mandatory;
 		bool present;
 		//bool tokenize;
-		vector< string > prereq;    // Liste des pré-requis
-		vector< string > contents;
+		vector<string> prereq;    // Liste des pré-requis
+		vector<string> contents;
 	}
 			ParameterSetData;
 
-	typedef vector< ParameterSetData > ParameterSet;
-	typedef map< string, int > ParameterSetIndex;
+	typedef vector<ParameterSetData> ParameterSet;
+	typedef map<string, int> ParameterSetIndex;
 
 
 	void initialisationParametres(ParameterSet& listeParam, ParameterSetIndex& indexParam) const;

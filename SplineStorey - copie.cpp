@@ -13,15 +13,15 @@ typedef struct
 	int nbPvalStoreyWithZero, nbPvalStorey;
 	int nbModelesValidesG, nbModelesValidesWald;
 
-	vector< reel > pval;
-	vector< reel > seuilScore;
+	vector<reel> pval;
+	vector<reel> seuilScore;
 
-	vector< int > compteurG, compteurGOrphelins;
-	vector< int > compteurWald, compteurWaldOrphelins;
+	vector<int> compteurG, compteurGOrphelins;
+	vector<int> compteurWald, compteurWaldOrphelins;
 
 } donneesFDR;
 
-typedef Matrix< reel, Col, Concrete > MatriceReels;
+typedef Matrix<reel, Col, Concrete> MatriceReels;
 
 
 int main(int argc, char *const argv[])
@@ -31,7 +31,7 @@ int main(int argc, char *const argv[])
 		cerr << "Usage: SplineStorey nomFichier-prefixe nomFichier-suffixe n numPremierFichier numDernierFichier ou \nSplineStorey nomFichier-prefixe nomFichier-suffixe s nbBlocs tailleBlocs" << endl;
 	}
 
-	pair< string, string > nomFichierMarq;
+	pair<string, string> nomFichierMarq;
 	nomFichierMarq.first = argv[1];
 	nomFichierMarq.second = argv[2];
 
@@ -53,12 +53,12 @@ int main(int argc, char *const argv[])
 		return 2;
 	}
 
-	vector< string > nomsFichiers;
+	vector<string> nomsFichiers;
 	int nbFichiers(0);
 
 	if (fichiersNumerotes)
 	{
-		int numPremierFichier(toolbox::conversion< int >(argv[4])), numDernierFichier(toolbox::conversion< int >(argv[5]));
+		int numPremierFichier(toolbox::conversion<int>(argv[4])), numDernierFichier(toolbox::conversion<int>(argv[5]));
 		nbFichiers = numDernierFichier - numPremierFichier + 1;
 		for (int i(numPremierFichier); i <= numDernierFichier; ++i)
 		{
@@ -70,7 +70,7 @@ int main(int argc, char *const argv[])
 	}
 	else
 	{
-		int nbBlocs(toolbox::conversion< int >(argv[4])), tailleBlocs(toolbox::conversion< int >(argv[5]));
+		int nbBlocs(toolbox::conversion<int>(argv[4])), tailleBlocs(toolbox::conversion<int>(argv[5]));
 		nbFichiers = nbBlocs;
 		for (int i(0); i < nbBlocs; ++i)
 		{
@@ -91,11 +91,11 @@ int main(int argc, char *const argv[])
 	for (int i(storey.nbPvalStoreyWithZero - 1); i > 0; --i)
 	{
 		storey.pval.push_back(0.01 * i);
-		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(numeric_limits< reel >::epsilon())));
+		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(numeric_limits<reel>::epsilon())));
 		//cout << 0.01*i << " " << toolbox::invCDF_ChiSquare(1.-0.01*i, 1, sqrt(numeric_limits<reel>::epsilon())) << endl;
 	}
 	storey.pval.push_back(0.);
-	storey.seuilScore.push_back(std::numeric_limits< reel >::infinity());
+	storey.seuilScore.push_back(std::numeric_limits<reel>::infinity());
 
 	storey.compteurG.resize(storey.nbPvalStoreyWithZero, 0);
 	storey.compteurWald.resize(storey.nbPvalStoreyWithZero, 0);
@@ -109,10 +109,10 @@ int main(int argc, char *const argv[])
 
 	ifstream entree;
 	string label("");
-	vector< int > ligne(0), validation(0);
+	vector<int> ligne(0), validation(0);
 	string retourLigne("");
 	int nbLignesEntete(2), nbLignesLues(4);
-	vector< pair< string, vector< int > * > > etiquettes(nbLignesLues);
+	vector<pair<string, vector<int> *> > etiquettes(nbLignesLues);
 	etiquettes[0] = make_pair("G1", &(storey.compteurG));
 	etiquettes[1] = make_pair("GOrphelins1", &(storey.compteurGOrphelins));
 	etiquettes[2] = make_pair("Wald1", &(storey.compteurWald));
@@ -213,7 +213,7 @@ int main(int argc, char *const argv[])
 
 	// coeff b : vecteur 4*95=380 cases
 	// a1 b1 c1 d1 a2 b2 c2 d2 ... a95 b95 c95 d95
-	vector< int > a(storey.nbPvalStoreyWithZero, 0), b(storey.nbPvalStoreyWithZero, 0), c(storey.nbPvalStoreyWithZero, 0), d(storey.nbPvalStoreyWithZero, 0);
+	vector<int> a(storey.nbPvalStoreyWithZero, 0), b(storey.nbPvalStoreyWithZero, 0), c(storey.nbPvalStoreyWithZero, 0), d(storey.nbPvalStoreyWithZero, 0);
 	for (int i(1); i < nbPvalStoreyWithZero; ++i)
 	{
 		a[i] = 4 * (i - 1);

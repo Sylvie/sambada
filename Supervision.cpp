@@ -153,7 +153,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 	entreeFichier >> ws >> nbEnv >> nbMarq >> nbLignes >> tailleBlocs;
 	cout << nbEnv << " " << nbMarq << " " << nbLignes << " " << tailleBlocs << endl;
 
-	vector< int > paramOS(0);
+	vector<int> paramOS(0);
 
 	toolbox::lectureLigne(entreeFichier, paramOS);
 
@@ -279,7 +279,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 	}
 
 	// Noms des fichiers et flots
-	vector< string > nomsFichiers(nbBlocs);
+	vector<string> nomsFichiers(nbBlocs);
 	for (int i(0); i < nbBlocs; ++i)
 	{
 		oss.str("");
@@ -299,7 +299,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 	sortie.ouverture();
 
 	// Début de la copie
-	vector< string > ligne(nbCols, "");
+	vector<string> ligne(nbCols, "");
 	int rows(0);
 
 	time_t temps_interm(time(NULL));
@@ -401,7 +401,7 @@ int Supervision::fusionResultats(int argc, char *argv[]) throw()
 
 	// Lien entre le type de score et le numéro de colonne
 	// Les numéros ne changent pas en fonction de la dimension!
-	map< typeScore, int > numColonnes;
+	map<typeScore, int> numColonnes;
 	numColonnes.insert(make_pair(G, 1));
 	numColonnes.insert(make_pair(Wald, 2));
 	numColonnes.insert(make_pair(AIC, 9));
@@ -530,7 +530,7 @@ int Supervision::fusionResultats(int argc, char *argv[]) throw()
 	// Il faut créer les fichiers d'entrée (un par noeud) et les fichiers de sortie (un par dimension)
 
 	// Noms des fichiers et flots
-	vector< string > nomsFichiers(dimensionMax + 1);
+	vector<string> nomsFichiers(dimensionMax + 1);
 	for (int i(0); i <= dimensionMax; ++i)
 	{
 		oss.str("");
@@ -547,7 +547,7 @@ int Supervision::fusionResultats(int argc, char *argv[]) throw()
 	nomsFichiers.resize(nbBlocs);
 
 	// En-têtes
-	vector< string > entete(0);
+	vector<string> entete(0);
 	ListeModeles resultats(0);
 	Modele resCourant;
 	//pair<int, reel> indiceCourant;
@@ -660,26 +660,26 @@ int Supervision::fusionResultats(int argc, char *argv[]) throw()
 				{
 					entree.lectureGroupe(j, resCourant.etiquette, tailleNom, delimMots);
 					entree.lecture(j, resCourant.valeurs, delimMots);
-					codeErreur = toolbox::conversion< int >(resCourant.valeurs[numErreur]);
+					codeErreur = toolbox::conversion<int>(resCourant.valeurs[numErreur]);
 
 					//On ne garde que les modèles sans erreurs
 					if (codeErreur == 0 || codeErreur == 6 || codeErreur == 7)
 					{
 						if (scoreSel == Both)
 						{
-							scoreCourant = min(toolbox::conversion< reel >(resCourant.valeurs[numColonnes[G]]), toolbox::conversion< reel >(resCourant.valeurs[numColonnes[Wald]]));
+							scoreCourant = min(toolbox::conversion<reel>(resCourant.valeurs[numColonnes[G]]), toolbox::conversion<reel>(resCourant.valeurs[numColonnes[Wald]]));
 						}
 						else
 						{
 							//cout << numColonnes[G] << " " << resCourant.second.size() << endl;
-							scoreCourant = toolbox::conversion< reel >(resCourant.valeurs[numSel]);
+							scoreCourant = toolbox::conversion<reel>(resCourant.valeurs[numSel]);
 						}
 
 
 						if (!seuilSelection || scoreCourant >= seuilScore)
 						{
 							resCourant.scoreSel = scoreCourant;
-							resCourant.scoreTri = toolbox::conversion< reel >(resCourant.valeurs[numTri]);
+							resCourant.scoreTri = toolbox::conversion<reel>(resCourant.valeurs[numTri]);
 							resultats.push_back(resCourant);
 							//indiceCourant.first=nombreRes;
 							//indiceCourant.second=scoreCourant;

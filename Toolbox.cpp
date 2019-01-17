@@ -32,7 +32,7 @@
 using namespace std;
 using namespace scythe;
 
-void toolbox::segmentationString(string ligne, vector< string >& resultat, const string& separateur, bool elimineEspaces)
+void toolbox::segmentationString(string ligne, vector<string>& resultat, const string& separateur, bool elimineEspaces)
 {
 	resultat.clear();
 	string dustbin, token, word;
@@ -331,7 +331,7 @@ char toolbox::lectureMot(istream& entree, string& mot, char delimMots, bool gard
 	return lu;
 }
 
-bool toolbox::lectureLigne(istream& entree, vector< string >& ligne, char delimMots, bool gardeSignesInvisibles)
+bool toolbox::lectureLigne(istream& entree, vector<string>& ligne, char delimMots, bool gardeSignesInvisibles)
 {
 	ligne.clear();
 	string mot("");

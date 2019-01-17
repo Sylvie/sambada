@@ -49,16 +49,16 @@ typedef struct
 }
 		Allele;
 
-typedef map< char, Allele > Dictionnaire;
+typedef map<char, Allele> Dictionnaire;
 
 typedef struct
 {
-	vector< string > noms;
-	vector< string > valeurs;
+	vector<string> noms;
+	vector<string> valeurs;
 }
 		ElementEncodage;
 
-typedef map< vector< Base >, ElementEncodage > EncodageBinaire;
+typedef map<vector<Base>, ElementEncodage> EncodageBinaire;
 
 /*void construitValeursPossibles(vector<string>& v, int nbCar, char sep)
  {
@@ -75,7 +75,7 @@ typedef map< vector< Base >, ElementEncodage > EncodageBinaire;
  }
  }*/
 
-void construitValeursPossibles(vector< string >& v, int nbCar, char sep)
+void construitValeursPossibles(vector<string>& v, int nbCar, char sep)
 {
 	v.clear();
 	if (nbCar == 3)
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
 	string listeAlleles[nbAlleles] = {"AA", "CC", "GG", "TT", "AC", "AG", "AT", "CG", "CT", "GT", "??"};
 	//char listeEtiquette[nbAlleles] =	{	'#',	'$',	'%',	'&',	':',	';',	'<',	'=',	'>',	'?',	'M' };
 	char listeEtiquette[nbAlleles] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'};
-	pair< char, Allele > alleleCourante;
+	pair<char, Allele> alleleCourante;
 	Dictionnaire code;
 	// Le dictionnaire envoie un caractère (codage interne) sur les spécifications de codage de l'allèle
 
@@ -153,15 +153,15 @@ int main(int argc, char **argv)
 
 	// Calcul des tables de conversion pour l'écriture
 	EncodageBinaire transcription;
-	vector< Base > etiquette;
-	vector< string > valeursPossibles, valeursDepart;
+	vector<Base> etiquette;
+	vector<string> valeursPossibles, valeursDepart;
 	ElementEncodage motif;
 	int tailleRecodage(0);
 
 	// Deux allèles
 	tailleRecodage = 3;
 	construitValeursPossibles(valeursPossibles, tailleRecodage, sep);
-	valeursDepart = vector< string >(nbAlleles, "");
+	valeursDepart = vector<string>(nbAlleles, "");
 	valeursDepart[nbAlleles - 1] = construitValeurManquante(tailleRecodage, valeurManquante, sep);
 	for (int i(0); i < T; ++i)    // On ne prend pas la valeur manquante "M" en compte pour l'étiquettage
 	{
@@ -262,7 +262,7 @@ int main(int argc, char **argv)
 	*/
 
 	// Lecture de l'encodage des nucléotides choisi par l'utilisateur
-	map< char, Base > tableNuc;
+	map<char, Base> tableNuc;
 	//ifstream listeNucleotides("../../listeNucleotides.txt");
 	ifstream listeNucleotides("listeNucleotides.txt");
 
@@ -361,7 +361,7 @@ int main(int argc, char **argv)
 
 	// Lecture des échantillons sélectionnés
 	// On utilise un ensemble pour tester si un nom est présent
-	set< string > nomsSel;
+	set<string> nomsSel;
 	int nbSel(0);
 	if (prendTousEch)
 	{
@@ -383,13 +383,13 @@ int main(int argc, char **argv)
 	}
 
 	// La taille du tableau est connue
-	vector< vector< char>> data(nbSel, vector< char >(nbSNP));
-	vector< vector< int>> comptage(nbSNP, vector< int >(nbBases, 0));
+	vector<vector<char>> data(nbSel, vector<char>(nbSNP));
+	vector<vector<int>> comptage(nbSNP, vector<int>(nbBases, 0));
 
 	// Lecture des données moléculaires
 	const int nbColFixes(6);
-	vector< vector< string>> description(nbSel, vector< string >(nbColFixes, ""));
-	vector< string > descriptionCourante(nbColFixes, "");
+	vector<vector<string>> description(nbSel, vector<string>(nbColFixes, ""));
+	vector<string> descriptionCourante(nbColFixes, "");
 	string lu("");
 	char premNuc(' '), secNuc(' ');
 	Base premBase, secBase;
@@ -439,9 +439,9 @@ int main(int argc, char **argv)
 	// Calibration des colonnes et écriture de l'en-tête
 	// Il n'y a pas d'espaces dans les identifiants de marqueurs .map -> lecture basée sur les espaces et tabulations
 	//sortie << "ID_indiv" << sep;
-	vector< pair< bool, EncodageBinaire::iterator>> caracSNP(nbSNP);
+	vector<pair<bool, EncodageBinaire::iterator>> caracSNP(nbSNP);
 	const int nbColMap(4);
-	vector< string > ligneMap(nbColMap, "");
+	vector<string> ligneMap(nbColMap, "");
 
 	for (int i(0); i < nbSNP; ++i)
 	{
