@@ -38,14 +38,14 @@ using namespace std;
 
 typedef struct
 {
-	vector<string> etiquette;
-	vector<string> valeurs;
+	vector< string > etiquette;
+	vector< string > valeurs;
 	reel scoreSel;
 	reel scoreTri;
 }
 		Modele;
 
-typedef vector<Modele> ListeModeles;
+typedef vector< Modele > ListeModeles;
 
 typedef enum { G, Wald, AIC, BIC, Both } typeScore;
 
@@ -91,7 +91,7 @@ public:
 
 	virtual ~Supervision();
 
-	int preparationsCalculs(const string &nomFichierParam);
+	int preparationsCalculs(const string& nomFichierParam);
 
 	int fusionResultats(int argc, char *argv[]) throw();
 
@@ -102,9 +102,9 @@ protected:
 	int nbEnv, nbMarq, nbLignes, tailleBlocs, nbBlocs, nbBlocsComplets, TailleDernierBloc, nbNoeudsWindows, nbNoeudsUnix;
 
 	string chemin;
-	pair<string, string> nomFichierParam, nomFichierMarq, nomFichierEnv;
+	pair< string, string > nomFichierParam, nomFichierMarq, nomFichierEnv;
 
-	Supervision(const Supervision &s);
+	Supervision(const Supervision& s);
 
 	Scribe sortie;
 
@@ -160,14 +160,14 @@ public:
 	//static int getCase();
 	//static void setCase(int i);
 
-	static bool plusPetitQue(const Modele &r1, const Modele &r2);
+	static bool plusPetitQue(const Modele& r1, const Modele& r2);
 
-	static bool plusGrandQue(const Modele &r1, const Modele &r2);
+	static bool plusGrandQue(const Modele& r1, const Modele& r2);
 
 protected:
 	//static int caseComparaisonResultats;
 
-	ComparaisonModeles(ComparaisonModeles &c);
+	ComparaisonModeles(ComparaisonModeles& c);
 };
 
 

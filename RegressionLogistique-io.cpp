@@ -38,8 +38,8 @@ using namespace scythe;
 
 int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 {
-	cout << numeric_limits<double>::max() << " " << numeric_limits<reel>::max() << "\n";
-	cout << log(numeric_limits<double>::max()) << " " << log(numeric_limits<reel>::max()) << "\n";
+	cout << numeric_limits< double >::max() << " " << numeric_limits< reel >::max() << "\n";
+	cout << log(numeric_limits< double >::max()) << " " << log(numeric_limits< reel >::max()) << "\n";
 
 	// Conteneur pour les paramètres
 	ParameterSet listeParam;
@@ -80,7 +80,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		sortie.setRetourLigne(delimLignes);
 		lectureParametres(entree, indexParam, listeParam);
 	}
-	catch (Erreur &)
+	catch (Erreur&)
 	{
 		throw;
 	}
@@ -95,7 +95,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	// Le(s) nom(s) du/des fichier(s) d'entrées sont copiés dans le vecteur nomFichierInput
 	// S'il y a 3 ou 4 arguments, le fichier de paramètres ne contient pas les noms des fichiers de données
 	bool entete(false), uniqueFichierDonnees(true);
-	vector<string> nomFichierInput(0);
+	vector< string > nomFichierInput(0);
 	if (argc == 3)
 	{
 		nomFichierInput.push_back(argv[2]); // Marqueurs
@@ -215,7 +215,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	++paramCourant;
 
 	// NUMVARENV
-	nbEnv = toolbox::conversion<int>(paramCourant->contents[0]);
+	nbEnv = toolbox::conversion< int >(paramCourant->contents[0]);
 	++paramCourant;
 
 	cout << nbEnv << "\n";
@@ -230,10 +230,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	 varActives=variables;
 	 */
 	// NUMMMARK
-	nbMarq = toolbox::conversion<int>(paramCourant->contents[0]);
+	nbMarq = toolbox::conversion< int >(paramCourant->contents[0]);
 	if (paramCourant->contents.size() == 2)
 	{
-		nbMarqTot = toolbox::conversion<int>(paramCourant->contents[1]);
+		nbMarqTot = toolbox::conversion< int >(paramCourant->contents[1]);
 		// S'il y a plusieurs fichiers de marqueurs, il faut repérer le numéro du premier qu'on a
 
 		// On prend le nom du fichier d'input au cas où l'utilisateur aurait renommé le fichier de sortie
@@ -285,7 +285,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	++paramCourant;
 
 	// NUMINDIV
-	nbPoints = toolbox::conversion<int>(paramCourant->contents[0]);
+	nbPoints = toolbox::conversion< int >(paramCourant->contents[0]);
 	++paramCourant;
 
 
@@ -295,7 +295,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
 
 	int nbCols(nbEnv + nbMarq);
-	vector<string> headerEnv, headerMarq;
+	vector< string > headerEnv, headerMarq;
 	//	headerEnv.clear();
 	//	headerMarq.clear();
 
@@ -336,7 +336,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		}
 
 		// Lecture de l'en-tête
-		vector<string> header(0);
+		vector< string > header(0);
 		toolbox::lectureLigne(entree, header, delimMots);
 
 		entree.close();
@@ -436,13 +436,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		{
 			if (nbCas == 1 || uniqueFichierDonnees)
 			{
-				colIDEnv = toolbox::conversion<int>(paramCourant->contents[0]);
+				colIDEnv = toolbox::conversion< int >(paramCourant->contents[0]);
 				colIDMarq = colIDEnv;
 			}
 			else
 			{
-				colIDEnv = toolbox::conversion<int>(paramCourant->contents[0]);
-				colIDMarq = toolbox::conversion<int>(paramCourant->contents[1]);
+				colIDEnv = toolbox::conversion< int >(paramCourant->contents[0]);
+				colIDMarq = toolbox::conversion< int >(paramCourant->contents[1]);
 			}
 
 		}
@@ -489,7 +489,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		{
 			if (!entete) // Cas facile : il suffit de lire les numéros, les colonnes sont numérotées de P1 à PN
 			{
-				colCourante = toolbox::conversion<int>(paramCourant->contents[i]);
+				colCourante = toolbox::conversion< int >(paramCourant->contents[i]);
 				if (colCourante >= nbEnv)
 				{
 					throw Erreur("MSG_missIdleEnv", "Error: Missing idle environnemental variable : " + colCourante);
@@ -526,7 +526,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		{
 			if (!entete) // Cas facile : il suffit de lire les numéros // Attention à la première colonne
 			{
-				colCourante = toolbox::conversion<int>(paramCourant->contents[i]);
+				colCourante = toolbox::conversion< int >(paramCourant->contents[i]);
 				if (colCourante >= nbMarq)
 				{
 					throw Erreur("MSG_missIdleMark", "Error: Missing idle genetic marker : " + colCourante);
@@ -575,12 +575,12 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		// Principe: On repère les numéros des colonnes concernées
 		// On remplit un tableau de taille nbEnv avec la liste des variables à garder (les numéros repérés)
 		// On parcourt le tableau, toutes les colonnes qui ont la valeur 0 sont désactivées
-		vector<bool> listeConservation(nbEnv, false);
+		vector< bool > listeConservation(nbEnv, false);
 		for (int i(0); i < nbCas; ++i)
 		{
 			if (!entete) // Cas facile : il suffit de lire les numéros
 			{
-				colCourante = toolbox::conversion<int>(paramCourant->contents[i]);
+				colCourante = toolbox::conversion< int >(paramCourant->contents[i]);
 				if (colCourante >= nbEnv)
 				{
 					throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : " + colCourante);
@@ -625,12 +625,12 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		// Principe: On repère les numéros des colonnes concernées
 		// On remplit un tableau de taille nbMarq avec la liste des variables à garder (les numéros repérés)
 		// On parcourt le tableau, toutes les colonnes qui ont la valeur 0 sont désactivées
-		vector<bool> listeConservation(nbMarq, false);
+		vector< bool > listeConservation(nbMarq, false);
 		for (int i(0); i < nbCas; ++i)
 		{
 			if (!entete) // Cas facile : il suffit de lire les numéros
 			{
-				colCourante = toolbox::conversion<int>(paramCourant->contents[i]);
+				colCourante = toolbox::conversion< int >(paramCourant->contents[i]);
 				if (colCourante >= nbMarq)
 				{
 					throw Erreur("MSG_missActiveEnv", "Error: Missing active environnemental variable : " + colCourante);
@@ -676,7 +676,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	else
 	{
 		bool echec(false);
-		dimensionMax = toolbox::conversion<int>(paramCourant->contents[0], echec);
+		dimensionMax = toolbox::conversion< int >(paramCourant->contents[0], echec);
 		if (echec)
 		{
 			throw Erreur("MSG_invalidDimMax", "Invalid maximal dimension: " + paramCourant->contents[0]);
@@ -699,8 +699,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			// On stocke le numéro global de la colonne!
 			if (!entete)
 			{
-				longitude = toolbox::conversion<int>(paramCourant->contents[0]);
-				latitude = toolbox::conversion<int>(paramCourant->contents[1]);
+				longitude = toolbox::conversion< int >(paramCourant->contents[0]);
+				latitude = toolbox::conversion< int >(paramCourant->contents[1]);
 			}
 			else
 			{
@@ -760,11 +760,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
 			if (choixPonderation != pondPlusProchesVoisins)
 			{
-				bandePassante = toolbox::conversion<reel>(paramCourant->contents[4]);
+				bandePassante = toolbox::conversion< reel >(paramCourant->contents[4]);
 			}
 			else
 			{
-				nbPlusProchesVoisins = toolbox::conversion<int>(paramCourant->contents[4]);
+				nbPlusProchesVoisins = toolbox::conversion< int >(paramCourant->contents[4]);
 			}
 		}
 	}
@@ -808,7 +808,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			// Nombre de permutations pour le test de significativité
 			if (paramCourant->contents.size() == 3)
 			{
-				AS_nbPermutations = toolbox::conversion<int>(paramCourant->contents[2]);
+				AS_nbPermutations = toolbox::conversion< int >(paramCourant->contents[2]);
 			}
 			else
 			{
@@ -913,7 +913,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			}
 			else
 			{
-				seuilPValeur = toolbox::conversion<reel>(paramCourant->contents[2]);
+				seuilPValeur = toolbox::conversion< reel >(paramCourant->contents[2]);
 				seuilScore.resize(dimensionMax + 1, 0);
 				seuilScoreMultivarie.resize(dimensionMax + 1, 0);
 				seuilScore[0] = 0;
@@ -1000,8 +1000,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		{
 			nbModeles = toolbox::combinaisons(nbEnvActives, i) * nbMarqTot;
 			pValeur = seuilPValeur / nbModeles;
-			seuilScore[i] = toolbox::invCDF_ChiSquare(1 - pValeur, 1, sqrt(epsilon<reel>()));
-			seuilScoreMultivarie[i] = toolbox::invCDF_ChiSquare(1 - pValeur, i, sqrt(epsilon<reel>()));
+			seuilScore[i] = toolbox::invCDF_ChiSquare(1 - pValeur, 1, sqrt(epsilon< reel >()));
+			seuilScoreMultivarie[i] = toolbox::invCDF_ChiSquare(1 - pValeur, i, sqrt(epsilon< reel >()));
 			cout << "Dim " << i << " " << nbModeles << " " << pValeur << " " << seuilScore[i] << " " << seuilScoreMultivarie[i] << "\n";
 		}
 		cout << "Bidule" << "\n";
@@ -1044,13 +1044,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		}
 
 		// Lecture des données
-		vector<vector<int>> validation;
+		vector< vector< int>> validation;
 		unsigned int rows(0), caseCourante(0), nombreRecuperes(0); // Nombre de lignes lues & la case actuelle dans la liste de validation
 
 		// Variables temporaires
-		vector<reel> line(0);
-		vector<int> lineValidation(0), listeErreurs(0);
-		vector<string> ligneOriginale(0);
+		vector< reel > line(0);
+		vector< int > lineValidation(0), listeErreurs(0);
+		vector< string > ligneOriginale(0);
 
 		// S'il y a un en-tête, on passe la première ligne
 		if (entete)
@@ -1213,10 +1213,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		//Classe::setNbPoints(nbPoints);
 		//Partition::setNbPoints(nbPoints);
 		//dataEnv.resize(rows, nbEnv);
-		missingValuesEnv.resize(nbEnvActives, std::set<int>());
+		missingValuesEnv.resize(nbEnvActives, std::set< int >());
 		cout << missingValuesEnv.size() << "\n";
 		//dataMarq.resize(rows, nbMarq);
-		missingValuesMarq.resize(nbMarqActifs, std::set<int>());
+		missingValuesMarq.resize(nbMarqActifs, std::set< int >());
 
 		for (unsigned int i(0); i < rows; ++i)
 		{
@@ -1280,13 +1280,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		nbCols = headerEnv.size();
 
 		// Lecture des données
-		vector<vector<int>> validation;
+		vector< vector< int>> validation;
 		unsigned int rows(0), caseCourante(0), nombreRecuperes(0);
 
 		// Variables temporaires
-		vector<reel> line(0);
-		vector<int> lineValidation(0), listeErreurs(0);
-		vector<string> ligneOriginale(0);
+		vector< reel > line(0);
+		vector< int > lineValidation(0), listeErreurs(0);
+		vector< string > ligneOriginale(0);
 
 
 		// S'il y a un en-tête, on passe la première ligne
@@ -1392,7 +1392,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		 cout << endl;
 		 }*/
 
-		missingValuesEnv.resize(nbEnvActives, std::set<int>());
+		missingValuesEnv.resize(nbEnvActives, std::set< int >());
 		cout << missingValuesEnv.size() << "\n";
 
 		for (unsigned int i(0); i < rows; ++i)
@@ -1526,7 +1526,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		entree.close();
 
 		// Réunion des valeurs manquantes
-		missingValuesMarq.resize(nbMarqActifs, std::set<int>());
+		missingValuesMarq.resize(nbMarqActifs, std::set< int >());
 
 		for (unsigned int i(0); i < rows; ++i)
 		{
@@ -1546,7 +1546,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	for (int i(0); i < nbEnvActives; ++i)
 	{
 		//cout << "?" << missingValuesEnv[i].size() << "\n";
-		for (set<int>::iterator iter(missingValuesEnv[i].begin()); iter != missingValuesEnv[i].end(); ++iter)
+		for (set< int >::iterator iter(missingValuesEnv[i].begin()); iter != missingValuesEnv[i].end(); ++iter)
 		{
 			masqueX((*iter), i) = 0;
 		}
@@ -1584,7 +1584,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 	return 0;
 }
 
-void RegressionLogistique::ecritResultat(int numFichier, const resModele &r) const
+void RegressionLogistique::ecritResultat(int numFichier, const resModele& r) const
 {
 	//On écrit les numéros/noms globaux des marqueurs 
 	// Le décalage du numéro de marqueur dans les jobs multiples a déjà été pris en compte
@@ -1593,7 +1593,7 @@ void RegressionLogistique::ecritResultat(int numFichier, const resModele &r) con
 	sortie.ecriture(numFichier, specDataMarq[marqActifs.at(r.first.first)].name, false);
 
 	// Liste des variables
-	for (set<int>::iterator i(r.first.second.begin()); i != r.first.second.end(); ++i)
+	for (set< int >::iterator i(r.first.second.begin()); i != r.first.second.end(); ++i)
 	{
 		sortie.ecriture(numFichier, specDataEnv[varEnvActives.at(*i)].name, false);
 	}
@@ -1736,17 +1736,17 @@ void RegressionLogistique::ecritResultat(int numFichier, const resModele &r) con
  return sortie;
  }
  */
-void RegressionLogistique::affiche(const etiquetteModele &label)
+void RegressionLogistique::affiche(const etiquetteModele& label)
 {
 	cout << label.first << " : ";
-	for (set<int>::iterator i(label.second.begin()); i != label.second.end(); ++i)
+	for (set< int >::iterator i(label.second.begin()); i != label.second.end(); ++i)
 	{
 		cout << *i << " ";
 	}
 	cout << "\n";
 }
 
-void RegressionLogistique::affiche(const resModele &res)
+void RegressionLogistique::affiche(const resModele& res)
 {
 	affiche(res.first);
 	cout << "    ";
@@ -1772,7 +1772,7 @@ void RegressionLogistique::affiche(const groupeResultats::iterator res)
 void RegressionLogistique::trieEtEcritResultats()
 {
 	cout << "Coucou" << "\n";
-	vector<groupeResultats::value_type *> listeModeles(0);
+	vector< groupeResultats::value_type * > listeModeles(0);
 	int tailleListe(0);
 	// On ne trie pas les modèles constants
 	// On ne peut pas trier une map! Il faut trier un vecteur
@@ -1815,7 +1815,7 @@ void RegressionLogistique::trieEtEcritResultats()
 					sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
 
 					// Liste des variables
-					for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
+					for (set< int >::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
 					{
 						//cout << *iter << " " << varEnvActives.size() << "\n";
 						sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
@@ -1836,11 +1836,11 @@ void RegressionLogistique::trieEtEcritResultats()
 
 // Cette méthode lit le fichier de paramètres et remplit la liste
 // Elle vérifie aussi si les paramètres obligatoires (et les pré-requis) sont présents
-ifstream &RegressionLogistique::lectureParametres(ifstream &entree, const ParameterSetIndex &index, ParameterSet &parametres) throw()
+ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) throw()
 {
 	entree >> ws;
 	string nomParam, lu;
-	vector<string> ligne;
+	vector< string > ligne;
 	ParameterSetIndex::const_iterator paramCourant; // L'itérateur doit pointer une valeur constante (index est const)
 	while (!entree.eof())
 	{

@@ -42,7 +42,7 @@ RegressionLogistique::RegressionLogistique()
 		: dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
 		  sauvegardeTempsReel(true), selModeles(all),
 		  analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
-		  eps(sqrt(epsilon<reel>())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel) 700, log(numeric_limits<reel>::max() / 2))),
+		  eps(sqrt(epsilon< reel >())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel) 700, log(numeric_limits< reel >::max() / 2))),
 		  limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsSansPseudos(4),
 		  tailleEtiquetteInvar(4), numPremierMarq(0),
 		  delimLignes("\n")
@@ -262,7 +262,7 @@ bool RegressionLogistique::calculePonderation() throw(Erreur)
 			voisinage.resize(nbPoints);
 
 			int nbVoisinsCourants(0);
-			vector<Voisin>::iterator voisinCourant, voisinSuivant;
+			vector< Voisin >::iterator voisinCourant, voisinSuivant;
 			// Pour chaque point, on enregistre les couples <voisin, distance> et on les trie
 			for (int i(0); i < pointsGeo.taille; ++i)
 			{
@@ -356,7 +356,7 @@ bool RegressionLogistique::Domaine::miseAJour()
 
 		// Le poids est réinitialisé
 		poids.clear();
-		poids.resize(nbPoints, vector<Voisin>(0));
+		poids.resize(nbPoints, vector< Voisin >(0));
 
 		pointsValides.clear();
 		indices.resize(nbPoints);
@@ -389,8 +389,8 @@ int RegressionLogistique::calculeCorrelations() const
 	moyennes /= taillesDonnees;
 	variances = variances / taillesDonnees - moyennes % moyennes;
 
-	vector<vector<reel>> correlations(0);
-	vector<reel> correlationCourante(3);
+	vector< vector< reel>> correlations(0);
+	vector< reel > correlationCourante(3);
 
 	for (int i(0); i < nbEnv; ++i)
 	{
@@ -417,7 +417,7 @@ int RegressionLogistique::calculeCorrelations() const
 	cout << endl << CLOCKS_PER_SEC << endl;
 
 	ComparaisonVecteurs::setCase(0);
-	sort(correlations.begin(), correlations.end(), ComparaisonVecteurs::plusPetitQue<reel>);
+	sort(correlations.begin(), correlations.end(), ComparaisonVecteurs::plusPetitQue< reel >);
 
 	cout << correlations.size() << " " << nbPaires << "\n";
 	for (int i(0); i < nbPaires; ++i)
@@ -439,7 +439,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		}
 		calculePonderation();
 	}
-	catch (const Erreur &err)
+	catch (const Erreur& err)
 	{
 		if (err.estFatale())
 		{
@@ -457,7 +457,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 	// Initialisation du shapefile
 	SHPHandle fichierSHP;
 	DBFHandle fichierDBF;
-	vector<int> indicesShpEnv, indicesShpMarq, indicesShpPoints;
+	vector< int > indicesShpEnv, indicesShpMarq, indicesShpPoints;
 	if (AS_shapefile)
 	{
 		indicesShpEnv.resize(nbEnvActives, -1);
@@ -524,7 +524,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 
 	// Test de multiplication
 
-	vector<int> listePointsValidesPerm, voisinagePerm, listePointsGlobauxPerm; // Liste des points sélectionnables lors de la permutations, voisinage temporaire pendant la permutation
+	vector< int > listePointsValidesPerm, voisinagePerm, listePointsGlobauxPerm; // Liste des points sélectionnables lors de la permutations, voisinage temporaire pendant la permutation
 	int pt1, pt2, nbVoisins; // Pour repérer les indices des points considérés || Pour compter les voisins d'un point
 	reel limiteIndicesIdentiques(1e-6), moitieNbPerms(AS_nbPermutations / 2);
 	int nbSimPlusGrandes, nbSimEgales, nbSimPlusPetites;
@@ -652,7 +652,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 						// On sélectionne les points voisins
 						// Il peut y en avoir plus que "nbPlusProchesVoisins" si certains points sont à égale distance
 
-						vector<Voisin>::iterator voisinCourant, voisinSuivant;
+						vector< Voisin >::iterator voisinCourant, voisinSuivant;
 
 						//cout << "! " << distances(9,0,9,384) << "\n";
 						for (int u(0); u < pointsCourants.taille; ++u)
@@ -797,7 +797,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				// Chaque fois qu'on prend un point, le nombre de points restants (=parmi lesquels on peut tirer un élément) diminue
 				// Prop = facteur d'échelle pour le tirage d'un entier entre nbPointsValides, nbPointsValides-1, ..., 2,1,0
 				// Subtilité : Le points courant reste fixe, il ne sera jamais choisi comme voisin -> nb voisins possibles = taille-1 !!!!
-				vector<double> proportion(pointsCourants.taille - 1);
+				vector< double > proportion(pointsCourants.taille - 1);
 				int choix(0);
 				for (int j(0); j < (pointsCourants.taille - 1); ++j)
 				{
@@ -1191,7 +1191,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		{
 			// There is no general mask for genetic data
 			pointsCourants.masque = pointsAC.masque;
-			for (set<int>::iterator iter(missingValuesMarq[i].begin()); iter != missingValuesMarq[i].end(); ++iter)
+			for (set< int >::iterator iter(missingValuesMarq[i].begin()); iter != missingValuesMarq[i].end(); ++iter)
 			{
 				//cout << *iter << endl;
 				pointsCourants.masque[*iter] = false;
@@ -1262,7 +1262,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 						// On sélectionne les points voisins
 						// Il peut y en avoir plus que "nbPlusProchesVoisins" si certains points sont à égale distance
 
-						vector<Voisin>::iterator voisinCourant, voisinSuivant;
+						vector< Voisin >::iterator voisinCourant, voisinSuivant;
 
 						//cout << "! " << distances(9,0,9,384) << "\n";
 						for (int u(0); u < pointsCourants.taille; ++u)
@@ -1407,7 +1407,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 				// Chaque fois qu'on prend un point, le nombre de points restants (=parmi lesquels on peut tirer un élément) diminue
 				// Prop = facteur d'échelle pour le tirage d'un entier entre nbPointsValides, nbPointsValides-1, ..., 2,1,0
 				// Subtilité : Le points courant reste fixe, il ne sera jamais choisi comme voisin -> nb voisins possibles = taille-1 !!!!
-				vector<double> proportion(pointsCourants.taille - 1);
+				vector< double > proportion(pointsCourants.taille - 1);
 				int choix(0);
 				for (int j(0); j < (pointsCourants.taille - 1); ++j)
 				{
@@ -2181,7 +2181,7 @@ int RegressionLogistique::creeModelesGlobaux()
 	// Initialisation du conteneur de résultats et des flots de sortie
 	resultats.clear();
 	resultats.resize(dimensionMax + 1);
-	vector<string> nomsFichiers(dimensionMax + 1);
+	vector< string > nomsFichiers(dimensionMax + 1);
 	for (int i(0); i <= dimensionMax; ++i)
 	{
 		ostringstream oss;
@@ -2195,7 +2195,7 @@ int RegressionLogistique::creeModelesGlobaux()
 	sortie.precision(toolbox::precisionLecture);
 
 	// Ecriture des noms de colonnes pour s'y repérer
-	vector<vector<string>> names(3);
+	vector< vector< string>> names(3);
 	names[0].push_back("Marker");
 	names[0].push_back("Env_");
 	names[0].push_back("Beta_");
@@ -2239,17 +2239,17 @@ int RegressionLogistique::creeModelesGlobaux()
 	// int colMarq(0);
 	reel tailleY(0), sommeY(0); //, tailleX(0), beta_zero(0), val_loglikelihood_zero(0);
 	// pseudosRcarresCourants(nbPseudosRcarres), statsCourantes(nbStats), betaCourant(0); */
-	vector<reel> loglikelihood(dimensionMax + 1, 0.0);//, resultatsCourants(tailleEtiquetteInvar, 0.0); // Il y a le modèle sans paramètres!
+	vector< reel > loglikelihood(dimensionMax + 1, 0.0);//, resultatsCourants(tailleEtiquetteInvar, 0.0); // Il y a le modèle sans paramètres!
 
 	// Iteration sur les paramètres environnementaux
-	vector<set<int>::iterator> cavalier(dimensionMax);
+	vector< set< int >::iterator > cavalier(dimensionMax);
 	//vector<bool> varDiscrete(dimensionMax, false);
 	int niveau(0);
 	bool fini(false), avance(false);
 	//vector<int> varDiscretes(0), varContinues(0);
-	set<int> varContinues;
+	set< int > varContinues;
 
-	pair<etiquetteModele, vector<reel>> resultatCourant;
+	pair< etiquetteModele, vector< reel>> resultatCourant;
 	resultatCourant.second.resize(tailleEtiquetteInvar, 0.0);
 
 	// Ces matrices ne changent pas de taille
@@ -2314,17 +2314,17 @@ int RegressionLogistique::creeModelesGlobaux()
 	for (int i(storey.nbPvalStorey - 1); i > 0; --i)
 	{
 		storey.pval.push_back(0.01 * i);
-		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon<reel>())));
-		cout << 0.01 * i << " " << toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon<reel>())) << endl;
+		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon< reel >())));
+		cout << 0.01 * i << " " << toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon< reel >())) << endl;
 	}
 	storey.pval.push_back(0.);
-	storey.seuilScore.push_back(std::numeric_limits<reel>::infinity());
+	storey.seuilScore.push_back(std::numeric_limits< reel >::infinity());
 
-	storey.compteurG.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
-	storey.compteurWald.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
+	storey.compteurG.resize(dimensionMax + 1, vector< int >(storey.nbPvalStorey, 0));
+	storey.compteurWald.resize(dimensionMax + 1, vector< int >(storey.nbPvalStorey, 0));
 
-	storey.compteurGOrphelins.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
-	storey.compteurWaldOrphelins.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
+	storey.compteurGOrphelins.resize(dimensionMax + 1, vector< int >(storey.nbPvalStorey, 0));
+	storey.compteurWaldOrphelins.resize(dimensionMax + 1, vector< int >(storey.nbPvalStorey, 0));
 
 	storey.nbModelesValides.resize(dimensionMax + 1, 0);
 
@@ -2353,7 +2353,7 @@ int RegressionLogistique::creeModelesGlobaux()
 		// Remplissage du masque
 		masqueY = true;
 		// Les valeurs manquantes sont un ensemble!
-		for (set<int>::iterator iter(missingValuesMarq[i].begin()); iter != missingValuesMarq[i].end(); ++iter)
+		for (set< int >::iterator iter(missingValuesMarq[i].begin()); iter != missingValuesMarq[i].end(); ++iter)
 		{
 			//cout << colMarq << " "<< missingValues[colMarq][k] << "\n";
 			masqueY[*iter] = false;
@@ -2501,7 +2501,7 @@ int RegressionLogistique::creeModelesGlobaux()
 						// Il peut y en avoir plus que "nbPlusProchesVoisins" si certains points sont à égale distance
 
 						int nbVoisinsCourants(0);
-						vector<Voisin>::iterator voisinCourant, voisinSuivant;
+						vector< Voisin >::iterator voisinCourant, voisinSuivant;
 
 						reel plusPetiteDiffDist(pow(10., -4)); // En dessous d' 1cm ça compte pas! (Les distances sont au carré)
 						for (int i(0); i < nbPoints; ++i)
@@ -2557,7 +2557,7 @@ int RegressionLogistique::creeModelesGlobaux()
 		}
 
 		// Calcul des modèles multivariés
-		set<int>::iterator derniereVar;//, varCourante;
+		set< int >::iterator derniereVar;//, varCourante;
 		int varCourante;
 
 		// Ici la dim est celle des parents (le cas dim=1 est traité avant)
@@ -2689,7 +2689,7 @@ int RegressionLogistique::creeModelesGlobaux()
 }
 
 
-void RegressionLogistique::construitModele(int numMarq, const set<int> &varContinues)//, const reel loglike_zero, reel& loglike_courante)
+void RegressionLogistique::construitModele(int numMarq, const set< int >& varContinues)//, const reel loglike_zero, reel& loglike_courante)
 {
 	//cout << "!";
 	//affiche(make_pair(numMarq, varContinues));
@@ -2707,7 +2707,7 @@ void RegressionLogistique::construitModele(int numMarq, const set<int> &varConti
 	resultat.first.second = varContinues;
 
 	masque = masqueY;
-	for (set<int>::iterator i(varContinues.begin()); i != varContinues.end(); ++i)
+	for (set< int >::iterator i(varContinues.begin()); i != varContinues.end(); ++i)
 	{
 		masque %= masqueX(_, *i);
 	}
@@ -2790,7 +2790,7 @@ void RegressionLogistique::construitModele(int numMarq, const set<int> &varConti
 		{
 			if (masque(k, 0) == true)
 			{
-				set<int>::iterator iter(varContinues.begin());
+				set< int >::iterator iter(varContinues.begin());
 				for (int l(0); l < nbVarCont; ++l)
 				{
 					X(position, l + 1) = dataEnv(k, *iter);
@@ -2834,7 +2834,7 @@ void RegressionLogistique::construitModele(int numMarq, const set<int> &varConti
 			{
 				resultat.second[validiteModele] = typeErreur;
 				cout << typeErreur << " | " << numMarq + numPremierMarq << " : ";
-				for (set<int>::iterator l(varContinues.begin()); l != varContinues.end(); ++l)
+				for (set< int >::iterator l(varContinues.begin()); l != varContinues.end(); ++l)
 				{
 					cout << *l << " ";
 				}
@@ -2925,7 +2925,7 @@ void RegressionLogistique::construitModele(int numMarq, const set<int> &varConti
 // 4: max iterations atteint
 // 5: marqueur constant
 // 6: modèle avec parents non-significatifs
-int RegressionLogistique::calculeRegression(reel &loglikeCourante, reel &composantEfron)
+int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composantEfron)
 {
 
 	// Test de convergence
@@ -2999,7 +2999,7 @@ int RegressionLogistique::calculeRegression(reel &loglikeCourante, reel &composa
 				{
 					inv_J_info = invpd(J_info);
 				}
-				catch (scythe_exception &error)
+				catch (scythe_exception& error)
 				{
 					//cerr << error.message() << "\n";
 					singularMatrix = true;
@@ -3074,7 +3074,7 @@ int RegressionLogistique::calculeRegression(reel &loglikeCourante, reel &composa
 	return typeErreur;
 }
 
-bool RegressionLogistique::calculeStats(resModele &resultat, int nbParamEstimes)
+bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 {
 	bool modeleRetenu(true);
 
@@ -3113,7 +3113,7 @@ bool RegressionLogistique::calculeStats(resModele &resultat, int nbParamEstimes)
 	}
 	else // Recherche d'un parent valide et sélection du parent avec la meilleure loglike
 	{
-		for (set<int>::iterator variableCourante(resultat.first.second.begin()); variableCourante != resultat.first.second.end(); ++variableCourante)
+		for (set< int >::iterator variableCourante(resultat.first.second.begin()); variableCourante != resultat.first.second.end(); ++variableCourante)
 		{
 			// Initialisation avec les valeurs du premier modèle
 			etiquetteCourante = resultat.first;
@@ -3344,7 +3344,7 @@ bool RegressionLogistique::calculeStats(resModele &resultat, int nbParamEstimes)
 
 }
 
-void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues, resModele &resultat)
+void RegressionLogistique::calculeGWR(int numMarq, const set< int >& varContinues, resModele& resultat)
 {
 	cout << "%" << numMarq << endl;
 	int nbVarCont(varContinues.size());
@@ -3365,7 +3365,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 	Domaine pointsGWR;
 	pointsGWR.masque = pointsMarq.masque;
 
-	for (set<int>::iterator i(varContinues.begin()); i != varContinues.end(); ++i)
+	for (set< int >::iterator i(varContinues.begin()); i != varContinues.end(); ++i)
 	{
 		pointsGWR.masque %= masqueX(_, *i);
 	}
@@ -3445,7 +3445,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 				// Il peut y en avoir plus que "nbPlusProchesVoisins" si certains points sont à égale distance
 
 				int nbVoisinsCourants(0);
-				vector<Voisin>::iterator voisinCourant, voisinSuivant;
+				vector< Voisin >::iterator voisinCourant, voisinSuivant;
 
 				reel plusPetiteDiffDist(pow(10., -4)); // En dessous d' 1cm ça compte pas! (Les distances sont au carré)
 				for (int i(0); i < nbPoints; ++i)
@@ -3527,7 +3527,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 			//if (masqueGWR(voisinCourant,0) == true)
 			//{
 			X_l(k, 0) = 1;
-			set<int>::iterator iter(varContinues.begin());
+			set< int >::iterator iter(varContinues.begin());
 			for (int l(0); l < nbVarCont; ++l)
 			{
 				X_l(k, l + 1) = dataEnv(voisinCourant, *iter);
@@ -3628,7 +3628,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 					{
 						inv_J_info_l = invpd(J_info_l);
 					}
-					catch (scythe_exception &error)
+					catch (scythe_exception& error)
 					{
 						//cerr << error.message() << "\n";
 						singularMatrix = true;
@@ -3716,7 +3716,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 			{
 				invXtWX = invpd(XtW * X_l(0, 0, limiteLignes, nbParam - 1));
 			}
-			catch (scythe_exception &error)
+			catch (scythe_exception& error)
 			{
 				pointsValides(i, 0) = false;
 				recalculeLoglikeGlobale = true;
@@ -3796,7 +3796,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int> &varContinues,
 }
 
 
-void RegressionLogistique::initialisationParametres(ParameterSet &listeParam, ParameterSetIndex &indexParam) const
+void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, ParameterSetIndex& indexParam) const
 {
 	ParameterSetData paramCourant;
 
@@ -3899,17 +3899,17 @@ ComparaisonVoisins::ComparaisonVoisins()
 ComparaisonVoisins::~ComparaisonVoisins()
 {}
 
-bool ComparaisonVoisins::plusPetitQue(const Voisin &v1, const Voisin &v2)
+bool ComparaisonVoisins::plusPetitQue(const Voisin& v1, const Voisin& v2)
 {
 	return (v1.second < v2.second);
 }
 
-bool ComparaisonVoisins::plusGrandQue(const Voisin &v1, const Voisin &v2)
+bool ComparaisonVoisins::plusGrandQue(const Voisin& v1, const Voisin& v2)
 {
 	return (v1.second > v2.second);
 }
 
-ComparaisonVoisins::ComparaisonVoisins(const ComparaisonVoisins &c)
+ComparaisonVoisins::ComparaisonVoisins(const ComparaisonVoisins& c)
 {}
 
 int ComparaisonResultats::caseComparaisonResultats = 0;
@@ -3930,17 +3930,17 @@ void ComparaisonResultats::setCase(int i)
 	caseComparaisonResultats = i;
 }
 
-bool ComparaisonResultats::plusPetitQue(const groupeResultats::value_type *const &r1, const groupeResultats::value_type *const &r2)
+bool ComparaisonResultats::plusPetitQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2)
 {
 	return ((r1->second[caseComparaisonResultats]) < (r2->second[caseComparaisonResultats]));
 }
 
-bool ComparaisonResultats::plusGrandQue(const groupeResultats::value_type *const &r1, const groupeResultats::value_type *const &r2)
+bool ComparaisonResultats::plusGrandQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2)
 {
 	return ((r1->second[caseComparaisonResultats]) > (r2->second[caseComparaisonResultats]));
 }
 
 
-ComparaisonResultats::ComparaisonResultats(ComparaisonResultats &c)
+ComparaisonResultats::ComparaisonResultats(ComparaisonResultats& c)
 {}
 

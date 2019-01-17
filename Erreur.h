@@ -35,22 +35,25 @@
 
 using namespace std;
 
-class Erreur: public exception
+class Erreur : public exception
 {
 public:
-	Erreur(const string& n="", const string& p="", bool arret=true) throw();	
+	Erreur(const string& n = "", const string& p = "", bool arret = true) throw();
 
-	virtual const char* what() const throw();
-	
+	virtual const char *what() const throw();
+
 	bool estFatale() const throw();
+
 	string getName() const;
+
 	string getPhrase() const;
-    virtual ~Erreur() throw();
-	
+
+	virtual ~Erreur() throw();
+
 protected:
-    string nom;             // Type de l'erreur.
+	string nom;             // Type de l'erreur.
 	string phrase;
-    bool fatale;            // Gravité de l'erreur.
+	bool fatale;            // Gravité de l'erreur.
 };
 
 #endif // ERREUR_H

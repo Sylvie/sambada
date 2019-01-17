@@ -32,7 +32,7 @@
 using namespace std;
 using namespace scythe;
 
-void toolbox::segmentationString(string ligne, vector<string> &resultat, const string &separateur, bool elimineEspaces)
+void toolbox::segmentationString(string ligne, vector< string >& resultat, const string& separateur, bool elimineEspaces)
 {
 	resultat.clear();
 	string dustbin, token, word;
@@ -253,7 +253,7 @@ string toolbox::conversion(reel nombre)
  return lectureLigne(entree, ligne, false, truc);
  }*/
 
-void toolbox::enleveEspaces(string &s)
+void toolbox::enleveEspaces(string& s)
 {
 	while (s[0] == ' ')
 	{
@@ -269,7 +269,7 @@ void toolbox::enleveEspaces(string &s)
 
 // Cette fonction repère le type de fin de ligne
 // Elle sert à formater les fichiers de résultats
-istream &toolbox::chercheRetourLigne(istream &entree, string &retourLigne)
+istream& toolbox::chercheRetourLigne(istream& entree, string& retourLigne)
 {
 	retourLigne.clear();
 	char lu;
@@ -306,7 +306,7 @@ istream &toolbox::chercheRetourLigne(istream &entree, string &retourLigne)
 // Si un '"' est lu, la lecture continue jusqu'au '"' suivant, 
 // les caractères invisibles sont ignorés, mais les espaces sont conservés
 // La fonction retourne le dernier caractère lu
-char toolbox::lectureMot(istream &entree, string &mot, char delimMots, bool gardeSignesInvisibles)
+char toolbox::lectureMot(istream& entree, string& mot, char delimMots, bool gardeSignesInvisibles)
 {
 	mot.clear();
 	char lu = 0x00;
@@ -331,7 +331,7 @@ char toolbox::lectureMot(istream &entree, string &mot, char delimMots, bool gard
 	return lu;
 }
 
-bool toolbox::lectureLigne(istream &entree, vector<string> &ligne, char delimMots, bool gardeSignesInvisibles)
+bool toolbox::lectureLigne(istream& entree, vector< string >& ligne, char delimMots, bool gardeSignesInvisibles)
 {
 	ligne.clear();
 	string mot("");
@@ -446,7 +446,7 @@ void ComparaisonVecteurs::setCase(int i)
 	return (v1[caseComparaisonVecteurs] < v2[caseComparaisonVecteurs]);
 }*/
 
-ComparaisonVecteurs::ComparaisonVecteurs(ComparaisonVecteurs &c)
+ComparaisonVecteurs::ComparaisonVecteurs(ComparaisonVecteurs& c)
 {}
 
 
