@@ -145,6 +145,20 @@ private:
 		bool miseAJour();
 	} Domaine;
 
+	// Définition des caractéristiques nécessaires au calcul de la FDR selon Storey
+	typedef struct
+	{
+		int nbPvalStorey;
+		vector<int> nbModelesValides;
+
+		vector<reel> pval;
+		vector<reel> seuilScore;
+
+		vector<vector<int>> compteurG, compteurGOrphelins;
+		vector<vector<int>> compteurWald, compteurWaldOrphelins;
+
+		reel scoreMin;
+	} donneesFDR;
 
 protected:
 
@@ -191,6 +205,9 @@ protected:
 	vector<reel> seuilScore, seuilScoreMultivarie;
 	const int limiteIter, limiteEcartType, nbStats, nbStatsAvecPop, nbStatsSansPseudos, nbPseudosRcarres, tailleEtiquetteInvar;
 	int nbModelesParMarqueur;
+
+	// Paramètres FDR selon Storey
+	donneesFDR storey;
 
 	// Paramètres analyse spatiale
 	bool analyseSpatiale, crdCartesiennes; // typeCoordonnees: 0 -> sphériques, 1 -> cartésiennes
