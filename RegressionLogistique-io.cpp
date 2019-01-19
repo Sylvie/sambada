@@ -288,20 +288,18 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		// S'il y a plusieurs fichiers de marqueurs, il faut repérer le numéro du premier qu'on a
 
 		// On prend le nom du fichier d'input au cas où l'utilisateur aurait renommé le fichier de sortie
-		string temp("");
-		int position(0);
+		LecteurCheminAcces lecteurCheminAcces;
+		CheminAcces cheminAcces;
 		if (uniqueFichierDonnees)
 		{
-			position = nomFichierInput[0].rfind(".");
-			temp = (nomFichierInput[0].substr(0, position));
+			cheminAcces = lecteurCheminAcces.decompose(nomFichierInput[0]);
 		}
 		else
 		{
-			position = nomFichierInput[1].rfind(".");
-			temp = (nomFichierInput[1].substr(0, position));
+			cheminAcces = lecteurCheminAcces.decompose(nomFichierInput[1]);
 		}
-		position = (temp.rfind("-"));
 
+		int position(cheminAcces.radical.rfind("-"));
 		if (position == string::npos)
 		{
 			erreurDetectee("MSG_missing-first-mark", "Missing number of the first marker." + delimLignes + "It must be provided in the name of the input marker file (as done by Supervision) or in the name given in the optional OUTPUTFILE entry.");
@@ -309,9 +307,9 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		else
 		{
 
-			journal << "Number of the first marker: " << temp.substr(position + 1) << nl;
+			journal << "Number of the first marker: " << cheminAcces.radical.substr(position + 1) << nl;
 
-			istringstream iss((temp.substr(position + 1)));
+			istringstream iss((cheminAcces.radical.substr(position + 1)));
 			iss >> numPremierMarq;
 			if (iss.fail())
 			{
