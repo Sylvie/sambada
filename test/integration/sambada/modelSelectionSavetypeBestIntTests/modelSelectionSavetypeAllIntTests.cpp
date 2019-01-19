@@ -22,9 +22,10 @@ SCENARIO("Test that significant models are correctly selected with option \"SAVE
         std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
         std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-Out-2.txt");
         std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-Out-3.txt");
+        std::string fileNameStorey(pathToOutputFolder + "cattle-pop-mark-storey.txt");
         std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameLogs});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameStorey, fileNameLogs});
 
         std::string pathToInputFolder(
                 SambadaIntegrationTestUtils::getTopSourceDirectory() +
