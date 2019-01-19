@@ -19,7 +19,7 @@
 */
 
 SCENARIO("Test that significant models are correctly selected with option \"SAVETYPE BEST\"",
-         "[model-selection-with-savetype-best-int]") {
+         "[model-selection-with-savetype-best-int][!mayfail]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 

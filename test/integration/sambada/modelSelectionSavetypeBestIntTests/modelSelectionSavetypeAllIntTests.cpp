@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that significant models are correctly selected with option \"SAVETYPE ALL\"",
-         "[model-selection-with-savetype-best-all-int]") {
+         "[model-selection-with-savetype-all-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -75,7 +75,7 @@ SCENARIO("Test that significant models are correctly selected with option \"SAVE
         lecteurCorrige.close();
         expectedResultsDim3.verifieTailles(true, 3, 1050);
 
-        WHEN("Sambada is run using the option \"SAVETYPE BEST\"")
+        WHEN("Sambada is run using the option \"SAVETYPE ALL\"")
         {
             CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
