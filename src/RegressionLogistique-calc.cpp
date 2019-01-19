@@ -1255,7 +1255,7 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 					}
 				}
 			}
-			
+
 			//toolbox::affiche(pointsCourants.poids);
 			/*
 			 for (int zut(0); zut<5; ++zut)
@@ -2267,7 +2267,7 @@ int RegressionLogistique::creeModelesGlobaux()
 	{
 		storey.pval.push_back(0.01 * i);
 		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon<reel>())));
-		cout << 0.01 * i << " " << toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon<reel>())) << endl;
+		// cout << 0.01 * i << " " << toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon<reel>())) << endl;
 	}
 	storey.pval.push_back(0.);
 	storey.seuilScore.push_back(std::numeric_limits<reel>::infinity());
@@ -3136,7 +3136,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 
 		etiquetteCourante = resultat.first;
 		etiquetteCourante.second.clear();
-		modeleCourant=resultats[0].find(etiquetteCourante);
+		modeleCourant = resultats[0].find(etiquetteCourante);
 
 		loglikeZero = modeleCourant->second[valloglikelihood];
 
