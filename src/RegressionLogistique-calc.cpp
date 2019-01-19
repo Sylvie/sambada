@@ -3042,7 +3042,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			modeleCourant = resultats[dimParents].find(etiquetteCourante);    // Parent courant
 
 			// On teste si le parent existe et s'il n'est pas dans un état d'erreur
-			if (modeleCourant != resultats[dimParents].end() && ((modeleCourant->second[validiteModele]) == 0 || (modeleCourant->second[validiteModele]) == 6) || (modeleCourant->second[validiteModele]) == 7) // Storey!!
+			if (modeleCourant != resultats[dimParents].end() && ((modeleCourant->second[validiteModele]) == 0 || (modeleCourant->second[validiteModele]) == 6 || (modeleCourant->second[validiteModele]) == 7)) // Storey!!
 			{
 				if (parentValide) //  Test si un parent valide a déjà été trouvé
 				{
