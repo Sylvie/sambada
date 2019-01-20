@@ -971,6 +971,30 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 			}
 		}
 	}
+	++paramCourant;
+
+	// STOREY
+	if (!paramCourant->present)
+	{
+		calculeStorey = false;
+	}
+	else if (paramCourant->contents.size() == 0)
+	{
+		calculeStorey = true;
+	}
+	else
+	{
+		string lu(paramCourant->contents[0]);
+		if (lu == "0" || lu[0] == 'N' || lu[0] == 'n')
+		{
+			calculeStorey = false;
+		}
+		else
+		{
+			calculeStorey = true;
+		}
+	}
+	++paramCourant;
 
 	/* FIN DU TRAITEMENT DES PARAMETRES */
 

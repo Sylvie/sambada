@@ -208,6 +208,7 @@ protected:
 
 	// Paramètres FDR selon Storey
 	donneesFDR storey;
+	bool calculeStorey;
 
 	// Paramètres analyse spatiale
 	bool analyseSpatiale, crdCartesiennes; // typeCoordonnees: 0 -> sphériques, 1 -> cartésiennes

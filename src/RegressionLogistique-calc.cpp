@@ -2579,63 +2579,65 @@ int RegressionLogistique::creeModelesGlobaux()
 	sortie.fermeture();
 
 
-	// Storey
-	for (int i(1); i < (dimensionMax + 1); ++i)
+	if (calculeStorey)
 	{
-		cout << "Nombre de modèles valides (Storey) dim=" << i << " : " << storey.nbModelesValides[i] << "\n";
-	}
-	//	ofstream sortieStorey("res-Storey.txt");
-	ofstream sortieStorey((nomFichierResultats.first + "-storey" + nomFichierResultats.second).c_str());
-
-	sortieStorey << "P-valeurs" << delimMots;
-	for (int i(0); i < storey.nbPvalStorey; ++i)
-	{
-		sortieStorey << storey.pval[i] << delimMots;
-	}
-	sortieStorey << endl;
-
-	sortieStorey << "Scores" << delimMots;
-	for (int i(0); i < storey.nbPvalStorey; ++i)
-	{
-		sortieStorey << storey.seuilScore[i] << delimMots;
-	}
-	sortieStorey << endl;
-
-	for (int i(1); i < (dimensionMax + 1); ++i)
-	{
-		sortieStorey << "G" << i << delimMots;
-		for (int j(0); j < storey.nbPvalStorey; ++j)
+		// Storey
+		for (int i(1); i < (dimensionMax + 1); ++i)
 		{
-			sortieStorey << storey.compteurG[i][j] << delimMots;
+			cout << "Nombre de modèles valides (Storey) dim=" << i << " : " << storey.nbModelesValides[i] << "\n";
+		}
+		//	ofstream sortieStorey("res-Storey.txt");
+		ofstream sortieStorey((nomFichierResultats.first + "-storey" + nomFichierResultats.second).c_str());
+
+		sortieStorey << "P-valeurs" << delimMots;
+		for (int i(0); i < storey.nbPvalStorey; ++i)
+		{
+			sortieStorey << storey.pval[i] << delimMots;
 		}
 		sortieStorey << endl;
 
-		sortieStorey << "GOrphelins" << i << delimMots;
-		for (int j(0); j < storey.nbPvalStorey; ++j)
+		sortieStorey << "Scores" << delimMots;
+		for (int i(0); i < storey.nbPvalStorey; ++i)
 		{
-			sortieStorey << storey.compteurGOrphelins[i][j] << delimMots;
+			sortieStorey << storey.seuilScore[i] << delimMots;
 		}
 		sortieStorey << endl;
 
-		sortieStorey << "Wald" << i << delimMots;
-		for (int j(0); j < storey.nbPvalStorey; ++j)
+		for (int i(1); i < (dimensionMax + 1); ++i)
 		{
-			sortieStorey << storey.compteurWald[i][j] << delimMots;
+			sortieStorey << "G" << i << delimMots;
+			for (int j(0); j < storey.nbPvalStorey; ++j)
+			{
+				sortieStorey << storey.compteurG[i][j] << delimMots;
+			}
+			sortieStorey << endl;
+
+			sortieStorey << "GOrphelins" << i << delimMots;
+			for (int j(0); j < storey.nbPvalStorey; ++j)
+			{
+				sortieStorey << storey.compteurGOrphelins[i][j] << delimMots;
+			}
+			sortieStorey << endl;
+
+			sortieStorey << "Wald" << i << delimMots;
+			for (int j(0); j < storey.nbPvalStorey; ++j)
+			{
+				sortieStorey << storey.compteurWald[i][j] << delimMots;
+			}
+			sortieStorey << endl;
+
+			sortieStorey << "WaldOrphelins" << i << delimMots;
+			for (int j(0); j < storey.nbPvalStorey; ++j)
+			{
+				sortieStorey << storey.compteurWaldOrphelins[i][j] << delimMots;
+			}
+			sortieStorey << endl;
+
+
 		}
-		sortieStorey << endl;
 
-		sortieStorey << "WaldOrphelins" << i << delimMots;
-		for (int j(0); j < storey.nbPvalStorey; ++j)
-		{
-			sortieStorey << storey.compteurWaldOrphelins[i][j] << delimMots;
-		}
-		sortieStorey << endl;
-
-
+		sortieStorey.close();
 	}
-
-
-	sortieStorey.close();
 
 	return 0;
 }
@@ -3840,6 +3842,11 @@ void RegressionLogistique::initialisationParametres(ParameterSet& listeParam, Pa
 
 	// POPULATIONVAR
 	paramCourant.name = "POPULATIONVAR";
+	paramCourant.mandatory = false;
+	listeParam.push_back(paramCourant);
+
+	// STOREY
+	paramCourant.name = "STOREY";
 	paramCourant.mandatory = false;
 	listeParam.push_back(paramCourant);
 
