@@ -50,6 +50,12 @@ typedef pair<int, reel> Voisin;
 typedef vector< vector< Voisin > > TableClassementsVoisins;
 
 
+#if __cplusplus < 201103L
+	#define CPPTHROW(X) throw(X)
+#else
+	#define CPPTHROW(X)
+#endif
+
 
 class RegressionLogistique
 {
@@ -88,10 +94,10 @@ public:
 
 	static ostream& messageBienvenue(ostream& out, bool versionLongue=false);
 
-	int initialisation(int argc, char *argv[]) throw(Erreur);
+	int initialisation(int argc, char *argv[]) CPPTHROW(Erreur);
 
 	int calculeCorrelations() const;
-	int calculeAutocorrelations() throw(Erreur);
+	int calculeAutocorrelations() CPPTHROW(Erreur);
 
 	int creeModelesGlobaux();
 
@@ -115,7 +121,7 @@ protected:
 	int calculeRegression(reel& loglikeCourante, reel& indiceEfron);
 	void calculeGWR(int numMarq,  const set<int> & varContinues,   resModele& resultat);
 
-	bool calculePonderation() throw(Erreur);
+	bool calculePonderation() CPPTHROW(Erreur);
 
 
 private:
@@ -265,10 +271,10 @@ protected:
 	void initialisationParametres(ParameterSet& listeParam, ParameterSetIndex& indexParam) const;
 	// Cette méthode lit le fichier de paramètres et remplit la liste
 	// Elle vérifie aussi si les paramètres obligatoires sont présents
-	ifstream& lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) throw(Erreur);
+	ifstream& lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) CPPTHROW(Erreur);
 
 	// This method creates a new Erreur, write the description to the log and throw the Erreur
-	void erreurDetectee(const string& nom="", const string& description="", bool arret=true) throw(Erreur);
+	void erreurDetectee(const string& nom="", const string& description="", bool arret=true) CPPTHROW(Erreur);
 
 	bool calculeStructurePop(int dimensionCourante) const;
 };
