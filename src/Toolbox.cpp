@@ -237,8 +237,10 @@ void toolbox::enleveEspaces(string& s)
 	}
 }
 
-// Cette fonction repère le type de fin de ligne
-// Elle sert à formater les fichiers de résultats
+/**
+ * Cette fonction repère le type de fin de ligne
+ * Elle sert à formater les fichiers de résultats
+ */
 istream& toolbox::chercheRetourLigne(istream& entree, string& retourLigne)
 {
 	retourLigne.clear();
@@ -271,11 +273,13 @@ istream& toolbox::chercheRetourLigne(istream& entree, string& retourLigne)
 	return entree;
 }
 
-// Lit les caractères du flots et forme un mot
-// La lecture s'arrête si le caractère séparateur ou un caractère invisible est trouvé
-// Si un '"' est lu, la lecture continue jusqu'au '"' suivant,
-// les caractères invisibles sont ignorés, mais les espaces sont conservés
-// La fonction retourne le dernier caractère lu
+/**
+ * Lit les caractères du flots et forme un mot
+ * La lecture s'arrête si le caractère séparateur ou un caractère invisible est trouvé
+ * Si un '"' est lu, la lecture continue jusqu'au '"' suivant,
+ * les caractères invisibles sont ignorés, mais les espaces sont conservés
+ * @return le dernier caractère lu
+ */
 char toolbox::lectureMot(istream& entree, string& mot, char delimMots, bool gardeSignesInvisibles)
 {
 	mot.clear();

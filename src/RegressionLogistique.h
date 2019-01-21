@@ -59,19 +59,23 @@ protected:
 	typedef enum {valloglikelihood, Gscore, WaldScore, validiteModele, Efron, McFadden, McFaddenAdj, CoxSnell, Nagelkerke, AIC, BIC, GscorePop, WaldScorePop} listeStats;
 	typedef enum {pondDistanceMax, pondGaussienne, pondBicarree, pondPlusProchesVoisins} typePonderation;
 
-	/* Type de sauvegarde
-	 ALL : sauvegarde exhaustive
-	 VALID: sauvegarde des modèles significatifs
-	 BEST: sauvegarde des modèles significatifs ayant au moins un parent valide
+	/**
+	 * Type de sauvegarde
 	 */
-	typedef enum {all, signif, best} typeSelectionModeles;
+	typedef enum {
+		all,	/**< sauvegarde exhaustive */
+		signif,	/**< sauvegarde des modèles significatifs */
+		best	/**< sauvegarde des modèles significatifs ayant au moins un parent valide */
+	} typeSelectionModeles;
 
-	/* Type de structure de population
- 	pasStructurePop : structure de pop pas prise en compte
- 	structurePopPremier: variables de pop avant les variables environnementales
- 	structurePopDernier: variables de pop après les variables environnementales
- 	*/
-	typedef enum {pasStructurePop, structurePopPremier, structurePopDernier} typeStructurePop;
+	/**
+	* Type de structure de population
+	*/
+	typedef enum {
+		pasStructurePop,		/**< structure de pop pas prise en compte */
+		structurePopPremier,	/**< variables de pop avant les variables environnementales */
+		structurePopDernier		/**< variables de pop après les variables environnementales */
+	} typeStructurePop;
 
 	typedef Matrix<reel, Col, Concrete> MatriceReels;
 	typedef Matrix<bool, Col, Concrete> MatriceBools;
@@ -116,7 +120,9 @@ protected:
 
 private:
 
-	// Définition des spécificités d'une variable
+	/**
+	 * Définition des spécificités d'une variable
+	 */
 	typedef struct
 	{
 		int number;
@@ -129,7 +135,9 @@ private:
 
 	typedef vector<DetailsVariable> SpecificationsDonnees;
 
-	// Domaine: sous-ensemble des points muni d'une pondération
+	/**
+	 * Domaine: sous-ensemble des points muni d'une pondération
+	 */
 	typedef struct
 	{
 	public:
