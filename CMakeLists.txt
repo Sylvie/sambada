@@ -133,6 +133,8 @@ set(TestUtils
         test/utils/SambadaRegressionResults.cpp
         test/utils/SambadaSpatialAutocorrelationResults.h
         test/utils/SambadaSpatialAutocorrelationResults.cpp
+        test/utils/SambadaStoreyHistogram.h
+        test/utils/SambadaStoreyHistogram.cpp
         )
 
 set(IntegrationTestUtils
