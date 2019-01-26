@@ -1,0 +1,9 @@
+HEADERS YES
+WORDDELIM " "
+NUMVARENV 6
+NUMMARK 5
+NUMINDIV 777
+DIMMAX 1
+OUTPUTFILE "test/integration/sambada/storeyHistograms/choice-mark-cattle.txt"
+SAVETYPE END ALL
+STOREY

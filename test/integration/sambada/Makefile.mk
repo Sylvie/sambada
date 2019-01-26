@@ -22,6 +22,7 @@ include test/integration/sambada/regressionResultsIntTests/Makefile.mk
 include test/integration/sambada/resultFilesLocationIntTests/Makefile.mk
 include test/integration/sambada/splitInputFilesIntTests/Makefile.mk
 include test/integration/sambada/spatialAutocorrelationResultsIntTests/Makefile.mk
+include test/integration/sambada/storeyHistograms/Makefile.mk
 include test/integration/sambada/wrongNumberOfIndividualsIntTests/Makefile.mk
 
 ## Listing tests ##
