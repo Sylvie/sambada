@@ -82,10 +82,10 @@ void Archiviste::precision(int p)
 {
 	if (enService)
 	{
-	for (int i(0); i<nbFichiers; ++i)
-	{
-		fichiers[i]->precision(p);
-	}
+		for (int i(0); i<nbFichiers; ++i)
+		{
+			fichiers[i]->precision(p);
+		}
 	}
 }
 

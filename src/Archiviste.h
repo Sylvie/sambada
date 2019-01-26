@@ -233,7 +233,9 @@ bool Scribe::ecriture(int numFichier, const vector< vector< T > >& document) con
 
 }
 
-// Retourne TRUE si tous les éléments ont pu être lus
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
 template <class T>
 bool Lecteur::lecture(int numFichier, vector<T>& ligne, char delimMots) const
 {
@@ -254,7 +256,9 @@ bool Lecteur::lecture(int numFichier, vector<T>& ligne, char delimMots) const
 	return ((ligne.size())==ligneBrute.size());
 }
 
-// Spécialisation pour lire une ligne de texte
+/**
+ * Spécialisation pour lire une ligne de texte
+ */
 template <>
 inline
 bool Lecteur::lecture<string>(int numFichier, vector<string>& ligne, char delimMots) const
@@ -264,8 +268,9 @@ bool Lecteur::lecture<string>(int numFichier, vector<string>& ligne, char delimM
 	return true;
 }
 
-
-// Retourne TRUE si tous les éléments ont pu être lus
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
 template <class T>
 bool Lecteur::lecture(int numFichier, vector< vector< T > >& document, int nbLignes, bool ajout, char delimMots) const
 {
@@ -287,7 +292,9 @@ bool Lecteur::lecture(int numFichier, vector< vector< T > >& document, int nbLig
     return validation;
 }
 
-// Retourne TRUE si tous les éléments ont pu être lus
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
 template <class T>
 bool Lecteur::lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char delimMots) const
 {
@@ -315,6 +322,9 @@ bool Lecteur::lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char 
 }
 
 // Spécialisation pour lire une ligne de texte
+/**
+ * Spécialisation pour lire une ligne de texte
+ */
 template <>
 inline
 bool Lecteur::lectureGroupe<string>(int numFichier, vector<string>& groupe, int nombre, char delimMots) const
