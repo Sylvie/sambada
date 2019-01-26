@@ -136,6 +136,70 @@ SambadaSpatialAutocorrelationResults SambadaIntegrationTestUtils::readSpatialAut
 	return results;
 }
 
+SambadaStoreyHistogram SambadaIntegrationTestUtils::readStoreyHistogram(std::ifstream& lecteur)
+{
+	SambadaStoreyHistogram histogram;
+	histogram.infWasFound = false;
+
+	while (!lecteur.eof() && histogram.header.size() < SambadaStoreyHistogram::nombreLignesHeader)
+	{
+		std::string etiquette("");
+		lecteur >> etiquette >> std::ws;
+		histogram.etiquettes.push_back(etiquette);
+
+		std::string header("");
+		getline(lecteur, header);
+
+		size_t	position(header.find("inf"));
+		if(position != std::string::npos)
+		{
+			histogram.infWasFound = true;
+			header = header.substr(0, position);
+		}
+
+		std::istringstream iss(header);
+		long double lu(0.);
+		std::vector<long double> valeurs;
+		while (iss >> lu >> std::ws)
+		{
+			valeurs.push_back(lu);
+		}
+		histogram.header.push_back(valeurs);
+
+		lecteur >> std::ws;
+	}
+	lecteur >> std::ws;
+
+	while (!lecteur.eof())
+	{
+		std::string etiquette("");
+		lecteur >> etiquette >> std::ws;
+		histogram.etiquettes.push_back(etiquette);
+
+		if (lecteur.eof())
+		{
+			break;
+		}
+
+		std::string concatenatedValues("");
+		getline(lecteur, concatenatedValues);
+
+		std::vector<int> values(0);
+		std::istringstream iss(concatenatedValues);
+		int value;
+		while (iss >> value >> std::ws)
+		{
+			values.push_back(value);
+		}
+		histogram.valeurs.push_back(values);
+
+		lecteur >> std::ws;
+	}
+
+	return histogram;
+}
+
+
 void SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(const std::string &inputFile, const std::string &outputFile)
 {
 	fs::path pathInputFile(fs::path(inputFile.c_str()));
