@@ -32,13 +32,13 @@ D. Building from sources
   - Building the programs with CMake
     Please note that this secondary build system might be subject to change.
         mkdir build
-	    cd build
-	    cmake ..
-	    make
+        cd build
+        cmake ..
+        make
 3. Programs are placed in the folder "binaries/".
 4. Also available with Make:
    - Creating the folder containing all artefacts for the end-user
-	    make binary-archive
+        make binary-archive
    - Some configuration options (see the manual for details)
         ../configure --help
 
