@@ -217,22 +217,37 @@ Press "Enter" and follow the instructions.}
 \end{enumerate}
 
 \subsection*{Compiling from sources}
-\smb\ can be built from source using the GNU Build System (a.k.a Autotools) and GCC (in versions 4.4.7 to 7.x).
+\smb\ can be built from source using the GNU Build System (a.k.a Autotools) or CMake and GCC (in versions 4.4.7 to 7.x).
 We noticed some incompatibilities with GCC version 8 and with Clang, which are under investigation.
 The distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) contains all files needed for the compilation. 
+
+\subsubsection*{Building with \prog{Make}}
 Provided that \prog{make} is installed on your machine, the simplest build process consists in:
 \begin{itemize}
 \item{downloading and expanding the distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) at the location of your choice;} 
-\item{running \prog{./configure \&\& make} in the folder \prog{sambada-\versionnumber} for building with your default version of GCC;}
-\item{or running \prog{./configure CC=gcc-7 CXX=g++-7 \&\& make} for building with GCC~7.}
+\item{creating a sub-folder for separating the compiled objects from the source code, e.g. \prog{sambada-\versionnumber/build}}
+\item{running \prog{../configure \&\& make} in the folder \prog{sambada-\versionnumber/build} for building with your default version of GCC;}
+\item{or running \prog{../configure CC=gcc-7 CXX=g++-7 \&\& make} for building with GCC~7.}
 \end{itemize}
 The executables are placed in the subfolder \prog{binaries}.
 
 Some further information: 
 \begin{itemize}
 \item{The folder containing all artefacts for the end-user can be built with \prog{make binary-archive}.}
-\item{The script \prog{configure} provides the option \prog{sambadahostsystemname} to choose the system name used for naming the artefacts' folder.}
+\item{The script \prog{configure} provides some specific options:
+\begin{itemize}
+\item{\prog{sambadahostsystemname} to choose the system name used for naming the artefacts' folder;}
+\item{\prog{-{}-disable-manual} to disable the compilation of the manual. A text file containing a link to the online documentation is created instead.}
 \end{itemize}
+}
+\end{itemize}
+
+\subsubsection*{Building with \prog{CMake}}
+\smb's binaries can also be built with \prog{CMake}. The process is the same except for the third step:
+\begin{itemize}
+\item{running \prog{cmake .. \&\& make} in the folder \prog{sambada-\versionnumber/build}}
+\end{itemize}
+Please note that this secondary build system might be subject to change.
 
 \subsection*{Documentation}
 Software usage is explained in this manual.
