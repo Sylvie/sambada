@@ -24,14 +24,23 @@ D. Building from sources
 1. Sources are available on GitHub or on our Web site (see below).
 2. Sambada is best built with GCC versions 4.4.7 to 7.x.
   We noticed some incompatibilities with GCC version 8 and with Clang, which are under investigation.
-  Build the programs with
-    mkdir build
-	cd build
-	cmake ..
-	make
+  - Building the programs with Make
+        mkdir build
+        cd build
+        ../configure (or ../configure CC=gcc-7 CXX=g++-7 for explicitly building with GCC 7)
+        make
+  - Building the programs with CMake
+    Please note that this secondary build system might be subject to change.
+        mkdir build
+	    cd build
+	    cmake ..
+	    make
 3. Programs are placed in the folder "binaries/".
-4. The folder containing all artefacts for the end-user can be built with
-	make binary-archive
+4. Also available with Make:
+   - Creating the folder containing all artefacts for the end-user
+	    make binary-archive
+   - Some configuration options (see the manual for details)
+        ../configure --help
 
 In case something is missing, claim your complete copy of Sambada on
 https://github.com/Sylvie/sambada or http://lasig.epfl.ch/sambada
