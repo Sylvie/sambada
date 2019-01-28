@@ -238,8 +238,10 @@ bool Scribe::ecriture(int numFichier, const vector<vector<T> >& document) const
 
 }
 
-// Retourne TRUE si tous les éléments ont pu être lus
-template<class T>
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
+template <class T>
 bool Lecteur::lecture(int numFichier, vector<T>& ligne, char delimMots) const
 {
 	vector<string> ligneBrute;
@@ -259,8 +261,10 @@ bool Lecteur::lecture(int numFichier, vector<T>& ligne, char delimMots) const
 	return ((ligne.size()) == ligneBrute.size());
 }
 
-// Spécialisation pour lire une ligne de texte
-template<>
+/**
+ * Spécialisation pour lire une ligne de texte
+ */
+template <>
 inline
 bool Lecteur::lecture<string>(int numFichier, vector<string>& ligne, char delimMots) const
 {
@@ -269,10 +273,11 @@ bool Lecteur::lecture<string>(int numFichier, vector<string>& ligne, char delimM
 	return true;
 }
 
-
-// Retourne TRUE si tous les éléments ont pu être lus
-template<class T>
-bool Lecteur::lecture(int numFichier, vector<vector<T> >& document, int nbLignes, bool ajout, char delimMots) const
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
+template <class T>
+bool Lecteur::lecture(int numFichier, vector< vector< T > >& document, int nbLignes, bool ajout, char delimMots) const
 {
 	int nbLignesLues(0);
 	if (!ajout)
@@ -292,8 +297,10 @@ bool Lecteur::lecture(int numFichier, vector<vector<T> >& document, int nbLignes
 	return validation;
 }
 
-// Retourne TRUE si tous les éléments ont pu être lus
-template<class T>
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
+template <class T>
 bool Lecteur::lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char delimMots) const
 {
 	vector<string> groupeBrut;
@@ -319,8 +326,10 @@ bool Lecteur::lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char 
 	return ((groupe.size()) == groupeBrut.size());
 }
 
-// Spécialisation pour lire une ligne de texte
-template<>
+/**
+ * Spécialisation pour lire une ligne de texte
+ */
+template <>
 inline
 bool Lecteur::lectureGroupe<string>(int numFichier, vector<string>& groupe, int nombre, char delimMots) const
 {
