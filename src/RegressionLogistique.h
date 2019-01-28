@@ -124,7 +124,7 @@ protected:
 
 	void calculeGWR(int numMarq, const set<int>& varContinues, resModele& resultat);
 
-	bool calculePonderation() CPPTHROW(Erreur);
+	void calculePonderation() CPPTHROW(Erreur);
 
 
 private:

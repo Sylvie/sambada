@@ -52,7 +52,7 @@ RegressionLogistique::RegressionLogistique()
 RegressionLogistique::~RegressionLogistique()
 {}
 
-bool RegressionLogistique::calculePonderation() CPPTHROW(Erreur)
+void RegressionLogistique::calculePonderation() CPPTHROW(Erreur)
 {
 	if (!analyseSpatiale)
 	{
