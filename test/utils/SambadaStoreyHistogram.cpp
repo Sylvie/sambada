@@ -1,6 +1,8 @@
 #include "SambadaStoreyHistogram.h"
 #include "catch.hpp"
 
+#include <iostream>
+
 const size_t SambadaStoreyHistogram::nombreIntervalles;
 const size_t SambadaStoreyHistogram::nombreLignesHeader;
 constexpr size_t SambadaStoreyHistogram::nombreIntervallesHeaders[nombreLignesHeader];
@@ -46,7 +48,7 @@ void SambadaStoreyHistogram::compare(const SambadaStoreyHistogram& autre) const
 			{
 				for (int j(0); j < nombreIntervallesHeaders[i]; ++j)
 				{
-					CHECK(header[i][j] == autre.header[i][j]);
+					CHECK(header[i][j] == Approx(autre.header[i][j]));
 				}
 			}
 		}
@@ -70,7 +72,7 @@ void SambadaStoreyHistogram::compare(const SambadaStoreyHistogram& autre) const
 	{
 		for (int i(0); i < nombreLignes; ++i)
 		{
-			INFO("Ligne numéro: " + std::to_string(i) + " (" + etiquettes[i] + ")");
+			INFO("Ligne numéro: " + std::to_string(i) + " (" + etiquettes[i+nombreLignesHeader] + ")");
 			int nombreValeurs(valeurs[i].size());
 			CHECKED_IF(nombreValeurs == autre.valeurs[i].size())
 			{

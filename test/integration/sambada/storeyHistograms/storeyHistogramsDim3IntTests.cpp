@@ -17,25 +17,25 @@ SCENARIO("Test that Storey's p-values histograms are correct for models of dimen
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
         std::string pathToOutputFolder("./test/integration/sambada/storeyHistograms/");
-        std::string fileNameOut0(pathToOutputFolder + "choice-mark-cattle-Out-0.txt");
-        std::string fileNameOut1(pathToOutputFolder + "choice-mark-cattle-Out-1.txt");
-        std::string fileNameOut2(pathToOutputFolder + "choice-mark-cattle-Out-2.txt");
-        std::string fileNameOut3(pathToOutputFolder + "choice-mark-cattle-Out-3.txt");
-        std::string fileNameOut4(pathToOutputFolder + "choice-mark-cattle-Out-4.txt");
-	    std::string fileNameHistogram(pathToOutputFolder + "choice-mark-cattle-storey.txt");
-	    std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
+        std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-Out-0.txt");
+        std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
+        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-Out-2.txt");
+        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-Out-3.txt");
+        std::string fileNameOut4(pathToOutputFolder + "cattle-pop-mark-Out-4.txt");
+	    std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
+	    std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
 
         std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameOut4, fileNameHistogram, fileNameLogs});
 
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistograms/");
 
-        std::string fileNameParam(pathToInputFolder + "param-dim-4.txt");
-        std::string fileNameEnv(pathToInputFolder + "choice-env-cattle.csv");
-        std::string fileNameMark(pathToInputFolder + "choice-mark-cattle.txt");
+        std::string fileNameParam(pathToInputFolder + "param-dim-3.txt");
+        std::string fileNameEnv(pathToInputFolder + "cattle-pop-env-first.csv");
+        std::string fileNameMark(pathToInputFolder + "cattle-pop-mark.txt");
 
-	    std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-dim-4.txt");
+	    std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-dim-3.txt");
 
-	    int numberHistograms(16);
+	    int numberHistograms(12);
 
         std::ifstream lecteurCorrige(fileNameExpectedResults.c_str());
         REQUIRE(lecteurCorrige.good());

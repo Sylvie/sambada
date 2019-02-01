@@ -184,7 +184,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsDim1IntTests.cpp
-        test/integration/sambada/storeyHistograms/storeyHistogramsDim4IntTests.cpp
+        test/integration/sambada/storeyHistograms/storeyHistogramsDim3IntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp
         ${IntegrationTestUtils}
