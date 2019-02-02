@@ -967,7 +967,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 
 			if (structurePop != pasStructurePop && selModeles != all)
 			{
-				erreurDetectee("MSG_populationVarOnlyCompatibleWithSavetypeBest", "POPULATIONVAR : Please set \"SAVETYPE ALL\" when enabling \"POPULATIONVAR\".");
+				erreurDetectee("MSG_populationVarOnlyCompatibleWithSavetypeALL", "POPULATIONVAR : Please set \"SAVETYPE ALL\" when enabling \"POPULATIONVAR\".");
 			}
 		}
 	}
@@ -993,6 +993,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
 		{
 			calculeStorey = true;
 		}
+	}
+	if (calculeStorey && selModeles != all)
+	{
+		erreurDetectee("MSG_StoreyHistogramsOnlyCompatibleWithSavetypeALL", "STOREY : Please set \"SAVETYPE ALL\" when enabling \"STOREY\".");
 	}
 	++paramCourant;
 
