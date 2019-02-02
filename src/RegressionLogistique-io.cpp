@@ -37,7 +37,7 @@
 using namespace std;
 using namespace scythe;
 
-int RegressionLogistique::initialisation(int argc, char *argv[]) throw(Erreur)
+int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur)
 {
 	/*	cout << numeric_limits < double >::max() << " " << numeric_limits < reel >::max() << "\n";
 	 cout << log(numeric_limits < double >::max()) << " " << log(numeric_limits < reel >::max()) << "\n"; */
@@ -1880,7 +1880,7 @@ void RegressionLogistique::trieEtEcritResultats()
 
 // Cette méthode lit le fichier de paramètres et remplit la liste
 // Elle vérifie aussi si les paramètres obligatoires (et les pré-requis) sont présents
-ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) throw(Erreur)
+ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) CPPTHROW(Erreur)
 {
 	entree >> ws;
 	string nomParam, lu;
@@ -1956,7 +1956,7 @@ ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const Parame
 	return entree;
 }
 
-void RegressionLogistique::erreurDetectee(const string& nom, const string& description, bool arret) throw(Erreur)
+void RegressionLogistique::erreurDetectee(const string& nom, const string& description, bool arret) CPPTHROW(Erreur)
 {
 	Erreur e(nom, description, arret);
 	journal << description << nl;

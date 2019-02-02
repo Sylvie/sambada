@@ -71,7 +71,6 @@ JournalTemporaire& JournalTemporaire::retourLigne()
 JournalTemporaire& JournalTemporaire::synchronise()
 {
 	if (oss != NULL && !(oss->str().empty()))
-	{}
 	{
 		retourLigne();
 	}

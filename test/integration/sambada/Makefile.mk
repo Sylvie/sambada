@@ -32,4 +32,4 @@ check-local-test-integration-sambada: ${sambada_integration_tests}
 
 ## Cleaning ##
 clean-local-test-integration-sambada:
-	$(call clean_extra_generated_files, test/integration/sambada/**/)
+	$(call clean_extra_generated_files, test/integration/sambada/)

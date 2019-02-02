@@ -52,7 +52,7 @@ RegressionLogistique::RegressionLogistique()
 RegressionLogistique::~RegressionLogistique()
 {}
 
-void RegressionLogistique::calculePonderation() throw(Erreur)
+void RegressionLogistique::calculePonderation() CPPTHROW(Erreur)
 {
 	if (!analyseSpatiale)
 	{
@@ -411,7 +411,7 @@ int RegressionLogistique::calculeCorrelations() const
 }
 
 // La pondération est normée!
-int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
+int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 {
 	try
 	{

@@ -218,30 +218,36 @@ namespace toolbox {
 
 	void enleveEspaces(string& s);
 
-	// Cette fonction repère le type de fin de ligne
-	// Elle sert à formater les fichiers de résultats
+	/**
+	 * Cette fonction repère le type de fin de ligne
+	 * Elle sert à formater les fichiers de résultats
+	 */
 	istream& chercheRetourLigne(istream& entree, string& retourLigne);
 
+	/**
+	 * Lit les caractères du flots et forme un mot
+	 * La lecture s'arrête si le caractère séparateur ou un caractère invisible est trouvé
+	 * Si un '"' est lu, la lecture continue jusqu'au '"' suivant,
+	 * les caractères invisibles sont ignorés, mais les espaces sont conservés
+	 * @return le dernier caractère lu
+	 */
+	char lectureMot(istream& entree, string& mot, char delimMots=' ', bool gardeSignesInvisibles=false);
 
-	// Lit les caractères du flots et forme un mot
-	// La lecture s'arrête si le caractère séparateur ou un caractère invisible est trouvé
-	// Si un '"' est lu, la lecture continue jusqu'au '"' suivant,
-	// les caractères invisibles sont ignorés, mais les espaces sont conservés
-	// La fonction retourne le dernier caractère lu
-	char lectureMot(istream& entree, string& mot, char delimMots = ' ', bool gardeSignesInvisibles = false);
+	/**
+	 * Lit une ligne mot-à-mot jusqu'à trouver un caractère de fin de ligne
+	 * Les mots vides (0 car) ne sont pas enregistrés
+	 * @return Si la fin du fichier est détectée, la fonction renvoie TRUE
+	 */
+	bool lectureLigne(istream& entree, vector<string>& ligne, char delimMots=' ', bool gardeSignesInvisibles=false);
 
-	// Lit une ligne mot-à-mot jusqu'à trouver un caractère de fin de ligne
-	// Si la fin du fichier est détectée, la fonction renvoie TRUE
-	// Les mots vides (0 car) ne sont pas enregistrés
-	bool lectureLigne(istream& entree, vector<string>& ligne, char delimMots = ' ', bool gardeSignesInvisibles = false);
-
-
-	// Lit une ligne puis tente de la convertir dans le type T
-	// Le vecteur validation permet de connaître les indices des mots qui n'ont pas pu être convertis
-	// Le vecteur ligneOriginale permet de récupérer la ligne telle qu'elle a été lue (sous forme de chaînes)
-	// Les booléens "validation" et "recuperation" permettent de sélectionner les options
-	template<class T>
-	istream& lectureLigne(istream& entree, vector<T>& ligne, bool validation, vector<int>& lineValidation, bool recuperation, vector<string>& ligneOriginale, char delimMots = ' ')
+	/**
+	 * Lit une ligne puis tente de la convertir dans le type T
+	 * Le vecteur validation permet de connaître les indices des mots qui n'ont pas pu être convertis
+	 * Le vecteur ligneOriginale permet de récupérer la ligne telle qu'elle a été lue (sous forme de chaînes)
+	 * Les booléens "validation" et "recuperation" permettent de sélectionner les options
+	 */
+	template <class T>
+	istream& lectureLigne(istream& entree, vector< T >& ligne, bool validation, vector<int>& lineValidation, bool recuperation, vector<string>& ligneOriginale, char delimMots=' ')
 	{
 
 		ligne.clear();
@@ -285,25 +291,31 @@ namespace toolbox {
 		return entree;
 	}
 
-	// Lit une ligne et tente de convertir les mots en T
-	// Surcharge de la fonction principale, plus pratique à utiliser, si les vecteurs sont présents, les options sont réglées sur TRUE
-	template<class T>
-	istream& lectureLigne(istream& entree, vector<T>& ligne, vector<int>& lineValidation, vector<string>& ligneOriginale, char delimMots = ' ')
+	/**
+	 * Lit une ligne et tente de convertir les mots en T
+	 * Surcharge de la fonction principale, plus pratique à utiliser, si les vecteurs sont présents, les options sont réglées sur TRUE
+	 */
+	template <class T>
+	istream& lectureLigne(istream& entree, vector< T >& ligne, vector<int>& lineValidation, vector<string>& ligneOriginale, char delimMots=' ')
 	{
 		return lectureLigne(entree, ligne, true, lineValidation, true, ligneOriginale, delimMots);
 	}
 
-	// Lecture et conversion d'une ligne sans récupérer les mots
-	template<class T>
-	istream& lectureLigne(istream& entree, vector<T>& ligne, vector<int>& lineValidation, char delimMots = ' ')
+	/**
+	 * Lecture et conversion d'une ligne sans récupérer les mots
+	 */
+	template <class T>
+	istream& lectureLigne(istream& entree, vector< T >& ligne, vector<int>& lineValidation, char delimMots=' ')
 	{
 		vector<string> tokens(0);
 		return lectureLigne(entree, ligne, true, lineValidation, false, tokens, delimMots);
 	}
 
-	// Lecture et conversion d'une ligne sans récupérer ni les mots, ni les indices des mots n'ayant pas pu être convertis
-	template<class T>
-	istream& lectureLigne(istream& entree, vector<T>& ligne, char delimMots = ' ')
+	/**
+	 * Lecture et conversion d'une ligne sans récupérer ni les mots, ni les indices des mots n'ayant pas pu être convertis
+	 */
+	template <class T>
+	istream& lectureLigne(istream& entree, vector< T >& ligne, char delimMots=' ')
 	{
 		vector<int> truc(0);
 		vector<string> tokens(0);
