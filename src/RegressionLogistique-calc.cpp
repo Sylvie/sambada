@@ -2278,6 +2278,9 @@ int RegressionLogistique::creeModelesGlobaux()
 	storey.compteurGOrphelins.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
 	storey.compteurWaldOrphelins.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
 
+	storey.compteurGPop.resize(1, vector<int>(storey.nbPvalStorey, 0));
+	storey.compteurWaldPop.resize(1, vector<int>(storey.nbPvalStorey, 0));
+
 	storey.nbModelesValides.resize(dimensionMax + 1, 0);
 
 	// Score minimal pour lequel les résultats sont sauvés (afin de calculer les q-valeurs en post-traitement)
@@ -2633,8 +2636,26 @@ int RegressionLogistique::creeModelesGlobaux()
 			}
 			sortieStorey << endl;
 
+		}
+
+		if(structurePop != pasStructurePop)
+		{
+			sortieStorey << "GPop" << delimMots;
+			for (int i(0); i < storey.nbPvalStorey; ++i)
+			{
+				sortieStorey << storey.compteurGPop[0][i] << delimMots;
+			}
+			sortieStorey << endl;
+
+			sortieStorey << "WaldPop" << delimMots;
+			for (int i(0); i < storey.nbPvalStorey; ++i)
+			{
+				sortieStorey << storey.compteurWaldPop[0][i] << delimMots;
+			}
+			sortieStorey << endl;
 
 		}
+
 
 		sortieStorey.close();
 	}
@@ -3249,6 +3270,9 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 
 		resultat.second[GscorePop] = 2 * (resultat.second[valloglikelihood] - modeleParentPop->second[valloglikelihood]);
 
+		// Mise à jour du compteur pour la FDR
+		++storey.compteurGPop[0][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[GscorePop]) - storey.seuilScore.begin())];
+		++storey.compteurWaldPop[0][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScorePop]) - storey.seuilScore.begin())];
 	}
 
 

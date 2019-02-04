@@ -168,8 +168,8 @@ private:
 		vector<reel> pval;
 		vector<reel> seuilScore;
 
-		vector<vector<int>> compteurG, compteurGOrphelins;
-		vector<vector<int>> compteurWald, compteurWaldOrphelins;
+		vector<vector<int>> compteurG, compteurGOrphelins, compteurGPop;
+		vector<vector<int>> compteurWald, compteurWaldOrphelins, compteurWaldPop;
 
 		reel scoreMin;
 	} donneesFDR;
