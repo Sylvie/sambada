@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 
-SCENARIO("Test that Storey's p-values histograms are correct for models of dimension 4",
-		"[storey-histograms-dim-4-int]") {
+SCENARIO("Test that Storey's p-values histograms are correct for models of dimension 3",
+		"[storey-histograms-dim-3-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -21,11 +21,10 @@ SCENARIO("Test that Storey's p-values histograms are correct for models of dimen
         std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
         std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-Out-2.txt");
         std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-Out-3.txt");
-        std::string fileNameOut4(pathToOutputFolder + "cattle-pop-mark-Out-4.txt");
 	    std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
 	    std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameOut4, fileNameHistogram, fileNameLogs});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameHistogram, fileNameLogs});
 
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistograms/");
 
