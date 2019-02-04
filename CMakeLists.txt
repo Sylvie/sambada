@@ -185,6 +185,8 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsDim1IntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsDim3IntTests.cpp
+        test/integration/sambada/storeyHistograms/storeyHistogramsWithPopulationStructureAsFirstVariablesIntTests.cpp
+        test/integration/sambada/storeyHistograms/storeyHistogramsWithPopulationStructureAsLastVariablesIntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsWithSavetypeBestIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp
