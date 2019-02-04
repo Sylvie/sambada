@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that \"STOREY\" cannot be set at the same time as \"SAVETYPE BEST\"",
-         "[storey-histograms-with-savetype-best-int]") {
+         "[storey-histograms-with-savetype-best-int][storey-histograms-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 

@@ -8,7 +8,7 @@
 #include <vector>
 
 SCENARIO("Test that Storey's p-values histograms are correct for models of dimension 1",
-        "[storey-histograms-dim-1-int]") {
+        "[storey-histograms-dim-1-int][storey-histograms-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
