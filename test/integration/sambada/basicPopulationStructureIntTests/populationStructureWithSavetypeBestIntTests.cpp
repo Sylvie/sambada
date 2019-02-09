@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that \"POPULATIONVAR\" cannot be set at the same time as \"SAVETYPE BEST\"",
-         "[pop-struct-with-savetype-best-int]") {
+         "[pop-struct-with-savetype-best-int][pop-struct-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 

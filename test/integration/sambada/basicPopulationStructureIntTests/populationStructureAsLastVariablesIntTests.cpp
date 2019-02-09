@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that regression results are correct when the population structure is placed after the environmental variables",
-         "[pop-struct-as-last-var-int]") {
+         "[pop-struct-as-last-var-int][pop-struct-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
