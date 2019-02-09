@@ -36,7 +36,7 @@ SCENARIO("Test that regression results are correct when the population structure
 
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-no-pop-dim-0.txt");
         std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-no-pop-dim-1.txt");
-        std::string fileNameExpectedResultsDim2(pathToInputFolder + "expected-results-no-pop-dim-2.txt");
+        std::string fileNameExpectedResultsDim2(pathToInputFolder + "expected-results-pop-first-dim-2.txt");
         std::string fileNameExpectedResultsDim3(pathToInputFolder + "expected-results-pop-last-dim-3.txt");
 
         std::ifstream lecteurCorrige(fileNameExpectedResultsDim0.c_str());
@@ -64,7 +64,7 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim2(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 2));
         lecteurCorrige.close();
-        expectedResultsDim2.verifieTailles(true, 2, 630);
+        expectedResultsDim2.verifieTailles(true, 2, 30);
 
         lecteurCorrige.open(fileNameExpectedResultsDim3.c_str());
         INFO("Reading expected results dim 3");
@@ -73,7 +73,7 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim3(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 3));
         lecteurCorrige.close();
-        expectedResultsDim3.verifieTailles(true, 3, 1050, true);
+        expectedResultsDim3.verifieTailles(true, 3, 150, true);
 
         WHEN("Sambada is run using the population variables as normal environmental variables")
         {
@@ -127,11 +127,11 @@ SCENARIO("Test that regression results are correct when the population structure
                         resultsDim1.compare(expectedResultsDim1);
 
                         INFO("Verifying results dim 2");
-                        resultsDim2.verifieTailles(true, 2, 630);
+                        resultsDim2.verifieTailles(true, 2, 30);
                         resultsDim2.compare(expectedResultsDim2);
 
                         INFO("Verifying results dim 3");
-                        resultsDim3.verifieTailles(true, 3, 1050, true);
+                        resultsDim3.verifieTailles(true, 3, 150, true);
                         resultsDim3.compare(expectedResultsDim3);
                     }
                 }
