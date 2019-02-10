@@ -3102,7 +3102,11 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		}
 
 		// Mise à jour du compteur pour la FDR
-		++storey.compteurG[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[Gscore]) - storey.seuilScore.begin())];
+
+		if (structurePop == pasStructurePop ||   resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		{
+			++storey.compteurG[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[Gscore]) - storey.seuilScore.begin())];
+		}
 		// Si on sauve tous les modèles, on cherche le plus petit score de Wald
 		int tailleModele(dimParents + 1);
 
@@ -3135,8 +3139,10 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		}
 
 		// Mise à jour du compteur pour la FDR
-		++storey.compteurWald[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScore]) - storey.seuilScore.begin())];
-
+		if (structurePop == pasStructurePop ||   resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		{
+			++storey.compteurWald[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScore]) - storey.seuilScore.begin())];
+		}
 		// Test du score de Wald
 		if (selModeles != all && (resultat.second[WaldScore] < seuilScore[tailleModele]))
 		{
@@ -3175,8 +3181,10 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			resultat.second[Gscore] = 0;
 		}
 		// Mise à jour du compteur pour la FDR
-		++storey.compteurGOrphelins[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[Gscore]) - storey.seuilScore.begin())];
-
+		if (structurePop == pasStructurePop ||   resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		{
+			++storey.compteurGOrphelins[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[Gscore]) - storey.seuilScore.begin())];
+		}
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
 		if (selModeles != all && (resultat.second[Gscore] < seuilScoreMultivarie[dimParents + 1]))    // STOREY! (sinon selModeles==signif)
 		{
@@ -3224,8 +3232,10 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		}
 
 		// Mise à jour du compteur pour la FDR
-		++storey.compteurWaldOrphelins[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScore]) - storey.seuilScore.begin())];
-
+		if (structurePop == pasStructurePop ||   resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		{
+			++storey.compteurWaldOrphelins[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScore]) - storey.seuilScore.begin())];
+		}
 		// STOREY
 		//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
 		if (selModeles == !all && (resultat.second[WaldScore] < seuilScore[dimParents + 1]))
