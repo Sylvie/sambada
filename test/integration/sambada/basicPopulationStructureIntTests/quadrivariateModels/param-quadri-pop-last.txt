@@ -7,5 +7,5 @@ IDINDIV short_name ID_indiv
 SUBSETVARENV "longitude" "latitude" "prec7" "bio3" "tmax10" "pop1" "pop2" "pop3"
 DIMMAX 4
 POPULATIONVAR LAST
-OUTPUTFILE "test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/cattle-pop-mark-first.txt"
+OUTPUTFILE "test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/cattle-pop-mark-last.txt"
 SAVETYPE END ALL

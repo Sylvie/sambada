@@ -13,4 +13,4 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/expected-results-quadri-pop-last-dim-3.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/expected-results-quadri-pop-last-dim-4.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/param-quadri-pop-first.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/param-quadri-pop-first.txt
+		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/param-quadri-pop-last.txt

@@ -18,12 +18,12 @@ SCENARIO("Test that regression results are correct when the population structure
 
         std::string pathToOutputFolder("./test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/");
 
-        std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-first-Out-0.txt");
-        std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-first-Out-1.txt");
-        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-first-Out-2.txt");
-        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-first-Out-3.txt");
-	    std::string fileNameOut4(pathToOutputFolder + "cattle-pop-mark-first-Out-4.txt");
-        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-first-log.txt");
+        std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-last-Out-0.txt");
+        std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-last-Out-1.txt");
+        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-last-Out-2.txt");
+        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-last-Out-3.txt");
+	    std::string fileNameOut4(pathToOutputFolder + "cattle-pop-mark-last-Out-4.txt");
+        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-last-log.txt");
 
         std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameOut4, fileNameLogs});
 
@@ -92,7 +92,7 @@ SCENARIO("Test that regression results are correct when the population structure
 
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParams + " " + fileNameEnv + " " + fileNameMark);
-            //INFO(output);
+            INFO(output);
 
             THEN("the output files are found")
             {
