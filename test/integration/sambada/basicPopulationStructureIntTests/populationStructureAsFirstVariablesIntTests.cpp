@@ -75,7 +75,7 @@ SCENARIO("Test that regression results are correct when the population structure
         lecteurCorrige.close();
         expectedResultsDim3.verifieTailles(true, 3, 150, true);
 
-        WHEN("Sambada is run using the population variables as normal environmental variables")
+        WHEN("Sambada is run using the first variables as population structure")
         {
             CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 

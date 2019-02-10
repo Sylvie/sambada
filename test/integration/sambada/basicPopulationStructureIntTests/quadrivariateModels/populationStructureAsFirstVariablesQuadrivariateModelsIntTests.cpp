@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-SCENARIO("Test that regression results are correct when the population structure is placed before the environmental variables for quadrivariate models",
+SCENARIO("Test that regression results are correct when the population structure is placed after the environmental variables for quadrivariate models",
          "[pop-struct-as-first-var-quadri-int][pop-struct-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
@@ -86,13 +86,13 @@ SCENARIO("Test that regression results are correct when the population structure
 	    lecteurCorrige.close();
 	    expectedResultsDim4.verifieTailles(true, 4, 150, true);
 
-        WHEN("Sambada is run using the population variables as normal environmental variables")
+        WHEN("Sambada is run using the first variables as population structure")
         {
             CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
             std::string output = SambadaIntegrationTestUtils::runCommand(
                     program + " " + fileNameParams + " " + fileNameEnv + " " + fileNameMark);
-            INFO(output);
+            //INFO(output);
 
             THEN("the output files are found")
             {
