@@ -1020,6 +1020,10 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 		if (specDataEnv[i].isActive)
 		{
 			varEnvActives.insert(make_pair(nbEnvActives, i));
+			if (estVariablePop(specDataEnv[i].name))
+			{
+				variablesPop.insert(nbEnvActives);
+			}
 			specDataEnv[i].localIndex = nbEnvActives; // On peut ainsi connaître la position de la variable dans les sous-tableaux
 			++nbEnvActives;
 		}
@@ -1592,17 +1596,19 @@ void RegressionLogistique::ecritResultat(int numFichier, const resModele& r) con
 	//On écrit les numéros/noms globaux des marqueurs
 	// Le décalage du numéro de marqueur dans les jobs multiples a déjà été pris en compte
 
-	// No de marqueur
-	sortie.ecriture(numFichier, specDataMarq[marqActifs.at(r.first.first)].name, false);
-
-	// Liste des variables
-	for (set<int>::iterator i(r.first.second.begin()); i != r.first.second.end(); ++i)
+	if (structurePop == pasStructurePop ||   r.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(r.first.second))
 	{
-		sortie.ecriture(numFichier, specDataEnv[varEnvActives.at(*i)].name, false);
-	}
-	// Résultats
-	sortie.ecriture(numFichier, r.second, true);
+		// No de marqueur
+		sortie.ecriture(numFichier, specDataMarq[marqActifs.at(r.first.first)].name, false);
 
+		// Liste des variables
+		for (set<int>::iterator i(r.first.second.begin()); i != r.first.second.end(); ++i)
+		{
+			sortie.ecriture(numFichier, specDataEnv[varEnvActives.at(*i)].name, false);
+		}
+		// Résultats
+		sortie.ecriture(numFichier, r.second, true);
+	}
 }
 
 void RegressionLogistique::ecritMessage(const string& s, bool nouvLigne)
@@ -1859,18 +1865,21 @@ void RegressionLogistique::trieEtEcritResultats()
 				if (listeModeles[j]->second[validiteModele] == 0 || (listeModeles[j]->second[validiteModele] == 6 && selModeles == signif) ||
 				    ((listeModeles[j]->second[validiteModele] == 6 || listeModeles[j]->second[validiteModele] == 7) && selModeles == all))
 				{
-
-					// No de marqueur
-					sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
-
-					// Liste des variables
-					for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
+					if (structurePop == pasStructurePop ||   listeModeles[j]->first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(listeModeles[j]->first.second))
 					{
-						sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
-					}
 
-					// Résultats
-					sortie.ecriture(i, listeModeles[j]->second, true);
+						// No de marqueur
+						sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
+
+						// Liste des variables
+						for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
+						{
+							sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
+						}
+
+						// Résultats
+						sortie.ecriture(i, listeModeles[j]->second, true);
+					}
 				}
 
 			}

@@ -7,8 +7,8 @@
 #include <fstream>
 #include <sstream>
 
-SCENARIO("Test that regression results are correct when the population structure is placed after the environmental variables",
-         "[pop-struct-as-last-var-int][pop-struct-int]") {
+SCENARIO("Test that regression results are correct when the population structure is placed before the environmental variables for quadrivariate models",
+         "[pop-struct-as-first-var-quadri-int][pop-struct-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -16,28 +16,30 @@ SCENARIO("Test that regression results are correct when the population structure
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToOutputFolder("./test/integration/sambada/basicPopulationStructureIntTests/");
+        std::string pathToOutputFolder("./test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/");
 
-        std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-last-Out-0.txt");
-        std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-last-Out-1.txt");
-        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-last-Out-2.txt");
-        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-last-Out-3.txt");
-        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-last-log.txt");
+        std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-first-Out-0.txt");
+        std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-first-Out-1.txt");
+        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-first-Out-2.txt");
+        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-first-Out-3.txt");
+	    std::string fileNameOut4(pathToOutputFolder + "cattle-pop-mark-first-Out-4.txt");
+        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-first-log.txt");
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameLogs});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameOut4, fileNameLogs});
 
         std::string pathToInputFolder(
                 SambadaIntegrationTestUtils::getTopSourceDirectory() +
-                "test/integration/sambada/basicPopulationStructureIntTests/");
+                "test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/");
 
-        std::string fileNameParams(pathToInputFolder + "param-pop-last.txt");
-        std::string fileNameEnv(pathToInputFolder + "cattle-pop-env-last.csv");
-        std::string fileNameMark(pathToInputFolder + "cattle-pop-mark.txt");
+        std::string fileNameParams(pathToInputFolder + "param-quadri-pop-first.txt");
+        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-first.csv");
+        std::string fileNameMark(pathToInputFolder + "../cattle-pop-mark.txt");
 
-        std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-no-pop-dim-0.txt");
-        std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-no-pop-dim-1.txt");
-        std::string fileNameExpectedResultsDim2(pathToInputFolder + "expected-results-pop-first-dim-2.txt");
-        std::string fileNameExpectedResultsDim3(pathToInputFolder + "expected-results-pop-last-dim-3.txt");
+        std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-quadri-dim-0.txt");
+        std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-quadri-dim-1.txt");
+	    std::string fileNameExpectedResultsDim2(pathToInputFolder + "expected-results-quadri-pop-first-dim-2.txt");
+        std::string fileNameExpectedResultsDim3(pathToInputFolder + "expected-results-quadri-pop-first-dim-3.txt");
+        std::string fileNameExpectedResultsDim4(pathToInputFolder + "expected-results-quadri-pop-first-dim-4.txt");
 
         std::ifstream lecteurCorrige(fileNameExpectedResultsDim0.c_str());
         INFO("Reading expected results dim 0");
@@ -55,7 +57,7 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim1(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
         lecteurCorrige.close();
-        expectedResultsDim1.verifieTailles(true, 1, 210);
+        expectedResultsDim1.verifieTailles(true, 1, 240);
 
         lecteurCorrige.open(fileNameExpectedResultsDim2.c_str());
         INFO("Reading expected results dim 2");
@@ -64,7 +66,7 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim2(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 2));
         lecteurCorrige.close();
-        expectedResultsDim2.verifieTailles(true, 2, 30);
+        expectedResultsDim2.verifieTailles(true, 2, 840);
 
         lecteurCorrige.open(fileNameExpectedResultsDim3.c_str());
         INFO("Reading expected results dim 3");
@@ -73,9 +75,18 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim3(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 3));
         lecteurCorrige.close();
-        expectedResultsDim3.verifieTailles(true, 3, 150, true);
+        expectedResultsDim3.verifieTailles(true, 3, 30);
 
-        WHEN("Sambada is run using the last variables as population structure")
+	    lecteurCorrige.open(fileNameExpectedResultsDim4.c_str());
+	    INFO("Reading expected results dim 4");
+	    REQUIRE(lecteurCorrige.good());
+	    REQUIRE(lecteurCorrige.is_open());
+	    SambadaRegressionResults expectedResultsDim4(
+			    SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 4));
+	    lecteurCorrige.close();
+	    expectedResultsDim4.verifieTailles(true, 4, 150, true);
+
+        WHEN("Sambada is run using the first variables as population structure")
         {
             CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
@@ -105,7 +116,12 @@ SCENARIO("Test that regression results are correct when the population structure
                 REQUIRE(lecteurOut3.good());
                 REQUIRE(lecteurOut3.is_open());
 
-                AND_WHEN("the output files are read")
+	            INFO("Reading results dim 4");
+	            std::ifstream lecteurOut4(fileNameOut4.c_str());
+	            REQUIRE(lecteurOut4.good());
+	            REQUIRE(lecteurOut4.is_open());
+
+	            AND_WHEN("the output files are read")
                 {
                     SambadaRegressionResults resultsDim0(
                             SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
@@ -115,24 +131,30 @@ SCENARIO("Test that regression results are correct when the population structure
                             SambadaIntegrationTestUtils::readRegressionResults(lecteurOut2, true, 2));
                     SambadaRegressionResults resultsDim3(
                             SambadaIntegrationTestUtils::readRegressionResults(lecteurOut3, true, 3));
+	                SambadaRegressionResults resultsDim4(
+			                SambadaIntegrationTestUtils::readRegressionResults(lecteurOut4, true, 4));
 
-                    THEN("the results match the expectations")
+	                THEN("the results match the expectations")
                     {
                         INFO("Verifying results dim 0");
                         resultsDim0.verifieTailles(true, 0, 30);
                         resultsDim0.compare(expectedNullResults);
 
                         INFO("Verifying results dim 1");
-                        resultsDim1.verifieTailles(true, 1, 210);
+                        resultsDim1.verifieTailles(true, 1, 240);
                         resultsDim1.compare(expectedResultsDim1);
 
                         INFO("Verifying results dim 2");
-                        resultsDim2.verifieTailles(true, 2, 30);
-                        resultsDim2.compare(expectedResultsDim2);
+                        resultsDim2.verifieTailles(true, 2, 840);
+                        resultsDim2.compare(expectedResultsDim2, 0.001);
 
                         INFO("Verifying results dim 3");
-                        resultsDim3.verifieTailles(true, 3, 150, true);
+                        resultsDim3.verifieTailles(true, 3, 30);
                         resultsDim3.compare(expectedResultsDim3);
+
+                        INFO("Verifying results dim 4");
+	                    resultsDim4.verifieTailles(true, 4, 150, true);
+	                    resultsDim4.compare(expectedResultsDim4, 0.001);
                     }
                 }
 
@@ -140,6 +162,7 @@ SCENARIO("Test that regression results are correct when the population structure
                 lecteurOut1.close();
                 lecteurOut2.close();
                 lecteurOut3.close();
+	            lecteurOut4.close();
             }
         }
 

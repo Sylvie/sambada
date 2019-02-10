@@ -2565,7 +2565,11 @@ int RegressionLogistique::creeModelesGlobaux()
 						varContinues = generationPrecedente->first.second;
 						varContinues.insert(varCourante);
 
-						construitModele(i, varContinues);
+						//if (dim < (dimensionMax - 2) || (structurePop == pasStructurePop) || (inclutToutesVariablesPop(varContinues)))
+						if(estModeleEligiblePourStructurePopulation(varContinues))
+						{
+							construitModele(i, varContinues);
+						}
 					}
 				}
 			}
@@ -3885,6 +3889,54 @@ bool RegressionLogistique::calculeStructurePop(int dimensionCourante) const
 {
 	return (dimensionCourante == dimensionMax) && (structurePop == structurePopPremier || structurePop == structurePopDernier);
 }
+
+bool RegressionLogistique::estVariablePop(string variable) const
+{
+	if (variable.size() < 3)
+	{
+		return false;
+	}
+
+	string prefixe("");
+	for (int i(0); i < 3; ++i)
+	{
+		prefixe += tolower(variable[i]);
+	}
+
+	return prefixe == "pop";
+}
+
+bool RegressionLogistique::inclutToutesVariablesPop(set<int> variables) const
+{
+	for (set<int>::iterator i(variablesPop.begin()); i != variablesPop.end(); ++i)
+	{
+		if (variables.find(*i) == variables.end())
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool RegressionLogistique::estModeleEligiblePourStructurePopulation(set<int> variables) const
+{
+	int dimension(variables.size());
+	if (dimension < (dimensionMax - 1) || structurePop == pasStructurePop)
+	{
+		return true;
+	}
+
+	int nombreVariablesPop = count_if(variables.begin(), variables.end(), [this](int i){return (this->variablesPop.find(i) != this->variablesPop.end());});
+
+	if (dimension == dimensionMax - 1)
+	{
+		return (nombreVariablesPop == dimension || nombreVariablesPop == dimension - 1);
+	}
+
+	return nombreVariablesPop == (dimension - 1);
+}
+
 
 ComparaisonVoisins::ComparaisonVoisins()
 {}

@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that regression results are correct when the population structure is considered as a normal environmental variable",
-         "[pop-struct-as-normal-env-var-int]") {
+         "[pop-struct-as-normal-env-var-int][pop-struct-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 

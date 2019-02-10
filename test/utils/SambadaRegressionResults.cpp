@@ -58,7 +58,7 @@ void SambadaRegressionResults::verifieTailleHeader(int dimension, bool hasPop) c
     }
 }
 
-void SambadaRegressionResults::compare(const SambadaRegressionResults &autre) const {
+void SambadaRegressionResults::compare(const SambadaRegressionResults &autre, double epsilon) const {
 
     /* Header */
     int tailleHeader(header.size());
@@ -104,7 +104,7 @@ void SambadaRegressionResults::compare(const SambadaRegressionResults &autre) co
                 for (int j(0); j < nombreValeurs; ++j)
                  {
                      INFO("Valeur numéro: " + std::to_string(j) + " (" + header[j+tailleEtiquette] +")");
-                     CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]));
+                     CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]).epsilon(epsilon));
                  }
             }
         }

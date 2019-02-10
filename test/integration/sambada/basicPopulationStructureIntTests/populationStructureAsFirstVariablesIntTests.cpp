@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that regression results are correct when the population structure is placed before the environmental variables",
-         "[pop-struct-as-first-var-int]") {
+         "[pop-struct-as-first-var-int][pop-struct-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -64,7 +64,7 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim2(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 2));
         lecteurCorrige.close();
-        expectedResultsDim2.verifieTailles(true, 2, 630);
+        expectedResultsDim2.verifieTailles(true, 2, 30);
 
         lecteurCorrige.open(fileNameExpectedResultsDim3.c_str());
         INFO("Reading expected results dim 3");
@@ -73,9 +73,9 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim3(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 3));
         lecteurCorrige.close();
-        expectedResultsDim3.verifieTailles(true, 3, 1050, true);
+        expectedResultsDim3.verifieTailles(true, 3, 150, true);
 
-        WHEN("Sambada is run using the population variables as normal environmental variables")
+        WHEN("Sambada is run using the first variables as population structure")
         {
             CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
@@ -127,11 +127,11 @@ SCENARIO("Test that regression results are correct when the population structure
                         resultsDim1.compare(expectedResultsDim1);
 
                         INFO("Verifying results dim 2");
-                        resultsDim2.verifieTailles(true, 2, 630);
+                        resultsDim2.verifieTailles(true, 2, 30);
                         resultsDim2.compare(expectedResultsDim2);
 
                         INFO("Verifying results dim 3");
-                        resultsDim3.verifieTailles(true, 3, 1050, true);
+                        resultsDim3.verifieTailles(true, 3, 150, true);
                         resultsDim3.compare(expectedResultsDim3);
                     }
                 }

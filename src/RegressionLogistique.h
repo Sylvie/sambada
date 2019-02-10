@@ -212,6 +212,7 @@ protected:
 	typeSelectionModeles selModeles;
 	pair<string, string> nomFichierResultats;
 	typeStructurePop structurePop;
+	set<int> variablesPop;
 
 	// Paramètres numériques
 	const reel eps, convCrit, limiteNaN, limiteExp;
@@ -301,6 +302,13 @@ private :
 	void erreurDetectee(const string& nom="", const string& description="", bool arret=true) CPPTHROW(Erreur);
 
 	bool calculeStructurePop(int dimensionCourante) const;
+
+	bool estVariablePop(string variable) const;
+
+	bool inclutToutesVariablesPop(set<int> variables) const;
+
+	bool estModeleEligiblePourStructurePopulation(set<int> variables) const;
+
 };
 
 class ComparaisonVoisins
