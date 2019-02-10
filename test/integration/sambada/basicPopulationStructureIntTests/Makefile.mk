@@ -20,3 +20,5 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-first.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-first-savetype-best.txt \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-last.txt
+
+include test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/Makefile.mk
