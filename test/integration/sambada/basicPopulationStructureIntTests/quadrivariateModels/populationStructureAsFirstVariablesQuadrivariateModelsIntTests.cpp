@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-SCENARIO("Test that regression results are correct when the population structure is placed after the environmental variables for quadrivariate models",
+SCENARIO("Test that regression results are correct when the population structure is placed before the environmental variables for quadrivariate models",
          "[pop-struct-as-first-var-quadri-int][pop-struct-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
