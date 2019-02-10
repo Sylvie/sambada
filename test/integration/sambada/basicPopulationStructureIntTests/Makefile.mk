@@ -22,3 +22,4 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-last.txt
 
 include test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/Makefile.mk
+include test/integration/sambada/basicPopulationStructureIntTests/bivariateModels/Makefile.mk
