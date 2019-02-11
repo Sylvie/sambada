@@ -16,7 +16,7 @@ SCENARIO("Test that Storey's p-values histograms are correct for models of dimen
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToOutputFolder("./test/integration/sambada/storeyHistograms/");
+        std::string pathToOutputFolder("./test/integration/sambada/storeyHistograms/univariateModels/");
         std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-Out-0.txt");
         std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
         std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
@@ -24,11 +24,11 @@ SCENARIO("Test that Storey's p-values histograms are correct for models of dimen
 
         std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameHistogram, fileNameLogs});
 
-        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistograms/");
+        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistograms/univariateModels/");
 
         std::string fileNameParam(pathToInputFolder + "param-dim-1.txt");
-        std::string fileNameEnv(pathToInputFolder + "cattle-pop-env-first.csv");
-        std::string fileNameMark(pathToInputFolder + "cattle-pop-mark.txt");
+        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-first.csv");
+        std::string fileNameMark(pathToInputFolder + "../cattle-pop-mark.txt");
 
         std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-dim-1.txt");
 

@@ -187,7 +187,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/spatialAutocorrelationResultsIntTests/spatialAutocorrelationSphericalNearestIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
-        test/integration/sambada/storeyHistograms/storeyHistogramsDim1IntTests.cpp
+        test/integration/sambada/storeyHistograms/univariateModels/storeyHistogramsDim1IntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsDim3IntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsWithPopulationStructureAsFirstVariablesIntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsWithPopulationStructureAsLastVariablesIntTests.cpp
@@ -221,6 +221,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/spatialAutocorrelationResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/splitInputFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/univariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         )
 
