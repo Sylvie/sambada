@@ -1,0 +1,11 @@
+HEADERS YES
+WORDDELIM " "
+NUMVARENV 28
+NUMMARK 31
+NUMINDIV 804
+SUBSETVARENV "pop1" "pop2" "pop3" "longitude" "latitude" "prec7" "bio3" "tmax10"
+DIMMAX 4
+OUTPUTFILE "test/integration/sambada/storeyHistograms/quadrivariateModels/cattle-pop-mark.txt"
+SAVETYPE END ALL
+STOREY
+POPULATIONVAR FIRST
