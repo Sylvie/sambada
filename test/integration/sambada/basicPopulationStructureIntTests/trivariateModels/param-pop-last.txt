@@ -6,6 +6,6 @@ NUMINDIV 804
 IDINDIV short_name ID_indiv
 SUBSETVARENV "longitude" "latitude" "prec7" "bio3" "tmax10" "pop1" "pop2"
 DIMMAX 3
-POPULATIONVAR FIRST
-OUTPUTFILE "test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-mark-first.txt"
+POPULATIONVAR LAST
+OUTPUTFILE "test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/cattle-pop-mark-last.txt"
 SAVETYPE END ALL 0.01

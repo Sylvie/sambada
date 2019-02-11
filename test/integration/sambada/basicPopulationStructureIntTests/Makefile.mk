@@ -1,25 +1,13 @@
 
 test_integration_SambadaIntegrationTests_SOURCES += \
-		test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsNormalVariablesIntTests.cpp \
-		test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsFirstVariablesIntTests.cpp \
-		test/integration/sambada/basicPopulationStructureIntTests/populationStructureAsLastVariablesIntTests.cpp \
 		test/integration/sambada/basicPopulationStructureIntTests/populationStructureWithSavetypeBestIntTests.cpp
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-env-first.csv \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-env-last.csv \
 		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/cattle-pop-mark.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-no-pop-dim-0.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-no-pop-dim-1.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-no-pop-dim-2.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-no-pop-dim-3.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-pop-first-dim-2.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-pop-first-dim-3.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/expected-results-pop-last-dim-3.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-no-pop.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-first.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-first-savetype-best.txt \
-		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-last.txt
+		$(top_srcdir)/test/integration/sambada/basicPopulationStructureIntTests/param-pop-first-savetype-best.txt
 
-include test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/Makefile.mk
 include test/integration/sambada/basicPopulationStructureIntTests/bivariateModels/Makefile.mk
+include test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/Makefile.mk
+include test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/Makefile.mk
