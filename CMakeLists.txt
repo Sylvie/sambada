@@ -188,9 +188,9 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/storeyHistograms/univariateModels/storeyHistogramsDim1IntTests.cpp
-        test/integration/sambada/storeyHistograms/storeyHistogramsDim3IntTests.cpp
-        test/integration/sambada/storeyHistograms/storeyHistogramsWithPopulationStructureAsFirstVariablesIntTests.cpp
-        test/integration/sambada/storeyHistograms/storeyHistogramsWithPopulationStructureAsLastVariablesIntTests.cpp
+        test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsDim3IntTests.cpp
+        test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim3IntTests.cpp
+        test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim3IntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsWithSavetypeBestIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp
@@ -222,6 +222,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/splitInputFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/univariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/trivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         )
 
