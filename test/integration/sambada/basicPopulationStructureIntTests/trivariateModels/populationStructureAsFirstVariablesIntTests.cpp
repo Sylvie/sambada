@@ -7,8 +7,8 @@
 #include <fstream>
 #include <sstream>
 
-SCENARIO("Test that regression results are correct when the population structure is considered as a normal environmental variable",
-         "[pop-struct-as-normal-env-var-int][pop-struct-int]") {
+SCENARIO("Test that regression results are correct when the population structure is placed before the environmental variables",
+         "[pop-struct-as-first-var-int][pop-struct-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -16,28 +16,28 @@ SCENARIO("Test that regression results are correct when the population structure
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToOutputFolder("./test/integration/sambada/basicPopulationStructureIntTests/");
+        std::string pathToOutputFolder("./test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/");
 
-        std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-Out-0.txt");
-        std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
-        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-Out-2.txt");
-        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-Out-3.txt");
-        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
+        std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-first-Out-0.txt");
+        std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-first-Out-1.txt");
+        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-first-Out-2.txt");
+        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-first-Out-3.txt");
+        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-first-log.txt");
 
         std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameLogs});
 
         std::string pathToInputFolder(
                 SambadaIntegrationTestUtils::getTopSourceDirectory() +
-                "test/integration/sambada/basicPopulationStructureIntTests/");
+                "test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/");
 
-        std::string fileNameParams(pathToInputFolder + "param-no-pop.txt");
-        std::string fileNameEnv(pathToInputFolder + "cattle-pop-env-last.csv");
-        std::string fileNameMark(pathToInputFolder + "cattle-pop-mark.txt");
+        std::string fileNameParams(pathToInputFolder + "param-pop-first.txt");
+        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-first.csv");
+        std::string fileNameMark(pathToInputFolder + "../cattle-pop-mark.txt");
 
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-no-pop-dim-0.txt");
         std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-no-pop-dim-1.txt");
-        std::string fileNameExpectedResultsDim2(pathToInputFolder + "expected-results-no-pop-dim-2.txt");
-        std::string fileNameExpectedResultsDim3(pathToInputFolder + "expected-results-no-pop-dim-3.txt");
+        std::string fileNameExpectedResultsDim2(pathToInputFolder + "expected-results-pop-first-dim-2.txt");
+        std::string fileNameExpectedResultsDim3(pathToInputFolder + "expected-results-pop-first-dim-3.txt");
 
         std::ifstream lecteurCorrige(fileNameExpectedResultsDim0.c_str());
         INFO("Reading expected results dim 0");
@@ -64,7 +64,7 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim2(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 2));
         lecteurCorrige.close();
-        expectedResultsDim2.verifieTailles(true, 2, 630);
+        expectedResultsDim2.verifieTailles(true, 2, 30);
 
         lecteurCorrige.open(fileNameExpectedResultsDim3.c_str());
         INFO("Reading expected results dim 3");
@@ -73,9 +73,9 @@ SCENARIO("Test that regression results are correct when the population structure
         SambadaRegressionResults expectedResultsDim3(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 3));
         lecteurCorrige.close();
-        expectedResultsDim3.verifieTailles(true, 3, 1050);
+        expectedResultsDim3.verifieTailles(true, 3, 150, true);
 
-        WHEN("Sambada is run using the population variables as normal environmental variables")
+        WHEN("Sambada is run using the first variables as population structure")
         {
             CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
@@ -127,11 +127,11 @@ SCENARIO("Test that regression results are correct when the population structure
                         resultsDim1.compare(expectedResultsDim1);
 
                         INFO("Verifying results dim 2");
-                        resultsDim2.verifieTailles(true, 2, 630);
+                        resultsDim2.verifieTailles(true, 2, 30);
                         resultsDim2.compare(expectedResultsDim2);
 
                         INFO("Verifying results dim 3");
-                        resultsDim3.verifieTailles(true, 3, 1050);
+                        resultsDim3.verifieTailles(true, 3, 150, true);
                         resultsDim3.compare(expectedResultsDim3);
                     }
                 }
