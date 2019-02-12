@@ -189,6 +189,8 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/storeyHistograms/univariateModels/storeyHistogramsDim1IntTests.cpp
         test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsDim3IntTests.cpp
+        test/integration/sambada/storeyHistograms/bivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim2IntTests.cpp
+        test/integration/sambada/storeyHistograms/bivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim2IntTests.cpp
         test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim3IntTests.cpp
         test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim3IntTests.cpp
         test/integration/sambada/storeyHistograms/quadrivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim4IntTests.cpp
@@ -224,6 +226,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/splitInputFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/univariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/bivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/trivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
