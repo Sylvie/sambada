@@ -1213,6 +1213,10 @@ Steps 2 to 9 are also illustrated by the example \enquote{AnalysisWithPopulation
 \item{the $K-1$ first principal axes from a PCA on the coefficients of membership, this is equivalent to the first possibility;}
 \item{one, two or three principal axes from the PCA if they explain most of the variance in your dataset}
 \end{itemize}}
+\item{\label{walkthough-step-naming-pop-variables}
+Hint: Call your \enquote{population variables} by names beginning with \enquote{pop} (\emph{e.g.} \enquote{pop1}, \enquote{pop2}, \dots).
+This way \smb\ will compute only relevant models in dimensions \texttt{DIMMAX-1} and \texttt{DIMMAX}, and you will gain time by speeding up the analysis and being able to skip the step 7 below.
+}
 \item{Create a file of predictors variables with the $E$ environmental variables and the $P$ \enquote{population variables}.
 In the input file, the columns containing the \enquote{population variables} should stick together, and form a group either on the left or on the right of the group of the environmental variables.}
 \item{Create a parameter file with the following options:
@@ -1230,7 +1234,9 @@ The output file of dimension \texttt{DIMMAX} contains two extra columns: \enquot
 For the models involving all \enquote{population variables} and one environmental variable, these columns provide the G and Wald scores taking the population structure into account.
 The models are still sorted according to the \enquote{usual} Wald score.
 Model selection is done in post-processing.}
-\item{Extract the models of interest: 
+\item{\label{walkthough-step-extracting-models}
+(Skip this step if you did step \ref{walkthough-step-naming-pop-variables}.)
+Extract the models of interest:
 \begin{itemize}
 \item{optionally the \enquote{null models} of dimension $P$ including the $P$ \enquote{population variables};}
 \item{the models of dimension $P+1$ including the $P$ \enquote{population variables} and one environmental variable;}
