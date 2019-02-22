@@ -1,0 +1,11 @@
+HEADERS YES
+WORDDELIM " "
+NUMVARENV 28
+NUMMARK 31
+NUMINDIV 804
+SUBSETVARENV "pop1" "pop2" "longitude" "latitude" "prec7" "bio3" "tmax10"
+DIMMAX 3
+OUTPUTFILE "test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/cattle-pop-mark.txt"
+SAVETYPE END ALL
+STOREY
+POPULATIONVAR FIRST

@@ -188,13 +188,21 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/storeyHistograms/univariateModels/storeyHistogramsDim1IntTests.cpp
-        test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsDim3IntTests.cpp
         test/integration/sambada/storeyHistograms/bivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim2IntTests.cpp
         test/integration/sambada/storeyHistograms/bivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim2IntTests.cpp
+        test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsDim3IntTests.cpp
         test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim3IntTests.cpp
         test/integration/sambada/storeyHistograms/trivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim3IntTests.cpp
         test/integration/sambada/storeyHistograms/quadrivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim4IntTests.cpp
         test/integration/sambada/storeyHistograms/quadrivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim4IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/univariateModels/storeyHistogramsWithScoreThresholdDim1IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim2IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim2IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim4IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim4IntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsWithSavetypeBestIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp
@@ -229,6 +237,11 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/bivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/trivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistograms/quadrivariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsWithScoreThreshold/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsWithScoreThreshold/univariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsWithScoreThreshold/bivariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         )
 
