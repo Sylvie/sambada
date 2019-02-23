@@ -201,8 +201,8 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdDim3IntTests.cpp
         test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim3IntTests.cpp
         test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim3IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim4IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim4IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/storeyHistWithScoreThresholdAndPopStructAsFirstVarsDim4IntTests.cpp
+        test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/storeyHistWithScoreThresholdAndPopStructAsLastVarsDim4IntTests.cpp
         test/integration/sambada/storeyHistograms/storeyHistogramsWithSavetypeBestIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp
