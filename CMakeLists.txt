@@ -195,14 +195,14 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim3IntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim4IntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim4IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/univariateModels/storeyHistogramsWithScoreThresholdDim1IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim2IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim2IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdDim3IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim3IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim3IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/storeyHistWithScoreThresholdAndPopStructAsFirstVarsDim4IntTests.cpp
-        test/integration/sambada/storeyHistogramsWithScoreThreshold/quadrivariateModels/storeyHistWithScoreThresholdAndPopStructAsLastVarsDim4IntTests.cpp
+        test/integration/sambada/storeyHistogramsScoreThresholdIntTests/univariateModels/storeyHistogramsWithScoreThresholdDim1IntTests.cpp
+        test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim2IntTests.cpp
+        test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim2IntTests.cpp
+        test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsWithScoreThresholdDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/storeyHistWithScoreThresholdAndPopStructAsFirstVarsDim4IntTests.cpp
+        test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/storeyHistWithScoreThresholdAndPopStructAsLastVarsDim4IntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/storeyHistogramsWithSavetypeBestIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInEnvironmentalDataIntTests.cpp
         test/integration/sambada/wrongNumberOfIndividualsIntTests/wrongNumberOfIndividualsInMolecularDataIntTests.cpp

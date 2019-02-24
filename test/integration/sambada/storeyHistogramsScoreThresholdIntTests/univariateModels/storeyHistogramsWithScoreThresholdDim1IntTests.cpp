@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 
-SCENARIO("Test that Storey's p-values histograms are correct with score threshold and population structure as last variables for bivariate models",
-		"[storey-histograms-with-score-threshold-and-pop-structure-as-last-variables-dim-2-int][storey-histograms-threshold-int]") {
+SCENARIO("Test that Storey's p-values histograms are correct with score threshold for models of dimension 1",
+        "[storey-histograms-threshold-dim-1-int][storey-histograms-threshold-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -16,36 +16,34 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToTestFolder("test/integration/sambada/storeyHistogramsWithScoreThreshold/bivariateModels/");
+        std::string pathToTestFolder("test/integration/sambada/storeyHistogramsScoreThresholdIntTests/univariateModels/");
 
         std::string pathToOutputFolder("./" + pathToTestFolder);
         std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-Out-0.txt");
         std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
-        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-Out-2.txt");
-	    std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
-	    std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
+        std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
+        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameHistogram, fileNameLogs});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameHistogram, fileNameLogs});
 
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + pathToTestFolder);
 
-        std::string fileNameParam(pathToInputFolder + "param-with-pop-structure-as-last-variables-dim-2.txt");
-        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-last.csv");
+        std::string fileNameParam(pathToInputFolder + "param-dim-1.txt");
+        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-first.csv");
         std::string fileNameMark(pathToInputFolder + "../cattle-pop-mark.txt");
 
-	    std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-with-pop-structure-as-last-variables-dim-2.txt");
-        std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-bi-dim-0.txt");
-        std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-bi-dim-1.txt");
-        std::string fileNameExpectedResultsDim2(pathToInputFolder + "expected-results-bi-pop-last-dim-2.txt");
+        std::string fileNameExpectedResultsStorey(pathToInputFolder + "expected-storey-histograms-dim-1.txt");
+        std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-dim-0.txt");
+        std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-dim-1.txt");
 
-	    int numberHistograms(10);
+        int numberHistograms(4);
 
-        std::ifstream lecteurCorrige(fileNameExpectedResults.c_str());
+        std::ifstream lecteurCorrige(fileNameExpectedResultsStorey.c_str());
         REQUIRE(lecteurCorrige.good());
         REQUIRE(lecteurCorrige.is_open());
         SambadaStoreyHistogram expectedResults(SambadaIntegrationTestUtils::readStoreyHistogram(lecteurCorrige));
         lecteurCorrige.close();
-	    expectedResults.verifieTailles(numberHistograms);
+        expectedResults.verifieTailles(numberHistograms);
 
         lecteurCorrige.open(fileNameExpectedResultsDim0.c_str());
         INFO("Reading expected results dim 0");
@@ -63,25 +61,16 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim1(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
         lecteurCorrige.close();
-        expectedResultsDim1.verifieTailles(true, 1, 30);
-
-        lecteurCorrige.open(fileNameExpectedResultsDim2.c_str());
-        INFO("Reading expected results dim 2");
-        REQUIRE(lecteurCorrige.good());
-        REQUIRE(lecteurCorrige.is_open());
-        SambadaRegressionResults expectedResultsDim2(
-                SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 2));
-        lecteurCorrige.close();
-        expectedResultsDim2.verifieTailles(true, 2, 150, true);
+        expectedResultsDim1.verifieTailles(true, 1, 210);
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
-        WHEN("Sambada is run using the last variables as population structure")
+        WHEN("the program is run")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
-            INFO(output);
+            //INFO(output);
 
-            THEN("the output file with the histograms is found")
+            THEN("the output files are found")
             {
                 INFO("Reading histograms");
                 std::ifstream lecteur(fileNameHistogram.c_str());
@@ -98,11 +87,6 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                 REQUIRE(lecteurOut1.good());
                 REQUIRE(lecteurOut1.is_open());
 
-                INFO("Reading results dim 2");
-                std::ifstream lecteurOut2(fileNameOut2.c_str());
-                REQUIRE(lecteurOut2.good());
-                REQUIRE(lecteurOut2.is_open());
-
                 AND_WHEN("the output files are read")
                 {
                     SambadaStoreyHistogram results(
@@ -111,8 +95,6 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                             SambadaIntegrationTestUtils::readRegressionResults(lecteurOut0, true, 0));
                     SambadaRegressionResults resultsDim1(
                             SambadaIntegrationTestUtils::readRegressionResults(lecteurOut1, true, 1));
-                    SambadaRegressionResults resultsDim2(
-                            SambadaIntegrationTestUtils::readRegressionResults(lecteurOut2, true, 2));
 
                     THEN("the results match the expectation")
                     {
@@ -125,19 +107,14 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                         resultsDim0.compare(expectedNullResults);
 
                         INFO("Verifying results dim 1");
-                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.verifieTailles(true, 1, 210);
                         resultsDim1.compare(expectedResultsDim1);
-
-                        INFO("Verifying results dim 2");
-                        resultsDim2.verifieTailles(true, 2, 150, true);
-                        resultsDim2.compare(expectedResultsDim2, 0.001);
                     }
                 }
 
                 lecteur.close();
                 lecteurOut0.close();
                 lecteurOut1.close();
-                lecteurOut2.close();
             }
 
             SambadaIntegrationTestUtils::removeFiles(outputFileNames);
