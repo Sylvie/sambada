@@ -16,7 +16,7 @@ SCENARIO("Test that \"STOREY\" cannot be set at the same time as \"SAVETYPE BEST
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToOutputFolder("./test/integration/sambada/storeyHistograms/");
+        std::string pathToOutputFolder("./test/integration/sambada/storeyHistogramsIntTests/");
 
         std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-savetype-best-log.txt");
 
@@ -24,7 +24,7 @@ SCENARIO("Test that \"STOREY\" cannot be set at the same time as \"SAVETYPE BEST
 
         std::string pathToInputFolder(
                 SambadaIntegrationTestUtils::getTopSourceDirectory() +
-                "test/integration/sambada/storeyHistograms/");
+                "test/integration/sambada/storeyHistogramsIntTests/");
 
         std::string fileNameParams(pathToInputFolder + "param-savetype-best.txt");
         std::string fileNameEnv(pathToInputFolder + "cattle-pop-env-first.csv");

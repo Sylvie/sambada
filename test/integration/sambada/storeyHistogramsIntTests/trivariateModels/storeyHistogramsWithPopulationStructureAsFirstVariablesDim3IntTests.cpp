@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 
-SCENARIO("Test that Storey's p-values histograms are correct for models of dimension 1",
-        "[storey-histograms-dim-1-int][storey-histograms-int]") {
+SCENARIO("Test that Storey's p-values histograms are correct with population structure as first variables",
+		"[storey-histograms-with-pop-structure-as-first-variables-int][storey-histograms-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -16,30 +16,32 @@ SCENARIO("Test that Storey's p-values histograms are correct for models of dimen
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToOutputFolder("./test/integration/sambada/storeyHistograms/univariateModels/");
+        std::string pathToOutputFolder("./test/integration/sambada/storeyHistogramsIntTests/trivariateModels/");
         std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-Out-0.txt");
         std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
-        std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
-        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
+        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-Out-2.txt");
+        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-Out-3.txt");
+	    std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
+	    std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameHistogram, fileNameLogs});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameHistogram, fileNameLogs});
 
-        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistograms/univariateModels/");
+        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistogramsIntTests/trivariateModels/");
 
-        std::string fileNameParam(pathToInputFolder + "param-dim-1.txt");
+        std::string fileNameParam(pathToInputFolder + "param-with-pop-structure-as-first-variables-dim-3.txt");
         std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-first.csv");
         std::string fileNameMark(pathToInputFolder + "../cattle-pop-mark.txt");
 
-        std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-dim-1.txt");
+	    std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-with-pop-structure-as-first-variables-dim-3.txt");
 
-        int numberHistograms(4);
+	    int numberHistograms(14);
 
         std::ifstream lecteurCorrige(fileNameExpectedResults.c_str());
         REQUIRE(lecteurCorrige.good());
         REQUIRE(lecteurCorrige.is_open());
         SambadaStoreyHistogram expectedResults(SambadaIntegrationTestUtils::readStoreyHistogram(lecteurCorrige));
         lecteurCorrige.close();
-        expectedResults.verifieTailles(numberHistograms);
+	    expectedResults.verifieTailles(numberHistograms);
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
@@ -48,7 +50,7 @@ SCENARIO("Test that Storey's p-values histograms are correct for models of dimen
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
             //INFO(output);
 
-            THEN("the output file for histograms is found")
+            THEN("the output file with the histograms is found")
             {
                 std::ifstream lecteur(fileNameHistogram.c_str());
 

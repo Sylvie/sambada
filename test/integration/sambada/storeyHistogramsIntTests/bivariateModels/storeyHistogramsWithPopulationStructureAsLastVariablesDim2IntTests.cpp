@@ -16,7 +16,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with population str
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToOutputFolder("./test/integration/sambada/storeyHistograms/bivariateModels/");
+        std::string pathToOutputFolder("./test/integration/sambada/storeyHistogramsIntTests/bivariateModels/");
         std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-Out-0.txt");
         std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
         std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-Out-2.txt");
@@ -25,7 +25,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with population str
 
         std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameHistogram, fileNameLogs});
 
-        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistograms/bivariateModels/");
+        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistogramsIntTests/bivariateModels/");
 
         std::string fileNameParam(pathToInputFolder + "param-with-pop-structure-as-last-variables-dim-2.txt");
         std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-last.csv");

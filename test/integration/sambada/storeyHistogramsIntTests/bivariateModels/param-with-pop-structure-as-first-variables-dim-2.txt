@@ -5,7 +5,7 @@ NUMMARK 31
 NUMINDIV 804
 SUBSETVARENV "pop1" "longitude" "latitude" "prec7" "bio3" "tmax10"
 DIMMAX 2
-OUTPUTFILE "test/integration/sambada/storeyHistograms/bivariateModels/cattle-pop-mark.txt"
+OUTPUTFILE "test/integration/sambada/storeyHistogramsIntTests/bivariateModels/cattle-pop-mark.txt"
 SAVETYPE END ALL
 STOREY
 POPULATIONVAR FIRST

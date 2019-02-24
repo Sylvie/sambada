@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 
-SCENARIO("Test that Storey's p-values histograms are correct with population structure as last variables for quadrivariate models",
-		"[storey-histograms-with-pop-structure-as-last-variables-dim-4-int][storey-histograms-int]") {
+SCENARIO("Test that Storey's p-values histograms are correct for models of dimension 1",
+        "[storey-histograms-dim-1-int][storey-histograms-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -16,42 +16,39 @@ SCENARIO("Test that Storey's p-values histograms are correct with population str
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
-        std::string pathToOutputFolder("./test/integration/sambada/storeyHistograms/quadrivariateModels/");
+        std::string pathToOutputFolder("./test/integration/sambada/storeyHistogramsIntTests/univariateModels/");
         std::string fileNameOut0(pathToOutputFolder + "cattle-pop-mark-Out-0.txt");
         std::string fileNameOut1(pathToOutputFolder + "cattle-pop-mark-Out-1.txt");
-        std::string fileNameOut2(pathToOutputFolder + "cattle-pop-mark-Out-2.txt");
-        std::string fileNameOut3(pathToOutputFolder + "cattle-pop-mark-Out-3.txt");
-        std::string fileNameOut4(pathToOutputFolder + "cattle-pop-mark-Out-4.txt");
-	    std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
-	    std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
+        std::string fileNameHistogram(pathToOutputFolder + "cattle-pop-mark-storey.txt");
+        std::string fileNameLogs(pathToOutputFolder + "cattle-pop-mark-log.txt");
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameOut4, fileNameHistogram, fileNameLogs});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameHistogram, fileNameLogs});
 
-        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistograms/quadrivariateModels/");
+        std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/storeyHistogramsIntTests/univariateModels/");
 
-        std::string fileNameParam(pathToInputFolder + "param-with-pop-structure-as-last-variables-dim-4.txt");
-        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-last.csv");
+        std::string fileNameParam(pathToInputFolder + "param-dim-1.txt");
+        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-first.csv");
         std::string fileNameMark(pathToInputFolder + "../cattle-pop-mark.txt");
 
-	    std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-with-pop-structure-as-last-variables-dim-4.txt");
+        std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-dim-1.txt");
 
-	    int numberHistograms(18);
+        int numberHistograms(4);
 
         std::ifstream lecteurCorrige(fileNameExpectedResults.c_str());
         REQUIRE(lecteurCorrige.good());
         REQUIRE(lecteurCorrige.is_open());
         SambadaStoreyHistogram expectedResults(SambadaIntegrationTestUtils::readStoreyHistogram(lecteurCorrige));
         lecteurCorrige.close();
-	    expectedResults.verifieTailles(numberHistograms);
+        expectedResults.verifieTailles(numberHistograms);
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
         WHEN("the program is run")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
-            INFO(output);
+            //INFO(output);
 
-            THEN("the output file with the histograms is found")
+            THEN("the output file for histograms is found")
             {
                 std::ifstream lecteur(fileNameHistogram.c_str());
 
