@@ -188,13 +188,13 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithFilenamesExtensionsIntTests.cpp
         test/integration/sambada/splitInputFilesIntTests/splitInputFilesWithoutFilenamesExtensionsIntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/univariateModels/storeyHistogramsDim1IntTests.cpp
-        test/integration/sambada/storeyHistogramsIntTests/bivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim2IntTests.cpp
-        test/integration/sambada/storeyHistogramsIntTests/bivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim2IntTests.cpp
+        test/integration/sambada/storeyHistogramsIntTests/bivariateModels/storeyHistogramsWithPopStructAsFirstVarDim2IntTests.cpp
+        test/integration/sambada/storeyHistogramsIntTests/bivariateModels/storeyHistogramsWithPopuStructAsLastVarDim2IntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsDim3IntTests.cpp
-        test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim3IntTests.cpp
-        test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim3IntTests.cpp
-        test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/storeyHistogramsWithPopulationStructureAsFirstVariablesDim4IntTests.cpp
-        test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/storeyHistogramsWithPopulationStructureAsLastVariablesDim4IntTests.cpp
+        test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsWithPopStructAsFirstVarsDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsWithPopStructAsLastVarsDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/storeyHistogramsWithPopStructAsFirstVarsDim4IntTests.cpp
+        test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/storeyHistogramsWithPopStructAsLastVarsDim4IntTests.cpp
         test/integration/sambada/storeyHistogramsScoreThresholdIntTests/univariateModels/storeyHistogramsWithScoreThresholdDim1IntTests.cpp
         test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim2IntTests.cpp
         test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim2IntTests.cpp
