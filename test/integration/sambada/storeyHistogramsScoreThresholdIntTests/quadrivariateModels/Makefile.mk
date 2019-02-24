@@ -1,7 +1,7 @@
 
 test_integration_SambadaIntegrationTests_SOURCES += \
-		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/storeyHistWithScoreThresholdAndPopStructAsFirstVarsDim4IntTests.cpp \
-		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/storeyHistWithScoreThresholdAndPopStructAsLastVarsDim4IntTests.cpp
+		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/storeyHistScoreThresholdPopStructAsFirstVarsDim4IntTests.cpp \
+		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/storeyHistScoreThresholdPopStructAsLastVarsDim4IntTests.cpp
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/expected-results-quadri-dim-0.txt \

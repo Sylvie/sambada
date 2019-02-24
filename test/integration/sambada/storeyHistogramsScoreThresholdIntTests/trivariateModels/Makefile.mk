@@ -1,8 +1,8 @@
 
 test_integration_SambadaIntegrationTests_SOURCES += \
-		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsWithScoreThresholdDim3IntTests.cpp \
-		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim3IntTests.cpp \
-		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim3IntTests.cpp
+		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsScoreThresholdDim3IntTests.cpp \
+		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsScoreThresholdPopStructAsFirstVarsDim3IntTests.cpp \
+		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/storeyHistogramsScoreThresholdPopStructAsLastVarsDim3IntTests.cpp
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/expected-results-no-pop-dim-0.txt \

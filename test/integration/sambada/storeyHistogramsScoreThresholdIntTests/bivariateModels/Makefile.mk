@@ -1,7 +1,7 @@
 
 test_integration_SambadaIntegrationTests_SOURCES += \
-		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsFirstVariablesDim2IntTests.cpp \
-		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/storeyHistogramsWithScoreThresholdAndPopulationStructureAsLastVariablesDim2IntTests.cpp
+		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/storeyHistogramsScoreThresholdPopStructAsFirstVarDim2IntTests.cpp \
+		test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/storeyHistogramsScoreThresholdPopStructAsLastVarDim2IntTests.cpp
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/expected-results-bi-dim-0.txt \
