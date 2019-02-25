@@ -10,4 +10,5 @@ include test/integration/sambada/storeyHistogramsScoreThresholdIntTests/univaria
 include test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/Makefile.mk
 include test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/Makefile.mk
 include test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModelsEnd/Makefile.mk
+include test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModelsEnd/Makefile.mk
 include test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/Makefile.mk
