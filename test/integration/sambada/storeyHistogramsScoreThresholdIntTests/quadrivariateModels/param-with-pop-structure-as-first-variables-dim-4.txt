@@ -3,6 +3,7 @@ WORDDELIM " "
 NUMVARENV 28
 NUMMARK 31
 NUMINDIV 804
+IDINDIV short_name ID_indiv
 SUBSETVARENV "pop1" "pop2" "pop3" "longitude" "latitude" "prec7" "bio3" "tmax10"
 DIMMAX 4
 OUTPUTFILE "test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/cattle-pop-mark.txt"
