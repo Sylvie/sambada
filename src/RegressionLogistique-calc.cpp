@@ -2284,8 +2284,10 @@ int RegressionLogistique::creeModelesGlobaux()
 	storey.nbModelesValides.resize(dimensionMax + 1, 0);
 
 	// Score minimal pour lequel les résultats sont sauvés (afin de calculer les q-valeurs en post-traitement)
-	storey.scoreMin = 6.;
-
+	if (appliqueSeuilScoreStorey)
+	{
+		storey.scoreMin = seuilScoreStorey;
+	}
 	//	clock_t t1, t2;
 
 
@@ -2711,8 +2713,11 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 			if (sauvegardeTempsReel)
 			{
 				// Test storey
-				if (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
-				{
+				if (!appliqueSeuilScoreStorey ||
+				   (dim < dimensionMax && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)) ||
+				   dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
+				   dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+				){
 					ecritResultat(dim, resultat);
 				}
 
@@ -2878,7 +2883,11 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		if ((selModeles == all || modeleRetenu) && sauvegardeTempsReel)
 		{
 			// Test storey
-			if (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+			if (!appliqueSeuilScoreStorey ||
+				(dim < dimensionMax && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)) ||
+			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
+				dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+			)
 			{
 				ecritResultat(dim, resultat);
 			}

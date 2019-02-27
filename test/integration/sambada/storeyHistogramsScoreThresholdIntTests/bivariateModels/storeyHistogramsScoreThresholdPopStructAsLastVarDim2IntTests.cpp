@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 
-SCENARIO("Test that Storey's p-values histograms are correct with score threshold and population structure as last variables for bivariate models",
-		"[storey-histograms-with-score-threshold-and-pop-structure-as-last-variables-dim-2-int][storey-histograms-threshold-int]") {
+SCENARIO("Test that Storey's p-values histograms are correct with score threshold, \"SAVETYPE REAL\" and population structure as last variables for bivariate models",
+		"[storey-histograms-score-threshold-savetype-real-pop-structure-as-last-variables-dim-2-int][storey-histograms-threshold-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -63,7 +63,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim1(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
         lecteurCorrige.close();
-        expectedResultsDim1.verifieTailles(true, 1, 30);
+        expectedResultsDim1.verifieTailles(true, 1, 26);
 
         lecteurCorrige.open(fileNameExpectedResultsDim2.c_str());
         INFO("Reading expected results dim 2");
@@ -72,7 +72,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim2(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 2));
         lecteurCorrige.close();
-        expectedResultsDim2.verifieTailles(true, 2, 150, true);
+        expectedResultsDim2.verifieTailles(true, 2, 41, true);
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
@@ -125,11 +125,11 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                         resultsDim0.compare(expectedNullResults);
 
                         INFO("Verifying results dim 1");
-                        resultsDim1.verifieTailles(true, 1, 30);
+                        resultsDim1.verifieTailles(true, 1, 26);
                         resultsDim1.compare(expectedResultsDim1);
 
                         INFO("Verifying results dim 2");
-                        resultsDim2.verifieTailles(true, 2, 150, true);
+                        resultsDim2.verifieTailles(true, 2, 41, true);
                         resultsDim2.compare(expectedResultsDim2, 0.001);
                     }
                 }

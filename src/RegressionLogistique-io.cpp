@@ -974,6 +974,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	++paramCourant;
 
 	// STOREY
+	appliqueSeuilScoreStorey = false;
 	if (!paramCourant->present)
 	{
 		calculeStorey = false;
@@ -992,6 +993,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 		else
 		{
 			calculeStorey = true;
+			if (paramCourant->contents.size() >= 2)
+			{
+				appliqueSeuilScoreStorey = true;
+				seuilScoreStorey = toolbox::conversion<reel>(paramCourant->contents[1]);
+			}
 		}
 	}
 	if (calculeStorey && selModeles != all)
