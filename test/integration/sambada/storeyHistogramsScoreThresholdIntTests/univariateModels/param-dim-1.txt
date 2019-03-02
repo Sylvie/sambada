@@ -7,5 +7,5 @@ IDINDIV short_name ID_indiv
 SUBSETVARENV "longitude" "latitude" "prec7" "bio3" "tmax10" "pop1" "pop2"
 DIMMAX 1
 OUTPUTFILE "test/integration/sambada/storeyHistogramsScoreThresholdIntTests/univariateModels/cattle-pop-mark.txt"
-SAVETYPE END ALL
-STOREY
+SAVETYPE REAL ALL
+STOREY YES 5

@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 
-SCENARIO("Test that Storey's p-values histograms are correct with score threshold for models of dimension 1",
-        "[storey-histograms-threshold-dim-1-int][storey-histograms-threshold-int]") {
+SCENARIO("Test that Storey's p-values histograms are correct with score threshold and \"SAVETYPE REAL\"  for models of dimension 1",
+        "[storey-histograms-score-threshold-savetype-real-dim-1-int][storey-histograms-threshold-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -29,7 +29,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + pathToTestFolder);
 
         std::string fileNameParam(pathToInputFolder + "param-dim-1.txt");
-        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-first.csv");
+        std::string fileNameEnv(pathToInputFolder + "../cattle-pop-env-last.csv");
         std::string fileNameMark(pathToInputFolder + "../cattle-pop-mark.txt");
 
         std::string fileNameExpectedResultsStorey(pathToInputFolder + "expected-storey-histograms-dim-1.txt");
@@ -61,7 +61,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim1(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
         lecteurCorrige.close();
-        expectedResultsDim1.verifieTailles(true, 1, 210);
+        expectedResultsDim1.verifieTailles(true, 1, 151);
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
@@ -107,7 +107,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                         resultsDim0.compare(expectedNullResults);
 
                         INFO("Verifying results dim 1");
-                        resultsDim1.verifieTailles(true, 1, 210);
+                        resultsDim1.verifieTailles(true, 1, 151);
                         resultsDim1.compare(expectedResultsDim1);
                     }
                 }
