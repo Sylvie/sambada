@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 
-SCENARIO("Test that Storey's p-values histograms are correct with score threshold and population structure as first variables",
-		"[storey-histograms-with-score-threshold-and-pop-structure-as-first-variables-int][storey-histograms-threshold-int]") {
+SCENARIO("Test that Storey's p-values histograms are correct with score threshold, \"SAVETYPE REAL\" and population structure as first variables for trivariate models",
+		"[storey-histograms-score-threshold-savetype-real-pop-structure-as-first-variables-int][storey-histograms-threshold-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -36,7 +36,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
 
 	    std::string fileNameExpectedResults(pathToInputFolder + "expected-storey-histograms-with-pop-structure-as-first-variables-dim-3.txt");
         std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-no-pop-dim-0.txt");
-        std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-no-pop-dim-1.txt");
+        std::string fileNameExpectedResultsDim1(pathToInputFolder + "expected-results-pop-first-dim-1.txt");
         std::string fileNameExpectedResultsDim2(pathToInputFolder + "expected-results-pop-first-dim-2.txt");
         std::string fileNameExpectedResultsDim3(pathToInputFolder + "expected-results-pop-first-dim-3.txt");
 
@@ -66,7 +66,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim1(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
         lecteurCorrige.close();
-        expectedResultsDim1.verifieTailles(true, 1, 210);
+        expectedResultsDim1.verifieTailles(true, 1, 151);
 
         lecteurCorrige.open(fileNameExpectedResultsDim2.c_str());
         INFO("Reading expected results dim 2");
@@ -75,7 +75,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim2(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 2));
         lecteurCorrige.close();
-        expectedResultsDim2.verifieTailles(true, 2, 30);
+        expectedResultsDim2.verifieTailles(true, 2, 7);
 
         lecteurCorrige.open(fileNameExpectedResultsDim3.c_str());
         INFO("Reading expected results dim 3");
@@ -84,7 +84,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim3(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 3));
         lecteurCorrige.close();
-        expectedResultsDim3.verifieTailles(true, 3, 150, true);
+        expectedResultsDim3.verifieTailles(true, 3, 40, true);
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
@@ -144,15 +144,15 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                         resultsDim0.compare(expectedNullResults);
 
                         INFO("Verifying results dim 1");
-                        resultsDim1.verifieTailles(true, 1, 210);
+                        resultsDim1.verifieTailles(true, 1, 151);
                         resultsDim1.compare(expectedResultsDim1);
 
                         INFO("Verifying results dim 2");
-                        resultsDim2.verifieTailles(true, 2, 30);
+                        resultsDim2.verifieTailles(true, 2, 7);
                         resultsDim2.compare(expectedResultsDim2);
 
                         INFO("Verifying results dim 3");
-                        resultsDim3.verifieTailles(true, 3, 150, true);
+                        resultsDim3.verifieTailles(true, 3, 40, true);
                         resultsDim3.compare(expectedResultsDim3);
 
                     }
