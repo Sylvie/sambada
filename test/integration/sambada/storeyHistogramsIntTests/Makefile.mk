@@ -11,4 +11,5 @@ EXTRA_DIST += \
 include test/integration/sambada/storeyHistogramsIntTests/univariateModels/Makefile.mk
 include test/integration/sambada/storeyHistogramsIntTests/bivariateModels/Makefile.mk
 include test/integration/sambada/storeyHistogramsIntTests/trivariateModels/Makefile.mk
+include test/integration/sambada/storeyHistogramsIntTests/trivariateModelsReal/Makefile.mk
 include test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/Makefile.mk

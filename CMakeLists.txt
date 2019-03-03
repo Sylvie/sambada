@@ -193,6 +193,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsDim3IntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsWithPopStructAsFirstVarsDim3IntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/trivariateModels/storeyHistogramsWithPopStructAsLastVarsDim3IntTests.cpp
+        test/integration/sambada/storeyHistogramsIntTests/trivariateModelsReal/storeyHistogramsSavetypeRealDim3IntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/storeyHistogramsWithPopStructAsFirstVarsDim4IntTests.cpp
         test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/storeyHistogramsWithPopStructAsLastVarsDim4IntTests.cpp
         test/integration/sambada/storeyHistogramsScoreThresholdIntTests/univariateModels/storeyHistogramsWithScoreThresholdDim1IntTests.cpp
@@ -241,6 +242,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsIntTests/univariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsIntTests/bivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsIntTests/trivariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsIntTests/trivariateModelsReal/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/univariateModels/"
