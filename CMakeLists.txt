@@ -246,7 +246,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/univariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/bivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModels/"
-        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTestsEnd/trivariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModelsEnd/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         )

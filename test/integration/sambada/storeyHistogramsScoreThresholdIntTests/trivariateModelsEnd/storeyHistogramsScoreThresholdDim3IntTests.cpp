@@ -66,7 +66,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim1(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
         lecteurCorrige.close();
-        expectedResultsDim1.verifieTailles(true, 1, 210);
+        expectedResultsDim1.verifieTailles(true, 1, 151);
 
         lecteurCorrige.open(fileNameExpectedResultsDim2.c_str());
         INFO("Reading expected results dim 2");
@@ -75,7 +75,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim2(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 2));
         lecteurCorrige.close();
-        expectedResultsDim2.verifieTailles(true, 2, 630);
+        expectedResultsDim2.verifieTailles(true, 2, 173);
 
         lecteurCorrige.open(fileNameExpectedResultsDim3.c_str());
         INFO("Reading expected results dim 3");
@@ -84,14 +84,14 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
         SambadaRegressionResults expectedResultsDim3(
                 SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 3));
         lecteurCorrige.close();
-        expectedResultsDim3.verifieTailles(true, 3, 1050);
+        expectedResultsDim3.verifieTailles(true, 3, 92);
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
         WHEN("Sambada is run using the population variables as normal environmental variables")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
-            //INFO(output);
+            INFO(output);
 
             THEN("the output file of dimension 0 is found")
             {
@@ -144,15 +144,15 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                         resultsDim0.compare(expectedNullResults);
 
                         INFO("Verifying results dim 1");
-                        resultsDim1.verifieTailles(true, 1, 210);
+                        resultsDim1.verifieTailles(true, 1, 151);
                         resultsDim1.compare(expectedResultsDim1);
 
                         INFO("Verifying results dim 2");
-                        resultsDim2.verifieTailles(true, 2, 630);
+                        resultsDim2.verifieTailles(true, 2, 173);
                         resultsDim2.compare(expectedResultsDim2);
 
                         INFO("Verifying results dim 3");
-                        resultsDim3.verifieTailles(true, 3, 1050);
+                        resultsDim3.verifieTailles(true, 3, 92);
                         resultsDim3.compare(expectedResultsDim3);
                     }
                 }
@@ -164,7 +164,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                 lecteurOut3.close();
             }
 
-            SambadaIntegrationTestUtils::removeFiles(outputFileNames);
+         //   SambadaIntegrationTestUtils::removeFiles(outputFileNames);
         }
     }
 }

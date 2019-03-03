@@ -2708,7 +2708,14 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 
 		if (selModeles == all)
 		{
-			resultats[dim].insert(resultat);
+			if (!appliqueSeuilScoreStorey ||
+			    (dim < dimensionMax) ||
+			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
+			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+					)
+			{
+				resultats[dim].insert(resultat);
+			}
 			// Cas où on sauvegarde les résultats au fur et à mesure
 			if (sauvegardeTempsReel)
 			{
@@ -2896,7 +2903,14 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		// Il faut garder le modèle même s'il n'est pas signif dans le cas signif, pour les comparaison ultérieures
 		if ((dim < dimensionMax) || ((selModeles == all || modeleRetenu) && !sauvegardeTempsReel))
 		{
-			resultats[dim].insert(resultat);
+			if (!appliqueSeuilScoreStorey ||
+			    (dim < dimensionMax) ||
+					dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
+			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+					)
+			{
+				resultats[dim].insert(resultat);
+			}
 		}
 
 

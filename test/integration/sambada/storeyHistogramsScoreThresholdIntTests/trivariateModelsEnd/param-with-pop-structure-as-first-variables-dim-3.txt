@@ -8,5 +8,5 @@ SUBSETVARENV "pop1" "pop2" "longitude" "latitude" "prec7" "bio3" "tmax10"
 DIMMAX 3
 OUTPUTFILE "test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModelsEnd/cattle-pop-mark.txt"
 SAVETYPE END ALL
-STOREY
+STOREY YES 5
 POPULATIONVAR FIRST

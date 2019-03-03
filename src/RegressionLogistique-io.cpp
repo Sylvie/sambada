@@ -1874,17 +1874,30 @@ void RegressionLogistique::trieEtEcritResultats()
 					if (structurePop == pasStructurePop ||   listeModeles[j]->first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(listeModeles[j]->first.second))
 					{
 
-						// No de marqueur
-						sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
 
-						// Liste des variables
-						for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
+						if (!appliqueSeuilScoreStorey ||
+						    (i== 0 ||
+						    i < dimensionMax && (listeModeles[j]->second[Gscore] >= storey.scoreMin || listeModeles[j]->second[WaldScore] >= storey.scoreMin)) ||
+						    i == dimensionMax && structurePop != pasStructurePop && (listeModeles[j]->second[GscorePop] >= storey.scoreMin || listeModeles[j]->second[WaldScorePop] >= storey.scoreMin) ||
+						    i == dimensionMax && structurePop == pasStructurePop && (listeModeles[j]->second[Gscore] >= storey.scoreMin || listeModeles[j]->second[WaldScore] >= storey.scoreMin)
+								)
 						{
-							sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
-						}
 
-						// Résultats
-						sortie.ecriture(i, listeModeles[j]->second, true);
+
+
+
+							// No de marqueur
+							sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
+
+							// Liste des variables
+							for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
+							{
+								sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
+							}
+
+							// Résultats
+							sortie.ecriture(i, listeModeles[j]->second, true);
+						}
 					}
 				}
 
