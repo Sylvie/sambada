@@ -164,7 +164,7 @@ SCENARIO("Test that Storey's p-values histograms are correct with score threshol
                 lecteurOut3.close();
             }
 
-         //   SambadaIntegrationTestUtils::removeFiles(outputFileNames);
+            SambadaIntegrationTestUtils::removeFiles(outputFileNames);
         }
     }
 }
