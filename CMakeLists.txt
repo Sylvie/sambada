@@ -159,6 +159,9 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/populationStructureAsNormalVariablesIntTests.cpp
         test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/populationStructureAsFirstVariablesIntTests.cpp
         test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/populationStructureAsLastVariablesIntTests.cpp
+        test/integration/sambada/basicPopulationStructureIntTests/trivariateModelsReal/populationStructureAsNormalVariablesIntTests.cpp
+        test/integration/sambada/basicPopulationStructureIntTests/trivariateModelsReal/populationStructureAsFirstVariablesIntTests.cpp
+        test/integration/sambada/basicPopulationStructureIntTests/trivariateModelsReal/populationStructureAsLastVariablesIntTests.cpp
         test/integration/sambada/basicPopulationStructureIntTests/bivariateModels/populationStructureAsFirstVariablesBivariateModelsIntTests.cpp
         test/integration/sambada/basicPopulationStructureIntTests/bivariateModels/populationStructureAsLastVariablesBivariateModelsIntTests.cpp
         test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/populationStructureAsFirstVariablesQuadrivariateModelsIntTests.cpp
@@ -229,6 +232,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/bivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/trivariateModelsReal/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicSpatialAutocorrelationIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/modelSelectionSavetypeBestIntTests/"

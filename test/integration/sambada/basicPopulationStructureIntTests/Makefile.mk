@@ -10,4 +10,5 @@ EXTRA_DIST += \
 
 include test/integration/sambada/basicPopulationStructureIntTests/bivariateModels/Makefile.mk
 include test/integration/sambada/basicPopulationStructureIntTests/trivariateModels/Makefile.mk
+include test/integration/sambada/basicPopulationStructureIntTests/trivariateModelsReal/Makefile.mk
 include test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/Makefile.mk
