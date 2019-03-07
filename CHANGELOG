@@ -1,8 +1,10 @@
-Release 0.8.0 (2019-02-xx)
+Release 0.8.0 (2019-03-08)
 Improvement:
 - Reduced computation time and memory consumption for analyses with population structure.
   Only models involving all population variables are computed in dimensions DIMMAX-1 and DIMMAX.
   Activate this mode by calling the population variables by names beginning with "pop".
+Bug fix:
+- Fixed a potential hang when computing indices of spatial autocorrelation on Windows.
 
 Release 0.7.1 (2018-12-12)
 Bug fix:
