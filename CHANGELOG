@@ -1,4 +1,4 @@
-Release 0.8.0 (2019-03-08)
+Release 0.8.0 (2019-03-09)
 Improvement:
 - Reduced computation time and memory consumption for analyses with population structure.
   Only models involving all population variables are computed in dimensions DIMMAX-1 and DIMMAX.
