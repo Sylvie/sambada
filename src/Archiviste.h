@@ -317,7 +317,7 @@ bool Lecteur::lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char 
 	for (vector<string>::iterator i(groupeBrut.begin()); i != groupeBrut.end(); ++i)
 	{
 		valeur = toolbox::conversion<T>(*i, testEchec);
-		cout << valeur << endl;
+		//cout << valeur << endl;
 		if (!testEchec)
 		{
 			groupe.push_back(valeur);

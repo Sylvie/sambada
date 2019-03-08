@@ -286,7 +286,20 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	{
 		nbMarqTot = toolbox::conversion<int>(paramCourant->contents[1]);
 		// S'il y a plusieurs fichiers de marqueurs, il faut repérer le numéro du premier qu'on a
-		int position(nomFichierResultats.first.rfind("-"));
+
+		// On prend le nom du fichier d'input au cas où l'utilisateur aurait renommé le fichier de sortie
+		LecteurCheminAcces lecteurCheminAcces;
+		CheminAcces cheminAcces;
+		if (uniqueFichierDonnees)
+		{
+			cheminAcces = lecteurCheminAcces.decompose(nomFichierInput[0]);
+		}
+		else
+		{
+			cheminAcces = lecteurCheminAcces.decompose(nomFichierInput[1]);
+		}
+
+		int position(cheminAcces.radical.rfind("-"));
 		if (position == string::npos)
 		{
 			erreurDetectee("MSG_missing-first-mark", "Missing number of the first marker." + delimLignes + "It must be provided in the name of the input marker file (as done by Supervision) or in the name given in the optional OUTPUTFILE entry.");
@@ -294,9 +307,9 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 		else
 		{
 
-			journal << "Number of the first marker: " << nomFichierResultats.first.substr(position + 1) << nl;
+			journal << "Number of the first marker: " << cheminAcces.radical.substr(position + 1) << nl;
 
-			istringstream iss((nomFichierResultats.first.substr(position + 1)));
+			istringstream iss((cheminAcces.radical.substr(position + 1)));
 			iss >> numPremierMarq;
 			if (iss.fail())
 			{
@@ -954,10 +967,44 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 
 			if (structurePop != pasStructurePop && selModeles != all)
 			{
-				erreurDetectee("MSG_populationVarOnlyCompatibleWithSavetypeBest", "POPULATIONVAR : Please set \"SAVETYPE ALL\" when enabling \"POPULATIONVAR\".");
+				erreurDetectee("MSG_populationVarOnlyCompatibleWithSavetypeALL", "POPULATIONVAR : Please set \"SAVETYPE ALL\" when enabling \"POPULATIONVAR\".");
 			}
 		}
 	}
+	++paramCourant;
+
+	// STOREY
+	appliqueSeuilScoreStorey = false;
+	if (!paramCourant->present)
+	{
+		calculeStorey = false;
+	}
+	else if (paramCourant->contents.size() == 0)
+	{
+		calculeStorey = true;
+	}
+	else
+	{
+		string lu(paramCourant->contents[0]);
+		if (lu == "0" || lu[0] == 'N' || lu[0] == 'n')
+		{
+			calculeStorey = false;
+		}
+		else
+		{
+			calculeStorey = true;
+			if (paramCourant->contents.size() >= 2)
+			{
+				appliqueSeuilScoreStorey = true;
+				seuilScoreStorey = toolbox::conversion<reel>(paramCourant->contents[1]);
+			}
+		}
+	}
+	if (calculeStorey && selModeles != all)
+	{
+		erreurDetectee("MSG_StoreyHistogramsOnlyCompatibleWithSavetypeALL", "STOREY : Please set \"SAVETYPE ALL\" when enabling \"STOREY\".");
+	}
+	++paramCourant;
 
 	/* FIN DU TRAITEMENT DES PARAMETRES */
 
@@ -1827,17 +1874,30 @@ void RegressionLogistique::trieEtEcritResultats()
 					if (structurePop == pasStructurePop ||   listeModeles[j]->first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(listeModeles[j]->first.second))
 					{
 
-						// No de marqueur
-						sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
 
-						// Liste des variables
-						for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
+						if (!appliqueSeuilScoreStorey ||
+						    (i== 0 ||
+						    i < dimensionMax && (listeModeles[j]->second[Gscore] >= storey.scoreMin || listeModeles[j]->second[WaldScore] >= storey.scoreMin)) ||
+						    i == dimensionMax && structurePop != pasStructurePop && (listeModeles[j]->second[GscorePop] >= storey.scoreMin || listeModeles[j]->second[WaldScorePop] >= storey.scoreMin) ||
+						    i == dimensionMax && structurePop == pasStructurePop && (listeModeles[j]->second[Gscore] >= storey.scoreMin || listeModeles[j]->second[WaldScore] >= storey.scoreMin)
+								)
 						{
-							sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
-						}
 
-						// Résultats
-						sortie.ecriture(i, listeModeles[j]->second, true);
+
+
+
+							// No de marqueur
+							sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
+
+							// Liste des variables
+							for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
+							{
+								sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
+							}
+
+							// Résultats
+							sortie.ecriture(i, listeModeles[j]->second, true);
+						}
 					}
 				}
 
