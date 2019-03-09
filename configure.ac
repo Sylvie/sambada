@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+# Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
 # Laboratory of Geographic information systems (LaSIG)
 #
 # This file is part of Sambada.
@@ -32,10 +32,13 @@ dnl Finally run make to generate the project.
 AC_INIT([Sambada], m4_esyscmd([./git-version-gen .tarball-version]), [sylvie.stucki@a3.epfl.ch], [sambada], [lasig.epfl.ch/sambada])
 AM_INIT_AUTOMAKE([foreign subdir-objects dist-zip tar-pax])
 
+AC_CONFIG_MACRO_DIR([m4])
+
 sambada_releasedate=m4_esyscmd([./git-releasedate-gen .tarball-releasedate])
 AC_SUBST(sambada_releasedate)
 
 AC_PROG_CXX
+AX_CXX_COMPILE_STDCXX_11([ext], [mandatory])
 AC_PROG_CC
 AC_PROG_RANLIB
 

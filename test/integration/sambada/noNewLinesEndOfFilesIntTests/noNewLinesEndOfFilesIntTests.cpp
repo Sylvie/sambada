@@ -20,6 +20,8 @@ SCENARIO("Test that regression results are correct when there are no new lines a
         std::string fileNameOut1(pathToOutputFolder + "choice-mark-cattle-Out-1.txt");
         std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
 
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameLogs});
+
         std::string pathToInputFolder(
                 SambadaIntegrationTestUtils::getTopSourceDirectory() +
                 "test/integration/sambada/noNewLinesEndOfFilesIntTests/");
@@ -49,6 +51,8 @@ SCENARIO("Test that regression results are correct when there are no new lines a
         SambadaRegressionResults expectedResults(SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 1));
         lecteurCorrige.close();
         expectedResults.verifieTailles(true, 1, 30);
+
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
         WHEN("Sambada is run using the input files with new lines at the end")
         {
@@ -216,9 +220,7 @@ SCENARIO("Test that regression results are correct when there are no new lines a
             }
         }
 
-        std::remove(fileNameLogs.c_str());
-        std::remove(fileNameOut0.c_str());
-        std::remove(fileNameOut1.c_str());
+        SambadaIntegrationTestUtils::removeFiles(outputFileNames);
     }
 }
 

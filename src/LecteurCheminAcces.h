@@ -1,5 +1,5 @@
 /*************************************************************************
-* Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+* Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
 * Laboratory of Geographic information systems (LaSIG)
 *
 * This file is part of Sambada.
@@ -33,32 +33,36 @@
 class CheminAcces
 {
 public:
-    CheminAcces();
-    CheminAcces(const CheminAcces& cheminAcces);
-    CheminAcces(const std::string &chemin, const std::string &radical, const std::string &extension);
+	CheminAcces();
 
-    virtual ~CheminAcces();
+	CheminAcces(const CheminAcces& cheminAcces);
 
-    std::string chemin;
-    std::string radical;
-    std::string extension;
+	CheminAcces(const std::string& chemin, const std::string& radical, const std::string& extension);
 
-    bool operator==(const CheminAcces& autre) const;
+	virtual ~CheminAcces();
+
+	std::string chemin;
+	std::string radical;
+	std::string extension;
+
+	bool operator==(const CheminAcces& autre) const;
 };
 
 class LecteurCheminAcces
 {
 public:
-    LecteurCheminAcces();
-    virtual ~LecteurCheminAcces();
+	LecteurCheminAcces();
 
-    CheminAcces decompose(const std::string& cheminComplet);
+	virtual ~LecteurCheminAcces();
 
-    std::string getSeparateurCheminSysteme() const;
-    std::string getSeparateurCheminStandard() const;
+	CheminAcces decompose(const std::string& cheminComplet);
+
+	std::string getSeparateurCheminSysteme() const;
+
+	std::string getSeparateurCheminStandard() const;
 
 protected:
-    LecteurCheminAcces(const LecteurCheminAcces& cheminAcces);
+	LecteurCheminAcces(const LecteurCheminAcces& cheminAcces);
 };
 
 #endif //SAMBADA_LECTEURCHEMINACCES_H

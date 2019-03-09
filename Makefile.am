@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+# Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
 # Laboratory of Geographic information systems (LaSIG)
 #
 # This file is part of Sambada.
@@ -116,6 +116,6 @@ repo-clean: maintainer-clean
 	rm -rf $(REPOCLEANFILES)
 
 define clean_extra_generated_files
-    suffixes = **/*.dSYM $(gcov_filename_suffixes)
+    suffixes = *.dSYM $(gcov_filename_suffixes)
     $(foreach suffixe, $(suffixes), $(RM) -rf $(addsuffix $(suffixe) , $(1)))
 endef

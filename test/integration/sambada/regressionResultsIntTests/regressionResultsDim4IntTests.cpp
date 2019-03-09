@@ -23,6 +23,8 @@ SCENARIO("Test that regression results are correct for models of dimension 4", "
         std::string fileNameOut4(pathToOutputFolder + "choice-mark-cattle-Out-4.txt");
         std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
 
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameOut4, fileNameLogs});
+
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + "test/integration/sambada/regressionResultsIntTests/");
 
         std::string fileNameParam(pathToInputFolder + "param-dim-4.txt");
@@ -45,6 +47,8 @@ SCENARIO("Test that regression results are correct for models of dimension 4", "
         SambadaRegressionResults expectedResults(SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 4));
         lecteurCorrige.close();
         expectedResults.verifieTailles(true, 4, 75);
+
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
         WHEN("the program is run")
         {
@@ -95,12 +99,7 @@ SCENARIO("Test that regression results are correct for models of dimension 4", "
                 lecteur.close();
             }
 
-            std::remove(fileNameOut0.c_str());
-            std::remove(fileNameOut1.c_str());
-            std::remove(fileNameOut2.c_str());
-            std::remove(fileNameOut3.c_str());
-            std::remove(fileNameOut4.c_str());
-            std::remove(fileNameLogs.c_str());
+            SambadaIntegrationTestUtils::removeFiles(outputFileNames);
         }
     }
 }

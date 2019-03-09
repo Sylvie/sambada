@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -36,29 +36,29 @@
 using namespace std;
 
 PrecisionDuree::PrecisionDuree(int j, int h, int m, int s)
-: jours(j), heures(h), minutes(m), secondes(s)
+		: jours(j), heures(h), minutes(m), secondes(s)
 {}
 
 
 ChablonDuree::ChablonDuree(bool zJours, bool zSecondes)
-:zappeJours(zJours), zappeSecondes(zSecondes)
+		: zappeJours(zJours), zappeSecondes(zSecondes)
 {}
 
 
 Duree::Duree(int nbSec)
 {
-	secondes = nbSec%60;
+	secondes = nbSec % 60;
 	nbSec /= 60;
 
-	minutes = nbSec%60;
+	minutes = nbSec % 60;
 	nbSec /= 60;
 
-	heures = nbSec%24;
+	heures = nbSec % 24;
 	jours = nbSec / 24;
 }
 
 Duree::Duree(int j, int h, int m, int s)
-:jours(j), heures(h), minutes(m), secondes(s)
+		: jours(j), heures(h), minutes(m), secondes(s)
 {}
 
 Duree::~Duree()
@@ -89,8 +89,8 @@ Journal& Duree::affiche(Journal& j, const ChablonDuree& chablon) const
 	{
 		oss << jours << "d ";
 	}
-	oss	<< heures << "h "
-		<< minutes << "m";
+	oss << heures << "h "
+	    << minutes << "m";
 	if (!chablon.zappeSecondes)
 	{
 		oss << " " << secondes << "s ";
@@ -109,7 +109,7 @@ Journal& Duree::affiche(Journal& j, const PrecisionDuree& prec, const ChablonDur
 		oss << setw(precision.jours) << right << jours << "d ";
 	}
 	oss << setw(precision.heures) << right << heures << "h "
-	<< setw(precision.minutes) << right << minutes << "m";
+	    << setw(precision.minutes) << right << minutes << "m";
 	if (!chablon.zappeSecondes)
 	{
 		oss << " " << setw(precision.secondes) << right << secondes << "s";
@@ -120,14 +120,14 @@ Journal& Duree::affiche(Journal& j, const PrecisionDuree& prec, const ChablonDur
 
 void Duree::ajustePrecision(PrecisionDuree& p) const
 {
-	p.jours = max(ceil(log10((double)jours)), (double)p.jours);
-	p.heures = max(ceil(log10((double)heures)), (double)p.heures);
-	p.minutes = max(ceil(log10((double)minutes)), (double)p.minutes);
-	p.secondes = max(ceil(log10((double)secondes)), (double)p.secondes);
+	p.jours = max(ceil(log10((double) jours)), (double) p.jours);
+	p.heures = max(ceil(log10((double) heures)), (double) p.heures);
+	p.minutes = max(ceil(log10((double) minutes)), (double) p.minutes);
+	p.secondes = max(ceil(log10((double) secondes)), (double) p.secondes);
 }
 
-Duree::Duree(const Duree &d)
-:jours(d.jours), heures(d.heures), minutes(d.minutes), secondes(d.secondes)
+Duree::Duree(const Duree& d)
+		: jours(d.jours), heures(d.heures), minutes(d.minutes), secondes(d.secondes)
 {}
 
 bool Duree::plusLongueOuEgale(const Duree& d) const
@@ -182,7 +182,7 @@ bool Duree::plusCourte(const Duree& d) const
 
 int Duree::calculeTailleAffichageJours() const
 {
-	return (int)ceil(log10(1.0*jours));
+	return (int) ceil(log10(1.0 * jours));
 }
 
 Journal& operator<<(Journal& j, const Duree& d)
@@ -192,7 +192,7 @@ Journal& operator<<(Journal& j, const Duree& d)
 }
 
 DureeFormatee::DureeFormatee(const Duree& d, const PrecisionDuree& p, const ChablonDuree& c)
-:duree(d), precision(p), chablon(c)
+		: duree(d), precision(p), chablon(c)
 {}
 
 DureeFormatee::~DureeFormatee()
@@ -205,7 +205,7 @@ Journal& DureeFormatee::affiche(Journal& j) const
 }
 
 DureeFormatee::DureeFormatee(const DureeFormatee& d)
-:duree(d.duree), precision(d.precision), chablon(d.chablon)
+		: duree(d.duree), precision(d.precision), chablon(d.chablon)
 {}
 
 Journal& operator<<(Journal& j, const DureeFormatee& d)

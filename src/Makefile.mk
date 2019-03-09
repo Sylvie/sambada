@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+# Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
 # Laboratory of Geographic information systems (LaSIG)
 #
 # This file is part of Sambada.
@@ -118,3 +118,4 @@ binary-archive-local-binaries: $(sambada_binaries) create-archive-binaries-folde
 ## Cleaning ##
 clean-local-src:
 	$(call clean_extra_generated_files, src/)
+	$(call clean_extra_generated_files, binaries/)

@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -39,10 +39,13 @@ class Chronometre
 {
 public:
 	Chronometre();
+
 	virtual ~Chronometre();
 
-	int initialisation(Journal* j, int nbTotEv, int numPremMesure = 10, const string& separateurCol = "");
+	int initialisation(Journal *j, int nbTotEv, int numPremMesure = 10, const string& separateurCol = "");
+
 	int mesureEtAffiche(int numEvenement = -1);
+
 	void fin();
 
 
@@ -69,7 +72,7 @@ protected:
 	int nbTotEvenements, nbMesures, prochaineMesure;
 	time_t tempsDebut;
 	vector<Mesure> mesures;
-	Journal* journal;
+	Journal *journal;
 	PrecisionDuree precision;
 	ChablonDuree chablon;
 	int distanceColonnes;
@@ -77,15 +80,18 @@ protected:
 	int tailleAffichageIterations, tailleAffichageDurees, tailleAffichageTotal;
 
 	int calculeProportion(int numEv);
+
 	void mesure(int numEv);
+
 	int calculeProchaineMesure(int numEv);
+
 	void affiche(const Duree& d);
+
 	void ajusteAffichage(const Duree& dureeEstimee);
 
 private:
 	Chronometre(const Chronometre& c);
 };
-
 
 
 #endif // CHRONOMETRE_H

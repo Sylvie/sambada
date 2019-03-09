@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -29,75 +29,75 @@
 #include <iomanip>
 
 FluxSortie::FluxSortie()
-:delimLignes("\n"), delimMots(" "), terminalActif(true), fichierActif(true), fichierOperationnel(false), estMessageErreur(false), ligneVide(true)
+		: delimLignes("\n"), delimMots(" "), terminalActif(true), fichierActif(true), fichierOperationnel(false), estMessageErreur(false), ligneVide(true)
 {
 }
 
 FluxSortie::~FluxSortie()
 {
-    fermetureFichier();
+	fermetureFichier();
 }
 
-void FluxSortie::setDelimLignes(const string &delim)
+void FluxSortie::setDelimLignes(const string& delim)
 {
-    delimLignes=delim;
+	delimLignes = delim;
 }
 
 string FluxSortie::getDelimLignes() const
 {
-    return delimLignes;
+	return delimLignes;
 }
 
-void FluxSortie::setDelimMots(const string &delim)
+void FluxSortie::setDelimMots(const string& delim)
 {
-    delimMots=delim;
+	delimMots = delim;
 }
 
 string FluxSortie::getDelimMots() const
 {
-    return delimMots;
+	return delimMots;
 }
 
-void FluxSortie::setNomFichier(const string &nom)
+void FluxSortie::setNomFichier(const string& nom)
 {
-    nomFichier=nom;
+	nomFichier = nom;
 }
 
 string FluxSortie::getNomFichier() const
 {
-    return nomFichier;
+	return nomFichier;
 }
 
 void FluxSortie::setDelims(const string& delimL, const string& delimM)
 {
-    delimLignes=delimL;
-    delimMots=delimM;
+	delimLignes = delimL;
+	delimMots = delimM;
 }
 
 void FluxSortie::setActiviteTerminal(bool b)
 {
-    terminalActif=b;
+	terminalActif = b;
 }
 
 bool FluxSortie::getActiviteTerminal() const
 {
-    return terminalActif;
+	return terminalActif;
 }
 
 void FluxSortie::setActiviteFichier(bool b)
 {
-    fichierActif=b;
+	fichierActif = b;
 }
 
 bool FluxSortie::getActiviteFichier() const
 {
-    return fichierActif;
+	return fichierActif;
 }
 
 void FluxSortie::setActivites(bool term, bool fichier)
 {
-    terminalActif=term;
-    fichierActif=fichier;
+	terminalActif = term;
+	fichierActif = fichier;
 }
 
 bool FluxSortie::ouvertureFichier()
@@ -107,7 +107,7 @@ bool FluxSortie::ouvertureFichier()
 		return true;
 	}
 
-	if( nomFichier.size()==0 )
+	if (nomFichier.size() == 0)
 	{
 		return false;
 	}
@@ -119,104 +119,104 @@ bool FluxSortie::ouvertureFichier()
 		return false;
 	}
 
-	fichierOperationnel=true;
+	fichierOperationnel = true;
 	return true;
 
 }
 
 void FluxSortie::fermetureFichier()
 {
-    sortie.close();
-	fichierOperationnel=false;
+	sortie.close();
+	fichierOperationnel = false;
 }
 
 bool FluxSortie::testeValiditeFichier()
 {
-    if (sortie.is_open() && sortie.good())
-    {
-        fichierOperationnel=true;
-    }
+	if (sortie.is_open() && sortie.good())
+	{
+		fichierOperationnel = true;
+	}
 	else
 	{
-		fichierOperationnel=false;
+		fichierOperationnel = false;
 	}
 
 
-    return fichierOperationnel;
+	return fichierOperationnel;
 }
 
 void FluxSortie::erreurDetectee()
 {
-    estMessageErreur=true;
+	estMessageErreur = true;
 }
 
-FluxSortie &FluxSortie::nouvMot()
+FluxSortie& FluxSortie::nouvMot()
 {
-    ecrit(delimMots);
-    return *this;
+	ecrit(delimMots);
+	return *this;
 }
-
 
 
 FluxSortie& FluxSortie::retourLigne()
 {
-    ecrit(delimLignes);
-	ligneVide=true;
-    return *this;
+	ecrit(delimLignes);
+	ligneVide = true;
+	return *this;
 }
 
-FluxSortie& FluxSortie::operator<<(FluxSortie& (*pf)(FluxSortie&)) {
-	ligneVide=false;
-    return pf(*this);
-}
-
-FluxSortie& FluxSortie::operator<<(ostream &(*pf)(ostream &))
+FluxSortie& FluxSortie::operator<<(FluxSortie& (*pf)(FluxSortie&))
 {
-    if (terminalActif)
-    {
-        pf(cout);
-    }
+	ligneVide = false;
+	return pf(*this);
+}
 
-    if (fichierActif && fichierOperationnel)
-    {
-        pf(sortie);
-    }
+FluxSortie& FluxSortie::operator<<(ostream& (*pf)(ostream&))
+{
+	if (terminalActif)
+	{
+		pf(cout);
+	}
 
-	ligneVide=false;
-    return *this;
+	if (fichierActif && fichierOperationnel)
+	{
+		pf(sortie);
+	}
+
+	ligneVide = false;
+	return *this;
 }
 
 FluxSortie& FluxSortie::operator<<(JournalTemporaire& jt)
 {
-    jt.synchronise();
-    while(!jt.empty())
-    {
-        ecrit(jt.front());
-        retourLigne();
-        jt.pop_front();
-    }
-	ligneVide=true;
-    return *this;
+	jt.synchronise();
+	while (!jt.empty())
+	{
+		ecrit(jt.front());
+		retourLigne();
+		jt.pop_front();
+	}
+	ligneVide = true;
+	return *this;
 }
 
-FluxSortie& nm (FluxSortie& fs)
+FluxSortie& nm(FluxSortie& fs)
 {
-    fs.nouvMot();
-    return fs;
-}
-
-
-FluxSortie& nl (FluxSortie& fs)
-{
-    fs.retourLigne();
-    return fs;
+	fs.nouvMot();
+	return fs;
 }
 
 
-FluxSortie& erreur (FluxSortie& fs)
+FluxSortie& nl(FluxSortie& fs)
 {
-    fs.erreurDetectee();
-    return fs;
+	fs.retourLigne();
+	return fs;
+}
+
+
+FluxSortie& erreur(FluxSortie& fs)
+{
+	fs.erreurDetectee();
+	return fs;
 }
 
 FluxSortie::FluxSortie(const FluxSortie& fs)

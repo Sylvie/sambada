@@ -1,5 +1,5 @@
 /*************************************************************************
-* Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+* Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
 * Laboratory of Geographic information systems (LaSIG)
 *
 * This file is part of Sambada.
@@ -31,10 +31,10 @@
 using namespace std;
 
 Erreur::Erreur(const string& n, const string& p, bool arret) throw()
-:nom(n), phrase(p), fatale(arret)
+		: nom(n), phrase(p), fatale(arret)
 {}
 
-const char* Erreur::what() const throw()
+const char *Erreur::what() const throw()
 {
 	return phrase.c_str();
 }

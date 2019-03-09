@@ -53,6 +53,10 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
         fs::path pathMark(fileNameMark.c_str());
         fs::path pathMarkWithoutLeadingDot(fileNameMarkWithoutLeadingDot.c_str());
 
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameLogs, fileNameParam, fileNameEnv, fileNameMark});
+
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
+
         // Copying data
         std::experimental::filesystem::copy(pathOriginalParam, pathParam, fs::copy_options::overwrite_existing);
         std::experimental::filesystem::copy(pathOriginalEnv, pathEnv, fs::copy_options::overwrite_existing);
@@ -170,13 +174,7 @@ SCENARIO("Test that result files are writen in the same folder as the molecular 
             }
         }
 
-        std::remove(fileNameParam.c_str());
-        std::remove(fileNameEnv.c_str());
-        std::remove(fileNameMark.c_str());
-
-        std::remove(fileNameOut0.c_str());
-        std::remove(fileNameOut1.c_str());
-        std::remove(fileNameLogs.c_str());
+        SambadaIntegrationTestUtils::removeFiles(outputFileNames);
 
         std::remove(pathToOutputFolder.c_str());
     }

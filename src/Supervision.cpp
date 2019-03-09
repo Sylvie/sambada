@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -52,7 +52,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 	sortie.setDelimMots(' ');
 	entree.setDelimMots(' ');
 
-	cout << "Retour: " << (int)(entree.getRetourLigne()[0]) << endl;
+	cout << "Retour: " << (int) (entree.getRetourLigne()[0]) << endl;
 
 	ifstream entreeFichier(nomFichier.c_str());
 	if (entreeFichier.fail())
@@ -70,39 +70,39 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 	toolbox::enleveEspaces(lu);
 	const char guillemet('"');
 	string::size_type position;
-	if (lu[0]==guillemet)
+	if (lu[0] == guillemet)
 	{
-		position=lu.find(guillemet, 1);
-		cout << "Truc "<< position << endl;
+		position = lu.find(guillemet, 1);
+		cout << "Truc " << position << endl;
 
-		nomFichierMarq.first=lu.substr(1, position-1);
-		lu=lu.substr(position+1);
+		nomFichierMarq.first = lu.substr(1, position - 1);
+		lu = lu.substr(position + 1);
 		toolbox::enleveEspaces(lu);
-		if (lu.size()>0)
+		if (lu.size() > 0)
 		{
 			cout << "*" << lu << "*" << endl;
-			nomFichierEnv.first=lu;
+			nomFichierEnv.first = lu;
 			toolbox::enleveEspaces(nomFichierEnv.first);
-			varEnvIncluses=false;
+			varEnvIncluses = false;
 		}
 	}
 	else
 	{
-		position=lu.find(' ');
-		if (position==string::npos)
+		position = lu.find(' ');
+		if (position == string::npos)
 		{
-			nomFichierMarq.first=lu;
+			nomFichierMarq.first = lu;
 		}
 		else
 		{
-			nomFichierMarq.first=lu.substr(0, position);
-			lu=lu.substr(position+1);
+			nomFichierMarq.first = lu.substr(0, position);
+			lu = lu.substr(position + 1);
 			toolbox::enleveEspaces(lu);
-			if (lu.size()>0)
+			if (lu.size() > 0)
 			{
-				nomFichierEnv.first=lu;
+				nomFichierEnv.first = lu;
 				toolbox::enleveEspaces(nomFichierEnv.first);
-				varEnvIncluses=false;
+				varEnvIncluses = false;
 			}
 		}
 	}
@@ -150,7 +150,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 
 	entreeFichier >> ws >> nomFichierParam.first;
 
-	entreeFichier >>ws >> nbEnv >> nbMarq >> nbLignes >> tailleBlocs;
+	entreeFichier >> ws >> nbEnv >> nbMarq >> nbLignes >> tailleBlocs;
 	cout << nbEnv << " " << nbMarq << " " << nbLignes << " " << tailleBlocs << endl;
 
 	vector<int> paramOS(0);
@@ -162,7 +162,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 	int nbCols(nbMarq);
 	if (varEnvIncluses)
 	{
-		nbCols+=nbEnv;
+		nbCols += nbEnv;
 	}
 
 	// Ouverture du fichier d'entrée
@@ -182,24 +182,24 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 #endif
 
 	// Décomposition des noms de fichiers
-	position=0;
+	position = 0;
 
 	// Fichier des marqueurs
-	position=nomFichierMarq.first.rfind(sepRep);
-	if (position!=string::npos)
+	position = nomFichierMarq.first.rfind(sepRep);
+	if (position != string::npos)
 	{
 		// On prend le chemin du fichier de param
 		//		chemin=nomFichierMarq.first.substr(0, position+1);
-		nomFichierMarq.first=nomFichierMarq.first.substr(position+1);
+		nomFichierMarq.first = nomFichierMarq.first.substr(position + 1);
 	}
 
 	cout << position << endl /*<< chemin << endl*/ << nomFichierMarq.first << endl;
 
-	position=nomFichierMarq.first.rfind(ParametresCluster::sepExt);
-	if (position!=string::npos)
+	position = nomFichierMarq.first.rfind(ParametresCluster::sepExt);
+	if (position != string::npos)
 	{
-		nomFichierMarq.second=nomFichierMarq.first.substr(position);
-		nomFichierMarq.first=nomFichierMarq.first.substr(0, position);
+		nomFichierMarq.second = nomFichierMarq.first.substr(position);
+		nomFichierMarq.first = nomFichierMarq.first.substr(0, position);
 	}
 	cout << nomFichierMarq.first << endl << nomFichierMarq.second << endl;
 
@@ -207,56 +207,55 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 
 	if (!varEnvIncluses)
 	{
-		position=nomFichierEnv.first.rfind(sepRep);
-		if (position!=string::npos)
+		position = nomFichierEnv.first.rfind(sepRep);
+		if (position != string::npos)
 		{
-			nomFichierEnv.first=nomFichierEnv.first.substr(position+1);
+			nomFichierEnv.first = nomFichierEnv.first.substr(position + 1);
 		}
 	}
 	else
 	{
-		nomFichierEnv.first=nomFichierMarq.first+ParametresCluster::suffixeEnv;
-		nomFichierEnv.second=nomFichierMarq.second;
+		nomFichierEnv.first = nomFichierMarq.first + ParametresCluster::suffixeEnv;
+		nomFichierEnv.second = nomFichierMarq.second;
 	}
 
 	cout << position << endl << nomFichierEnv.first << endl;
 
-	position=nomFichierEnv.first.rfind(ParametresCluster::sepExt);
-	if (position!=string::npos)
+	position = nomFichierEnv.first.rfind(ParametresCluster::sepExt);
+	if (position != string::npos)
 	{
-		nomFichierEnv.second=nomFichierEnv.first.substr(position);
-		nomFichierEnv.first=nomFichierEnv.first.substr(0, position);
+		nomFichierEnv.second = nomFichierEnv.first.substr(position);
+		nomFichierEnv.first = nomFichierEnv.first.substr(0, position);
 	}
 	cout << nomFichierEnv.first << endl << nomFichierEnv.second << endl;
 
 	// Fichier de paramètres
-	position=nomFichierParam.first.rfind(sepRep);
-	if (position!=string::npos)
+	position = nomFichierParam.first.rfind(sepRep);
+	if (position != string::npos)
 	{
-		nomFichierParam.first=nomFichierParam.first.substr(position+1);
+		nomFichierParam.first = nomFichierParam.first.substr(position + 1);
 	}
 
 	cout << position << endl << nomFichierParam.first << endl;
 
-	position=nomFichierParam.first.rfind(ParametresCluster::sepExt);
-	if (position!=string::npos)
+	position = nomFichierParam.first.rfind(ParametresCluster::sepExt);
+	if (position != string::npos)
 	{
-		nomFichierParam.second=nomFichierParam.first.substr(position);
-		nomFichierParam.first=nomFichierParam.first.substr(0, position);
+		nomFichierParam.second = nomFichierParam.first.substr(position);
+		nomFichierParam.first = nomFichierParam.first.substr(0, position);
 	}
 	cout << nomFichierParam.first << endl << nomFichierParam.second << endl;
 
 	// On crée le chemin à partir du nom du fichier de découpe
-	position=nomFichier.rfind(sepRep);
-	if (position!=string::npos)
+	position = nomFichier.rfind(sepRep);
+	if (position != string::npos)
 	{
-		chemin=nomFichier.substr(0, position+1);
+		chemin = nomFichier.substr(0, position + 1);
 	}
 	else
 	{
-		chemin="";
+		chemin = "";
 	}
-
 
 
 	std::ostringstream oss, ossNumPremierMarq;
@@ -268,32 +267,32 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 
 
 	int nbBlocs(0), nbBlocsComplets(0), tailleDernierBloc(0);
-	tailleDernierBloc=nbMarq%tailleBlocs;
-	nbBlocsComplets=nbMarq/tailleBlocs;
-	if (tailleDernierBloc==0)
+	tailleDernierBloc = nbMarq % tailleBlocs;
+	nbBlocsComplets = nbMarq / tailleBlocs;
+	if (tailleDernierBloc == 0)
 	{
-		nbBlocs=nbBlocsComplets;
+		nbBlocs = nbBlocsComplets;
 	}
 	else
 	{
-		nbBlocs=nbBlocsComplets+1;
+		nbBlocs = nbBlocsComplets + 1;
 	}
 
 	// Noms des fichiers et flots
 	vector<string> nomsFichiers(nbBlocs);
-	for(int i(0); i<nbBlocs; ++i)
+	for (int i(0); i < nbBlocs; ++i)
 	{
 		oss.str("");
 		oss.clear();
 		oss << i;
 		ossNumPremierMarq.str("");
 		ossNumPremierMarq.clear();
-		ossNumPremierMarq << i*tailleBlocs;
-		nomsFichiers[i]=(nomRep+nomFichierMarq.first+ParametresCluster::suffixeMarq+oss.str()+"-"+ossNumPremierMarq.str()+nomFichierMarq.second);
+		ossNumPremierMarq << i * tailleBlocs;
+		nomsFichiers[i] = (nomRep + nomFichierMarq.first + ParametresCluster::suffixeMarq + oss.str() + "-" + ossNumPremierMarq.str() + nomFichierMarq.second);
 	}
 	if (varEnvIncluses)
 	{
-		nomsFichiers.push_back(nomRep+nomFichierEnv.first+nomFichierEnv.second);
+		nomsFichiers.push_back(nomRep + nomFichierEnv.first + nomFichierEnv.second);
 	}
 
 	sortie.initialise(nomsFichiers);
@@ -309,16 +308,16 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 	int decalageColonnes(0);
 	if (varEnvIncluses)
 	{
-		decalageColonnes=nbEnv;
+		decalageColonnes = nbEnv;
 	}
 
 	while (!entreeFichier.eof())
 	{
-		entreeFichier>> ws;
+		entreeFichier >> ws;
 
-		if (rows%100==0)
+		if (rows % 100 == 0)
 		{
-			cout <<"Row " <<rows<<endl;
+			cout << "Row " << rows << endl;
 		}
 
 		toolbox::lectureLigne(entreeFichier, ligne);
@@ -326,7 +325,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 		/*if (nbCols == -1)
 		 nbCols = (unsigned int) line.size();*/
 
-		if(nbCols != ligne.size())
+		if (nbCols != ligne.size())
 		{
 			oss.str("");
 			oss.clear();
@@ -343,34 +342,34 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 
 		if (varEnvIncluses)
 		{
-			for (int j(0); j<nbEnv; ++j)
+			for (int j(0); j < nbEnv; ++j)
 			{
 				sortie.ecriture(nbBlocs, ligne[j]);
 			}
 			sortie.ecriture(nbBlocs, "", true);
 		}
-		for (int i(0); i<nbBlocsComplets; ++i)
+		for (int i(0); i < nbBlocsComplets; ++i)
 		{
 
-			for (int j(0); j<tailleBlocs; ++j)
+			for (int j(0); j < tailleBlocs; ++j)
 			{
-				sortie.ecriture(i, ligne[decalageColonnes+i*tailleBlocs+j]);
+				sortie.ecriture(i, ligne[decalageColonnes + i * tailleBlocs + j]);
 			}
 
 			//			*(sorties[i]) << endl;
 			sortie.ecriture(i, "", true);
 		}
 		// Dernier bloc
-		if (tailleDernierBloc>0)
+		if (tailleDernierBloc > 0)
 		{
 
-			for(int i(0); i<tailleDernierBloc; ++i)
+			for (int i(0); i < tailleDernierBloc; ++i)
 			{
-				sortie.ecriture(nbBlocs-1, ligne[decalageColonnes+nbBlocsComplets*tailleBlocs+i]);
+				sortie.ecriture(nbBlocs - 1, ligne[decalageColonnes + nbBlocsComplets * tailleBlocs + i]);
 			}
 
 			//			*(sorties[nbBlocs-1]) << endl;
-			sortie.ecriture(nbBlocs-1, "", true);
+			sortie.ecriture(nbBlocs - 1, "", true);
 		}
 
 		++rows;
@@ -388,7 +387,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 
 }
 
-int Supervision::fusionResultats(int argc, char* argv[]) throw()
+int Supervision::fusionResultats(int argc, char *argv[]) throw()
 {
 	time_t temps_start(time(NULL));
 
@@ -403,58 +402,58 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	// Lien entre le type de score et le numéro de colonne
 	// Les numéros ne changent pas en fonction de la dimension!
 	map<typeScore, int> numColonnes;
-	numColonnes.insert(make_pair(G,1));
-	numColonnes.insert(make_pair(Wald,2));
-	numColonnes.insert(make_pair(AIC,9));
-	numColonnes.insert(make_pair(BIC,10));
-	if (argc>=7)
+	numColonnes.insert(make_pair(G, 1));
+	numColonnes.insert(make_pair(Wald, 2));
+	numColonnes.insert(make_pair(AIC, 9));
+	numColonnes.insert(make_pair(BIC, 10));
+	if (argc >= 7)
 	{
 		string lu(argv[5]);
-		if (lu=="G")
+		if (lu == "G")
 		{
-			scoreSel=G;
+			scoreSel = G;
 		}
-		else if(lu=="Wald")
+		else if (lu == "Wald")
 		{
-			scoreSel=Wald;
+			scoreSel = Wald;
 		}
 
-		seuilScore=atof(argv[6]);
-		seuilSelection=true;
+		seuilScore = atof(argv[6]);
+		seuilSelection = true;
 	}
-	if (argc>=8)
+	if (argc >= 8)
 	{
 		string lu(argv[7]);
-		if (lu=="G")
+		if (lu == "G")
 		{
-			scoreTri=G;
+			scoreTri = G;
 		}
-		if (lu=="AIC")
+		if (lu == "AIC")
 		{
-			scoreTri=AIC;
+			scoreTri = AIC;
 		}
-		if (lu=="BIC")
+		if (lu == "BIC")
 		{
-			scoreTri=BIC;
+			scoreTri = BIC;
 		}
 
 	}
 	char delimMots(' ');
-	if (argc==9)
+	if (argc == 9)
 	{
 		string tempDelim(argv[8]);
 		if (tempDelim == "\\t")
 		{
-			cout << "Word are separated by tabulations."<<endl;
-			delimMots='\t';
+			cout << "Word are separated by tabulations." << endl;
+			delimMots = '\t';
 		}
 		else
 		{
-			delimMots=tempDelim[0];
+			delimMots = tempDelim[0];
 		}
 
 	}
-	else if (argc!=5 && argc!=7 && argc!=8 && argc!=9)
+	else if (argc != 5 && argc != 7 && argc != 8 && argc != 9)
 	{
 		cout << argc << endl;
 		throw Erreur("Nombre d'arguments incorrect.");
@@ -465,7 +464,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 
 	std::istringstream iss;
 	iss.str(argv[2]);
-	iss>>nbBlocs;
+	iss >> nbBlocs;
 	iss.str("");
 	iss.clear();
 	iss.str(argv[4]);
@@ -476,10 +475,10 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	iss.str("");
 	iss.clear();
 	iss.str(argv[3]);
-	iss >>tailleBlocs;
+	iss >> tailleBlocs;
 
 
-	if (dimensionMax<0)
+	if (dimensionMax < 0)
 	{
 		throw Erreur("Dimension des résultat incorrecte.");
 	}
@@ -492,7 +491,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	sortie.setDelimMots(delimMots);
 	entree.setDelimMots(delimMots);
 
-	nomFichierMarq.first=argv[1];
+	nomFichierMarq.first = argv[1];
 
 	// Préparation des flots de sortie
 	string sepRep(ParametresCluster::sepRep_Unix);
@@ -504,20 +503,20 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	int position(0);
 
 	// Fichier des marqueurs
-	position=nomFichierMarq.first.rfind(sepRep);
-	if (position!=string::npos)
+	position = nomFichierMarq.first.rfind(sepRep);
+	if (position != string::npos)
 	{
-		chemin=nomFichierMarq.first.substr(0, position+1);
-		nomFichierMarq.first=nomFichierMarq.first.substr(position+1);
+		chemin = nomFichierMarq.first.substr(0, position + 1);
+		nomFichierMarq.first = nomFichierMarq.first.substr(position + 1);
 	}
 
 	cout << position << endl << chemin << endl << nomFichierMarq.first << endl;
 
-	position=nomFichierMarq.first.rfind(ParametresCluster::sepExt);
-	if (position!=string::npos)
+	position = nomFichierMarq.first.rfind(ParametresCluster::sepExt);
+	if (position != string::npos)
 	{
-		nomFichierMarq.second=nomFichierMarq.first.substr(position);
-		nomFichierMarq.first=nomFichierMarq.first.substr(0, position);
+		nomFichierMarq.second = nomFichierMarq.first.substr(position);
+		nomFichierMarq.first = nomFichierMarq.first.substr(0, position);
 	}
 	cout << nomFichierMarq.first << endl << nomFichierMarq.second << endl;
 
@@ -531,14 +530,14 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	// Il faut créer les fichiers d'entrée (un par noeud) et les fichiers de sortie (un par dimension)
 
 	// Noms des fichiers et flots
-	vector<string> nomsFichiers(dimensionMax+1);
-	for(int i(0); i<=dimensionMax; ++i)
+	vector<string> nomsFichiers(dimensionMax + 1);
+	for (int i(0); i <= dimensionMax; ++i)
 	{
 		oss.str("");
 		oss.clear();
 		oss << i;
 
-		nomsFichiers[i]=(chemin+nomFichierMarq.first+ParametresCluster::suffixeRes+oss.str()+nomFichierMarq.second);
+		nomsFichiers[i] = (chemin + nomFichierMarq.first + ParametresCluster::suffixeRes + oss.str() + nomFichierMarq.second);
 	}
 
 	sortie.initialise(nomsFichiers);
@@ -554,8 +553,8 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	//pair<int, reel> indiceCourant;
 	//vector<pair<int,reel> > tableRes(0);
 
-	typedef struct {int a; reel b;} chose;
-	cout << "& " << sizeof(Modele) << " " << sizeof(ListeModeles)<< " " << sizeof(int)<< " " << sizeof(double)<< " " << sizeof(reel) << endl ;
+	typedef struct { int a; reel b; } chose;
+	cout << "& " << sizeof(Modele) << " " << sizeof(ListeModeles) << " " << sizeof(int) << " " << sizeof(double) << " " << sizeof(reel) << endl;
 	//ligneResultat v;
 	//v.first=vector<string> (2,"Abracadabra343Vercingetorix");
 	//v.second=vector<reel>(13, 83.6);
@@ -564,7 +563,7 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 	reel scoreCourant;
 	time_t temps_fin_prep(time(NULL));
 	cout << "Temps initialisation: " << difftime(temps_fin_prep, temps_start) << endl;
-	for (int i(0); i<=dimensionMax; ++i)
+	for (int i(0); i <= dimensionMax; ++i)
 	{
 		time_t temps_debut_lecture(time(NULL));
 
@@ -575,40 +574,40 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		resultats.clear();
 		//tableRes.clear();
 		time_t t1(time(NULL));
-		resultats.reserve(pow(10.0,7));
+		resultats.reserve(pow(10.0, 7));
 		//tableRes.reserve(pow(10.0,7));
 		time_t t2(time(NULL));
-		cout << "Temps reserve : " << difftime(t2, t1)<< endl;
-		nombreRes=0;
+		cout << "Temps reserve : " << difftime(t2, t1) << endl;
+		nombreRes = 0;
 
-		int tailleNom(i+1);
+		int tailleNom(i + 1);
 
 
 		// Cas où il n'y a qu'un seul fichier
-		if (nbBlocs==1)
+		if (nbBlocs == 1)
 		{
 			// Le vecteur a déjà la bonne taille
-			nomsFichiers[0]=(chemin+nomFichierMarq.first+ParametresCluster::suffixeResPartiel+ossDim.str()+nomFichierMarq.second);
+			nomsFichiers[0] = (chemin + nomFichierMarq.first + ParametresCluster::suffixeResPartiel + ossDim.str() + nomFichierMarq.second);
 			cout << nomsFichiers[0] << endl;
 		}
 		else
 		{
 
-			for(int j(0); j<nbBlocs; ++j)
+			for (int j(0); j < nbBlocs; ++j)
 			{
 				oss.str("");
 				oss.clear();
 				oss << j;
 				ossNumPremierMarq.str("");
 				ossNumPremierMarq.clear();
-				ossNumPremierMarq << j*tailleBlocs;
-				nomsFichiers[j]=(chemin+nomFichierMarq.first+ParametresCluster::suffixeMarq+oss.str()+"-"+ossNumPremierMarq.str()+ParametresCluster::suffixeResPartiel+ossDim.str()+nomFichierMarq.second);
+				ossNumPremierMarq << j * tailleBlocs;
+				nomsFichiers[j] = (chemin + nomFichierMarq.first + ParametresCluster::suffixeMarq + oss.str() + "-" + ossNumPremierMarq.str() + ParametresCluster::suffixeResPartiel + ossDim.str() + nomFichierMarq.second);
 			}
 
 		}
 
 		// Il faut vérifier le type de fin de ligne
-		if (i==0)
+		if (i == 0)
 		{
 			string tempRetourLigne("");
 			ifstream monfichier(nomsFichiers[0].c_str());
@@ -629,22 +628,22 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 
 		entree.initialise(nomsFichiers);
 		bool etatFlot(true);
-		etatFlot=entree.ouverture();
+		etatFlot = entree.ouverture();
 		if (!etatFlot)
 		{
-			throw Erreur("Problème lors de l'ouverture des fichiers pour la dimension "+ossDim.str()+".");
+			throw Erreur("Problème lors de l'ouverture des fichiers pour la dimension " + ossDim.str() + ".");
 		}
-		for (int j(0); j<nbBlocs; ++j)
+		for (int j(0); j < nbBlocs; ++j)
 		{
 
 
 			entree.lecture(j, entete, delimMots);
 
 			// Pour chaque ligne, il faut lire le nom et les valeurs du modèle séparément
-			if (i==0)
+			if (i == 0)
 			{
 				// On prend tous les modèles neutres.
-				while(!entree.finFichier(j))
+				while (!entree.finFichier(j))
 				{
 					entree.lectureGroupe(j, resCourant.etiquette, tailleNom, delimMots);
 					entree.lecture(j, resCourant.valeurs, delimMots);
@@ -657,31 +656,30 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 			}
 			else
 			{
-				while(!entree.finFichier(j))
+				while (!entree.finFichier(j))
 				{
 					entree.lectureGroupe(j, resCourant.etiquette, tailleNom, delimMots);
-					entree.lecture(j, resCourant.valeurs,delimMots);
-					codeErreur=toolbox::conversion<int>(resCourant.valeurs[numErreur]);
+					entree.lecture(j, resCourant.valeurs, delimMots);
+					codeErreur = toolbox::conversion<int>(resCourant.valeurs[numErreur]);
 
 					//On ne garde que les modèles sans erreurs
-					if (codeErreur==0 || codeErreur==6 || codeErreur==7)
+					if (codeErreur == 0 || codeErreur == 6 || codeErreur == 7)
 					{
-						if (scoreSel==Both)
+						if (scoreSel == Both)
 						{
-							scoreCourant=min(toolbox::conversion<reel>(resCourant.valeurs[numColonnes[G]]), toolbox::conversion<reel>(resCourant.valeurs[numColonnes[Wald]]));
+							scoreCourant = min(toolbox::conversion<reel>(resCourant.valeurs[numColonnes[G]]), toolbox::conversion<reel>(resCourant.valeurs[numColonnes[Wald]]));
 						}
 						else
 						{
 							//cout << numColonnes[G] << " " << resCourant.second.size() << endl;
-							scoreCourant=toolbox::conversion<reel>(resCourant.valeurs[numSel]);
+							scoreCourant = toolbox::conversion<reel>(resCourant.valeurs[numSel]);
 						}
 
 
-
-						if (!seuilSelection ||  scoreCourant>=seuilScore)
+						if (!seuilSelection || scoreCourant >= seuilScore)
 						{
-							resCourant.scoreSel=scoreCourant;
-							resCourant.scoreTri=toolbox::conversion<reel>(resCourant.valeurs[numTri]);
+							resCourant.scoreSel = scoreCourant;
+							resCourant.scoreTri = toolbox::conversion<reel>(resCourant.valeurs[numTri]);
 							resultats.push_back(resCourant);
 							//indiceCourant.first=nombreRes;
 							//indiceCourant.second=scoreCourant;
@@ -691,15 +689,15 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 					}
 
 				}
-				cout << "% "<<resultats.size() << endl;
+				cout << "% " << resultats.size() << endl;
 			}
 		}
 		time_t temps_fin_lecture(time(NULL));
 		cout << "Temps lecture (dim " << i << "):" << difftime(temps_fin_lecture, temps_debut_lecture) << endl;
-		if (i>0)
+		if (i > 0)
 		{
 			//ComparaisonLignesResultats::setCase(2);
-			if (scoreTri== G || scoreTri==Wald)
+			if (scoreTri == G || scoreTri == Wald)
 			{
 				sort(resultats.begin(), resultats.end(), ComparaisonModeles::plusGrandQue);
 			}
@@ -712,12 +710,12 @@ int Supervision::fusionResultats(int argc, char* argv[]) throw()
 		}
 
 		time_t temps_fin_tri(time(NULL));
-		cout << "Temps tri (dim " << i << "):" << difftime(temps_fin_tri,temps_fin_lecture) << endl;
+		cout << "Temps tri (dim " << i << "):" << difftime(temps_fin_tri, temps_fin_lecture) << endl;
 
 
 		int nbRes(resultats.size());
 		sortie.ecriture(i, entete, true);
-		for (int k(0); k<nbRes; ++k)
+		for (int k(0); k < nbRes; ++k)
 		{
 			sortie.ecriture(i, resultats[k].etiquette, false);
 			sortie.ecriture(i, resultats[k].valeurs, true);
@@ -804,14 +802,14 @@ ComparaisonModeles::ComparaisonModeles()
 ComparaisonModeles::~ComparaisonModeles()
 {}
 
-bool ComparaisonModeles::plusPetitQue(const Modele  &  r1, const Modele  &  r2)
+bool ComparaisonModeles::plusPetitQue(const Modele& r1, const Modele& r2)
 {
-	return ((r1.scoreTri)<(r2.scoreTri));
+	return ((r1.scoreTri) < (r2.scoreTri));
 }
 
-bool ComparaisonModeles::plusGrandQue(const Modele  &  r1, const Modele  &  r2)
+bool ComparaisonModeles::plusGrandQue(const Modele& r1, const Modele& r2)
 {
-	return ((r1.scoreTri)>(r2.scoreTri));
+	return ((r1.scoreTri) > (r2.scoreTri));
 }
 
 

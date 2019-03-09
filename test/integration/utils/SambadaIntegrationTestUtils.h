@@ -2,6 +2,8 @@
 #define SAMBADA_SAMBADAINTEGRATIONTESTUTILS_H
 
 #include "SambadaRegressionResults.h"
+#include "SambadaSpatialAutocorrelationResults.h"
+#include "SambadaStoreyHistogram.h"
 #include <string>
 
 class SambadaIntegrationTestUtils {
@@ -10,7 +12,9 @@ public:
     static std::string runCommand(const std::string &commandLine);
     static std::string getTopSourceDirectory();
     static SambadaRegressionResults readRegressionResults(std::ifstream& lecteur, bool hasHeader, int dimension);
-    static void copyFileAndUpdatePermissions(const std::string& inputFile, const std::string& outputFile);
+	static SambadaSpatialAutocorrelationResults readSpatialAutocorrelationResults(std::ifstream& lecteur, int nombreVariables);
+    static SambadaStoreyHistogram readStoreyHistogram(std::ifstream& lecteur);
+	static void copyFileAndUpdatePermissions(const std::string& inputFile, const std::string& outputFile);
     static bool doesFileExist(const std::string& filename);
     static bool doesAnyFileExist(const std::vector<std::string>& filenames);
     static void removeFiles(const std::vector<std::string>& filenames);

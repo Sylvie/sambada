@@ -1,5 +1,5 @@
 /*************************************************************************
-* Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+* Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
 * Laboratory of Geographic information systems (LaSIG)
 *
 * This file is part of Sambada.
@@ -32,7 +32,7 @@
 using namespace std;
 
 Archiviste::Archiviste()
-:nbFichiers(0), nomsFichiers(0), fichiers(0), signeRetourLigne("\n"), delimMots(' ')
+		: nbFichiers(0), nomsFichiers(0), fichiers(0), signeRetourLigne("\n"), delimMots(' ')
 {
 }
 
@@ -56,46 +56,47 @@ Archiviste::Archiviste(const Archiviste&)
 
 void Archiviste::initialise(const vector<string>& noms)
 {
-	nbFichiers=noms.size();
-	nomsFichiers=noms;
+	nbFichiers = noms.size();
+	nomsFichiers = noms;
 
 }
 
 
 void Archiviste::fermeture()
 {
-	if(enService)
+	if (enService)
 	{
-	for (int i(0); i<nbFichiers; ++i)
-	{
-		if (fichiers[i]->is_open())
+		for (int i(0); i < nbFichiers; ++i)
 		{
-			fichiers[i]->close();
-			delete fichiers[i];
+			if (fichiers[i]->is_open())
+			{
+				fichiers[i]->close();
+				delete fichiers[i];
+			}
 		}
 	}
-	}
-	enService=false;
+	enService = false;
 }
 
 void Archiviste::precision(int p)
 {
 	if (enService)
 	{
-	for (int i(0); i<nbFichiers; ++i)
-	{
-		fichiers[i]->precision(p);
-	}
+		for (int i(0); i < nbFichiers; ++i)
+		{
+			fichiers[i]->precision(p);
+		}
 	}
 }
 
 int Archiviste::precision() const
 {
-	if (nbFichiers>0)
+	if (nbFichiers > 0)
 	{
 		return fichiers[0]->precision();
 	}
-	else {
+	else
+	{
 		return 0;
 	}
 
@@ -110,7 +111,7 @@ string Archiviste::getRetourLigne() const
 
 void Archiviste::setRetourLigne(const string& s)
 {
-	signeRetourLigne=s;
+	signeRetourLigne = s;
 }
 
 char Archiviste::getDelimMots() const
@@ -121,13 +122,12 @@ char Archiviste::getDelimMots() const
 
 void Archiviste::setDelimMots(const char c)
 {
-	delimMots=c;
+	delimMots = c;
 }
 
 
-
 Scribe::Scribe()
-:Archiviste()
+		: Archiviste()
 {
 }
 
@@ -136,15 +136,14 @@ Scribe::~Scribe()
 }
 
 
-
 bool Scribe::ouverture()
 {
 	int precisionRes(22);
 	fichiers.resize(nbFichiers);
-	for (int i(0); i<nbFichiers; ++i)
+	for (int i(0); i < nbFichiers; ++i)
 	{
 		//cerr << "*" << fichiers[i] << endl;
-		fichiers[i]=new fstream(nomsFichiers[i].c_str(), ios::out);
+		fichiers[i] = new fstream(nomsFichiers[i].c_str(), ios::out);
 		fichiers[i]->precision(precisionRes);
 
 		if (fichiers[i]->fail())
@@ -154,12 +153,12 @@ bool Scribe::ouverture()
 		}
 
 	}
-	enService=true;
+	enService = true;
 	return true;
 }
 
 Lecteur::Lecteur()
-:Archiviste()
+		: Archiviste()
 {
 }
 
@@ -167,9 +166,9 @@ Lecteur::Lecteur()
 bool Lecteur::ouverture()
 {
 	fichiers.resize(nbFichiers);
-	for (int i(0); i<nbFichiers; ++i)
+	for (int i(0); i < nbFichiers; ++i)
 	{
-		fichiers[i]=new fstream(nomsFichiers[i].c_str(), ios::in);
+		fichiers[i] = new fstream(nomsFichiers[i].c_str(), ios::in);
 
 		if (fichiers[i]->fail())
 		{
@@ -179,7 +178,7 @@ bool Lecteur::ouverture()
 		}
 
 	}
-	enService=true;
+	enService = true;
 	return true;
 }
 
@@ -189,6 +188,6 @@ Lecteur::~Lecteur()
 
 bool Lecteur::finFichier(int numFichier)
 {
-	*fichiers[numFichier]>>ws;
-	return(fichiers[numFichier]->eof());
+	*fichiers[numFichier] >> ws;
+	return (fichiers[numFichier]->eof());
 }

@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -43,16 +43,16 @@ typedef struct
 	reel scoreSel;
 	reel scoreTri;
 }
-Modele;
+		Modele;
 
-typedef vector< Modele > ListeModeles;
+typedef vector<Modele> ListeModeles;
 
-typedef enum {G, Wald, AIC, BIC, Both} typeScore;
+typedef enum { G, Wald, AIC, BIC, Both } typeScore;
 
 
 namespace ParametresCluster {
 
-	typedef enum {Windows, Unix} TypeFichier;
+	typedef enum { Windows, Unix } TypeFichier;
 
 	// Architecture
 	const string Intel("INTEL");
@@ -84,7 +84,6 @@ namespace ParametresCluster {
 }
 
 
-
 class Supervision
 {
 public:
@@ -94,7 +93,7 @@ public:
 
 	int preparationsCalculs(const string& nomFichierParam);
 
-	int fusionResultats(int argc, char* argv[]) throw();
+	int fusionResultats(int argc, char *argv[]) throw();
 
 protected:
 
@@ -155,21 +154,21 @@ class ComparaisonModeles
 {
 public:
 	ComparaisonModeles();
+
 	virtual ~ComparaisonModeles();
 
 	//static int getCase();
 	//static void setCase(int i);
 
-	static bool plusPetitQue(const Modele  &  r1, const Modele  &  r2);
+	static bool plusPetitQue(const Modele& r1, const Modele& r2);
 
-	static bool plusGrandQue(const Modele  &  r1, const Modele  &  r2);
+	static bool plusGrandQue(const Modele& r1, const Modele& r2);
 
 protected:
 	//static int caseComparaisonResultats;
 
 	ComparaisonModeles(ComparaisonModeles& c);
 };
-
 
 
 #endif // SUPERVISION_H

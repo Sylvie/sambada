@@ -1,5 +1,5 @@
 /*************************************************************************
-* Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+* Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
 * Laboratory of Geographic information systems (LaSIG)
 *
 * This file is part of Sambada.
@@ -40,23 +40,28 @@ using namespace std;
 
 class Archiviste
 {
-	public :
+public :
 	Archiviste();
+
 	virtual ~Archiviste();
 
 	virtual void initialise(const vector<string>& noms);
-	virtual bool ouverture()=0;
+
+	virtual bool ouverture() = 0;
 
 
 	virtual void fermeture();
 
 	virtual void precision(int p);
+
 	virtual int precision() const;
 
 	virtual string getRetourLigne() const;
+
 	virtual void setRetourLigne(const string& s);
 
 	virtual char getDelimMots() const;
+
 	virtual void setDelimMots(const char c);
 
 protected:
@@ -65,7 +70,7 @@ protected:
 	int nbFichiers;
 	bool enService;
 	vector<string> nomsFichiers;
-	vector<fstream*> fichiers;
+	vector<fstream *> fichiers;
 
 	string signeRetourLigne;
 	char delimMots;
@@ -73,23 +78,24 @@ protected:
 
 class Scribe : public Archiviste
 {
-	public :
+public :
 	Scribe();
+
 	virtual ~Scribe();
 
 	virtual bool ouverture();
 
-	template <typename T>
-	bool ecriture(int numFichier, T element, bool retourLigne=false) const;
+	template<typename T>
+	bool ecriture(int numFichier, T element, bool retourLigne = false) const;
 
-	template <class T>
-	bool ecriture(int numFichier, const vector<T>& ligne, bool retourLigne=false) const;
+	template<class T>
+	bool ecriture(int numFichier, const vector<T>& ligne, bool retourLigne = false) const;
 
-	template <class T>
-	bool ecriture(int numFichier, const set<T>& ligne, bool retourLigne=false) const;
+	template<class T>
+	bool ecriture(int numFichier, const set<T>& ligne, bool retourLigne = false) const;
 
-	template <typename T>
-	bool ecriture(int numFichier, const vector< vector< T > >& document) const;
+	template<typename T>
+	bool ecriture(int numFichier, const vector<vector<T> >& document) const;
 
 
 
@@ -101,13 +107,13 @@ protected:
 	Scribe(const Scribe&);
 
 
-
 };
 
 class Lecteur : public Archiviste
 {
-	public :
+public :
 	Lecteur();
+
 	virtual ~Lecteur();
 
 	virtual bool ouverture();
@@ -115,18 +121,18 @@ class Lecteur : public Archiviste
 	// Lecture d'une ligne jusqu'au caractère de fin
 
 	// Retourne TRUE si tous les éléments ont pu être lus
-	template <class T>
-	bool lecture(int numFichier, vector<T>& ligne, char delimMots=' ') const;
+	template<class T>
+	bool lecture(int numFichier, vector<T>& ligne, char delimMots = ' ') const;
 
 	// Retourne TRUE si tous les éléments ont pu être lus
-	template <class T>
-	bool lecture(int numFichier, vector< vector<T> >& document, int nbLignes=-1, bool ajout=false, char delimMots=' ') const;
+	template<class T>
+	bool lecture(int numFichier, vector<vector<T> >& document, int nbLignes = -1, bool ajout = false, char delimMots = ' ') const;
 
 	// Lecture d'un groupe de mots
 
 	// Retourne TRUE si tous les éléments ont pu être lus
-	template <class T>
-	bool lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char delimMots=' ') const;
+	template<class T>
+	bool lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char delimMots = ' ') const;
 
 	bool finFichier(int numFichier);
 
@@ -140,11 +146,10 @@ protected:
 };
 
 
-
-template <typename T>
+template<typename T>
 bool Scribe::ecriture(int numFichier, T element, bool retourLigne) const
 {
-	if (numFichier<0 || numFichier>=nbFichiers)
+	if (numFichier < 0 || numFichier >= nbFichiers)
 	{
 		return false;
 	}
@@ -162,17 +167,17 @@ bool Scribe::ecriture(int numFichier, T element, bool retourLigne) const
 }
 
 
-template <class T>
+template<class T>
 bool Scribe::ecriture(int numFichier, const vector<T>& ligne, bool retourLigne) const
 {
-	if (numFichier<0 || numFichier>=nbFichiers)
+	if (numFichier < 0 || numFichier >= nbFichiers)
 	{
 		return false;
 	}
 	else
 	{
 		int taille(ligne.size());
-		for (int i(0); i<taille; ++i)
+		for (int i(0); i < taille; ++i)
 		{
 			*(fichiers[numFichier]) << ligne[i] << delimMots;
 		}
@@ -185,16 +190,16 @@ bool Scribe::ecriture(int numFichier, const vector<T>& ligne, bool retourLigne) 
 
 }
 
-template <class T>
-bool Scribe::ecriture(int numFichier, const set< T >& ligne, bool retourLigne) const
+template<class T>
+bool Scribe::ecriture(int numFichier, const set<T>& ligne, bool retourLigne) const
 {
-	if (numFichier<0 || numFichier>=nbFichiers)
+	if (numFichier < 0 || numFichier >= nbFichiers)
 	{
 		return false;
 	}
 	else
 	{
-		for (typename set< T >::iterator i(ligne.begin()); i!=ligne.end(); ++i)
+		for (typename set<T>::iterator i(ligne.begin()); i != ligne.end(); ++i)
 		{
 			*(fichiers[numFichier]) << *i << delimMots;
 		}
@@ -207,20 +212,20 @@ bool Scribe::ecriture(int numFichier, const set< T >& ligne, bool retourLigne) c
 
 }
 
-template <typename T>
-bool Scribe::ecriture(int numFichier, const vector< vector< T > >& document) const
+template<typename T>
+bool Scribe::ecriture(int numFichier, const vector<vector<T> >& document) const
 {
-	if (numFichier<0 || numFichier>=nbFichiers)
+	if (numFichier < 0 || numFichier >= nbFichiers)
 	{
 		return false;
 	}
 	else
 	{
 		int nbLignes(document.size()), nbMots(0);
-		for (int i(0); i<nbLignes; ++i)
+		for (int i(0); i < nbLignes; ++i)
 		{
-			nbMots=document[i].size();
-			for (int j(0); j<nbMots; ++j)
+			nbMots = document[i].size();
+			for (int j(0); j < nbMots; ++j)
 			{
 
 				*(fichiers[numFichier]) << document[i][j] << delimMots;
@@ -233,7 +238,9 @@ bool Scribe::ecriture(int numFichier, const vector< vector< T > >& document) con
 
 }
 
-// Retourne TRUE si tous les éléments ont pu être lus
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
 template <class T>
 bool Lecteur::lecture(int numFichier, vector<T>& ligne, char delimMots) const
 {
@@ -242,19 +249,21 @@ bool Lecteur::lecture(int numFichier, vector<T>& ligne, char delimMots) const
 	ligne.clear();
 	bool testEchec;
 	T valeur(0);
-	for (vector<string>::iterator i(ligneBrute.begin()); i!=ligneBrute.end(); ++i)
+	for (vector<string>::iterator i(ligneBrute.begin()); i != ligneBrute.end(); ++i)
 	{
-		valeur=toolbox::conversion<T>(*i, testEchec);
+		valeur = toolbox::conversion<T>(*i, testEchec);
 		//cout << valeur << endl;
 		if (!testEchec)
 		{
 			ligne.push_back(valeur);
 		}
 	}
-	return ((ligne.size())==ligneBrute.size());
+	return ((ligne.size()) == ligneBrute.size());
 }
 
-// Spécialisation pour lire une ligne de texte
+/**
+ * Spécialisation pour lire une ligne de texte
+ */
 template <>
 inline
 bool Lecteur::lecture<string>(int numFichier, vector<string>& ligne, char delimMots) const
@@ -264,8 +273,9 @@ bool Lecteur::lecture<string>(int numFichier, vector<string>& ligne, char delimM
 	return true;
 }
 
-
-// Retourne TRUE si tous les éléments ont pu être lus
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
 template <class T>
 bool Lecteur::lecture(int numFichier, vector< vector< T > >& document, int nbLignes, bool ajout, char delimMots) const
 {
@@ -276,24 +286,26 @@ bool Lecteur::lecture(int numFichier, vector< vector< T > >& document, int nbLig
 	}
 	vector<T> ligne;
 	bool validation(true);
-	while (!fichiers[numFichier]->eof() && (nbLignes==-1 || nbLignesLues<nbLignes))
+	while (!fichiers[numFichier]->eof() && (nbLignes == -1 || nbLignesLues < nbLignes))
 	{
 		//document.push_back();
 		cout << "    " << nbLignesLues << " " << fichiers[numFichier]->eof() << endl;
-		validation=validation && lecture(numFichier, ligne, delimMots);
+		validation = validation && lecture(numFichier, ligne, delimMots);
 		document.push_back(ligne);
 		++nbLignesLues;
 	}
-    return validation;
+	return validation;
 }
 
-// Retourne TRUE si tous les éléments ont pu être lus
+/**
+ * @return TRUE si tous les éléments ont pu être lus
+ */
 template <class T>
 bool Lecteur::lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char delimMots) const
 {
 	vector<string> groupeBrut;
 	string mot("");
-	for (int i(0); (!fichiers[numFichier]->eof()) && i<nombre; ++i)
+	for (int i(0); (!fichiers[numFichier]->eof()) && i < nombre; ++i)
 	{
 		toolbox::lectureMot(*fichiers[numFichier], mot, delimMots);
 		groupeBrut.push_back(mot);
@@ -302,26 +314,28 @@ bool Lecteur::lectureGroupe(int numFichier, vector<T>& groupe, int nombre, char 
 	groupe.clear();
 	bool testEchec;
 	T valeur(0);
-	for (vector<string>::iterator i(groupeBrut.begin()); i!=groupeBrut.end(); ++i)
+	for (vector<string>::iterator i(groupeBrut.begin()); i != groupeBrut.end(); ++i)
 	{
-		valeur=toolbox::conversion<T>(*i, testEchec);
-		cout << valeur << endl;
+		valeur = toolbox::conversion<T>(*i, testEchec);
+		//cout << valeur << endl;
 		if (!testEchec)
 		{
 			groupe.push_back(valeur);
 		}
 	}
-	return ((groupe.size())==groupeBrut.size());
+	return ((groupe.size()) == groupeBrut.size());
 }
 
-// Spécialisation pour lire une ligne de texte
+/**
+ * Spécialisation pour lire une ligne de texte
+ */
 template <>
 inline
 bool Lecteur::lectureGroupe<string>(int numFichier, vector<string>& groupe, int nombre, char delimMots) const
 {
 	groupe.clear();
 	string mot("");
-	for (int i(0); (!fichiers[numFichier]->eof()) && i<nombre; ++i)
+	for (int i(0); (!fichiers[numFichier]->eof()) && i < nombre; ++i)
 	{
 		toolbox::lectureMot(*fichiers[numFichier], mot, delimMots);
 		groupe.push_back(mot);

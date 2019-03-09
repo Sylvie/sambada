@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
 	time_t temps_fin_calculs(time(NULL));
 	logitModel.ecritMessage("End of computation.");
-	logitModel.ecritMessage("Elapsed time : " +  toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
+	logitModel.ecritMessage("Elapsed time : " + toolbox::toString(difftime(temps_fin_calculs, temps_interm)) + " s.");
 
 	//logitModel.ecritResultats("ResultatsRegression.txt");
 

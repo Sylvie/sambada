@@ -1,0 +1,10 @@
+HEADERS YES
+WORDDELIM " "
+NUMVARENV 28
+NUMMARK 31
+NUMINDIV 804
+IDINDIV short_name ID_indiv
+SUBSETVARENV "longitude" "latitude" "prec7" "bio3" "tmax10" "pop1" "pop2"
+DIMMAX 3
+OUTPUTFILE "test/integration/sambada/modelSelectionSavetypeBestIntTests/cattle-pop-mark.txt"
+SAVETYPE END ALL

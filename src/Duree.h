@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -33,12 +33,14 @@
 struct PrecisionDuree
 {
 	int jours, heures, minutes, secondes;
+
 	PrecisionDuree(int j, int h, int m, int s);
 };
 
 struct ChablonDuree
 {
 	bool zappeJours, zappeSecondes;
+
 	ChablonDuree(bool zJours, bool zSecondes);
 };
 
@@ -46,16 +48,21 @@ class Duree
 {
 public:
 	Duree(int nbSec);
+
 	Duree(int j, int h, int m, int s);
-	Duree(const Duree &d);
+
+	Duree(const Duree& d);
+
 	virtual ~Duree();
 
 	static int calculeLargeur(const PrecisionDuree& prec, const ChablonDuree& chablon);
 
-	Journal& affiche(Journal & j, const ChablonDuree& chablon=ChablonDuree(false,false)) const;
-	Journal& affiche(Journal & j, const PrecisionDuree& precision, const ChablonDuree& chablon=ChablonDuree(false,false)) const;
+	Journal& affiche(Journal& j, const ChablonDuree& chablon = ChablonDuree(false, false)) const;
+
+	Journal& affiche(Journal& j, const PrecisionDuree& precision, const ChablonDuree& chablon = ChablonDuree(false, false)) const;
 
 	bool plusLongueOuEgale(const Duree& d) const;
+
 	bool plusCourte(const Duree& d) const;
 
 	int calculeTailleAffichageJours() const;
@@ -71,8 +78,10 @@ Journal& operator<<(Journal& j, const Duree& d);
 class DureeFormatee
 {
 public:
-	DureeFormatee(const Duree& d, const PrecisionDuree& p, const ChablonDuree& c=ChablonDuree(false, false));
+	DureeFormatee(const Duree& d, const PrecisionDuree& p, const ChablonDuree& c = ChablonDuree(false, false));
+
 	virtual ~DureeFormatee();
+
 	DureeFormatee(const DureeFormatee& d);
 
 	Journal& affiche(Journal& j) const;

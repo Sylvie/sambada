@@ -14,11 +14,16 @@ test_integration_SambadaIntegrationTests_LDADD = \
 		-lstdc++fs
 
 include test/integration/sambada/basicPopulationStructureIntTests/Makefile.mk
+include test/integration/sambada/basicSpatialAutocorrelationIntTests/Makefile.mk
+include test/integration/sambada/modelSelectionSavetypeBestIntTests/Makefile.mk
 include test/integration/sambada/noExtensionsToFilenamesIntTests/Makefile.mk
 include test/integration/sambada/noNewLinesEndOfFilesIntTests/Makefile.mk
 include test/integration/sambada/regressionResultsIntTests/Makefile.mk
 include test/integration/sambada/resultFilesLocationIntTests/Makefile.mk
 include test/integration/sambada/splitInputFilesIntTests/Makefile.mk
+include test/integration/sambada/spatialAutocorrelationResultsIntTests/Makefile.mk
+include test/integration/sambada/storeyHistogramsIntTests/Makefile.mk
+include test/integration/sambada/storeyHistogramsScoreThresholdIntTests/Makefile.mk
 include test/integration/sambada/wrongNumberOfIndividualsIntTests/Makefile.mk
 
 ## Listing tests ##
@@ -28,4 +33,4 @@ check-local-test-integration-sambada: ${sambada_integration_tests}
 
 ## Cleaning ##
 clean-local-test-integration-sambada:
-	$(call clean_extra_generated_files, test/integration/sambada/**/)
+	$(call clean_extra_generated_files, test/integration/sambada/)

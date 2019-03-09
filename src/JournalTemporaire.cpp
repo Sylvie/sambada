@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -28,7 +28,7 @@
 #include "JournalTemporaire.h"
 
 JournalTemporaire::JournalTemporaire()
-: deque<string>(), oss(NULL)
+		: deque<string>(), oss(NULL)
 {
 }
 
@@ -44,42 +44,42 @@ JournalTemporaire::~JournalTemporaire()
 
 JournalTemporaire& JournalTemporaire::operator<<(JournalTemporaire& (*pf)(JournalTemporaire&))
 {
-    return pf(*this);
+	return pf(*this);
 }
 
 JournalTemporaire& JournalTemporaire::operator<<(ostream& (*pf)(ostream&))
 {
-	if (oss==NULL)
+	if (oss == NULL)
 	{
 		oss = new ostringstream;
 	}
-    pf(*oss);
-    return *this;
+	pf(*oss);
+	return *this;
 }
 
 JournalTemporaire& JournalTemporaire::retourLigne()
 {
-	if (oss!=NULL)
+	if (oss != NULL)
 	{
 		this->push(oss->str());
 		delete oss;
 		oss = NULL;
 	}
-    return *this;
+	return *this;
 }
 
 JournalTemporaire& JournalTemporaire::synchronise()
 {
-    if( oss!=NULL && !(oss->str().empty()) );
-    {
-        retourLigne();
-    }
+	if (oss != NULL && !(oss->str().empty()))
+	{
+		retourLigne();
+	}
 	return *this;
 }
 
 void JournalTemporaire::push(const string& s)
 {
-    deque<string>::push_back(s);
+	deque<string>::push_back(s);
 }
 
 /*JournalTemporaire& JournalTemporaire::flush(JournalTemporaire &jt)
@@ -89,22 +89,22 @@ void JournalTemporaire::push(const string& s)
 }*/
 
 
-JournalTemporaire& nl (JournalTemporaire& jt)
+JournalTemporaire& nl(JournalTemporaire& jt)
 {
-    jt.retourLigne();
-    return jt;
+	jt.retourLigne();
+	return jt;
 }
 
-JournalTemporaire& endl (JournalTemporaire& jt)
+JournalTemporaire& endl(JournalTemporaire& jt)
 {
-    jt << nl;
-    return jt;
+	jt << nl;
+	return jt;
 }
 
-JournalTemporaire& flush (JournalTemporaire& jt)
+JournalTemporaire& flush(JournalTemporaire& jt)
 {
-    jt.synchronise();
-    return jt;
+	jt.synchronise();
+	return jt;
 }
 
 JournalTemporaire::JournalTemporaire(const JournalTemporaire& jt)

@@ -35,6 +35,8 @@ SCENARIO("Test that wrong number of individuals in molecular data is detected du
         std::string fileNameMarkTooFewIndividualsNoNewLine(
                 pathToInputFolder + "choice-mark-cattle-too-few-individuals-no-newline-eof.txt");
 
+        CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist({fileNameLogs}));
+
         WHEN("Sambada is run using the molecular file with too many individuals")
         {
             std::string output = SambadaIntegrationTestUtils::runCommand(

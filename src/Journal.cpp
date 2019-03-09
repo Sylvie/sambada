@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2018 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2019 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -30,7 +30,7 @@
 using namespace std;
 
 Journal::Journal()
-: flotEnPause(true)
+		: flotEnPause(true)
 {}
 
 Journal::~Journal()
@@ -43,7 +43,7 @@ Journal::~Journal()
 
 void Journal::metFlotEnPause()
 {
-	flotEnPause=true;
+	flotEnPause = true;
 }
 
 bool Journal::sortDeLaPause()
@@ -53,13 +53,13 @@ bool Journal::sortDeLaPause()
 		//cerr << "Opening file" << endl;
 		flux.ouvertureFichier();
 	}
-	bool fonctionne( (flux.getActiviteFichier()&&flux.testeValiditeFichier()) || flux.getActiviteTerminal());
+	bool fonctionne((flux.getActiviteFichier() && flux.testeValiditeFichier()) || flux.getActiviteTerminal());
 	if (fonctionne)
 	{
 		flux << temp;
 		flux << flush;
 		//cerr<< "Fin" << endl;
-		flotEnPause=false;
+		flotEnPause = false;
 		return true;
 	}
 	else
@@ -135,7 +135,7 @@ void Journal::setActivites(bool term, bool fichier)
 
 void Journal::erreurDetectee()
 {
-	if(!flotEnPause)
+	if (!flotEnPause)
 	{
 		flux.erreurDetectee();
 	}
@@ -157,10 +157,10 @@ Journal& Journal::synchronise()
 bool Journal::estFonctionnel()
 {
 	bool fichierActif(flux.getActiviteFichier()),
-		fichierValide(flux.testeValiditeFichier()),
-		terminalActif(flux.getActiviteTerminal());
-	bool fichierOK(!fichierActif || ( fichierActif && fichierValide ) );
-	return ( (terminalActif && fichierOK) || (!terminalActif && fichierActif && fichierValide) );
+			fichierValide(flux.testeValiditeFichier()),
+			terminalActif(flux.getActiviteTerminal());
+	bool fichierOK(!fichierActif || (fichierActif && fichierValide));
+	return ((terminalActif && fichierOK) || (!terminalActif && fichierActif && fichierValide));
 }
 
 Journal& Journal::retourLigne()
@@ -178,7 +178,7 @@ Journal& Journal::retourLigne()
 
 Journal& Journal::nouvMot()
 {
-	if(!flotEnPause)
+	if (!flotEnPause)
 	{
 		flux.nouvMot();
 	}
@@ -214,18 +214,18 @@ Journal& Journal::operator<<(ostream& (*pf)(ostream&))
 Journal& nm(Journal& j)
 {
 	j.nouvMot();
-    return j;
+	return j;
 }
 
 
 Journal& nl(Journal& j)
 {
-    j.retourLigne();
-    return j;
+	j.retourLigne();
+	return j;
 }
 
 
-Journal& erreur (Journal& j)
+Journal& erreur(Journal& j)
 {
 	j.erreurDetectee();
 	return j;
@@ -234,8 +234,8 @@ Journal& erreur (Journal& j)
 void Journal::afficheJournalTemporaire()
 {
 	cout << "Journal temporaire:" << endl;
-	for (deque<string>::iterator i(temp.begin()); i!=temp.end(); ++i)
+	for (deque<string>::iterator i(temp.begin()); i != temp.end(); ++i)
 	{
-		cout << "(" << i-temp.begin() << ") " << *i << endl;
+		cout << "(" << i - temp.begin() << ") " << *i << endl;
 	}
 }
