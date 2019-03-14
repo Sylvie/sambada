@@ -46,7 +46,8 @@ analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistance
 eps(sqrt(epsilon < reel > ())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel)700,log(numeric_limits < reel >::max()/2))), nbModelesParMarqueur(1),
 limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsSansPseudos(4),
 tailleEtiquetteInvar(4), numPremierMarq(0),
-delimLignes("\n")
+delimLignes("\n"),
+AS_spatialLag(false)
 {}
 
 RegressionLogistique::~RegressionLogistique()
@@ -1690,8 +1691,10 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 		
 		t2=time(NULL);
 		cout << "Ecriture autocorrélation : " << t2-t1 << "s.\n";
-		
-		
+
+
+		if (AS_spatialLag)
+		{
 		// Ecriture de l'autocorrélation
 		sortieAS.open((nomFichierResultats.first+"-AS-Mark-deviations-spatial-lag"+nomFichierResultats.second).c_str());
 		if (sortieAS.fail())
@@ -1722,14 +1725,15 @@ int RegressionLogistique::calculeAutocorrelations() throw(Erreur)
 						// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs
 						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
 					}
-					for (int j(0); j<nbMarqActifs; ++j)
+					for (int j(0); j < nbMarqActifs; ++j)
 					{
 						sortieAS << tableDeviations(i, j) << " ";
 						sortieAS << tableSpatialLags(i, j) << " ";
 					}
 					sortieAS << delimLignes;
-					
+
 				}
+			}
 			
 			sortieAS.close();
 		}
