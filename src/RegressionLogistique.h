@@ -241,6 +241,7 @@ protected:
 	//MatriceBools masqueGeo, masqueGeoMarq, masqueGWR;
 	int nbPointsGeo; // Nombre de points avec des coordonnées valides (taille du masqueGeo)
 	bool AS_GWR, AS_autocorrGlobale, AS_autocorrLocale, AS_autocorrVarEnv, AS_autocorrMarq, AS_shapefile;
+	bool AS_spatialLag;
 	// Variables pour la régression locale (et le jackknife)
 	MatriceReels X_l, Y_l,
 			beta_hat_l, nouv_beta_hat_l, diff_beta_hat_l,
