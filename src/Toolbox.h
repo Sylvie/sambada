@@ -357,9 +357,9 @@ namespace toolbox {
 	void affiche(const vector< vector < pair<int, reel> > > v, int n=-1, int m=-1);
 	*/
 
+    string timestamp();
 
-
-	string timestamp();
+	reel notANumber();
 }
 
 class ComparaisonVecteurs

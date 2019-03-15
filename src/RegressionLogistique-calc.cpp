@@ -40,14 +40,16 @@ using namespace scythe;
 
 
 RegressionLogistique::RegressionLogistique()
-		: dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
-		  sauvegardeTempsReel(true), selModeles(all),
-		  analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
-		  eps(sqrt(epsilon<reel>())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel) 700, log(numeric_limits<reel>::max() / 2))), nbModelesParMarqueur(1),
-		  limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
-		  tailleEtiquetteInvar(4), numPremierMarq(0),
-		  delimLignes("\n")
-{}
+: dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
+sauvegardeTempsReel(true), selModeles(all),
+analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
+eps(sqrt(epsilon<reel>())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel) 700, log(numeric_limits<reel>::max() / 2))), nbModelesParMarqueur(1),
+limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
+tailleEtiquetteInvar(4), numPremierMarq(0),
+delimLignes("\n"),
+AS_spatialLag(false)
+{
+}
 
 RegressionLogistique::~RegressionLogistique()
 {}
@@ -495,7 +497,8 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 
 	MatriceReels deviations(nbPoints, 1), deviationsCourantes(nbPoints, 1), autocorrLocale, autocorrGlobale,
 			autocorrLocaleCourante, pValeurGlobale, pValeurLocale, historiqueAutocorrGlobale,
-			autocorrTemp, autocorrTempCourante;
+			autocorrTemp, autocorrTempCourante,
+			tableDeviations, tableSpatialLags;
 
 	// pointsAC : pondération-type où tous les points ayant des crd sont valides
 	Domaine pointsAC, pointsCourants;
@@ -1131,6 +1134,11 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 		pValeurLocale.resize(nbPoints, nbMarqActifs);
 		pValeurLocale = 0;
 
+		tableDeviations.resize(nbPoints, nbMarqActifs);
+		tableDeviations = toolbox::notANumber();
+		tableSpatialLags.resize(nbPoints, nbMarqActifs);
+		tableSpatialLags = toolbox::notANumber();
+
 		if (AS_autocorrGlobale)
 		{
 			autocorrGlobale.resize(1, nbMarqActifs);
@@ -1279,6 +1287,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 				if (pointsCourants.masque(k, 0))
 				{
 					deviations(k, 0) = dataMarq(k, i);
+
 					moyenne += dataMarq(k, i);
 					sommeCarresDeviations += dataMarq(k, i) * dataMarq(k, i);
 				}
@@ -1296,6 +1305,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 			for (int u(0); u < pointsCourants.taille; ++u)
 			{
 				deviations(pointsCourants.pointsValides[u]) -= moyenne;
+				tableDeviations(pointsCourants.pointsValides[u], i) = deviations(pointsCourants.pointsValides[u]);
 			}
 
 
@@ -1315,6 +1325,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 					valeurIntermediaire += pointsCourants.poids[pt1][k].second * deviations[pointsCourants.poids[pt1][k].first];
 				}
 				autocorrLocale(pt1, i) = valeurIntermediaire * deviations[pt1] * facteurEchelleLocal;
+				tableSpatialLags(pt1, i) = valeurIntermediaire;
 			}
 
 			// Ecritude des valeurs dans le DBF
@@ -1723,6 +1734,51 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 		t2 = time(NULL);
 		cout << "Ecriture autocorrélation : " << t2 - t1 << "s.\n";
 
+
+		if (AS_spatialLag)
+		{
+			// Ecriture de l'autocorrélation
+			sortieAS.open((nomFichierResultats.first + "-AS-Mark-deviations-spatial-lag" + nomFichierResultats.second).c_str());
+			if (sortieAS.fail())
+			{
+				throw Erreur("MSG_errOpenFileACEnv", "Error while opening file for deviations and spatial lag of genetic markers.");
+			}
+			else
+			{
+				// Headers
+				if (existeColID)
+				{
+					sortieAS << "ID ";
+				}
+				for (int j(0); j < nbMarqActifs; ++j)
+				{
+					sortieAS << specDataMarq[marqActifs.at(j)].name + "-dev" << " ";
+					sortieAS << specDataMarq[marqActifs.at(j)].name + "-lag" << " ";
+				}
+				sortieAS << delimLignes;
+
+
+				// Dev and spatial lag
+				for (int i(0); i < nbPoints; ++i)
+				{
+					if (existeColID)
+					{
+						// On lit les ID dans la liste des variables environnementales 
+						// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs
+						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+					}
+					for (int j(0); j < nbMarqActifs; ++j)
+					{
+						sortieAS << tableDeviations(i, j) << " ";
+						sortieAS << tableSpatialLags(i, j) << " ";
+					}
+					sortieAS << delimLignes;
+
+				}
+			}
+
+			sortieAS.close();
+		}
 	}
 
 
@@ -2568,7 +2624,7 @@ int RegressionLogistique::creeModelesGlobaux()
 						varContinues.insert(varCourante);
 
 						//if (dim < (dimensionMax - 2) || (structurePop == pasStructurePop) || (inclutToutesVariablesPop(varContinues)))
-						if(estModeleEligiblePourStructurePopulation(varContinues))
+						if (estModeleEligiblePourStructurePopulation(varContinues))
 						{
 							construitModele(i, varContinues);
 						}
@@ -2644,7 +2700,7 @@ int RegressionLogistique::creeModelesGlobaux()
 
 		}
 
-		if(structurePop != pasStructurePop)
+		if (structurePop != pasStructurePop)
 		{
 			sortieStorey << "GPop" << delimMots;
 			for (int i(0); i < storey.nbPvalStorey; ++i)
@@ -2721,10 +2777,11 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 			{
 				// Test storey
 				if (!appliqueSeuilScoreStorey ||
-				   (dim < dimensionMax && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)) ||
-				   dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
-				   dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
-				){
+				    (dim < dimensionMax && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)) ||
+				    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
+				    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+						)
+				{
 					ecritResultat(dim, resultat);
 				}
 
@@ -2891,10 +2948,10 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		{
 			// Test storey
 			if (!appliqueSeuilScoreStorey ||
-				(dim < dimensionMax && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)) ||
+			    (dim < dimensionMax && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)) ||
 			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
-				dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
-			)
+			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+					)
 			{
 				ecritResultat(dim, resultat);
 			}
@@ -2905,7 +2962,7 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		{
 			if (!appliqueSeuilScoreStorey ||
 			    (dim < dimensionMax) ||
-					dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
+			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
 			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
 					)
 			{
@@ -3126,7 +3183,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 
 		// Mise à jour du compteur pour la FDR
 
-		if (structurePop == pasStructurePop ||   resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
 		{
 			++storey.compteurG[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[Gscore]) - storey.seuilScore.begin())];
 		}
@@ -3162,7 +3219,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		}
 
 		// Mise à jour du compteur pour la FDR
-		if (structurePop == pasStructurePop ||   resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
 		{
 			++storey.compteurWald[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScore]) - storey.seuilScore.begin())];
 		}
@@ -3204,7 +3261,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			resultat.second[Gscore] = 0;
 		}
 		// Mise à jour du compteur pour la FDR
-		if (structurePop == pasStructurePop ||   resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
 		{
 			++storey.compteurGOrphelins[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[Gscore]) - storey.seuilScore.begin())];
 		}
@@ -3255,7 +3312,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		}
 
 		// Mise à jour du compteur pour la FDR
-		if (structurePop == pasStructurePop ||   resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
 		{
 			++storey.compteurWaldOrphelins[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScore]) - storey.seuilScore.begin())];
 		}
@@ -3960,7 +4017,7 @@ bool RegressionLogistique::estModeleEligiblePourStructurePopulation(set<int> var
 		return true;
 	}
 
-	int nombreVariablesPop = count_if(variables.begin(), variables.end(), [this](int i){return (this->variablesPop.find(i) != this->variablesPop.end());});
+	int nombreVariablesPop = count_if(variables.begin(), variables.end(), [this](int i) { return (this->variablesPop.find(i) != this->variablesPop.end()); });
 
 	if (dimension == dimensionMax - 1)
 	{
