@@ -60,11 +60,13 @@ add_executable(sambada
         src/JournalTemporaire.h
         src/mainSambada.cpp
         src/RegressionLogistique-calc.cpp
+        src/RegressionLogistique-as.cpp
         src/RegressionLogistique-io.cpp
         src/Supervision.cpp
         src/Supervision.h
         src/LecteurCheminAcces.cpp
-        src/LecteurCheminAcces.h)
+        src/LecteurCheminAcces.h
+        )
 
 target_link_libraries(sambada
         PRIVATE

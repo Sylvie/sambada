@@ -34,6 +34,7 @@ bin_PROGRAMS += $(sambada_binaries)
 binaries_sambada_SOURCES = src/mainSambada.cpp \
 	src/RegressionLogistique-io.cpp \
 	src/RegressionLogistique-calc.cpp \
+	src/RegressionLogistique-as.cpp \
 	src/RegressionLogistique.h \
 	src/Toolbox.h \
 	src/Archiviste.cpp \
