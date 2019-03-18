@@ -19,10 +19,13 @@ fi
 
 tar zxf $DIST_ARCHIVES.tar.gz
 srcdir=${DIST_ARCHIVES}
-cd $srcdir
+mkdir $srcdir/build
+cd $srcdir/build
+
+testcoveragefolder="../../test_coverage"
 
 # Reconfigure with gcov support
-CC=${CC} CXX=${CXX} CXXFLAGS="-g -O0 --coverage" CFLAGS="-g -O0 --coverage" ./configure --disable-manual
+CC=${CC} CXX=${CXX} CXXFLAGS="-g -O0 --coverage" CFLAGS="-g -O0 --coverage" ../configure --disable-manual
 
 # Generate gcov output
 ${MAKE}
@@ -36,8 +39,8 @@ ${MAKE} check
 lcov --base-directory . --directory . -c -o app_test.info --gcov-tool ${GCOV}
 lcov --extract app_test.info "*sambada*/src/*" -o app_test.info # only extract source code coverage
 lcov -a app_base.info -a app_test.info -o app_total.info
-rm -rf ../test_coverage/total
-genhtml -o ../test_coverage/total -t "Total test coverage" --num-spaces 4 app_total.info
+rm -rf ${testcoveragefolder}/total
+genhtml -o ${testcoveragefolder}/total -t "Total test coverage" --num-spaces 4 app_total.info
 
 # Total coverage
 lcov --base-directory . --directory . --zerocounters -q
@@ -47,8 +50,8 @@ test/unit/SambadaUnitTests
 lcov --base-directory . --directory . -c -o app_test.info --gcov-tool ${GCOV}
 lcov --extract app_test.info "*sambada*/src/*" -o app_test.info # only extract source code coverage
 lcov -a app_base.info -a app_test.info -o app_total.info
-rm -rf ../test_coverage/unit
-genhtml -o ../test_coverage/unit -t "Unit test coverage" --num-spaces 4 app_total.info
+rm -rf ${testcoveragefolder}/unit
+genhtml -o ${testcoveragefolder}/unit -t "Unit test coverage" --num-spaces 4 app_total.info
 
 # Integration tests coverage
 lcov --base-directory . --directory . --zerocounters -q
@@ -58,8 +61,8 @@ test/integration/SambadaIntegrationTests
 lcov --base-directory . --directory . -c -o app_test.info --gcov-tool ${GCOV}
 lcov --extract app_test.info "*sambada*/src/*" -o app_test.info # only extract source code coverage
 lcov -a app_base.info -a app_test.info -o app_total.info
-rm -rf ../test_coverage/integration
-genhtml -o ../test_coverage/integration -t "Integration test coverage" --num-spaces 4 app_total.info
+rm -rf ${testcoveragefolder}/integration
+genhtml -o ${testcoveragefolder}/integration -t "Integration test coverage" --num-spaces 4 app_total.info
 
 # Clean work space
-cd .. && rm -rf $srcdir
+#cd .. && rm -rf $srcdir
