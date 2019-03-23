@@ -156,6 +156,18 @@ FluxSortie& FluxSortie::nouvMot()
 	return *this;
 }
 
+FluxSortie& FluxSortie::vidange()
+{
+	if (terminalActif)
+	{
+		cout << flush;
+	}
+	if (fichierActif)
+	{
+		sortie << flush;
+	}
+	return *this;
+}
 
 FluxSortie& FluxSortie::retourLigne()
 {

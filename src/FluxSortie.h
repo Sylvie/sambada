@@ -84,6 +84,8 @@ public:
 
 	FluxSortie& nouvMot();
 
+	FluxSortie& vidange();
+
 	template<class T>
 	FluxSortie& operator<<(const T& token);
 

@@ -172,6 +172,7 @@ Journal& Journal::retourLigne()
 	else
 	{
 		flux.retourLigne();
+		flux.vidange();
 	}
 	return *this;
 }
