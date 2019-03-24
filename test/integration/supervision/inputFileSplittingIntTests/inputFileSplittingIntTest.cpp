@@ -29,11 +29,17 @@ SCENARIO("Test that Supervision splits input files correctly",
         std::string pathToInputFolder(
                 SambadaIntegrationTestUtils::getTopSourceDirectory() + pathToTestFolder);
 
-        std::string fileNameParams(pathToInputFolder + "param-split.txt");
+        std::string bareFileNameParams("param-split.txt");
+
+#if defined(_WIN32) || defined(_WIN64)
+        // FIXME: SMB-41: Supervision utilise des "\" par défaut sur Windows
+		bareFileNameParams = "param-split-windows.txt";
+#endif
+        std::string fileNameParams(pathToInputFolder + bareFileNameParams);
         std::string fileNameMark(pathToInputFolder + "mol-data.txt");
 
-	    std::string fileNameParamInOutputFolder(pathToTestFolder + "param-split.txt");
-	    std::string fileNameMarkInOutputFolder(pathToTestFolder + "mol-data.txt");
+	    std::string fileNameParamInOutputFolder(pathToOutputFolder + bareFileNameParams);
+	    std::string fileNameMarkInOutputFolder(pathToOutputFolder + "mol-data.txt");
 	    outputFileNames.insert(outputFileNames.end(), {fileNameParamInOutputFolder, fileNameMarkInOutputFolder});
 
 	    std::string fileNameExpectedDataEnv(pathToInputFolder + "expected-env.txt");
@@ -127,7 +133,7 @@ SCENARIO("Test that Supervision splits input files correctly",
             }
         }
 
-        SambadaIntegrationTestUtils::removeFiles(outputFileNames);
+       // SambadaIntegrationTestUtils::removeFiles(outputFileNames);
     }
 }
 

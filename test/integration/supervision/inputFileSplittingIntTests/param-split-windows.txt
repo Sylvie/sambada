@@ -1,0 +1,6 @@
+test\integration\supervision\inputFileSplittingIntTests\mol-data.txt
+thingy.txt	
+1	
+7
+7
+4
