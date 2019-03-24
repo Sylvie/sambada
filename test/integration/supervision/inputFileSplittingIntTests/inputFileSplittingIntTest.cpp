@@ -133,7 +133,7 @@ SCENARIO("Test that Supervision splits input files correctly",
             }
         }
 
-       // SambadaIntegrationTestUtils::removeFiles(outputFileNames);
+        SambadaIntegrationTestUtils::removeFiles(outputFileNames);
     }
 }
 
