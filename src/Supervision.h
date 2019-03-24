@@ -91,9 +91,9 @@ public:
 
 	virtual ~Supervision();
 
-	int preparationsCalculs(const string& nomFichierParam);
+	void preparationsCalculs(const string& nomFichierParam);
 
-	int fusionResultats(int argc, char *argv[]) throw();
+	void fusionResultats(int argc, char *argv[]) throw();
 
 protected:
 

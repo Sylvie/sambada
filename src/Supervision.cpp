@@ -42,7 +42,7 @@ Supervision::Supervision()
 Supervision::~Supervision()
 {}
 
-int Supervision::preparationsCalculs(const string& nomFichier)
+void Supervision::preparationsCalculs(const string& nomFichier)
 {
 	time_t temps_start(time(NULL));
 
@@ -387,7 +387,7 @@ int Supervision::preparationsCalculs(const string& nomFichier)
 
 }
 
-int Supervision::fusionResultats(int argc, char *argv[]) throw()
+void Supervision::fusionResultats(int argc, char *argv[]) throw()
 {
 	time_t temps_start(time(NULL));
 
