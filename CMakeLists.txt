@@ -131,6 +131,8 @@ set(CatchSources
 
 set(TestUtils
         ${CatchSources}
+        test/utils/SambadaInputData.h
+        test/utils/SambadaInputData.cpp
         test/utils/SambadaRegressionResults.h
         test/utils/SambadaRegressionResults.cpp
         test/utils/SambadaSpatialAutocorrelationResults.h

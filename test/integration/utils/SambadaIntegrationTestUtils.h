@@ -4,6 +4,7 @@
 #include "SambadaRegressionResults.h"
 #include "SambadaSpatialAutocorrelationResults.h"
 #include "SambadaStoreyHistogram.h"
+#include "SambadaInputData.h"
 #include <string>
 
 class SambadaIntegrationTestUtils {
@@ -14,6 +15,7 @@ public:
     static SambadaRegressionResults readRegressionResults(std::ifstream& lecteur, bool hasHeader, int dimension);
 	static SambadaSpatialAutocorrelationResults readSpatialAutocorrelationResults(std::ifstream& lecteur, int nombreVariables);
     static SambadaStoreyHistogram readStoreyHistogram(std::ifstream& lecteur);
+	static SambadaInputData readInputData(std::ifstream& lecteur, int nombreColonnes);
 	static void copyFileAndUpdatePermissions(const std::string& inputFile, const std::string& outputFile);
     static bool doesFileExist(const std::string& filename);
     static bool doesAnyFileExist(const std::vector<std::string>& filenames);

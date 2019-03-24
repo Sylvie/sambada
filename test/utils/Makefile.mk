@@ -11,6 +11,8 @@ test_utils_libSambadaTestUtils_a_SOURCES = 	\
     test/utils/SambadaSpatialAutocorrelationResults.h 	\
     test/utils/SambadaStoreyHistogram.cpp \
     test/utils/SambadaStoreyHistogram.h   \
+    test/utils/SambadaInputData.cpp \
+    test/utils/SambadaInputData.h   \
     test/utils/catch.hpp
 test_utils_libSambadaTestUtils_a_CPPFLAGS = -I $(top_srcdir)/test/utils/
 
