@@ -259,6 +259,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModelsEnd/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/inputFileSplittingIntTests/"
         )
 
 add_executable(SambadaUnitTests
@@ -268,3 +269,18 @@ add_executable(SambadaUnitTests
         src/LecteurCheminAcces.cpp
         ${TestUtils}
         )
+
+add_executable(SupervisionIntegrationTests
+        test/integration/supervision/inputFileSplittingIntTests/inputFileSplittingIntTest.cpp
+        ${IntegrationTestUtils}
+        ${TestUtils}
+        )
+
+set_target_properties(SupervisionIntegrationTests
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/supervision/"
+        )
+
+add_dependencies(SupervisionIntegrationTests sambada)
+
+target_link_libraries(SupervisionIntegrationTests -lstdc++fs)
