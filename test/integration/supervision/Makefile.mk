@@ -17,7 +17,7 @@ include test/integration/supervision/inputFileSplittingIntTests/Makefile.mk
 
 ## Listing tests ##
 check-local-test-integration-supervision: ${supervision_integration_tests}
-	-${supervisiona_integration_tests} -l
+	-${supervision_integration_tests} -l
 	echo "Ignored error: The return value actually counts the numbers of tests."
 
 ## Cleaning ##
