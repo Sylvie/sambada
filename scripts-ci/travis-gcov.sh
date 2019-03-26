@@ -15,3 +15,6 @@ ${GCOV} -r ../src/mainSambada.cpp -o src/binaries_sambada-mainSambada.o
 ${GCOV} -r ../src/Erreur.cpp -o src/libintermediate_a-Erreur.o
 ${GCOV} -r ../src/RegressionLogistique-bienvenue.cpp -o src/libintermediate_a-RegressionLogistique-bienvenue.o
 ${GCOV} -r ../src/Toolbox.cpp -o src/libintermediate_a-Toolbox.o
+${GCOV} -r ../src/mainSupervision.cpp -o src/binaries_supervision-mainSupervision.o
+${GCOV} -r ../src/Supervision.cpp -o src/binaries_supervision-Supervision.o
+
