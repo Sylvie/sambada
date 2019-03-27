@@ -4,9 +4,9 @@ test_integration_SupervisionIntegrationTests_SOURCES += \
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/expected-results-dim-0.txt \
+		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/expected-results-dim-1.txt \
 		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/expected-results-dim-2.txt \
 		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/expected-results-dim-3.txt \
-		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/expected-results-dim-4.txt \
 		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/mol-data-mark-0-0-Out-0.txt \
 		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/mol-data-mark-0-0-Out-1.txt \
 		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/mol-data-mark-0-0-Out-2.txt \
