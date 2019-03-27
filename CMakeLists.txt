@@ -261,6 +261,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesWithoutExtensionsIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesWithGScoreThresholdIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileWithoutExtensionIntTests/"
         )
@@ -276,6 +277,7 @@ add_executable(SambadaUnitTests
 add_executable(SupervisionIntegrationTests
         test/integration/supervision/mergeResultFilesIntTests/mergeResultFilesIntTests.cpp
         test/integration/supervision/mergeResultFilesWithoutExtensionsIntTests/mergeResultFilesWithoutExtensionsIntTests.cpp
+        test/integration/supervision/mergeResultFilesWithScoreThresholdIntTests/mergeResultFilesWithGScoreThresholdIntTests.cpp
         test/integration/supervision/splitMarkerFileIntTests/splitMarkerFileIntTests.cpp
         test/integration/supervision/splitMarkerFileWithoutExtensionIntTests/splitMarkerFileWithoutExtensionIntTests.cpp
         ${IntegrationTestUtils}
