@@ -260,7 +260,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileIntTests/"
-        "${CMAKE_BINARY_DIR}/test/integration/supervision/resultFileMergingIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesIntTests/"
         )
 
 add_executable(SambadaUnitTests
@@ -273,7 +273,7 @@ add_executable(SambadaUnitTests
 
 add_executable(SupervisionIntegrationTests
         test/integration/supervision/splitMarkerFileIntTests/splitMarkerFileIntTests.cpp
-        test/integration/supervision/resultFileMergingIntTests/resultFileMergingIntTest.cpp
+        test/integration/supervision/mergeResultFilesIntTests/mergeResultFilesIntTests.cpp
         ${IntegrationTestUtils}
         ${TestUtils}
         )

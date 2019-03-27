@@ -16,7 +16,7 @@ SCENARIO("Test that Supervision merges results correctly for trivariate models",
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/supervision"));
 
-        std::string pathToTestFolder("test/integration/supervision/resultFileMergingIntTests/");
+        std::string pathToTestFolder("test/integration/supervision/mergeResultFilesIntTests/");
 
         std::string pathToOutputFolder("./" + pathToTestFolder);
 
