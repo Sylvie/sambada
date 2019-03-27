@@ -14,6 +14,7 @@ test_integration_SupervisionIntegrationTests_LDADD = \
 		-lstdc++fs
 
 include test/integration/supervision/inputFileSplittingIntTests/Makefile.mk
+include test/integration/supervision/resultFileMergingIntTests/Makefile.mk
 
 ## Listing tests ##
 check-local-test-integration-supervision: ${supervision_integration_tests}
