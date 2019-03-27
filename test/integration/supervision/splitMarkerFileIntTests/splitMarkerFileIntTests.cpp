@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that Supervision splits input files correctly",
-         "[input-files-splitting-int]") {
+         "[split-marker-file-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -16,7 +16,7 @@ SCENARIO("Test that Supervision splits input files correctly",
     {
         std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/supervision"));
 
-	    std::string pathToTestFolder("test/integration/supervision/inputFileSplittingIntTests/");
+	    std::string pathToTestFolder("test/integration/supervision/splitMarkerFileIntTests/");
 
 	    std::string pathToOutputFolder("./" + pathToTestFolder);
 

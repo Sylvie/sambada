@@ -1,6 +1,0 @@
-test/integration/supervision/inputFileSplittingIntTests/mol-data.txt
-thingy.txt	
-1	
-30
-805
-12
