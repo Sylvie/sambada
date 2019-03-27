@@ -16,6 +16,7 @@ test_integration_SupervisionIntegrationTests_LDADD = \
 include test/integration/supervision/mergeResultFilesIntTests/Makefile.mk
 include test/integration/supervision/mergeResultFilesWithoutExtensionsIntTests/Makefile.mk
 include test/integration/supervision/splitMarkerFileIntTests/Makefile.mk
+include test/integration/supervision/splitMarkerFileWithoutExtensionIntTests/Makefile.mk
 
 ## Listing tests ##
 check-local-test-integration-supervision: ${supervision_integration_tests}
