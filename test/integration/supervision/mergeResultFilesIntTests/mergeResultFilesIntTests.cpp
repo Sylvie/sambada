@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that Supervision merges results correctly for trivariate models",
-         "[result-file-merging-int]") {
+         "[merge-result-files-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 

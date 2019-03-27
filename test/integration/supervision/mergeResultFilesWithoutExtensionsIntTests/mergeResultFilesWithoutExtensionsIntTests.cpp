@@ -8,7 +8,7 @@
 #include <sstream>
 
 SCENARIO("Test that Supervision merges results without filename extensions correctly for trivariate models",
-         "[result-file-no-ext-merging-int]") {
+         "[merge-result-files-no-ext-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
