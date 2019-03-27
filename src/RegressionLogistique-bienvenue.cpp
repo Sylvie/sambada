@@ -25,7 +25,7 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
-#include "RegressionLogistique.h"
+#include "RegressionLogistique.hpp"
 
 using namespace std;
 

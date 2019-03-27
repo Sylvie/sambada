@@ -25,7 +25,7 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
-#include "FluxSortie.h"
+#include "FluxSortie.hpp"
 #include <iomanip>
 
 FluxSortie::FluxSortie()

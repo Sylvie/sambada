@@ -26,8 +26,8 @@
  *************************************************************************/
 
 
-#include "RegressionLogistique.h"
-#include "Chronometre.h"
+#include "RegressionLogistique.hpp"
+#include "Chronometre.hpp"
 #include "optimize.h"
 #include <limits>
 #include <list>

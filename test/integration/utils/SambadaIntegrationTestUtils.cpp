@@ -1,4 +1,4 @@
-#include "SambadaIntegrationTestUtils.h"
+#include "SambadaIntegrationTestUtils.hpp"
 
 #include <fstream>
 #include <sstream>

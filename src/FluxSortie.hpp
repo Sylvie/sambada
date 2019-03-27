@@ -31,7 +31,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "JournalTemporaire.h"
+#include "JournalTemporaire.hpp"
 
 using namespace std;
 

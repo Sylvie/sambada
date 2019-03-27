@@ -25,7 +25,7 @@
 * Copyright (c) 1999, Frank Warmerdam
 *************************************************************************/
 
-#include "Chronometre.h"
+#include "Chronometre.hpp"
 #include <cmath>
 using namespace std;
 

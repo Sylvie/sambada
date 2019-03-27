@@ -26,7 +26,7 @@
  *************************************************************************/
 
 
-#include "RegressionLogistique.h"
+#include "RegressionLogistique.hpp"
 #include <ctime>
 
 using namespace std;

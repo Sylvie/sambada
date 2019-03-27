@@ -26,7 +26,7 @@
 *************************************************************************/
 
 
-#include "Erreur.h"
+#include "Erreur.hpp"
 
 using namespace std;
 

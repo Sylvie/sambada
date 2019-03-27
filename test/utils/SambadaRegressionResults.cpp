@@ -1,4 +1,4 @@
-#include "SambadaRegressionResults.h"
+#include "SambadaRegressionResults.hpp"
 #include "catch.hpp"
 //    std::vector <std::string> header = {"Marker", "Env_1", "Loglikelihood", "Gscore", "WaldScore", "NumError",
 // "Efron", "McFadden", "McFaddenAdj", "CoxSnell", "Nagelkerke", "AIC", "BIC",

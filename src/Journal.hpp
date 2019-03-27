@@ -28,7 +28,7 @@
 #ifndef JOURNAL_H
 #define JOURNAL_H
 
-#include "FluxSortie.h"
+#include "FluxSortie.hpp"
 
 using namespace std;
 

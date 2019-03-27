@@ -27,8 +27,8 @@
 
 
 
-#include "RegressionLogistique.h"
-#include "LecteurCheminAcces.h"
+#include "RegressionLogistique.hpp"
+#include "LecteurCheminAcces.hpp"
 #include "optimize.h"
 #include <limits>
 #include <list>

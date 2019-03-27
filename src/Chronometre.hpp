@@ -30,8 +30,8 @@
 
 #include <ctime>
 #include <vector>
-#include "Journal.h"
-#include "Duree.h"
+#include "Journal.hpp"
+#include "Duree.hpp"
 
 using namespace std;
 

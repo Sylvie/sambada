@@ -26,9 +26,9 @@
  *************************************************************************/
 
 
-#include "Supervision.h"
-#include "Toolbox.h"
-#include "Erreur.h"
+#include "Supervision.hpp"
+#include "Toolbox.hpp"
+#include "Erreur.hpp"
 #include <ctime>
 #include <algorithm>
 #include <map>

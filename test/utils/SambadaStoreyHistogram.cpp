@@ -1,4 +1,4 @@
-#include "SambadaStoreyHistogram.h"
+#include "SambadaStoreyHistogram.hpp"
 #include "catch.hpp"
 
 #include <iostream>

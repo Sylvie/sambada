@@ -26,8 +26,8 @@
  *************************************************************************/
 
 
-#include "RegressionLogistique.h"
-#include "Supervision.h"
+#include "RegressionLogistique.hpp"
+#include "Supervision.hpp"
 #include <ctime>
 
 using namespace std;

@@ -26,7 +26,7 @@
  *************************************************************************/
 
 
-#include "Duree.h"
+#include "Duree.hpp"
 
 #include <iostream>
 #include <cmath>

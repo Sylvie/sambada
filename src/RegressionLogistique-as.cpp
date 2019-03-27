@@ -26,7 +26,7 @@
  *************************************************************************/
 
 
-#include "RegressionLogistique.h"
+#include "RegressionLogistique.hpp"
 //#include "shapelib-1.3.0/shapefil.h"
 #include "shapefil.h"
 #include "optimize.h"

@@ -1,10 +1,10 @@
 #ifndef SAMBADA_SAMBADAINTEGRATIONTESTUTILS_H
 #define SAMBADA_SAMBADAINTEGRATIONTESTUTILS_H
 
-#include "SambadaRegressionResults.h"
-#include "SambadaSpatialAutocorrelationResults.h"
-#include "SambadaStoreyHistogram.h"
-#include "SambadaInputData.h"
+#include "SambadaRegressionResults.hpp"
+#include "SambadaSpatialAutocorrelationResults.hpp"
+#include "SambadaStoreyHistogram.hpp"
+#include "SambadaInputData.hpp"
 #include <string>
 
 class SambadaIntegrationTestUtils {

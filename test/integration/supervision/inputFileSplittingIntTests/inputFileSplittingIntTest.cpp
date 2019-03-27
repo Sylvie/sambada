@@ -1,6 +1,6 @@
 #include "catch.hpp"
-#include "SambadaInputData.h"
-#include "SambadaIntegrationTestUtils.h"
+#include "SambadaInputData.hpp"
+#include "SambadaIntegrationTestUtils.hpp"
 
 #include <cstdlib>
 #include <iostream>

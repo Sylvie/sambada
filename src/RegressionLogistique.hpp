@@ -30,10 +30,10 @@
 #define REGRESSIONLOGISTIQUE_H
 
 #include "matrix.h"
-#include "Erreur.h"
-#include "Toolbox.h"
-#include "Archiviste.h"
-#include "Journal.h"
+#include "Erreur.hpp"
+#include "Toolbox.hpp"
+#include "Archiviste.hpp"
+#include "Journal.hpp"
 
 
 #include <set>

@@ -1,6 +1,6 @@
 #include "catch.hpp"
-#include "SambadaSpatialAutocorrelationResults.h"
-#include "SambadaIntegrationTestUtils.h"
+#include "SambadaSpatialAutocorrelationResults.hpp"
+#include "SambadaIntegrationTestUtils.hpp"
 
 #include <cstdlib>
 #include <iostream>

@@ -28,7 +28,7 @@
 #ifndef DUREE_H
 #define DUREE_H
 
-#include "Journal.h"
+#include "Journal.hpp"
 
 struct PrecisionDuree
 {

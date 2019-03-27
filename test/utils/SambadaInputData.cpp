@@ -1,4 +1,4 @@
-#include "SambadaInputData.h"
+#include "SambadaInputData.hpp"
 #include "catch.hpp"
 
 void SambadaInputData::verifieTailles(int nombreLignes, int nombreColonnes) const

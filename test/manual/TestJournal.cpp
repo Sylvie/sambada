@@ -25,7 +25,7 @@
 * Copyright (c) 1999, Frank Warmerdam
 *************************************************************************/
 
-#include "Journal.h"
+#include "Journal.hpp"
 
 using namespace std;
 
