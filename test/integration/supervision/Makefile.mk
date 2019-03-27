@@ -13,8 +13,8 @@ test_integration_SupervisionIntegrationTests_LDADD = \
 		$(top_builddir)/test/utils/libSambadaTestUtils.a \
 		-lstdc++fs
 
-include test/integration/supervision/inputFileSplittingIntTests/Makefile.mk
-include test/integration/supervision/resultFileMergingIntTests/Makefile.mk
+include test/integration/supervision/mergeResultFilesIntTest/Makefile.mk
+include test/integration/supervision/splitMarkerFileIntTests/Makefile.mk
 
 ## Listing tests ##
 check-local-test-integration-supervision: ${supervision_integration_tests}
