@@ -1,6 +1,6 @@
 
 test_integration_SupervisionIntegrationTests_SOURCES += \
-		test/integration/supervision/mergeResultFilesIntTests/resultFileMergingIntTest.cpp
+		test/integration/supervision/mergeResultFilesIntTests/mergeResultFilesIntTests.cpp
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/supervision/mergeResultFilesIntTests/expected-results-dim-0.txt \
