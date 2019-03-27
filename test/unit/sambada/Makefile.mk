@@ -7,7 +7,7 @@ test_unit_SambadaUnitTests_SOURCES = ${catch_source_files} \
 		test/unit/sambada/CheminAccesTests.cpp \
 		test/unit/sambada/LecteurCheminAccesTests.cpp \
 		src/LecteurCheminAcces.cpp \
-		src/LecteurCheminAcces.h
+		src/LecteurCheminAcces.hpp
 test_unit_SambadaUnitTests_CPPFLAGS = -I $(top_srcdir)/src \
  		-I $(top_srcdir)/test/utils
 test_unit_SambadaUnitTests_LDADD = \

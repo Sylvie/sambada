@@ -2,7 +2,7 @@ noinst_LIBRARIES += test/integration/utils/libSambadaIntegrationTestUtils.a
 
 test_integration_utils_libSambadaIntegrationTestUtils_a_SOURCES = \
     test/integration/utils/SambadaIntegrationTestUtils.cpp \
-    test/integration/utils/SambadaIntegrationTestUtils.h
+    test/integration/utils/SambadaIntegrationTestUtils.hpp
 test_integration_utils_libSambadaIntegrationTestUtils_a_CPPFLAGS = \
  	-I $(top_srcdir)/test/utils/ \
  	-Dsambada_top_source_dir=\"$(top_srcdir)\"

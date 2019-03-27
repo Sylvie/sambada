@@ -35,23 +35,23 @@ binaries_sambada_SOURCES = src/mainSambada.cpp \
 	src/RegressionLogistique-io.cpp \
 	src/RegressionLogistique-calc.cpp \
 	src/RegressionLogistique-as.cpp \
-	src/RegressionLogistique.h \
-	src/Toolbox.h \
+	src/RegressionLogistique.hpp \
+	src/Toolbox.hpp \
 	src/Archiviste.cpp \
-	src/Archiviste.h \
-	src/Erreur.h \
+	src/Archiviste.hpp \
+	src/Erreur.hpp \
 	src/Journal.cpp \
-	src/Journal.h \
+	src/Journal.hpp \
 	src/FluxSortie.cpp \
-	src/FluxSortie.h \
+	src/FluxSortie.hpp \
 	src/JournalTemporaire.cpp \
-	src/JournalTemporaire.h \
+	src/JournalTemporaire.hpp \
 	src/Chronometre.cpp \
-	src/Chronometre.h \
+	src/Chronometre.hpp \
 	src/Duree.cpp \
-	src/Duree.h \
+	src/Duree.hpp \
 	src/LecteurCheminAcces.cpp \
-    src/LecteurCheminAcces.h
+    src/LecteurCheminAcces.hpp
 binaries_sambada_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
 	-I $(top_srcdir)/ext/shapelib-1.3.0
@@ -60,30 +60,30 @@ binaries_sambada_LDADD = libshp.a libintermediate.a
 
 binaries_supervision_SOURCES = src/mainSupervision.cpp \
 	src/Supervision.cpp \
-	src/Supervision.h \
-	src/RegressionLogistique.h \
-	src/Toolbox.h \
+	src/Supervision.hpp \
+	src/RegressionLogistique.hpp \
+	src/Toolbox.hpp \
 	src/Archiviste.cpp \
-	src/Archiviste.h \
-	src/Erreur.h
+	src/Archiviste.hpp \
+	src/Erreur.hpp
 binaries_supervision_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
 binaries_supervision_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 binaries_supervision_LDADD = libintermediate.a
 
 binaries_recode_plink_SOURCES = src/recodePlink.cpp \
-	src/RegressionLogistique.h \
-	src/Toolbox.h \
-	src/Erreur.h
+	src/RegressionLogistique.hpp \
+	src/Toolbox.hpp \
+	src/Erreur.hpp
 binaries_recode_plink_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
 binaries_recode_plink_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 binaries_recode_plink_LDADD = libintermediate.a
 
 binaries_recode_plink_lfmm_SOURCES = src/recodeLFMM.cpp \
-	src/RegressionLogistique.h \
-	src/Toolbox.h \
-	src/Erreur.h
+	src/RegressionLogistique.hpp \
+	src/Toolbox.hpp \
+	src/Erreur.hpp
 binaries_recode_plink_lfmm_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
 binaries_recode_plink_lfmm_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
@@ -92,11 +92,11 @@ binaries_recode_plink_lfmm_LDADD = libintermediate.a
 noinst_LIBRARIES += libshp.a libintermediate.a
 
 libintermediate_a_SOURCES = src/RegressionLogistique-bienvenue.cpp \
-	src/RegressionLogistique.h \
+	src/RegressionLogistique.hpp \
 	src/Toolbox.cpp \
-	src/Toolbox.h \
+	src/Toolbox.hpp \
 	src/Erreur.cpp \
-	src/Erreur.h
+	src/Erreur.hpp
 libintermediate_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
 libintermediate_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT

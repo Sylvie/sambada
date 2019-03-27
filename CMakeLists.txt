@@ -38,34 +38,34 @@ add_library(shp
 
 add_library(intermediate
         src/RegressionLogistique-bienvenue.cpp
-        src/RegressionLogistique.h
+        src/RegressionLogistique.hpp
         src/Toolbox.cpp
-        src/Toolbox.h
+        src/Toolbox.hpp
         src/Erreur.cpp
-        src/Erreur.h
+        src/Erreur.hpp
         )
 
 add_executable(sambada
         src/Archiviste.cpp
-        src/Archiviste.h
+        src/Archiviste.hpp
         src/Chronometre.cpp
-        src/Chronometre.h
+        src/Chronometre.hpp
         src/Duree.cpp
-        src/Duree.h
+        src/Duree.hpp
         src/FluxSortie.cpp
-        src/FluxSortie.h
+        src/FluxSortie.hpp
         src/Journal.cpp
-        src/Journal.h
+        src/Journal.hpp
         src/JournalTemporaire.cpp
-        src/JournalTemporaire.h
+        src/JournalTemporaire.hpp
         src/mainSambada.cpp
         src/RegressionLogistique-calc.cpp
         src/RegressionLogistique-as.cpp
         src/RegressionLogistique-io.cpp
         src/Supervision.cpp
-        src/Supervision.h
+        src/Supervision.hpp
         src/LecteurCheminAcces.cpp
-        src/LecteurCheminAcces.h
+        src/LecteurCheminAcces.hpp
         )
 
 target_link_libraries(sambada
@@ -76,13 +76,13 @@ target_link_libraries(sambada
 
 add_executable(supervision
         src/Archiviste.cpp
-        src/Archiviste.h
+        src/Archiviste.hpp
         src/mainSupervision.cpp
-        src/RegressionLogistique.h
+        src/RegressionLogistique.hpp
         src/Supervision.cpp
-        src/Supervision.h
+        src/Supervision.hpp
         src/Toolbox.cpp
-        src/Toolbox.h
+        src/Toolbox.hpp
         )
 
 target_link_libraries(supervision
@@ -91,10 +91,10 @@ target_link_libraries(supervision
         )
 
 add_executable(recodePlink
-        src/Erreur.h
+        src/Erreur.hpp
         src/recodePlink.cpp
-        src/RegressionLogistique.h
-        src/Toolbox.h
+        src/RegressionLogistique.hpp
+        src/Toolbox.hpp
         )
 
 target_link_libraries(recodePlink
@@ -103,10 +103,10 @@ target_link_libraries(recodePlink
         )
 
 add_executable(recodePlinkLFMM
-        src/Erreur.h
+        src/Erreur.hpp
         src/recodeLFMM.cpp
-        src/RegressionLogistique.h
-        src/Toolbox.h
+        src/RegressionLogistique.hpp
+        src/Toolbox.hpp
         )
 
 target_link_libraries(recodePlinkLFMM
@@ -131,18 +131,18 @@ set(CatchSources
 
 set(TestUtils
         ${CatchSources}
-        test/utils/SambadaInputData.h
+        test/utils/SambadaInputData.hpp
         test/utils/SambadaInputData.cpp
-        test/utils/SambadaRegressionResults.h
+        test/utils/SambadaRegressionResults.hpp
         test/utils/SambadaRegressionResults.cpp
-        test/utils/SambadaSpatialAutocorrelationResults.h
+        test/utils/SambadaSpatialAutocorrelationResults.hpp
         test/utils/SambadaSpatialAutocorrelationResults.cpp
-        test/utils/SambadaStoreyHistogram.h
+        test/utils/SambadaStoreyHistogram.hpp
         test/utils/SambadaStoreyHistogram.cpp
         )
 
 set(IntegrationTestUtils
-        test/integration/utils/SambadaIntegrationTestUtils.h
+        test/integration/utils/SambadaIntegrationTestUtils.hpp
         test/integration/utils/SambadaIntegrationTestUtils.cpp
         )
 
@@ -260,18 +260,20 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/inputFileSplittingIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/resultFileMergingIntTests/"
         )
 
 add_executable(SambadaUnitTests
         test/unit/sambada/CheminAccesTests.cpp
         test/unit/sambada/LecteurCheminAccesTests.cpp
-        src/LecteurCheminAcces.h
+        src/LecteurCheminAcces.hpp
         src/LecteurCheminAcces.cpp
         ${TestUtils}
         )
 
 add_executable(SupervisionIntegrationTests
         test/integration/supervision/inputFileSplittingIntTests/inputFileSplittingIntTest.cpp
+        test/integration/supervision/resultFileMergingIntTests/resultFileMergingIntTest.cpp
         ${IntegrationTestUtils}
         ${TestUtils}
         )
