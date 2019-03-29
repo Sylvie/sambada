@@ -14,6 +14,7 @@ test_integration_SupervisionIntegrationTests_LDADD = \
 		-lstdc++fs
 
 include test/integration/supervision/mergeResultFilesIntTests/Makefile.mk
+include test/integration/supervision/mergeResultFilesWithCustomDelimitorIntTests/Makefile.mk
 include test/integration/supervision/mergeResultFilesWithoutExtensionsIntTests/Makefile.mk
 include test/integration/supervision/mergeResultFilesWithScoreThresholdIntTests/Makefile.mk
 include test/integration/supervision/mergeResultFilesWithGScoreSortIntTests/Makefile.mk
