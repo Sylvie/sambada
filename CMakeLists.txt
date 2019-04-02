@@ -90,34 +90,34 @@ target_link_libraries(supervision
         intermediate
         )
 
-add_executable(recodePlink
+add_executable(recode-plink
         src/Erreur.hpp
         src/recodePlink.cpp
         src/RegressionLogistique.hpp
         src/Toolbox.hpp
         )
 
-target_link_libraries(recodePlink
+target_link_libraries(recode-plink
         PRIVATE
         intermediate
         )
 
-add_executable(recodePlinkLFMM
+add_executable(recode-plink-lfmm
         src/Erreur.hpp
         src/recodeLFMM.cpp
         src/RegressionLogistique.hpp
         src/Toolbox.hpp
         )
 
-target_link_libraries(recodePlinkLFMM
+target_link_libraries(recode-plink-lfmm
         PRIVATE
         intermediate
         )
 
 set_target_properties(sambada
         supervision
-        recodePlink
-        recodePlinkLFMM
+        recode-plink
+        recode-plink-lfmm
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/binaries/"
         )
@@ -266,6 +266,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesWithScoreThresholdIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileWithoutExtensionIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/recodePlink/recodeForSambadaIntTests/"
         )
 
 add_executable(SambadaUnitTests
@@ -298,3 +299,18 @@ set_target_properties(SupervisionIntegrationTests
 add_dependencies(SupervisionIntegrationTests sambada)
 
 target_link_libraries(SupervisionIntegrationTests -lstdc++fs)
+
+add_executable(RecodePlinkIntegrationTests
+        test/integration/recodePlink/recodeForSambadaIntTests/recodeAllSamplesIntTests.cpp
+        ${IntegrationTestUtils}
+        ${TestUtils}
+        )
+
+set_target_properties(RecodePlinkIntegrationTests
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/recodePlink/"
+        )
+
+add_dependencies(RecodePlinkIntegrationTests recode-plink)
+
+target_link_libraries(RecodePlinkIntegrationTests -lstdc++fs)
