@@ -302,6 +302,7 @@ target_link_libraries(SupervisionIntegrationTests -lstdc++fs)
 
 add_executable(RecodePlinkIntegrationTests
         test/integration/recodePlink/recodeForSambadaIntTests/recodeAllSamplesIntTests.cpp
+        test/integration/recodePlink/recodeForSambadaIntTests/recodeSubsetSamplesIntTests.cpp
         ${IntegrationTestUtils}
         ${TestUtils}
         )
