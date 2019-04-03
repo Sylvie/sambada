@@ -17,4 +17,5 @@ ${GCOV} -r ../src/RegressionLogistique-bienvenue.cpp -o src/libintermediate_a-Re
 ${GCOV} -r ../src/Toolbox.cpp -o src/libintermediate_a-Toolbox.o
 ${GCOV} -r ../src/mainSupervision.cpp -o src/binaries_supervision-mainSupervision.o
 ${GCOV} -r ../src/Supervision.cpp -o src/binaries_supervision-Supervision.o
-
+${GCOV} -r ../src/recodePlink.cpp -o src/binaries_recode_plink-recodePlink.o
+${GCOV} -r ../src/recodeLFMM.cpp -o src/binaries_recode_plink_lfmm-recodeLFMM.o
