@@ -267,6 +267,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileWithoutExtensionIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/recodePlink/recodeForSambadaIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/recodePlink/recodeForLFMMIntTests/"
         )
 
 add_executable(SambadaUnitTests
@@ -303,6 +304,8 @@ target_link_libraries(SupervisionIntegrationTests -lstdc++fs)
 add_executable(RecodePlinkIntegrationTests
         test/integration/recodePlink/recodeForSambadaIntTests/recodeAllSamplesIntTests.cpp
         test/integration/recodePlink/recodeForSambadaIntTests/recodeSubsetSamplesIntTests.cpp
+        test/integration/recodePlink/recodeForLFMMIntTests/recodeAllSamplesLFMMIntTests.cpp
+        test/integration/recodePlink/recodeForLFMMIntTests/recodeSubsetSamplesLFMMIntTests.cpp
         ${IntegrationTestUtils}
         ${TestUtils}
         )
@@ -312,6 +315,6 @@ set_target_properties(RecodePlinkIntegrationTests
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/recodePlink/"
         )
 
-add_dependencies(RecodePlinkIntegrationTests recode-plink)
+add_dependencies(RecodePlinkIntegrationTests recode-plink recode-plink-lfmm)
 
 target_link_libraries(RecodePlinkIntegrationTests -lstdc++fs)

@@ -14,6 +14,7 @@ test_integration_RecodePlinkIntegrationTests_LDADD = \
 		-lstdc++fs
 
 include test/integration/recodePlink/recodeForSambadaIntTests/Makefile.mk
+include test/integration/recodePlink/recodeForLFMMIntTests/Makefile.mk
 
 ## Listing tests ##
 check-local-test-integration-recode-plink: ${recode_plink_integration_tests}
