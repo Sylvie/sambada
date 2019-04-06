@@ -25,7 +25,7 @@
 * Copyright (c) 1999, Frank Warmerdam
 *************************************************************************/
 
-#include "LecteurCheminAcces.h"
+#include "LecteurCheminAcces.hpp"
 
 #include <iostream>
 

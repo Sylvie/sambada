@@ -25,7 +25,7 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
-#include "Journal.h"
+#include "Journal.hpp"
 
 using namespace std;
 
@@ -172,6 +172,7 @@ Journal& Journal::retourLigne()
 	else
 	{
 		flux.retourLigne();
+		flux.vidange();
 	}
 	return *this;
 }

@@ -25,7 +25,7 @@
  * Copyright (c) 1999, Frank Warmerdam
  *************************************************************************/
 
-#include "FluxSortie.h"
+#include "FluxSortie.hpp"
 #include <iomanip>
 
 FluxSortie::FluxSortie()
@@ -156,6 +156,18 @@ FluxSortie& FluxSortie::nouvMot()
 	return *this;
 }
 
+FluxSortie& FluxSortie::vidange()
+{
+	if (terminalActif)
+	{
+		cout << flush;
+	}
+	if (fichierActif)
+	{
+		sortie << flush;
+	}
+	return *this;
+}
 
 FluxSortie& FluxSortie::retourLigne()
 {

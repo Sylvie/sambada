@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "LecteurCheminAcces.h"
+#include "LecteurCheminAcces.hpp"
 
 #include <string>
 

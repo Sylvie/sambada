@@ -1,0 +1,6 @@
+test\integration\supervision\splitMarkerFileWithoutExtensionIntTests\mol-data
+thingy.txt	
+1	
+30
+805
+12

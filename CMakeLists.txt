@@ -38,33 +38,35 @@ add_library(shp
 
 add_library(intermediate
         src/RegressionLogistique-bienvenue.cpp
-        src/RegressionLogistique.h
+        src/RegressionLogistique.hpp
         src/Toolbox.cpp
-        src/Toolbox.h
+        src/Toolbox.hpp
         src/Erreur.cpp
-        src/Erreur.h
+        src/Erreur.hpp
         )
 
 add_executable(sambada
         src/Archiviste.cpp
-        src/Archiviste.h
+        src/Archiviste.hpp
         src/Chronometre.cpp
-        src/Chronometre.h
+        src/Chronometre.hpp
         src/Duree.cpp
-        src/Duree.h
+        src/Duree.hpp
         src/FluxSortie.cpp
-        src/FluxSortie.h
+        src/FluxSortie.hpp
         src/Journal.cpp
-        src/Journal.h
+        src/Journal.hpp
         src/JournalTemporaire.cpp
-        src/JournalTemporaire.h
+        src/JournalTemporaire.hpp
         src/mainSambada.cpp
         src/RegressionLogistique-calc.cpp
+        src/RegressionLogistique-as.cpp
         src/RegressionLogistique-io.cpp
         src/Supervision.cpp
-        src/Supervision.h
+        src/Supervision.hpp
         src/LecteurCheminAcces.cpp
-        src/LecteurCheminAcces.h)
+        src/LecteurCheminAcces.hpp
+        )
 
 target_link_libraries(sambada
         PRIVATE
@@ -74,13 +76,13 @@ target_link_libraries(sambada
 
 add_executable(supervision
         src/Archiviste.cpp
-        src/Archiviste.h
+        src/Archiviste.hpp
         src/mainSupervision.cpp
-        src/RegressionLogistique.h
+        src/RegressionLogistique.hpp
         src/Supervision.cpp
-        src/Supervision.h
+        src/Supervision.hpp
         src/Toolbox.cpp
-        src/Toolbox.h
+        src/Toolbox.hpp
         )
 
 target_link_libraries(supervision
@@ -88,34 +90,34 @@ target_link_libraries(supervision
         intermediate
         )
 
-add_executable(recodePlink
-        src/Erreur.h
+add_executable(recode-plink
+        src/Erreur.hpp
         src/recodePlink.cpp
-        src/RegressionLogistique.h
-        src/Toolbox.h
+        src/RegressionLogistique.hpp
+        src/Toolbox.hpp
         )
 
-target_link_libraries(recodePlink
+target_link_libraries(recode-plink
         PRIVATE
         intermediate
         )
 
-add_executable(recodePlinkLFMM
-        src/Erreur.h
+add_executable(recode-plink-lfmm
+        src/Erreur.hpp
         src/recodeLFMM.cpp
-        src/RegressionLogistique.h
-        src/Toolbox.h
+        src/RegressionLogistique.hpp
+        src/Toolbox.hpp
         )
 
-target_link_libraries(recodePlinkLFMM
+target_link_libraries(recode-plink-lfmm
         PRIVATE
         intermediate
         )
 
 set_target_properties(sambada
         supervision
-        recodePlink
-        recodePlinkLFMM
+        recode-plink
+        recode-plink-lfmm
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/binaries/"
         )
@@ -129,16 +131,18 @@ set(CatchSources
 
 set(TestUtils
         ${CatchSources}
-        test/utils/SambadaRegressionResults.h
+        test/utils/SambadaInputData.hpp
+        test/utils/SambadaInputData.cpp
+        test/utils/SambadaRegressionResults.hpp
         test/utils/SambadaRegressionResults.cpp
-        test/utils/SambadaSpatialAutocorrelationResults.h
+        test/utils/SambadaSpatialAutocorrelationResults.hpp
         test/utils/SambadaSpatialAutocorrelationResults.cpp
-        test/utils/SambadaStoreyHistogram.h
+        test/utils/SambadaStoreyHistogram.hpp
         test/utils/SambadaStoreyHistogram.cpp
         )
 
 set(IntegrationTestUtils
-        test/integration/utils/SambadaIntegrationTestUtils.h
+        test/integration/utils/SambadaIntegrationTestUtils.hpp
         test/integration/utils/SambadaIntegrationTestUtils.cpp
         )
 
@@ -255,12 +259,62 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/trivariateModelsEnd/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/storeyHistogramsScoreThresholdIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/wrongNumberOfIndividualsIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesWithoutExtensionsIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesWithCustomDelimitorIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesWithGScoreSortIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/mergeResultFilesWithScoreThresholdIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/supervision/splitMarkerFileWithoutExtensionIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/recodePlink/recodeForSambadaIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/recodePlink/recodeForLFMMIntTests/"
         )
 
 add_executable(SambadaUnitTests
         test/unit/sambada/CheminAccesTests.cpp
         test/unit/sambada/LecteurCheminAccesTests.cpp
-        src/LecteurCheminAcces.h
+        src/LecteurCheminAcces.hpp
         src/LecteurCheminAcces.cpp
         ${TestUtils}
         )
+
+add_executable(SupervisionIntegrationTests
+        test/integration/supervision/mergeResultFilesIntTests/mergeResultFilesIntTests.cpp
+        test/integration/supervision/mergeResultFilesWithoutExtensionsIntTests/mergeResultFilesWithoutExtensionsIntTests.cpp
+        test/integration/supervision/mergeResultFilesWithCustomDelimitorIntTests/mergeResultFilesWithCustomDelimitorIntTests.cpp
+        test/integration/supervision/mergeResultFilesWithGScoreSortIntTests/mergeResultFilesWithGScoreSortIntTests.cpp
+        test/integration/supervision/mergeResultFilesWithScoreThresholdIntTests/mergeResultFilesWithGScoreThresholdIntTests.cpp
+        test/integration/supervision/mergeResultFilesWithScoreThresholdIntTests/mergeResultFilesWithWaldScoreThresholdIntTests.cpp
+        test/integration/supervision/mergeResultFilesWithScoreThresholdIntTests/mergeResultFilesWithBothScoreThresholdIntTests.cpp
+        test/integration/supervision/splitMarkerFileIntTests/splitMarkerFileIntTests.cpp
+        test/integration/supervision/splitMarkerFileWithoutExtensionIntTests/splitMarkerFileWithoutExtensionIntTests.cpp
+        ${IntegrationTestUtils}
+        ${TestUtils}
+        )
+
+set_target_properties(SupervisionIntegrationTests
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/supervision/"
+        )
+
+add_dependencies(SupervisionIntegrationTests sambada)
+
+target_link_libraries(SupervisionIntegrationTests -lstdc++fs)
+
+add_executable(RecodePlinkIntegrationTests
+        test/integration/recodePlink/recodeForSambadaIntTests/recodeAllSamplesIntTests.cpp
+        test/integration/recodePlink/recodeForSambadaIntTests/recodeSubsetSamplesIntTests.cpp
+        test/integration/recodePlink/recodeForLFMMIntTests/recodeAllSamplesLFMMIntTests.cpp
+        test/integration/recodePlink/recodeForLFMMIntTests/recodeSubsetSamplesLFMMIntTests.cpp
+        ${IntegrationTestUtils}
+        ${TestUtils}
+        )
+
+set_target_properties(RecodePlinkIntegrationTests
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/recodePlink/"
+        )
+
+add_dependencies(RecodePlinkIntegrationTests recode-plink recode-plink-lfmm)
+
+target_link_libraries(RecodePlinkIntegrationTests -lstdc++fs)

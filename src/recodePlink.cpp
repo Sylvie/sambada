@@ -34,7 +34,7 @@
 #include <fstream>
 #include <ctime>
 #include <cstdlib>
-#include "RegressionLogistique.h"
+#include "RegressionLogistique.hpp"
 
 using namespace std;
 

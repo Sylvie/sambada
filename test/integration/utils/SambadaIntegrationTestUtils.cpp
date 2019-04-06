@@ -1,4 +1,4 @@
-#include "SambadaIntegrationTestUtils.h"
+#include "SambadaIntegrationTestUtils.hpp"
 
 #include <fstream>
 #include <sstream>
@@ -199,6 +199,36 @@ SambadaStoreyHistogram SambadaIntegrationTestUtils::readStoreyHistogram(std::ifs
 	return histogram;
 }
 
+
+SambadaInputData SambadaIntegrationTestUtils::readInputData(std::ifstream& lecteur, int nombreColonnes)
+{
+	SambadaInputData donnees;
+
+	while (!lecteur.eof())
+	{
+		std::vector<std::string> ligne(0);
+		for (int i(0); i < nombreColonnes; ++i)
+		{
+			std::string lu("");
+			lecteur >> lu >> std::ws;
+			ligne.push_back(lu);
+			if (lecteur.eof())
+			{
+				break;
+			}
+		}
+		donnees.data.push_back(ligne);
+
+		if (lecteur.eof())
+		{
+			break;
+		}
+
+		lecteur >> std::ws;
+	}
+
+	return donnees;
+}
 
 void SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(const std::string &inputFile, const std::string &outputFile)
 {

@@ -25,7 +25,7 @@
 * Copyright (c) 1999, Frank Warmerdam
 *************************************************************************/
 
-#include "Duree.h"
+#include "Duree.hpp"
 #include <iomanip>
 
 using namespace std;

@@ -1,3 +1,9 @@
+Release 0.8.1 (2019-04-06)
+Bug fix:
+- Fixed the log layout on Windows: The logs now appear in the course of the analysis.
+Change of tooling:
+- Introduced automated tests for Supervision, RecodePlink and RecodeLFMM.
+
 Release 0.8.0 (2019-03-09)
 Improvement:
 - Reduced computation time and memory consumption for analyses with population structure.

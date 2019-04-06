@@ -1,4 +1,4 @@
-#include "SambadaIntegrationTestUtils.h"
+#include "SambadaIntegrationTestUtils.hpp"
 
 #if defined(_WIN32) || defined(_WIN64)
 

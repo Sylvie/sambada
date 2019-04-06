@@ -1,6 +1,6 @@
 #include "catch.hpp"
-#include "SambadaRegressionResults.h"
-#include "SambadaIntegrationTestUtils.h"
+#include "SambadaRegressionResults.hpp"
+#include "SambadaIntegrationTestUtils.hpp"
 
 #include <cstdlib>
 #include <iostream>

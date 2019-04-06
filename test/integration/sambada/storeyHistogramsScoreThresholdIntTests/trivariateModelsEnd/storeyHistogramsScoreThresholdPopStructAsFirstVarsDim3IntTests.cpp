@@ -1,6 +1,6 @@
 #include "catch.hpp"
-#include "SambadaStoreyHistogram.h"
-#include "SambadaIntegrationTestUtils.h"
+#include "SambadaStoreyHistogram.hpp"
+#include "SambadaIntegrationTestUtils.hpp"
 
 #include <cstdlib>
 #include <iostream>
