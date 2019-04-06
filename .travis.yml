@@ -84,7 +84,7 @@ deploy:
     - build/sambada-${sambada_version}.zip
     - build/manual/sambadoc.pdf
   skip_cleanup: true
-  draft: false
+  draft: true
   on:
     repo: Sylvie/sambada
     tags: true
