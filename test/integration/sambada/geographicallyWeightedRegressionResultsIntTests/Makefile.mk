@@ -14,12 +14,12 @@ test_integration_SambadaIntegrationTests_SOURCES += \
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/cattle-pop-env.csv \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/cattle-pop-mark.txt \
-		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/random-sample.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-cartesian-bisquare.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-dim-0.txt \
   		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-cartesian-bisquare-dim-1.txt \
    		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-cartesian-bisquare-dim-2.txt
 
+#		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/random-sample.txt \
 #		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-cartesian-distance.txt \
 #		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-cartesian-nearest.txt \
 #		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-spherical-bisquare.txt \
