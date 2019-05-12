@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-SCENARIO("Test that geographically weighted regression is computed correctly for cartesian coordinates and bisquare weighting ",
+SCENARIO("Test that geographically weighted regression is computed correctly for cartesian coordinates and \"bisquare\" weighting ",
          "[gwr-cartesian-bisquare-int][gwr-int]")
 {
 
