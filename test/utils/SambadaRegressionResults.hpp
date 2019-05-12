@@ -13,7 +13,7 @@ public:
     std::vector <std::vector<std::string>> etiquettes;
     std::vector <std::vector<long double>> valeurs;
 
-    void verifieTailles(bool hasHeader, int dimension, int nombreModeles, bool hasPop = false) const;
+    void verifieTailles(bool hasHeader, int dimension, int nombreModeles, bool hasPop = false, bool hasGWR = false) const;
     void compare(const SambadaRegressionResults &autre, double epsilon = std::numeric_limits<float>::epsilon()*100) const;
 
 private:

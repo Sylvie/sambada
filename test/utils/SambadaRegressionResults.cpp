@@ -7,7 +7,7 @@
 // 1: h=15, e=2, v=13
 //2: h=17, e=3, v=14
 
-void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int nombreModeles, bool hasPop) const {
+void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int nombreModeles, bool hasPop, bool hasGWR) const {
     if (hasHeader)
     {
         INFO(colleHeaders());
@@ -22,13 +22,15 @@ void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int
 
     if (dimension > 0)
     {
-        if (!hasPop)
+    	tailleValeurs = dimension + 12;
+        if (hasPop)
         {
-            tailleValeurs = dimension + 12;
+        	tailleValeurs += 2;
         }
-        else
+
+        if (hasGWR)
         {
-            tailleValeurs = dimension + 14;
+        	tailleValeurs += (9 + 2 * dimension);
         }
     }
 
@@ -47,7 +49,7 @@ void SambadaRegressionResults::verifieTailleHeader(int dimension, bool hasPop) c
     }
     else
     {
-        if (!hasPop)
+    	if (!hasPop)
         {
             CHECK(header.size() == (2 * dimension + 13));
         }
@@ -103,7 +105,7 @@ void SambadaRegressionResults::compare(const SambadaRegressionResults &autre, do
                 int tailleEtiquette(etiquettes[i].size());
                 for (int j(0); j < nombreValeurs; ++j)
                  {
-                     INFO("Valeur numéro: " + std::to_string(j) + " (" + header[j+tailleEtiquette] +")");
+                     INFO("Valeur numéro: " + std::to_string(j) + " (" + (j+tailleEtiquette < tailleHeader ? header[j+tailleEtiquette] : "?") +")");
                      CHECK(valeurs[i][j] == Approx(autre.valeurs[i][j]).epsilon(epsilon));
                  }
             }
