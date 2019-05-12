@@ -15,14 +15,14 @@ else
     build-wrapper-linux-x86-64 --out-dir bw-outputs make
     ls bw-outputs
 fi
-travis_wait make check
+make check
 cp test-suite.log ../test-suite-results.log
 if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
     binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
     make binary-archive
     ls -R
     make clean
-    travis_wait make distcheck sambadahostsystemname=${SAMBADA_OS_NAME}
+    make distcheck sambadahostsystemname=${SAMBADA_OS_NAME}
 else
     pwd
     source ${TRAVIS_BUILD_DIR}/scripts-ci/travis-gcov.sh
