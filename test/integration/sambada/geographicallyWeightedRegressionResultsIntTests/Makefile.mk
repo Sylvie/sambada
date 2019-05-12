@@ -22,6 +22,7 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-spherical-gaussian.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-spherical-nearest.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-dim-0.txt \
+		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-random-sample-dim-0.txt \
   		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-cartesian-bisquare-dim-1.txt \
    		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-cartesian-bisquare-dim-2.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-cartesian-distance-dim-1.txt \
