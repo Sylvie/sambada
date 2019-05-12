@@ -109,11 +109,11 @@ SCENARIO("Test that geographically weighted regression is computed correctly for
 
 						INFO("Verifying results dim 1");
 						resultsDim1.verifieTailles(true, 1, 9, false, true);
-						resultsDim1.compare(expectedResultsDim1);
+						resultsDim1.compare(expectedResultsDim1, 0.01);
 
 						INFO("Verifying results dim 2");
 						resultsDim2.verifieTailles(true, 2, 9, false, true);
-						resultsDim2.compare(expectedResultsDim2, 0.001);
+						resultsDim2.compare(expectedResultsDim2, 0.01);
 					}
 				}
 
