@@ -13,7 +13,7 @@ export PATH=$PATH:"/usr/local/texlive/2018basic/bin/x86_64-darwin"
 if ! command -v latexmk > /dev/null; then
 
 # Obtain BasicTeX
-wget http://mirror.ox.ac.uk/sites/ctan.org/systems/mac/mactex/mactex-basictex-20180417.pkg -O BasicTeX.pkg
+wget http://mirror.ox.ac.uk/sites/ctan.org/systems/mac/mactex/mactex-basictex-20190410.pkg -O BasicTeX.pkg
 
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
