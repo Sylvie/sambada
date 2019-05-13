@@ -16,6 +16,7 @@ else
     ls bw-outputs
 fi
 time make check
+echo "Tests completed"
 cp test-suite.log ../test-suite-results.log
 if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
     binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
