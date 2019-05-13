@@ -8,7 +8,8 @@ test_integration_SambadaIntegrationTests_SOURCES += \
 		test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalDistanceIntTests.cpp \
 		test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalGaussianIntTests.cpp \
 		test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalNearestIntTests.cpp \
-		test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRMissingValuesCartesianGaussianIntTests.cpp
+		test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRMissingValuesCartesianGaussianIntTests.cpp \
+		test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRMissingValuesCartesianNearestIntTests.cpp
 
 EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/cattle-pop-env.csv \
@@ -34,6 +35,8 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-cartesian-nearest-dim-2.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-missing-values-cartesian-gaussian-dim-1.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-missing-values-cartesian-gaussian-dim-2.txt \
+		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-missing-values-cartesian-nearest-dim-1.txt \
+		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-missing-values-cartesian-nearest-dim-2.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-spherical-bisquare-dim-1.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-spherical-bisquare-dim-2.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/expected-results-spherical-distance-dim-1.txt \
