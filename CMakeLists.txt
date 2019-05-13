@@ -175,6 +175,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianDistanceIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianGaussianIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianNearestIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRMissingValuesCartesianGaussianIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalBisquareIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalDistanceIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalGaussianIntTests.cpp
