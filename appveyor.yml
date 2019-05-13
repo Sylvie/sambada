@@ -47,7 +47,7 @@ build_script:
 #---------------------------------#
 # to run your custom scripts instead of automatic tests
 test_script:
-  - make check
+  - Measure-Command {make check}
   - cp test-suite.log ../test-suite-results.log
   - ls -R
   - make.exe clean
