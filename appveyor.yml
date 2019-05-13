@@ -47,7 +47,7 @@ build_script:
 #---------------------------------#
 # to run your custom scripts instead of automatic tests
 test_script:
-  - ps: Measure-Command {make check}
+  - ps: Measure-Command {bash -c "make check"}
   - echo "Tests completed"
   - cp test-suite.log ../test-suite-results.log
   - ls -R
