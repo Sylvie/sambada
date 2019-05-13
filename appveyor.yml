@@ -47,7 +47,10 @@ build_script:
 #---------------------------------#
 # to run your custom scripts instead of automatic tests
 test_script:
-  - ps: Measure-Command {bash -c "make check"}
+  - ps: $StartDate=(Get-Date)
+  - make check
+  - ps: $EndDate=(Get-Date)
+  - ps: echo New-TimeSpan –Start $StartDate –End $EndDate
   - echo "Tests completed"
   - cp test-suite.log ../test-suite-results.log
   - ls -R
