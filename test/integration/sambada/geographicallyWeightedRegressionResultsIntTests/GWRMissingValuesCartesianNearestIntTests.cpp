@@ -71,7 +71,7 @@ SCENARIO("Test that geographically weighted regression is computed correctly for
 
 			std::string output = SambadaIntegrationTestUtils::runCommand(
 					program + " " + fileNameParams + " " + fileNameData);
-			//INFO(output);
+			INFO(output);
 
 			THEN("the output files are found")
 			{
