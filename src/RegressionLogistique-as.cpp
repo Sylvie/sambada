@@ -2380,11 +2380,12 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 					// Calcul de l'inverse de J
 					try
 					{
+						cout << "** " << det(J_info_l) << " ** " << epsilon<reel>() << endl;
 						inv_J_info_l = invpd(J_info_l);
 					}
 					catch (scythe_exception& error)
 					{
-						//cerr << error.message() << "\n";
+						cerr << error.message() << "\n";
 						singularMatrix = true;
 						continueCalcul = false;
 						typeErreur = 2;
