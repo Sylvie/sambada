@@ -13,7 +13,7 @@ SCENARIO("Test that geographically weighted regression is computed correctly for
 
 	INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
-	GIVEN("Some input files with info on population structure")
+	GIVEN("Some input files with geolocated samples")
 	{
 		std::string program(SambadaIntegrationTestUtils::computePlatformSpecificProgramName("./binaries/sambada"));
 
@@ -66,7 +66,7 @@ SCENARIO("Test that geographically weighted regression is computed correctly for
 		lecteurCorrige.close();
 		expectedResultsDim2.verifieTailles(true, 2, 9, false, true);
 
-		WHEN("Sambada is run using the first variables as population structure")
+		WHEN("Sambada is run")
 		{
 			CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
