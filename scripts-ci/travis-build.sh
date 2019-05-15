@@ -15,8 +15,10 @@ else
     build-wrapper-linux-x86-64 --out-dir bw-outputs make
     ls bw-outputs
 fi
-time make check
-echo "Tests completed"
+timeStart=$SECONDS
+make check
+duration=$SECONDS - $timeStart
+echo "Tests completed in $(($duration / 60)) minutes and $(($duration % 60)) seconds."
 cp test-suite.log ../test-suite-results.log
 if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
     binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
