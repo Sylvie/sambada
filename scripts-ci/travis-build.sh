@@ -17,7 +17,7 @@ else
 fi
 timeStart=$SECONDS
 make check
-duration=$SECONDS - $timeStart
+duration=$(($SECONDS - $timeStart))
 echo "Tests completed in $(($duration / 60)) minutes and $(($duration % 60)) seconds."
 cp test-suite.log ../test-suite-results.log
 if [ "${SAMBADA_BUILD_TYPE}" = "PACKAGE" ]; then
