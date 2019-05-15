@@ -15,6 +15,7 @@ EXTRA_DIST += \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/cattle-pop-env.csv \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/cattle-pop-mark.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/random-sample.txt \
+		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/random-sample-missing-values.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-cartesian-bisquare.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-cartesian-distance.txt \
 		$(top_srcdir)/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/param-cartesian-gaussian.txt \
