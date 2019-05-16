@@ -172,6 +172,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/populationStructureAsLastVariablesQuadrivariateModelsIntTests.cpp
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationIntTests.cpp
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationMissingValuesCartesianBisquareIntTests.cpp
+        test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationMissingValuesCartesianNearestIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianBisquareIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianDistanceIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianGaussianIntTests.cpp
