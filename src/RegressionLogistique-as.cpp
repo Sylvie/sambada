@@ -2213,9 +2213,9 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 							if (pointsGWR.masque(voisinCourant->first, 0))
 							{
 								pointsGWR.poids[i].push_back(make_pair(voisinCourant->first, 1));
-								++voisinCourant;
 								++nbVoisinsCourants;
 							}
+							++voisinCourant;
 						}
 						// On cherche si des points sont à la même distance que le dernier
 						voisinSuivant = voisinCourant + 1;
