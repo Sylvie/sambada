@@ -45,7 +45,8 @@ eps(sqrt(epsilon<reel>())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), s
 limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
 tailleEtiquetteInvar(4), numPremierMarq(0),
 delimLignes("\n"),
-AS_spatialLag(false)
+AS_spatialLag(false),
+AS_GWR(false), AS_autocorrGlobale(false), AS_autocorrLocale(false), AS_autocorrVarEnv(false), AS_autocorrMarq(false), AS_shapefile(false)
 {
 }
 

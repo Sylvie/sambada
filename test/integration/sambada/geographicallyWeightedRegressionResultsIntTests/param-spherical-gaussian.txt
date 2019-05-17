@@ -1,0 +1,12 @@
+HEADERS Yes
+WORDDELIM " "
+OUTPUTFILE "test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/random-sample.txt"
+NUMVARENV 5
+NUMMARK 1
+NUMINDIV 100
+IDINDIV "ID"
+COLSUPENV  "ID" x y
+SPATIAL x y SPHERICAL GAUSSIAN 1000000
+GWR
+DIMMAX 2
+SAVETYPE END ALL 0.01
