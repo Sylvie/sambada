@@ -20,5 +20,5 @@ ${GCOV} -r ../src/Supervision.cpp -o src/binaries_supervision-Supervision.o
 ${GCOV} -r ../src/recodePlink.cpp -o src/binaries_recode_plink-recodePlink.o
 ${GCOV} -r ../src/recodeLFMM.cpp -o src/binaries_recode_plink_lfmm-recodeLFMM.o
 
-${GCOV} -r ../src/variables/CombinaisonVariables.cpp -o src/libvariables_a-CombinaisonVariables.o
-${GCOV} -r ../src/variables/FamilleVariablesFactory.cpp -o src/libvariables_a-FamilleVariablesFactory.o
+${GCOV} -r ../src/variables/CombinaisonVariables.cpp -o src/variables/libvariables_a-CombinaisonVariables.o
+${GCOV} -r ../src/variables/FamilleVariablesFactory.cpp -o src/variables/libvariables_a-FamilleVariablesFactory.o
