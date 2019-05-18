@@ -295,6 +295,8 @@ add_executable(SambadaUnitTests
         src/LecteurCheminAcces.cpp
         src/variables/FamilleVariablesFactory.hpp
         src/variables/FamilleVariablesFactory.cpp
+        src/variables/CombinaisonVariables.hpp
+        src/variables/CombinaisonVariables.cpp
         ${TestUtils}
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp)
 

@@ -27,7 +27,13 @@ namespace sambada {
 		{
 			int nombreGenerationsEffectif = nombreGenerations <= nombreVariables ? nombreGenerations : nombreVariables;
 
+			famille.push_back(creeGenerationNulle());
+			famille.push_back(creePremiereGeneration(nombreVariables, masque, famille[0]));
 
+			for (size_t i(2); i <= nombreGenerationsEffectif; ++i)
+			{
+				famille.push_back(creeGeneration(nombreVariables, masque, famille[i-1]));
+			}
 		}
 
 		return famille;
@@ -36,5 +42,76 @@ namespace sambada {
 	bool FamilleVariablesFactory::areDonneesValides(int nombreVariables, int nombreGenerations, const MatriceBools& masque)
 	{
 		return (nombreVariables > 0 && nombreGenerations > 0 && nombreVariables == masque.cols());
+	}
+
+	GenerationVariables FamilleVariablesFactory::creeGenerationNulle()
+	{
+		EtiquetteCombinaisonVariables etiquetteNulle;
+		CombinaisonVariables combinaisonNulle;
+
+		GenerationVariables generationNulle;
+		generationNulle[etiquetteNulle] = combinaisonNulle;
+		return generationNulle;
+	}
+
+	GenerationVariables FamilleVariablesFactory::creePremiereGeneration(int nombreVariables, const sambada::MatriceBools& masque, const sambada::GenerationVariables& generationNulle)
+	{
+		GenerationVariables generation;
+
+		const CombinaisonVariables& combinaisonNulle(generationNulle.cbegin()->second);
+
+		for(int i(0); i < nombreVariables; ++i)
+		{
+			EtiquetteCombinaisonVariables etiquette;
+			etiquette.insert(i);
+			generation[etiquette] = creeCombinaisonVariables(combinaisonNulle, i, masque);
+		}
+
+		return generation;
+	}
+
+	GenerationVariables FamilleVariablesFactory::creeGeneration(int nombreVariables, const sambada::MatriceBools& masque, const sambada::GenerationVariables& generationPrecedente)
+	{
+		GenerationVariables generation;
+
+		for(GenerationVariables::const_iterator iter(generationPrecedente.cbegin()); iter != generationPrecedente.cend(); ++iter)
+		{
+			int derniereVariableGenerationPrecedente(*(iter->second.variables.crbegin()));
+
+			for(int variableCourante(derniereVariableGenerationPrecedente+1); variableCourante < nombreVariables; ++variableCourante)
+			{
+				CombinaisonVariables combinaison = creeCombinaisonVariables(iter->second, variableCourante, masque);
+				generation[combinaison.variables] = combinaison;
+			}
+		}
+
+		return generation;
+	}
+
+	CombinaisonVariables FamilleVariablesFactory::creeCombinaisonVariables(const CombinaisonVariables& combinaisonExistante, int nouvelleVariable, MatriceBools masque)
+	{
+		CombinaisonVariables combinaison;
+
+		combinaison.variables = combinaisonExistante.variables;
+		combinaison.variables.insert(nouvelleVariable);
+
+		if (combinaisonExistante.variables.size() == 0)
+		{
+			combinaison.parents.insert(combinaisonExistante.variables);
+			combinaison.masque = masque(scythe::_, nouvelleVariable);
+		}
+		else
+		{
+			for (int variable : combinaison.variables)
+			{
+				EtiquetteCombinaisonVariables etiquette = combinaison.variables;
+				etiquette.erase(variable);
+				combinaison.parents.insert(etiquette);
+			}
+
+			combinaison.masque = combinaisonExistante.masque % masque(scythe::_, nouvelleVariable);
+		}
+
+		return combinaison;
 	}
 }

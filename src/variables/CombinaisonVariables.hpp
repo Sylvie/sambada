@@ -25,7 +25,6 @@
 #include <set>
 #include <map>
 #include <vector>
-#include <functional>
 
 namespace sambada {
 
@@ -34,13 +33,16 @@ namespace sambada {
 	struct CombinaisonVariables
 	{
 		EtiquetteCombinaisonVariables variables;
-		std::set<std::reference_wrapper<const CombinaisonVariables>> parents;
+		std::set<EtiquetteCombinaisonVariables> parents;
 		MatriceBools masque;
+
+		CombinaisonVariables();
 	};
 
 	typedef std::map<EtiquetteCombinaisonVariables, CombinaisonVariables> GenerationVariables;
 
 	typedef std::vector<GenerationVariables> FamilleVariables;
+
 }
 
 #endif //SAMBADA_COMBINAISONVARIABLES_HPP

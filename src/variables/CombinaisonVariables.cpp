@@ -17,3 +17,9 @@
 *************************************************************************/
 
 #include "CombinaisonVariables.hpp"
+
+sambada::CombinaisonVariables::CombinaisonVariables()
+:variables(), parents(), masque(MatriceBools( 1, 1, true, false))
+{
+
+}
