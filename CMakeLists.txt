@@ -66,7 +66,11 @@ add_executable(sambada
         src/Supervision.hpp
         src/LecteurCheminAcces.cpp
         src/LecteurCheminAcces.hpp
-        )
+        src/variables/CombinaisonVariables.cpp
+        src/variables/CombinaisonVariables.hpp
+        src/variables/TypesCommuns.hpp
+        src/variables/FamilleVariablesFactory.cpp
+        src/variables/FamilleVariablesFactory.hpp)
 
 target_link_libraries(sambada
         PRIVATE
@@ -286,10 +290,13 @@ file(MAKE_DIRECTORY
 add_executable(SambadaUnitTests
         test/unit/sambada/CheminAccesTests.cpp
         test/unit/sambada/LecteurCheminAccesTests.cpp
+        test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
         src/LecteurCheminAcces.hpp
         src/LecteurCheminAcces.cpp
+        src/variables/FamilleVariablesFactory.hpp
+        src/variables/FamilleVariablesFactory.cpp
         ${TestUtils}
-        )
+        test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp)
 
 add_executable(SupervisionIntegrationTests
         test/integration/supervision/mergeResultFilesIntTests/mergeResultFilesIntTests.cpp

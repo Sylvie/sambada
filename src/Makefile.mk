@@ -107,6 +107,8 @@ libshp_a_SOURCES = ext/shapelib-1.3.0/shpopen.c \
 	ext/shapelib-1.3.0/shptree.c \
 	ext/shapelib-1.3.0/shapefil.h
 
+include src/variables/Makefile.mk
+
 ## Building archive ##
 archive_binaries_basename = $(archive_basename)/binaries
 
@@ -117,6 +119,6 @@ binary-archive-local-binaries: $(sambada_binaries) create-archive-binaries-folde
 	cp $(sambada_binaries) $(archive_binaries_basename)
 
 ## Cleaning ##
-clean-local-src:
+clean-local-src: clean-local-src-variables
 	$(call clean_extra_generated_files, src/)
 	$(call clean_extra_generated_files, binaries/)
