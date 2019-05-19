@@ -1020,9 +1020,6 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	// Il faut trouver les meilleurs modèles "parents"
 	int dimParents(resultat.first.second.size() - 1); // Taille de l'étiquette - 1
 
-	// On garde les infos des modèles plus simples que dim max
-	//bool modeleNonMax(resultat.first.second.size() < dimensionMax);
-
 	groupeResultats::iterator modeleCourant, bestLoglike;
 
 	// Calcul des pseudos R carrés
@@ -1048,11 +1045,12 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	}
 	else // Recherche d'un parent valide et sélection du parent avec la meilleure loglike
 	{
-		for (set<int>::iterator variableCourante(resultat.first.second.begin()); variableCourante != resultat.first.second.end(); ++variableCourante)
+		sambada::CombinaisonVariables combinaisonVariables(familleVariables[dimParents+1][resultat.first.second]);
+		for (std::set<sambada::EtiquetteCombinaisonVariables>::const_iterator parentCourant(combinaisonVariables.parents.cbegin()); parentCourant != combinaisonVariables.parents.cend(); ++parentCourant)
 		{
 			// Initialisation avec les valeurs du premier modèle
 			etiquetteCourante = resultat.first;
-			etiquetteCourante.second.erase(*variableCourante);    // On corrige l'étiquette pour le modèle à considérer
+			etiquetteCourante.second = *parentCourant;    // On corrige l'étiquette pour le modèle à considérer
 			modeleCourant = resultats[dimParents].find(etiquetteCourante);    // Parent courant
 
 			// On teste si le parent existe et s'il n'est pas dans un état d'erreur
