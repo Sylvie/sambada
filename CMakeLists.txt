@@ -45,6 +45,14 @@ add_library(intermediate
         src/Erreur.hpp
         )
 
+add_library(variables
+        src/variables/TypesCommuns.hpp
+        src/variables/CombinaisonVariables.hpp
+        src/variables/CombinaisonVariables.cpp
+        src/variables/FamilleVariablesFactory.hpp
+        src/variables/FamilleVariablesFactory.cpp
+        )
+
 add_executable(sambada
         src/Archiviste.cpp
         src/Archiviste.hpp
@@ -76,6 +84,7 @@ target_link_libraries(sambada
         PRIVATE
         shp
         intermediate
+        variables
         )
 
 add_executable(supervision
@@ -293,12 +302,13 @@ add_executable(SambadaUnitTests
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
         src/LecteurCheminAcces.hpp
         src/LecteurCheminAcces.cpp
-        src/variables/FamilleVariablesFactory.hpp
-        src/variables/FamilleVariablesFactory.cpp
-        src/variables/CombinaisonVariables.hpp
-        src/variables/CombinaisonVariables.cpp
         ${TestUtils}
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp)
+
+target_link_libraries(SambadaUnitTests
+        PRIVATE
+        variables
+        )
 
 add_executable(SupervisionIntegrationTests
         test/integration/supervision/mergeResultFilesIntTests/mergeResultFilesIntTests.cpp
