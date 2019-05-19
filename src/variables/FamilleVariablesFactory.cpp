@@ -88,7 +88,7 @@ namespace sambada {
 		return generation;
 	}
 
-	CombinaisonVariables FamilleVariablesFactory::creeCombinaisonVariables(const CombinaisonVariables& combinaisonExistante, int nouvelleVariable, MatriceBools masque)
+	CombinaisonVariables FamilleVariablesFactory::creeCombinaisonVariables(const CombinaisonVariables& combinaisonExistante, int nouvelleVariable, const MatriceBools& masque)
 	{
 		CombinaisonVariables combinaison;
 

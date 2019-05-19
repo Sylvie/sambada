@@ -33,7 +33,7 @@ namespace sambada {
 		GenerationVariables creeGenerationNulle();
 		GenerationVariables creePremiereGeneration(int nombreVariables, const sambada::MatriceBools& masque, const sambada::GenerationVariables& generationNulle);
 		GenerationVariables creeGeneration(int nombreVariables, const MatriceBools& masque, const GenerationVariables& generationPrecedente);
-		CombinaisonVariables creeCombinaisonVariables(const CombinaisonVariables& combinaisonExistante, int nouvelleVariable, MatriceBools masque);
+		CombinaisonVariables creeCombinaisonVariables(const CombinaisonVariables& combinaisonExistante, int nouvelleVariable, const MatriceBools& masque);
 	};
 }
 
