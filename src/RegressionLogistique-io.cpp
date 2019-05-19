@@ -29,6 +29,8 @@
 
 #include "RegressionLogistique.hpp"
 #include "LecteurCheminAcces.hpp"
+#include "FamilleVariablesFactory.hpp"
+
 #include "optimize.h"
 #include <limits>
 #include <list>
@@ -1592,6 +1594,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 
 	}
 
+	sambada::FamilleVariablesFactory familleVariablesFactory;
+	familleVariables = familleVariablesFactory.genereFamille(nbEnvActives, dimensionMax, masqueX);
 
 	return 0;
 }

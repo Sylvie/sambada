@@ -38,15 +38,15 @@ using namespace scythe;
 
 
 RegressionLogistique::RegressionLogistique()
-: dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
-sauvegardeTempsReel(true), selModeles(all),
-analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
-eps(sqrt(epsilon<reel>())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel) 700, log(numeric_limits<reel>::max() / 2))), nbModelesParMarqueur(1),
-limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
-tailleEtiquetteInvar(4), numPremierMarq(0),
-delimLignes("\n"),
-AS_GWR(false), AS_autocorrGlobale(false), AS_autocorrLocale(false), AS_autocorrVarEnv(false), AS_autocorrMarq(false), AS_shapefile(false),
-AS_spatialLag(false)
+		: dataEnv(0, 0), missingValuesEnv(0), dataMarq(0, 0), missingValuesMarq(0), existeColID(false), /*headerEnv(0), headerMarq(0),*/
+		  sauvegardeTempsReel(true), selModeles(all),
+		  analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
+		  eps(sqrt(epsilon<reel>())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel) 700, log(numeric_limits<reel>::max() / 2))), nbModelesParMarqueur(1),
+		  limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
+		  tailleEtiquetteInvar(4), numPremierMarq(0),
+		  delimLignes("\n"),
+		  AS_GWR(false), AS_autocorrGlobale(false), AS_autocorrLocale(false), AS_autocorrVarEnv(false), AS_autocorrMarq(false), AS_shapefile(false),
+		  AS_spatialLag(false)
 {
 }
 
@@ -185,14 +185,6 @@ int RegressionLogistique::creeModelesGlobaux()
 	reel tailleY(0), sommeY(0); //, tailleX(0), beta_zero(0), val_loglikelihood_zero(0);
 	// pseudosRcarresCourants(nbPseudosRcarres), statsCourantes(nbStats), betaCourant(0); */
 	vector<reel> loglikelihood(dimensionMax + 1, 0.0);//, resultatsCourants(tailleEtiquetteInvar, 0.0); // Il y a le modèle sans paramètres!
-
-	// Iteration sur les paramètres environnementaux
-	vector<set<int>::iterator> cavalier(dimensionMax);
-	//vector<bool> varDiscrete(dimensionMax, false);
-	int niveau(0);
-	bool fini(false), avance(false);
-	//vector<int> varDiscretes(0), varContinues(0);
-	set<int> varContinues;
 
 	pair<etiquetteModele, vector<reel> > resultatCourant;
 	resultatCourant.second.resize(tailleEtiquetteInvar, 0.0);
@@ -504,24 +496,20 @@ int RegressionLogistique::creeModelesGlobaux()
 			}
 		}
 
-		for (int variableCourante(0); variableCourante < nbEnvActives; ++variableCourante)
+		for (sambada::GenerationVariables::const_iterator variableCourante(familleVariables[1].cbegin()); variableCourante != familleVariables[1].cend(); ++variableCourante)
 		{
-			varContinues.clear();
-			varContinues.insert(variableCourante);
-			construitModele(i, varContinues);
+			construitModele(i, variableCourante->first);
 		}
 
 		// Calcul des modèles multivariés
-		set<int>::iterator derniereVar;//, varCourante;
-		int varCourante;
 
-		// Ici la dim est celle des parents (le cas dim=1 est traité avant)
-		for (int dim(1); dim < dimensionMax; ++dim)
+		// Ici la dim est celle de la génération courante (le cas dim=1 est traité avant)
+		for (int dim(2); dim <= dimensionMax; ++dim)
 		{
 			// On peut déjà redimensionner les matrices pour les calculs
 			// On connaît la taille de l'échantillon pour la regression -> construction des matrices
 			// Matrice des paramètres
-			nbParam = dim + 2;
+			nbParam = dim + 1;
 			beta_hat.resize(nbParam, 1);
 			nouv_beta_hat.resize(nbParam, 1);
 			diff_beta_hat.resize(nbParam, 1);
@@ -543,29 +531,13 @@ int RegressionLogistique::creeModelesGlobaux()
 
 
 
-			// Parcours des modèles de dimension dim-1
-			// La fonction lower_bound permet de trouver directement le premier modèle avec le bon marqueur
-			//			for (groupeResultats::iterator generationPrecedente(resultats[dim].begin());  (generationPrecedente!=resultats[dim].end()); ++generationPrecedente)
-			for (groupeResultats::iterator generationPrecedente(resultats[dim].lower_bound(resultatCourant.first)); (generationPrecedente != resultats[dim].end()); ++generationPrecedente)
+			// Parcours des modèles de dimension dim
+			for (sambada::GenerationVariables::const_iterator generationCourante(familleVariables[dim].cbegin()); (generationCourante != familleVariables[dim].cend()); ++generationCourante)
 			{
-				// Si le résultat considéré concerne le marqueur i:
-				if (generationPrecedente->first.first == i)
+				//if (dim < (dimensionMax - 2) || (structurePop == pasStructurePop) || (inclutToutesVariablesPop(varContinues)))
+				if (estModeleEligiblePourStructurePopulation(generationCourante->first))
 				{
-
-					derniereVar = generationPrecedente->first.second.end();
-					--derniereVar;
-					//					for (varCourante=++varActives.find(*derniereVar); varCourante!=varActives.end(); ++varCourante)
-					for (varCourante = *derniereVar + 1; varCourante < nbEnvActives; ++varCourante)
-					{
-						varContinues = generationPrecedente->first.second;
-						varContinues.insert(varCourante);
-
-						//if (dim < (dimensionMax - 2) || (structurePop == pasStructurePop) || (inclutToutesVariablesPop(varContinues)))
-						if (estModeleEligiblePourStructurePopulation(varContinues))
-						{
-							construitModele(i, varContinues);
-						}
-					}
+					construitModele(i, generationCourante->first);
 				}
 			}
 		}
@@ -677,11 +649,10 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 	resultat.first.first = numMarq;
 	resultat.first.second = varContinues;
 
-	masque = masqueY;
-	for (set<int>::iterator i(varContinues.begin()); i != varContinues.end(); ++i)
-	{
-		masque %= masqueX(_, *i);
-	}
+	sambada::CombinaisonVariables combinaisonVariables(familleVariables[varContinues.size()][varContinues]);
+
+	masque = masqueY % combinaisonVariables.masque;
+
 	taille = toolbox::sommeNumerique(masque);
 	double somme(toolbox::sommeNumerique(dataMarq(_, numMarq) % masque));
 
@@ -927,7 +898,6 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 	// Test de convergence
 	bool continueCalcul(true), singularMatrix(false), divergentCalculation(false);
 	int nbIterations(0), typeErreur(0);
-	reel loglike(0);
 
 	// Iteration
 	while (continueCalcul && !singularMatrix && !divergentCalculation && (nbIterations < limiteIter))

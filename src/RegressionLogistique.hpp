@@ -34,6 +34,7 @@
 #include "Toolbox.hpp"
 #include "Archiviste.hpp"
 #include "Journal.hpp"
+#include "variables/CombinaisonVariables.hpp"
 
 
 #include <set>
@@ -201,6 +202,7 @@ protected:
 	//	MatriceReels masqueX, masque; // masqueX est le masque complet pour toutes les variables environnementales
 	//	MatriceBools masqueY; // masqueX est le masque complet pour toutes les variables environnementales
 
+	sambada::FamilleVariables familleVariables;
 
 	MatriceReels X, Y,
 			beta_hat, nouv_beta_hat, diff_beta_hat,
