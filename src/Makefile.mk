@@ -54,9 +54,10 @@ binaries_sambada_SOURCES = src/mainSambada.cpp \
     src/LecteurCheminAcces.hpp
 binaries_sambada_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
-	-I $(top_srcdir)/ext/shapelib-1.3.0
+	-I $(top_srcdir)/ext/shapelib-1.3.0 \
+	-I $(top_srcdir)/src/variables
 binaries_sambada_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_sambada_LDADD = libshp.a libintermediate.a
+binaries_sambada_LDADD = libshp.a libintermediate.a libvariables.a
 
 binaries_supervision_SOURCES = src/mainSupervision.cpp \
 	src/Supervision.cpp \
