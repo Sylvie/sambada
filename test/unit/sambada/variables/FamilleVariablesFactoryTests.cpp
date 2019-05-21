@@ -1,7 +1,7 @@
 #include "catch.hpp"
 #include "variables/FamilleVariablesFactory.hpp"
 
-TEST_CASE("FamilleVariableFactory can create FamilleVariables", "[famille-variables-factory-unit]")
+TEST_CASE("Test that FamilleVariableFactory can create FamilleVariables", "[famille-variables-factory-unit]")
 {
 	sambada::FamilleVariablesFactory factory;
 	const int nombrePoints(4);
