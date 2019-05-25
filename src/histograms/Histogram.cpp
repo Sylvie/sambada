@@ -22,7 +22,10 @@
 sambada::Histogram::Histogram(const std::vector<double>& binLimits)
 :binLimits(binLimits), counts(binLimits.size() + 1, 0)
 {
-
+	if(!std::is_sorted(this->binLimits.cbegin(), this->binLimits.cend()))
+	{
+		std::sort(this->binLimits.begin(), this->binLimits.end());
+	}
 }
 
 void sambada::Histogram::addValue(double value)

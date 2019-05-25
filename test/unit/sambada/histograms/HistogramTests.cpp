@@ -198,4 +198,25 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 		compareHistogramCounts(counts, expectedCounts);
 	}
+
+	SECTION("Test that Histogram puts values in correct bins when the limits are not sorted")
+	{
+		std::vector<double> shuffledBinLimits({7, 5, 20, 2});
+
+		sambada::Histogram histogram(shuffledBinLimits);
+
+		std::vector<double> values(41);
+		std::iota(values.begin(), values.end(), -10);
+
+		for (double value : values)
+		{
+			histogram.addValue(value);
+		}
+
+		std::vector<int> expectedCounts({12, 3, 2, 13, 11});
+
+		auto counts(histogram.getCounts());
+
+		compareHistogramCounts(counts, expectedCounts);
+	}
 }
