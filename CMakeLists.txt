@@ -58,6 +58,8 @@ add_library(variables
 add_library(histograms
         src/histograms/Histogram.hpp
         src/histograms/Histogram.cpp
+        src/histograms/GroupHistograms.cpp
+        src/histograms/GroupHistograms.hpp
         )
 
 add_executable(sambada
@@ -85,7 +87,8 @@ add_executable(sambada
         src/variables/CombinaisonVariables.hpp
         src/variables/TypesCommuns.hpp
         src/variables/FamilleVariablesFactory.cpp
-        src/variables/FamilleVariablesFactory.hpp)
+        src/variables/FamilleVariablesFactory.hpp
+        )
 
 target_link_libraries(sambada
         PRIVATE
@@ -312,6 +315,7 @@ add_executable(SambadaUnitTests
         ${TestUtils}
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
         test/unit/sambada/histograms/HistogramTests.cpp
+        test/unit/sambada/histograms/GroupHistogramsTests.cpp
         )
 
 target_link_libraries(SambadaUnitTests

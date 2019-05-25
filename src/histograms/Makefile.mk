@@ -21,8 +21,10 @@
 noinst_LIBRARIES += libhistograms.a
 
 libhistograms_a_SOURCES = \
+	src/histograms/Histogram.hpp \
 	src/histograms/Histogram.cpp \
-	src/histograms/Histogram.hpp
+	src/histograms/GroupHistograms.hpp \
+	src/histograms/GroupHistograms.cpp
 
 ## Cleaning ##
 clean-local-src-histograms:
