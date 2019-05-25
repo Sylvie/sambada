@@ -23,7 +23,7 @@ void compareHistogramCounts(const std::vector<int>& counts, const std::vector<in
 {
 	CHECKED_IF(counts.size () == expectedCounts.size())
 	{
-		for(int i(0); i < expectedCounts.size(); ++i)
+		for(size_t i(0); i < expectedCounts.size(); ++i)
 		{
 			CHECK(counts[i] == expectedCounts[i]);
 		}
@@ -75,6 +75,19 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 		compareHistogramCounts(counts, expectedCounts);
 	}
 
+	SECTION("Test that Histogram puts value equal to lower limit in second bin correctly")
+	{
+		sambada::Histogram histogram(binLimits);
+
+		histogram.addValue(binLimits[0]);
+
+		std::vector<int> expectedCounts({0, 1, 0, 0, 0});
+
+		auto counts(histogram.getCounts());
+
+		compareHistogramCounts(counts, expectedCounts);
+	}
+
 	SECTION("Test that Histogram puts value in second bin correctly")
 	{
 		sambada::Histogram histogram(binLimits);
@@ -82,6 +95,19 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 		histogram.addValue(3.31);
 
 		std::vector<int> expectedCounts({0, 1, 0, 0, 0});
+
+		auto counts(histogram.getCounts());
+
+		compareHistogramCounts(counts, expectedCounts);
+	}
+
+	SECTION("Test that Histogram puts value equal to second lower limit in third bin correctly")
+	{
+		sambada::Histogram histogram(binLimits);
+
+		histogram.addValue(binLimits[1]);
+
+		std::vector<int> expectedCounts({0, 0, 1, 0, 0});
 
 		auto counts(histogram.getCounts());
 
@@ -101,6 +127,19 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 		compareHistogramCounts(counts, expectedCounts);
 	}
 
+	SECTION("Test that Histogram puts value equal to second upper limit in second last bin correctly")
+	{
+		sambada::Histogram histogram(binLimits);
+
+		histogram.addValue(binLimits[2]);
+
+		std::vector<int> expectedCounts({0, 0, 0, 1, 0});
+
+		auto counts(histogram.getCounts());
+
+		compareHistogramCounts(counts, expectedCounts);
+	}
+
 	SECTION("Test that Histogram puts value in second last bin correctly")
 	{
 		sambada::Histogram histogram(binLimits);
@@ -108,6 +147,19 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 		histogram.addValue(8.1);
 
 		std::vector<int> expectedCounts({0, 0, 0, 1, 0});
+
+		auto counts(histogram.getCounts());
+
+		compareHistogramCounts(counts, expectedCounts);
+	}
+
+	SECTION("Test that Histogram puts value equal to upper limit in last bin correctly")
+	{
+		sambada::Histogram histogram(binLimits);
+
+		histogram.addValue(binLimits[3]);
+
+		std::vector<int> expectedCounts({0, 0, 0, 0, 1});
 
 		auto counts(histogram.getCounts());
 
