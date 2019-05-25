@@ -24,6 +24,7 @@ TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-
 {
 	std::string name("monHistogramme");
 	std::vector<double> binLimits({2, 5, 7, 20});
+	size_t length(3);
 
 	SECTION("Test that GroupHistograms can be empty")
 	{
@@ -32,5 +33,28 @@ TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-
 		auto histograms(groupHistograms.getHistograms());
 
 		CHECK(histograms.size() == 0);
+	}
+
+	SECTION("Test that GroupHistograms has the correct number of Histograms")
+	{
+		sambada::GroupHistograms groupHistograms(length, name, binLimits);
+
+		auto histograms(groupHistograms.getHistograms());
+
+		CHECK(histograms.size() == length);
+	}
+
+	SECTION("Test that Histograms have the correct names")
+	{
+		sambada::GroupHistograms groupHistograms(length, name, binLimits);
+
+		auto histograms(groupHistograms.getHistograms());
+
+		CHECKED_IF(histograms.size() == length)
+		{
+			CHECK(histograms[0].getName() == "monHistogramme0");
+			CHECK(histograms[1].getName() == "monHistogramme1");
+			CHECK(histograms[2].getName() == "monHistogramme2");
+		}
 	}
 }
