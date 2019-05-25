@@ -31,7 +31,7 @@ namespace sambada {
 
 		void addValue(double value);
 
-		const std::string& getNom() const;
+		const std::string& getName() const;
 		const std::vector<double>& getBinLimits() const;
 		const std::vector<int>& getCounts() const;
 

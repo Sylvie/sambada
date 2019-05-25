@@ -35,7 +35,7 @@ void sambada::Histogram::addValue(double value)
 	++counts[distance];
 }
 
-const std::string& sambada::Histogram::getNom() const
+const std::string& sambada::Histogram::getName() const
 {
 	return name;
 }

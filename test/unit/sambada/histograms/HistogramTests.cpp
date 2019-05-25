@@ -40,7 +40,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 	{
 		sambada::Histogram histogram(name, {});
 
-		CHECK(histogram.getNom() == "monHistogramme");
+		CHECK(histogram.getName() == "monHistogramme");
 	}
 
 	SECTION("Test that Histogram without separations has a single bin")
