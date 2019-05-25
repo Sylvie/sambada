@@ -30,8 +30,8 @@ sambada::Histogram::Histogram(const std::string& name, const std::vector<double>
 
 void sambada::Histogram::addValue(double value)
 {
-	std::vector<double>::const_iterator major(std::upper_bound(binLimits.cbegin(), binLimits.cend(), value));
-	int distance(std::distance(binLimits.cbegin(), major));
+	std::vector<double>::const_iterator upperBound(std::upper_bound(binLimits.cbegin(), binLimits.cend(), value));
+	int distance(std::distance(binLimits.cbegin(), upperBound));
 	++counts[distance];
 }
 
