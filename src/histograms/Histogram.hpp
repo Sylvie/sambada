@@ -20,21 +20,23 @@
 #define SAMBADA_HISTOGRAM_HPP
 
 #include <vector>
+#include <string>
 
 namespace sambada {
 
 	class Histogram
 	{
 	public:
-		Histogram(const std::vector<double>& binLimits);
+		Histogram(const std::string& nom, const std::vector<double>& binLimits);
 
 		void addValue(double value);
 
+		const std::string& getNom() const;
 		const std::vector<double>& getBinLimits() const;
-
 		const std::vector<int>& getCounts() const;
 
 	private:
+		std::string nom;
 		std::vector<double> binLimits;
 		std::vector<int> counts;
 	};

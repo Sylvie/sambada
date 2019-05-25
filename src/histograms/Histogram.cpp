@@ -19,8 +19,8 @@
 #include "Histogram.hpp"
 #include <algorithm>
 
-sambada::Histogram::Histogram(const std::vector<double>& binLimits)
-:binLimits(binLimits), counts(binLimits.size() + 1, 0)
+sambada::Histogram::Histogram(const std::string& nom, const std::vector<double>& binLimits)
+:nom(nom), binLimits(binLimits), counts(binLimits.size() + 1, 0)
 {
 	if(!std::is_sorted(this->binLimits.cbegin(), this->binLimits.cend()))
 	{
@@ -33,6 +33,11 @@ void sambada::Histogram::addValue(double value)
 	auto major(std::upper_bound(binLimits.cbegin(), binLimits.cend(), value));
 	int distance(std::distance(binLimits.cbegin(), major));
 	++counts[distance];
+}
+
+const std::string& sambada::Histogram::getNom() const
+{
+	return nom;
 }
 
 const std::vector<double>& sambada::Histogram::getBinLimits() const
