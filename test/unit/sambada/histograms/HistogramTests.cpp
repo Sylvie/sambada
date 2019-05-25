@@ -33,19 +33,19 @@ void compareHistogramCounts(const std::vector<int>& counts, const std::vector<in
 
 TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 {
-	std::string nom("monHistogramme");
+	std::string name("monHistogramme");
 	std::vector<double> binLimits({2, 5, 7, 20});
 
 	SECTION("Test that Histogram has correct name")
 	{
-		sambada::Histogram histogram(nom, {});
+		sambada::Histogram histogram(name, {});
 
 		CHECK(histogram.getNom() == "monHistogramme");
 	}
 
 	SECTION("Test that Histogram without separations has a single bin")
 	{
-		sambada::Histogram histogram(nom, {});
+		sambada::Histogram histogram(name, {});
 
 		auto limits(histogram.getBinLimits());
 		CHECK(limits.size() == 0);
@@ -56,7 +56,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram without separations counts values")
 	{
-		sambada::Histogram histogram(nom, {});
+		sambada::Histogram histogram(name, {});
 
 		std::vector<double> values({0.5, -130, 1119372.576});
 		for (auto value: values)
@@ -73,7 +73,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value in first bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(1.993);
 
@@ -86,7 +86,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value equal to lower limit in second bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(binLimits[0]);
 
@@ -99,7 +99,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value in second bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(3.31);
 
@@ -112,7 +112,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value equal to second lower limit in third bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(binLimits[1]);
 
@@ -125,7 +125,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value in middle bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(6);
 
@@ -138,7 +138,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value equal to second upper limit in second last bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(binLimits[2]);
 
@@ -151,7 +151,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value in second last bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(8.1);
 
@@ -164,7 +164,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value equal to upper limit in last bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(binLimits[3]);
 
@@ -177,7 +177,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts value in last bin correctly")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		histogram.addValue(21);
 
@@ -190,7 +190,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts values in correct bins")
 	{
-		sambada::Histogram histogram(nom, binLimits);
+		sambada::Histogram histogram(name, binLimits);
 
 		std::vector<double> values(41);
 		std::iota(values.begin(), values.end(), -10);
@@ -211,7 +211,7 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 	{
 		std::vector<double> shuffledBinLimits({7, 5, 20, 2});
 
-		sambada::Histogram histogram(nom, shuffledBinLimits);
+		sambada::Histogram histogram(name, shuffledBinLimits);
 
 		std::vector<double> values(41);
 		std::iota(values.begin(), values.end(), -10);

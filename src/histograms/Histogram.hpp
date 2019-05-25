@@ -27,7 +27,7 @@ namespace sambada {
 	class Histogram
 	{
 	public:
-		Histogram(const std::string& nom, const std::vector<double>& binLimits);
+		Histogram(const std::string& name, const std::vector<double>& binLimits);
 
 		void addValue(double value);
 
@@ -36,7 +36,7 @@ namespace sambada {
 		const std::vector<int>& getCounts() const;
 
 	private:
-		std::string nom;
+		std::string name;
 		std::vector<double> binLimits;
 		std::vector<int> counts;
 	};
