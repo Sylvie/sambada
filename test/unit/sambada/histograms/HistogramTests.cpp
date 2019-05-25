@@ -18,12 +18,13 @@
 
 #include "catch.hpp"
 #include "histograms/Histogram.hpp"
+#include <numeric>
 
 void compareHistogramCounts(const std::vector<int>& counts, const std::vector<int>& expectedCounts)
 {
-	CHECKED_IF(counts.size () == expectedCounts.size())
+	CHECKED_IF(counts.size() == expectedCounts.size())
 	{
-		for(size_t i(0); i < expectedCounts.size(); ++i)
+		for (size_t i(0); i < expectedCounts.size(); ++i)
 		{
 			CHECK(counts[i] == expectedCounts[i]);
 		}
@@ -173,6 +174,25 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 		histogram.addValue(21);
 
 		std::vector<int> expectedCounts({0, 0, 0, 0, 1});
+
+		auto counts(histogram.getCounts());
+
+		compareHistogramCounts(counts, expectedCounts);
+	}
+
+	SECTION("Test that Histogram puts values in correct bins")
+	{
+		sambada::Histogram histogram(binLimits);
+
+		std::vector<double> values(41);
+		std::iota(values.begin(), values.end(), -10);
+
+		for (double value : values)
+		{
+			histogram.addValue(value);
+		}
+
+		std::vector<int> expectedCounts({12, 3, 2, 13, 11});
 
 		auto counts(histogram.getCounts());
 
