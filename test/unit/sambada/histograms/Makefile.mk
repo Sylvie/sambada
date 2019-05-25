@@ -1,0 +1,11 @@
+## Adding unit tests for variables
+
+test_unit_SambadaUnitTests_SOURCES +=  \
+	test/unit/sambada/histograms/HistogramTests.cpp
+
+test_unit_SambadaUnitTests_LDADD += libhistograms.a
+
+## Cleaning ##
+clean-local-test-unit-sambada-histograms:
+	$(call clean_extra_generated_files, test/unit/sambada/histograms)
+

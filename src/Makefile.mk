@@ -108,6 +108,7 @@ libshp_a_SOURCES = ext/shapelib-1.3.0/shpopen.c \
 	ext/shapelib-1.3.0/shptree.c \
 	ext/shapelib-1.3.0/shapefil.h
 
+include src/histograms/Makefile.mk
 include src/variables/Makefile.mk
 
 ## Building archive ##

@@ -14,6 +14,7 @@ test_unit_SambadaUnitTests_LDADD = \
 		$(top_builddir)/test/utils/libSambadaTestUtils.a \
 		-lstdc++fs
 
+include test/unit/sambada/histograms/Makefile.mk
 include test/unit/sambada/variables/Makefile.mk
 
 ## Listing tests ##
@@ -22,6 +23,6 @@ check-local-test-unit-sambada: ${sambada_unit_tests}
 	echo "Ignored error: The return value actually counts the numbers of tests."
 
 ## Cleaning ##
-clean-local-test-unit-sambada: clean-local-test-unit-sambada-variables
+clean-local-test-unit-sambada: clean-local-test-unit-sambada-variables clean-local-test-unit-sambada-histograms
 	$(call clean_extra_generated_files, test/unit/sambada/)
 
