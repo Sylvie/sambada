@@ -29,6 +29,8 @@ namespace sambada {
 	public:
 		GroupHistograms(int groupSize, const std::string& groupName, const std::vector<double>& binLimits);
 
+		void addValue(int index, double value);
+
 		const std::vector<sambada::Histogram>& getHistograms() const;
 
 	private:

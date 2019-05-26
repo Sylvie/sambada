@@ -18,6 +18,9 @@
 
 #include "catch.hpp"
 #include "histograms/GroupHistograms.hpp"
+#include <numeric>
+
+void compareHistogramCounts(const std::vector<int>& counts, const std::vector<int>& expectedCounts);
 
 TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-histograms-unit]")
 {
@@ -63,6 +66,32 @@ TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-
 			CHECK(histograms[0].getName() == "monHistogramme0");
 			CHECK(histograms[1].getName() == "monHistogramme1");
 			CHECK(histograms[2].getName() == "monHistogramme2");
+		}
+	}
+
+	SECTION("Test that Histograms have the correct counts")
+	{
+
+		std::vector<double> values(43);
+		std::iota(values.begin(), values.end(), -10);
+		std::vector<std::vector<int>> expectedCounts({{4, 1, 1, 4, 5},
+		                                              {4, 1, 1, 4, 4},
+		                                              {4, 1, 0, 5, 4}});
+
+		sambada::GroupHistograms groupHistograms(length, name, binLimits);
+
+		for (size_t i(0); i < values.size(); ++i)
+		{
+			groupHistograms.addValue(i % length, values[i]);
+		}
+
+		auto histograms(groupHistograms.getHistograms());
+
+		CHECKED_IF(histograms.size() == length)
+		{
+			compareHistogramCounts(histograms[0].getCounts(), expectedCounts[0]);
+			compareHistogramCounts(histograms[1].getCounts(), expectedCounts[1]);
+			compareHistogramCounts(histograms[2].getCounts(), expectedCounts[2]);
 		}
 	}
 }

@@ -19,17 +19,25 @@
 #include "GroupHistograms.hpp"
 
 sambada::GroupHistograms::GroupHistograms(int groupSize, const std::string& groupName, const std::vector<double>& binLimits)
-:name(groupName)
+		: name(groupName)
 {
 	size_t size(0);
 	if (0 < groupSize)
 	{
-		size = (size_t)groupSize;
+		size = (size_t) groupSize;
 	}
 	for (size_t i(0); i < size; ++i)
 	{
 		std::string histogramName(name + std::to_string(i));
 		histograms.push_back(Histogram(histogramName, binLimits));
+	}
+}
+
+void sambada::GroupHistograms::addValue(int index, double value)
+{
+	if (0 <= index && (size_t) index < histograms.size())
+	{
+		histograms[(size_t) index].addValue(value);
 	}
 }
 
