@@ -18,7 +18,6 @@
 
 #include "catch.hpp"
 #include "histograms/GroupHistograms.hpp"
-#include <numeric>
 
 TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-histograms-unit]")
 {
@@ -29,6 +28,15 @@ TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-
 	SECTION("Test that GroupHistograms can be empty")
 	{
 		sambada::GroupHistograms groupHistograms(0, name, binLimits);
+
+		auto histograms(groupHistograms.getHistograms());
+
+		CHECK(histograms.size() == 0);
+	}
+
+	SECTION("Test that GroupHistograms cannot have negative size")
+	{
+		sambada::GroupHistograms groupHistograms(-3, name, binLimits);
 
 		auto histograms(groupHistograms.getHistograms());
 
