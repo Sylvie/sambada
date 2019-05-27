@@ -20,7 +20,7 @@
 #ifndef SAMBADA_COMBINAISONVARIABLES_HPP
 #define SAMBADA_COMBINAISONVARIABLES_HPP
 
-#include "TypesCommuns.hpp"
+#include "common/TypesCommuns.hpp"
 
 #include <set>
 #include <map>

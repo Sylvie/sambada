@@ -29,7 +29,7 @@
 
 #include "RegressionLogistique.hpp"
 #include "LecteurCheminAcces.hpp"
-#include "FamilleVariablesFactory.hpp"
+#include "variables/FamilleVariablesFactory.hpp"
 
 #include "optimize.h"
 #include <limits>

@@ -29,7 +29,7 @@ libvariables_a_SOURCES = \
 
 libvariables_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
-	-I $(top_srcdir)/src/common
+	-I $(top_srcdir)/src
 libvariables_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 
 ## Cleaning ##
