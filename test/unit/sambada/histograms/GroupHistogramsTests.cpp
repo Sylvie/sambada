@@ -16,8 +16,10 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "catch.hpp"
 #include "histograms/GroupHistograms.hpp"
+#include "common/TypesCommuns.hpp"
+
+#include "catch.hpp"
 #include <numeric>
 
 void compareHistogramCounts(const std::vector<int>& counts, const std::vector<int>& expectedCounts);
@@ -25,7 +27,7 @@ void compareHistogramCounts(const std::vector<int>& counts, const std::vector<in
 TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-histograms-unit]")
 {
 	std::string name("monHistogramme");
-	std::vector<double> binLimits({2, 5, 7, 20});
+	std::vector<sambada::reel> binLimits({2, 5, 7, 20});
 	size_t length(3);
 
 	SECTION("Test that GroupHistograms can be empty")
@@ -72,7 +74,7 @@ TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-
 	SECTION("Test that Histograms have the correct counts")
 	{
 
-		std::vector<double> values(43);
+		std::vector<sambada::reel> values(43);
 		std::iota(values.begin(), values.end(), -10);
 		std::vector<std::vector<int>> expectedCounts({{4, 1, 1, 4, 5},
 		                                              {4, 1, 1, 4, 4},

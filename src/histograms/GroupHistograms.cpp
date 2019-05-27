@@ -18,7 +18,7 @@
 
 #include "GroupHistograms.hpp"
 
-sambada::GroupHistograms::GroupHistograms(int groupSize, const std::string& groupName, const std::vector<double>& binLimits)
+sambada::GroupHistograms::GroupHistograms(int groupSize, const std::string& groupName, const std::vector<reel>& binLimits)
 		: name(groupName)
 {
 	size_t size(0);
@@ -33,7 +33,7 @@ sambada::GroupHistograms::GroupHistograms(int groupSize, const std::string& grou
 	}
 }
 
-void sambada::GroupHistograms::addValue(int index, double value)
+void sambada::GroupHistograms::addValue(int index, reel value)
 {
 	if (0 <= index && (size_t) index < histograms.size())
 	{

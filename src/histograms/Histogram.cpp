@@ -19,7 +19,7 @@
 #include "Histogram.hpp"
 #include <algorithm>
 
-sambada::Histogram::Histogram(const std::string& name, const std::vector<double>& binLimits)
+sambada::Histogram::Histogram(const std::string& name, const std::vector<reel>& binLimits)
 :name(name), binLimits(binLimits), counts(binLimits.size() + 1, 0)
 {
 	if(!std::is_sorted(this->binLimits.cbegin(), this->binLimits.cend()))
@@ -28,9 +28,9 @@ sambada::Histogram::Histogram(const std::string& name, const std::vector<double>
 	}
 }
 
-void sambada::Histogram::addValue(double value)
+void sambada::Histogram::addValue(reel value)
 {
-	std::vector<double>::const_iterator upperBound(std::upper_bound(binLimits.cbegin(), binLimits.cend(), value));
+	std::vector<reel>::const_iterator upperBound(std::upper_bound(binLimits.cbegin(), binLimits.cend(), value));
 	int distance(std::distance(binLimits.cbegin(), upperBound));
 	++counts[distance];
 }
@@ -40,7 +40,7 @@ const std::string& sambada::Histogram::getName() const
 	return name;
 }
 
-const std::vector<double>& sambada::Histogram::getBinLimits() const
+const std::vector<sambada::reel>& sambada::Histogram::getBinLimits() const
 {
 	return binLimits;
 }

@@ -19,6 +19,8 @@
 #ifndef SAMBADA_HISTOGRAM_HPP
 #define SAMBADA_HISTOGRAM_HPP
 
+#include "common/TypesCommuns.hpp"
+
 #include <vector>
 #include <string>
 
@@ -27,17 +29,17 @@ namespace sambada {
 	class Histogram
 	{
 	public:
-		Histogram(const std::string& name, const std::vector<double>& binLimits);
+		Histogram(const std::string& name, const std::vector<reel>& binLimits);
 
-		void addValue(double value);
+		void addValue(reel value);
 
 		const std::string& getName() const;
-		const std::vector<double>& getBinLimits() const;
+		const std::vector<reel>& getBinLimits() const;
 		const std::vector<int>& getCounts() const;
 
 	private:
 		std::string name;
-		std::vector<double> binLimits;
+		std::vector<reel> binLimits;
 		std::vector<int> counts;
 	};
 }

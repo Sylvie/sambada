@@ -16,8 +16,10 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "catch.hpp"
 #include "histograms/Histogram.hpp"
+#include "common/TypesCommuns.hpp"
+
+#include "catch.hpp"
 #include <numeric>
 
 void compareHistogramCounts(const std::vector<int>& counts, const std::vector<int>& expectedCounts)
@@ -34,7 +36,7 @@ void compareHistogramCounts(const std::vector<int>& counts, const std::vector<in
 TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 {
 	std::string name("monHistogramme");
-	std::vector<double> binLimits({2, 5, 7, 20});
+	std::vector<sambada::reel> binLimits({2, 5, 7, 20});
 
 	SECTION("Test that Histogram has correct name")
 	{
@@ -209,11 +211,11 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts values in correct bins when the limits are not sorted")
 	{
-		std::vector<double> shuffledBinLimits({7, 5, 20, 2});
+		std::vector<sambada::reel > shuffledBinLimits({7, 5, 20, 2});
 
 		sambada::Histogram histogram(name, shuffledBinLimits);
 
-		std::vector<double> values(41);
+		std::vector<sambada::reel > values(41);
 		std::iota(values.begin(), values.end(), -10);
 
 		for (double value : values)
