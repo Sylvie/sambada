@@ -34,7 +34,7 @@
 #include "Toolbox.hpp"
 #include "Archiviste.hpp"
 #include "Journal.hpp"
-#include "variables/CombinaisonVariables.hpp"
+#include "CombinaisonVariables.hpp"
 
 
 #include <set>

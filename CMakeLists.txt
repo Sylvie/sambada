@@ -23,6 +23,7 @@ include_directories(ext/scythestat-1.0.3/scythestat)
 include_directories(ext/scythestat-1.0.3/scythestat/rng)
 include_directories(ext/shapelib-1.3.0)
 include_directories(src)
+include_directories(src/common)
 include_directories(src/histograms)
 include_directories(src/variables)
 include_directories(test)
@@ -48,7 +49,7 @@ add_library(intermediate
         )
 
 add_library(variables
-        src/variables/TypesCommuns.hpp
+        src/common/TypesCommuns.hpp
         src/variables/CombinaisonVariables.hpp
         src/variables/CombinaisonVariables.cpp
         src/variables/FamilleVariablesFactory.hpp
@@ -85,7 +86,7 @@ add_executable(sambada
         src/LecteurCheminAcces.hpp
         src/variables/CombinaisonVariables.cpp
         src/variables/CombinaisonVariables.hpp
-        src/variables/TypesCommuns.hpp
+        src/common/TypesCommuns.hpp
         src/variables/FamilleVariablesFactory.cpp
         src/variables/FamilleVariablesFactory.hpp
         )

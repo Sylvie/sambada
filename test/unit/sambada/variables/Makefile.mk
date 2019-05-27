@@ -4,7 +4,8 @@ test_unit_SambadaUnitTests_SOURCES +=  \
 	test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
 
 test_unit_SambadaUnitTests_CPPFLAGS += -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
-	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
+	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
+	-I $(top_srcdir)/src/common
 test_unit_SambadaUnitTests_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 test_unit_SambadaUnitTests_LDADD += libvariables.a
 
