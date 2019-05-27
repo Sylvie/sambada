@@ -20,7 +20,7 @@
 #ifndef SAMBADA_COMBINAISONVARIABLES_HPP
 #define SAMBADA_COMBINAISONVARIABLES_HPP
 
-#include "common/TypesCommuns.hpp"
+#include "common/Matrices.hpp"
 
 #include <set>
 #include <map>

@@ -86,6 +86,7 @@ add_executable(sambada
         src/LecteurCheminAcces.hpp
         src/variables/CombinaisonVariables.cpp
         src/variables/CombinaisonVariables.hpp
+        src/common/Matrices.hpp
         src/common/TypesCommuns.hpp
         src/variables/FamilleVariablesFactory.cpp
         src/variables/FamilleVariablesFactory.hpp

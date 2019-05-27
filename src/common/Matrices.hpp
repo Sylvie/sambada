@@ -16,12 +16,18 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#ifndef SAMBADA_TYPESCOMMUNS_HPP
-#define SAMBADA_TYPESCOMMUNS_HPP
+#ifndef SAMBADA_MATRICES_HPP
+#define SAMBADA_MATRICES_HPP
+
+#include "TypesCommuns.hpp"
+#include "matrix.h"
 
 namespace sambada {
 
-	typedef long double reel;
+	typedef scythe::Matrix<reel, scythe::Col, scythe::Concrete> MatriceReels;
+	typedef scythe::Matrix<bool, scythe::Col, scythe::Concrete> MatriceBools;
+	typedef scythe::Matrix<std::string, scythe::Col, scythe::Concrete> MatriceStrings;
+
 }
 
-#endif //SAMBADA_TYPESCOMMUNS_HPP
+#endif //SAMBADA_MATRICES_HPP
