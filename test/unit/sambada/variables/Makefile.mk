@@ -8,7 +8,7 @@ test_unit_SambadaUnitTests_CPPFLAGS += -I $(top_srcdir)/ext/scythestat-1.0.3/scy
 
 test_unit_SambadaUnitTests_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 
-test_unit_SambadaUnitTests_LDADD += libvariables.a
+test_unit_SambadaUnitTests_LDADD += src/variables/libvariables.a
 
 ## Cleaning ##
 clean-local-test-unit-sambada-variables:

@@ -18,19 +18,19 @@
 
 ## Building internal library ##
 
-noinst_LIBRARIES += libvariables.a
+noinst_LIBRARIES += src/variables/libvariables.a
 
-libvariables_a_SOURCES = \
+src_variables_libvariables_a_SOURCES = \
 	src/variables/CombinaisonVariables.cpp \
 	src/variables/CombinaisonVariables.hpp \
 	src/variables/FamilleVariablesFactory.cpp \
 	src/variables/FamilleVariablesFactory.hpp \
 	src/common/Matrices.hpp
 
-libvariables_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
+src_variables_libvariables_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
 	-I $(top_srcdir)/src
-libvariables_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
+src_variables_libvariables_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 
 ## Cleaning ##
 clean-local-src-variables:

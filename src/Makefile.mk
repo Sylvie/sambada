@@ -57,7 +57,10 @@ binaries_sambada_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/shapelib-1.3.0 \
 	-I $(top_srcdir)/src
 binaries_sambada_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_sambada_LDADD = libshp.a libintermediate.a libvariables.a
+binaries_sambada_LDADD = \
+	libshp.a \
+	libintermediate.a \
+	src/variables/libvariables.a
 
 binaries_supervision_SOURCES = src/mainSupervision.cpp \
 	src/Supervision.cpp \
