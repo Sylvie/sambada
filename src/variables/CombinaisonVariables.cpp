@@ -16,7 +16,7 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "CombinaisonVariables.hpp"
+#include "variables/CombinaisonVariables.hpp"
 
 sambada::CombinaisonVariables::CombinaisonVariables()
 :variables(), parents(), masque(MatriceBools( 1, 1, true, false))

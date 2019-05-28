@@ -19,7 +19,7 @@
 #ifndef SAMBADA_FAMILLEVARIABLESFACTORY_HPP
 #define SAMBADA_FAMILLEVARIABLESFACTORY_HPP
 
-#include "CombinaisonVariables.hpp"
+#include "variables/CombinaisonVariables.hpp"
 
 namespace sambada {
 

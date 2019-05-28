@@ -19,7 +19,7 @@
 #ifndef SAMBADA_GROUPHISTOGRAMS_HPP
 #define SAMBADA_GROUPHISTOGRAMS_HPP
 
-#include "Histogram.hpp"
+#include "histograms/Histogram.hpp"
 #include <string>
 #include <vector>
 

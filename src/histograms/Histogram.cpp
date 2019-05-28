@@ -16,7 +16,7 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "Histogram.hpp"
+#include "histograms/Histogram.hpp"
 #include <algorithm>
 
 sambada::Histogram::Histogram(const std::string& name, const std::vector<reel>& binLimits)

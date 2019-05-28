@@ -19,7 +19,7 @@
 #ifndef SAMBADA_MATRICES_HPP
 #define SAMBADA_MATRICES_HPP
 
-#include "TypesCommuns.hpp"
+#include "common/TypesCommuns.hpp"
 #include "matrix.h"
 
 namespace sambada {

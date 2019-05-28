@@ -16,7 +16,7 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "FamilleVariablesFactory.hpp"
+#include "variables/FamilleVariablesFactory.hpp"
 
 namespace sambada {
 	FamilleVariables FamilleVariablesFactory::genereFamille(int nombreVariables, int nombreGenerations, const MatriceBools& masque)

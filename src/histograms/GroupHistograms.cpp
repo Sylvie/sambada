@@ -16,7 +16,7 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "GroupHistograms.hpp"
+#include "histograms/GroupHistograms.hpp"
 
 sambada::GroupHistograms::GroupHistograms(int groupSize, const std::string& groupName, const std::vector<reel>& binLimits)
 		: name(groupName)

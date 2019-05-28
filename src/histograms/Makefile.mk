@@ -24,7 +24,8 @@ libhistograms_a_SOURCES = \
 	src/histograms/Histogram.hpp \
 	src/histograms/Histogram.cpp \
 	src/histograms/GroupHistograms.hpp \
-	src/histograms/GroupHistograms.cpp
+	src/histograms/GroupHistograms.cpp \
+	src/common/TypesCommuns.hpp
 
 ## Cleaning ##
 clean-local-src-histograms:
