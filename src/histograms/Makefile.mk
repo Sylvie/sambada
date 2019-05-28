@@ -18,9 +18,9 @@
 
 ## Building internal library ##
 
-noinst_LIBRARIES += libhistograms.a
+noinst_LIBRARIES += src/histograms/libhistograms.a
 
-libhistograms_a_SOURCES = \
+src_histograms_libhistograms_a_SOURCES = \
 	src/histograms/Histogram.hpp \
 	src/histograms/Histogram.cpp \
 	src/histograms/GroupHistograms.hpp \
