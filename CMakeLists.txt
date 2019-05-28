@@ -321,6 +321,8 @@ add_executable(SambadaUnitTests
         src/LecteurCheminAcces.cpp
         ${TestUtils}
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
+        test/unit/sambada/histograms/HistogramTests.cpp
+        test/unit/sambada/histograms/GroupHistogramsTests.cpp
         )
 
 target_link_libraries(SambadaUnitTests
