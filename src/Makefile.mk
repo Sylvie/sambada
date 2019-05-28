@@ -58,8 +58,8 @@ binaries_sambada_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/src
 binaries_sambada_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 binaries_sambada_LDADD = \
-	libshp.a \
-	libintermediate.a \
+	src/libshp.a \
+	src/libintermediate.a \
 	src/variables/libvariables.a
 
 binaries_supervision_SOURCES = src/mainSupervision.cpp \
@@ -75,7 +75,7 @@ binaries_supervision_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat
 	-I $(top_srcdir)/src
 
 binaries_supervision_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_supervision_LDADD = libintermediate.a
+binaries_supervision_LDADD = src/libintermediate.a
 
 binaries_recode_plink_SOURCES = src/recodePlink.cpp \
 	src/RegressionLogistique.hpp \
@@ -85,7 +85,7 @@ binaries_recode_plink_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythesta
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
 	-I $(top_srcdir)/src
 binaries_recode_plink_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_recode_plink_LDADD = libintermediate.a
+binaries_recode_plink_LDADD = src/libintermediate.a
 
 binaries_recode_plink_lfmm_SOURCES = src/recodeLFMM.cpp \
 	src/RegressionLogistique.hpp \
@@ -96,22 +96,22 @@ binaries_recode_plink_lfmm_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scyt
 	-I $(top_srcdir)/src
 
 binaries_recode_plink_lfmm_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_recode_plink_lfmm_LDADD = libintermediate.a
+binaries_recode_plink_lfmm_LDADD = src/libintermediate.a
 
-noinst_LIBRARIES += libshp.a libintermediate.a
+noinst_LIBRARIES += src/libshp.a src/libintermediate.a
 
-libintermediate_a_SOURCES = src/RegressionLogistique-bienvenue.cpp \
+src_libintermediate_a_SOURCES = src/RegressionLogistique-bienvenue.cpp \
 	src/RegressionLogistique.hpp \
 	src/Toolbox.cpp \
 	src/Toolbox.hpp \
 	src/Erreur.cpp \
 	src/Erreur.hpp
-libintermediate_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
+src_libintermediate_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
 	-I $(top_srcdir)/src
-libintermediate_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
+src_libintermediate_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 
-libshp_a_SOURCES = ext/shapelib-1.3.0/shpopen.c \
+src_libshp_a_SOURCES = ext/shapelib-1.3.0/shpopen.c \
 	ext/shapelib-1.3.0/dbfopen.c \
 	ext/shapelib-1.3.0/safileio.c \
 	ext/shapelib-1.3.0/shptree.c \

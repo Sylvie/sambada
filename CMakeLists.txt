@@ -48,6 +48,12 @@ add_library(intermediate
         src/Erreur.hpp
         )
 
+set_target_properties(shp
+        intermediate
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/"
+        )
+
 add_library(variables
         src/common/TypesCommuns.hpp
         src/variables/CombinaisonVariables.hpp
