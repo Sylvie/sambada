@@ -63,6 +63,11 @@ add_library(histograms
         src/histograms/GroupHistograms.hpp
         )
 
+set_target_properties(histograms
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/histograms/"
+        )
+
 add_executable(sambada
         src/Archiviste.cpp
         src/Archiviste.hpp
@@ -316,8 +321,6 @@ add_executable(SambadaUnitTests
         src/LecteurCheminAcces.cpp
         ${TestUtils}
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
-        test/unit/sambada/histograms/HistogramTests.cpp
-        test/unit/sambada/histograms/GroupHistogramsTests.cpp
         )
 
 target_link_libraries(SambadaUnitTests
