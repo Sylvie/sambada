@@ -14,6 +14,7 @@ test_unit_SambadaUnitTests_LDADD = \
 		$(top_builddir)/test/utils/libSambadaTestUtils.a \
 		-lstdc++fs
 
+include test/unit/sambada/common/Makefile.mk
 include test/unit/sambada/histograms/Makefile.mk
 include test/unit/sambada/variables/Makefile.mk
 

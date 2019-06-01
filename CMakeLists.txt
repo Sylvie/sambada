@@ -79,6 +79,18 @@ set_target_properties(histograms
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/histograms/"
         )
 
+add_library(common
+        src/common/TypesCommuns.hpp
+        src/common/Matrices.hpp
+        src/common/Probability.hpp
+        src/common/Probability.cpp
+        )
+
+set_target_properties(common
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/common/"
+        )
+
 add_executable(sambada
         src/Archiviste.cpp
         src/Archiviste.hpp
@@ -326,6 +338,7 @@ add_executable(SambadaUnitTests
         src/LecteurCheminAcces.hpp
         src/LecteurCheminAcces.cpp
         ${TestUtils}
+        test/unit/sambada/common/ProbabilityTests.cpp
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
         test/unit/sambada/histograms/HistogramTests.cpp
         test/unit/sambada/histograms/GroupHistogramsTests.cpp
@@ -333,6 +346,7 @@ add_executable(SambadaUnitTests
 
 target_link_libraries(SambadaUnitTests
         PRIVATE
+        common
         variables
         histograms
         )
