@@ -26,7 +26,16 @@ namespace sambada::probability {
 	{
 		reel score(1.0), limiteDomaine(0.45);
 
-		if (pValeur > limiteDomaine)
+		if (deglib <= 0)
+		{
+			score = std::numeric_limits<reel>::quiet_NaN();
+		}
+		else if (seuilConv <= 0.)
+		{
+			score = std::numeric_limits<reel>::quiet_NaN();
+		}
+
+		else if (pValeur > limiteDomaine)
 		{
 			reel residu(scythe::pchisq(score, deglib) - pValeur);
 			int compteur(0), limiteIter(1000);
