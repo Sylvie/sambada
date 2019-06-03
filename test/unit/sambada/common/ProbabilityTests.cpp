@@ -41,6 +41,15 @@ TEST_CASE("Test that Probability results are correct", "[probability-unit]")
 		CHECK(std::isnan(sambada::probability::chiSquareQuantileFunction(pValeur, -100, precision)));
 	}
 
+	SECTION("Test that chiSquareQuantileFunction returns NaN for null or negative convergence threshold")
+	{
+		sambada::reel pValeur(0.01);
+		int degreeFreedom(1);
+		CHECK(std::isnan(sambada::probability::chiSquareQuantileFunction(pValeur, degreeFreedom, 0.)));
+		CHECK(std::isnan(sambada::probability::chiSquareQuantileFunction(pValeur, degreeFreedom, -1.)));
+		CHECK(std::isnan(sambada::probability::chiSquareQuantileFunction(pValeur, degreeFreedom, -1000.)));
+	}
+
 	SECTION("Test that chiSquareQuantileFunction returns NaN for p-values lower than 0")
 	{
 		int degreeFreedom(1);
@@ -57,13 +66,12 @@ TEST_CASE("Test that Probability results are correct", "[probability-unit]")
 		CHECK(std::isnan(sambada::probability::chiSquareQuantileFunction(540003.5, degreeFreedom, precision)));
 	}
 
-	SECTION("Test that chiSquareQuantileFunction returns NaN for null or negative convergence threshold")
+	SECTION("Test that chiSquareQuantileFunction returns 0 for p-values equal to 0")
 	{
-		sambada::reel pValeur(0.01);
-		int degreeFreedom(1);
-		CHECK(std::isnan(sambada::probability::chiSquareQuantileFunction(pValeur, degreeFreedom, 0.)));
-		CHECK(std::isnan(sambada::probability::chiSquareQuantileFunction(pValeur, degreeFreedom, -1.)));
-		CHECK(std::isnan(sambada::probability::chiSquareQuantileFunction(pValeur, degreeFreedom, -1000.)));
+		int pValue(0.);
+		CHECK(abs(sambada::probability::chiSquareQuantileFunction(pValue, 1, precision)) < std::numeric_limits<sambada::reel>::min());
+		CHECK(abs(sambada::probability::chiSquareQuantileFunction(pValue, 2, precision)) < std::numeric_limits<sambada::reel>::min());
+		CHECK(abs(sambada::probability::chiSquareQuantileFunction(pValue, 10, precision)) < std::numeric_limits<sambada::reel>::min());
 	}
 
 	SECTION("Test that chiSquareQuantileFunction computes correct p-values for 1 degree of liberty")
