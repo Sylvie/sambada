@@ -34,7 +34,10 @@ namespace sambada::probability {
 		{
 			score = std::numeric_limits<reel>::quiet_NaN();
 		}
-
+		else if (pValeur < 0. || 1.0 < pValeur)
+		{
+			score = std::numeric_limits<reel>::quiet_NaN();
+		}
 		else if (pValeur > limiteDomaine)
 		{
 			reel residu(scythe::pchisq(score, deglib) - pValeur);
