@@ -68,10 +68,18 @@ TEST_CASE("Test that Probability results are correct", "[probability-unit]")
 
 	SECTION("Test that chiSquareQuantileFunction returns 0 for p-values equal to 0")
 	{
-		int pValue(0.);
+		sambada::reel pValue(0.);
 		CHECK(abs(sambada::probability::chiSquareQuantileFunction(pValue, 1, precision)) < std::numeric_limits<sambada::reel>::min());
 		CHECK(abs(sambada::probability::chiSquareQuantileFunction(pValue, 2, precision)) < std::numeric_limits<sambada::reel>::min());
 		CHECK(abs(sambada::probability::chiSquareQuantileFunction(pValue, 10, precision)) < std::numeric_limits<sambada::reel>::min());
+	}
+
+	SECTION("Test that chiSquareQuantileFunction returns infinity for p-values equal to 1")
+	{
+		sambada::reel pValue(1.);
+		CHECK(sambada::probability::chiSquareQuantileFunction(pValue, 1, precision) == std::numeric_limits<sambada::reel>::infinity());
+		CHECK(sambada::probability::chiSquareQuantileFunction(pValue, 2, precision) == std::numeric_limits<sambada::reel>::infinity());
+		CHECK(sambada::probability::chiSquareQuantileFunction(pValue, 10, precision) == std::numeric_limits<sambada::reel>::infinity());
 	}
 
 	SECTION("Test that chiSquareQuantileFunction computes correct p-values for 1 degree of liberty")

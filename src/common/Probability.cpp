@@ -38,6 +38,11 @@ namespace sambada::probability {
 		{
 			score = std::numeric_limits<reel>::quiet_NaN();
 		}
+		// Source: https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
+		else if (std::abs(pValeur - 1.) < std::numeric_limits<reel>::min())
+		{
+			score = std::numeric_limits<reel>::infinity();
+		}
 		else if (pValeur > limiteDomaine)
 		{
 			reel residu(scythe::pchisq(score, deglib) - pValeur);
