@@ -90,15 +90,18 @@ TEST_CASE("Test that Probability results are correct", "[probability-unit]")
 
 		CHECKED_IF(expectedResults.size() == 100)
 		{
-			// Cas pVal = 1.0, valeur attendue = 0.0, une marge est nécessaire
-			{
-				INFO("value: " + std::to_string(values[0]))
-				CHECK(sambada::probability::chiSquareQuantileFunction(1. - values[0], 1, precision) == Approx(expectedResults[0]).margin(precision));
-			}
-			for (size_t i(1); i < values.size(); ++i)
+			for (size_t i(0); i < values.size(); ++i)
 			{
 				INFO("value: " + std::to_string(values[i]));
-				CHECK(sambada::probability::chiSquareQuantileFunction(1. - values[i], 1, precision) == Approx(expectedResults[i]));
+				sambada::reel score(sambada::probability::chiSquareQuantileFunction(1. - values[i], 1, precision));
+				INFO("score: " + std::to_string(score));
+				sambada::reel marge(0.0);
+				// Cas pVal = 1.0, valeur attendue = 0.0, une marge est nécessaire
+				if (i == 0)
+				{
+					marge=precision;
+				}
+				CHECK(score == Approx(expectedResults[i]).margin(marge));
 			}
 		}
 	}
