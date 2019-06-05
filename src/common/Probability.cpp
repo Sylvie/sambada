@@ -29,14 +29,20 @@ namespace sambada::probability {
 		{
 			scoreMajorant *= 2.;
 		}
+
 		sambada::reel scoreMinorant(0.);
-		sambada::reel scoreCentral((scoreMinorant + scoreMajorant)/2);
-		sambada::reel pValeurEstimee(scythe::pchisq(scoreCentral, deglib));
-		sambada::reel residu(pValeurEstimee - pValeur);
+		sambada::reel scoreCentral(0.);
+		sambada::reel pValeurEstimee(0.);
+		sambada::reel residu(0.);
+
 		int nombreIterations(0);
 		int limiteIterations(1000);
-		while (seuilConv < std::abs(residu) && nombreIterations < limiteIterations)
+		do
 		{
+			scoreCentral = (scoreMinorant + scoreMajorant) / 2;
+			pValeurEstimee = scythe::pchisq(scoreCentral, deglib);
+			residu = pValeurEstimee - pValeur;
+
 			if (0 <= residu)
 			{
 				scoreMajorant = scoreCentral;
@@ -45,11 +51,9 @@ namespace sambada::probability {
 			{
 				scoreMinorant = scoreCentral;
 			}
-			scoreCentral = (scoreMinorant + scoreMajorant)/2;
-			pValeurEstimee = scythe::pchisq(scoreCentral, deglib);
-			residu = pValeurEstimee - pValeur;
+
 			++nombreIterations;
-		}
+		} while (seuilConv < std::abs(residu) && nombreIterations < limiteIterations);
 
 		return scoreCentral;
 	}
@@ -71,7 +75,7 @@ namespace sambada::probability {
 		{
 			score = std::numeric_limits<reel>::quiet_NaN();
 		}
-		// Source: https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
+			// Source: https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
 		else if (std::abs(pValeur) < std::numeric_limits<reel>::min())
 		{
 			score = 0.;
