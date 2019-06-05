@@ -22,21 +22,36 @@
 
 namespace sambada::probability {
 
-	reel internalChiSquareQuantileFunction(reel pValeur, int deglib, reel seuilConv)
+
+	reel searchForUpperBoundScore(reel pValeur, int deglib)
 	{
+		int nombreIterations(0);
+		int limiteIterations(1000);
+
 		sambada::reel scoreMajorant(1.);
-		while (scythe::pchisq(scoreMajorant, deglib) < pValeur)
+		while (scythe::pchisq(scoreMajorant, deglib) < pValeur && nombreIterations < limiteIterations)
 		{
 			scoreMajorant *= 2.;
+			++nombreIterations;
 		}
+
+		if (nombreIterations == limiteIterations)
+		{
+			scoreMajorant == std::numeric_limits<reel>::quiet_NaN();
+		}
+
+		return scoreMajorant;
+	}
+
+	reel dichotomicChiSquareQuantileFunction(reel pValeur, int deglib, reel scoreMajorant, reel seuilConv)
+	{
+		int nombreIterations(0);
+		int limiteIterations(1000);
 
 		sambada::reel scoreMinorant(0.);
 		sambada::reel scoreCentral(0.);
 		sambada::reel pValeurEstimee(0.);
 		sambada::reel residu(0.);
-
-		int nombreIterations(0);
-		int limiteIterations(1000);
 		do
 		{
 			scoreCentral = (scoreMinorant + scoreMajorant) / 2;
@@ -86,7 +101,15 @@ namespace sambada::probability {
 		}
 		else if (deglib != 1)
 		{
-			score = internalChiSquareQuantileFunction(pValeur, deglib, seuilConv);
+			reel scoreMajorant(searchForUpperBoundScore(pValeur, deglib));
+			if (!std::isnan(scoreMajorant))
+			{
+				score = dichotomicChiSquareQuantileFunction(pValeur, deglib, scoreMajorant, seuilConv);
+			}
+			else
+			{
+				score = std::numeric_limits<reel>::quiet_NaN();
+			}
 		}
 		else if (pValeur > limiteDomaine)
 		{
