@@ -22,6 +22,39 @@
 
 namespace sambada::probability {
 
+	reel internalChiSquareQuantileFunction(reel pValeur, int deglib, reel seuilConv)
+	{
+		sambada::reel scoreMajorant(1.);
+		while (scythe::pchisq(scoreMajorant, deglib) < pValeur)
+		{
+			scoreMajorant *= 2.;
+		}
+		sambada::reel scoreMinorant(0.);
+		sambada::reel scoreCentral((scoreMinorant + scoreMajorant)/2);
+		sambada::reel pValeurEstimee(scythe::pchisq(scoreCentral, deglib));
+		sambada::reel residu(pValeurEstimee - pValeur);
+		int nombreIterations(0);
+		int limiteIterations(1000);
+		while (seuilConv < std::abs(residu) && nombreIterations < limiteIterations)
+		{
+			if (0 <= residu)
+			{
+				scoreMajorant = scoreCentral;
+			}
+			else
+			{
+				scoreMinorant = scoreCentral;
+			}
+			scoreCentral = (scoreMinorant + scoreMajorant)/2;
+			pValeurEstimee = scythe::pchisq(scoreCentral, deglib);
+			residu = pValeurEstimee - pValeur;
+			++nombreIterations;
+		}
+
+		return scoreCentral;
+	}
+
+
 	reel chiSquareQuantileFunction(reel pValeur, int deglib, reel seuilConv)
 	{
 		reel score(1.0), limiteDomaine(0.45);
@@ -39,9 +72,17 @@ namespace sambada::probability {
 			score = std::numeric_limits<reel>::quiet_NaN();
 		}
 		// Source: https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
+		else if (std::abs(pValeur) < std::numeric_limits<reel>::min())
+		{
+			score = 0.;
+		}
 		else if (std::abs(pValeur - 1.) < std::numeric_limits<reel>::min())
 		{
 			score = std::numeric_limits<reel>::infinity();
+		}
+		else if (deglib != 1)
+		{
+			score = internalChiSquareQuantileFunction(pValeur, deglib, seuilConv);
 		}
 		else if (pValeur > limiteDomaine)
 		{
