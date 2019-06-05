@@ -99,7 +99,7 @@ namespace sambada::probability {
 		{
 			score = std::numeric_limits<reel>::infinity();
 		}
-		else if (deglib != 1)
+		else
 		{
 			reel scoreMajorant(searchForUpperBoundScore(pValeur, deglib));
 			if (!std::isnan(scoreMajorant))
@@ -110,46 +110,6 @@ namespace sambada::probability {
 			{
 				score = std::numeric_limits<reel>::quiet_NaN();
 			}
-		}
-		else if (pValeur > limiteDomaine)
-		{
-			reel residu(scythe::pchisq(score, deglib) - pValeur);
-			int compteur(0), limiteIter(1000);
-			do
-			{
-				score = score - (scythe::pchisq(score, deglib) - pValeur) / scythe::dchisq(score, deglib);
-				residu = scythe::pchisq(score, deglib);
-				++compteur;
-				//cout << x << " " << chisq.prob(x)+chisq.valeur <<" " << valeur << endl;
-			} while ((std::abs(residu) > seuilConv) && (compteur < limiteIter));
-		}
-		else
-		{
-			reel p1(0.), p2(limiteDomaine), p3(0.); // p1 < p, p2 >p;
-			reel q1(0.), q2(0.37), q3((q1 + q2) / 2);
-			reel residu(0);
-			int compteur(0), limiteIter(1000);
-			//cout << pValeur << ":" << endl;
-			do
-			{
-				p3 = scythe::pchisq(q3, deglib);
-				//cout << "q->p " << q3 << " " << p3 << endl;
-				residu = p3 - pValeur;
-				if (residu >= 0)    // p3 >= p
-				{
-					q2 = q3;
-					p2 = p3;
-				}
-				else // p >p3
-				{
-					q1 = q3;
-					p1 = p3;
-				}
-				q3 = (q1 + q2) / 2;
-
-				++compteur;
-			} while ((std::abs(residu) > seuilConv) && (compteur < limiteIter));
-			score = q3;
 		}
 		return score;
 	}
