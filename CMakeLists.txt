@@ -72,7 +72,7 @@ add_library(histograms
         src/histograms/Histogram.cpp
         src/histograms/GroupHistograms.cpp
         src/histograms/GroupHistograms.hpp
-        )
+        src/histograms/StoreyHistograms.cpp src/histograms/StoreyHistograms.hpp)
 
 set_target_properties(histograms
         PROPERTIES
