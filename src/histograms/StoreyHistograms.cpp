@@ -17,3 +17,37 @@
 *************************************************************************/
 
 #include "StoreyHistograms.hpp"
+#include "common/Probability.hpp"
+
+#include <cmath>
+#include <limits>
+
+sambada::StoreyHistograms::StoreyHistograms(int dimensionMax, sambada::reel scoreMin)
+:dimensionMax(dimensionMax), scoreMin(scoreMin), numScoreTypes(6), nbPvalStorey(96)
+{
+	initPValuesAndScoreThresholds();
+	/*G,
+			GOrphelins,
+			GPop,
+			Wald,
+			WaldOrphelins,
+			WaldPop*/
+}
+
+void sambada::StoreyHistograms::initPValuesAndScoreThresholds()
+{
+	sambada::reel precision(std::sqrt(std::numeric_limits<sambada::reel>::epsilon()));
+
+	for (int i(nbPvalStorey - 1); i > 0; --i)
+	{
+		pValues.push_back(0.01 * i);
+		scoreThresholds.push_back(sambada::probability::chiSquareQuantileFunction(1. - 0.01 * i, 1, precision));
+	}
+}
+
+const std::vector<sambada::reel>& sambada::StoreyHistograms::getPValues() const
+{
+	return pValues;
+}
+
+

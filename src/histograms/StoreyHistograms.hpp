@@ -40,14 +40,15 @@ namespace sambada {
 
 		StoreyHistograms(int dimensionMax, reel scoreMin);
 
-		void addValue(ScoreType scoreType, int dimension, reel value);
+		//void addValue(ScoreType scoreType, int dimension, reel value);
 
-		const GroupHistograms& getHistograms(ScoreType scoreType) const;
-
+		//const GroupHistograms& getHistograms(ScoreType scoreType) const;
 
 		const int nbPvalStorey;
 		const reel scoreMin;
 
+		const std::vector<sambada::reel>& getPValues() const;
+		//const std::vector<sambada::reel>& getScoreThresholds() const;
 
 		/*
 		 * 	// Définition des caractéristiques nécessaires au calcul de la FDR selon Storey
@@ -74,6 +75,8 @@ namespace sambada {
 		std::vector<GroupHistograms> histograms;
 		std::vector<reel> pValues;
 		std::vector<reel> scoreThresholds;
+
+		void initPValuesAndScoreThresholds();
 	};
 
 }

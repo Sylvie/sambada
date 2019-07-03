@@ -25,6 +25,8 @@ src_histograms_libhistograms_a_SOURCES = \
 	src/histograms/Histogram.cpp \
 	src/histograms/GroupHistograms.hpp \
 	src/histograms/GroupHistograms.cpp \
+	src/histograms/StoreyHistograms.hpp \
+	src/histograms/StoreyHistograms.cpp \
 	src/common/TypesCommuns.hpp
 
 ## Cleaning ##

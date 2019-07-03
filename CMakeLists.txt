@@ -342,6 +342,7 @@ add_executable(SambadaUnitTests
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
         test/unit/sambada/histograms/HistogramTests.cpp
         test/unit/sambada/histograms/GroupHistogramsTests.cpp
+        test/unit/sambada/histograms/StoreyHistogramsTests.cpp
         )
 
 target_link_libraries(SambadaUnitTests

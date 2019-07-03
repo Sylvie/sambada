@@ -2,7 +2,8 @@
 
 test_unit_SambadaUnitTests_SOURCES +=  \
 	test/unit/sambada/histograms/HistogramTests.cpp \
-	test/unit/sambada/histograms/GroupHistogramsTests.cpp
+	test/unit/sambada/histograms/GroupHistogramsTests.cpp \
+	test/unit/sambada/histograms/StoreyHistogramsTests.cpp
 
 test_unit_SambadaUnitTests_LDADD += src/histograms/libhistograms.a
 
