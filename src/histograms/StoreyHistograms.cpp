@@ -50,4 +50,7 @@ const std::vector<sambada::reel>& sambada::StoreyHistograms::getPValues() const
 	return pValues;
 }
 
-
+const std::vector<sambada::reel>& sambada::StoreyHistograms::getScoreThresholds() const
+{
+	return scoreThresholds;
+}

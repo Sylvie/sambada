@@ -48,7 +48,7 @@ namespace sambada {
 		const reel scoreMin;
 
 		const std::vector<sambada::reel>& getPValues() const;
-		//const std::vector<sambada::reel>& getScoreThresholds() const;
+		const std::vector<sambada::reel>& getScoreThresholds() const;
 
 		/*
 		 * 	// Définition des caractéristiques nécessaires au calcul de la FDR selon Storey
