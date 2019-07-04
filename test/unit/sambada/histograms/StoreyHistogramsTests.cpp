@@ -28,9 +28,9 @@ TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-
 			{
 					sambada::StoreyHistograms::ScoreType::G,
 					sambada::StoreyHistograms::ScoreType::GOrphelins,
+					sambada::StoreyHistograms::ScoreType::GPop,
 					sambada::StoreyHistograms::ScoreType::Wald,
 					sambada::StoreyHistograms::ScoreType::WaldOrphelins,
-					sambada::StoreyHistograms::ScoreType::GPop,
 					sambada::StoreyHistograms::ScoreType::WaldPop
 			}
 	);
@@ -74,6 +74,38 @@ TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-
 				CHECK(scoreThresholds[i] == Approx(expectedScoreThresholds[i]));
 			}
 		}
+	}
+
+	SECTION("Test that score thresholds are correct for each GroupHistogram")
+	{
+		size_t dimMax(2);
+		sambada::StoreyHistograms storeyHistograms(dimMax, 6.);
+
+		std::vector<sambada::reel> expectedScoreThresholds(
+				{0.00393214000001953, 0.00566555214052741, 0.007716715544952, 0.010086932215776, 0.012777711671053, 0.0157907740934313, 0.0191280539398315, 0.0227917040277124, 0.0267841001161233, 0.0311078460021464, 0.0357657791558977, 0.040760976920001, 0.0460967633024078, 0.0517767163946213, 0.0578046764508421, 0.0641847546673016, 0.0709213427051411, 0.0780191230046582, 0.0854830799436345, 0.0933185118978289, 0.101531044267622, 0.110126643541314, 0.119111632472776, 0.128492706459102, 0.138276951212761, 0.148471861832546, 0.159085363388553, 0.170125833148597, 0.18160212458709, 0.193523593332646, 0.205900125227766, 0.218742166693153, 0.23206075761083, 0.24586756696459, 0.260174931503893, 0.274995897728456, 0.290344267526239, 0.306234647837711, 0.322682504765163, 0.339704222598183, 0.35731716828632, 0.375539761958745, 0.394391554169761, 0.413893310640177, 0.434067105369943, 0.454936423119573, 0.476526272399809, 0.498863310274476, 0.521975980474872, 0.545894666550918, 0.570651862051189,
+				 0.596282360039052, 0.622823464625417, 0.650315227642454, 0.678800714112448, 0.708326300800794, 0.738942012906212, 0.770701904864674, 0.803664492364912, 0.837893244041483, 0.87345714298923, 0.910431330311541, 0.94889784547952, 0.988946481478024, 1.03067577672932, 1.07419417085759, 1.11962135781185, 1.16708987813886, 1.21674700288959, 1.2687569755773, 1.32330369693147, 1.38059396152976, 1.44086138805315, 1.50437122924054, 1.57142630852761, 1.64237441514982, 1.7176176092514, 1.79762406036565, 1.88294329343061, 1.97422608959095, 2.07225085582224, 2.17795915885414, 2.29250452609228, 2.41732093045561, 2.55422131249636, 2.70554345409542, 2.874373395996, 3.06490172007636, 3.28302028675954, 3.5373845964626, 3.84145882069412, 4.2178845879214, 4.70929224688511, 5.41189443105435, 6.63489660102123});
+
+		for (auto scoreType(listeScoresTypes.begin()); scoreType != listeScoresTypes.end(); ++scoreType)
+		{
+			sambada::GroupHistograms histograms(storeyHistograms.getHistograms(*scoreType));
+			CHECKED_IF(histograms.getHistograms().size() == (dimMax + 1))
+			{
+				for (size_t dimension(1); dimension <= dimMax; ++dimension)
+				{
+					sambada::Histogram histogram(histograms.getHistograms()[dimension]);
+					std::vector<sambada::reel> scoreThresholds(histogram.getBinLimits());
+
+					CHECKED_IF(scoreThresholds.size() == expectedScoreThresholds.size())
+					{
+						for (size_t i(0); i < expectedScoreThresholds.size(); ++i)
+						{
+							CHECK(scoreThresholds[i] == Approx(expectedScoreThresholds[i]));
+						}
+					}
+				}
+			}
+		}
+
 	}
 
 	/*

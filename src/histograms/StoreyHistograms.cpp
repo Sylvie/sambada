@@ -23,15 +23,10 @@
 #include <limits>
 
 sambada::StoreyHistograms::StoreyHistograms(int dimensionMax, sambada::reel scoreMin)
-:dimensionMax(dimensionMax), scoreMin(scoreMin), numScoreTypes(6), nbPvalStorey(96)
+		: dimensionMax(dimensionMax), scoreMin(scoreMin), numScoreTypes(6), nbPvalStorey(96)
 {
 	initPValuesAndScoreThresholds();
-	/*G,
-			GOrphelins,
-			GPop,
-			Wald,
-			WaldOrphelins,
-			WaldPop*/
+	initHistograms();
 }
 
 void sambada::StoreyHistograms::initPValuesAndScoreThresholds()
@@ -44,6 +39,31 @@ void sambada::StoreyHistograms::initPValuesAndScoreThresholds()
 		scoreThresholds.push_back(sambada::probability::chiSquareQuantileFunction(1. - 0.01 * i, 1, precision));
 	}
 }
+
+void sambada::StoreyHistograms::initHistograms()
+{
+	std::vector<std::string> names({"G", "GOrphelins", "GPop", "Wald", "WaldOrphelin", "WaldPop"});
+
+	for (size_t i(0); i < (size_t)numScoreTypes; ++i)
+	{
+		histograms.push_back(sambada::GroupHistograms(dimensionMax + 1, names[i], scoreThresholds));
+	}
+}
+
+
+const sambada::GroupHistograms& sambada::StoreyHistograms::getHistograms(ScoreType scoreType) const
+{
+	if (scoreType < ScoreType::G)
+	{
+		scoreType = ScoreType::G;
+	}
+	else if (scoreType > ScoreType::WaldPop)
+	{
+		scoreType = ScoreType::WaldPop;
+	}
+	return histograms[(size_t)scoreType];
+}
+
 
 const std::vector<sambada::reel>& sambada::StoreyHistograms::getPValues() const
 {

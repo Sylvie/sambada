@@ -42,7 +42,7 @@ namespace sambada {
 
 		//void addValue(ScoreType scoreType, int dimension, reel value);
 
-		//const GroupHistograms& getHistograms(ScoreType scoreType) const;
+		const GroupHistograms& getHistograms(ScoreType scoreType) const;
 
 		const int nbPvalStorey;
 		const reel scoreMin;
@@ -77,6 +77,8 @@ namespace sambada {
 		std::vector<reel> scoreThresholds;
 
 		void initPValuesAndScoreThresholds();
+		void initHistograms();
+
 	};
 
 }
