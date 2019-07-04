@@ -42,7 +42,7 @@ void sambada::StoreyHistograms::initPValuesAndScoreThresholds()
 
 void sambada::StoreyHistograms::initHistograms()
 {
-	std::vector<std::string> names({"G", "GOrphelins", "GPop", "Wald", "WaldOrphelin", "WaldPop"});
+	std::vector<std::string> names({"G", "GOrphelins", "GPop", "Wald", "WaldOrphelins", "WaldPop"});
 
 	for (size_t i(0); i < (size_t)numScoreTypes; ++i)
 	{
