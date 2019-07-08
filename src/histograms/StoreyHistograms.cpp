@@ -23,7 +23,7 @@
 #include <limits>
 
 sambada::StoreyHistograms::StoreyHistograms(int dimensionMax, sambada::reel scoreMin)
-		: dimensionMax(dimensionMax), scoreMin(scoreMin), numScoreTypes(6), nbPvalStorey(96)
+		: nbPvalStorey(96), scoreMin(scoreMin), dimensionMax(dimensionMax), numScoreTypes(6)
 {
 	initPValuesAndScoreThresholds();
 	initHistograms();

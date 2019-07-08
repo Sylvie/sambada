@@ -72,7 +72,11 @@ add_library(histograms
         src/histograms/Histogram.cpp
         src/histograms/GroupHistograms.cpp
         src/histograms/GroupHistograms.hpp
-        src/histograms/StoreyHistograms.cpp src/histograms/StoreyHistograms.hpp)
+        src/histograms/StoreyHistograms.cpp
+        src/histograms/StoreyHistograms.hpp
+        src/histograms/StoreyHistogramsStreamWriter.cpp
+        src/histograms/StoreyHistogramsStreamWriter.hpp
+        )
 
 set_target_properties(histograms
         PROPERTIES
@@ -343,6 +347,8 @@ add_executable(SambadaUnitTests
         test/unit/sambada/histograms/HistogramTests.cpp
         test/unit/sambada/histograms/GroupHistogramsTests.cpp
         test/unit/sambada/histograms/StoreyHistogramsTests.cpp
+        test/unit/sambada/histograms/StoreyHistogramsStreamWriterTests.cpp
+        test/unit/sambada/histograms/StoreyHistogramsStreamWriterTests.cpp
         )
 
 target_link_libraries(SambadaUnitTests
