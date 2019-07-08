@@ -40,7 +40,7 @@ namespace sambada {
 
 		StoreyHistograms(int dimensionMax, reel scoreMin);
 
-		//void addValue(ScoreType scoreType, int dimension, reel value);
+		void addValue(ScoreType scoreType, int dimension, reel value);
 
 		const GroupHistograms& getHistograms(ScoreType scoreType) const;
 

@@ -29,6 +29,11 @@ sambada::StoreyHistograms::StoreyHistograms(int dimensionMax, sambada::reel scor
 	initHistograms();
 }
 
+void sambada::StoreyHistograms::addValue(ScoreType scoreType, int dimension, reel value)
+{
+	histograms[(size_t) scoreType].addValue(dimension, value);
+}
+
 void sambada::StoreyHistograms::initPValuesAndScoreThresholds()
 {
 	sambada::reel precision(std::sqrt(std::numeric_limits<sambada::reel>::epsilon()));
@@ -44,7 +49,7 @@ void sambada::StoreyHistograms::initHistograms()
 {
 	std::vector<std::string> names({"G", "GOrphelins", "GPop", "Wald", "WaldOrphelins", "WaldPop"});
 
-	for (size_t i(0); i < (size_t)numScoreTypes; ++i)
+	for (size_t i(0); i < (size_t) numScoreTypes; ++i)
 	{
 		histograms.push_back(sambada::GroupHistograms(dimensionMax + 1, names[i], scoreThresholds));
 	}
@@ -61,7 +66,7 @@ const sambada::GroupHistograms& sambada::StoreyHistograms::getHistograms(ScoreTy
 	{
 		scoreType = ScoreType::WaldPop;
 	}
-	return histograms[(size_t)scoreType];
+	return histograms[(size_t) scoreType];
 }
 
 

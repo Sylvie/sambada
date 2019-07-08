@@ -28,6 +28,7 @@ void compareHistogramCounts(const std::vector<int>& counts, const std::vector<in
 	{
 		for (size_t i(0); i < expectedCounts.size(); ++i)
 		{
+			INFO("Bin number: " + std::to_string(i));
 			CHECK(counts[i] == expectedCounts[i]);
 		}
 	}
@@ -211,11 +212,11 @@ TEST_CASE("Test that Histogram can create an histogram", "[histogram-unit]")
 
 	SECTION("Test that Histogram puts values in correct bins when the limits are not sorted")
 	{
-		std::vector<sambada::reel > shuffledBinLimits({7, 5, 20, 2});
+		std::vector<sambada::reel> shuffledBinLimits({7, 5, 20, 2});
 
 		sambada::Histogram histogram(name, shuffledBinLimits);
 
-		std::vector<sambada::reel > values(41);
+		std::vector<sambada::reel> values(41);
 		std::iota(values.begin(), values.end(), -10);
 
 		for (double value : values)

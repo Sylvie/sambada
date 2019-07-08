@@ -22,6 +22,8 @@
 #include "catch.hpp"
 #include <numeric>
 
+void compareHistogramCounts(const std::vector<int>& counts, const std::vector<int>& expectedCounts);
+
 TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-histograms-unit]")
 {
 	std::vector<sambada::StoreyHistograms::ScoreType> listeScoresTypes(
@@ -171,5 +173,58 @@ TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-
 				CHECK(histogram.getName() == expectedNames[dimension]);
 			}
 		}
+	}
+
+	SECTION("Test that scores are counted in the correct bin")
+	{
+		size_t dimMax(2);
+		sambada::StoreyHistograms storeyHistograms(dimMax, 0.);
+
+		std::vector<std::vector<sambada::reel> > scores({{0.5, 1},
+		                                                 {1.5, 2},
+		                                                 {2.5, 3},
+		                                                 {3.5, 4},
+		                                                 {4.5, 5},
+		                                                 {6,   7}});
+		for (auto scoreType(listeScoresTypes.begin()); scoreType != listeScoresTypes.end(); ++scoreType)
+		{
+			for (size_t dimension(1); dimension <= dimMax; ++dimension)
+			{
+				storeyHistograms.addValue(*scoreType, dimension, scores[(size_t)(*scoreType)][dimension-1]);
+			}
+
+		}
+
+		std::vector<std::vector<std::vector<int>>> expectedHistograms(6, std::vector<std::vector<int>>(2, std::vector<int>(96, 0)));
+		expectedHistograms[(size_t) listeScoresTypes[0]][0][48] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[0]][1][64] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[1]][0][73] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[1]][1][80] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[2]][0][84] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[2]][1][87] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[3]][0][89] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[3]][1][91] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[4]][0][92] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[4]][1][93] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[5]][0][94] = 1;
+		expectedHistograms[(size_t) listeScoresTypes[5]][1][95] = 1;
+
+		for (auto scoreType(listeScoresTypes.begin()); scoreType != listeScoresTypes.end(); ++scoreType)
+		{
+			INFO("ScoreType: " + std::to_string((size_t) *scoreType));
+			sambada::GroupHistograms histograms(storeyHistograms.getHistograms(*scoreType));
+			CHECKED_IF(histograms.getHistograms().size() == (dimMax + 1))
+			{
+				for (size_t dimension(1); dimension <= dimMax; ++dimension)
+				{
+					INFO("Dimension: " + std::to_string(dimension));
+					sambada::Histogram histogram(histograms.getHistograms()[dimension]);
+					std::vector<int> counts(histogram.getCounts());
+
+					compareHistogramCounts(counts, expectedHistograms[(size_t) *scoreType][dimension - 1]);
+				}
+			}
+		}
+
 	}
 }
