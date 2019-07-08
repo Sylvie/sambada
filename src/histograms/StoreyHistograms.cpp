@@ -31,7 +31,10 @@ sambada::StoreyHistograms::StoreyHistograms(int dimensionMax, sambada::reel scor
 
 void sambada::StoreyHistograms::addValue(ScoreType scoreType, int dimension, reel value)
 {
-	histograms[(size_t) scoreType].addValue(dimension, value);
+	if (ScoreType::G <= scoreType && scoreType <= ScoreType::WaldPop && scoreMin <= value)
+	{
+		histograms[(size_t) scoreType].addValue(dimension, value);
+	}
 }
 
 void sambada::StoreyHistograms::initPValuesAndScoreThresholds()
