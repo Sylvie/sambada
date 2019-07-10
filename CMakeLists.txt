@@ -192,6 +192,8 @@ set(TestUtils
         test/utils/SambadaSpatialAutocorrelationResults.cpp
         test/utils/SambadaStoreyHistogram.hpp
         test/utils/SambadaStoreyHistogram.cpp
+        test/utils/SambadaStoreyHistogramMapper.hpp
+        test/utils/SambadaStoreyHistogramMapper.cpp
         )
 
 set(IntegrationTestUtils

@@ -13,6 +13,8 @@ test_utils_libSambadaTestUtils_a_SOURCES = 	\
     test/utils/SambadaStoreyHistogram.hpp \
     test/utils/SambadaInputData.cpp \
     test/utils/SambadaInputData.hpp \
+    test/utils/SambadaStoreyHistogramMapper.hpp \
+    test/utils/SambadaStoreyHistogramMapper.cpp \
     test/utils/catch.hpp
 test_utils_libSambadaTestUtils_a_CPPFLAGS = -I $(top_srcdir)/test/utils/
 
