@@ -47,6 +47,7 @@ namespace sambada {
 		const int nbPvalStorey;
 		const reel scoreMin;
 
+		const int getDimensionMax() const;
 		const std::vector<sambada::reel>& getPValues() const;
 		const std::vector<sambada::reel>& getScoreThresholds() const;
 

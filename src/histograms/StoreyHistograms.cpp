@@ -72,6 +72,10 @@ const sambada::GroupHistograms& sambada::StoreyHistograms::getHistograms(ScoreTy
 	return histograms[(size_t) scoreType];
 }
 
+const int sambada::StoreyHistograms::getDimensionMax() const
+{
+	return dimensionMax;
+}
 
 const std::vector<sambada::reel>& sambada::StoreyHistograms::getPValues() const
 {

@@ -44,6 +44,13 @@ TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-
 		CHECK(storeyHistograms.scoreMin == Approx(6.));
 	}
 
+	SECTION("Test that dimensionMax is correct")
+	{
+		sambada::StoreyHistograms storeyHistograms(4, 6.);
+
+		CHECK(storeyHistograms.getDimensionMax() == 4);
+	}
+
 	SECTION("Test that p-values are correct")
 	{
 		sambada::StoreyHistograms storeyHistograms(1, 6.);
