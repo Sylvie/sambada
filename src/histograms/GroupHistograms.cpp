@@ -41,6 +41,11 @@ void sambada::GroupHistograms::addValue(int index, reel value)
 	}
 }
 
+const std::string& sambada::GroupHistograms::getGroupName() const
+{
+	return name;
+}
+
 const std::vector<sambada::Histogram>& sambada::GroupHistograms::getHistograms() const
 {
 	return histograms;

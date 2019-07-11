@@ -31,6 +31,8 @@ namespace sambada {
 
 		void addValue(int index, reel value);
 
+		const std::string& getGroupName() const;
+
 		const std::vector<sambada::Histogram>& getHistograms() const;
 
 	private:

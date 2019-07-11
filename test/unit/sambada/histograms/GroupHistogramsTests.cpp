@@ -57,6 +57,13 @@ TEST_CASE("Test that GroupHistograms can create a group of histograms", "[group-
 		CHECK(histograms.size() == length);
 	}
 
+	SECTION("Test that GroupHistograms has the correct name")
+	{
+		sambada::GroupHistograms groupHistograms(length, name, binLimits);
+
+		CHECK(groupHistograms.getGroupName() == name);
+	}
+
 	SECTION("Test that Histograms have the correct names")
 	{
 		sambada::GroupHistograms groupHistograms(length, name, binLimits);
