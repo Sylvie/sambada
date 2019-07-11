@@ -20,9 +20,9 @@
 #include <limits>
 
 namespace sambada {
-	std::ostream& StoreyHistogramsStreamWriter::write(const StoreyHistograms& storeyHistograms, std::ostream& output)
+	std::ostream& StoreyHistogramsStreamWriter::write(const StoreyHistograms& storeyHistograms, std::ostream& output, char divider)
 	{
-		std::string separator(" ");
+		std::string separator(&divider, 1);
 
 		std::vector<reel> pValues(storeyHistograms.getPValues());
 		std::vector<reel> scoreThresholds(storeyHistograms.getScoreThresholds());

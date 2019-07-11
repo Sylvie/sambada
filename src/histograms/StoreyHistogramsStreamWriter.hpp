@@ -26,7 +26,7 @@ namespace sambada {
 	class StoreyHistogramsStreamWriter
 	{
 	public:
-		std::ostream& write(const StoreyHistograms& storeyHistograms, std::ostream& output);
+		std::ostream& write(const StoreyHistograms& storeyHistograms, std::ostream& output, char divider = ' ');
 	};
 }
 
