@@ -19,11 +19,16 @@
 #ifndef SAMBADA_STOREYHISTOGRAMSSTREAMWRITER_HPP
 #define SAMBADA_STOREYHISTOGRAMSSTREAMWRITER_HPP
 
+#include "StoreyHistograms.hpp"
+#include <ostream>
 
-class StoreyHistogramsStreamWriter
-{
-
-};
+namespace sambada {
+	class StoreyHistogramsStreamWriter
+	{
+	public:
+		std::ostream& write(const StoreyHistograms& storeyHistograms, std::ostream& output);
+	};
+}
 
 
 #endif //SAMBADA_STOREYHISTOGRAMSSTREAMWRITER_HPP
