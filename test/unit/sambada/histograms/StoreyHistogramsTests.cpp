@@ -197,7 +197,7 @@ TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-
 		{
 			for (size_t dimension(1); dimension <= dimMax; ++dimension)
 			{
-				storeyHistograms.addValue(*scoreType, dimension, scores[(size_t)(*scoreType)][dimension-1]);
+				storeyHistograms.addValue(*scoreType, dimension, scores[(size_t) (*scoreType)][dimension - 1]);
 			}
 
 		}
@@ -249,7 +249,7 @@ TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-
 		{
 			for (size_t dimension(1); dimension <= dimMax; ++dimension)
 			{
-				storeyHistograms.addValue(*scoreType, dimension, scores[(size_t)(*scoreType)][dimension-1]);
+				storeyHistograms.addValue(*scoreType, dimension, scores[(size_t) (*scoreType)][dimension - 1]);
 			}
 
 		}
@@ -298,13 +298,13 @@ TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-
 		{
 			for (size_t dimension(1); dimension <= dimMax; ++dimension)
 			{
-				storeyHistograms.addValue(*scoreType, dimension, scores[(size_t)(*scoreType)][dimension-1]);
+				storeyHistograms.addValue(*scoreType, dimension, scores[(size_t) (*scoreType)][dimension - 1]);
 			}
 
 		}
 
-		storeyHistograms.addValue((sambada::StoreyHistograms::ScoreType)-1, 1, 3.7);
-		storeyHistograms.addValue((sambada::StoreyHistograms::ScoreType)6, 2, 3.7);
+		storeyHistograms.addValue((sambada::StoreyHistograms::ScoreType) -1, 1, 3.7);
+		storeyHistograms.addValue((sambada::StoreyHistograms::ScoreType) 6, 2, 3.7);
 
 		std::vector<std::vector<std::vector<int>>> expectedHistograms(6, std::vector<std::vector<int>>(2, std::vector<int>(96, 0)));
 		expectedHistograms[(size_t) listeScoresTypes[0]][0][48] = 1;
@@ -334,6 +334,76 @@ TEST_CASE("Test that StoreyHistograms can create p-values histograms", "[storey-
 
 					compareHistogramCounts(counts, expectedHistograms[(size_t) *scoreType][dimension - 1]);
 				}
+			}
+		}
+	}
+
+	SECTION("Test that numValidModel has the correct size")
+	{
+		sambada::StoreyHistograms storeyHistograms(4, 6.);
+
+		CHECK(storeyHistograms.getNumValidModels().size() == 5);
+	}
+
+	SECTION("Test that calling addValidModel with a negative dimension has no effect")
+	{
+		sambada::StoreyHistograms storeyHistograms(4, 6.);
+
+		storeyHistograms.addValidModel(2);
+		storeyHistograms.addValidModel(-1);
+
+		const std::vector<int>& counts(storeyHistograms.getNumValidModels());
+
+		CHECKED_IF(counts.size() == 5)
+		{
+			CHECK(counts[0] == 0);
+			CHECK(counts[1] == 0);
+			CHECK(counts[2] == 1);
+			CHECK(counts[3] == 0);
+			CHECK(counts[4] == 0);
+		}
+	}
+
+	SECTION("Test that calling addValidModel with a dimension greater than dimensionMax has no effect")
+	{
+		sambada::StoreyHistograms storeyHistograms(4, 6.);
+
+		storeyHistograms.addValidModel(2);
+		storeyHistograms.addValidModel(5);
+
+		const std::vector<int>& counts(storeyHistograms.getNumValidModels());
+
+		CHECKED_IF(counts.size() == 5)
+		{
+			CHECK(counts[0] == 0);
+			CHECK(counts[1] == 0);
+			CHECK(counts[2] == 1);
+			CHECK(counts[3] == 0);
+			CHECK(counts[4] == 0);
+		}
+	}
+
+	SECTION("Test that the number of valid models is correct")
+	{
+		sambada::StoreyHistograms storeyHistograms(4, 6.);
+
+		std::vector<int> expectedCounts({3, 2, 6, 10, 8});
+
+		for (size_t i(0); i < expectedCounts.size(); ++i)
+		{
+			for (int j(0); j < expectedCounts[i]; ++j)
+			{
+				storeyHistograms.addValidModel(i);
+			}
+		}
+
+		const std::vector<int>& counts(storeyHistograms.getNumValidModels());
+
+		CHECKED_IF(counts.size() == expectedCounts.size())
+		{
+			for (size_t i(0); i < expectedCounts.size(); ++i)
+			{
+				CHECK(counts[i] == expectedCounts[i]);
 			}
 		}
 	}

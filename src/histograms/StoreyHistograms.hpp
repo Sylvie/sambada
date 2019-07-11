@@ -51,6 +51,9 @@ namespace sambada {
 		const std::vector<sambada::reel>& getPValues() const;
 		const std::vector<sambada::reel>& getScoreThresholds() const;
 
+		void addValidModel(int dimension);
+		const std::vector<int>& getNumValidModels() const;
+
 		/*
 		 * 	// Définition des caractéristiques nécessaires au calcul de la FDR selon Storey
 		typedef struct
@@ -80,6 +83,7 @@ namespace sambada {
 		void initPValuesAndScoreThresholds();
 		void initHistograms();
 
+		std::vector<int> numValidModels;
 	};
 
 }
