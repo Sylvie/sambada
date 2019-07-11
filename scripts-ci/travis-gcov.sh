@@ -22,5 +22,9 @@ ${GCOV} -r ../src/recodeLFMM.cpp -o src/binaries_recode_plink_lfmm-recodeLFMM.o
 
 ${GCOV} -r ../src/histograms/Histogram.cpp -o src/histograms/Histogram.o
 ${GCOV} -r ../src/histograms/GroupHistograms.cpp -o src/histograms/GroupHistograms.o
+${GCOV} -r ../src/histograms/StoreyHistograms.cpp -o src/histograms/StoreyHistograms.o
+${GCOV} -r ../src/histograms/StoreyHistogramsStreamWriter.cpp -o src/histograms/StoreyHistogramsStreamWriter.o
+
+${GCOV} -r ../src/variables/Probability.cpp -o src/common/libcommon_a-Probability.o
 ${GCOV} -r ../src/variables/CombinaisonVariables.cpp -o src/variables/libvariables_a-CombinaisonVariables.o
 ${GCOV} -r ../src/variables/FamilleVariablesFactory.cpp -o src/variables/libvariables_a-FamilleVariablesFactory.o
