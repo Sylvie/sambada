@@ -23,8 +23,8 @@
 #include <limits>
 
 namespace sambada {
-	sambada::StoreyHistograms::StoreyHistograms(int dimensionMax, sambada::reel scoreMin)
-			: nbPvalStorey(96), scoreMin(scoreMin), dimensionMax(dimensionMax), numScoreTypes(6), numValidModels(dimensionMax+1)
+	sambada::StoreyHistograms::StoreyHistograms(int dimensionMax)
+			: nbPvalStorey(96), dimensionMax(dimensionMax), numScoreTypes(6), numValidModels(dimensionMax+1)
 	{
 		initPValuesAndScoreThresholds();
 		initHistograms();
@@ -32,7 +32,7 @@ namespace sambada {
 
 	void sambada::StoreyHistograms::addValue(ScoreType scoreType, int dimension, reel value)
 	{
-		if (ScoreType::G <= scoreType && scoreType <= ScoreType::WaldPop && scoreMin <= value)
+		if (ScoreType::G <= scoreType && scoreType <= ScoreType::WaldPop)
 		{
 			histograms[(size_t) scoreType].addValue(dimension, value);
 		}

@@ -38,14 +38,13 @@ namespace sambada {
 			WaldPop
 		};
 
-		StoreyHistograms(int dimensionMax, reel scoreMin);
+		StoreyHistograms(int dimensionMax);
 
 		void addValue(ScoreType scoreType, int dimension, reel value);
 
 		const GroupHistograms& getHistograms(ScoreType scoreType) const;
 
 		const int nbPvalStorey;
-		const reel scoreMin;
 
 		const int getDimensionMax() const;
 		const std::vector<sambada::reel>& getPValues() const;

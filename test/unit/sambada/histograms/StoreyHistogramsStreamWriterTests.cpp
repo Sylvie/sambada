@@ -80,8 +80,7 @@ TEST_CASE("Test that StoreyHistogramsStreamWriter can write StoreyHistograms int
 		                                                   });
 
 		int dimMax(3);
-		sambada::reel scoreMin(0.);
-		sambada::StoreyHistograms storeyHistograms(dimMax, scoreMin);
+		sambada::StoreyHistograms storeyHistograms(dimMax);
 
 		for (int i(1); i <= dimMax; ++i)
 		{
@@ -157,8 +156,7 @@ TEST_CASE("Test that StoreyHistogramsStreamWriter can write StoreyHistograms int
 		                                                   });
 
 		int dimMax(3);
-		sambada::reel scoreMin(0.);
-		sambada::StoreyHistograms storeyHistograms(dimMax, scoreMin);
+		sambada::StoreyHistograms storeyHistograms(dimMax);
 
 		for (int i(1); i <= dimMax; ++i)
 		{
