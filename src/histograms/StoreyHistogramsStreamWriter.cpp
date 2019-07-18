@@ -20,7 +20,7 @@
 #include <limits>
 
 namespace sambada {
-	std::ostream& StoreyHistogramsStreamWriter::write(const StoreyHistograms& storeyHistograms, std::ostream& output, char divider)
+	std::ostream& StoreyHistogramsStreamWriter::write(const StoreyHistograms& storeyHistograms, std::ostream& output, bool writePopHistograms, char divider)
 	{
 		std::string separator(&divider, 1);
 
@@ -59,7 +59,7 @@ namespace sambada {
 		                                                     StoreyHistograms::ScoreType::Wald,
 		                                                     StoreyHistograms::ScoreType::WaldOrphelins});
 
-		for (size_t dimension(1); dimension <= (size_t)dimensionMax; ++dimension)
+		for (size_t dimension(1); dimension <= (size_t) dimensionMax; ++dimension)
 		{
 			for (auto scoreType(scoreTypes.begin()); scoreType != scoreTypes.end(); ++scoreType)
 			{
@@ -81,25 +81,28 @@ namespace sambada {
 			}
 		}
 
-		std::vector<StoreyHistograms::ScoreType> popScoreTypes({StoreyHistograms::ScoreType::GPop, StoreyHistograms::ScoreType::WaldPop});
-
-		for (auto scoreType(popScoreTypes.begin()); scoreType != popScoreTypes.end(); ++scoreType)
+		if (writePopHistograms)
 		{
-			Histogram histogram(storeyHistograms.getHistograms(*scoreType).getHistograms()[dimensionMax]);
+			std::vector<StoreyHistograms::ScoreType> popScoreTypes({StoreyHistograms::ScoreType::GPop, StoreyHistograms::ScoreType::WaldPop});
 
-			output << storeyHistograms.getHistograms(*scoreType).getGroupName() << separator;
-
-			std::vector<int> counts(histogram.getCounts());
-			for (auto count(counts.begin()); count != counts.end(); ++count)
+			for (auto scoreType(popScoreTypes.begin()); scoreType != popScoreTypes.end(); ++scoreType)
 			{
-				if (count != counts.begin())
-				{
-					output << separator;
-				}
-				output << *count;
-			}
+				Histogram histogram(storeyHistograms.getHistograms(*scoreType).getHistograms()[dimensionMax]);
 
-			output << std::endl;
+				output << storeyHistograms.getHistograms(*scoreType).getGroupName() << separator;
+
+				std::vector<int> counts(histogram.getCounts());
+				for (auto count(counts.begin()); count != counts.end(); ++count)
+				{
+					if (count != counts.begin())
+					{
+						output << separator;
+					}
+					output << *count;
+				}
+
+				output << std::endl;
+			}
 		}
 
 		return output;
