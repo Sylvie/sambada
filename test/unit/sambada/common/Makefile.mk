@@ -6,6 +6,6 @@ test_unit_SambadaUnitTests_SOURCES +=  \
 test_unit_SambadaUnitTests_LDADD += src/common/libcommon.a
 
 ## Cleaning ##
-clean-local-test-unit-sambada-histograms:
+clean-local-test-unit-sambada-common:
 	$(call clean_extra_generated_files, test/unit/sambada/histograms)
 

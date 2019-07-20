@@ -24,6 +24,6 @@ check-local-test-unit-sambada: ${sambada_unit_tests}
 	echo "Ignored error: The return value actually counts the numbers of tests."
 
 ## Cleaning ##
-clean-local-test-unit-sambada: clean-local-test-unit-sambada-variables clean-local-test-unit-sambada-histograms
+clean-local-test-unit-sambada: clean-local-test-unit-sambada-variables clean-local-test-unit-sambada-histograms clean-local-test-unit-sambada-common
 	$(call clean_extra_generated_files, test/unit/sambada/)
 
