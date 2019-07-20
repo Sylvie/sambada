@@ -125,6 +125,8 @@ target_link_libraries(sambada
         shp
         intermediate
         variables
+        histograms
+        common
         )
 
 add_executable(supervision

@@ -1881,9 +1881,9 @@ void RegressionLogistique::trieEtEcritResultats()
 
 						if (!appliqueSeuilScoreStorey ||
 						    (i== 0 ||
-						    i < dimensionMax && (listeModeles[j]->second[Gscore] >= storey.scoreMin || listeModeles[j]->second[WaldScore] >= storey.scoreMin)) ||
-						    i == dimensionMax && structurePop != pasStructurePop && (listeModeles[j]->second[GscorePop] >= storey.scoreMin || listeModeles[j]->second[WaldScorePop] >= storey.scoreMin) ||
-						    i == dimensionMax && structurePop == pasStructurePop && (listeModeles[j]->second[Gscore] >= storey.scoreMin || listeModeles[j]->second[WaldScore] >= storey.scoreMin)
+						    i < dimensionMax && (listeModeles[j]->second[Gscore] >= seuilScoreStorey || listeModeles[j]->second[WaldScore] >= seuilScoreStorey)) ||
+						    i == dimensionMax && structurePop != pasStructurePop && (listeModeles[j]->second[GscorePop] >= seuilScoreStorey || listeModeles[j]->second[WaldScorePop] >= seuilScoreStorey) ||
+						    i == dimensionMax && structurePop == pasStructurePop && (listeModeles[j]->second[Gscore] >= seuilScoreStorey || listeModeles[j]->second[WaldScore] >= seuilScoreStorey)
 								)
 						{
 

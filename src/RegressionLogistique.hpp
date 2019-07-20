@@ -35,10 +35,11 @@
 #include "Archiviste.hpp"
 #include "Journal.hpp"
 #include "variables/CombinaisonVariables.hpp"
-
+#include "histograms/StoreyHistograms.hpp"
 
 #include <set>
 #include <map>
+#include <memory>
 
 using namespace std;
 using namespace scythe;
@@ -160,20 +161,6 @@ private:
 		bool miseAJour();
 	} Domaine;
 
-	// Définition des caractéristiques nécessaires au calcul de la FDR selon Storey
-	typedef struct
-	{
-		int nbPvalStorey;
-		vector<int> nbModelesValides;
-
-		vector<reel> pval;
-		vector<reel> seuilScore;
-
-		vector<vector<int>> compteurG, compteurGOrphelins, compteurGPop;
-		vector<vector<int>> compteurWald, compteurWaldOrphelins, compteurWaldPop;
-
-		reel scoreMin;
-	} donneesFDR;
 
 protected:
 
@@ -224,7 +211,8 @@ protected:
 	int nbModelesParMarqueur;
 
 	// Paramètres FDR selon Storey
-	donneesFDR storey;
+	std::unique_ptr<sambada::StoreyHistograms> storey;
+
 	bool calculeStorey;
 	bool appliqueSeuilScoreStorey;
 	reel seuilScoreStorey;

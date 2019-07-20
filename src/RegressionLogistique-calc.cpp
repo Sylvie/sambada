@@ -32,6 +32,7 @@
 #include <limits>
 #include <list>
 #include <ctime>
+#include <histograms/StoreyHistogramsStreamWriter.hpp>
 
 using namespace std;
 using namespace scythe;
@@ -43,6 +44,7 @@ RegressionLogistique::RegressionLogistique()
 		  analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
 		  eps(sqrt(epsilon<reel>())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel) 700, log(numeric_limits<reel>::max() / 2))), nbModelesParMarqueur(1),
 		  limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
+		  storey(nullptr),
 		  tailleEtiquetteInvar(4), numPremierMarq(0),
 		  delimLignes("\n"),
 		  AS_GWR(false), AS_autocorrGlobale(false), AS_autocorrLocale(false), AS_autocorrVarEnv(false), AS_autocorrMarq(false), AS_shapefile(false),
@@ -245,34 +247,8 @@ int RegressionLogistique::creeModelesGlobaux()
 
 	}
 
-	// Paramètres pour la FDR : 0.01, 0.02, ..., 0.95
-	// Les p-valeurs sont dans l'ordre décroissant
-	storey.nbPvalStorey = 96;    // Tient compte de la dernière valeur (p=0, score=inf)
-	for (int i(storey.nbPvalStorey - 1); i > 0; --i)
-	{
-		storey.pval.push_back(0.01 * i);
-		storey.seuilScore.push_back(toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon<reel>())));
-		// cout << 0.01 * i << " " << toolbox::invCDF_ChiSquare(1. - 0.01 * i, 1, sqrt(epsilon<reel>())) << endl;
-	}
-	storey.pval.push_back(0.);
-	storey.seuilScore.push_back(std::numeric_limits<reel>::infinity());
+	storey = std::unique_ptr<sambada::StoreyHistograms>(new sambada::StoreyHistograms(dimensionMax));
 
-	storey.compteurG.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
-	storey.compteurWald.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
-
-	storey.compteurGOrphelins.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
-	storey.compteurWaldOrphelins.resize(dimensionMax + 1, vector<int>(storey.nbPvalStorey, 0));
-
-	storey.compteurGPop.resize(1, vector<int>(storey.nbPvalStorey, 0));
-	storey.compteurWaldPop.resize(1, vector<int>(storey.nbPvalStorey, 0));
-
-	storey.nbModelesValides.resize(dimensionMax + 1, 0);
-
-	// Score minimal pour lequel les résultats sont sauvés (afin de calculer les q-valeurs en post-traitement)
-	if (appliqueSeuilScoreStorey)
-	{
-		storey.scoreMin = seuilScoreStorey;
-	}
 	//	clock_t t1, t2;
 
 
@@ -556,77 +532,15 @@ int RegressionLogistique::creeModelesGlobaux()
 	if (calculeStorey)
 	{
 		// Storey
+		std::vector<int> nbModelesValides(storey->getNumValidModels());
 		for (int i(1); i < (dimensionMax + 1); ++i)
 		{
-			cout << "Nombre de modèles valides (Storey) dim=" << i << " : " << storey.nbModelesValides[i] << "\n";
+			cout << "Nombre de modèles valides (Storey) dim=" << i << " : " << nbModelesValides[i] << "\n";
 		}
 		//	ofstream sortieStorey("res-Storey.txt");
 		ofstream sortieStorey((nomFichierResultats.first + "-storey" + nomFichierResultats.second).c_str());
-
-		sortieStorey << "P-valeurs" << delimMots;
-		for (int i(0); i < storey.nbPvalStorey; ++i)
-		{
-			sortieStorey << storey.pval[i] << delimMots;
-		}
-		sortieStorey << endl;
-
-		sortieStorey << "Scores" << delimMots;
-		for (int i(0); i < storey.nbPvalStorey; ++i)
-		{
-			sortieStorey << storey.seuilScore[i] << delimMots;
-		}
-		sortieStorey << endl;
-
-		for (int i(1); i < (dimensionMax + 1); ++i)
-		{
-			sortieStorey << "G" << i << delimMots;
-			for (int j(0); j < storey.nbPvalStorey; ++j)
-			{
-				sortieStorey << storey.compteurG[i][j] << delimMots;
-			}
-			sortieStorey << endl;
-
-			sortieStorey << "GOrphelins" << i << delimMots;
-			for (int j(0); j < storey.nbPvalStorey; ++j)
-			{
-				sortieStorey << storey.compteurGOrphelins[i][j] << delimMots;
-			}
-			sortieStorey << endl;
-
-			sortieStorey << "Wald" << i << delimMots;
-			for (int j(0); j < storey.nbPvalStorey; ++j)
-			{
-				sortieStorey << storey.compteurWald[i][j] << delimMots;
-			}
-			sortieStorey << endl;
-
-			sortieStorey << "WaldOrphelins" << i << delimMots;
-			for (int j(0); j < storey.nbPvalStorey; ++j)
-			{
-				sortieStorey << storey.compteurWaldOrphelins[i][j] << delimMots;
-			}
-			sortieStorey << endl;
-
-		}
-
-		if (structurePop != pasStructurePop)
-		{
-			sortieStorey << "GPop" << delimMots;
-			for (int i(0); i < storey.nbPvalStorey; ++i)
-			{
-				sortieStorey << storey.compteurGPop[0][i] << delimMots;
-			}
-			sortieStorey << endl;
-
-			sortieStorey << "WaldPop" << delimMots;
-			for (int i(0); i < storey.nbPvalStorey; ++i)
-			{
-				sortieStorey << storey.compteurWaldPop[0][i] << delimMots;
-			}
-			sortieStorey << endl;
-
-		}
-
+		sambada::StoreyHistogramsStreamWriter writer;
+		writer.write(*storey, sortieStorey, structurePop != pasStructurePop, delimMots);
 
 		sortieStorey.close();
 	}
@@ -674,8 +588,8 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		{
 			if (!appliqueSeuilScoreStorey ||
 			    (dim < dimensionMax) ||
-			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
-			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= seuilScoreStorey || resultat.second[WaldScorePop] >= seuilScoreStorey) ||
+			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= seuilScoreStorey || resultat.second[WaldScore] >= seuilScoreStorey)
 					)
 			{
 				resultats[dim].insert(resultat);
@@ -685,9 +599,9 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 			{
 				// Test storey
 				if (!appliqueSeuilScoreStorey ||
-				    (dim < dimensionMax && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)) ||
-				    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
-				    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+				    (dim < dimensionMax && (resultat.second[Gscore] >= seuilScoreStorey || resultat.second[WaldScore] >= seuilScoreStorey)) ||
+				    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= seuilScoreStorey || resultat.second[WaldScorePop] >= seuilScoreStorey) ||
+				    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= seuilScoreStorey || resultat.second[WaldScore] >= seuilScoreStorey)
 						)
 				{
 					ecritResultat(dim, resultat);
@@ -795,8 +709,7 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 			{
 
 				// Storey!
-				++storey.nbModelesValides[dim];
-
+				storey->addValidModel(dim);
 
 				reel denominateur(somme * (1. - somme / taille) * (1. - somme / taille) + (taille - somme) * (somme / taille) * (somme / taille));
 				resultat.second[Efron] = 1. - (resultat.second[Efron] / denominateur);
@@ -856,9 +769,9 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		{
 			// Test storey
 			if (!appliqueSeuilScoreStorey ||
-			    (dim < dimensionMax && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)) ||
-			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
-			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+			    (dim < dimensionMax && (resultat.second[Gscore] >= seuilScoreStorey || resultat.second[WaldScore] >= seuilScoreStorey)) ||
+			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= seuilScoreStorey || resultat.second[WaldScorePop] >= seuilScoreStorey) ||
+			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= seuilScoreStorey || resultat.second[WaldScore] >= seuilScoreStorey)
 					)
 			{
 				ecritResultat(dim, resultat);
@@ -870,8 +783,8 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		{
 			if (!appliqueSeuilScoreStorey ||
 			    (dim < dimensionMax) ||
-			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= storey.scoreMin || resultat.second[WaldScorePop] >= storey.scoreMin) ||
-			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= storey.scoreMin || resultat.second[WaldScore] >= storey.scoreMin)
+			    dim == dimensionMax && structurePop != pasStructurePop && (resultat.second[GscorePop] >= seuilScoreStorey || resultat.second[WaldScorePop] >= seuilScoreStorey) ||
+			    dim == dimensionMax && structurePop == pasStructurePop && (resultat.second[Gscore] >= seuilScoreStorey || resultat.second[WaldScore] >= seuilScoreStorey)
 					)
 			{
 				resultats[dim].insert(resultat);
@@ -1045,7 +958,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	}
 	else // Recherche d'un parent valide et sélection du parent avec la meilleure loglike
 	{
-		sambada::CombinaisonVariables combinaisonVariables(familleVariables[dimParents+1][resultat.first.second]);
+		sambada::CombinaisonVariables combinaisonVariables(familleVariables[dimParents + 1][resultat.first.second]);
 		for (std::set<sambada::EtiquetteCombinaisonVariables>::const_iterator parentCourant(combinaisonVariables.parents.cbegin()); parentCourant != combinaisonVariables.parents.cend(); ++parentCourant)
 		{
 			// Initialisation avec les valeurs du premier modèle
@@ -1090,7 +1003,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 
 		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
 		{
-			++storey.compteurG[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[Gscore]) - storey.seuilScore.begin())];
+			storey->addValue(sambada::StoreyHistograms::ScoreType::G, resultat.first.second.size(), resultat.second[Gscore]);
 		}
 		// Si on sauve tous les modèles, on cherche le plus petit score de Wald
 		int tailleModele(dimParents + 1);
@@ -1126,7 +1039,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		// Mise à jour du compteur pour la FDR
 		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
 		{
-			++storey.compteurWald[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScore]) - storey.seuilScore.begin())];
+			storey->addValue(sambada::StoreyHistograms::ScoreType::Wald, resultat.first.second.size(), resultat.second[WaldScore]);
 		}
 		// Test du score de Wald
 		if (selModeles != all && (resultat.second[WaldScore] < seuilScore[tailleModele]))
@@ -1168,7 +1081,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		// Mise à jour du compteur pour la FDR
 		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
 		{
-			++storey.compteurGOrphelins[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[Gscore]) - storey.seuilScore.begin())];
+			storey->addValue(sambada::StoreyHistograms::ScoreType::GOrphelins, resultat.first.second.size(), resultat.second[Gscore]);
 		}
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
 		if (selModeles != all && (resultat.second[Gscore] < seuilScoreMultivarie[dimParents + 1]))    // STOREY! (sinon selModeles==signif)
@@ -1219,7 +1132,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		// Mise à jour du compteur pour la FDR
 		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
 		{
-			++storey.compteurWaldOrphelins[resultat.first.second.size()][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScore]) - storey.seuilScore.begin())];
+			storey->addValue(sambada::StoreyHistograms::ScoreType::WaldOrphelins, resultat.first.second.size(), resultat.second[WaldScore]);
 		}
 		// STOREY
 		//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
@@ -1270,8 +1183,8 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		resultat.second[GscorePop] = 2 * (resultat.second[valloglikelihood] - modeleParentPop->second[valloglikelihood]);
 
 		// Mise à jour du compteur pour la FDR
-		++storey.compteurGPop[0][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[GscorePop]) - storey.seuilScore.begin())];
-		++storey.compteurWaldPop[0][(upper_bound(storey.seuilScore.begin(), storey.seuilScore.end(), resultat.second[WaldScorePop]) - storey.seuilScore.begin())];
+		storey->addValue(sambada::StoreyHistograms::ScoreType::GPop, resultat.first.second.size(), resultat.second[GscorePop]);
+		storey->addValue(sambada::StoreyHistograms::ScoreType::WaldPop, resultat.first.second.size(), resultat.second[WaldScorePop]);
 	}
 
 
