@@ -20,12 +20,27 @@
 #include <limits>
 
 namespace sambada {
-	std::ostream& StoreyHistogramsStreamWriter::write(const StoreyHistograms& storeyHistograms, std::ostream& output, bool writePopHistograms, char divider)
+	std::ostream& StoreyHistogramsStreamWriter::write(const StoreyHistograms& storeyHistograms, std::ostream& output, bool writePopHistograms, char divider) const
 	{
 		std::string separator(&divider, 1);
 
+		writePValues(storeyHistograms, output, separator);
+
+		writeScoreThresholds(storeyHistograms, output, separator);
+
+		writeHistograms(storeyHistograms, output, separator);
+
+		if (writePopHistograms)
+		{
+			this->writePopHistograms(storeyHistograms, output, separator);
+		}
+
+		return output;
+	}
+
+	std::ostream& StoreyHistogramsStreamWriter::writePValues(const StoreyHistograms& storeyHistograms, std::ostream& output, const std::string& separator) const
+	{
 		std::vector<reel> pValues(storeyHistograms.getPValues());
-		std::vector<reel> scoreThresholds(storeyHistograms.getScoreThresholds());
 
 		output << "P-valeurs" << separator;
 		for (auto pValue(pValues.begin()); pValue != pValues.end(); ++pValue)
@@ -39,6 +54,13 @@ namespace sambada {
 		output << separator << 0;
 		output << std::endl;
 
+		return output;
+	}
+
+	std::ostream& StoreyHistogramsStreamWriter::writeScoreThresholds(const StoreyHistograms& storeyHistograms, std::ostream& output, const std::string& separator) const
+	{
+		std::vector<reel> scoreThresholds(storeyHistograms.getScoreThresholds());
+
 		output << "Scores" << separator;
 		for (auto score(scoreThresholds.begin()); score != scoreThresholds.end(); ++score)
 		{
@@ -51,7 +73,11 @@ namespace sambada {
 		output << separator << std::numeric_limits<reel>::infinity();
 		output << std::endl;
 
+		return output;
+	}
 
+	std::ostream& StoreyHistogramsStreamWriter::writeHistograms(const StoreyHistograms& storeyHistograms, std::ostream& output, const std::string& separator) const
+	{
 		int dimensionMax(storeyHistograms.getDimensionMax());
 
 		std::vector<StoreyHistograms::ScoreType> scoreTypes({StoreyHistograms::ScoreType::G,
@@ -81,28 +107,32 @@ namespace sambada {
 			}
 		}
 
-		if (writePopHistograms)
+		return output;
+	}
+
+	std::ostream& StoreyHistogramsStreamWriter::writePopHistograms(const StoreyHistograms& storeyHistograms, std::ostream& output, const std::string& separator) const
+	{
+		std::vector<StoreyHistograms::ScoreType> popScoreTypes({StoreyHistograms::ScoreType::GPop, StoreyHistograms::ScoreType::WaldPop});
+
+		int dimensionMax(storeyHistograms.getDimensionMax());
+
+		for (auto scoreType(popScoreTypes.begin()); scoreType != popScoreTypes.end(); ++scoreType)
 		{
-			std::vector<StoreyHistograms::ScoreType> popScoreTypes({StoreyHistograms::ScoreType::GPop, StoreyHistograms::ScoreType::WaldPop});
+			Histogram histogram(storeyHistograms.getHistograms(*scoreType).getHistograms()[dimensionMax]);
 
-			for (auto scoreType(popScoreTypes.begin()); scoreType != popScoreTypes.end(); ++scoreType)
+			output << storeyHistograms.getHistograms(*scoreType).getGroupName() << separator;
+
+			std::vector<int> counts(histogram.getCounts());
+			for (auto count(counts.begin()); count != counts.end(); ++count)
 			{
-				Histogram histogram(storeyHistograms.getHistograms(*scoreType).getHistograms()[dimensionMax]);
-
-				output << storeyHistograms.getHistograms(*scoreType).getGroupName() << separator;
-
-				std::vector<int> counts(histogram.getCounts());
-				for (auto count(counts.begin()); count != counts.end(); ++count)
+				if (count != counts.begin())
 				{
-					if (count != counts.begin())
-					{
-						output << separator;
-					}
-					output << *count;
+					output << separator;
 				}
-
-				output << std::endl;
+				output << *count;
 			}
+
+			output << std::endl;
 		}
 
 		return output;

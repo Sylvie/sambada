@@ -44,8 +44,8 @@ RegressionLogistique::RegressionLogistique()
 		  analyseSpatiale(false), longitude(0), latitude(0), choixPonderation(pondDistanceMax), bandePassante(0), AS_nbPermutations(0), nbPlusProchesVoisins(0),
 		  eps(sqrt(epsilon<reel>())), convCrit(1e-6), seuilPValeur(0.01), seuilScore(0), seuilScoreMultivarie(0), limiteNaN(1000000), limiteExp(min((reel) 700, log(numeric_limits<reel>::max() / 2))), nbModelesParMarqueur(1),
 		  limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
+		  numPremierMarq(0), tailleEtiquetteInvar(4),
 		  storey(nullptr),
-		  tailleEtiquetteInvar(4), numPremierMarq(0),
 		  delimLignes("\n"),
 		  AS_GWR(false), AS_autocorrGlobale(false), AS_autocorrLocale(false), AS_autocorrVarEnv(false), AS_autocorrMarq(false), AS_shapefile(false),
 		  AS_spatialLag(false)

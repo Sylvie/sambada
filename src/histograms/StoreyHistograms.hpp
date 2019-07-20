@@ -38,7 +38,7 @@ namespace sambada {
 			WaldPop
 		};
 
-		StoreyHistograms(int dimensionMax);
+		explicit StoreyHistograms(int dimensionMax);
 
 		void addValue(ScoreType scoreType, int dimension, reel value);
 

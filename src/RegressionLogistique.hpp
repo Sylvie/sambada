@@ -210,9 +210,11 @@ protected:
 	const int limiteIter, limiteEcartType, nbStats, nbStatsAvecPop, nbStatsSansPseudos, nbPseudosRcarres, tailleEtiquetteInvar;
 	int nbModelesParMarqueur;
 
+private:
 	// Paramètres FDR selon Storey
 	std::unique_ptr<sambada::StoreyHistograms> storey;
 
+protected:
 	bool calculeStorey;
 	bool appliqueSeuilScoreStorey;
 	reel seuilScoreStorey;
