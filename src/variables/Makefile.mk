@@ -21,6 +21,8 @@
 noinst_LIBRARIES += src/variables/libvariables.a
 
 src_variables_libvariables_a_SOURCES = \
+	src/variables/EtiquetteCombinaisonVariables.cpp \
+	src/variables/EtiquetteCombinaisonVariables.hpp \
 	src/variables/CombinaisonVariables.cpp \
 	src/variables/CombinaisonVariables.hpp \
 	src/variables/FamilleVariablesFactory.cpp \

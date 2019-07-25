@@ -16,31 +16,4 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-
-#ifndef SAMBADA_COMBINAISONVARIABLES_HPP
-#define SAMBADA_COMBINAISONVARIABLES_HPP
-
 #include "EtiquetteCombinaisonVariables.hpp"
-#include "common/Matrices.hpp"
-
-#include <map>
-#include <vector>
-
-namespace sambada {
-
-	struct CombinaisonVariables
-	{
-		EtiquetteCombinaisonVariables variables;
-		std::set<EtiquetteCombinaisonVariables> parents;
-		MatriceBools masque;
-
-		CombinaisonVariables();
-	};
-
-	typedef std::map<EtiquetteCombinaisonVariables, CombinaisonVariables> GenerationVariables;
-
-	typedef std::vector<GenerationVariables> FamilleVariables;
-
-}
-
-#endif //SAMBADA_COMBINAISONVARIABLES_HPP
