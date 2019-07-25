@@ -97,6 +97,16 @@ set_target_properties(common
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/common/"
         )
 
+add_library(modeles
+        src/modeles/Modele.hpp
+        src/modeles/Modele.cpp
+        )
+
+set_target_properties(modeles
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/modeles/"
+        )
+
 add_executable(sambada
         src/Archiviste.cpp
         src/Archiviste.hpp
