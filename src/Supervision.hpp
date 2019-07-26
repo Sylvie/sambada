@@ -43,9 +43,9 @@ typedef struct
 	reel scoreSel;
 	reel scoreTri;
 }
-		Modele;
+		ModeleSupervision;
 
-typedef vector<Modele> ListeModeles;
+typedef vector<ModeleSupervision> ListeModelesSupervision;
 
 typedef enum { G, Wald, AIC, BIC, Both } typeScore;
 
@@ -160,9 +160,9 @@ public:
 	//static int getCase();
 	//static void setCase(int i);
 
-	static bool plusPetitQue(const Modele& r1, const Modele& r2);
+	static bool plusPetitQue(const ModeleSupervision& r1, const ModeleSupervision& r2);
 
-	static bool plusGrandQue(const Modele& r1, const Modele& r2);
+	static bool plusGrandQue(const ModeleSupervision& r1, const ModeleSupervision& r2);
 
 protected:
 	//static int caseComparaisonResultats;

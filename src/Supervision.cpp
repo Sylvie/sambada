@@ -548,13 +548,13 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 
 	// En-têtes
 	vector<string> entete(0);
-	ListeModeles resultats(0);
-	Modele resCourant;
+	ListeModelesSupervision resultats(0);
+	ModeleSupervision resCourant;
 	//pair<int, reel> indiceCourant;
 	//vector<pair<int,reel> > tableRes(0);
 
 	typedef struct { int a; reel b; } chose;
-	cout << "& " << sizeof(Modele) << " " << sizeof(ListeModeles) << " " << sizeof(int) << " " << sizeof(double) << " " << sizeof(reel) << endl;
+	cout << "& " << sizeof(ModeleSupervision) << " " << sizeof(ListeModelesSupervision) << " " << sizeof(int) << " " << sizeof(double) << " " << sizeof(reel) << endl;
 	//ligneResultat v;
 	//v.first=vector<string> (2,"Abracadabra343Vercingetorix");
 	//v.second=vector<reel>(13, 83.6);
@@ -802,12 +802,12 @@ ComparaisonModeles::ComparaisonModeles()
 ComparaisonModeles::~ComparaisonModeles()
 {}
 
-bool ComparaisonModeles::plusPetitQue(const Modele& r1, const Modele& r2)
+bool ComparaisonModeles::plusPetitQue(const ModeleSupervision& r1, const ModeleSupervision& r2)
 {
 	return ((r1.scoreTri) < (r2.scoreTri));
 }
 
-bool ComparaisonModeles::plusGrandQue(const Modele& r1, const Modele& r2)
+bool ComparaisonModeles::plusGrandQue(const ModeleSupervision& r1, const ModeleSupervision& r2)
 {
 	return ((r1.scoreTri) > (r2.scoreTri));
 }
