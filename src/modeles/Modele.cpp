@@ -17,3 +17,11 @@
 *************************************************************************/
 
 #include "Modele.hpp"
+
+namespace sambada {
+
+	bool EtiquetteModeleComparateur::operator()(const EtiquetteModele& lhs, const EtiquetteModele& rhs) const
+	{
+		return lhs.marqueur < rhs.marqueur || (lhs.marqueur == rhs.marqueur && lhs.environnement < rhs.environnement);
+	}
+}

@@ -32,9 +32,13 @@ namespace sambada {
 		EtiquetteCombinaisonVariables environnement;
 	};
 
+	struct EtiquetteModeleComparateur {
+		bool operator()(const EtiquetteModele& lhs, const EtiquetteModele& rhs) const;
+	};
+
 	typedef std::pair<EtiquetteModele, std::vector<reel>> Modele;
 
-	typedef std::map<EtiquetteModele, std::vector<reel>> GenerationModeles;
+	typedef std::map<EtiquetteModele, std::vector<reel>, EtiquetteModeleComparateur> GenerationModeles;
 
 	typedef std::vector< GenerationModeles > FamilleModeles;
 }
