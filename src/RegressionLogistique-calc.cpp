@@ -188,7 +188,7 @@ int RegressionLogistique::creeModelesGlobaux()
 	// pseudosRcarresCourants(nbPseudosRcarres), statsCourantes(nbStats), betaCourant(0); */
 	vector<reel> loglikelihood(dimensionMax + 1, 0.0);//, resultatsCourants(tailleEtiquetteInvar, 0.0); // Il y a le modèle sans paramètres!
 
-	pair<etiquetteModele, vector<reel> > resultatCourant;
+	Modele resultatCourant;
 	resultatCourant.second.resize(tailleEtiquetteInvar, 0.0);
 
 	// Ces matrices ne changent pas de taille
@@ -269,8 +269,8 @@ int RegressionLogistique::creeModelesGlobaux()
 			prochaineMesure = chrono.mesureEtAffiche();
 		}
 		//colMarq = nbEnv+i;
-		resultatCourant.first.first = i;
-		resultatCourant.first.second.clear();
+		resultatCourant.first.marqueur = i;
+		resultatCourant.first.environnement.clear();
 
 		// Gestion des valeurs manquantes -> On ne prend que les points dont toutes les valeurs sont connues
 		// Remplissage du masque
@@ -559,9 +559,9 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		return;
 	}
 
-	resModele resultat;
-	resultat.first.first = numMarq;
-	resultat.first.second = varContinues;
+	Modele resultat;
+	resultat.first.marqueur = numMarq;
+	resultat.first.environnement = varContinues;
 
 	sambada::CombinaisonVariables combinaisonVariables(familleVariables[varContinues.size()][varContinues]);
 
@@ -926,44 +926,44 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 	return typeErreur;
 }
 
-bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
+bool RegressionLogistique::calculeStats(Modele& resultat, int nbParamEstimes)
 {
 	bool modeleRetenu(true);
 
 	// Il faut trouver les meilleurs modèles "parents"
-	int dimParents(resultat.first.second.size() - 1); // Taille de l'étiquette - 1
+	int dimParents(resultat.first.environnement.size() - 1); // Taille de l'étiquette - 1
 
-	groupeResultats::iterator modeleCourant, bestLoglike;
+	GenerationModeles::iterator modeleCourant, bestLoglike;
 
 	// Calcul des pseudos R carrés
 	reel loglikeCourante(0), loglikeZero(0);
 
-	etiquetteModele etiquetteCourante;
+	EtiquetteModele etiquetteCourante;
 
 	// Il faut trouver un modèle valide pour la comparaison
 	bool parentValide(false);
 
 	// Calcul des scores G et Wald avec les variables de pop
 	reel scoreWaldPop(0);
-	groupeResultats::iterator modeleParentPop;
+	GenerationModeles::iterator modeleParentPop;
 
 	if (dimParents == 0)    // Modèle univarié -> un seul parent
 	{
 		parentValide = true;
 		etiquetteCourante = resultat.first;
-		etiquetteCourante.second.clear();
+		etiquetteCourante.environnement.clear();
 		modeleCourant = resultats[dimParents].find(etiquetteCourante);
 		bestLoglike = modeleCourant;
 		modeleParentPop = modeleCourant;
 	}
 	else // Recherche d'un parent valide et sélection du parent avec la meilleure loglike
 	{
-		sambada::CombinaisonVariables combinaisonVariables(familleVariables[dimParents + 1][resultat.first.second]);
+		sambada::CombinaisonVariables combinaisonVariables(familleVariables[dimParents + 1][resultat.first.environnement]);
 		for (std::set<sambada::EtiquetteCombinaisonVariables>::const_iterator parentCourant(combinaisonVariables.parents.cbegin()); parentCourant != combinaisonVariables.parents.cend(); ++parentCourant)
 		{
 			// Initialisation avec les valeurs du premier modèle
 			etiquetteCourante = resultat.first;
-			etiquetteCourante.second = *parentCourant;    // On corrige l'étiquette pour le modèle à considérer
+			etiquetteCourante.environnement = *parentCourant;    // On corrige l'étiquette pour le modèle à considérer
 			modeleCourant = resultats[dimParents].find(etiquetteCourante);    // Parent courant
 
 			// On teste si le parent existe et s'il n'est pas dans un état d'erreur
@@ -1001,9 +1001,9 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 
 		// Mise à jour du compteur pour la FDR
 
-		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		if (structurePop == pasStructurePop || resultat.first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.environnement))
 		{
-			storey->addValue(sambada::StoreyHistograms::ScoreType::G, resultat.first.second.size(), resultat.second[Gscore]);
+			storey->addValue(sambada::StoreyHistograms::ScoreType::G, resultat.first.environnement.size(), resultat.second[Gscore]);
 		}
 		// Si on sauve tous les modèles, on cherche le plus petit score de Wald
 		int tailleModele(dimParents + 1);
@@ -1037,9 +1037,9 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		}
 
 		// Mise à jour du compteur pour la FDR
-		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		if (structurePop == pasStructurePop || resultat.first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.environnement))
 		{
-			storey->addValue(sambada::StoreyHistograms::ScoreType::Wald, resultat.first.second.size(), resultat.second[WaldScore]);
+			storey->addValue(sambada::StoreyHistograms::ScoreType::Wald, resultat.first.environnement.size(), resultat.second[WaldScore]);
 		}
 		// Test du score de Wald
 		if (selModeles != all && (resultat.second[WaldScore] < seuilScore[tailleModele]))
@@ -1066,7 +1066,7 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		}
 
 		etiquetteCourante = resultat.first;
-		etiquetteCourante.second.clear();
+		etiquetteCourante.environnement.clear();
 		modeleCourant = resultats[0].find(etiquetteCourante);
 
 		loglikeZero = modeleCourant->second[valloglikelihood];
@@ -1079,9 +1079,9 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 			resultat.second[Gscore] = 0;
 		}
 		// Mise à jour du compteur pour la FDR
-		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		if (structurePop == pasStructurePop || resultat.first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.environnement))
 		{
-			storey->addValue(sambada::StoreyHistograms::ScoreType::GOrphelins, resultat.first.second.size(), resultat.second[Gscore]);
+			storey->addValue(sambada::StoreyHistograms::ScoreType::GOrphelins, resultat.first.environnement.size(), resultat.second[Gscore]);
 		}
 		// Test de Wald si le modèle passe le test G ou si on sauve tous les modèles
 		if (selModeles != all && (resultat.second[Gscore] < seuilScoreMultivarie[dimParents + 1]))    // STOREY! (sinon selModeles==signif)
@@ -1130,9 +1130,9 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		}
 
 		// Mise à jour du compteur pour la FDR
-		if (structurePop == pasStructurePop || resultat.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.second))
+		if (structurePop == pasStructurePop || resultat.first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(resultat.first.environnement))
 		{
-			storey->addValue(sambada::StoreyHistograms::ScoreType::WaldOrphelins, resultat.first.second.size(), resultat.second[WaldScore]);
+			storey->addValue(sambada::StoreyHistograms::ScoreType::WaldOrphelins, resultat.first.environnement.size(), resultat.second[WaldScore]);
 		}
 		// STOREY
 		//			if (selModeles==signif && (resultat.second[WaldScore]<seuilScoreMultivarie[dimParents+1]))
@@ -1159,22 +1159,22 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 	 }*/
 
 	// Selection du modèle parent pour la structure de pop
-	if (calculeStructurePop(resultat.first.second.size()))
+	if (calculeStructurePop(resultat.first.environnement.size()))
 	{
 		etiquetteCourante = resultat.first;
 		if (structurePop == structurePopPremier)
 		{
 			// La variable env est à la fin
-			set<int>::reverse_iterator variableCourante(resultat.first.second.rbegin());
-			etiquetteCourante.second.erase(*variableCourante);
+			set<int>::reverse_iterator variableCourante(resultat.first.environnement.rbegin());
+			etiquetteCourante.environnement.erase(*variableCourante);
 
 			resultat.second[WaldScorePop] = beta_hat((dimParents + 1), 0) * beta_hat((dimParents + 1), 0) / inv_J_info((dimParents + 1), (dimParents + 1));
 		}
 		else
 		{
 			// La variable env est au début
-			set<int>::iterator variableCourante(resultat.first.second.begin());
-			etiquetteCourante.second.erase(*variableCourante);
+			set<int>::iterator variableCourante(resultat.first.environnement.begin());
+			etiquetteCourante.environnement.erase(*variableCourante);
 
 			resultat.second[WaldScorePop] = beta_hat(1, 0) * beta_hat(1, 0) / inv_J_info(1, 1);
 		}
@@ -1183,8 +1183,8 @@ bool RegressionLogistique::calculeStats(resModele& resultat, int nbParamEstimes)
 		resultat.second[GscorePop] = 2 * (resultat.second[valloglikelihood] - modeleParentPop->second[valloglikelihood]);
 
 		// Mise à jour du compteur pour la FDR
-		storey->addValue(sambada::StoreyHistograms::ScoreType::GPop, resultat.first.second.size(), resultat.second[GscorePop]);
-		storey->addValue(sambada::StoreyHistograms::ScoreType::WaldPop, resultat.first.second.size(), resultat.second[WaldScorePop]);
+		storey->addValue(sambada::StoreyHistograms::ScoreType::GPop, resultat.first.environnement.size(), resultat.second[GscorePop]);
+		storey->addValue(sambada::StoreyHistograms::ScoreType::WaldPop, resultat.first.environnement.size(), resultat.second[WaldScorePop]);
 	}
 
 
@@ -1431,12 +1431,12 @@ void ComparaisonResultats::setCase(int i)
 	caseComparaisonResultats = i;
 }
 
-bool ComparaisonResultats::plusPetitQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2)
+bool ComparaisonResultats::plusPetitQue(const GenerationModeles::value_type *const& r1, const GenerationModeles::value_type *const& r2)
 {
 	return ((r1->second[caseComparaisonResultats]) < (r2->second[caseComparaisonResultats]));
 }
 
-bool ComparaisonResultats::plusGrandQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2)
+bool ComparaisonResultats::plusGrandQue(const GenerationModeles::value_type *const& r1, const GenerationModeles::value_type *const& r2)
 {
 	return ((r1->second[caseComparaisonResultats]) > (r2->second[caseComparaisonResultats]));
 }

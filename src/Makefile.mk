@@ -60,9 +60,10 @@ binaries_sambada_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 binaries_sambada_LDADD = \
 	src/libshp.a \
 	src/libintermediate.a \
-	src/variables/libvariables.a \
+	src/common/libcommon.a \
 	src/histograms/libhistograms.a \
-	src/common/libcommon.a
+	src/modeles/libmodeles.a \
+	src/variables/libvariables.a
 
 binaries_supervision_SOURCES = src/mainSupervision.cpp \
 	src/Supervision.cpp \

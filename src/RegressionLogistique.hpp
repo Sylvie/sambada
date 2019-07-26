@@ -34,8 +34,9 @@
 #include "Toolbox.hpp"
 #include "Archiviste.hpp"
 #include "Journal.hpp"
-#include "variables/CombinaisonVariables.hpp"
 #include "histograms/StoreyHistograms.hpp"
+#include "modeles/Modele.hpp"
+#include "variables/CombinaisonVariables.hpp"
 
 #include <set>
 #include <map>
@@ -43,10 +44,7 @@
 
 using namespace std;
 using namespace scythe;
-
-typedef pair<int, set<int> > etiquetteModele;
-typedef pair<etiquetteModele, vector<reel> > resModele;
-typedef map<etiquetteModele, vector<reel> > groupeResultats;
+using namespace sambada;
 
 typedef pair<int, reel> Voisin;
 typedef vector<vector<Voisin> > TableClassementsVoisins;
@@ -104,7 +102,7 @@ public:
 
 	int creeModelesGlobaux();
 
-	void ecritResultat(int numFichier, const resModele& r) const;
+	void ecritResultat(int numFichier, const Modele& r) const;
 
 	void ecritMessage(const string& s, bool nouvLigne = true);
 
@@ -120,11 +118,11 @@ protected:
 	//void generePartitions();
 	void construitModele(int numMarq, const set<int>& varContinues); //, const reel loglike_zero, reel& loglike_courante);
 	//	void calculeStats(reel loglikeCourante, reel loglikeZero, int nbParamEstimes, vector<double>& statsCourantes, vector<double>& pseudosRcarresCourants);
-	bool calculeStats(resModele& resultat, int nbParamEstimes);
+	bool calculeStats(Modele& resultat, int nbParamEstimes);
 
 	int calculeRegression(reel& loglikeCourante, reel& indiceEfron);
 
-	void calculeGWR(int numMarq, const set<int>& varContinues, resModele& resultat);
+	void calculeGWR(int numMarq, const set<int>& varContinues, Modele& resultat);
 
 	void calculePonderation() CPPTHROW(Erreur);
 
@@ -189,14 +187,14 @@ protected:
 	//	MatriceReels masqueX, masque; // masqueX est le masque complet pour toutes les variables environnementales
 	//	MatriceBools masqueY; // masqueX est le masque complet pour toutes les variables environnementales
 
-	sambada::FamilleVariables familleVariables;
+	FamilleVariables familleVariables;
 
 	MatriceReels X, Y,
 			beta_hat, nouv_beta_hat, diff_beta_hat,
 			scores, J_info, inv_J_info,
 			Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
 
-	vector<groupeResultats> resultats;
+	FamilleModeles resultats;
 	bool sauvegardeTempsReel;
 	typeSelectionModeles selModeles;
 	pair<string, string> nomFichierResultats;
@@ -212,7 +210,7 @@ protected:
 
 private:
 	// Paramètres FDR selon Storey
-	std::unique_ptr<sambada::StoreyHistograms> storey;
+	std::unique_ptr<StoreyHistograms> storey;
 
 protected:
 	bool calculeStorey;
@@ -261,11 +259,11 @@ private :
 
 	RegressionLogistique(const RegressionLogistique& lr);
 
-	void affiche(const etiquetteModele& label);
+	void affiche(const EtiquetteModele& label);
 
-	void affiche(const resModele& res);
+	void affiche(const Modele& res);
 
-	void affiche(const groupeResultats::iterator res);
+	void affiche(const GenerationModeles::iterator res);
 
 
 	//	bool plusPetitQue(const groupeResultats::value_type* const &  r1, const groupeResultats::value_type* const &  r2);
@@ -332,9 +330,9 @@ public:
 
 	static void setCase(int i);
 
-	static bool plusPetitQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2);
+	static bool plusPetitQue(const GenerationModeles::value_type *const& r1, const GenerationModeles::value_type *const& r2);
 
-	static bool plusGrandQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2);
+	static bool plusGrandQue(const GenerationModeles::value_type *const& r1, const GenerationModeles::value_type *const& r2);
 
 protected:
 	static int caseComparaisonResultats;

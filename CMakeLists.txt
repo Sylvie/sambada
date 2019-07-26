@@ -139,6 +139,7 @@ target_link_libraries(sambada
         variables
         histograms
         common
+        modeles
         )
 
 add_executable(supervision

@@ -2098,7 +2098,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 }
 
 
-void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues, resModele& resultat)
+void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues, Modele& resultat)
 {
 	cout << "%" << numMarq << endl;
 	int nbVarCont(varContinues.size());
