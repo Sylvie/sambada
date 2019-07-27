@@ -32,7 +32,8 @@ namespace sambada {
 		EtiquetteCombinaisonVariables environnement;
 	};
 
-	struct EtiquetteModeleComparateur {
+	class EtiquetteModeleComparateur {
+	public:
 		bool operator()(const EtiquetteModele& lhs, const EtiquetteModele& rhs) const;
 	};
 

@@ -187,13 +187,16 @@ protected:
 	//	MatriceReels masqueX, masque; // masqueX est le masque complet pour toutes les variables environnementales
 	//	MatriceBools masqueY; // masqueX est le masque complet pour toutes les variables environnementales
 
+private:
 	FamilleVariables familleVariables;
 
+protected:
 	MatriceReels X, Y,
 			beta_hat, nouv_beta_hat, diff_beta_hat,
 			scores, J_info, inv_J_info,
 			Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
 
+private:
 	FamilleModeles resultats;
 	bool sauvegardeTempsReel;
 	typeSelectionModeles selModeles;
