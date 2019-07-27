@@ -25,7 +25,7 @@ ${GCOV} -r ../src/histograms/GroupHistograms.cpp -o src/histograms/GroupHistogra
 ${GCOV} -r ../src/histograms/StoreyHistograms.cpp -o src/histograms/StoreyHistograms.o
 ${GCOV} -r ../src/histograms/StoreyHistogramsStreamWriter.cpp -o src/histograms/StoreyHistogramsStreamWriter.o
 
-${GCOV} -r ../src/modeles/Modeles.cpp -o src/variables/src_modeles_libmodeles_a-Modeles.o
+${GCOV} -r ../src/modeles/Modeles.cpp -o src/modeles/src_modeles_libmodeles_a-Modeles.o
 
 ${GCOV} -r ../src/variables/Probability.cpp -o src/common/src_common_libcommon_a-Probability.o
 ${GCOV} -r ../src/variables/EtiquetteCombinaisonVariables.cpp -o src/variables/src_variables_libvariables_a-EtiquetteCombinaisonVariables.o
