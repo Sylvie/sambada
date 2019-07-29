@@ -198,6 +198,8 @@ protected:
 
 private:
 	FamilleModeles resultats;
+
+protected:
 	bool sauvegardeTempsReel;
 	typeSelectionModeles selModeles;
 	pair<string, string> nomFichierResultats;
