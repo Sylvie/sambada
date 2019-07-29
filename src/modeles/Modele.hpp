@@ -30,6 +30,8 @@ namespace sambada {
 	struct EtiquetteModele {
 		int marqueur;
 		EtiquetteCombinaisonVariables environnement;
+
+		EtiquetteModele();
 	};
 
 	class EtiquetteModeleComparateur {
