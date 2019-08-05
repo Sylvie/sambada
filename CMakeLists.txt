@@ -25,6 +25,7 @@ include_directories(ext/shapelib-1.3.0)
 include_directories(src)
 include_directories(src/common)
 include_directories(src/histograms)
+include_directories(src/modeles)
 include_directories(src/variables)
 include_directories(test)
 include_directories(test/utils)
@@ -100,6 +101,9 @@ set_target_properties(common
 add_library(modeles
         src/modeles/Modele.hpp
         src/modeles/Modele.cpp
+        src/modeles/scriptorium/FlotSortieFactory.hpp
+        src/modeles/scriptorium/FlotSortieFichierFactory.cpp
+        src/modeles/scriptorium/FlotSortieFichierFactory.hpp
         )
 
 set_target_properties(modeles
@@ -243,6 +247,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationIntTests.cpp
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationMissingValuesCartesianBisquareIntTests.cpp
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationMissingValuesCartesianNearestIntTests.cpp
+        test/integration/sambada/flotFactoriesIntTests/flotSortieFichierFactoryIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianBisquareIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianDistanceIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianGaussianIntTests.cpp
@@ -312,7 +317,8 @@ set_target_properties(SambadaIntegrationTests
 
 add_dependencies(SambadaIntegrationTests sambada)
 
-target_link_libraries(SambadaIntegrationTests -lstdc++fs)
+target_link_libraries(SambadaIntegrationTests -lstdc++fs
+        modeles)
 
 file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/"
@@ -321,6 +327,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/trivariateModelsReal/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicSpatialAutocorrelationIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/flotFactoriesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/modelSelectionSavetypeBestIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noExtensionsToFilenamesIntTests/"

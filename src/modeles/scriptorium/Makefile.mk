@@ -16,19 +16,13 @@
 # Web site : http://lasig.epfl.ch/sambada
 ##########################################################################
 
-## Building internal library ##
+## Adding files to internal library ##
 
-noinst_LIBRARIES += src/modeles/libmodeles.a
-
-src_modeles_libmodeles_a_SOURCES = \
-	 src/modeles/Modele.hpp \
-	 src/modeles/Modele.cpp
-
-src_variables_libmodeles_a_CPPFLAGS =  \
-	-I $(top_srcdir)/src
-
-include src/modeles/scriptorium/Makefile.mk
+src_modeles_libmodeles_a_SOURCES += \
+	 src/modeles/scriptorium/FlotSortieFactory.hpp \
+	 src/modeles/scriptorium/FlotSortieFichierFactory.hpp \
+	 src/modeles/scriptorium/FlotSortieFichierFactory.cpp
 
 ## Cleaning ##
-clean-local-src-modeles: clean-local-src-modeles-scriptorium
-	$(call clean_extra_generated_files, src/modeles/)
+clean-local-src-modeles-scriptorium:
+	$(call clean_extra_generated_files, src/modeles/scriptorium/)
