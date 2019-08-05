@@ -22,11 +22,13 @@
 #include <ostream>
 #include <memory>
 
+typedef std::shared_ptr<std::ostream> FlotSortie;
+
 class FlotSortieFactory
 {
 public:
 
-	virtual std::shared_ptr<std::ostream> creeFlotSortie(const std::string& nom) = 0;
+	virtual FlotSortie creeFlotSortie(const std::string& nom) = 0;
 
 	virtual ~FlotSortieFactory() = default;
 };

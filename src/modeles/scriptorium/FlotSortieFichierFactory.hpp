@@ -27,7 +27,7 @@ namespace  sambada {
 	{
 	public:
 
-		virtual std::shared_ptr<std::ostream> creeFlotSortie(const std::string& nom);
+		virtual FlotSortie creeFlotSortie(const std::string& nom);
 
 		virtual ~FlotSortieFichierFactory() = default;
 	};

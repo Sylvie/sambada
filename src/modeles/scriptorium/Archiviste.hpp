@@ -16,14 +16,31 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "FlotSortieFichierFactory.hpp"
-#include <fstream>
+#ifndef SAMBADA_ARCHIVISTE_HPP
+#define SAMBADA_ARCHIVISTE_HPP
+
+#include <vector>
+#include <string>
 
 namespace sambada {
-
-
-	FlotSortie FlotSortieFichierFactory::creeFlotSortie(const std::string& nom)
+	class Archiviste
 	{
-		return std::shared_ptr<std::ofstream>(new std::ofstream(nom));
-	}
+	public:
+		virtual ~Archiviste() = default;
+
+		virtual void initialise(const std::vector<std::string>& noms, const std::string& signeRetourLigne, char delimMots, int precision);
+
+		virtual bool ouverture() = 0;
+
+		virtual void fermeture() = 0;
+
+	protected:
+		std::vector<std::string> noms;
+		size_t nbFlots;
+		std::string signeRetourLigne;
+		char delimMots;
+		int precision;
+	};
 }
+
+#endif //SAMBADA_ARCHIVISTE_HPP
