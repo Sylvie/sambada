@@ -56,9 +56,9 @@ SCENARIO("Test that FlotSortieFichierFactory provides an ofstream", "[flot-sorti
 
                 lecteur.close();
             }
-
-            SambadaIntegrationTestUtils::removeFiles(outputFileNames);
         }
+
+	    SambadaIntegrationTestUtils::removeFiles(outputFileNames);
     }
 }
 
