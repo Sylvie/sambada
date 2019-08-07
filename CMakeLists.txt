@@ -104,6 +104,8 @@ add_library(modeles
         src/modeles/scriptorium/FlotSortieFactory.hpp
         src/modeles/scriptorium/FlotSortieFichierFactory.cpp
         src/modeles/scriptorium/FlotSortieFichierFactory.hpp
+        src/modeles/scriptorium/FlotSortieChaineFactory.cpp
+        src/modeles/scriptorium/FlotSortieChaineFactory.hpp
         )
 
 set_target_properties(modeles
@@ -368,6 +370,7 @@ add_executable(SambadaUnitTests
         ${TestUtils}
         test/unit/sambada/common/ProbabilityTests.cpp
         test/unit/sambada/modeles/ModeleTests.cpp
+        test/unit/sambada/modeles/scriptorium/FlotSortieChaineFactoryTests.cpp
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
         test/unit/sambada/histograms/HistogramTests.cpp
         test/unit/sambada/histograms/GroupHistogramsTests.cpp

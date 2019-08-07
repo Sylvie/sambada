@@ -5,7 +5,9 @@ test_unit_SambadaUnitTests_SOURCES +=  \
 
 test_unit_SambadaUnitTests_LDADD += src/modeles/libmodeles.a
 
+include test/unit/sambada/modeles/scriptorium/Makefile.mk
+
 ## Cleaning ##
-clean-local-test-unit-sambada-modeles:
+clean-local-test-unit-sambada-modeles: clean-local-test-unit-sambada-modeles-scriptorium
 	$(call clean_extra_generated_files, test/unit/sambada/modeles)
 

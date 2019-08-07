@@ -21,7 +21,9 @@
 src_modeles_libmodeles_a_SOURCES += \
 	 src/modeles/scriptorium/FlotSortieFactory.hpp \
 	 src/modeles/scriptorium/FlotSortieFichierFactory.hpp \
-	 src/modeles/scriptorium/FlotSortieFichierFactory.cpp
+	 src/modeles/scriptorium/FlotSortieFichierFactory.cpp \
+	 src/modeles/scriptorium/FlotSortieChaineFactory.hpp \
+	 src/modeles/scriptorium/FlotSortieChaineFactory.cpp
 
 ## Cleaning ##
 clean-local-src-modeles-scriptorium:
