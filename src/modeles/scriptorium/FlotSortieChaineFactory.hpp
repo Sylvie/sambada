@@ -20,6 +20,7 @@
 #define SAMBADA_FLOTSORTIECHAINEFACTORY_HPP
 
 #include "FlotSortieFactory.hpp"
+#include <vector>
 
 namespace sambada {
 	class FlotSortieChaineFactory : public FlotSortieFactory
@@ -30,7 +31,13 @@ namespace sambada {
 
 		virtual ~FlotSortieChaineFactory() = default;
 
+		virtual const std::vector<std::string>& getNomsFlots() const;
 
+		virtual const std::vector<FlotSortie>& getFlotsSortie() const;
+
+	protected:
+		std::vector<std::string> nomsFlots;
+		std::vector<FlotSortie> flots;
 	};
 }
 

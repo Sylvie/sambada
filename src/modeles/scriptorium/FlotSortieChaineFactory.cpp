@@ -23,7 +23,20 @@ namespace sambada {
 
 	FlotSortie FlotSortieChaineFactory::creeFlotSortie(const std::string& nom)
 	{
-		return std::shared_ptr<std::ostringstream>(new std::ostringstream(nom));
+		nomsFlots.push_back(nom);
+		std::shared_ptr<std::ostringstream> flot(std::shared_ptr<std::ostringstream>(new std::ostringstream(nom)));
+		flots.push_back(flot);
+		return flot;
+	}
+
+	const std::vector<FlotSortie>& FlotSortieChaineFactory::getFlotsSortie() const
+	{
+		return flots;
+	}
+
+	const std::vector<std::string>& FlotSortieChaineFactory::getNomsFlots() const
+	{
+		return nomsFlots;
 	}
 
 }
