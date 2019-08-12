@@ -19,11 +19,16 @@
 ## Adding files to internal library ##
 
 src_modeles_libmodeles_a_SOURCES += \
-	 src/modeles/scriptorium/FlotSortieFactory.hpp \
-	 src/modeles/scriptorium/FlotSortieFichierFactory.hpp \
-	 src/modeles/scriptorium/FlotSortieFichierFactory.cpp \
-	 src/modeles/scriptorium/FlotSortieChaineFactory.hpp \
-	 src/modeles/scriptorium/FlotSortieChaineFactory.cpp
+	src/modeles/scriptorium/Archiviste.hpp \
+	src/modeles/scriptorium/Archiviste.cpp \
+	src/modeles/scriptorium/FlotSortieFactory.hpp \
+	src/modeles/scriptorium/FlotSortieFichierFactory.hpp \
+	src/modeles/scriptorium/FlotSortieFichierFactory.cpp \
+	src/modeles/scriptorium/FlotSortieChaineFactory.hpp \
+	src/modeles/scriptorium/FlotSortieChaineFactory.cpp \
+	src/modeles/scriptorium/Scribe.hpp \
+	src/modeles/scriptorium/Scribe.cpp
+
 
 ## Cleaning ##
 clean-local-src-modeles-scriptorium:

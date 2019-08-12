@@ -101,11 +101,15 @@ set_target_properties(common
 add_library(modeles
         src/modeles/Modele.hpp
         src/modeles/Modele.cpp
+        src/modeles/scriptorium/Archiviste.hpp
+        src/modeles/scriptorium/Archiviste.cpp
         src/modeles/scriptorium/FlotSortieFactory.hpp
         src/modeles/scriptorium/FlotSortieFichierFactory.cpp
         src/modeles/scriptorium/FlotSortieFichierFactory.hpp
         src/modeles/scriptorium/FlotSortieChaineFactory.cpp
         src/modeles/scriptorium/FlotSortieChaineFactory.hpp
+        src/modeles/scriptorium/Scribe.hpp
+        src/modeles/scriptorium/Scribe.cpp
         )
 
 set_target_properties(modeles
@@ -377,6 +381,7 @@ add_executable(SambadaUnitTests
         test/unit/sambada/histograms/StoreyHistogramsTests.cpp
         test/unit/sambada/histograms/StoreyHistogramsStreamWriterTests.cpp
         test/unit/sambada/histograms/StoreyHistogramsStreamWriterTests.cpp
+        test/unit/sambada/modeles/scriptorium/ScribeTests.cpp
         )
 
 target_link_libraries(SambadaUnitTests
