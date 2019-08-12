@@ -34,11 +34,35 @@ namespace sambada {
 
 		virtual void initialise(const std::vector<std::string>& noms, const std::string& signeRetourLigne, char delimMots, int precision);
 
+		template<typename T>
+		bool ecriture(int numFichier, T element, bool retourLigne = false) const;
+
 	protected:
 		FlotSortieFactory& factory;
 
 		std::vector<FlotSortie> flots;
 	};
+
+	template<typename T>
+	bool Scribe::ecriture(int numFichier, T element, bool retourLigne) const
+	{
+		if (numFichier < 0 || flots.size() <= numFichier)
+		{
+			return false;
+		}
+		else
+		{
+
+			*(flots[numFichier]) << element << delimMots;
+
+			if (retourLigne)
+			{
+				*(flots[numFichier]) << signeRetourLigne;
+			}
+			return true;
+		}
+	}
+
 }
 
 #endif //SAMBADA_SCRIBE_HPP

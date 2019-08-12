@@ -60,4 +60,119 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		}
 	}
 
+	SECTION("Test that streams are empty before the first ecriture")
+	{
+		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == "");
+			}
+		}
+	}
+
+	//	bool Scribe::ecriture(int numFichier, T element, bool retourLigne) const
+	SECTION("Test that single-item ecriture writes in the correct file")
+	{
+		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		std::vector<std::string> messages({
+				                                  "First message in second file",
+				                                  "Second message in first file",
+				                                  "Third message in third file"
+		                                  });
+
+		std::vector<std::string> expectedMessages({
+				                                          "Second message in first file ",
+				                                          "First message in second file ",
+				                                          "Third message in third file "
+		                                          });
+
+		scribe.ecriture(1, messages[0]);
+		scribe.ecriture(0, messages[1]);
+		scribe.ecriture(2, messages[2]);
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == expectedMessages[i]);
+			}
+		}
+	}
+
+	SECTION("Test that single-item ecriture use the correct word delimitor")
+	{
+		scribe.initialise(nomsFlots, retourLigne, '%', precision);
+
+
+		std::vector<std::string> expectedMessages({
+				                                          "First%message%\n",
+				                                          "Second%message%\n",
+				                                          "Third%message%\n"
+		                                          });
+
+		scribe.ecriture(0, "First", false);
+		scribe.ecriture(0, "message", true);
+
+		scribe.ecriture(1, "Second", false);
+		scribe.ecriture(1, "message", true);
+
+		scribe.ecriture(2, "Third", false);
+		scribe.ecriture(2, "message", true);
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == expectedMessages[i]);
+			}
+		}
+	}
+
+	SECTION("Test that single-item ecriture use the correct line delimitor")
+	{
+		scribe.initialise(nomsFlots, "&&", delimMots, precision);
+
+
+		std::vector<std::string> expectedMessages({
+				                                          "First message &&Fourth message ",
+				                                          "Second message &&Fifth message ",
+				                                          "Third message &&Sixth message "
+		                                          });
+
+		scribe.ecriture(0, "First message", true);
+		scribe.ecriture(1, "Second message", true);
+		scribe.ecriture(2, "Third message", true);
+
+		scribe.ecriture(0, "Fourth message", false);
+		scribe.ecriture(1, "Fifth message", false);
+		scribe.ecriture(2, "Sixth message", false);
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == expectedMessages[i]);
+			}
+		}
+	}
+
 }
