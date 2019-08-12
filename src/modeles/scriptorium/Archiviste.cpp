@@ -20,6 +20,11 @@
 
 namespace  sambada {
 
+	Archiviste::~Archiviste()
+	{
+
+	}
+
 	void Archiviste::initialise(const std::vector<std::string>& noms, const std::string& signeRetourLigne, char delimMots, int precision)
 	{
 		this->noms = noms;

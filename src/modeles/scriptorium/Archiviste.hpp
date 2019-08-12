@@ -26,13 +26,9 @@ namespace sambada {
 	class Archiviste
 	{
 	public:
-		virtual ~Archiviste() = default;
+		virtual ~Archiviste() = 0;
 
 		virtual void initialise(const std::vector<std::string>& noms, const std::string& signeRetourLigne, char delimMots, int precision);
-
-		virtual bool ouverture() = 0;
-
-		virtual void fermeture() = 0;
 
 	protected:
 		std::vector<std::string> noms;
