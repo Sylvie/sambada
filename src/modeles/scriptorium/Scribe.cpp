@@ -34,6 +34,7 @@ namespace sambada {
 		for(int i(0); i < noms.size(); ++i)
 		{
 			flots.push_back(factory.creeFlotSortie(noms[i]));
+			flots[i]->precision(precision);
 		}
 	}
 

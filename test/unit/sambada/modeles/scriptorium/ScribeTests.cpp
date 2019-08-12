@@ -32,7 +32,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 
 	char delimMots(' ');
 	std::string retourLigne("\n");
-	int precision(18);
+	int precision(15);
 
 	SECTION("Test that Scribe creates the correct number of streams")
 	{
@@ -46,6 +46,18 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
 
 		CHECK(factory.getNomsFlots() == nomsFlots);
+	}
+
+	SECTION("Test that stream precisions are correct")
+	{
+		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		for (auto flot(flots.begin()); flot != flots.end(); ++flot)
+		{
+			std::ostream& flotInterieur(*flot->get());
+			CHECK(flotInterieur.precision() == precision);
+		}
 	}
 
 }
