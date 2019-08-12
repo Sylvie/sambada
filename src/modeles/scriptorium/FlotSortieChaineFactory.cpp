@@ -25,6 +25,7 @@ namespace sambada {
 	{
 		nomsFlots.push_back(nom);
 		std::shared_ptr<std::ostringstream> flot(std::shared_ptr<std::ostringstream>(new std::ostringstream(nom)));
+		flot.get()->str("");
 		flots.push_back(flot);
 		return flot;
 	}

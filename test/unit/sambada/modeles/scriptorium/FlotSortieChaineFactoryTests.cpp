@@ -53,6 +53,26 @@ TEST_CASE("Test that FlotSortieChaineFactory creates and stores Output String St
 		CHECK(factory.getFlotsSortie().size() == 3);
 	}
 
+	SECTION("Test that FlotSortieChaineFactory returns empty streams right after initialisation")
+	{
+		int nombreFlots(3);
+
+		for (int i(0); i < nombreFlots; ++i)
+		{
+			factory.creeFlotSortie(nomsFlotsAttendus[i]);
+		}
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i <nombreFlots; ++ i)
+			{
+				std::ostringstream* flotChaine = static_cast<std::ostringstream*>(flots[i].get());
+				CHECK(flotChaine->str() == "");
+			}
+		}
+	}
+
 	SECTION("Test that FlotSortieChaineFactory returns the streams with content")
 	{
 		int nombreFlots(4);
