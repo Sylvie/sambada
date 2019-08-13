@@ -27,9 +27,9 @@ namespace sambada {
 	}
 
 
-	void Scribe::initialise(const std::vector<std::string>& noms, const std::string& signeRetourLigne, char delimMots, int precision)
+	void Scribe::initialise(const std::vector<std::string>& nomsFichiers, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots)
 	{
-		Archiviste::initialise(noms, signeRetourLigne, delimMots, precision);
+		Archiviste::initialise(nomsFichiers, chaineRetourLigne, charDelimMots, precisionFlots);
 
 		for(int i(0); i < noms.size(); ++i)
 		{

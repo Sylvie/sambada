@@ -25,12 +25,12 @@ namespace  sambada {
 
 	}
 
-	void Archiviste::initialise(const std::vector<std::string>& noms, const std::string& signeRetourLigne, char delimMots, int precision)
+	void Archiviste::initialise(const std::vector<std::string>& nomsFichiers, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots)
 	{
-		this->noms = noms;
+		noms = nomsFichiers;
 		nbFlots = noms.size();
-		this->signeRetourLigne = signeRetourLigne;
-		this->delimMots = delimMots;
-		this->precision = precision;
+		signeRetourLigne = chaineRetourLigne;
+		delimMots = charDelimMots;
+		precision = precisionFlots;
 	}
 }

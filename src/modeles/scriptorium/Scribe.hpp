@@ -32,7 +32,7 @@ namespace sambada {
 
 		virtual ~Scribe() = default;
 
-		virtual void initialise(const std::vector<std::string>& noms, const std::string& signeRetourLigne, char delimMots, int precision);
+		virtual void initialise(const std::vector<std::string>& nomsFichiers, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots);
 
 		template<typename T>
 		bool ecriture(int numFichier, T element, bool retourLigne = false) const;

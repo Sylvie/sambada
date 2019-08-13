@@ -28,7 +28,7 @@ namespace sambada {
 	public:
 		virtual ~Archiviste() = 0;
 
-		virtual void initialise(const std::vector<std::string>& noms, const std::string& signeRetourLigne, char delimMots, int precision);
+		virtual void initialise(const std::vector<std::string>& nomsFichiers, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots);
 
 	protected:
 		std::vector<std::string> noms;
