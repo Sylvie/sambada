@@ -40,7 +40,7 @@ namespace sambada {
 		template<typename T>
 		bool ecriture(int numFichier, const std::vector<T>& ligne, bool retourLigne = false) const;
 
-	protected:
+	private:
 		FlotSortieFactory& factory;
 
 		std::vector<FlotSortie> flots;
@@ -56,11 +56,11 @@ namespace sambada {
 		else
 		{
 
-			*(flots[numFichier]) << element << delimMots;
+			*(flots[numFichier]) << element << getDelimMots();
 
 			if (retourLigne)
 			{
-				*(flots[numFichier]) << signeRetourLigne;
+				*(flots[numFichier]) << getSigneRetourLigne();
 			}
 			return true;
 		}
@@ -78,11 +78,11 @@ namespace sambada {
 			int taille(ligne.size());
 			for (int i(0); i < taille; ++i)
 			{
-				*(flots[numFichier]) << ligne[i] << delimMots;
+				*(flots[numFichier]) << ligne[i] << getDelimMots();
 			}
 			if (retourLigne)
 			{
-				*(flots[numFichier]) << signeRetourLigne;
+				*(flots[numFichier]) << getSigneRetourLigne();
 			}
 			return true;
 		}

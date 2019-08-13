@@ -28,9 +28,19 @@ namespace  sambada {
 	void Archiviste::initialise(const std::vector<std::string>& nomsFichiers, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots)
 	{
 		noms = nomsFichiers;
-		nbFlots = noms.size();
 		signeRetourLigne = chaineRetourLigne;
 		delimMots = charDelimMots;
 		precision = precisionFlots;
 	}
+
+	char Archiviste::getDelimMots() const
+	{
+		return delimMots;
+	}
+
+	const std::string& Archiviste::getSigneRetourLigne() const
+	{
+		return signeRetourLigne;
+	}
+
 }

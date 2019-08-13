@@ -31,10 +31,10 @@ namespace sambada {
 	{
 		Archiviste::initialise(nomsFichiers, chaineRetourLigne, charDelimMots, precisionFlots);
 
-		for(size_t i(0); i < noms.size(); ++i)
+		for(size_t i(0); i < nomsFichiers.size(); ++i)
 		{
-			flots.push_back(factory.creeFlotSortie(noms[i]));
-			flots[i]->precision(precision);
+			flots.push_back(factory.creeFlotSortie(nomsFichiers[i]));
+			flots[i]->precision(precisionFlots);
 		}
 	}
 

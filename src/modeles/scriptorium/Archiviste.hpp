@@ -31,8 +31,11 @@ namespace sambada {
 		virtual void initialise(const std::vector<std::string>& nomsFichiers, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots);
 
 	protected:
+		virtual char getDelimMots() const;
+		virtual const std::string& getSigneRetourLigne() const;
+
+	private:
 		std::vector<std::string> noms;
-		size_t nbFlots;
 		std::string signeRetourLigne;
 		char delimMots;
 		int precision;
