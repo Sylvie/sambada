@@ -27,7 +27,10 @@ ${GCOV} -r ../src/histograms/StoreyHistogramsStreamWriter.cpp -o src/histograms/
 
 ${GCOV} -r ../src/modeles/Modele.cpp -o src/modeles/Modele.o
 ${GCOV} -r ../src/modeles/scriptorium/FlotSortieFactory.cpp -o src/modeles/scriptorium/FlotSortieFactory.o
+${GCOV} -r ../src/modeles/scriptorium/FlotSortieChaineFactory.cpp -o src/modeles/scriptorium/FlotSortieChaineFactory.o
 ${GCOV} -r ../src/modeles/scriptorium/FlotSortieFichierFactory.cpp -o src/modeles/scriptorium/FlotSortieFichierFactory.o
+${GCOV} -r ../src/modeles/scriptorium/Archiviste.cpp -o src/modeles/scriptorium/Archiviste.o
+${GCOV} -r ../src/modeles/scriptorium/Scribe.cpp -o src/modeles/scriptorium/Scribe.o
 
 ${GCOV} -r ../src/variables/Probability.cpp -o src/common/src_common_libcommon_a-Probability.o
 ${GCOV} -r ../src/variables/EtiquetteCombinaisonVariables.cpp -o src/variables/src_variables_libvariables_a-EtiquetteCombinaisonVariables.o
