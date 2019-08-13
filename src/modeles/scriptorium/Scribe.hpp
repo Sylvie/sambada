@@ -26,7 +26,7 @@ namespace sambada {
 	class Scribe : public Archiviste
 	{
 	public:
-		Scribe(FlotSortieFactory& factory);
+		explicit Scribe(FlotSortieFactory& factory);
 
 		Scribe(const Scribe&) = delete;
 
@@ -49,7 +49,7 @@ namespace sambada {
 	template<typename T>
 	bool Scribe::ecriture(int numFichier, T element, bool retourLigne) const
 	{
-		if (numFichier < 0 || flots.size() <= numFichier)
+		if (numFichier < 0 || flots.size() <= (size_t)numFichier)
 		{
 			return false;
 		}
@@ -69,7 +69,7 @@ namespace sambada {
 	template<typename T>
 	bool Scribe::ecriture(int numFichier, const std::vector<T>& ligne, bool retourLigne) const
 	{
-		if (numFichier < 0 || flots.size() <= numFichier)
+		if (numFichier < 0 || flots.size() <= (size_t)numFichier)
 		{
 			return false;
 		}

@@ -31,7 +31,7 @@ namespace sambada {
 	{
 		Archiviste::initialise(nomsFichiers, chaineRetourLigne, charDelimMots, precisionFlots);
 
-		for(int i(0); i < noms.size(); ++i)
+		for(size_t i(0); i < noms.size(); ++i)
 		{
 			flots.push_back(factory.creeFlotSortie(noms[i]));
 			flots[i]->precision(precision);
