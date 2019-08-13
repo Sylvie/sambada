@@ -76,7 +76,6 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		}
 	}
 
-	//	bool Scribe::ecriture(int numFichier, T element, bool retourLigne) const
 	SECTION("Test that single-item ecriture writes in the correct file")
 	{
 		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
@@ -161,6 +160,116 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.ecriture(0, "Fourth message", false);
 		scribe.ecriture(1, "Fifth message", false);
 		scribe.ecriture(2, "Sixth message", false);
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == expectedMessages[i]);
+			}
+		}
+	}
+
+
+	SECTION("Test that vector-item ecriture writes in the correct file")
+	{
+		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		std::vector<std::vector<std::string>> messages({
+				                                               {"First", "message", "in", "second", "file"},
+				                                               {"Second", "message", "in", "first", "file"},
+				                                               {"Third", "message", "in", "third", "file"}
+		                                               });
+
+		std::vector<std::string> expectedMessages({
+				                                          "Second message in first file ",
+				                                          "First message in second file ",
+				                                          "Third message in third file "
+		                                          });
+
+		scribe.ecriture(1, messages[0]);
+		scribe.ecriture(0, messages[1]);
+		scribe.ecriture(2, messages[2]);
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == expectedMessages[i]);
+			}
+		}
+	}
+
+	SECTION("Test that vector-item ecriture use the correct word delimitor")
+	{
+		scribe.initialise(nomsFlots, retourLigne, '%', precision);
+
+
+		std::vector<std::vector<std::string>> messages({
+				                                               {"First", "message", "in", "second", "file"},
+				                                               {"Second", "message", "in", "first", "file"},
+				                                               {"Third", "message", "in", "third", "file"}
+		                                               });
+
+		std::vector<std::string> expectedMessages({
+				                                          "Second%message%in%first%file%",
+				                                          "First%message%in%second%file%",
+				                                          "Third%message%in%third%file%"
+		                                          });
+
+
+		scribe.ecriture(1, messages[0]);
+		scribe.ecriture(0, messages[1]);
+		scribe.ecriture(2, messages[2]);
+
+		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == expectedMessages[i]);
+			}
+		}
+	}
+
+	SECTION("Test that vector-item ecriture use the correct line delimitor")
+	{
+		scribe.initialise(nomsFlots, "&&", delimMots, precision);
+
+
+		std::vector<std::string> expectedMessages({
+				                                          "First message &&Fourth message ",
+				                                          "Second message &&Fifth message ",
+				                                          "Third message &&Sixth message "
+		                                          });
+
+		std::vector<std::vector<std::string>> messages({
+				                                               {"First", "message"},
+				                                               {"Second", "message"},
+				                                               {"Third", "message"},
+				                                               {"Fourth", "message"},
+				                                               {"Fifth", "message"},
+				                                               {"Sixth", "message"}
+		                                               });
+
+		scribe.ecriture(0, messages[0], true);
+		scribe.ecriture(1, messages[1], true);
+		scribe.ecriture(2, messages[2], true);
+
+		scribe.ecriture(0, messages[3], false);
+		scribe.ecriture(1, messages[4], false);
+		scribe.ecriture(2, messages[5], false);
 
 		std::vector<FlotSortie> flots(factory.getFlotsSortie());
 

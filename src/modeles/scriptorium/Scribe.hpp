@@ -37,6 +37,9 @@ namespace sambada {
 		template<typename T>
 		bool ecriture(int numFichier, T element, bool retourLigne = false) const;
 
+		template<typename T>
+		bool ecriture(int numFichier, const std::vector<T>& ligne, bool retourLigne = false) const;
+
 	protected:
 		FlotSortieFactory& factory;
 
@@ -63,6 +66,27 @@ namespace sambada {
 		}
 	}
 
+	template<typename T>
+	bool Scribe::ecriture(int numFichier, const std::vector<T>& ligne, bool retourLigne) const
+	{
+		if (numFichier < 0 || flots.size() <= numFichier)
+		{
+			return false;
+		}
+		else
+		{
+			int taille(ligne.size());
+			for (int i(0); i < taille; ++i)
+			{
+				*(flots[numFichier]) << ligne[i] << delimMots;
+			}
+			if (retourLigne)
+			{
+				*(flots[numFichier]) << signeRetourLigne;
+			}
+			return true;
+		}
+	}
 }
 
 #endif //SAMBADA_SCRIBE_HPP
