@@ -23,6 +23,7 @@
 #include <vector>
 
 namespace sambada {
+
 	class FlotSortieChaineFactory : public FlotSortieFactory
 	{
 	public:
@@ -39,6 +40,7 @@ namespace sambada {
 		std::vector<std::string> nomsFlots;
 		std::vector<FlotSortie> flots;
 	};
+
 }
 
 #endif //SAMBADA_FLOTSORTIECHAINEFACTORY_HPP

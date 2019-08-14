@@ -22,16 +22,19 @@
 #include <ostream>
 #include <memory>
 
-typedef std::shared_ptr<std::ostream> FlotSortie;
+namespace sambada {
 
-class FlotSortieFactory
-{
-public:
+	typedef std::shared_ptr<std::ostream> FlotSortie;
 
-	virtual FlotSortie creeFlotSortie(const std::string& nom) = 0;
+	class FlotSortieFactory
+	{
+	public:
 
-	virtual ~FlotSortieFactory() = default;
-};
+		virtual FlotSortie creeFlotSortie(const std::string& nom) = 0;
 
+		virtual ~FlotSortieFactory() = default;
+	};
+
+}
 
 #endif //SAMBADA_FLOTSORTIEFACTORY_HPP

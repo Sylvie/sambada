@@ -52,7 +52,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 	{
 		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 		for (auto flot(flots.begin()); flot != flots.end(); ++flot)
 		{
 			std::ostream& flotInterieur(*flot->get());
@@ -64,7 +64,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 	{
 		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 		CHECKED_IF(flots.size() == nombreFlots)
 		{
 			for (int i(0); i < nombreFlots; ++i)
@@ -96,7 +96,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.ecriture(0, messages[1]);
 		scribe.ecriture(2, messages[2]);
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 
 		CHECKED_IF(flots.size() == nombreFlots)
 		{
@@ -129,7 +129,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.ecriture(2, "Third", false);
 		scribe.ecriture(2, "message", true);
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 
 		CHECKED_IF(flots.size() == nombreFlots)
 		{
@@ -161,7 +161,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.ecriture(1, "Fifth message", false);
 		scribe.ecriture(2, "Sixth message", false);
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 
 		CHECKED_IF(flots.size() == nombreFlots)
 		{
@@ -195,7 +195,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.ecriture(0, messages[1]);
 		scribe.ecriture(2, messages[2]);
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 
 		CHECKED_IF(flots.size() == nombreFlots)
 		{
@@ -230,7 +230,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.ecriture(0, messages[1]);
 		scribe.ecriture(2, messages[2]);
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 
 		CHECKED_IF(flots.size() == nombreFlots)
 		{
@@ -271,7 +271,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.ecriture(1, messages[4], false);
 		scribe.ecriture(2, messages[5], false);
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 
 		CHECKED_IF(flots.size() == nombreFlots)
 		{

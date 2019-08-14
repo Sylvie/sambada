@@ -31,7 +31,7 @@ SCENARIO("Test that FlotSortieFichierFactory provides an ofstream", "[flot-sorti
         {
             std::string message = "This is a logistic model.";
 
-            FlotSortie flot(factory.creeFlotSortie(fileName));
+            sambada::FlotSortie flot(factory.creeFlotSortie(fileName));
 
             *flot << message << std::flush;
 

@@ -11,7 +11,7 @@ TEST_CASE("Test that FlotSortieChaineFactory creates and stores Output String St
 	SECTION("Test that FlotSortieChaineFactory creates working output string stream")
 	{
 		std::string nomFlot("nom-flot");
-		FlotSortie flot(factory.creeFlotSortie(nomFlot));
+		sambada::FlotSortie flot(factory.creeFlotSortie(nomFlot));
 
 		std::string message("This is a message");
 		*flot << message << std::flush;
@@ -62,7 +62,7 @@ TEST_CASE("Test that FlotSortieChaineFactory creates and stores Output String St
 			factory.creeFlotSortie(nomsFlotsAttendus[i]);
 		}
 
-		std::vector<FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 		CHECKED_IF(flots.size() == nombreFlots)
 		{
 			for (int i(0); i <nombreFlots; ++ i)
@@ -77,7 +77,7 @@ TEST_CASE("Test that FlotSortieChaineFactory creates and stores Output String St
 	{
 		int nombreFlots(4);
 
-		std::vector<FlotSortie> flots;
+		std::vector<sambada::FlotSortie> flots;
 		for (int i(0); i < nombreFlots; ++i)
 		{
 			flots.push_back(factory.creeFlotSortie(nomsFlotsAttendus[i]));
@@ -105,7 +105,7 @@ TEST_CASE("Test that FlotSortieChaineFactory creates and stores Output String St
 			"Message 3 dans flot 4. Message 6 dans flot 4. Message 10 dans flot 4. "
 		                                          });
 
-		std::vector<FlotSortie> flotsSortie(factory.getFlotsSortie());
+		std::vector<sambada::FlotSortie> flotsSortie(factory.getFlotsSortie());
 
 		CHECKED_IF(flotsSortie.size() == nombreFlots)
 		{
