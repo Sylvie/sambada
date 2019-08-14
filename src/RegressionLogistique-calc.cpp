@@ -47,7 +47,7 @@ RegressionLogistique::RegressionLogistique()
 		  limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
 		  numPremierMarq(0), tailleEtiquetteInvar(4),
 		  storey(nullptr),
-		  delimLignes("\n"),
+		  sortie(flotSortieFichierFactory), delimLignes("\n"), delimMots(' '),
 		  AS_GWR(false), AS_autocorrGlobale(false), AS_autocorrLocale(false), AS_autocorrVarEnv(false), AS_autocorrMarq(false), AS_shapefile(false),
 		  AS_spatialLag(false)
 {
@@ -126,10 +126,7 @@ int RegressionLogistique::creeModelesGlobaux()
 		nomsFichiers[i] = (nomFichierResultats.first) + "-Out-" + oss.str() + (nomFichierResultats.second);
 	}
 
-	sortie.initialise(nomsFichiers);
-
-	sortie.ouverture();
-	sortie.precision(toolbox::precisionLecture);
+	sortie.initialise(nomsFichiers, delimLignes, delimMots, toolbox::precisionLecture);
 
 	// Ecriture des noms de colonnes pour s'y repérer
 	vector<vector<string> > names(4);
@@ -527,8 +524,6 @@ int RegressionLogistique::creeModelesGlobaux()
 		// Si on fait la sauvegarde à la fin, on prend le temps de trier les résultats
 		trieEtEcritResultats();
 	}
-	sortie.fermeture();
-
 
 	if (calculeStorey)
 	{

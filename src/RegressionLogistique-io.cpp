@@ -102,7 +102,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	{
 		erreurDetectee("MSG_errEndLineInParamFile", "Error while reading parameters, none end-of-line found. Files must use Windows, Unix or classic Mac end-of-lines.");
 	}
-	sortie.setRetourLigne(delimLignes);
 	journal.setDelimLignes(delimLignes);
 	modelesDivergents.setDelimMots(delimLignes);
 	lectureParametres(entree, indexParam, listeParam);
@@ -198,7 +197,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			delimMots = (paramCourant->contents)[0][1];
 		}
 	}
-	sortie.setDelimMots(delimMots);
 	journal.setDelimMots(&delimMots);
 	modelesDivergents.setDelimMots(&delimMots);
 	++paramCourant;

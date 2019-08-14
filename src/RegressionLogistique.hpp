@@ -32,10 +32,11 @@
 #include "matrix.h"
 #include "Erreur.hpp"
 #include "Toolbox.hpp"
-#include "Archiviste.hpp"
 #include "Journal.hpp"
 #include "histograms/StoreyHistograms.hpp"
 #include "modeles/Modele.hpp"
+#include "modeles/scriptorium/Scribe.hpp"
+#include "modeles/scriptorium/FlotSortieFichierFactory.hpp"
 #include "variables/CombinaisonVariables.hpp"
 
 #include <set>
@@ -242,11 +243,14 @@ protected:
 			scores_l, J_info_l, inv_J_info_l,
 			Xb_l, nouv_Xb_l, exp_Xb_l, pi_hat_l, interm_l, intermScores_l, hat_matrix_l;
 
+private:
 	// Flots d'écriture des résultats
-	Scribe sortie;
+	sambada::FlotSortieFichierFactory flotSortieFichierFactory;
+	sambada::Scribe sortie;
 	string delimLignes; // caractère de retour ligne
 	char delimMots; // caractère de séparation entre mots
 
+protected:
 	// Journal d'exécution
 	Journal journal;
 	// Journal des modèles divergents
