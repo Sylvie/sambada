@@ -110,6 +110,9 @@ add_library(modeles
         src/modeles/scriptorium/scribe/FlotSortieChaineFactory.hpp
         src/modeles/scriptorium/scribe/Scribe.hpp
         src/modeles/scriptorium/scribe/Scribe.cpp
+        src/modeles/scriptorium/lecteur/FlotEntreeFactory.hpp
+        src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp
+        src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.hpp
         )
 
 set_target_properties(modeles
@@ -253,6 +256,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationIntTests.cpp
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationMissingValuesCartesianBisquareIntTests.cpp
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationMissingValuesCartesianNearestIntTests.cpp
+        test/integration/sambada/flotFactoriesIntTests/flotEntreeFichierFactoryIntTests.cpp
         test/integration/sambada/flotFactoriesIntTests/flotSortieFichierFactoryIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianBisquareIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianDistanceIntTests.cpp
