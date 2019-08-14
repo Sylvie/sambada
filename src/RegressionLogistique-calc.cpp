@@ -36,6 +36,7 @@
 
 using namespace std;
 using namespace scythe;
+using namespace sambada;
 
 
 RegressionLogistique::RegressionLogistique()

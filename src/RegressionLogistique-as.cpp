@@ -33,6 +33,7 @@
 
 using namespace std;
 using namespace scythe;
+using namespace sambada;
 
 
 void RegressionLogistique::calculePonderation() CPPTHROW(Erreur)

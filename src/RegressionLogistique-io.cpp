@@ -38,6 +38,7 @@
 
 using namespace std;
 using namespace scythe;
+using namespace sambada;
 
 int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur)
 {

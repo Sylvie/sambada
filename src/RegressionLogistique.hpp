@@ -44,7 +44,6 @@
 
 using namespace std;
 using namespace scythe;
-using namespace sambada;
 
 typedef pair<int, reel> Voisin;
 typedef vector<vector<Voisin> > TableClassementsVoisins;
@@ -102,7 +101,7 @@ public:
 
 	int creeModelesGlobaux();
 
-	void ecritResultat(int numFichier, const Modele& r) const;
+	void ecritResultat(int numFichier, const sambada::Modele& r) const;
 
 	void ecritMessage(const string& s, bool nouvLigne = true);
 
@@ -118,11 +117,11 @@ protected:
 	//void generePartitions();
 	void construitModele(int numMarq, const set<int>& varContinues); //, const reel loglike_zero, reel& loglike_courante);
 	//	void calculeStats(reel loglikeCourante, reel loglikeZero, int nbParamEstimes, vector<double>& statsCourantes, vector<double>& pseudosRcarresCourants);
-	bool calculeStats(Modele& resultat, int nbParamEstimes);
+	bool calculeStats(sambada::Modele& resultat, int nbParamEstimes);
 
 	int calculeRegression(reel& loglikeCourante, reel& indiceEfron);
 
-	void calculeGWR(int numMarq, const set<int>& varContinues, Modele& resultat);
+	void calculeGWR(int numMarq, const set<int>& varContinues, sambada::Modele& resultat);
 
 	void calculePonderation() CPPTHROW(Erreur);
 
@@ -188,7 +187,7 @@ protected:
 	//	MatriceBools masqueY; // masqueX est le masque complet pour toutes les variables environnementales
 
 private:
-	FamilleVariables familleVariables;
+	sambada::FamilleVariables familleVariables;
 
 protected:
 	MatriceReels X, Y,
@@ -197,7 +196,7 @@ protected:
 			Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
 
 private:
-	FamilleModeles resultats;
+	sambada::FamilleModeles resultats;
 
 protected:
 	bool sauvegardeTempsReel;
@@ -215,7 +214,7 @@ protected:
 
 private:
 	// Paramètres FDR selon Storey
-	std::unique_ptr<StoreyHistograms> storey;
+	std::unique_ptr<sambada::StoreyHistograms> storey;
 
 protected:
 	bool calculeStorey;
@@ -264,11 +263,11 @@ private :
 
 	RegressionLogistique(const RegressionLogistique& lr);
 
-	void affiche(const EtiquetteModele& label);
+	void affiche(const sambada::EtiquetteModele& label);
 
-	void affiche(const Modele& res);
+	void affiche(const sambada::Modele& res);
 
-	void affiche(const GenerationModeles::iterator res);
+	void affiche(const sambada::GenerationModeles::iterator res);
 
 
 	//	bool plusPetitQue(const groupeResultats::value_type* const &  r1, const groupeResultats::value_type* const &  r2);
@@ -335,9 +334,9 @@ public:
 
 	static void setCase(int i);
 
-	static bool plusPetitQue(const GenerationModeles::value_type *const& r1, const GenerationModeles::value_type *const& r2);
+	static bool plusPetitQue(const sambada::GenerationModeles::value_type *const& r1, const sambada::GenerationModeles::value_type *const& r2);
 
-	static bool plusGrandQue(const GenerationModeles::value_type *const& r1, const GenerationModeles::value_type *const& r2);
+	static bool plusGrandQue(const sambada::GenerationModeles::value_type *const& r1, const sambada::GenerationModeles::value_type *const& r2);
 
 protected:
 	static int caseComparaisonResultats;
