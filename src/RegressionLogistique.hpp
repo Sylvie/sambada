@@ -35,8 +35,8 @@
 #include "Journal.hpp"
 #include "histograms/StoreyHistograms.hpp"
 #include "modeles/Modele.hpp"
-#include "modeles/scriptorium/Scribe.hpp"
-#include "modeles/scriptorium/FlotSortieFichierFactory.hpp"
+#include "modeles/scriptorium/scribe/Scribe.hpp"
+#include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
 #include "variables/CombinaisonVariables.hpp"
 
 #include <set>

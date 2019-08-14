@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "modeles/scriptorium/FlotSortieFichierFactory.hpp"
+#include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
 #include "SambadaIntegrationTestUtils.hpp"
 
 #include <cstdlib>

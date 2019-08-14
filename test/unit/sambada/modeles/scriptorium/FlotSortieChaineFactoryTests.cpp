@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "modeles/scriptorium/FlotSortieChaineFactory.hpp"
+#include "modeles/scriptorium/scribe/FlotSortieChaineFactory.hpp"
 #include <sstream>
 
 TEST_CASE("Test that FlotSortieChaineFactory creates and stores Output String Streams", "[flot-sortie-chaine-factory-unit]")

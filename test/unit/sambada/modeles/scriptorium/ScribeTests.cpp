@@ -17,8 +17,8 @@
 *************************************************************************/
 
 #include "catch.hpp"
-#include "modeles/scriptorium/Scribe.hpp"
-#include "modeles/scriptorium/FlotSortieChaineFactory.hpp"
+#include "modeles/scriptorium/scribe/Scribe.hpp"
+#include "modeles/scriptorium/scribe/FlotSortieChaineFactory.hpp"
 
 TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]")
 {

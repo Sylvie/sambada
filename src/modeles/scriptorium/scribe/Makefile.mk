@@ -19,11 +19,15 @@
 ## Adding files to internal library ##
 
 src_modeles_libmodeles_a_SOURCES += \
-	src/modeles/scriptorium/Archiviste.hpp \
-	src/modeles/scriptorium/Archiviste.cpp
+	src/modeles/scriptorium/scribe/FlotSortieFactory.hpp \
+	src/modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp \
+	src/modeles/scriptorium/scribe/FlotSortieFichierFactory.cpp \
+	src/modeles/scriptorium/scribe/FlotSortieChaineFactory.hpp \
+	src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp \
+	src/modeles/scriptorium/scribe/Scribe.hpp \
+	src/modeles/scriptorium/scribe/Scribe.cpp
 
-include src/modeles/scriptorium/scribe/Makefile.mk
 
 ## Cleaning ##
-clean-local-src-modeles-scriptorium: clean-local-src-modeles-scriptorium-scribe
-	$(call clean_extra_generated_files, src/modeles/scriptorium/)
+clean-local-src-modeles-scriptorium-scribe:
+	$(call clean_extra_generated_files, src/modeles/scriptorium/scribe/)

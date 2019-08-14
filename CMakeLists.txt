@@ -103,13 +103,13 @@ add_library(modeles
         src/modeles/Modele.cpp
         src/modeles/scriptorium/Archiviste.hpp
         src/modeles/scriptorium/Archiviste.cpp
-        src/modeles/scriptorium/FlotSortieFactory.hpp
-        src/modeles/scriptorium/FlotSortieFichierFactory.cpp
-        src/modeles/scriptorium/FlotSortieFichierFactory.hpp
-        src/modeles/scriptorium/FlotSortieChaineFactory.cpp
-        src/modeles/scriptorium/FlotSortieChaineFactory.hpp
-        src/modeles/scriptorium/Scribe.hpp
-        src/modeles/scriptorium/Scribe.cpp
+        src/modeles/scriptorium/scribe/FlotSortieFactory.hpp
+        src/modeles/scriptorium/scribe/FlotSortieFichierFactory.cpp
+        src/modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp
+        src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp
+        src/modeles/scriptorium/scribe/FlotSortieChaineFactory.hpp
+        src/modeles/scriptorium/scribe/Scribe.hpp
+        src/modeles/scriptorium/scribe/Scribe.cpp
         )
 
 set_target_properties(modeles

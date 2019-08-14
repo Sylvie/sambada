@@ -19,7 +19,7 @@
 #ifndef SAMBADA_SCRIBE_HPP
 #define SAMBADA_SCRIBE_HPP
 
-#include "Archiviste.hpp"
+#include "modeles/scriptorium/Archiviste.hpp"
 #include "FlotSortieFactory.hpp"
 
 namespace sambada {
