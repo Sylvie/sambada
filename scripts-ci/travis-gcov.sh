@@ -26,11 +26,13 @@ ${GCOV} -r ../src/histograms/StoreyHistograms.cpp -o src/histograms/StoreyHistog
 ${GCOV} -r ../src/histograms/StoreyHistogramsStreamWriter.cpp -o src/histograms/StoreyHistogramsStreamWriter.o
 
 ${GCOV} -r ../src/modeles/Modele.cpp -o src/modeles/Modele.o
-${GCOV} -r ../src/modeles/scriptorium/FlotSortieFactory.cpp -o src/modeles/scriptorium/FlotSortieFactory.o
-${GCOV} -r ../src/modeles/scriptorium/FlotSortieChaineFactory.cpp -o src/modeles/scriptorium/FlotSortieChaineFactory.o
-${GCOV} -r ../src/modeles/scriptorium/FlotSortieFichierFactory.cpp -o src/modeles/scriptorium/FlotSortieFichierFactory.o
 ${GCOV} -r ../src/modeles/scriptorium/Archiviste.cpp -o src/modeles/scriptorium/Archiviste.o
-${GCOV} -r ../src/modeles/scriptorium/Scribe.cpp -o src/modeles/scriptorium/Scribe.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieFactory.cpp -o src/modeles/scriptorium/scribe/FlotSortieFactory.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp -o src/modeles/scriptorium/scribe/FlotSortieChaineFactory.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieFichierFactory.cpp -o src/modeles/scriptorium/scribe/FlotSortieFichierFactory.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/Scribe.cpp -o src/modeles/scriptorium/scribe/Scribe.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeFactory.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.o
 
 ${GCOV} -r ../src/variables/Probability.cpp -o src/common/src_common_libcommon_a-Probability.o
 ${GCOV} -r ../src/variables/EtiquetteCombinaisonVariables.cpp -o src/variables/src_variables_libvariables_a-EtiquetteCombinaisonVariables.o
