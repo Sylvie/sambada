@@ -32,6 +32,7 @@ ${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp -o src/
 ${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieFichierFactory.cpp -o src/modeles/scriptorium/scribe/FlotSortieFichierFactory.o
 ${GCOV} -r ../src/modeles/scriptorium/scribe/Scribe.cpp -o src/modeles/scriptorium/scribe/Scribe.o
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeFactory.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.o
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.o
 
 ${GCOV} -r ../src/variables/Probability.cpp -o src/common/src_common_libcommon_a-Probability.o

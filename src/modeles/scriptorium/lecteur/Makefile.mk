@@ -20,6 +20,8 @@
 
 src_modeles_libmodeles_a_SOURCES += \
 	src/modeles/scriptorium/lecteur/FlotEntreeFactory.hpp \
+	src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.hpp \
+	src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp \
 	src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.hpp \
 	src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp
 

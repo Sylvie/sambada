@@ -113,6 +113,8 @@ add_library(modeles
         src/modeles/scriptorium/lecteur/FlotEntreeFactory.hpp
         src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp
         src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.hpp
+        src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp
+        src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.hpp
         )
 
 set_target_properties(modeles
@@ -379,13 +381,14 @@ add_executable(SambadaUnitTests
         test/unit/sambada/common/ProbabilityTests.cpp
         test/unit/sambada/modeles/ModeleTests.cpp
         test/unit/sambada/modeles/scriptorium/FlotSortieChaineFactoryTests.cpp
+        test/unit/sambada/modeles/scriptorium/ScribeTests.cpp
+        test/unit/sambada/modeles/scriptorium/lecteur/FlotEntreeChaineFactoryTests.cpp
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
         test/unit/sambada/histograms/HistogramTests.cpp
         test/unit/sambada/histograms/GroupHistogramsTests.cpp
         test/unit/sambada/histograms/StoreyHistogramsTests.cpp
         test/unit/sambada/histograms/StoreyHistogramsStreamWriterTests.cpp
         test/unit/sambada/histograms/StoreyHistogramsStreamWriterTests.cpp
-        test/unit/sambada/modeles/scriptorium/ScribeTests.cpp
         )
 
 target_link_libraries(SambadaUnitTests
