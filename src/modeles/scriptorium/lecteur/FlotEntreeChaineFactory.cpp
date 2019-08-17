@@ -26,7 +26,7 @@ namespace sambada
 		nomsFlots.push_back(nom);
 
 		FlotEntree flot(std::shared_ptr<std::istream>(new std::istringstream("")));
-		if (0 <= flotCourant && flotCourant < contenusFlots.size())
+		if (flotCourant < contenusFlots.size())
 		{
 			 flot = std::shared_ptr<std::istream>(new std::istringstream(contenusFlots[flotCourant]));
 			 ++flotCourant;
