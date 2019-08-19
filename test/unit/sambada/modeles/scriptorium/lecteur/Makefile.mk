@@ -1,7 +1,8 @@
 ## Adding unit tests for variables
 
 test_unit_SambadaUnitTests_SOURCES +=  \
-	test/unit/sambada/modeles/scriptorium/lecteur/FlotEntreeChaineFactoryTests.cpp
+	test/unit/sambada/modeles/scriptorium/lecteur/FlotEntreeChaineFactoryTests.cpp \
+	test/unit/sambada/modeles/scriptorium/lecteur/LecteurTests.cpp
 
 ## Cleaning ##
 clean-local-test-unit-sambada-modeles-scriptorium-lecteur:
