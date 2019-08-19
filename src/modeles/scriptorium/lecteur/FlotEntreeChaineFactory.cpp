@@ -31,6 +31,7 @@ namespace sambada
 			 flot = std::shared_ptr<std::istream>(new std::istringstream(contenusFlots[flotCourant]));
 			 ++flotCourant;
 		}
+		flots.push_back(flot);
 		return flot;
 	}
 
@@ -43,6 +44,11 @@ namespace sambada
 	const std::vector<std::string>& FlotEntreeChaineFactory::getNomsFlots() const
 	{
 		return nomsFlots;
+	}
+
+	const std::vector<FlotEntree>& FlotEntreeChaineFactory::getFlotsEntree() const
+	{
+		return flots;
 	}
 
 }

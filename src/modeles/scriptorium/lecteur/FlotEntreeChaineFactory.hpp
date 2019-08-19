@@ -24,7 +24,7 @@
 
 namespace sambada {
 
-	class FlotEntreeChaineFactory
+	class FlotEntreeChaineFactory : public FlotEntreeFactory
 	{
 	public:
 
@@ -36,10 +36,13 @@ namespace sambada {
 
 		virtual const std::vector<std::string>& getNomsFlots() const;
 
+		virtual const std::vector<FlotEntree>& getFlotsEntree() const;
+
 	private:
 		std::vector<std::string> nomsFlots;
 		std::vector<std::string> contenusFlots;
 		size_t flotCourant;
+		std::vector<FlotEntree> flots;
 	};
 
 }
