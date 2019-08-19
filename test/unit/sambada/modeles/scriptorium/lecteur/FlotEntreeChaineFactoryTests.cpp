@@ -100,4 +100,36 @@ TEST_CASE("Test that FlotEntreeChaineFactory creates Input String Streams with g
 		}
 	}
 
+	SECTION("Test that getFlotsEntree returns the streams with their content")
+	{
+		int nombreFlots(4);
+		std::vector<std::string> messages
+				({
+						 "Contenu du premier flot.",
+						 "Contenu du deuxième flot.",
+						 "Contenu du troisième flot.",
+						 "Contenu du quatrième flot."
+				 });
+
+		factory.setContenusFlotsEntree(messages);
+
+		for (int i(0); i < nombreFlots; ++i)
+		{
+			factory.creeFlotEntree(nomsFlotsAttendus[i]);
+		}
+
+		std::vector<sambada::FlotEntree> flots(factory.getFlotsEntree());
+
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::istringstream *flotChaine = static_cast<std::istringstream *>(flots[i].get());
+				std::string messageLu("");
+				std::getline(*flotChaine, messageLu);
+				CHECK(messageLu == messages[i]);
+			}
+		}
+	}
+
 }
