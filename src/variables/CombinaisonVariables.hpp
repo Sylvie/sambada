@@ -21,7 +21,7 @@
 #define SAMBADA_COMBINAISONVARIABLES_HPP
 
 #include "EtiquetteCombinaisonVariables.hpp"
-#include "common/Matrices.hpp"
+#include "common/maths/Matrices.hpp"
 
 #include <map>
 #include <vector>

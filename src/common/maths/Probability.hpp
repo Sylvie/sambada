@@ -19,7 +19,7 @@
 #ifndef SAMBADA_PROBABILITY_HPP
 #define SAMBADA_PROBABILITY_HPP
 
-#include "TypesCommuns.hpp"
+#include "common/TypesCommuns.hpp"
 
 namespace sambada::probability {
 

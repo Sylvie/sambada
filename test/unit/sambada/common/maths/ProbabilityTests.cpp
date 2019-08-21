@@ -16,7 +16,7 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "common/Probability.hpp"
+#include "common/maths/Probability.hpp"
 #include "catch.hpp"
 
 #include <cmath>

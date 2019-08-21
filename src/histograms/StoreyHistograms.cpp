@@ -17,7 +17,7 @@
 *************************************************************************/
 
 #include "StoreyHistograms.hpp"
-#include "common/Probability.hpp"
+#include "common/maths/Probability.hpp"
 
 #include <cmath>
 #include <limits>

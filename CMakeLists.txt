@@ -24,6 +24,7 @@ include_directories(ext/scythestat-1.0.3/scythestat/rng)
 include_directories(ext/shapelib-1.3.0)
 include_directories(src)
 include_directories(src/common)
+include_directories(src/common/maths)
 include_directories(src/histograms)
 include_directories(src/modeles)
 include_directories(src/variables)
@@ -86,16 +87,15 @@ set_target_properties(histograms
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/histograms/"
         )
 
-add_library(common
-        src/common/TypesCommuns.hpp
-        src/common/Matrices.hpp
-        src/common/Probability.hpp
-        src/common/Probability.cpp
+add_library(maths
+        src/common/maths/Matrices.hpp
+        src/common/maths/Probability.hpp
+        src/common/maths/Probability.cpp
         )
 
-set_target_properties(common
+set_target_properties(maths
         PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/common/"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/common/maths/"
         )
 
 add_library(modeles
@@ -145,7 +145,7 @@ add_executable(sambada
         src/Supervision.hpp
         src/LecteurCheminAcces.cpp
         src/LecteurCheminAcces.hpp
-        src/common/Matrices.hpp
+        src/common/maths/Matrices.hpp
         src/common/TypesCommuns.hpp
         )
 
@@ -155,7 +155,7 @@ target_link_libraries(sambada
         intermediate
         variables
         histograms
-        common
+        maths
         modeles
         )
 
@@ -380,7 +380,7 @@ add_executable(SambadaUnitTests
         src/LecteurCheminAcces.hpp
         src/LecteurCheminAcces.cpp
         ${TestUtils}
-        test/unit/sambada/common/ProbabilityTests.cpp
+        test/unit/sambada/common/maths/ProbabilityTests.cpp
         test/unit/sambada/modeles/ModeleTests.cpp
         test/unit/sambada/modeles/scriptorium/FlotSortieChaineFactoryTests.cpp
         test/unit/sambada/modeles/scriptorium/ScribeTests.cpp
@@ -396,7 +396,7 @@ add_executable(SambadaUnitTests
 
 target_link_libraries(SambadaUnitTests
         PRIVATE
-        common
+        maths
         variables
         histograms
         modeles

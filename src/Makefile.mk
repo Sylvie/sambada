@@ -63,7 +63,7 @@ binaries_sambada_LDADD = \
 	src/histograms/libhistograms.a \
 	src/modeles/libmodeles.a \
 	src/variables/libvariables.a \
-	src/common/libcommon.a
+	src/common/maths/libmaths.a
 
 binaries_supervision_SOURCES = src/mainSupervision.cpp \
 	src/Supervision.cpp \
