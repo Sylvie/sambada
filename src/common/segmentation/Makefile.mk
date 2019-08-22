@@ -18,20 +18,16 @@
 
 ## Building internal library ##
 
-#noinst_LIBRARIES += src/common/libcommon.a
+noinst_LIBRARIES += src/common/segmentation/libsegmentation.a
 
-#src_common_libcommon_a_SOURCES = \
-#	src/common/TypesCommuns.hpp
+src_common_segmentation_libsegmentation_a_SOURCES = \
+	src/common/segmentation/Tokenizer.hpp \
+	src/common/segmentation/Tokenizer.cpp
 
-#src_common_libcommon_a_CPPFLAGS= \
-#	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
-#	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
+src_common_segmentation_libsegmentation_a_CPPFLAGS= \
+	-I $(top_srcdir)/src
 
-#src_common_libcommon_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-
-include src/common/maths/Makefile.mk
-include src/common/segmentation/Makefile.mk
 
 ## Cleaning ##
-clean-local-src-common: clean-local-src-common-maths
-	$(call clean_extra_generated_files, src/common/)
+clean-local-src-common-segmentation:
+	$(call clean_extra_generated_files, src/common/segmentation/)

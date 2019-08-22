@@ -98,6 +98,16 @@ set_target_properties(maths
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/common/maths/"
         )
 
+add_library(segmentation
+        src/common/segmentation/Tokenizer.hpp
+        src/common/segmentation/Tokenizer.cpp
+        )
+
+set_target_properties(segmentation
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/common/segmentation/"
+        )
+
 add_library(modeles
         src/modeles/Modele.hpp
         src/modeles/Modele.cpp
@@ -381,6 +391,7 @@ add_executable(SambadaUnitTests
         src/LecteurCheminAcces.cpp
         ${TestUtils}
         test/unit/sambada/common/maths/ProbabilityTests.cpp
+        test/unit/sambada/common/segmentation/TokenizerTests.cpp
         test/unit/sambada/modeles/ModeleTests.cpp
         test/unit/sambada/modeles/scriptorium/FlotSortieChaineFactoryTests.cpp
         test/unit/sambada/modeles/scriptorium/ScribeTests.cpp
