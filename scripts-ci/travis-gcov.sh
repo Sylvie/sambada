@@ -35,8 +35,8 @@ ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFactory.cpp -o src/model
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.o
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.o
 
-${GCOV} -r ../src/common/maths/Probability.cpp -o src/common/maths/Probability.o
-${GCOV} -r ../src/common/segmentation/Tokenizer.cpp -o src/common/segmentation/Tokenizer.o
+${GCOV} -r ../src/common/maths/Probability.cpp -o src/common/maths/src_common_maths_libmaths_a-Probability.o
+${GCOV} -r ../src/common/segmentation/Tokenizer.cpp -o src/common/segmentation/src_common_segmentation_libsegmentation_a-Tokenizer.o
 
 ${GCOV} -r ../src/variables/EtiquetteCombinaisonVariables.cpp -o src/variables/src_variables_libvariables_a-EtiquetteCombinaisonVariables.o
 ${GCOV} -r ../src/variables/CombinaisonVariables.cpp -o src/variables/src_variables_libvariables_a-CombinaisonVariables.o
