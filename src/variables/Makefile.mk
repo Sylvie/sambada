@@ -27,7 +27,7 @@ src_variables_libvariables_a_SOURCES = \
 	src/variables/CombinaisonVariables.hpp \
 	src/variables/FamilleVariablesFactory.cpp \
 	src/variables/FamilleVariablesFactory.hpp \
-	src/common/Matrices.hpp
+	src/common/maths/Matrices.hpp
 
 src_variables_libvariables_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
