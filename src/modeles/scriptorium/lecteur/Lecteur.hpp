@@ -27,7 +27,7 @@ namespace sambada {
 	class Lecteur : public Archiviste
 	{
 	public:
-		Lecteur(FlotEntreeFactory& factory);
+		explicit Lecteur(FlotEntreeFactory& factory);
 
 		virtual ~Lecteur() = default;
 
