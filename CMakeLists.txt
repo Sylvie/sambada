@@ -411,6 +411,7 @@ target_link_libraries(SambadaUnitTests
         variables
         histograms
         modeles
+        segmentation
         )
 
 add_executable(SupervisionIntegrationTests

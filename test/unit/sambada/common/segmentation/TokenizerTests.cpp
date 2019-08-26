@@ -24,9 +24,181 @@
 
 TEST_CASE("Test that the Tokenizer reads files correctly", "[tokenizer-unit]")
 {
+	sambada::Tokenizer tokenizer;
 
-	SECTION("Test that lectureMot returns the last read character")
+	char delimMots(' ');
+	bool gardeSignesInvisibles(false);
+
+	SECTION("Test that lectureMot process input stream correctly")
 	{
+		std::string mot;
+		std::istringstream iss;
 
+		SECTION("when there is a single word without invisible chars")
+		{
+			iss.str("Motus!");
+
+			char lu = tokenizer.lectureMot(iss, mot, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == '!');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "Motus!");
+			}
+		}
+
+		SECTION("when there are several words without invisible chars")
+		{
+			iss.str("un deux trois");
+
+			char lu = tokenizer.lectureMot(iss, mot, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == ' ');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "un");
+			}
+		}
+
+		SECTION("when the text is quoted")
+		{
+			iss.str("\"texte entre guillemets\"");
+
+			char lu = tokenizer.lectureMot(iss, mot, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == '"');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "texte entre guillemets");
+			}
+		}
+
+		SECTION("when there is a line feed")
+		{
+			iss.str("un\n deux");
+
+			char lu = tokenizer.lectureMot(iss, mot, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == '\n');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "un");
+			}
+
+		}
+
+		SECTION("when there is a carriage return")
+		{
+			iss.str("un\r deux");
+
+			char lu = tokenizer.lectureMot(iss, mot, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == '\r');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "un");
+			}
+
+		}
+
+		SECTION("when there is a carriage return + line feed")
+		{
+			iss.str("un\r\n deux");
+
+			char lu = tokenizer.lectureMot(iss, mot, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == '\r');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "un");
+			}
+
+		}
+
+		SECTION("when there is a quote and a line feed")
+		{
+			iss.str("\"un\n deux");
+
+			char lu = tokenizer.lectureMot(iss, mot, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == 'x');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "un deux");
+			}
+
+		}
+
+		SECTION("when there is a quote, a line feed and gardeSignesInvisibles is true")
+		{
+			iss.str("\"un\n deux");
+
+			char lu = tokenizer.lectureMot(iss, mot, delimMots, true);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == 'x');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "un\n deux");
+			}
+
+		}
+
+		SECTION("when there are several words with a custom delimitor")
+		{
+			iss.str("un%deux%trois");
+
+			char lu = tokenizer.lectureMot(iss, mot, '%', gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == '%');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "un");
+			}
+		}
+
+		SECTION("when there are several words with a custom delimitor and gardeSignesInvisibles is true")
+		{
+			iss.str("u\tn%deux%trois");
+
+			char lu = tokenizer.lectureMot(iss, mot, '%', true);
+
+			SECTION("... check last read character")
+			{
+				CHECK(lu == '%');
+			}
+			SECTION("... check read word")
+			{
+				CHECK(mot == "u\tn");
+			}
+		}
 	}
+
+
 }

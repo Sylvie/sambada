@@ -20,8 +20,28 @@
 
 namespace sambada
 {
-	char lectureMot(std::istream& entree, std::string& mot, char delimMots = ' ', bool gardeSignesInvisibles = false)
+	char Tokenizer::lectureMot(std::istream& entree, std::string& mot, char delimMots, bool gardeSignesInvisibles)
 	{
-		return ' ';
+		mot.clear();
+		char lu = 0x00;
+		bool inner(false), continueLecture(true);
+		while (continueLecture && !((entree.get(lu)).eof()))
+		{
+			if (lu == '"')
+			{
+				inner = !inner;
+			}
+				// On ôte les "
+
+			else if (inner == 0 && (lu == delimMots || lu == '\r' || lu == '\n' || (!gardeSignesInvisibles && ((lu < 0x20) || (lu >= 0x7F)))))    // Les espaces sont conservés
+			{
+				continueLecture = false;
+			}
+			else if (gardeSignesInvisibles || (lu > 0x19 && lu < 0x7F))    // On est à l'intérieur, les espaces sont conservés
+			{
+				mot.push_back(lu);
+			}
+		}
+		return lu;
 	}
 }
