@@ -200,5 +200,187 @@ TEST_CASE("Test that the Tokenizer reads files correctly", "[tokenizer-unit]")
 		}
 	}
 
+	SECTION("Test that lectureLigne process input stream correctly")
+	{
+		std::vector<std::string> ligne;
+		std::istringstream iss;
+		std::vector<std::string> ligneAttendue;
+
+		SECTION("when there is a single word without invisible chars")
+		{
+			iss.str("Motus!");
+			ligneAttendue = {"Motus!"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+		}
+
+		SECTION("when there are several words without invisible chars")
+		{
+			iss.str("un deux trois");
+			ligneAttendue = {"un", "deux", "trois"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+		}
+
+		SECTION("when the text is quoted")
+		{
+			iss.str("\"texte entre guillemets\"");
+			ligneAttendue = {"texte entre guillemets"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+		}
+
+		SECTION("when there is a line feed")
+		{
+			iss.str("un deux \n trois");
+			ligneAttendue = {"un", "deux"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK_FALSE(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+
+		}
+
+		SECTION("when there is a carriage return")
+		{
+			iss.str("un deux\r trois");
+			ligneAttendue = {"un", "deux"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK_FALSE(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+
+		}
+
+		SECTION("when there is a carriage return + line feed")
+		{
+			iss.str("un deux\r\ntrois");
+			ligneAttendue = {"un", "deux"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK_FALSE(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+
+		}
+
+		SECTION("when there is a quote and a line feed")
+		{
+			iss.str("\"un\n deux");
+			ligneAttendue = {"un deux"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, delimMots, gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+
+		}
+
+		SECTION("when there is a quote, a line feed and gardeSignesInvisibles is true")
+		{
+			iss.str("\"un\n deux");
+			ligneAttendue = {"un\n deux"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, delimMots, true);
+
+			SECTION("... check last read character")
+			{
+				CHECK(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+
+		}
+
+		SECTION("when there are several words with a custom delimitor")
+		{
+			iss.str("un%deux%trois");
+			ligneAttendue = {"un", "deux", "trois"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, '%', gardeSignesInvisibles);
+
+			SECTION("... check last read character")
+			{
+				CHECK(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+		}
+
+		SECTION("when there are several words with a custom delimitor and gardeSignesInvisibles is true")
+		{
+			iss.str("u\tn%deux%trois");
+			ligneAttendue = {"u\tn", "deux", "trois"};
+
+			bool endOfStream = tokenizer.lectureLigne(iss, ligne, '%', true);
+
+			SECTION("... check last read character")
+			{
+				CHECK(endOfStream);
+			}
+			SECTION("... check read word")
+			{
+				CHECK(ligne == ligneAttendue);
+			}
+		}
+
+	}
 
 }

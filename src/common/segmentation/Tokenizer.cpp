@@ -44,4 +44,29 @@ namespace sambada
 		}
 		return lu;
 	}
+
+	bool Tokenizer::lectureLigne(std::istream& entree, std::vector<std::string>& ligne, char delimMots, bool gardeSignesInvisibles)
+	{
+		ligne.clear();
+		std::string mot("");
+		char lu = 0x00;
+		bool continueLecture(true);
+		while (continueLecture && !entree.eof())
+		{
+			lu = lectureMot(entree, mot, delimMots, gardeSignesInvisibles);
+			if (mot.size() > 0)
+			{
+				ligne.push_back(mot);
+			}
+			if (lu == '\n' || lu == '\r')
+			{
+				continueLecture = false;
+				while (iscntrl(entree.peek()))
+				{
+					entree.get(lu);
+				}
+			}
+		}
+		return entree.eof();
+	}
 }
