@@ -37,14 +37,14 @@ namespace sambada {
 		 * les caractères invisibles sont ignorés, mais les espaces sont conservés
 		 * @return le dernier caractère lu
 		 */
-		char lectureMot(std::istream& entree, std::string& mot, char delimMots = ' ', bool gardeSignesInvisibles = false);
+		char lectureMot(std::istream& entree, std::string& mot, char delimMots = ' ', bool gardeSignesInvisibles = false) const;
 
 		/**
  		* Lit une ligne mot-à-mot jusqu'à trouver un caractère de fin de ligne
  		* Les mots vides (0 car) ne sont pas enregistrés
  		* @return Si la fin du fichier est détectée, la fonction renvoie TRUE
  		*/
-		bool lectureLigne(std::istream& entree, std::vector<std::string>& ligne, char delimMots=' ', bool gardeSignesInvisibles=false);
+		bool lectureLigne(std::istream& entree, std::vector<std::string>& ligne, char delimMots=' ', bool gardeSignesInvisibles=false) const;
 
 
 	};

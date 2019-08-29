@@ -20,7 +20,7 @@
 
 namespace sambada
 {
-	char Tokenizer::lectureMot(std::istream& entree, std::string& mot, char delimMots, bool gardeSignesInvisibles)
+	char Tokenizer::lectureMot(std::istream& entree, std::string& mot, char delimMots, bool gardeSignesInvisibles) const
 	{
 		mot.clear();
 		char lu = 0x00;
@@ -45,7 +45,7 @@ namespace sambada
 		return lu;
 	}
 
-	bool Tokenizer::lectureLigne(std::istream& entree, std::vector<std::string>& ligne, char delimMots, bool gardeSignesInvisibles)
+	bool Tokenizer::lectureLigne(std::istream& entree, std::vector<std::string>& ligne, char delimMots, bool gardeSignesInvisibles) const
 	{
 		ligne.clear();
 		std::string mot("");
