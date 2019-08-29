@@ -18,10 +18,9 @@
 
 #include "Lecteur.hpp"
 
-namespace sambada
-{
+namespace sambada {
 	Lecteur::Lecteur(FlotEntreeFactory& factory)
-	:factory(factory)
+			: factory(factory)
 	{
 
 	}
@@ -30,12 +29,18 @@ namespace sambada
 	{
 		Archiviste::initialise(nomsFichiers, chaineRetourLigne, charDelimMots, precisionFlots);
 
-		for(size_t i(0); i < nomsFichiers.size(); ++i)
+		for (size_t i(0); i < nomsFichiers.size(); ++i)
 		{
 			flots.push_back(factory.creeFlotEntree(nomsFichiers[i]));
 			flots[i]->precision(precisionFlots);
 		}
 	}
 
+	bool Lecteur::lecture(int numFichier, std::vector<std::string>& ligne) const
+	{
+		ligne.clear();
+		tokenizer.lectureLigne(*flots[numFichier], ligne, getDelimMots());
+		return true;
+	}
 
 }

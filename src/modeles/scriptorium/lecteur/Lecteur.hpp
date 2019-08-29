@@ -21,6 +21,7 @@
 
 #include "modeles/scriptorium/Archiviste.hpp"
 #include "modeles/scriptorium/lecteur/FlotEntreeFactory.hpp"
+#include "common/segmentation/Tokenizer.hpp"
 
 namespace sambada {
 
@@ -33,14 +34,35 @@ namespace sambada {
 
 		virtual void initialise(const std::vector<std::string>& nomsFichiers, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots);
 
+		// Lecture d'une ligne jusqu'au caractère de fin
+
+		// Retourne TRUE si tous les éléments ont pu être lus
+		template<class T>
+		bool lecture(int numFichier, std::vector<T>& ligne) const;
+
+		/**
+ 		* Spécialisation pour lire une ligne de texte
+ 		*/
+		bool lecture(int numFichier, std::vector<std::string>& ligne) const;
+
 	private:
 		FlotEntreeFactory& factory;
 
 		std::vector<FlotEntree> flots;
 
+		Tokenizer tokenizer;
 	};
 
-}
 
+	/**
+ 	* @return TRUE si tous les éléments ont pu être lus
+ 	*/
+	template<class T>
+	bool Lecteur::lecture(int numFichier, std::vector<T>& ligne) const
+	{
+		return false;
+	}
+
+}
 
 #endif //SAMBADA_LECTEUR_HPP

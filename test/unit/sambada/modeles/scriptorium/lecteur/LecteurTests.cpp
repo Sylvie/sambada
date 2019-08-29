@@ -38,7 +38,7 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 	{
 		lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
 
-		CHECK(factory.getFlotsEntree().size() == (size_t)nombreFlots);
+		CHECK(factory.getFlotsEntree().size() == (size_t) nombreFlots);
 	}
 
 	SECTION("Test that Lecteur creates streams with the correct names")
@@ -63,7 +63,7 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 		}
 	}
 
-	SECTION("Test that streams are indicate end-of-file when they are empty")
+	SECTION("Test that streams indicates end-of-file when they are empty")
 	{
 		factory.setContenusFlotsEntree({"", "", ""});
 
@@ -80,106 +80,110 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 		}
 	}
 
-	/*
-	SECTION("Test that single-item lecture reads in the correct file")
+	SECTION("Test that lecture of strings reads from the correct file")
 	{
-		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+		factory.setContenusFlotsEntree({
+				                               "Second message in first file",
+				                               "First message in second file",
+				                               "Third message in third file"
+		                               });
 
-		std::vector<std::string> messages({
-				                                  "First message in second file",
-				                                  "Second message in first file",
-				                                  "Third message in third file"
-		                                  });
+		lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
 
-		std::vector<std::string> expectedMessages({
-				                                          "Second message in first file ",
-				                                          "First message in second file ",
-				                                          "Third message in third file "
-		                                          });
+		std::vector<std::vector<std::string>> expectedMessages({
+				                                                       {"First",  "message", "in", "second", "file"},
+				                                                       {"Second", "message", "in", "first",  "file"},
+				                                                       {"Third",  "message", "in", "third",  "file"}
+		                                                       });
 
-		scribe.ecriture(1, messages[0]);
-		scribe.ecriture(0, messages[1]);
-		scribe.ecriture(2, messages[2]);
+		std::vector<std::vector<std::string>> messagesLus(nombreFlots);
 
-		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+		lecteur.lecture(1, messagesLus[0]);
+		lecteur.lecture(0, messagesLus[1]);
+		lecteur.lecture(2, messagesLus[2]);
 
-		CHECKED_IF(flots.size() == nombreFlots)
+		CHECKED_IF(messagesLus.size() == nombreFlots)
 		{
 			for (int i(0); i < nombreFlots; ++i)
 			{
-				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
-
-				CHECK(stream->str() == expectedMessages[i]);
+				CHECK(messagesLus[i] == expectedMessages[i]);
 			}
 		}
 	}
 
-	SECTION("Test that single-item lecture use the correct word delimitor")
+	SECTION("Test that lecture of strings uses the correct word delimitor")
 	{
-		scribe.initialise(nomsFlots, retourLigne, '%', precision);
+		factory.setContenusFlotsEntree({
+				                               "First%message%in%second%file%\n",
+				                               "Second%message%in%first%file%\n",
+				                               "Third%message%in%third%file%\n"
+		                               });
+
+		lecteur.initialise(nomsFlots, retourLigne, '%', precision);
+
+		std::vector<std::vector<std::string>> expectedMessages({
+				                                                       {"First",  "message", "in", "second", "file"},
+				                                                       {"Second", "message", "in", "first",  "file"},
+				                                                       {"Third",  "message", "in", "third",  "file"}
+		                                                       });
 
 
-		std::vector<std::string> expectedMessages({
-				                                          "First%message%\n",
-				                                          "Second%message%\n",
-				                                          "Third%message%\n"
-		                                          });
+		std::vector<std::vector<std::string>> messagesLus(nombreFlots);
 
-		scribe.ecriture(0, "First", false);
-		scribe.ecriture(0, "message", true);
+		lecteur.lecture(0, messagesLus[0]);
+		lecteur.lecture(1, messagesLus[1]);
+		lecteur.lecture(2, messagesLus[2]);
 
-		scribe.ecriture(1, "Second", false);
-		scribe.ecriture(1, "message", true);
-
-		scribe.ecriture(2, "Third", false);
-		scribe.ecriture(2, "message", true);
-
-		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
-
-		CHECKED_IF(flots.size() == nombreFlots)
+		CHECKED_IF(messagesLus.size() == nombreFlots)
 		{
 			for (int i(0); i < nombreFlots; ++i)
 			{
-				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
-
-				CHECK(stream->str() == expectedMessages[i]);
+				CHECK(messagesLus[i] == expectedMessages[i]);
 			}
 		}
 	}
 
-	SECTION("Test that single-item lecture use the correct line delimitor")
+	SECTION("Test that lecture of strings can read several lines")
 	{
-		scribe.initialise(nomsFlots, "&&", delimMots, precision);
+		factory.setContenusFlotsEntree({
+				                               "First message \nFourth message ",
+				                               "Second message \nFifth message ",
+				                               "Third message \nSixth message "
+		                               });
 
 
-		std::vector<std::string> expectedMessages({
-				                                          "First message &&Fourth message ",
-				                                          "Second message &&Fifth message ",
-				                                          "Third message &&Sixth message "
-		                                          });
+		std::vector<std::vector<std::string>> expectedMessages({
+				                                                       {"First",  "message"},
+				                                                       {"Second", "message"},
+				                                                       {"Third",  "message"},
+				                                                       {"Fourth", "message"},
+				                                                       {"Fifth",  "message"},
+				                                                       {"Sixth",  "message"}
+		                                                       });
 
-		scribe.ecriture(0, "First message", true);
-		scribe.ecriture(1, "Second message", true);
-		scribe.ecriture(2, "Third message", true);
 
-		scribe.ecriture(0, "Fourth message", false);
-		scribe.ecriture(1, "Fifth message", false);
-		scribe.ecriture(2, "Sixth message", false);
+		lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
 
-		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+		std::vector<std::vector<std::string>> messagesLus(2 * nombreFlots);
 
-		CHECKED_IF(flots.size() == nombreFlots)
+		lecteur.lecture(0, messagesLus[0]);
+		lecteur.lecture(1, messagesLus[1]);
+		lecteur.lecture(2, messagesLus[2]);
+
+		lecteur.lecture(0, messagesLus[3]);
+		lecteur.lecture(1, messagesLus[4]);
+		lecteur.lecture(2, messagesLus[5]);
+
+		CHECKED_IF(messagesLus.size() == 2 * nombreFlots)
 		{
 			for (int i(0); i < nombreFlots; ++i)
 			{
-				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
-
-				CHECK(stream->str() == expectedMessages[i]);
+				CHECK(messagesLus[i] == expectedMessages[i]);
 			}
 		}
 	}
 
-
+/*
 	SECTION("Test that vector-item lecture writes in the correct file")
 	{
 		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
