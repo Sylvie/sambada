@@ -50,6 +50,7 @@ matrix:
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
       - SAMBADA_BUILD_TYPE=PACKAGE
       - CXXFLAGS="-Wall -O2"
+      - LDFLAGS="-static-libgcc -static-libstdc++"
     install:
       - source ./manual/basictex-osx.sh
       - ls -la /usr/local/texlive/
