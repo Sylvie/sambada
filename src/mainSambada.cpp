@@ -67,4 +67,6 @@ int main(int argc, char *argv[])
 
 	logitModel.ecritMessage("Writing of results : " + toolbox::toString(difftime(temps_stop, temps_fin_calculs)) + " s.");
 	logitModel.terminaison();
+
+	return 0;
 }

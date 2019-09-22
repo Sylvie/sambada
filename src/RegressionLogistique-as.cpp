@@ -351,6 +351,11 @@ bool RegressionLogistique::Domaine::miseAJour()
 // La pondération est normée!
 int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 {
+	if (!analyseSpatiale || (!AS_autocorrVarEnv && !AS_autocorrMarq))
+	{
+		journal << "No autocorrelation computation requested" << nl;
+		return 1;
+	}
 	try
 	{
 		if (!analyseSpatiale || (!AS_autocorrVarEnv && !AS_autocorrMarq))
