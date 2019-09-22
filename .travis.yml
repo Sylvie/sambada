@@ -50,6 +50,25 @@ matrix:
       - SAMBADA_OS_NAME=${TRAVIS_OS_NAME}
       - SAMBADA_BUILD_TYPE=PACKAGE
       - CXXFLAGS="-Wall -O2"
+    install:
+      - source ./manual/basictex-osx.sh
+      - ls -la /usr/local/texlive/
+      - ls -l /Library/PreferencePanes
+    cache:
+      directories:
+        - "/usr/local/texlive/"
+        - "/usr/local/bin/texdist/"
+        - "/usr/texbin/"
+        - "/Library/TeX/"
+        - "/Library/PreferencePanes/"
+  - os: osx
+    osx_image: xcode10.1
+    compiler: gcc
+    env:
+      - MATRIX_EVAL="softwareupdate -l && (brew install gcc@7 || brew install gcc@7) && CC=gcc-7 && CXX=g++-7"
+      - SAMBADA_OS_NAME="${TRAVIS_OS_NAME}-rsambada-only"
+      - SAMBADA_BUILD_TYPE=PACKAGE
+      - CXXFLAGS="-Wall -O2"
       - LDFLAGS="-static-libgcc -static-libstdc++"
     install:
       - source ./manual/basictex-osx.sh
