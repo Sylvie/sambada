@@ -45,6 +45,17 @@ namespace sambada {
  		*/
 		bool lecture(int numFichier, std::vector<std::string>& ligne) const;
 
+		// Lecture d'un groupe de mots
+
+		// Retourne TRUE si tous les éléments ont pu être lus
+		template<class T>
+		bool lectureGroupe(int numFichier, std::vector<T>& groupe, int nombre) const;
+
+		/**
+ 		* Spécialisation pour lire une ligne de texte
+ 		*/
+		bool lectureGroupe(int numFichier, std::vector<std::string>& groupe, int nombre) const;
+
 	private:
 		FlotEntreeFactory& factory;
 
@@ -59,6 +70,15 @@ namespace sambada {
  	*/
 	template<class T>
 	bool Lecteur::lecture(int numFichier, std::vector<T>& ligne) const
+	{
+		return false;
+	}
+
+	/**
+ 	* @return TRUE si tous les éléments ont pu être lus
+ 	*/
+	template<class T>
+	bool Lecteur::lectureGroupe(int numFichier, std::vector<T>& groupe, int nombre) const
 	{
 		return false;
 	}

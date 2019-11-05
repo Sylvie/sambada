@@ -43,4 +43,16 @@ namespace sambada {
 		return true;
 	}
 
+	bool Lecteur::lectureGroupe(int numFichier, std::vector<std::string>& groupe, int nombre) const
+	{
+		groupe.clear();
+		std::string mot("");
+		for (int i(0); (!flots[numFichier]->eof()) && i < nombre; ++i)
+		{
+			tokenizer.lectureMot(*flots[numFichier], mot, getDelimMots());
+			groupe.push_back(mot);
+		}
+		return groupe.size() == nombre;
+	}
+
 }
