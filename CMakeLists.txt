@@ -393,8 +393,8 @@ add_executable(SambadaUnitTests
         test/unit/sambada/common/maths/ProbabilityTests.cpp
         test/unit/sambada/common/segmentation/TokenizerTests.cpp
         test/unit/sambada/modeles/ModeleTests.cpp
-        test/unit/sambada/modeles/scriptorium/FlotSortieChaineFactoryTests.cpp
-        test/unit/sambada/modeles/scriptorium/ScribeTests.cpp
+        test/unit/sambada/modeles/scriptorium/scribe/FlotSortieChaineFactoryTests.cpp
+        test/unit/sambada/modeles/scriptorium/scribe/ScribeTests.cpp
         test/unit/sambada/modeles/scriptorium/lecteur/FlotEntreeChaineFactoryTests.cpp
         test/unit/sambada/modeles/scriptorium/lecteur/LecteurTests.cpp
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
