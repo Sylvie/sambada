@@ -284,4 +284,180 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		}
 	}
 
+	SECTION("Test that Scribe can reset its streams")
+	{
+		int secondNombreFlots(2);
+		std::vector<std::string> secondsNomsFlots({"quatrièmeFlot", "cinquièmeFlot"});
+
+		char secondDelimMots('-');
+		std::string secondRetourLigne("&&");
+		int secondePrecision(22);
+
+		SECTION("Test that Scribe creates the correct number of streams upon reset")
+		{
+			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+			factory.reset();
+			scribe.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			CHECK(factory.getFlotsSortie().size() == secondNombreFlots);
+		}
+
+		SECTION("Test that Scribe creates streams with the correct names upon reset")
+		{
+			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+			factory.reset();
+			scribe.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			CHECK(factory.getNomsFlots() == secondsNomsFlots);
+		}
+
+		SECTION("Test that stream precisions are correct upon reset")
+		{
+			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+			factory.reset();
+			scribe.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+			for (auto flot(flots.begin()); flot != flots.end(); ++flot)
+			{
+				std::ostream& flotInterieur(*flot->get());
+				CHECK(flotInterieur.precision() == secondePrecision);
+			}
+		}
+
+		SECTION("Test that streams are empty before the first ecriture after reset")
+		{
+			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+			factory.reset();
+			scribe.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+			CHECKED_IF(flots.size() == secondNombreFlots)
+			{
+				for (int i(0); i < secondNombreFlots; ++i)
+				{
+					std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+					CHECK(stream->str() == "");
+				}
+			}
+		}
+
+		SECTION("Test that single-item ecriture writes in the correct file after reset")
+		{
+			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			std::vector<std::string> messages({
+					                                  "First message in first file",
+					                                  "Second message in second file",
+					                                  "Third message in third file",
+					                                  "Fourth message in new first file",
+					                                  "Fifth message in new second file"
+			                                  });
+
+			std::vector<std::string> expectedMessages({
+					                                          "Fourth message in new first file-",
+					                                          "Fifth message in new second file-"
+			                                          });
+
+			scribe.ecriture(0, messages[0]);
+			scribe.ecriture(1, messages[1]);
+			scribe.ecriture(2, messages[2]);
+
+			factory.reset();
+			scribe.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+			scribe.ecriture(0, messages[3]);
+			scribe.ecriture(1, messages[4]);
+
+			std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+
+			CHECKED_IF(flots.size() == secondNombreFlots)
+			{
+				for (int i(0); i < secondNombreFlots; ++i)
+				{
+					std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+					CHECK(stream->str() == expectedMessages[i]);
+				}
+			}
+		}
+
+		SECTION("Test that single-item ecriture use the correct word delimitor after reset")
+		{
+			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+
+			std::vector<std::string> expectedMessages({
+					                                          "First-message-",
+					                                          "Second-message-"
+			                                          });
+
+			scribe.ecriture(0, "Some", false);
+			scribe.ecriture(0, "thing", true);
+
+			scribe.ecriture(1, "Other", false);
+			scribe.ecriture(1, "stuff", true);
+
+			scribe.ecriture(2, "Another", false);
+			scribe.ecriture(2, "story", true);
+
+			factory.reset();
+			scribe.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			scribe.ecriture(0, "First", false);
+			scribe.ecriture(0, "message", false);
+
+			scribe.ecriture(1, "Second", false);
+			scribe.ecriture(1, "message", false);
+
+			std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+
+			CHECKED_IF(flots.size() == secondNombreFlots)
+			{
+				for (int i(0); i < secondNombreFlots; ++i)
+				{
+					std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+					CHECK(stream->str() == expectedMessages[i]);
+				}
+			}
+		}
+
+		SECTION("Test that single-item ecriture use the correct line delimitor after reset")
+		{
+			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			scribe.ecriture(0, "Something", true);
+			scribe.ecriture(1, "Other stuff", true);
+			scribe.ecriture(2, "Blah", true);
+
+			std::vector<std::string> expectedMessages({
+					                                          "First message-&&Third message-&&Fifth message-",
+					                                          "Second message-&&Fourth message-Sixth message-&&"
+			                                          });
+			factory.reset();
+			scribe.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			scribe.ecriture(0, "First message", true);
+			scribe.ecriture(1, "Second message", true);
+
+			scribe.ecriture(0, "Third message", true);
+			scribe.ecriture(1, "Fourth message", false);
+
+			scribe.ecriture(0, "Fifth message", false);
+			scribe.ecriture(1, "Sixth message", true);
+
+			std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+
+			CHECKED_IF(flots.size() == secondNombreFlots)
+			{
+				for (int i(0); i < secondNombreFlots; ++i)
+				{
+					std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+					CHECK(stream->str() == expectedMessages[i]);
+				}
+			}
+		}
+	}
 }

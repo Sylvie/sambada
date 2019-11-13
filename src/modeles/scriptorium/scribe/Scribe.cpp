@@ -21,7 +21,7 @@
 namespace sambada {
 
 	Scribe::Scribe(FlotSortieFactory& factory)
-	:factory(factory)
+	: factory(factory)
 	{
 
 	}
@@ -31,7 +31,8 @@ namespace sambada {
 	{
 		Archiviste::initialise(nomsFichiers, chaineRetourLigne, charDelimMots, precisionFlots);
 
-		for(size_t i(0); i < nomsFichiers.size(); ++i)
+		flots.clear();
+		for (size_t i(0); i < nomsFichiers.size(); ++i)
 		{
 			flots.push_back(factory.creeFlotSortie(nomsFichiers[i]));
 			flots[i]->precision(precisionFlots);
