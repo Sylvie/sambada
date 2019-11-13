@@ -117,86 +117,87 @@ TEST_CASE("Test that FlotSortieChaineFactory creates and stores Output String St
 		}
 	}
 
-	/* Testing reset() */
-	SECTION("Test that FlotSortieChaineFactory returns the correct stream names after reset")
+	SECTION("Test that FlotSortieChaineFactory can reset its streams")
 	{
-		int nombreFlots(4);
-
-		for (int i(0); i < nombreFlots; ++i)
+		SECTION("Test that FlotSortieChaineFactory returns the correct stream names after reset")
 		{
-			factory.creeFlotSortie(nomsFlotsAttendus[i]);
-		}
+			int nombreFlots(4);
 
-		std::vector<std::string> nouveauxNomsFlots({"nouveauPremierFlot", "nouveauDeuxièmeFlot", "nouveauTroisiemeFlot"});
-		int nouveauNombreFlots(3);
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				factory.creeFlotSortie(nomsFlotsAttendus[i]);
+			}
 
-		factory.reset();
+			std::vector<std::string> nouveauxNomsFlots({"nouveauPremierFlot", "nouveauDeuxièmeFlot", "nouveauTroisiemeFlot"});
+			int nouveauNombreFlots(3);
 
-		for (int i(0); i < nouveauNombreFlots; ++i)
-		{
-			factory.creeFlotSortie(nouveauxNomsFlots[i]);
-		}
+			factory.reset();
 
-		auto nomsFlots(factory.getNomsFlots());
-		CHECKED_IF(nomsFlots.size() == nouveauNombreFlots)
-		{
 			for (int i(0); i < nouveauNombreFlots; ++i)
 			{
-				CHECK(nomsFlots[i] == nouveauxNomsFlots[i]);
+				factory.creeFlotSortie(nouveauxNomsFlots[i]);
+			}
+
+			auto nomsFlots(factory.getNomsFlots());
+			CHECKED_IF(nomsFlots.size() == nouveauNombreFlots)
+			{
+				for (int i(0); i < nouveauNombreFlots; ++i)
+				{
+					CHECK(nomsFlots[i] == nouveauxNomsFlots[i]);
+				}
+			}
+		}
+
+		SECTION("Test that FlotSortieChaineFactory returns the correct number of streams after reset")
+		{
+			int nombreFlots(3);
+
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				factory.creeFlotSortie(nomsFlotsAttendus[i]);
+			}
+
+			std::vector<std::string> nouveauxNomsFlots({"nouveauPremierFlot", "nouveauDeuxièmeFlot", "nouveauTroisiemeFlot", "nouveauQuatrièmeFlot"});
+			int nouveauNombreFlots(4);
+
+			factory.reset();
+
+			for (int i(0); i < nouveauNombreFlots; ++i)
+			{
+				factory.creeFlotSortie(nouveauxNomsFlots[i]);
+			}
+
+			CHECK(factory.getFlotsSortie().size() == nouveauNombreFlots);
+		}
+
+		SECTION("Test that FlotSortieChaineFactory returns empty streams right after initialisation after reset")
+		{
+			int nombreFlots(3);
+
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				factory.creeFlotSortie(nomsFlotsAttendus[i]);
+			}
+
+			std::vector<std::string> nouveauxNomsFlots({"nouveauPremierFlot", "nouveauDeuxièmeFlot", "nouveauTroisiemeFlot", "nouveauQuatrièmeFlot"});
+			int nouveauNombreFlots(4);
+
+			factory.reset();
+
+			for (int i(0); i < nouveauNombreFlots; ++i)
+			{
+				factory.creeFlotSortie(nouveauxNomsFlots[i]);
+			}
+
+			std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+			CHECKED_IF(flots.size() == nouveauNombreFlots)
+			{
+				for (int i(0); i < nouveauNombreFlots; ++i)
+				{
+					std::ostringstream *flotChaine = static_cast<std::ostringstream *>(flots[i].get());
+					CHECK(flotChaine->str() == "");
+				}
 			}
 		}
 	}
-
-	SECTION("Test that FlotSortieChaineFactory returns the correct number of streams after reset")
-	{
-		int nombreFlots(3);
-
-		for (int i(0); i < nombreFlots; ++i)
-		{
-			factory.creeFlotSortie(nomsFlotsAttendus[i]);
-		}
-
-		std::vector<std::string> nouveauxNomsFlots({"nouveauPremierFlot", "nouveauDeuxièmeFlot", "nouveauTroisiemeFlot", "nouveauQuatrièmeFlot"});
-		int nouveauNombreFlots(4);
-
-		factory.reset();
-
-		for (int i(0); i < nouveauNombreFlots; ++i)
-		{
-			factory.creeFlotSortie(nouveauxNomsFlots[i]);
-		}
-
-		CHECK(factory.getFlotsSortie().size() == nouveauNombreFlots);
-	}
-
-	SECTION("Test that FlotSortieChaineFactory returns empty streams right after initialisation after reset")
-	{
-		int nombreFlots(3);
-
-		for (int i(0); i < nombreFlots; ++i)
-		{
-			factory.creeFlotSortie(nomsFlotsAttendus[i]);
-		}
-
-		std::vector<std::string> nouveauxNomsFlots({"nouveauPremierFlot", "nouveauDeuxièmeFlot", "nouveauTroisiemeFlot", "nouveauQuatrièmeFlot"});
-		int nouveauNombreFlots(4);
-
-		factory.reset();
-
-		for (int i(0); i < nouveauNombreFlots; ++i)
-		{
-			factory.creeFlotSortie(nouveauxNomsFlots[i]);
-		}
-
-		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
-		CHECKED_IF(flots.size() == nouveauNombreFlots)
-		{
-			for (int i(0); i < nouveauNombreFlots; ++i)
-			{
-				std::ostringstream *flotChaine = static_cast<std::ostringstream *>(flots[i].get());
-				CHECK(flotChaine->str() == "");
-			}
-		}
-	}
-
 }
