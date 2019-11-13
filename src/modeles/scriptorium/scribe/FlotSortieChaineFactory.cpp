@@ -40,4 +40,10 @@ namespace sambada {
 		return nomsFlots;
 	}
 
+	void FlotSortieChaineFactory::reset()
+	{
+		nomsFlots.clear();
+		flots.clear();
+	}
+
 }

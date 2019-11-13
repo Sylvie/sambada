@@ -36,6 +36,8 @@ namespace sambada {
 
 		virtual const std::vector<FlotSortie>& getFlotsSortie() const;
 
+		virtual void reset();
+
 	private:
 		std::vector<std::string> nomsFlots;
 		std::vector<FlotSortie> flots;
