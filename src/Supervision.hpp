@@ -29,7 +29,11 @@
 #ifndef SUPERVISION_H
 #define SUPERVISION_H
 
-#include "Archiviste.hpp"
+#include "modeles/scriptorium/lecteur/FlotEntreeFactory.hpp"
+#include "modeles/scriptorium/scribe/FlotSortieFactory.hpp"
+#include "common/TypesCommuns.hpp"
+#include "modeles/scriptorium/lecteur/Lecteur.hpp"
+#include "modeles/scriptorium/scribe/Scribe.hpp"
 
 using namespace std;
 
@@ -40,8 +44,8 @@ typedef struct
 {
 	vector<string> etiquette;
 	vector<string> valeurs;
-	reel scoreSel;
-	reel scoreTri;
+	sambada::reel scoreSel;
+	sambada::reel scoreTri;
 }
 		ModeleSupervision;
 
@@ -81,6 +85,9 @@ namespace ParametresCluster {
 	const string suffixeParamLastFile("-paramLast");
 	const string suffixeRes("-res-");
 	const string suffixeResPartiel("-Out-");
+
+	// Précision des flots
+	const int precisionFlots(22);
 }
 
 
@@ -104,11 +111,13 @@ protected:
 	string chemin;
 	pair<string, string> nomFichierParam, nomFichierMarq, nomFichierEnv;
 
-	Supervision(const Supervision& s);
+	Supervision(const Supervision& s) = delete;
 
-	Scribe sortie;
+	std::unique_ptr<sambada::FlotEntreeFactory> flotEntreeFactory;
+	std::unique_ptr<sambada::FlotSortieFactory> flotSortieFactory;
 
-	Lecteur entree;
+	sambada::Lecteur entree;
+	sambada::Scribe sortie;
 };
 
 /*class ComparaisonLignesResultats

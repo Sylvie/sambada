@@ -167,6 +167,7 @@ target_link_libraries(sambada
         histograms
         maths
         modeles
+        segmentation
         )
 
 add_executable(supervision
@@ -183,6 +184,8 @@ add_executable(supervision
 target_link_libraries(supervision
         PRIVATE
         intermediate
+        segmentation
+        modeles
         )
 
 add_executable(recode-plink
@@ -433,7 +436,7 @@ set_target_properties(SupervisionIntegrationTests
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/supervision/"
         )
 
-add_dependencies(SupervisionIntegrationTests sambada)
+add_dependencies(SupervisionIntegrationTests sambada supervision)
 
 target_link_libraries(SupervisionIntegrationTests -lstdc++fs)
 

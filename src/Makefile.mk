@@ -78,7 +78,10 @@ binaries_supervision_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat
 	-I $(top_srcdir)/src
 
 binaries_supervision_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_supervision_LDADD = src/libintermediate.a
+binaries_supervision_LDADD = \
+	src/libintermediate.a \
+	src/modeles/libmodeles.a \
+	src/common/segmentation/libsegmentation.a
 
 binaries_recode_plink_SOURCES = src/recodePlink.cpp \
 	src/RegressionLogistique.hpp \
