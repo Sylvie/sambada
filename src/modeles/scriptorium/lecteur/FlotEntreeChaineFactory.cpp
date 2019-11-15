@@ -51,4 +51,12 @@ namespace sambada
 		return flots;
 	}
 
+	void FlotEntreeChaineFactory::reset()
+	{
+		nomsFlots.clear();
+		contenusFlots.clear();
+		flotCourant = 0;
+		flots.clear();
+	}
+
 }

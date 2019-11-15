@@ -38,6 +38,8 @@ namespace sambada {
 
 		virtual const std::vector<FlotEntree>& getFlotsEntree() const;
 
+		virtual void reset();
+
 	private:
 		std::vector<std::string> nomsFlots;
 		std::vector<std::string> contenusFlots;
