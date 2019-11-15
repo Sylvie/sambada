@@ -56,6 +56,8 @@ namespace sambada {
  		*/
 		bool lectureGroupe(int numFichier, std::vector<std::string>& groupe, int nombre) const;
 
+		bool finFichier(int numFichier) const;
+
 	private:
 		FlotEntreeFactory& factory;
 

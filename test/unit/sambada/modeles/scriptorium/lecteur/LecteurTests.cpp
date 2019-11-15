@@ -80,6 +80,17 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 		}
 	}
 
+	SECTION("Test that finFichier returns end-of-file information")
+	{
+		factory.setContenusFlotsEntree({"Something", "", "What else?"});
+
+		lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		CHECK_FALSE(lecteur.finFichier(0));
+		CHECK(lecteur.finFichier(1));
+		CHECK_FALSE(lecteur.finFichier(2));
+	}
+
 	SECTION("Test that lecture of strings reads from the correct file")
 	{
 		factory.setContenusFlotsEntree({

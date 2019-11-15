@@ -68,6 +68,17 @@ namespace sambada {
 			return groupe.size() == nombre;
 		}
 	}
-	
 
+	bool Lecteur::finFichier(int numFichier) const
+	{
+		if (numFichier < 0 || flots.size() <= (size_t) numFichier)
+		{
+			return true;
+		}
+		else
+		{
+			flots[numFichier]->peek();
+			return flots[numFichier]->eof();
+		}
+	}
 }
