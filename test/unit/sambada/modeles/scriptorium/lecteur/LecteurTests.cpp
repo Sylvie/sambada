@@ -297,4 +297,209 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 			}
 		}
 	}
+
+	SECTION("Test that Scribe can reset its streams")
+	{
+		int secondNombreFlots(2);
+		std::vector<std::string> secondsNomsFlots({"quatrièmeFlot", "cinquièmeFlot"});
+
+		char secondDelimMots('-');
+		std::string secondRetourLigne("\r\n");
+		int secondePrecision(22);
+
+		SECTION("Test that Lecteur creates the correct number of streams after reset")
+		{
+			lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			factory.reset();
+
+			lecteur.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			CHECK(factory.getFlotsEntree().size() == (size_t) secondNombreFlots);
+		}
+
+		SECTION("Test that Lecteur creates streams with the correct names after reset")
+		{
+			lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			factory.reset();
+
+			lecteur.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			CHECK(factory.getNomsFlots() == secondsNomsFlots);
+		}
+
+		SECTION("Test that stream precisions are correct after reset")
+		{
+			lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			factory.reset();
+
+			lecteur.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			std::vector<sambada::FlotEntree> flots(factory.getFlotsEntree());
+			CHECKED_IF(flots.size() == secondNombreFlots)
+			{
+				for (auto flot(flots.begin()); flot != flots.end(); ++flot)
+				{
+					std::istream& flotInterieur(*flot->get());
+					CHECK(flotInterieur.precision() == secondePrecision);
+				}
+			}
+		}
+
+		SECTION("Test that streams indicates end-of-file when they are empty after reset")
+		{
+			factory.setContenusFlotsEntree({"", "", ""});
+
+			lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			factory.reset();
+			factory.setContenusFlotsEntree({"", ""});
+			lecteur.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			std::vector<sambada::FlotEntree> flots(factory.getFlotsEntree());
+			CHECKED_IF(flots.size() == secondNombreFlots)
+			{
+				for (int i(0); i < secondNombreFlots; ++i)
+				{
+					flots[i]->peek();
+					CHECK(flots[i].get()->eof());
+				}
+			}
+		}
+
+		SECTION("Test that finFichier returns end-of-file information after reset")
+		{
+			factory.setContenusFlotsEntree({"Something", "", "What else?"});
+
+			lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			factory.reset();
+			factory.setContenusFlotsEntree({"", "Anything goes!"});
+			lecteur.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			CHECK(lecteur.finFichier(0));
+			CHECK_FALSE(lecteur.finFichier(1));
+		}
+
+		SECTION("Test that lecture of strings reads from the correct file after reset")
+		{
+			factory.setContenusFlotsEntree({
+					                               "Hello world!",
+					                               "Yellow submarine",
+					                               "To the Moon and back!"
+			                               });
+
+			lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			std::vector<std::vector<std::string>> expectedMessages({
+					                                                       {"First",  "message", "in", "second", "file"},
+					                                                       {"Second", "message", "in", "first",  "file"},
+			                                                       });
+
+			std::vector<std::vector<std::string>> messagesLus(secondNombreFlots);
+
+
+			factory.reset();
+			factory.setContenusFlotsEntree({
+					                               "Second-message-in-first-file",
+					                               "First-message-in-second-file",
+			                               });
+			lecteur.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			lecteur.lecture(1, messagesLus[0]);
+			lecteur.lecture(0, messagesLus[1]);
+
+			CHECKED_IF(messagesLus.size() == secondNombreFlots)
+			{
+				for (int i(0); i < secondNombreFlots; ++i)
+				{
+					CHECK(messagesLus[i] == expectedMessages[i]);
+				}
+			}
+		}
+
+		SECTION("Test that lecture of strings uses the correct word delimitor after reset")
+		{
+			factory.setContenusFlotsEntree({
+					                               "Hello world!",
+					                               "Yellow submarine"
+			                               });
+
+			lecteur.initialise(secondsNomsFlots, retourLigne, '%', precision);
+
+			std::vector<std::vector<std::string>> expectedMessages({
+					                                                       {"First",  "message", "in", "second", "file"},
+					                                                       {"Second", "message", "in", "first",  "file"},
+					                                                       {"Third",  "message", "in", "third",  "file"}
+			                                                       });
+			factory.reset();
+			factory.setContenusFlotsEntree({
+					                               "Second-message-in-first-file-\r\n",
+					                               "First-message-in-second-file-\r\n",
+					                               "Third-message-in-third-file-\r\n"
+			                               });
+
+			lecteur.initialise(nomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			std::vector<std::vector<std::string>> messagesLus(nombreFlots);
+
+			lecteur.lecture(1, messagesLus[0]);
+			lecteur.lecture(0, messagesLus[1]);
+			lecteur.lecture(2, messagesLus[2]);
+
+			CHECKED_IF(messagesLus.size() == nombreFlots)
+			{
+				for (int i(0); i < nombreFlots; ++i)
+				{
+					CHECK(messagesLus[i] == expectedMessages[i]);
+				}
+			}
+		}
+
+		SECTION("Test that lecture of strings can read several lines after reset")
+		{
+			factory.setContenusFlotsEntree({
+					                               "Hello world!",
+					                               "Yellow submarine",
+					                               "To the Moon and back!"
+			                               });
+
+
+			std::vector<std::vector<std::string>> expectedMessages({
+					                                                       {"First",  "message"},
+					                                                       {"Second", "message"},
+					                                                       {"Third",  "message"},
+					                                                       {"Fourth", "message"}
+			                                                       });
+
+			lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+			factory.reset();
+			factory.setContenusFlotsEntree({
+					                               "First-message-\r\nThird message-",
+					                               "Second-message-\r\nFourth message-",
+			                               });
+
+			lecteur.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);
+
+			std::vector<std::vector<std::string>> messagesLus(2 * secondNombreFlots);
+
+			lecteur.lecture(0, messagesLus[0]);
+			lecteur.lecture(1, messagesLus[1]);
+
+			lecteur.lecture(0, messagesLus[2]);
+			lecteur.lecture(1, messagesLus[3]);
+
+			CHECKED_IF(messagesLus.size() == 2 * secondNombreFlots)
+			{
+				for (int i(0); i < secondNombreFlots; ++i)
+				{
+					CHECK(messagesLus[i] == expectedMessages[i]);
+				}
+			}
+		}
+
+	}
 }
