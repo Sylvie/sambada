@@ -38,21 +38,36 @@ namespace sambada {
 
 	bool Lecteur::lecture(int numFichier, std::vector<std::string>& ligne) const
 	{
-		ligne.clear();
-		tokenizer.lectureLigne(*flots[numFichier], ligne, getDelimMots());
-		return true;
+		if (numFichier < 0 || flots.size() <= (size_t) numFichier)
+		{
+			return false;
+		}
+		else
+		{
+			ligne.clear();
+			tokenizer.lectureLigne(*flots[numFichier], ligne, getDelimMots());
+			return true;
+		}
 	}
 
 	bool Lecteur::lectureGroupe(int numFichier, std::vector<std::string>& groupe, int nombre) const
 	{
-		groupe.clear();
-		std::string mot("");
-		for (int i(0); (!flots[numFichier]->eof()) && i < nombre; ++i)
+		if (numFichier < 0 || flots.size() <= (size_t) numFichier)
 		{
-			tokenizer.lectureMot(*flots[numFichier], mot, getDelimMots());
-			groupe.push_back(mot);
+			return false;
 		}
-		return groupe.size() == nombre;
+		else
+		{
+			groupe.clear();
+			std::string mot("");
+			for (int i(0); (!flots[numFichier]->eof()) && i < nombre; ++i)
+			{
+				tokenizer.lectureMot(*flots[numFichier], mot, getDelimMots());
+				groupe.push_back(mot);
+			}
+			return groupe.size() == nombre;
+		}
 	}
+	
 
 }
