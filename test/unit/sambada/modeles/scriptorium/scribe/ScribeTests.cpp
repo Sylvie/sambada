@@ -293,7 +293,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		std::string secondRetourLigne("&&");
 		int secondePrecision(22);
 
-		SECTION("Test that Scribe creates the correct number of streams upon reset")
+		SECTION("Test that Scribe creates the correct number of streams after reset")
 		{
 			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
 			factory.reset();
@@ -302,7 +302,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 			CHECK(factory.getFlotsSortie().size() == secondNombreFlots);
 		}
 
-		SECTION("Test that Scribe creates streams with the correct names upon reset")
+		SECTION("Test that Scribe creates streams with the correct names after reset")
 		{
 			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
 			factory.reset();
@@ -311,7 +311,7 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 			CHECK(factory.getNomsFlots() == secondsNomsFlots);
 		}
 
-		SECTION("Test that stream precisions are correct upon reset")
+		SECTION("Test that stream precisions are correct after reset")
 		{
 			scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
 			factory.reset();
