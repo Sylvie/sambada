@@ -78,7 +78,7 @@ etoolbox      \
 ec            \
 etoolbox      \
 float		  \
-ifxetex		  \
+iftex		  \
 hyperref	  \
 latexmk       \
 l3kernel	  \
