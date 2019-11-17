@@ -135,8 +135,6 @@ set_target_properties(modeles
         )
 
 add_executable(sambada
-        src/Archiviste.cpp
-        src/Archiviste.hpp
         src/Chronometre.cpp
         src/Chronometre.hpp
         src/Duree.cpp
@@ -171,8 +169,6 @@ target_link_libraries(sambada
         )
 
 add_executable(supervision
-        src/Archiviste.cpp
-        src/Archiviste.hpp
         src/mainSupervision.cpp
         src/RegressionLogistique.hpp
         src/Supervision.cpp

@@ -37,8 +37,6 @@ binaries_sambada_SOURCES = src/mainSambada.cpp \
 	src/RegressionLogistique-as.cpp \
 	src/RegressionLogistique.hpp \
 	src/Toolbox.hpp \
-	src/Archiviste.cpp \
-	src/Archiviste.hpp \
 	src/Erreur.hpp \
 	src/Journal.cpp \
 	src/Journal.hpp \
@@ -70,8 +68,6 @@ binaries_supervision_SOURCES = src/mainSupervision.cpp \
 	src/Supervision.hpp \
 	src/RegressionLogistique.hpp \
 	src/Toolbox.hpp \
-	src/Archiviste.cpp \
-	src/Archiviste.hpp \
 	src/Erreur.hpp
 binaries_supervision_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
