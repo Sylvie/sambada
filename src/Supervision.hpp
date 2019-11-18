@@ -113,6 +113,7 @@ protected:
 
 	Supervision(const Supervision& s) = delete;
 
+private:
 	std::unique_ptr<sambada::FlotEntreeFactory> flotEntreeFactory;
 	std::unique_ptr<sambada::FlotSortieFactory> flotSortieFactory;
 
