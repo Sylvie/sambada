@@ -115,9 +115,9 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 
 
 		std::vector<std::string> expectedMessages({
-				                                          "First%message%\n",
-				                                          "Second%message%\n",
-				                                          "Third%message%\n"
+				                                          "First%message\n",
+				                                          "Second%message\n",
+				                                          "Third%message\n"
 		                                          });
 
 		scribe.ecriture(0, "First", false);
@@ -148,9 +148,9 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 
 
 		std::vector<std::string> expectedMessages({
-				                                          "First message &&Fourth message ",
-				                                          "Second message &&Fifth message ",
-				                                          "Third message &&Sixth message "
+				                                          "First message&&Fourth message ",
+				                                          "Second message&&Fifth message ",
+				                                          "Third message&&Sixth message "
 		                                          });
 
 		scribe.ecriture(0, "First message", true);
@@ -180,9 +180,9 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
 
 		std::vector<std::vector<std::string>> messages({
-				                                               {"First", "message", "in", "second", "file"},
-				                                               {"Second", "message", "in", "first", "file"},
-				                                               {"Third", "message", "in", "third", "file"}
+				                                               {"First",  "message", "in", "second", "file"},
+				                                               {"Second", "message", "in", "first",  "file"},
+				                                               {"Third",  "message", "in", "third",  "file"}
 		                                               });
 
 		std::vector<std::string> expectedMessages({
@@ -214,9 +214,9 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 
 
 		std::vector<std::vector<std::string>> messages({
-				                                               {"First", "message", "in", "second", "file"},
-				                                               {"Second", "message", "in", "first", "file"},
-				                                               {"Third", "message", "in", "third", "file"}
+				                                               {"First",  "message", "in", "second", "file"},
+				                                               {"Second", "message", "in", "first",  "file"},
+				                                               {"Third",  "message", "in", "third",  "file"}
 		                                               });
 
 		std::vector<std::string> expectedMessages({
@@ -249,18 +249,18 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 
 
 		std::vector<std::string> expectedMessages({
-				                                          "First message &&Fourth message ",
-				                                          "Second message &&Fifth message ",
-				                                          "Third message &&Sixth message "
+				                                          "First message&&Fourth message ",
+				                                          "Second message&&Fifth message ",
+				                                          "Third message&&Sixth message "
 		                                          });
 
 		std::vector<std::vector<std::string>> messages({
-				                                               {"First", "message"},
+				                                               {"First",  "message"},
 				                                               {"Second", "message"},
-				                                               {"Third", "message"},
+				                                               {"Third",  "message"},
 				                                               {"Fourth", "message"},
-				                                               {"Fifth", "message"},
-				                                               {"Sixth", "message"}
+				                                               {"Fifth",  "message"},
+				                                               {"Sixth",  "message"}
 		                                               });
 
 		scribe.ecriture(0, messages[0], true);
@@ -432,8 +432,8 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 			scribe.ecriture(2, "Blah", true);
 
 			std::vector<std::string> expectedMessages({
-					                                          "First message-&&Third message-&&Fifth message-",
-					                                          "Second message-&&Fourth message-Sixth message-&&"
+					                                          "First message&&Third message&&Fifth message-",
+					                                          "Second message&&Fourth message-Sixth message&&"
 			                                          });
 			factory.reset();
 			scribe.initialise(secondsNomsFlots, secondRetourLigne, secondDelimMots, secondePrecision);

@@ -49,18 +49,23 @@ namespace sambada {
 	template<typename T>
 	bool Scribe::ecriture(int numFichier, T element, bool retourLigne) const
 	{
-		if (numFichier < 0 || flots.size() <= (size_t)numFichier)
+		if (numFichier < 0 || flots.size() <= (size_t) numFichier)
 		{
 			return false;
 		}
 		else
 		{
 
-			*(flots[numFichier]) << element << getDelimMots();
+			*(flots[numFichier]) << element;
 
 			if (retourLigne)
 			{
 				*(flots[numFichier]) << getSigneRetourLigne();
+			}
+			else
+			{
+				*(flots[numFichier]) << getDelimMots();
+
 			}
 			return true;
 		}
@@ -69,20 +74,25 @@ namespace sambada {
 	template<typename T>
 	bool Scribe::ecriture(int numFichier, const std::vector<T>& ligne, bool retourLigne) const
 	{
-		if (numFichier < 0 || flots.size() <= (size_t)numFichier)
+		if (numFichier < 0 || flots.size() <= (size_t) numFichier)
 		{
 			return false;
 		}
 		else
 		{
 			int taille(ligne.size());
-			for (int i(0); i < taille; ++i)
+			for (int i(0); i < (taille - 1); ++i)
 			{
 				*(flots[numFichier]) << ligne[i] << getDelimMots();
 			}
+			*(flots[numFichier]) << ligne[taille - 1];
 			if (retourLigne)
 			{
 				*(flots[numFichier]) << getSigneRetourLigne();
+			}
+			else
+			{
+				*(flots[numFichier]) << getDelimMots();
 			}
 			return true;
 		}
