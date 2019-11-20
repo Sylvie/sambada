@@ -1,4 +1,5 @@
 #include "SambadaIntegrationTestUtils.hpp"
+#include "SambadaStoreyHistogramMapper.hpp"
 
 #include <fstream>
 #include <sstream>
@@ -6,7 +7,7 @@
 
 namespace fs = std::experimental::filesystem;
 
-std::string SambadaIntegrationTestUtils::computePlatformSpecificProgramName(const std::string &baseProgramName)
+std::string SambadaIntegrationTestUtils::computePlatformSpecificProgramName(const std::string& baseProgramName)
 {
 	std::string programName(baseProgramName);
 	std::string programExtension("");
@@ -30,7 +31,7 @@ std::string SambadaIntegrationTestUtils::getTopSourceDirectory()
 	return topSourceDirectory;
 }
 
-SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std::ifstream &lecteur, bool hasHeader, int dimension)
+SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std::ifstream& lecteur, bool hasHeader, int dimension)
 {
 	SambadaRegressionResults results;
 
@@ -88,7 +89,7 @@ SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std:
 	return results;
 }
 
-SambadaSpatialAutocorrelationResults SambadaIntegrationTestUtils::readSpatialAutocorrelationResults(std::ifstream &lecteur, int nombreVariables)
+SambadaSpatialAutocorrelationResults SambadaIntegrationTestUtils::readSpatialAutocorrelationResults(std::ifstream& lecteur, int nombreVariables)
 {
 	SambadaSpatialAutocorrelationResults results;
 
@@ -138,63 +139,9 @@ SambadaSpatialAutocorrelationResults SambadaIntegrationTestUtils::readSpatialAut
 
 SambadaStoreyHistogram SambadaIntegrationTestUtils::readStoreyHistogram(std::ifstream& lecteur)
 {
-	SambadaStoreyHistogram histogram;
-	histogram.infWasFound = false;
+	SambadaStoreyHistogramMapper mapper;
 
-	while (!lecteur.eof() && histogram.header.size() < SambadaStoreyHistogram::nombreLignesHeader)
-	{
-		std::string etiquette("");
-		lecteur >> etiquette >> std::ws;
-		histogram.etiquettes.push_back(etiquette);
-
-		std::string header("");
-		getline(lecteur, header);
-
-		size_t	position(header.find("inf"));
-		if(position != std::string::npos)
-		{
-			histogram.infWasFound = true;
-			header = header.substr(0, position);
-		}
-
-		std::istringstream iss(header);
-		long double lu(0.);
-		std::vector<long double> valeurs;
-		while (iss >> lu >> std::ws)
-		{
-			valeurs.push_back(lu);
-		}
-		histogram.header.push_back(valeurs);
-
-		lecteur >> std::ws;
-	}
-	lecteur >> std::ws;
-
-	while (!lecteur.eof())
-	{
-		std::string etiquette("");
-		lecteur >> etiquette >> std::ws;
-		histogram.etiquettes.push_back(etiquette);
-
-		if (lecteur.eof())
-		{
-			break;
-		}
-
-		std::string concatenatedValues("");
-		getline(lecteur, concatenatedValues);
-
-		std::vector<int> values(0);
-		std::istringstream iss(concatenatedValues);
-		int value;
-		while (iss >> value >> std::ws)
-		{
-			values.push_back(value);
-		}
-		histogram.valeurs.push_back(values);
-
-		lecteur >> std::ws;
-	}
+	SambadaStoreyHistogram histogram(mapper.readStoreyHistogram(lecteur));
 
 	return histogram;
 }
@@ -230,7 +177,7 @@ SambadaInputData SambadaIntegrationTestUtils::readInputData(std::ifstream& lecte
 	return donnees;
 }
 
-void SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(const std::string &inputFile, const std::string &outputFile)
+void SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(const std::string& inputFile, const std::string& outputFile)
 {
 	fs::path pathInputFile(fs::path(inputFile.c_str()));
 	fs::path pathOutputFile(fs::path(outputFile.c_str()));
@@ -239,12 +186,12 @@ void SambadaIntegrationTestUtils::copyFileAndUpdatePermissions(const std::string
 	fs::permissions(pathOutputFile, fs::perms::owner_all | fs::perms::group_all | fs::perms::others_read);
 }
 
-bool SambadaIntegrationTestUtils::doesFileExist(const std::string &filename)
+bool SambadaIntegrationTestUtils::doesFileExist(const std::string& filename)
 {
 	return fs::exists(fs::path(filename.c_str()));
 }
 
-bool SambadaIntegrationTestUtils::doesAnyFileExist(const std::vector<std::string> &filenames)
+bool SambadaIntegrationTestUtils::doesAnyFileExist(const std::vector<std::string>& filenames)
 {
 	bool result(false);
 	for (size_t i(0); i < filenames.size() && !result; ++i)
@@ -257,7 +204,7 @@ bool SambadaIntegrationTestUtils::doesAnyFileExist(const std::vector<std::string
 	return result;
 }
 
-void SambadaIntegrationTestUtils::removeFiles(const std::vector<std::string> &filenames)
+void SambadaIntegrationTestUtils::removeFiles(const std::vector<std::string>& filenames)
 {
 	for (size_t i(0); i < filenames.size(); ++i)
 	{

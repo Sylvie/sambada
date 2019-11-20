@@ -1,3 +1,11 @@
+Release 0.8.3 (2019-11-20)
+Notice:
+- Removed the trailing word separator at the end of each line when writing models.
+  This additional separator resulted in an empty column when loading the results in R.
+Bug fix:
+- Fixed a bug in the computation of score thresholds for 2 or more degrees of liberty.
+  This issue affected the model selection method "SIGNIF".
+
 Release 0.8.1 (2019-04-06)
 Bug fix:
 - Fixed the log layout on Windows: The logs now appear in the course of the analysis.

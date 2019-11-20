@@ -9,17 +9,17 @@
 # required
 
 # See if there is a cached version of TL available
-export PATH=$PATH:"/usr/local/texlive/2018basic/bin/x86_64-darwin"
+export PATH=$PATH:"/usr/local/texlive/2019basic/bin/x86_64-darwin"
 if ! command -v latexmk > /dev/null; then
 
 # Obtain BasicTeX
-wget http://mirror.ox.ac.uk/sites/ctan.org/systems/mac/mactex/mactex-basictex-20180417.pkg -O BasicTeX.pkg
+wget http://mirror.ox.ac.uk/sites/ctan.org/systems/mac/mactex/mactex-basictex-20191011.pkg -O BasicTeX.pkg
 
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
 
 # Creating the directory for tlmgr config, otherwise the permissions are too restrictive
-mkdir -p /Users/travis/Library/texlive/2018basic/texmf-config/tlmgr/
+mkdir -p /Users/travis/Library/texlive/2019basic/texmf-config/tlmgr/
 
 # Setting non-persistent downloads for tlmgr
 # Source: https://darrengoossens.wordpress.com/2016/07/03/a-further-little-trick-with-tlmgr-trouble-downloading-and-unzipping/
@@ -74,7 +74,7 @@ was
 # Keep no backups (not required, simply makes cache bigger)
 sudo tlmgr option -- autobackup 0
 
-cat /usr/local/texlive/2018basic/texmf-dist/web2c/updmap.cfg
+cat /usr/local/texlive/2019basic/texmf-dist/web2c/updmap.cfg
 
 # Update the TL install but add nothing new
 sudo tlmgr update --self --all --no-auto-install

@@ -33,6 +33,7 @@
 
 using namespace std;
 using namespace scythe;
+using namespace sambada;
 
 
 void RegressionLogistique::calculePonderation() CPPTHROW(Erreur)
@@ -2098,7 +2099,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 }
 
 
-void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues, resModele& resultat)
+void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues, Modele& resultat)
 {
 	cout << "%" << numMarq << endl;
 	int nbVarCont(varContinues.size());
@@ -2213,9 +2214,9 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 							if (pointsGWR.masque(voisinCourant->first, 0))
 							{
 								pointsGWR.poids[i].push_back(make_pair(voisinCourant->first, 1));
-								++voisinCourant;
 								++nbVoisinsCourants;
 							}
+							++voisinCourant;
 						}
 						// On cherche si des points sont à la même distance que le dernier
 						voisinSuivant = voisinCourant + 1;
@@ -2311,9 +2312,10 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 		// Test de convergence
 		bool continueCalcul(true), singularMatrix(false), divergentCalculation(false);
 		int nbIterations(0), typeErreur(0);
+		int limiteIterGWR(40);
 
 		// Iteration
-		while (continueCalcul && !singularMatrix && !divergentCalculation && (nbIterations < limiteIter))
+		while (continueCalcul && !singularMatrix && !divergentCalculation && (nbIterations < limiteIterGWR))
 		{
 			cout << "%" << i << " " << nbIterations << " " << sum(nouv_Xb_l(0, 0, limiteLignes, 0)) << " " << (J_info_l)[2, 2] << " " << beta_hat_l << endl;
 			// Calcul pi
@@ -2384,7 +2386,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 					}
 					catch (scythe_exception& error)
 					{
-						//cerr << error.message() << "\n";
+						// cerr << error.message() << "\n";
 						singularMatrix = true;
 						continueCalcul = false;
 						typeErreur = 2;
@@ -2445,7 +2447,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 				//}
 			}
 		}
-		if (nbIterations == limiteIter)
+		if (nbIterations == limiteIterGWR)
 		{
 			typeErreur = 4;
 		}

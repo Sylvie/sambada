@@ -23,6 +23,11 @@ include_directories(ext/scythestat-1.0.3/scythestat)
 include_directories(ext/scythestat-1.0.3/scythestat/rng)
 include_directories(ext/shapelib-1.3.0)
 include_directories(src)
+include_directories(src/common)
+include_directories(src/common/maths)
+include_directories(src/histograms)
+include_directories(src/modeles)
+include_directories(src/variables)
 include_directories(test)
 include_directories(test/utils)
 include_directories(test/integration/utils)
@@ -45,9 +50,91 @@ add_library(intermediate
         src/Erreur.hpp
         )
 
+set_target_properties(shp
+        intermediate
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/"
+        )
+
+add_library(variables
+        src/common/TypesCommuns.hpp
+        src/variables/CombinaisonVariables.hpp
+        src/variables/CombinaisonVariables.cpp
+        src/variables/FamilleVariablesFactory.hpp
+        src/variables/FamilleVariablesFactory.cpp
+        src/variables/EtiquetteCombinaisonVariables.cpp
+        src/variables/EtiquetteCombinaisonVariables.hpp
+        )
+
+set_target_properties(variables
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/variables/"
+        )
+
+add_library(histograms
+        src/histograms/Histogram.hpp
+        src/histograms/Histogram.cpp
+        src/histograms/GroupHistograms.cpp
+        src/histograms/GroupHistograms.hpp
+        src/histograms/StoreyHistograms.cpp
+        src/histograms/StoreyHistograms.hpp
+        src/histograms/StoreyHistogramsStreamWriter.cpp
+        src/histograms/StoreyHistogramsStreamWriter.hpp
+        )
+
+set_target_properties(histograms
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/histograms/"
+        )
+
+add_library(maths
+        src/common/maths/Matrices.hpp
+        src/common/maths/Probability.hpp
+        src/common/maths/Probability.cpp
+        )
+
+set_target_properties(maths
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/common/maths/"
+        )
+
+add_library(segmentation
+        src/common/segmentation/Tokenizer.hpp
+        src/common/segmentation/Tokenizer.cpp
+        )
+
+set_target_properties(segmentation
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/common/segmentation/"
+        )
+
+add_library(modeles
+        src/modeles/Modele.hpp
+        src/modeles/Modele.cpp
+        src/modeles/scriptorium/Archiviste.hpp
+        src/modeles/scriptorium/Archiviste.cpp
+        src/modeles/scriptorium/scribe/FlotSortieFactory.hpp
+        src/modeles/scriptorium/scribe/FlotSortieFichierFactory.cpp
+        src/modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp
+        src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp
+        src/modeles/scriptorium/scribe/FlotSortieChaineFactory.hpp
+        src/modeles/scriptorium/scribe/Scribe.hpp
+        src/modeles/scriptorium/scribe/Scribe.cpp
+        src/modeles/scriptorium/lecteur/FlotEntreeFactory.hpp
+        src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp
+        src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.hpp
+        src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp
+        src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.hpp
+        src/modeles/scriptorium/lecteur/Lecteur.cpp
+        src/modeles/scriptorium/lecteur/Lecteur.hpp
+        )
+
+set_target_properties(modeles
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/modeles/"
+        )
+
 add_executable(sambada
-        src/Archiviste.cpp
-        src/Archiviste.hpp
         src/Chronometre.cpp
         src/Chronometre.hpp
         src/Duree.cpp
@@ -66,17 +153,22 @@ add_executable(sambada
         src/Supervision.hpp
         src/LecteurCheminAcces.cpp
         src/LecteurCheminAcces.hpp
+        src/common/maths/Matrices.hpp
+        src/common/TypesCommuns.hpp
         )
 
 target_link_libraries(sambada
         PRIVATE
         shp
         intermediate
+        variables
+        histograms
+        maths
+        modeles
+        segmentation
         )
 
 add_executable(supervision
-        src/Archiviste.cpp
-        src/Archiviste.hpp
         src/mainSupervision.cpp
         src/RegressionLogistique.hpp
         src/Supervision.cpp
@@ -88,6 +180,8 @@ add_executable(supervision
 target_link_libraries(supervision
         PRIVATE
         intermediate
+        segmentation
+        modeles
         )
 
 add_executable(recode-plink
@@ -139,6 +233,8 @@ set(TestUtils
         test/utils/SambadaSpatialAutocorrelationResults.cpp
         test/utils/SambadaStoreyHistogram.hpp
         test/utils/SambadaStoreyHistogram.cpp
+        test/utils/SambadaStoreyHistogramMapper.hpp
+        test/utils/SambadaStoreyHistogramMapper.cpp
         )
 
 set(IntegrationTestUtils
@@ -171,6 +267,20 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/populationStructureAsFirstVariablesQuadrivariateModelsIntTests.cpp
         test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/populationStructureAsLastVariablesQuadrivariateModelsIntTests.cpp
         test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationIntTests.cpp
+        test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationMissingValuesCartesianBisquareIntTests.cpp
+        test/integration/sambada/basicSpatialAutocorrelationIntTests/basicSpatialAutocorrelationMissingValuesCartesianNearestIntTests.cpp
+        test/integration/sambada/flotFactoriesIntTests/flotEntreeFichierFactoryIntTests.cpp
+        test/integration/sambada/flotFactoriesIntTests/flotSortieFichierFactoryIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianBisquareIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianDistanceIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianGaussianIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRCartesianNearestIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRMissingValuesCartesianGaussianIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRMissingValuesCartesianNearestIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalBisquareIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalDistanceIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalGaussianIntTests.cpp
+        test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalNearestIntTests.cpp
         test/integration/sambada/modelSelectionSavetypeBestIntTests/modelSelectionSavetypeAllIntTests.cpp
         test/integration/sambada/modelSelectionSavetypeBestIntTests/modelSelectionSavetypeBestIntTests.cpp
         test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesIntTests.cpp
@@ -230,7 +340,8 @@ set_target_properties(SambadaIntegrationTests
 
 add_dependencies(SambadaIntegrationTests sambada)
 
-target_link_libraries(SambadaIntegrationTests -lstdc++fs)
+target_link_libraries(SambadaIntegrationTests -lstdc++fs
+        modeles)
 
 file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/"
@@ -239,6 +350,8 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/trivariateModelsReal/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicPopulationStructureIntTests/quadrivariateModels/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/basicSpatialAutocorrelationIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/flotFactoriesIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/modelSelectionSavetypeBestIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noExtensionsToFilenamesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noNewLinesEndOfFilesIntTests/"
@@ -276,6 +389,28 @@ add_executable(SambadaUnitTests
         src/LecteurCheminAcces.hpp
         src/LecteurCheminAcces.cpp
         ${TestUtils}
+        test/unit/sambada/common/maths/ProbabilityTests.cpp
+        test/unit/sambada/common/segmentation/TokenizerTests.cpp
+        test/unit/sambada/modeles/ModeleTests.cpp
+        test/unit/sambada/modeles/scriptorium/scribe/FlotSortieChaineFactoryTests.cpp
+        test/unit/sambada/modeles/scriptorium/scribe/ScribeTests.cpp
+        test/unit/sambada/modeles/scriptorium/lecteur/FlotEntreeChaineFactoryTests.cpp
+        test/unit/sambada/modeles/scriptorium/lecteur/LecteurTests.cpp
+        test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
+        test/unit/sambada/histograms/HistogramTests.cpp
+        test/unit/sambada/histograms/GroupHistogramsTests.cpp
+        test/unit/sambada/histograms/StoreyHistogramsTests.cpp
+        test/unit/sambada/histograms/StoreyHistogramsStreamWriterTests.cpp
+        test/unit/sambada/histograms/StoreyHistogramsStreamWriterTests.cpp
+        )
+
+target_link_libraries(SambadaUnitTests
+        PRIVATE
+        maths
+        variables
+        histograms
+        modeles
+        segmentation
         )
 
 add_executable(SupervisionIntegrationTests
@@ -297,7 +432,7 @@ set_target_properties(SupervisionIntegrationTests
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/integration/supervision/"
         )
 
-add_dependencies(SupervisionIntegrationTests sambada)
+add_dependencies(SupervisionIntegrationTests sambada supervision)
 
 target_link_libraries(SupervisionIntegrationTests -lstdc++fs)
 

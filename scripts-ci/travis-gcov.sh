@@ -12,10 +12,31 @@ ${GCOV} -r ../src/RegressionLogistique.cpp -o src/binaries_sambada-RegressionLog
 ${GCOV} -r ../src/RegressionLogistique.cpp -o src/binaries_sambada-RegressionLogistique-io.o
 ${GCOV} -r ../src/RegressionLogistique.cpp -o src/binaries_sambada-RegressionLogistique-as.o
 ${GCOV} -r ../src/mainSambada.cpp -o src/binaries_sambada-mainSambada.o
-${GCOV} -r ../src/Erreur.cpp -o src/libintermediate_a-Erreur.o
-${GCOV} -r ../src/RegressionLogistique-bienvenue.cpp -o src/libintermediate_a-RegressionLogistique-bienvenue.o
-${GCOV} -r ../src/Toolbox.cpp -o src/libintermediate_a-Toolbox.o
+${GCOV} -r ../src/Erreur.cpp -o src/src_libintermediate_a-Erreur.o
+${GCOV} -r ../src/RegressionLogistique-bienvenue.cpp -o src/src_libintermediate_a-RegressionLogistique-bienvenue.o
+${GCOV} -r ../src/Toolbox.cpp -o src/src_libintermediate_a-Toolbox.o
 ${GCOV} -r ../src/mainSupervision.cpp -o src/binaries_supervision-mainSupervision.o
 ${GCOV} -r ../src/Supervision.cpp -o src/binaries_supervision-Supervision.o
 ${GCOV} -r ../src/recodePlink.cpp -o src/binaries_recode_plink-recodePlink.o
 ${GCOV} -r ../src/recodeLFMM.cpp -o src/binaries_recode_plink_lfmm-recodeLFMM.o
+
+${GCOV} -r ../src/histograms/Histogram.cpp -o src/histograms/Histogram.o
+${GCOV} -r ../src/histograms/GroupHistograms.cpp -o src/histograms/GroupHistograms.o
+${GCOV} -r ../src/histograms/StoreyHistograms.cpp -o src/histograms/StoreyHistograms.o
+${GCOV} -r ../src/histograms/StoreyHistogramsStreamWriter.cpp -o src/histograms/StoreyHistogramsStreamWriter.o
+
+${GCOV} -r ../src/modeles/Modele.cpp -o src/modeles/Modele.o
+${GCOV} -r ../src/modeles/scriptorium/Archiviste.cpp -o src/modeles/scriptorium/Archiviste.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp -o src/modeles/scriptorium/scribe/FlotSortieChaineFactory.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieFichierFactory.cpp -o src/modeles/scriptorium/scribe/FlotSortieFichierFactory.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/Scribe.cpp -o src/modeles/scriptorium/scribe/Scribe.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/Lecteur.cpp -o src/modeles/scriptorium/lecteur/Lecteur.o
+
+${GCOV} -r ../src/common/maths/Probability.cpp -o src/common/maths/src_common_maths_libmaths_a-Probability.o
+${GCOV} -r ../src/common/segmentation/Tokenizer.cpp -o src/common/segmentation/src_common_segmentation_libsegmentation_a-Tokenizer.o
+
+${GCOV} -r ../src/variables/EtiquetteCombinaisonVariables.cpp -o src/variables/src_variables_libvariables_a-EtiquetteCombinaisonVariables.o
+${GCOV} -r ../src/variables/CombinaisonVariables.cpp -o src/variables/src_variables_libvariables_a-CombinaisonVariables.o
+${GCOV} -r ../src/variables/FamilleVariablesFactory.cpp -o src/variables/src_variables_libvariables_a-FamilleVariablesFactory.o

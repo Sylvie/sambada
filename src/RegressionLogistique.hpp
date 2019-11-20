@@ -32,19 +32,19 @@
 #include "matrix.h"
 #include "Erreur.hpp"
 #include "Toolbox.hpp"
-#include "Archiviste.hpp"
 #include "Journal.hpp"
-
+#include "histograms/StoreyHistograms.hpp"
+#include "modeles/Modele.hpp"
+#include "modeles/scriptorium/scribe/Scribe.hpp"
+#include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
+#include "variables/CombinaisonVariables.hpp"
 
 #include <set>
 #include <map>
+#include <memory>
 
 using namespace std;
 using namespace scythe;
-
-typedef pair<int, set<int> > etiquetteModele;
-typedef pair<etiquetteModele, vector<reel> > resModele;
-typedef map<etiquetteModele, vector<reel> > groupeResultats;
 
 typedef pair<int, reel> Voisin;
 typedef vector<vector<Voisin> > TableClassementsVoisins;
@@ -102,7 +102,7 @@ public:
 
 	int creeModelesGlobaux();
 
-	void ecritResultat(int numFichier, const resModele& r) const;
+	void ecritResultat(int numFichier, const sambada::Modele& r) const;
 
 	void ecritMessage(const string& s, bool nouvLigne = true);
 
@@ -118,11 +118,11 @@ protected:
 	//void generePartitions();
 	void construitModele(int numMarq, const set<int>& varContinues); //, const reel loglike_zero, reel& loglike_courante);
 	//	void calculeStats(reel loglikeCourante, reel loglikeZero, int nbParamEstimes, vector<double>& statsCourantes, vector<double>& pseudosRcarresCourants);
-	bool calculeStats(resModele& resultat, int nbParamEstimes);
+	bool calculeStats(sambada::Modele& resultat, int nbParamEstimes);
 
 	int calculeRegression(reel& loglikeCourante, reel& indiceEfron);
 
-	void calculeGWR(int numMarq, const set<int>& varContinues, resModele& resultat);
+	void calculeGWR(int numMarq, const set<int>& varContinues, sambada::Modele& resultat);
 
 	void calculePonderation() CPPTHROW(Erreur);
 
@@ -159,20 +159,6 @@ private:
 		bool miseAJour();
 	} Domaine;
 
-	// Définition des caractéristiques nécessaires au calcul de la FDR selon Storey
-	typedef struct
-	{
-		int nbPvalStorey;
-		vector<int> nbModelesValides;
-
-		vector<reel> pval;
-		vector<reel> seuilScore;
-
-		vector<vector<int>> compteurG, compteurGOrphelins, compteurGPop;
-		vector<vector<int>> compteurWald, compteurWaldOrphelins, compteurWaldPop;
-
-		reel scoreMin;
-	} donneesFDR;
 
 protected:
 
@@ -201,13 +187,19 @@ protected:
 	//	MatriceReels masqueX, masque; // masqueX est le masque complet pour toutes les variables environnementales
 	//	MatriceBools masqueY; // masqueX est le masque complet pour toutes les variables environnementales
 
+private:
+	sambada::FamilleVariables familleVariables;
 
+protected:
 	MatriceReels X, Y,
 			beta_hat, nouv_beta_hat, diff_beta_hat,
 			scores, J_info, inv_J_info,
 			Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
 
-	vector<groupeResultats> resultats;
+private:
+	sambada::FamilleModeles resultats;
+
+protected:
 	bool sauvegardeTempsReel;
 	typeSelectionModeles selModeles;
 	pair<string, string> nomFichierResultats;
@@ -221,8 +213,11 @@ protected:
 	const int limiteIter, limiteEcartType, nbStats, nbStatsAvecPop, nbStatsSansPseudos, nbPseudosRcarres, tailleEtiquetteInvar;
 	int nbModelesParMarqueur;
 
+private:
 	// Paramètres FDR selon Storey
-	donneesFDR storey;
+	std::unique_ptr<sambada::StoreyHistograms> storey;
+
+protected:
 	bool calculeStorey;
 	bool appliqueSeuilScoreStorey;
 	reel seuilScoreStorey;
@@ -248,11 +243,14 @@ protected:
 			scores_l, J_info_l, inv_J_info_l,
 			Xb_l, nouv_Xb_l, exp_Xb_l, pi_hat_l, interm_l, intermScores_l, hat_matrix_l;
 
+private:
 	// Flots d'écriture des résultats
-	Scribe sortie;
+	sambada::FlotSortieFichierFactory flotSortieFichierFactory;
+	sambada::Scribe sortie;
 	string delimLignes; // caractère de retour ligne
 	char delimMots; // caractère de séparation entre mots
 
+protected:
 	// Journal d'exécution
 	Journal journal;
 	// Journal des modèles divergents
@@ -269,11 +267,11 @@ private :
 
 	RegressionLogistique(const RegressionLogistique& lr);
 
-	void affiche(const etiquetteModele& label);
+	void affiche(const sambada::EtiquetteModele& label);
 
-	void affiche(const resModele& res);
+	void affiche(const sambada::Modele& res);
 
-	void affiche(const groupeResultats::iterator res);
+	void affiche(const sambada::GenerationModeles::iterator res);
 
 
 	//	bool plusPetitQue(const groupeResultats::value_type* const &  r1, const groupeResultats::value_type* const &  r2);
@@ -340,9 +338,9 @@ public:
 
 	static void setCase(int i);
 
-	static bool plusPetitQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2);
+	static bool plusPetitQue(const sambada::GenerationModeles::value_type *const& r1, const sambada::GenerationModeles::value_type *const& r2);
 
-	static bool plusGrandQue(const groupeResultats::value_type *const& r1, const groupeResultats::value_type *const& r2);
+	static bool plusGrandQue(const sambada::GenerationModeles::value_type *const& r1, const sambada::GenerationModeles::value_type *const& r2);
 
 protected:
 	static int caseComparaisonResultats;

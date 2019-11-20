@@ -37,8 +37,6 @@ binaries_sambada_SOURCES = src/mainSambada.cpp \
 	src/RegressionLogistique-as.cpp \
 	src/RegressionLogistique.hpp \
 	src/Toolbox.hpp \
-	src/Archiviste.cpp \
-	src/Archiviste.hpp \
 	src/Erreur.hpp \
 	src/Journal.cpp \
 	src/Journal.hpp \
@@ -54,58 +52,77 @@ binaries_sambada_SOURCES = src/mainSambada.cpp \
     src/LecteurCheminAcces.hpp
 binaries_sambada_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
 	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
-	-I $(top_srcdir)/ext/shapelib-1.3.0
+	-I $(top_srcdir)/ext/shapelib-1.3.0 \
+	-I $(top_srcdir)/src
 binaries_sambada_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_sambada_LDADD = libshp.a libintermediate.a
+binaries_sambada_LDADD = \
+	src/libshp.a \
+	src/libintermediate.a \
+	src/histograms/libhistograms.a \
+	src/modeles/libmodeles.a \
+	src/variables/libvariables.a \
+	src/common/maths/libmaths.a
 
 binaries_supervision_SOURCES = src/mainSupervision.cpp \
 	src/Supervision.cpp \
 	src/Supervision.hpp \
 	src/RegressionLogistique.hpp \
 	src/Toolbox.hpp \
-	src/Archiviste.cpp \
-	src/Archiviste.hpp \
 	src/Erreur.hpp
 binaries_supervision_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
-	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
+	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
+	-I $(top_srcdir)/src
+
 binaries_supervision_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_supervision_LDADD = libintermediate.a
+binaries_supervision_LDADD = \
+	src/libintermediate.a \
+	src/modeles/libmodeles.a \
+	src/common/segmentation/libsegmentation.a
 
 binaries_recode_plink_SOURCES = src/recodePlink.cpp \
 	src/RegressionLogistique.hpp \
 	src/Toolbox.hpp \
 	src/Erreur.hpp
 binaries_recode_plink_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
-	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
+	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
+	-I $(top_srcdir)/src
 binaries_recode_plink_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_recode_plink_LDADD = libintermediate.a
+binaries_recode_plink_LDADD = src/libintermediate.a
 
 binaries_recode_plink_lfmm_SOURCES = src/recodeLFMM.cpp \
 	src/RegressionLogistique.hpp \
 	src/Toolbox.hpp \
 	src/Erreur.hpp
 binaries_recode_plink_lfmm_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
-	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
+	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
+	-I $(top_srcdir)/src
+
 binaries_recode_plink_lfmm_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
-binaries_recode_plink_lfmm_LDADD = libintermediate.a
+binaries_recode_plink_lfmm_LDADD = src/libintermediate.a
 
-noinst_LIBRARIES += libshp.a libintermediate.a
+noinst_LIBRARIES += src/libshp.a src/libintermediate.a
 
-libintermediate_a_SOURCES = src/RegressionLogistique-bienvenue.cpp \
+src_libintermediate_a_SOURCES = src/RegressionLogistique-bienvenue.cpp \
 	src/RegressionLogistique.hpp \
 	src/Toolbox.cpp \
 	src/Toolbox.hpp \
 	src/Erreur.cpp \
 	src/Erreur.hpp
-libintermediate_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
-	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
-libintermediate_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
+src_libintermediate_a_CPPFLAGS = -I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
+	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng \
+	-I $(top_srcdir)/src
+src_libintermediate_a_CXXFLAGS = -D SCYTHE_COMPILE_DIRECT
 
-libshp_a_SOURCES = ext/shapelib-1.3.0/shpopen.c \
+src_libshp_a_SOURCES = ext/shapelib-1.3.0/shpopen.c \
 	ext/shapelib-1.3.0/dbfopen.c \
 	ext/shapelib-1.3.0/safileio.c \
 	ext/shapelib-1.3.0/shptree.c \
 	ext/shapelib-1.3.0/shapefil.h
+
+include src/common/Makefile.mk
+include src/histograms/Makefile.mk
+include src/modeles/Makefile.mk
+include src/variables/Makefile.mk
 
 ## Building archive ##
 archive_binaries_basename = $(archive_basename)/binaries
@@ -117,6 +134,6 @@ binary-archive-local-binaries: $(sambada_binaries) create-archive-binaries-folde
 	cp $(sambada_binaries) $(archive_binaries_basename)
 
 ## Cleaning ##
-clean-local-src:
+clean-local-src: clean-local-src-common clean-local-src-histograms clean-local-src-modeles clean-local-src-variables
 	$(call clean_extra_generated_files, src/)
 	$(call clean_extra_generated_files, binaries/)

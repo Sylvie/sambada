@@ -29,6 +29,8 @@
 
 #include "RegressionLogistique.hpp"
 #include "LecteurCheminAcces.hpp"
+#include "variables/FamilleVariablesFactory.hpp"
+
 #include "optimize.h"
 #include <limits>
 #include <list>
@@ -36,6 +38,7 @@
 
 using namespace std;
 using namespace scythe;
+using namespace sambada;
 
 int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur)
 {
@@ -99,7 +102,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	{
 		erreurDetectee("MSG_errEndLineInParamFile", "Error while reading parameters, none end-of-line found. Files must use Windows, Unix or classic Mac end-of-lines.");
 	}
-	sortie.setRetourLigne(delimLignes);
 	journal.setDelimLignes(delimLignes);
 	modelesDivergents.setDelimMots(delimLignes);
 	lectureParametres(entree, indexParam, listeParam);
@@ -195,7 +197,6 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			delimMots = (paramCourant->contents)[0][1];
 		}
 	}
-	sortie.setDelimMots(delimMots);
 	journal.setDelimMots(&delimMots);
 	modelesDivergents.setDelimMots(&delimMots);
 	++paramCourant;
@@ -1592,23 +1593,25 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 
 	}
 
+	sambada::FamilleVariablesFactory familleVariablesFactory;
+	familleVariables = familleVariablesFactory.genereFamille(nbEnvActives, dimensionMax, masqueX);
 
 	return 0;
 }
 
 
-void RegressionLogistique::ecritResultat(int numFichier, const resModele& r) const
+void RegressionLogistique::ecritResultat(int numFichier, const Modele& r) const
 {
 	//On écrit les numéros/noms globaux des marqueurs
 	// Le décalage du numéro de marqueur dans les jobs multiples a déjà été pris en compte
 
-	if (structurePop == pasStructurePop ||   r.first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(r.first.second))
+	if (structurePop == pasStructurePop ||   r.first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(r.first.environnement))
 	{
 		// No de marqueur
-		sortie.ecriture(numFichier, specDataMarq[marqActifs.at(r.first.first)].name, false);
+		sortie.ecriture(numFichier, specDataMarq[marqActifs.at(r.first.marqueur)].name, false);
 
 		// Liste des variables
-		for (set<int>::iterator i(r.first.second.begin()); i != r.first.second.end(); ++i)
+		for (set<int>::iterator i(r.first.environnement.begin()); i != r.first.environnement.end(); ++i)
 		{
 			sortie.ecriture(numFichier, specDataEnv[varEnvActives.at(*i)].name, false);
 		}
@@ -1795,17 +1798,17 @@ void RegressionLogistique::messageBienvenue(bool versionLongue)
  return sortie;
  }
  */
-void RegressionLogistique::affiche(const etiquetteModele& label)
+void RegressionLogistique::affiche(const EtiquetteModele& label)
 {
-	cout << label.first << " : ";
-	for (set<int>::iterator i(label.second.begin()); i != label.second.end(); ++i)
+	cout << label.marqueur << " : ";
+	for (set<int>::iterator i(label.environnement.begin()); i != label.environnement.end(); ++i)
 	{
 		cout << *i << " ";
 	}
 	cout << "\n";
 }
 
-void RegressionLogistique::affiche(const resModele& res)
+void RegressionLogistique::affiche(const Modele& res)
 {
 	affiche(res.first);
 	cout << "    ";
@@ -1816,7 +1819,7 @@ void RegressionLogistique::affiche(const resModele& res)
 	cout << "\n";
 }
 
-void RegressionLogistique::affiche(const groupeResultats::iterator res)
+void RegressionLogistique::affiche(const GenerationModeles::iterator res)
 {
 	affiche(res->first);
 	cout << "    (" << res->second.size() << ") " << flush;
@@ -1831,7 +1834,7 @@ void RegressionLogistique::affiche(const groupeResultats::iterator res)
 void RegressionLogistique::trieEtEcritResultats()
 {
 	journal << "Writing results..." << "\n";
-	vector<groupeResultats::value_type *> listeModeles(0);
+	vector<GenerationModeles::value_type *> listeModeles(0);
 	int tailleListe(0);
 	// On ne trie pas les modèles constants
 	// On ne peut pas trier une map! Il faut trier un vecteur
@@ -1849,7 +1852,7 @@ void RegressionLogistique::trieEtEcritResultats()
 			tailleListe = resultats[i].size();
 			listeModeles.resize(tailleListe);
 			int position(0);
-			for (groupeResultats::iterator iter_set(resultats[i].begin()); iter_set != resultats[i].end(); ++iter_set)
+			for (GenerationModeles::iterator iter_set(resultats[i].begin()); iter_set != resultats[i].end(); ++iter_set)
 			{
 				listeModeles[position] = &(*iter_set);
 				++position;
@@ -1871,15 +1874,15 @@ void RegressionLogistique::trieEtEcritResultats()
 				if (listeModeles[j]->second[validiteModele] == 0 || (listeModeles[j]->second[validiteModele] == 6 && selModeles == signif) ||
 				    ((listeModeles[j]->second[validiteModele] == 6 || listeModeles[j]->second[validiteModele] == 7) && selModeles == all))
 				{
-					if (structurePop == pasStructurePop ||   listeModeles[j]->first.second.size() != dimensionMax - 1 || inclutToutesVariablesPop(listeModeles[j]->first.second))
+					if (structurePop == pasStructurePop ||   listeModeles[j]->first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(listeModeles[j]->first.environnement))
 					{
 
 
 						if (!appliqueSeuilScoreStorey ||
 						    (i== 0 ||
-						    i < dimensionMax && (listeModeles[j]->second[Gscore] >= storey.scoreMin || listeModeles[j]->second[WaldScore] >= storey.scoreMin)) ||
-						    i == dimensionMax && structurePop != pasStructurePop && (listeModeles[j]->second[GscorePop] >= storey.scoreMin || listeModeles[j]->second[WaldScorePop] >= storey.scoreMin) ||
-						    i == dimensionMax && structurePop == pasStructurePop && (listeModeles[j]->second[Gscore] >= storey.scoreMin || listeModeles[j]->second[WaldScore] >= storey.scoreMin)
+						    i < dimensionMax && (listeModeles[j]->second[Gscore] >= seuilScoreStorey || listeModeles[j]->second[WaldScore] >= seuilScoreStorey)) ||
+						    i == dimensionMax && structurePop != pasStructurePop && (listeModeles[j]->second[GscorePop] >= seuilScoreStorey || listeModeles[j]->second[WaldScorePop] >= seuilScoreStorey) ||
+						    i == dimensionMax && structurePop == pasStructurePop && (listeModeles[j]->second[Gscore] >= seuilScoreStorey || listeModeles[j]->second[WaldScore] >= seuilScoreStorey)
 								)
 						{
 
@@ -1887,10 +1890,10 @@ void RegressionLogistique::trieEtEcritResultats()
 
 
 							// No de marqueur
-							sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.first)].name, false);
+							sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.marqueur)].name, false);
 
 							// Liste des variables
-							for (set<int>::iterator iter(listeModeles[j]->first.second.begin()); iter != listeModeles[j]->first.second.end(); ++iter)
+							for (set<int>::iterator iter(listeModeles[j]->first.environnement.begin()); iter != listeModeles[j]->first.environnement.end(); ++iter)
 							{
 								sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
 							}

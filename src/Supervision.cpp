@@ -27,16 +27,23 @@
 
 
 #include "Supervision.hpp"
-#include "Toolbox.hpp"
 #include "Erreur.hpp"
+#include "Toolbox.hpp"
+#include "modeles/scriptorium/lecteur/FlotEntreeFichierFactory.hpp"
+#include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
+
 #include <ctime>
 #include <algorithm>
 #include <map>
 #include <string>
+#include <memory>
 
 using namespace std;
 
 Supervision::Supervision()
+:flotEntreeFactory(std::unique_ptr<sambada::FlotEntreeFactory>(new sambada::FlotEntreeFichierFactory())),
+flotSortieFactory(std::unique_ptr<sambada::FlotSortieFichierFactory>(new sambada::FlotSortieFichierFactory())),
+entree(*flotEntreeFactory), sortie(*flotSortieFactory)
 {}
 
 Supervision::~Supervision()
@@ -46,13 +53,7 @@ void Supervision::preparationsCalculs(const string& nomFichier)
 {
 	time_t temps_start(time(NULL));
 
-	sortie.setRetourLigne(&ParametresCluster::retourLigne[0]);
-	entree.setRetourLigne(&ParametresCluster::retourLigne[0]);
-
-	sortie.setDelimMots(' ');
-	entree.setDelimMots(' ');
-
-	cout << "Retour: " << (int) (entree.getRetourLigne()[0]) << endl;
+	cout << "Retour: " << (int) (ParametresCluster::retourLigne[0]) << endl;
 
 	ifstream entreeFichier(nomFichier.c_str());
 	if (entreeFichier.fail())
@@ -295,8 +296,7 @@ void Supervision::preparationsCalculs(const string& nomFichier)
 		nomsFichiers.push_back(nomRep + nomFichierEnv.first + nomFichierEnv.second);
 	}
 
-	sortie.initialise(nomsFichiers);
-	sortie.ouverture();
+	sortie.initialise(nomsFichiers, ParametresCluster::retourLigne, ' ', ParametresCluster::precisionFlots);
 
 	// Début de la copie
 	vector<string> ligne(nbCols, "");
@@ -378,7 +378,6 @@ void Supervision::preparationsCalculs(const string& nomFichier)
 	}
 
 	entreeFichier.close();
-	sortie.fermeture();
 
 	time_t temps_stop(time(NULL));
 
@@ -485,12 +484,6 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 
 	//	time_t temps_start(time(NULL));
 
-	sortie.setRetourLigne(&ParametresCluster::retourLigne[0]);
-	entree.setRetourLigne(&ParametresCluster::retourLigne[0]);
-
-	sortie.setDelimMots(delimMots);
-	entree.setDelimMots(delimMots);
-
 	nomFichierMarq.first = argv[1];
 
 	// Préparation des flots de sortie
@@ -540,21 +533,20 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 		nomsFichiers[i] = (chemin + nomFichierMarq.first + ParametresCluster::suffixeRes + oss.str() + nomFichierMarq.second);
 	}
 
-	sortie.initialise(nomsFichiers);
-	sortie.ouverture();
+	sortie.initialise(nomsFichiers, ParametresCluster::retourLigne, delimMots, ParametresCluster::precisionFlots);
 
 	// Copie et tri des résultats
 	nomsFichiers.resize(nbBlocs);
 
 	// En-têtes
 	vector<string> entete(0);
-	ListeModeles resultats(0);
-	Modele resCourant;
+	ListeModelesSupervision resultats(0);
+	ModeleSupervision resCourant;
 	//pair<int, reel> indiceCourant;
 	//vector<pair<int,reel> > tableRes(0);
 
 	typedef struct { int a; reel b; } chose;
-	cout << "& " << sizeof(Modele) << " " << sizeof(ListeModeles) << " " << sizeof(int) << " " << sizeof(double) << " " << sizeof(reel) << endl;
+	cout << "& " << sizeof(ModeleSupervision) << " " << sizeof(ListeModelesSupervision) << " " << sizeof(int) << " " << sizeof(double) << " " << sizeof(reel) << endl;
 	//ligneResultat v;
 	//v.first=vector<string> (2,"Abracadabra343Vercingetorix");
 	//v.second=vector<reel>(13, 83.6);
@@ -607,9 +599,9 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 		}
 
 		// Il faut vérifier le type de fin de ligne
+		string tempRetourLigne("");
 		if (i == 0)
 		{
-			string tempRetourLigne("");
 			ifstream monfichier(nomsFichiers[0].c_str());
 			if (monfichier.fail())
 			{
@@ -618,26 +610,20 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 			else
 			{
 				toolbox::chercheRetourLigne(monfichier, tempRetourLigne);
-				sortie.setRetourLigne(tempRetourLigne);
-				entree.setRetourLigne(tempRetourLigne);
 				monfichier.close();
 
 			}
 		}
 
-
-		entree.initialise(nomsFichiers);
+		entree.initialise(nomsFichiers, tempRetourLigne, delimMots, ParametresCluster::precisionFlots);
 		bool etatFlot(true);
-		etatFlot = entree.ouverture();
 		if (!etatFlot)
 		{
 			throw Erreur("Problème lors de l'ouverture des fichiers pour la dimension " + ossDim.str() + ".");
 		}
 		for (int j(0); j < nbBlocs; ++j)
 		{
-
-
-			entree.lecture(j, entete, delimMots);
+			entree.lecture(j, entete);
 
 			// Pour chaque ligne, il faut lire le nom et les valeurs du modèle séparément
 			if (i == 0)
@@ -645,8 +631,8 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 				// On prend tous les modèles neutres.
 				while (!entree.finFichier(j))
 				{
-					entree.lectureGroupe(j, resCourant.etiquette, tailleNom, delimMots);
-					entree.lecture(j, resCourant.valeurs, delimMots);
+					entree.lectureGroupe(j, resCourant.etiquette, tailleNom);
+					entree.lecture(j, resCourant.valeurs);
 					resultats.push_back(resCourant);
 					//indiceCourant.first=nombreRes;
 					//tableRes.push_back(indiceCourant);
@@ -658,8 +644,8 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 			{
 				while (!entree.finFichier(j))
 				{
-					entree.lectureGroupe(j, resCourant.etiquette, tailleNom, delimMots);
-					entree.lecture(j, resCourant.valeurs, delimMots);
+					entree.lectureGroupe(j, resCourant.etiquette, tailleNom);
+					entree.lecture(j, resCourant.valeurs);
 					codeErreur = toolbox::conversion<int>(resCourant.valeurs[numErreur]);
 
 					//On ne garde que les modèles sans erreurs
@@ -724,14 +710,7 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 		time_t temps_fin_ecriture(time(NULL));
 		cout << "Temps ecriture (dim " << i << "):" << difftime(temps_fin_ecriture, temps_fin_tri) << endl;
 
-
-		entree.fermeture();
-
-
 	}
-
-
-	sortie.fermeture();
 
 	time_t temps_stop(time(NULL));
 
@@ -739,9 +718,6 @@ void Supervision::fusionResultats(int argc, char *argv[]) throw()
 
 
 }
-
-Supervision::Supervision(const Supervision& s)
-{}
 
 /*
  int ComparaisonLignesResultats::caseComparaisonResultats=0;
@@ -802,12 +778,12 @@ ComparaisonModeles::ComparaisonModeles()
 ComparaisonModeles::~ComparaisonModeles()
 {}
 
-bool ComparaisonModeles::plusPetitQue(const Modele& r1, const Modele& r2)
+bool ComparaisonModeles::plusPetitQue(const ModeleSupervision& r1, const ModeleSupervision& r2)
 {
 	return ((r1.scoreTri) < (r2.scoreTri));
 }
 
-bool ComparaisonModeles::plusGrandQue(const Modele& r1, const Modele& r2)
+bool ComparaisonModeles::plusGrandQue(const ModeleSupervision& r1, const ModeleSupervision& r2)
 {
 	return ((r1.scoreTri) > (r2.scoreTri));
 }
