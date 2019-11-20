@@ -37,7 +37,7 @@ namespace sambada::probability {
 
 		if (nombreIterations == limiteIterations)
 		{
-			scoreMajorant == std::numeric_limits<reel>::quiet_NaN();
+			scoreMajorant = std::numeric_limits<reel>::quiet_NaN();
 		}
 
 		return scoreMajorant;
