@@ -1,4 +1,4 @@
-Release 0.8.3 (2019-11-20)
+Release 0.8.3 (2019-11-22)
 Notice:
 - Removed the trailing word separator at the end of each line when writing models.
   This additional separator resulted in an empty column when loading the results in R.
