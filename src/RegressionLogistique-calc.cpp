@@ -82,7 +82,7 @@ int RegressionLogistique::calculeCorrelations() const
 
 	for (int i(0); i < nbPaires; ++i)
 	{
-		cout << specDataEnv[correlations[i][0]].name << "-" << specDataEnv[correlations[i][1]].name << " ";
+		cout << specVarEnv.detailsVariables[correlations[i][0]].name << "-" << specVarEnv.detailsVariables[correlations[i][1]].name << " ";
 	}
 	cout << endl;
 	for (int i(0); i < nbPaires; ++i)

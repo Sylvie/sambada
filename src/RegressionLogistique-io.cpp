@@ -455,19 +455,19 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	// Initialisation des tableaux de spécifications
 	// Le classement des variables actives et passives se fera quand tous les paramètres auront été lus
 	DetailsVariable details = {0, "", true, true, 0};
-	specDataEnv.resize(nbEnv);
+	specVarEnv.detailsVariables.resize(nbEnv);
 	for (int i(0); i < nbEnv; ++i)
 	{
 		details.number = i;
 		details.name = headerEnv[i];
-		specDataEnv[i] = details;
+		specVarEnv.detailsVariables[i] = details;
 	}
-	specDataMarq.resize(nbMarq);
+	specMarq.detailsVariables.resize(nbMarq);
 	for (int i(0); i < nbMarq; ++i)
 	{
 		details.number = i;
 		details.name = headerMarq[i];
-		specDataMarq[i] = details;
+		specMarq.detailsVariables[i] = details;
 	}
 
 
@@ -517,12 +517,12 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 		{
 			erreurDetectee("MSG_errIDcol", "Incorrect definition of ID columns.");
 		}
-		specDataEnv[colIDEnv].isNumeric = false;
-		specDataEnv[colIDEnv].isActive = false;
+		specVarEnv.detailsVariables[colIDEnv].isNumeric = false;
+		specVarEnv.detailsVariables[colIDEnv].isActive = false;
 		if (!uniqueFichierDonnees)
 		{
-			specDataMarq[colIDMarq].isNumeric = false;
-			specDataMarq[colIDMarq].isActive = false;
+			specMarq.detailsVariables[colIDMarq].isNumeric = false;
+			specMarq.detailsVariables[colIDMarq].isActive = false;
 		}
 	}
 	++paramCourant;
@@ -553,8 +553,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 				}
 
 			}
-			specDataEnv[colCourante].isNumeric = false;
-			specDataEnv[colCourante].isActive = false;
+			specVarEnv.detailsVariables[colCourante].isNumeric = false;
+			specVarEnv.detailsVariables[colCourante].isActive = false;
 		}
 	}
 	++paramCourant;
@@ -600,8 +600,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 
 			}
 
-			specDataMarq[colCourante].isNumeric = false;
-			specDataMarq[colCourante].isActive = false;
+			specMarq.detailsVariables[colCourante].isNumeric = false;
+			specMarq.detailsVariables[colCourante].isActive = false;
 		}
 	}
 	++paramCourant;
@@ -643,8 +643,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 		{
 			if (!listeConservation[i])
 			{
-				specDataEnv[i].isNumeric = false;
-				specDataEnv[i].isActive = false;
+				specVarEnv.detailsVariables[i].isNumeric = false;
+				specVarEnv.detailsVariables[i].isActive = false;
 			}
 		}
 
@@ -690,8 +690,8 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 		{
 			if (!listeConservation[i])
 			{
-				specDataMarq[i].isNumeric = false;
-				specDataMarq[i].isActive = false;
+				specMarq.detailsVariables[i].isNumeric = false;
+				specMarq.detailsVariables[i].isActive = false;
 			}
 		}
 
@@ -1024,20 +1024,20 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	int nbPassives(0);
 	for (int i(0); i < nbEnv; ++i)
 	{
-		if (specDataEnv[i].isActive)
+		if (specVarEnv.detailsVariables[i].isActive)
 		{
-			varEnvActives.insert(make_pair(nbEnvActives, i));
-			if (estVariablePop(specDataEnv[i].name))
+			specVarEnv.variablesActives.insert(make_pair(nbEnvActives, i));
+			if (estVariablePop(specVarEnv.detailsVariables[i].name))
 			{
 				variablesPop.insert(nbEnvActives);
 			}
-			specDataEnv[i].localIndex = nbEnvActives; // On peut ainsi connaître la position de la variable dans les sous-tableaux
+			specVarEnv.detailsVariables[i].localIndex = nbEnvActives; // On peut ainsi connaître la position de la variable dans les sous-tableaux
 			++nbEnvActives;
 		}
 		else
 		{
-			varEnvPassives.insert(make_pair(nbPassives, i));
-			specDataEnv[i].localIndex = nbPassives;
+			specVarEnv.variablesPassives.insert(make_pair(nbPassives, i));
+			specVarEnv.detailsVariables[i].localIndex = nbPassives;
 			++nbPassives;
 		}
 
@@ -1047,16 +1047,16 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	nbPassives = 0;
 	for (int i(0); i < nbMarq; ++i)
 	{
-		if (specDataMarq[i].isActive)
+		if (specMarq.detailsVariables[i].isActive)
 		{
-			marqActifs.insert(make_pair(nbMarqActifs, i));
-			specDataMarq[i].localIndex = nbMarqActifs;    // On peut ainsi connaître la position de la variable dans les sous-tableaux
+			specMarq.variablesActives.insert(make_pair(nbMarqActifs, i));
+			specMarq.detailsVariables[i].localIndex = nbMarqActifs;    // On peut ainsi connaître la position de la variable dans les sous-tableaux
 			++nbMarqActifs;
 		}
 		else
 		{
-			marqPassifs.insert(make_pair(nbPassives, i));
-			specDataMarq[i].localIndex = nbPassives;
+			specMarq.variablesPassives.insert(make_pair(nbPassives, i));
+			specMarq.detailsVariables[i].localIndex = nbPassives;
 			++nbPassives;
 		}
 	}
@@ -1196,11 +1196,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			for (int i(0); i < nbEnv; ++i)
 			{
 				// Variable active
-				if (specDataEnv[i].isActive)
+				if (specVarEnv.detailsVariables[i].isActive)
 				{
 					if (caseCourante >= nombreRecuperes || i < lineValidation[caseCourante]) // Cas sans erreur
 					{
-						dataEnv(rows, specDataEnv[i].localIndex) = line[i];
+						dataEnv(rows, specVarEnv.detailsVariables[i].localIndex) = line[i];
 					}
 					else    // Erreur détectée -> on la note dans la ligne de validation
 					{
@@ -1214,7 +1214,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 					// Pour toutes les variables passives, il suffit de copier la valeur lue (un string)
 				else
 				{
-					dataSupEnv(rows, specDataEnv[i].localIndex) = ligneOriginale[i];
+					dataSupEnv(rows, specVarEnv.detailsVariables[i].localIndex) = ligneOriginale[i];
 					// Si la case était illisble, il faut passer à la prochaine case récupérée
 					if ((caseCourante < nombreRecuperes) && (i == lineValidation[caseCourante]))
 					{
@@ -1227,11 +1227,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			for (int i(0); i < nbMarq; ++i)
 			{
 				// Variable active
-				if (specDataMarq[i].isActive)
+				if (specMarq.detailsVariables[i].isActive)
 				{
 					if (caseCourante >= nombreRecuperes || (i + nbEnv) < lineValidation[caseCourante]) // Cas sans erreur
 					{
-						dataMarq(rows, specDataMarq[i].localIndex) = line[i + nbEnv];
+						dataMarq(rows, specMarq.detailsVariables[i].localIndex) = line[i + nbEnv];
 					}
 					else    // Erreur détectée -> on la note dans la ligne de validation
 					{
@@ -1245,7 +1245,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 					// Pour toutes les variables passives, il suffit de copier la valeur lue (un string)
 				else
 				{
-					dataSupMarq(rows, specDataMarq[i].localIndex) = ligneOriginale[i + nbEnv];
+					dataSupMarq(rows, specMarq.detailsVariables[i].localIndex) = ligneOriginale[i + nbEnv];
 					// Si la case était illisble, il faut passer à la prochaine case récupérée
 					if ((caseCourante < nombreRecuperes) && (i == lineValidation[caseCourante]))
 					{
@@ -1282,11 +1282,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			{
 				if (validation[i][j] < nbEnv)
 				{
-					missingValuesEnv[specDataEnv[validation[i][j]].localIndex].insert(i);
+					missingValuesEnv[specVarEnv.detailsVariables[validation[i][j]].localIndex].insert(i);
 				}
 				else
 				{
-					missingValuesMarq[specDataMarq[validation[i][j] - nbEnv].localIndex].insert(i);
+					missingValuesMarq[specMarq.detailsVariables[validation[i][j] - nbEnv].localIndex].insert(i);
 				}
 			}
 		}
@@ -1369,11 +1369,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			for (int i(0); i < nbEnv; ++i)
 			{
 				// Variable active
-				if (specDataEnv[i].isActive)
+				if (specVarEnv.detailsVariables[i].isActive)
 				{
 					if (caseCourante >= nombreRecuperes || i < lineValidation[caseCourante]) // Cas sans erreur
 					{
-						dataEnv(rows, specDataEnv[i].localIndex) = line[i];
+						dataEnv(rows, specVarEnv.detailsVariables[i].localIndex) = line[i];
 					}
 					else    // Erreur détectée -> on la note dans la ligne de validation
 					{
@@ -1387,7 +1387,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 					// Pour toutes les variables passives, il suffit de copier la valeur lue (un string)
 				else
 				{
-					dataSupEnv(rows, specDataEnv[i].localIndex) = ligneOriginale[i];
+					dataSupEnv(rows, specVarEnv.detailsVariables[i].localIndex) = ligneOriginale[i];
 					// Si la case était illisble, il faut passer à la prochaine case récupérée
 					if ((caseCourante < nombreRecuperes) && (i == lineValidation[caseCourante]))
 					{
@@ -1420,7 +1420,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			// Pour chaque ligne de data, validation contient les colonnes manquantes
 			for (int j(0); j < (validation[i].size()); ++j)
 			{
-				missingValuesEnv[specDataEnv[validation[i][j]].localIndex].insert(i);
+				missingValuesEnv[specVarEnv.detailsVariables[validation[i][j]].localIndex].insert(i);
 			}
 		}
 		entree.close();
@@ -1502,11 +1502,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			for (int i(0); i < nbMarq; ++i)
 			{
 				// Variable active
-				if (specDataMarq[i].isActive)
+				if (specMarq.detailsVariables[i].isActive)
 				{
 					if (caseCourante >= nombreRecuperes || i < lineValidation[caseCourante]) // Cas sans erreur
 					{
-						dataMarq(rows, specDataMarq[i].localIndex) = line[i];
+						dataMarq(rows, specMarq.detailsVariables[i].localIndex) = line[i];
 					}
 					else    // Erreur détectée -> on la note dans la ligne de validation
 					{
@@ -1520,7 +1520,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 					// Pour toutes les variables passives, il suffit de copier la valeur lue (un string)
 				else
 				{
-					dataSupMarq(rows, specDataMarq[i].localIndex) = ligneOriginale[i];
+					dataSupMarq(rows, specMarq.detailsVariables[i].localIndex) = ligneOriginale[i];
 					// Si la case était illisble, il faut passer à la prochaine case récupérée
 					if ((caseCourante < nombreRecuperes) && (i == lineValidation[caseCourante]))
 					{
@@ -1556,7 +1556,7 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 			// Pour chaque ligne de data, validation contient les colonnes manquantes
 			for (int j(0); j < (validation[i].size()); ++j)
 			{
-				missingValuesMarq[specDataMarq[validation[i][j]].localIndex].insert(i);
+				missingValuesMarq[specMarq.detailsVariables[validation[i][j]].localIndex].insert(i);
 			}
 		}
 
@@ -1582,11 +1582,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	{
 		for (int i(0); i < nbPoints; ++i)
 		{
-			if (dataSupEnv(i, specDataEnv[colIDEnv].localIndex) != dataSupMarq(i, specDataMarq[colIDMarq].localIndex))
+			if (dataSupEnv(i, specVarEnv.detailsVariables[colIDEnv].localIndex) != dataSupMarq(i, specMarq.detailsVariables[colIDMarq].localIndex))
 			{
 				std::ostringstream oss;
 				oss << "IDs do not match on line " << i << " : "
-				    << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " != " << dataSupMarq(i, specDataMarq[colIDMarq].localIndex);
+				    << dataSupEnv(i, specVarEnv.detailsVariables[colIDEnv].localIndex) << " != " << dataSupMarq(i, specMarq.detailsVariables[colIDMarq].localIndex);
 				erreurDetectee("MSG_unmatchIDs", oss.str());
 			}
 		}
@@ -1608,12 +1608,12 @@ void RegressionLogistique::ecritResultat(int numFichier, const Modele& r) const
 	if (structurePop == pasStructurePop ||   r.first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(r.first.environnement))
 	{
 		// No de marqueur
-		sortie.ecriture(numFichier, specDataMarq[marqActifs.at(r.first.marqueur)].name, false);
+		sortie.ecriture(numFichier, specMarq.detailsVariables[specMarq.variablesActives.at(r.first.marqueur)].name, false);
 
 		// Liste des variables
 		for (set<int>::iterator i(r.first.environnement.begin()); i != r.first.environnement.end(); ++i)
 		{
-			sortie.ecriture(numFichier, specDataEnv[varEnvActives.at(*i)].name, false);
+			sortie.ecriture(numFichier, specVarEnv.detailsVariables[specVarEnv.variablesActives.at(*i)].name, false);
 		}
 		// Résultats
 		sortie.ecriture(numFichier, r.second, true);
@@ -1890,12 +1890,12 @@ void RegressionLogistique::trieEtEcritResultats()
 
 
 							// No de marqueur
-							sortie.ecriture(i, specDataMarq[marqActifs.at(listeModeles[j]->first.marqueur)].name, false);
+							sortie.ecriture(i, specMarq.detailsVariables[specMarq.variablesActives.at(listeModeles[j]->first.marqueur)].name, false);
 
 							// Liste des variables
 							for (set<int>::iterator iter(listeModeles[j]->first.environnement.begin()); iter != listeModeles[j]->first.environnement.end(); ++iter)
 							{
-								sortie.ecriture(i, specDataEnv[varEnvActives.at(*iter)].name, false);
+								sortie.ecriture(i, specVarEnv.detailsVariables[specVarEnv.variablesActives.at(*iter)].name, false);
 							}
 
 							// Résultats

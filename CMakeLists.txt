@@ -64,6 +64,8 @@ add_library(variables
         src/variables/FamilleVariablesFactory.cpp
         src/variables/EtiquetteCombinaisonVariables.cpp
         src/variables/EtiquetteCombinaisonVariables.hpp
+        src/variables/SpecificationsVariables.cpp
+        src/variables/SpecificationsVariables.hpp
         )
 
 set_target_properties(variables

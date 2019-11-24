@@ -38,6 +38,7 @@
 #include "modeles/scriptorium/scribe/Scribe.hpp"
 #include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
 #include "variables/CombinaisonVariables.hpp"
+#include "variables/SpecificationsVariables.hpp"
 
 #include <set>
 #include <map>
@@ -130,21 +131,6 @@ protected:
 private:
 
 	/**
-	 * Définition des spécificités d'une variable
-	 */
-	typedef struct
-	{
-		int number;
-		string name;
-		bool isNumeric;
-		bool isActive;
-		int localIndex;
-	}
-			DetailsVariable;
-
-	typedef vector<DetailsVariable> SpecificationsDonnees;
-
-	/**
 	 * Domaine: sous-ensemble des points muni d'une pondération
 	 */
 	typedef struct
@@ -166,9 +152,12 @@ protected:
 	MatriceBools dataMarq;
 	MatriceStrings dataSupEnv, dataSupMarq;
 	vector<set<int> > missingValuesEnv, missingValuesMarq;
-	SpecificationsDonnees specDataEnv, specDataMarq;
-	// Lien entre l'indice local et le numéro global de la variable.
-	map<int, int> varEnvActives, varEnvPassives, marqActifs, marqPassifs;
+
+private:
+	sambada::SpecificationsVariables specVarEnv;
+	sambada::SpecificationsVariables specMarq;
+
+protected:
 	bool existeColID;
 	int colIDEnv, colIDMarq;
 

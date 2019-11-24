@@ -57,14 +57,14 @@ void RegressionLogistique::calculePonderation() CPPTHROW(Erreur)
 
 		pointsGeo.masque.resize(nbPoints, 1);
 		pointsGeo.masque = true;
-		int indiceLongitude(specDataEnv[longitude].localIndex), indiceLatitude(specDataEnv[latitude].localIndex);
+		int indiceLongitude(specVarEnv.detailsVariables[longitude].localIndex), indiceLatitude(specVarEnv.detailsVariables[latitude].localIndex);
 		istringstream lu;
 		lu.precision(toolbox::precisionLecture);
 		reel valeur(0);
 		string dustbin("");
 
 		// Longitude
-		if (specDataEnv[longitude].isActive) // Cas simple, il suffit de copier les données
+		if (specVarEnv.detailsVariables[longitude].isActive) // Cas simple, il suffit de copier les données
 		{
 			coordonneesBrutes(_, 0) = dataEnv(_, indiceLongitude);
 			masqueCrd(_, 0) = masqueX(_, indiceLongitude);
@@ -92,7 +92,7 @@ void RegressionLogistique::calculePonderation() CPPTHROW(Erreur)
 		}
 
 		// Latitude
-		if (specDataEnv[latitude].isActive) // Cas simple, il suffit de copier les données
+		if (specVarEnv.detailsVariables[latitude].isActive) // Cas simple, il suffit de copier les données
 		{
 			coordonneesBrutes(_, 1) = dataEnv(_, indiceLatitude);
 			masqueCrd(_, 1) = masqueX(_, indiceLatitude);
@@ -393,7 +393,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 		{
 			for (int i(0); i < nbEnvActives; ++i)
 			{
-				indicesShpEnv[i] = DBFAddField(fichierDBF, specDataEnv[varEnvActives[i]].name.c_str(), FTDouble, precision, nbDecimales);
+				indicesShpEnv[i] = DBFAddField(fichierDBF, specVarEnv.detailsVariables[specVarEnv.variablesActives[i]].name.c_str(), FTDouble, precision, nbDecimales);
 			}
 		}
 
@@ -402,7 +402,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 		{
 			for (int i(0); i < nbMarqActifs; ++i)
 			{
-				indicesShpMarq[i] = DBFAddField(fichierDBF, specDataMarq[marqActifs[i]].name.c_str(), FTDouble, precision, nbDecimales);
+				indicesShpMarq[i] = DBFAddField(fichierDBF, specMarq.detailsVariables[specMarq.variablesActives[i]].name.c_str(), FTDouble, precision, nbDecimales);
 			}
 		}
 
@@ -929,7 +929,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 			}
 			for (int j(0); j < nbEnvActives; ++j)
 			{
-				sortieAS << specDataEnv[varEnvActives.at(j)].name << " ";
+				sortieAS << specVarEnv.detailsVariables[specVarEnv.variablesActives.at(j)].name << " ";
 			}
 			sortieAS << delimLignes;
 
@@ -956,7 +956,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 				{
 					if (existeColID)
 					{
-						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+						sortieAS << dataSupEnv(i, specVarEnv.detailsVariables[colIDEnv].localIndex) << " ";
 					}
 					for (int j(0); j < nbEnvActives; ++j)
 					{
@@ -985,7 +985,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 			}
 			for (int j(0); j < nbEnvActives; ++j)
 			{
-				sortieAS << specDataEnv[varEnvActives.at(j)].name << " ";
+				sortieAS << specVarEnv.detailsVariables[specVarEnv.variablesActives.at(j)].name << " ";
 			}
 			sortieAS << delimLignes;
 
@@ -1011,7 +1011,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 				{
 					if (existeColID)
 					{
-						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+						sortieAS << dataSupEnv(i, specVarEnv.detailsVariables[colIDEnv].localIndex) << " ";
 					}
 					for (int j(0); j < nbEnvActives; ++j)
 					{
@@ -1037,7 +1037,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 				// Headers
 				for (int j(0); j < nbEnvActives; ++j)
 				{
-					sortieAS << specDataEnv[varEnvActives.at(j)].name << " ";
+					sortieAS << specVarEnv.detailsVariables[specVarEnv.variablesActives.at(j)].name << " ";
 				}
 				sortieAS << delimLignes;
 
@@ -1292,7 +1292,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 			{
 
 				autocorrGlobale(0, i) = facteurEchelleGlobal * (sum(autocorrLocale(_, i)));
-				cout << specDataMarq[marqActifs[i]].name << " " << moyenne << " " << autocorrGlobale(0, i) << " " << sommeCarresDeviations << "\n";
+				cout << specMarq.detailsVariables[specMarq.variablesActives[i]].name << " " << moyenne << " " << autocorrGlobale(0, i) << " " << sommeCarresDeviations << "\n";
 			}
 
 
@@ -1537,7 +1537,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 			}
 			for (int j(0); j < nbMarqActifs; ++j)
 			{
-				sortieAS << specDataMarq[marqActifs.at(j)].name << " ";
+				sortieAS << specMarq.detailsVariables[specMarq.variablesActives.at(j)].name << " ";
 			}
 			sortieAS << delimLignes;
 
@@ -1565,7 +1565,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 					{
 						// On lit les ID dans la liste des variables environnementales
 						// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs
-						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+						sortieAS << dataSupEnv(i, specVarEnv.detailsVariables[colIDEnv].localIndex) << " ";
 					}
 					for (int j(0); j < nbMarqActifs; ++j)
 					{
@@ -1595,7 +1595,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 			}
 			for (int j(0); j < nbMarqActifs; ++j)
 			{
-				sortieAS << specDataMarq[marqActifs.at(j)].name << " ";
+				sortieAS << specMarq.detailsVariables[specMarq.variablesActives.at(j)].name << " ";
 			}
 			sortieAS << delimLignes;
 
@@ -1622,7 +1622,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 					{
 						// On lit les ID dans la liste des variables environnementales
 						// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs
-						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+						sortieAS << dataSupEnv(i, specVarEnv.detailsVariables[colIDEnv].localIndex) << " ";
 					}
 					for (int j(0); j < nbMarqActifs; ++j)
 					{
@@ -1649,7 +1649,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 				// Headers
 				for (int j(0); j < nbMarqActifs; ++j)
 				{
-					sortieAS << specDataMarq[marqActifs.at(j)].name << " ";
+					sortieAS << specMarq.detailsVariables[specMarq.variablesActives.at(j)].name << " ";
 				}
 				sortieAS << delimLignes;
 
@@ -1689,8 +1689,8 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 				}
 				for (int j(0); j < nbMarqActifs; ++j)
 				{
-					sortieAS << specDataMarq[marqActifs.at(j)].name + "-dev" << " ";
-					sortieAS << specDataMarq[marqActifs.at(j)].name + "-lag" << " ";
+					sortieAS << specMarq.detailsVariables[specMarq.variablesActives.at(j)].name + "-dev" << " ";
+					sortieAS << specMarq.detailsVariables[specMarq.variablesActives.at(j)].name + "-lag" << " ";
 				}
 				sortieAS << delimLignes;
 
@@ -1702,7 +1702,7 @@ int RegressionLogistique::calculeAutocorrelations() CPPTHROW(Erreur)
 					{
 						// On lit les ID dans la liste des variables environnementales
 						// S'il y a un seul fichier de données, l'ID n'est pas disponible parmis les marqueurs
-						sortieAS << dataSupEnv(i, specDataEnv[colIDEnv].localIndex) << " ";
+						sortieAS << dataSupEnv(i, specVarEnv.detailsVariables[colIDEnv].localIndex) << " ";
 					}
 					for (int j(0); j < nbMarqActifs; ++j)
 					{
