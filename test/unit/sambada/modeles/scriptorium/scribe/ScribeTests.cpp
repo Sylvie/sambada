@@ -76,6 +76,34 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		}
 	}
 
+	SECTION("Test that single-item ecriture checks if the stream exists before writing")
+	{
+		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		bool writeResult = true;
+
+		SECTION("... when the stream number is negative")
+		{
+			CHECK_NOTHROW(writeResult = scribe.ecriture(-1, "Some message"));
+		}
+		SECTION("... when the stream number is too large")
+		{
+			CHECK_NOTHROW(writeResult = scribe.ecriture(nombreFlots, "Some message"));
+		}
+		CHECK_FALSE(writeResult);
+
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == "");
+			}
+		}
+	}
+
 	SECTION("Test that single-item ecriture writes in the correct file")
 	{
 		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
@@ -174,6 +202,36 @@ TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]
 		}
 	}
 
+
+	SECTION("Test that vector-item ecriture checks if the stream exists before writing")
+	{
+		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		std::vector<std::string> messages({"Some", "random", "message", "to", "be", "written"});
+
+		bool writeResult = true;
+
+		SECTION("... when the stream number is negative")
+		{
+			CHECK_NOTHROW(writeResult = scribe.ecriture(-1, messages));
+		}
+		SECTION("... when the stream number is too large")
+		{
+			CHECK_NOTHROW(writeResult = scribe.ecriture(nombreFlots, messages));
+		}
+		CHECK_FALSE(writeResult);
+
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+		CHECKED_IF(flots.size() == nombreFlots)
+		{
+			for (int i(0); i < nombreFlots; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				CHECK(stream->str() == "");
+			}
+		}
+	}
 
 	SECTION("Test that vector-item ecriture writes in the correct file")
 	{

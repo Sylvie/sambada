@@ -91,6 +91,27 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 		CHECK_FALSE(lecteur.finFichier(2));
 	}
 
+	SECTION("Test that lecture of strings checks if the stream exists before reading")
+	{
+		factory.setContenusFlotsEntree({"Something", "", "What else?"});
+
+		lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		bool readResult = true;
+		std::vector<std::string> messageLu(0);
+		SECTION("... when the stream number is negative")
+		{
+			CHECK_NOTHROW(readResult = lecteur.lecture(-1, messageLu));
+		}
+		SECTION("... when the stream number is too large")
+		{
+			CHECK_NOTHROW(readResult = lecteur.lecture(-1, messageLu));
+		}
+		CHECK_FALSE(readResult);
+
+		CHECK(messageLu.size() == 0);
+	}
+
 	SECTION("Test that lecture of strings reads from the correct file")
 	{
 		factory.setContenusFlotsEntree({
@@ -194,6 +215,27 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 		}
 	}
 
+
+	SECTION("Test that vector-item lecture checks if the stream exists before reading")
+	{
+		factory.setContenusFlotsEntree({"Something", "", "What else?"});
+
+		lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		bool readResult = true;
+		std::vector<std::string> messageLu(0);
+		SECTION("... when the stream number is negative")
+		{
+			CHECK_NOTHROW(readResult = lecteur.lectureGroupe(-1, messageLu, 1));
+		}
+		SECTION("... when the stream number is too large")
+		{
+			CHECK_NOTHROW(readResult = lecteur.lectureGroupe(-1, messageLu, 1));
+		}
+		CHECK_FALSE(readResult);
+
+		CHECK(messageLu.size() == 0);
+	}
 
 	SECTION("Test that vector-item lecture reads from the correct file")
 	{
