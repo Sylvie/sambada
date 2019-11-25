@@ -28,7 +28,7 @@ namespace sambada {
 	public:
 		explicit Scribe(FlotSortieFactory& factory);
 
-		Scribe(const Scribe&) = delete;
+		Scribe(const Scribe&) = default;
 
 		virtual ~Scribe() = default;
 

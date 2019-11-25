@@ -129,6 +129,8 @@ add_library(modeles
         src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.hpp
         src/modeles/scriptorium/lecteur/Lecteur.cpp
         src/modeles/scriptorium/lecteur/Lecteur.hpp
+        src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.cpp
+        src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp
         )
 
 set_target_properties(modeles
@@ -396,6 +398,7 @@ add_executable(SambadaUnitTests
         test/unit/sambada/modeles/ModeleTests.cpp
         test/unit/sambada/modeles/scriptorium/scribe/FlotSortieChaineFactoryTests.cpp
         test/unit/sambada/modeles/scriptorium/scribe/ScribeTests.cpp
+        test/unit/sambada/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralisesTests.cpp
         test/unit/sambada/modeles/scriptorium/lecteur/FlotEntreeChaineFactoryTests.cpp
         test/unit/sambada/modeles/scriptorium/lecteur/LecteurTests.cpp
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp

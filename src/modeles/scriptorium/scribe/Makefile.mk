@@ -25,7 +25,9 @@ src_modeles_libmodeles_a_SOURCES += \
 	src/modeles/scriptorium/scribe/FlotSortieChaineFactory.hpp \
 	src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp \
 	src/modeles/scriptorium/scribe/Scribe.hpp \
-	src/modeles/scriptorium/scribe/Scribe.cpp
+	src/modeles/scriptorium/scribe/Scribe.cpp \
+	src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp \
+	src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.cpp
 
 
 ## Cleaning ##
