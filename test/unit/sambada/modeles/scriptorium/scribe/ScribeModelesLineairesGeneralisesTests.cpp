@@ -265,4 +265,75 @@ TEST_CASE("Test that ScribeModelesLineairesGeneralises can write models in sever
 	}
 
 
+	SECTION("Test that a model of dimension 2 is written correctly")
+	{
+//ARS-BFGL-NGS-106520_AA longitude pop1 -384.857852389517 59.0316812458271 53.0013412636071 0 0.255065924842735 0.0712300059599299 0.0639901641200908 0.070791833249324 0.110049693905941 775.715704779034 789.784502586571 21.1050478081843 -0.690299103228441 54.6518602528727
+		scribeGLM.initialise(specEnv, specMarq, nomBase, dimensionMax, retourLigne, delimMots, precision);
+
+		std::vector<std::string> expectedEtiquette({"ARS-BFGL-NGS-106520_AA", "longitude", "pop1"});
+		std::vector<sambada::reel> expectedValues({-384.857852389517, 59.0316812458271, 53.0013412636071, 0, 0.255065924842735, 0.0712300059599299, 0.0639901641200908, 0.070791833249324, 0.110049693905941, 775.715704779034, 789.784502586571, 21.1050478081843, -0.690299103228441, 54.6518602528727});
+
+		sambada::EtiquetteModele etiquetteModele;
+		etiquetteModele.marqueur = 0;
+		etiquetteModele.environnement = {0, 4};
+		sambada::Modele modele({etiquetteModele, expectedValues});
+
+		scribeGLM.ecrisModele(modele);
+
+		std::vector<std::vector<std::string>> messagesLus = getMessagesLus(factory, nomFichiersAttendus, delimMots, retourLigne, precision);
+
+		CHECK(messagesLus[0].size() == 0);
+		CHECK(messagesLus[1].size() == 0);
+		CHECK(messagesLus[3].size() == 0);
+
+		CHECKED_IF(messagesLus[2].size() == 17)
+		{
+			CHECK(messagesLus[2][0] == expectedEtiquette[0]);
+			CHECK(messagesLus[2][1] == expectedEtiquette[1]);
+			CHECK(messagesLus[2][2] == expectedEtiquette[2]);
+
+			for (int i(0); i < 14; ++i)
+			{
+				CHECK(std::stold(messagesLus[2][i + 3]) == Approx(expectedValues[i]));
+			}
+		}
+	}
+
+
+	SECTION("Test that a model of dimension 3 is written correctly")
+	{
+//Hapmap28985-BTA-73836_GG latitude tmax10 pop1 -353.343344889023 20.404103668053 20.6665668031513 0 0.240848498029564 0.0280626626715301 0.0170599102338552 0.0250589178683572 0.0421022600403521 714.686689778045 733.445086854761 7.53921009347497 0.632349795811089 -0.0351020724390216 34.5966166921478
+		scribeGLM.initialise(specEnv, specMarq, nomBase, dimensionMax, retourLigne, delimMots, precision);
+
+		std::vector<std::string> expectedEtiquette({"Hapmap28985-BTA-73836_GG", "latitude", "tmax10", "pop1"});
+		std::vector<sambada::reel> expectedValues({-353.343344889023, 20.404103668053, 20.6665668031513, 0, 0.240848498029564, 0.0280626626715301, 0.0170599102338552, 0.0250589178683572, 0.0421022600403521, 714.686689778045, 733.445086854761, 7.53921009347497, 0.632349795811089, -0.0351020724390216, 34.5966166921478});
+
+		sambada::EtiquetteModele etiquetteModele;
+		etiquetteModele.marqueur = 1;
+		etiquetteModele.environnement = {1, 3, 4};
+		sambada::Modele modele({etiquetteModele, expectedValues});
+
+		scribeGLM.ecrisModele(modele);
+
+		std::vector<std::vector<std::string>> messagesLus = getMessagesLus(factory, nomFichiersAttendus, delimMots, retourLigne, precision);
+
+		CHECK(messagesLus[0].size() == 0);
+		CHECK(messagesLus[1].size() == 0);
+		CHECK(messagesLus[2].size() == 0);
+
+		CHECKED_IF(messagesLus[3].size() == 19)
+		{
+			CHECK(messagesLus[3][0] == expectedEtiquette[0]);
+			CHECK(messagesLus[3][1] == expectedEtiquette[1]);
+			CHECK(messagesLus[3][2] == expectedEtiquette[2]);
+			CHECK(messagesLus[3][3] == expectedEtiquette[3]);
+
+			for (int i(0); i < 15; ++i)
+			{
+				CHECK(std::stold(messagesLus[3][i + 4]) == Approx(expectedValues[i]));
+			}
+		}
+	}
+
+
 }
