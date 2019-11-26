@@ -37,4 +37,58 @@ namespace sambada {
 		scribe.initialise(nomsFichiers, chaineRetourLigne, charDelimMots, precisionFlots);
 
 	}
+
+	void ScribeModelesLineairesGeneralises::ecrisEnTetes(bool avecStructurePop)
+	{
+		// Ecriture des noms de colonnes pour s'y repérer
+		std::vector<std::vector<std::string> > names(4);
+		names[0].push_back("Marker");
+		names[0].push_back("Env_");
+		names[0].push_back("Beta_");
+		names[1].push_back("Loglikelihood");
+		names[1].push_back("AverageProb");
+		names[1].push_back("Beta_0");
+		names[1].push_back("NumError");
+		names[2].push_back("Loglikelihood");
+		names[2].push_back("Gscore");
+		names[2].push_back("WaldScore");
+		names[2].push_back("NumError");
+		names[2].push_back("Efron");
+		names[2].push_back("McFadden");
+		names[2].push_back("McFaddenAdj");
+		names[2].push_back("CoxSnell");
+		names[2].push_back("Nagelkerke");
+		names[2].push_back("AIC");
+		names[2].push_back("BIC");
+
+		names[3].push_back("GscorePop");
+		names[3].push_back("WaldScorePop");
+
+		scribe.ecriture(0, names[0][0]);
+		scribe.ecriture(0, names[1], true);
+
+		for (int i(1); i <= dimensionMax; ++i)
+		{
+			scribe.ecriture(i, names[0][0]);
+			for (int j(1); j <= i; ++j)
+			{
+				scribe.ecriture(i, names[0][1] + std::to_string(j));
+			}
+			if (!avecStructurePop || i != dimensionMax)
+			{
+				scribe.ecriture(i, names[2]);
+			}
+			else
+			{
+				scribe.ecriture(i, names[2], false);
+				scribe.ecriture(i, names[3]);
+			}
+			for (int j(0); j < i; ++j)
+			{
+				scribe.ecriture(i, names[0][2] + std::to_string(j));
+			}
+			scribe.ecriture(i, names[0][2] + std::to_string(i), true);
+		}
+	}
+
 }

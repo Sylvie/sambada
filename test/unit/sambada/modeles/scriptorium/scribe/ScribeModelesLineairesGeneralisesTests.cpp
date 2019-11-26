@@ -84,40 +84,64 @@ TEST_CASE("Test that ScribeModelesLineairesGeneralises can write models in sever
 		}
 	}
 
-	/*
-	SECTION("Test that single-item ecriture writes in the correct file")
-	{
-		scribe.initialise(nomsFlots, retourLigne, delimMots, precision);
 
-		std::vector<std::string> messages({
-				                                  "First message in second file",
-				                                  "Second message in first file",
-				                                  "Third message in third file"
-		                                  });
+	SECTION("Test that the file headers are correct without computation of population structure")
+	{
+		scribeGLM.initialise(nomBase, dimensionMax, retourLigne, ',', precision);
 
 		std::vector<std::string> expectedMessages({
-				                                          "Second message in first file ",
-				                                          "First message in second file ",
-				                                          "Third message in third file "
+				                                          "Marker,Loglikelihood,AverageProb,Beta_0,NumError\n",
+				                                          "Marker,Env_1,Loglikelihood,Gscore,WaldScore,NumError,Efron,McFadden,McFaddenAdj,CoxSnell,Nagelkerke,AIC,BIC,Beta_0,Beta_1\n",
+				                                          "Marker,Env_1,Env_2,Loglikelihood,Gscore,WaldScore,NumError,Efron,McFadden,McFaddenAdj,CoxSnell,Nagelkerke,AIC,BIC,Beta_0,Beta_1,Beta_2\n",
+				                                          "Marker,Env_1,Env_2,Env_3,Loglikelihood,Gscore,WaldScore,NumError,Efron,McFadden,McFaddenAdj,CoxSnell,Nagelkerke,AIC,BIC,Beta_0,Beta_1,Beta_2,Beta_3\n"
 		                                          });
 
-		scribe.ecriture(1, messages[0]);
-		scribe.ecriture(0, messages[1]);
-		scribe.ecriture(2, messages[2]);
+		scribeGLM.ecrisEnTetes(false);
 
 		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
 
-		CHECKED_IF(flots.size() == dimensionMax)
+		CHECKED_IF(flots.size() == dimensionMax + 1)
 		{
-			for (int i(0); i < dimensionMax; ++i)
+			for (int i(0); i <= dimensionMax; ++i)
 			{
 				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
 
+				INFO("Dimension: " + std::to_string(i))
 				CHECK(stream->str() == expectedMessages[i]);
 			}
 		}
 	}
 
+
+	SECTION("Test that the file headers are correct with computation of population structure")
+	{
+		scribeGLM.initialise(nomBase, dimensionMax, retourLigne, ',', precision);
+
+		std::vector<std::string> expectedMessages({
+				                                          "Marker,Loglikelihood,AverageProb,Beta_0,NumError\n",
+				                                          "Marker,Env_1,Loglikelihood,Gscore,WaldScore,NumError,Efron,McFadden,McFaddenAdj,CoxSnell,Nagelkerke,AIC,BIC,Beta_0,Beta_1\n",
+				                                          "Marker,Env_1,Env_2,Loglikelihood,Gscore,WaldScore,NumError,Efron,McFadden,McFaddenAdj,CoxSnell,Nagelkerke,AIC,BIC,Beta_0,Beta_1,Beta_2\n",
+				                                          "Marker,Env_1,Env_2,Env_3,Loglikelihood,Gscore,WaldScore,NumError,Efron,McFadden,McFaddenAdj,CoxSnell,Nagelkerke,AIC,BIC,GscorePop,WaldScorePop,Beta_0,Beta_1,Beta_2,Beta_3\n"
+		                                          });
+
+		scribeGLM.ecrisEnTetes(true);
+
+		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+
+		CHECKED_IF(flots.size() == dimensionMax + 1)
+		{
+			for (int i(0); i <= dimensionMax; ++i)
+			{
+				std::ostringstream *stream = static_cast<std::ostringstream *>(flots[i].get());
+
+				INFO("Dimension: " + std::to_string(i))
+				CHECK(stream->str() == expectedMessages[i]);
+			}
+		}
+	}
+
+
+	/*
 	SECTION("Test that single-item ecriture use the correct word delimitor")
 	{
 		scribe.initialise(nomsFlots, retourLigne, '%', precision);
