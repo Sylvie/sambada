@@ -65,6 +65,7 @@ logreq        \
 mdframed	  \
 multirow	  \
 needspace	  \
+pdftexcmds    \
 tracklang     \
 units         \
 xkeyval		  \

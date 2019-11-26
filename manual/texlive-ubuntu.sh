@@ -88,6 +88,7 @@ logreq        \
 mdframed	  \
 multirow	  \
 needspace	  \
+pdftexcmds    \
 pgf           \
 tools         \
 tracklang     \
