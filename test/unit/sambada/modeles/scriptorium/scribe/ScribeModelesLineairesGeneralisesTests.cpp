@@ -25,12 +25,41 @@
 #include "modeles/scriptorium/lecteur/FlotEntreeChaineFactory.hpp"
 #include <string>
 
+
+std::vector<std::vector<std::string> > getMessagesLus(const sambada::FlotSortieChaineFactory& factory, const std::vector<std::string>& nomFichiersAttendus, char delimMots, const std::string& retourLigne, int precision);
+
+std::vector<std::vector<std::string> > getMessagesLus(const sambada::FlotSortieChaineFactory& factory, const std::vector<std::string>& nomFichiersAttendus, char delimMots, const std::string& retourLigne, int precision)
+{
+	int dimensionMax(nomFichiersAttendus.size() - 1);
+
+	std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
+	std::vector<std::string> contenusFlots;
+	for (auto i(flots.begin()); i != flots.end(); ++i)
+	{
+		contenusFlots.push_back(static_cast<std::ostringstream *>(i->get())->str());
+	}
+
+	sambada::FlotEntreeChaineFactory entreeChaineFactory;
+	entreeChaineFactory.setContenusFlotsEntree(contenusFlots);
+	sambada::Lecteur lecteur(entreeChaineFactory);
+	lecteur.initialise(nomFichiersAttendus, retourLigne, delimMots, precision);
+
+	std::vector<std::vector<std::string>> messagesLus(dimensionMax + 1);
+
+	for (int i(0); i <= dimensionMax; ++i)
+	{
+		lecteur.lecture(i, messagesLus[i]);
+	}
+	return messagesLus;
+}
+
 TEST_CASE("Test that ScribeModelesLineairesGeneralises can write models in several output streams", "[scribe-mlg-unit]")
 {
-	//ARS-BFGL-NGS-106520_AA -497.564738070906 0.309701492537313 -0.801515217280957 0
-	//Hapmap28985-BTA-73836_GG bio3 -381.270794045966 160.936242443686 111.211799305358 0 0.212761323380211 0.174271906831096 0.16994045471851 0.181407973822525 0.265635379062047 766.541588091933 775.920786630291 19.9820961881851 -0.263008876258493
-	//ARS-BFGL-NGS-106520_AA longitude pop1 -384.857852389517 59.0316812458271 53.0013412636071 0 0.255065924842735 0.0712300059599299 0.0639901641200908 0.070791833249324 0.110049693905941 775.715704779034 789.784502586571 21.1050478081843 -0.690299103228441 54.6518602528727
-	//Hapmap28985-BTA-73836_GG latitude tmax10 pop1 -353.343344889023 20.404103668053 20.6665668031513 0 0.240848498029564 0.0280626626715301 0.0170599102338552 0.0250589178683572 0.0421022600403521 714.686689778045 733.445086854761 7.53921009347497 0.632349795811089 -0.0351020724390216 34.5966166921478
+
+//ARS-BFGL-NGS-106520_AA -497.564738070906 0.309701492537313 -0.801515217280957 0
+//Hapmap28985-BTA-73836_GG bio3 -381.270794045966 160.936242443686 111.211799305358 0 0.212761323380211 0.174271906831096 0.16994045471851 0.181407973822525 0.265635379062047 766.541588091933 775.920786630291 19.9820961881851 -0.263008876258493
+//ARS-BFGL-NGS-106520_AA longitude pop1 -384.857852389517 59.0316812458271 53.0013412636071 0 0.255065924842735 0.0712300059599299 0.0639901641200908 0.070791833249324 0.110049693905941 775.715704779034 789.784502586571 21.1050478081843 -0.690299103228441 54.6518602528727
+//Hapmap28985-BTA-73836_GG latitude tmax10 pop1 -353.343344889023 20.404103668053 20.6665668031513 0 0.240848498029564 0.0280626626715301 0.0170599102338552 0.0250589178683572 0.0421022600403521 714.686689778045 733.445086854761 7.53921009347497 0.632349795811089 -0.0351020724390216 34.5966166921478
 
 	int dimensionMax(3);
 	std::pair<std::string, std::string> nomBase({"nomFichier", ".txt"});
@@ -185,24 +214,7 @@ TEST_CASE("Test that ScribeModelesLineairesGeneralises can write models in sever
 
 		scribeGLM.ecrisModele(modele);
 
-		std::vector<sambada::FlotSortie> flots(factory.getFlotsSortie());
-		std::vector<std::string> contenusFlots;
-		for (auto i(flots.begin()); i != flots.end(); ++i)
-		{
-			contenusFlots.push_back(static_cast<std::ostringstream *>(i->get())->str());
-		}
-
-		sambada::FlotEntreeChaineFactory entreeChaineFactory;
-		entreeChaineFactory.setContenusFlotsEntree(contenusFlots);
-		sambada::Lecteur lecteur(entreeChaineFactory);
-		lecteur.initialise(nomFichiersAttendus, retourLigne, delimMots, precision);
-
-		std::vector<std::vector<std::string>> messagesLus(dimensionMax + 1);
-
-		for (int i(0); i <= dimensionMax; ++i)
-		{
-			lecteur.lecture(i, messagesLus[i]);
-		}
+		std::vector<std::vector<std::string>> messagesLus = getMessagesLus(factory, nomFichiersAttendus, delimMots, retourLigne, precision);
 
 		CHECK(messagesLus[1].size() == 0);
 		CHECK(messagesLus[2].size() == 0);
@@ -216,7 +228,41 @@ TEST_CASE("Test that ScribeModelesLineairesGeneralises can write models in sever
 				CHECK(std::stold(messagesLus[0][i + 1]) == Approx(expectedValues[i]));
 			}
 		}
-
 	}
+
+
+	SECTION("Test that a model of dimension 1 is written correctly")
+	{
+//Hapmap28985-BTA-73836_GG bio3 -381.270794045966 160.936242443686 111.211799305358 0 0.212761323380211 0.174271906831096 0.16994045471851 0.181407973822525 0.265635379062047 766.541588091933 775.920786630291 19.9820961881851 -0.263008876258493
+		scribeGLM.initialise(specEnv, specMarq, nomBase, dimensionMax, retourLigne, delimMots, precision);
+
+		std::vector<std::string> expectedEtiquette({"Hapmap28985-BTA-73836_GG", "bio3"});
+		std::vector<sambada::reel> expectedValues({-381.270794045966, 160.936242443686, 111.211799305358, 0, 0.212761323380211, 0.174271906831096, 0.16994045471851, 0.181407973822525, 0.265635379062047, 766.541588091933, 775.920786630291, 19.9820961881851, -0.263008876258493});
+
+		sambada::EtiquetteModele etiquetteModele;
+		etiquetteModele.marqueur = 1;
+		etiquetteModele.environnement = {2};
+		sambada::Modele modele({etiquetteModele, expectedValues});
+
+		scribeGLM.ecrisModele(modele);
+
+		std::vector<std::vector<std::string>> messagesLus = getMessagesLus(factory, nomFichiersAttendus, delimMots, retourLigne, precision);
+
+		CHECK(messagesLus[0].size() == 0);
+		CHECK(messagesLus[2].size() == 0);
+		CHECK(messagesLus[3].size() == 0);
+
+		CHECKED_IF(messagesLus[1].size() == 15)
+		{
+			CHECK(messagesLus[1][0] == expectedEtiquette[0]);
+			CHECK(messagesLus[1][1] == expectedEtiquette[1]);
+
+			for (int i(0); i < 13; ++i)
+			{
+				CHECK(std::stold(messagesLus[1][i + 2]) == Approx(expectedValues[i]));
+			}
+		}
+	}
+
 
 }
