@@ -20,6 +20,8 @@
 #define SAMBADA_SCRIBEMODELESLINEAIRESGENERALISES_HPP
 
 #include "modeles/scriptorium/scribe/Scribe.hpp"
+#include "modeles/Modele.hpp"
+#include "variables/SpecificationsVariables.hpp"
 
 namespace sambada {
 
@@ -33,15 +35,19 @@ namespace sambada {
 
 		virtual ~ScribeModelesLineairesGeneralises() = default;
 
-		virtual void initialise(const std::pair<std::string, std::string>& nomFichierBase, int dimensionMax, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots);
+		virtual void initialise(const SpecificationsVariables& specVarEnv, const SpecificationsVariables& specMarq, const std::pair<std::string, std::string>& nomFichierBase, int dimensionMax, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots);
 
 		virtual void ecrisEnTetes(bool avecStructurePop);
+
+		virtual void ecrisModele(const Modele& modele);
 
 	private:
 
 		int dimensionMax;
 		Scribe scribe;
 
+		SpecificationsVariables specVarEnv;
+		SpecificationsVariables specMarq;
 	};
 }
 

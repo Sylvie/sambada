@@ -24,8 +24,11 @@ namespace sambada {
 			: scribe(scribe), dimensionMax(0)
 	{}
 
-	void ScribeModelesLineairesGeneralises::initialise(const std::pair<std::string, std::string>& nomFichierBase, int dimensionMax, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots)
+	void ScribeModelesLineairesGeneralises::initialise(const SpecificationsVariables& specVarEnv, const SpecificationsVariables& specMarq, const std::pair<std::string, std::string>& nomFichierBase, int dimensionMax, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots)
 	{
+		this->specVarEnv = specVarEnv;
+		this->specMarq = specMarq;
+
 		this->dimensionMax = dimensionMax;
 
 		std::vector<std::string> nomsFichiers;
@@ -90,5 +93,22 @@ namespace sambada {
 			scribe.ecriture(i, names[0][2] + std::to_string(i), true);
 		}
 	}
+
+	void ScribeModelesLineairesGeneralises::ecrisModele(const Modele& modele)
+	{
+		int numFichier(modele.first.environnement.size());
+
+		// No de marqueur
+		scribe.ecriture(numFichier, specMarq.detailsVariables[specMarq.variablesActives.at(modele.first.marqueur)].name, false);
+
+		// Liste des variables
+		for (std::set<int>::iterator i(modele.first.environnement.begin()); i != modele.first.environnement.end(); ++i)
+		{
+			scribe.ecriture(numFichier, specVarEnv.detailsVariables[specVarEnv.variablesActives.at(*i)].name, false);
+		}
+		// Résultats
+		scribe.ecriture(numFichier, modele.second, true);
+	}
+
 
 }
