@@ -37,9 +37,9 @@ namespace sambada {
 
 		virtual void initialise(const SpecificationsVariables& specVarEnv, const SpecificationsVariables& specMarq, const std::pair<std::string, std::string>& nomFichierBase, int dimensionMax, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots);
 
-		virtual void ecrisEnTetes(bool avecStructurePop);
+		virtual void ecrisEnTetes(bool avecStructurePop) const;
 
-		virtual void ecrisModele(const Modele& modele);
+		virtual void ecrisModele(const Modele& modele) const;
 
 	private:
 

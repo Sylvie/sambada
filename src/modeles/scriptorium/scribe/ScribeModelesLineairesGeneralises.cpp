@@ -41,7 +41,7 @@ namespace sambada {
 
 	}
 
-	void ScribeModelesLineairesGeneralises::ecrisEnTetes(bool avecStructurePop)
+	void ScribeModelesLineairesGeneralises::ecrisEnTetes(bool avecStructurePop) const
 	{
 		// Ecriture des noms de colonnes pour s'y repérer
 		std::vector<std::vector<std::string> > names(4);
@@ -94,7 +94,7 @@ namespace sambada {
 		}
 	}
 
-	void ScribeModelesLineairesGeneralises::ecrisModele(const Modele& modele)
+	void ScribeModelesLineairesGeneralises::ecrisModele(const Modele& modele) const
 	{
 		int numFichier(modele.first.environnement.size());
 
