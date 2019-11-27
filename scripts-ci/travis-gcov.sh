@@ -34,6 +34,7 @@ ${GCOV} -r ../src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.c
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.o
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.o
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/Lecteur.cpp -o src/modeles/scriptorium/lecteur/Lecteur.o
+${GCOV} -r ../src/modeles/calibration/TableauNoir.cpp -o src/modeles/calibration/TableauNoir.o
 
 ${GCOV} -r ../src/common/maths/Probability.cpp -o src/common/maths/src_common_maths_libmaths_a-Probability.o
 ${GCOV} -r ../src/common/segmentation/Tokenizer.cpp -o src/common/segmentation/src_common_segmentation_libsegmentation_a-Tokenizer.o

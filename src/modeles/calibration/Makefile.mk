@@ -18,20 +18,16 @@
 
 ## Building internal library ##
 
-noinst_LIBRARIES += src/modeles/libmodeles.a
+src_modeles_libmodeles_a_SOURCES += \
+	 src/modeles/calibration/TableauNoir.hpp \
+	 src/modeles/calibration/TableauNoir.cpp
 
-src_modeles_libmodeles_a_SOURCES = \
-	 src/modeles/Modele.hpp \
-	 src/modeles/Modele.cpp
+src_modeles_libmodeles_a_CPPFLAGS +=  \
+	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat \
+	-I $(top_srcdir)/ext/scythestat-1.0.3/scythestat/rng
 
-src_modeles_libmodeles_a_CPPFLAGS =  \
-	-I $(top_srcdir)/src
-
-src_modeles_libmodeles_a_CXXFLAGS = 
-
-include src/modeles/calibration/Makefile.mk
-include src/modeles/scriptorium/Makefile.mk
+src_modeles_libmodeles_a_CXXFLAGS += -D SCYTHE_COMPILE_DIRECT
 
 ## Cleaning ##
-clean-local-src-modeles: clean-local-src-modeles-scriptorium clean-local-src-modeles-calibration
-	$(call clean_extra_generated_files, src/modeles/)
+clean-local-src-modeles-calibration:
+	$(call clean_extra_generated_files, src/modeles/calibration/)

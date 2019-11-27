@@ -131,6 +131,8 @@ add_library(modeles
         src/modeles/scriptorium/lecteur/Lecteur.hpp
         src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.cpp
         src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp
+        src/modeles/calibration/TableauNoir.cpp
+        src/modeles/calibration/TableauNoir.hpp
         )
 
 set_target_properties(modeles
