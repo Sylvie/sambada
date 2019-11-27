@@ -76,10 +76,9 @@ datetime2     \
 datetime2-english \
 datetime2-french  \
 dirtree		  \
+ec            \
 enumitem	  \
 epstopdf      \
-etoolbox      \
-ec            \
 etoolbox      \
 float		  \
 iftex		  \
