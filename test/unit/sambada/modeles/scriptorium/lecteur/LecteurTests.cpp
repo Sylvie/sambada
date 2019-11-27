@@ -91,6 +91,24 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 		CHECK_FALSE(lecteur.finFichier(2));
 	}
 
+	SECTION("Test that finFichier checks if the stream exists before accessing it")
+	{
+		factory.setContenusFlotsEntree({"Something", "", "What else?"});
+
+		lecteur.initialise(nomsFlots, retourLigne, delimMots, precision);
+
+		bool checkResult = false;
+		SECTION("... when the stream number is negative")
+		{
+			CHECK_NOTHROW(checkResult = lecteur.finFichier(-1));
+		}
+		SECTION("... when the stream number is too large")
+		{
+			CHECK_NOTHROW(checkResult = lecteur.finFichier(nombreFlots));
+		}
+		CHECK(checkResult);
+	}
+
 	SECTION("Test that lecture of strings checks if the stream exists before reading")
 	{
 		factory.setContenusFlotsEntree({"Something", "", "What else?"});
@@ -105,7 +123,7 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 		}
 		SECTION("... when the stream number is too large")
 		{
-			CHECK_NOTHROW(readResult = lecteur.lecture(-1, messageLu));
+			CHECK_NOTHROW(readResult = lecteur.lecture(nombreFlots, messageLu));
 		}
 		CHECK_FALSE(readResult);
 
@@ -230,7 +248,7 @@ TEST_CASE("Test that Lecteur can read from several output streams", "[lecteur-un
 		}
 		SECTION("... when the stream number is too large")
 		{
-			CHECK_NOTHROW(readResult = lecteur.lectureGroupe(-1, messageLu, 1));
+			CHECK_NOTHROW(readResult = lecteur.lectureGroupe(nombreFlots, messageLu, 1));
 		}
 		CHECK_FALSE(readResult);
 
