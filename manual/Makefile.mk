@@ -39,7 +39,7 @@ if HAVE_LATEXMK
 EXTRA_DIST += $(manual_pdf)
 endif
 
-LATEXMK_BUILD = $(LATEXMK) -r $(builddir)/$(manual_directory)/latexmkrc -output-directory=$(manual_directory) -jobname=$(manual_output_filename)
+LATEXMK_BUILD = $(LATEXMK) -r $(builddir)/$(manual_directory)/latexmkrc -output-directory=$(manual_directory) -jobname=$(manual_output_filename) -file-line-error
 LATEXMK_CLEAN = $(LATEXMK) -r ../$(builddir)/$(manual_directory)/latexmkrc -jobname=$(manual_output_filename)
 
 prepare_manual_directory:

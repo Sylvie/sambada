@@ -23,7 +23,7 @@ cd ..
 fi
 
 # Update tlmgr
-tlmgr update --self
+tlmgr update --self --all
 
 # Needed for any use of texlua even if not testing LuaTeX
 tlmgr install luatex
@@ -78,7 +78,6 @@ datetime2-french  \
 dirtree		  \
 ec            \
 enumitem	  \
-epstopdf-base \
 epstopdf      \
 etoolbox      \
 float		  \
