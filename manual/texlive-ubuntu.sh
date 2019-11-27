@@ -74,6 +74,7 @@ datetime2-english \
 datetime2-french  \
 dirtree		  \
 enumitem	  \
+epstopdf      \
 etoolbox      \
 ec            \
 etoolbox      \
