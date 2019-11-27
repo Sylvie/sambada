@@ -1607,16 +1607,7 @@ void RegressionLogistique::ecritResultat(int numFichier, const Modele& r) const
 
 	if (structurePop == pasStructurePop ||   r.first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(r.first.environnement))
 	{
-		// No de marqueur
-		sortie.ecriture(numFichier, specMarq.detailsVariables[specMarq.variablesActives.at(r.first.marqueur)].name, false);
-
-		// Liste des variables
-		for (set<int>::iterator i(r.first.environnement.begin()); i != r.first.environnement.end(); ++i)
-		{
-			sortie.ecriture(numFichier, specVarEnv.detailsVariables[specVarEnv.variablesActives.at(*i)].name, false);
-		}
-		// Résultats
-		sortie.ecriture(numFichier, r.second, true);
+		scribeModelesLineairesGeneralises.ecrisModele(r);
 	}
 }
 
@@ -1886,20 +1877,8 @@ void RegressionLogistique::trieEtEcritResultats()
 								)
 						{
 
+							scribeModelesLineairesGeneralises.ecrisModele(*listeModeles[j]);
 
-
-
-							// No de marqueur
-							sortie.ecriture(i, specMarq.detailsVariables[specMarq.variablesActives.at(listeModeles[j]->first.marqueur)].name, false);
-
-							// Liste des variables
-							for (set<int>::iterator iter(listeModeles[j]->first.environnement.begin()); iter != listeModeles[j]->first.environnement.end(); ++iter)
-							{
-								sortie.ecriture(i, specVarEnv.detailsVariables[specVarEnv.variablesActives.at(*iter)].name, false);
-							}
-
-							// Résultats
-							sortie.ecriture(i, listeModeles[j]->second, true);
 						}
 					}
 				}

@@ -47,7 +47,7 @@ RegressionLogistique::RegressionLogistique()
 		  limiteIter(100), limiteEcartType(7), nbPseudosRcarres(7), nbStats(11), nbStatsAvecPop(13), nbStatsSansPseudos(4),
 		  numPremierMarq(0), tailleEtiquetteInvar(4),
 		  storey(nullptr),
-		  sortie(flotSortieFichierFactory), delimLignes("\n"), delimMots(' '),
+		  sortie(flotSortieFichierFactory), scribeModelesLineairesGeneralises(sortie), delimLignes("\n"), delimMots(' '),
 		  AS_GWR(false), AS_autocorrGlobale(false), AS_autocorrLocale(false), AS_autocorrVarEnv(false), AS_autocorrMarq(false), AS_shapefile(false),
 		  AS_spatialLag(false)
 {
@@ -126,59 +126,9 @@ int RegressionLogistique::creeModelesGlobaux()
 		nomsFichiers[i] = (nomFichierResultats.first) + "-Out-" + oss.str() + (nomFichierResultats.second);
 	}
 
-	sortie.initialise(nomsFichiers, delimLignes, delimMots, toolbox::precisionLecture);
+	scribeModelesLineairesGeneralises.initialise(specVarEnv, specMarq, nomFichierResultats, dimensionMax, delimLignes, delimMots, toolbox::precisionLecture);
 
-	// Ecriture des noms de colonnes pour s'y repérer
-	vector<vector<string> > names(4);
-	names[0].push_back("Marker");
-	names[0].push_back("Env_");
-	names[0].push_back("Beta_");
-	names[1].push_back("Loglikelihood");
-	names[1].push_back("AverageProb");
-	names[1].push_back("Beta_0");
-	names[1].push_back("NumError");
-	names[2].push_back("Loglikelihood");
-	names[2].push_back("Gscore");
-	names[2].push_back("WaldScore");
-	names[2].push_back("NumError");
-	names[2].push_back("Efron");
-	names[2].push_back("McFadden");
-	names[2].push_back("McFaddenAdj");
-	names[2].push_back("CoxSnell");
-	names[2].push_back("Nagelkerke");
-	names[2].push_back("AIC");
-	names[2].push_back("BIC");
-
-	names[3].push_back("GscorePop");
-	names[3].push_back("WaldScorePop");
-
-	sortie.ecriture(0, names[0][0]);
-	sortie.ecriture(0, names[1], true);
-
-	for (int i(1); i <= dimensionMax; ++i)
-	{
-		sortie.ecriture(i, names[0][0]);
-		for (int j(1); j <= i; ++j)
-		{
-			sortie.ecriture(i, names[0][1] + toolbox::conversion(j));
-		}
-		if (!calculeStructurePop(i))
-		{
-			sortie.ecriture(i, names[2]);
-		}
-		else
-		{
-			sortie.ecriture(i, names[2], false);
-			sortie.ecriture(i, names[3]);
-		}
-		for (int j(0); j < i; ++j)
-		{
-			sortie.ecriture(i, names[0][2] + toolbox::conversion(j));
-		}
-		sortie.ecriture(i, names[0][2] + toolbox::conversion(i), true);
-		//sortie.ecriture(i, "", true);
-	}
-
+	scribeModelesLineairesGeneralises.ecrisEnTetes(structurePop == structurePopPremier || structurePop == structurePopDernier);
 
 	// Variables locales
 	// int colMarq(0);

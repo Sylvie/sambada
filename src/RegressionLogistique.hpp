@@ -37,6 +37,7 @@
 #include "modeles/Modele.hpp"
 #include "modeles/scriptorium/scribe/Scribe.hpp"
 #include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
+#include "modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp"
 #include "variables/CombinaisonVariables.hpp"
 #include "variables/SpecificationsVariables.hpp"
 
@@ -236,6 +237,7 @@ private:
 	// Flots d'écriture des résultats
 	sambada::FlotSortieFichierFactory flotSortieFichierFactory;
 	sambada::Scribe sortie;
+	sambada::ScribeModelesLineairesGeneralises scribeModelesLineairesGeneralises;
 	string delimLignes; // caractère de retour ligne
 	char delimMots; // caractère de séparation entre mots
 
