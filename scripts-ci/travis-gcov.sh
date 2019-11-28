@@ -26,15 +26,15 @@ ${GCOV} -r ../src/histograms/StoreyHistograms.cpp -o src/histograms/StoreyHistog
 ${GCOV} -r ../src/histograms/StoreyHistogramsStreamWriter.cpp -o src/histograms/StoreyHistogramsStreamWriter.o
 
 ${GCOV} -r ../src/modeles/Modele.cpp -o src/modeles/Modele.o
-${GCOV} -r ../src/modeles/scriptorium/Archiviste.cpp -o src/modeles/scriptorium/Archiviste.o
-${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp -o src/modeles/scriptorium/scribe/FlotSortieChaineFactory.o
-${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieFichierFactory.cpp -o src/modeles/scriptorium/scribe/FlotSortieFichierFactory.o
-${GCOV} -r ../src/modeles/scriptorium/scribe/Scribe.cpp -o src/modeles/scriptorium/scribe/Scribe.o
-${GCOV} -r ../src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.cpp -o src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.o
-${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.o
-${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp -o src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.o
-${GCOV} -r ../src/modeles/scriptorium/lecteur/Lecteur.cpp -o src/modeles/scriptorium/lecteur/Lecteur.o
-${GCOV} -r ../src/modeles/calibration/TableauNoir.cpp -o src/modeles/calibration/TableauNoir.o
+${GCOV} -r ../src/modeles/scriptorium/Archiviste.cpp -o src/modeles/scriptorium/src_modeles_libmodeles_a-Archiviste.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieChaineFactory.cpp -o src/modeles/scriptorium/scribe/src_modeles_libmodeles_a-FlotSortieChaineFactory.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/FlotSortieFichierFactory.cpp -o src/modeles/scriptorium/scribe/src_modeles_libmodeles_a-FlotSortieFichierFactory.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/Scribe.cpp -o src/modeles/scriptorium/scribe/src_modeles_libmodeles_a-Scribe.o
+${GCOV} -r ../src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.cpp -o src/modeles/scriptorium/scribe/src_modeles_libmodeles_a-ScribeModelesLineairesGeneralises.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp -o src/modeles/scriptorium/lecteur/src_modeles_libmodeles_a-FlotEntreeChaineFactory.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp -o src/modeles/scriptorium/lecteur/src_modeles_libmodeles_a-FlotEntreeFichierFactory.o
+${GCOV} -r ../src/modeles/scriptorium/lecteur/Lecteur.cpp -o src/modeles/scriptorium/lecteur/src_modeles_libmodeles_a-Lecteur.o
+${GCOV} -r ../src/modeles/calibration/TableauNoir.cpp -o src/modeles/calibration/src_modeles_libmodeles_a-TableauNoir.o
 
 ${GCOV} -r ../src/common/maths/Probability.cpp -o src/common/maths/src_common_maths_libmaths_a-Probability.o
 ${GCOV} -r ../src/common/segmentation/Tokenizer.cpp -o src/common/segmentation/src_common_segmentation_libsegmentation_a-Tokenizer.o
