@@ -140,13 +140,13 @@ int RegressionLogistique::creeModelesGlobaux()
 	resultatCourant.second.resize(tailleEtiquetteInvar, 0.0);
 
 	// Ces matrices ne changent pas de taille
-	Y.resize(nbPoints, 1);
-	Xb.resize(nbPoints, 1);
-	nouv_Xb.resize(nbPoints, 1);
-	exp_Xb.resize(nbPoints, 1);
-	pi_hat.resize(nbPoints, 1);
-	interm.resize(nbPoints, 1);
-	intermScores.resize(nbPoints, 1);
+	tableauNoir.Y.resize(nbPoints, 1);
+	tableauNoir.Xb.resize(nbPoints, 1);
+	tableauNoir.nouv_Xb.resize(nbPoints, 1);
+	tableauNoir.exp_Xb.resize(nbPoints, 1);
+	tableauNoir.pi_hat.resize(nbPoints, 1);
+	tableauNoir.interm.resize(nbPoints, 1);
+	tableauNoir.intermScores.resize(nbPoints, 1);
 
 	Domaine pointsTot;//, pointsMarq, pointsCourants;
 
@@ -283,13 +283,13 @@ int RegressionLogistique::creeModelesGlobaux()
 		// On commence par les modèles univariés
 		//for (set<int>::iterator variableCourante(varActives.begin()); variableCourante!=varActives.end(); ++variableCourante)
 		int nbParam(2);
-		beta_hat.resize(nbParam, 1);
-		nouv_beta_hat.resize(nbParam, 1);
-		diff_beta_hat.resize(nbParam, 1);
-		scores.resize(nbParam, 1);
-		J_info.resize(nbParam, nbParam);
-		inv_J_info.resize(nbParam, nbParam);
-		X.resize(nbPoints, nbParam);
+		tableauNoir.beta_hat.resize(nbParam, 1);
+		tableauNoir.nouv_beta_hat.resize(nbParam, 1);
+		tableauNoir.diff_beta_hat.resize(nbParam, 1);
+		tableauNoir.scores.resize(nbParam, 1);
+		tableauNoir.J_info.resize(nbParam, nbParam);
+		tableauNoir.inv_J_info.resize(nbParam, nbParam);
+		tableauNoir.X.resize(nbPoints, nbParam);
 
 		// Sauvegarde des paramètres globaux si calcul de modèles locaux -> redimensionnement
 		if (AS_GWR)
@@ -434,14 +434,14 @@ int RegressionLogistique::creeModelesGlobaux()
 			// On connaît la taille de l'échantillon pour la regression -> construction des matrices
 			// Matrice des paramètres
 			nbParam = dim + 1;
-			beta_hat.resize(nbParam, 1);
-			nouv_beta_hat.resize(nbParam, 1);
-			diff_beta_hat.resize(nbParam, 1);
-			scores.resize(nbParam, 1);
-			J_info.resize(nbParam, nbParam);
-			inv_J_info.resize(nbParam, nbParam);
+			tableauNoir.beta_hat.resize(nbParam, 1);
+			tableauNoir.nouv_beta_hat.resize(nbParam, 1);
+			tableauNoir.diff_beta_hat.resize(nbParam, 1);
+			tableauNoir.scores.resize(nbParam, 1);
+			tableauNoir.J_info.resize(nbParam, nbParam);
+			tableauNoir.inv_J_info.resize(nbParam, nbParam);
 
-			X.resize(nbPoints, nbParam);
+			tableauNoir.X.resize(nbPoints, nbParam);
 
 
 			beta_hat_l.resize(nbParam, 1);
@@ -596,11 +596,11 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 		 interm.resize(taille, 1);
 		 intermScores.resize(taille, 1);*/
 
-		X(_, 0) = 1; // Initialisation à 1 -> constante ok
+		tableauNoir.X(_, 0) = 1; // Initialisation à 1 -> constante ok
 		if (taille < nbPoints)
 		{
-			X(taille, 0, nbPoints - 1, nbParam - 1) = 0;
-			Y(taille, 0, nbPoints - 1, 0) = 0;
+			tableauNoir.X(taille, 0, nbPoints - 1, nbParam - 1) = 0;
+			tableauNoir.Y(taille, 0, nbPoints - 1, 0) = 0;
 		}
 		// Copie des valeurs dans la 2e colonne de X et dans Y
 		int position(0);
@@ -611,29 +611,29 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 				set<int>::iterator iter(varContinues.begin());
 				for (int l(0); l < nbVarCont; ++l)
 				{
-					X(position, l + 1) = dataEnv(k, *iter);
+					tableauNoir.X(position, l + 1) = dataEnv(k, *iter);
 					++iter;
 				}
-				Y(position, 0) = dataMarq(k, numMarq);
+				tableauNoir.Y(position, 0) = dataMarq(k, numMarq);
 				++position;
 			}
 
 		}
 
 		bool modeleRetenu(false);
-		if (sum(Y) == taille || sum(Y) == 0)
+		if (sum(tableauNoir.Y) == taille || sum(tableauNoir.Y) == 0)
 		{
 			// Y est constant!
 			resultat.second.resize(nbStatsSansPseudos, 0); // loglike, Gscore et Wald -> Model non-significatif
 			resultat.second[validiteModele] = 5;
-			resultat.second.push_back(Y(0, 0)); // prob
+			resultat.second.push_back(tableauNoir.Y(0, 0)); // prob
 			resultat.second.push_back(1);
 			modeleRetenu = false;
 		}
 		else
 		{
 			// Initialisation de beta_hat
-			beta_hat = 0;
+			tableauNoir.beta_hat = 0;
 
 			int typeErreur(0);
 			typeErreur = calculeRegression(resultat.second[valloglikelihood], resultat.second[Efron]);
@@ -699,7 +699,7 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 				}
 				for (int i(0); i < nbParam; ++i)
 				{
-					resultat.second[nbStatCourantes + i] = beta_hat(i, 0);
+					resultat.second[nbStatCourantes + i] = tableauNoir.beta_hat(i, 0);
 				}
 
 				if (AS_GWR)
@@ -762,13 +762,13 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 	while (continueCalcul && !singularMatrix && !divergentCalculation && (nbIterations < limiteIter))
 	{
 		// Calcul pi
-		nouv_Xb = X * beta_hat; // Test avant l'exp
+		tableauNoir.nouv_Xb = tableauNoir.X * tableauNoir.beta_hat; // Test avant l'exp
 
-		if (max(nouv_Xb) > limiteExp)
+		if (max(tableauNoir.nouv_Xb) > limiteExp)
 		{
 			continueCalcul = false;
-			composantEfron = sum((intermScores % intermScores)(0, 0, taille - 1, 0));
-			loglikeCourante = sum((Y % (Xb) - log(1. + exp_Xb))(0, 0, taille - 1, 0));
+			composantEfron = sum((tableauNoir.intermScores % tableauNoir.intermScores)(0, 0, taille - 1, 0));
+			loglikeCourante = sum((tableauNoir.Y % (tableauNoir.Xb) - log(1. + tableauNoir.exp_Xb))(0, 0, taille - 1, 0));
 			typeErreur = 1;
 
 		}
@@ -777,29 +777,29 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 			++nbIterations;
 
 			// Calcul pi
-			Xb = nouv_Xb;
-			exp_Xb = exp(Xb);
+			tableauNoir.Xb = tableauNoir.nouv_Xb;
+			tableauNoir.exp_Xb = exp(tableauNoir.Xb);
 
-			pi_hat = exp_Xb / (1 + exp_Xb);
+			tableauNoir.pi_hat = tableauNoir.exp_Xb / (1 + tableauNoir.exp_Xb);
 
 			// Calcul ni * pi * (1 - pi)
-			interm = pi_hat % (1 - pi_hat);
+			tableauNoir.interm = tableauNoir.pi_hat % (1 - tableauNoir.pi_hat);
 
 			// Calcul des scores U
-			intermScores = (Y - pi_hat);
+			tableauNoir.intermScores = (tableauNoir.Y - tableauNoir.pi_hat);
 			for (int k(0); k < nbParam; ++k)
 			{
-				scores(k, 0) = sum(intermScores % X(_, k));
+				tableauNoir.scores(k, 0) = sum(tableauNoir.intermScores % tableauNoir.X(_, k));
 			}
 
 			// Calcul de J, qui est symétrique
 			for (int k(0); k < nbParam; ++k)
 			{
-				J_info(k, k) = sum(interm % X(_, k) % X(_, k));
+				tableauNoir.J_info(k, k) = sum(tableauNoir.interm % tableauNoir.X(_, k) % tableauNoir.X(_, k));
 				for (int l(k + 1); l < nbParam; ++l)
 				{
-					J_info(k, l) = sum(interm % X(_, k) % X(_, l));
-					J_info(l, k) = J_info(k, l);
+					tableauNoir.J_info(k, l) = sum(tableauNoir.interm % tableauNoir.X(_, k) % tableauNoir.X(_, l));
+					tableauNoir.J_info(l, k) = tableauNoir.J_info(k, l);
 				}
 			}
 
@@ -812,7 +812,7 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 				// Calcul de l'inverse de J
 				try
 				{
-					inv_J_info = invpd(J_info);
+					tableauNoir.inv_J_info = invpd(tableauNoir.J_info);
 				}
 				catch (scythe_exception& error)
 				{
@@ -824,11 +824,11 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 				if (!singularMatrix)
 				{
 					// Mise à jour de beta_hat
-					nouv_beta_hat = beta_hat + inv_J_info * scores;
+					tableauNoir.nouv_beta_hat =tableauNoir.beta_hat + tableauNoir.inv_J_info * tableauNoir.scores;
 
 					for (int l(0); l < nbParam; ++l)
 					{
-						if (abs(nouv_beta_hat(l, 0)) > limiteNaN)
+						if (abs(tableauNoir.nouv_beta_hat(l, 0)) > limiteNaN)
 						{
 							continueCalcul = false;
 							divergentCalculation = true;
@@ -840,33 +840,33 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 					if (continueCalcul)
 					{
 						// Test de convergence
-						diff_beta_hat = nouv_beta_hat - beta_hat;
+						tableauNoir.diff_beta_hat = tableauNoir.nouv_beta_hat - tableauNoir.beta_hat;
 						continueCalcul = false;
 						for (int l(0); l < nbParam; ++l)
 						{
-							if (abs(diff_beta_hat(l, 0)) > convCrit * max(eps, abs(beta_hat(l, 0))))
+							if (abs(tableauNoir.diff_beta_hat(l, 0)) > convCrit * max(eps, abs(tableauNoir.beta_hat(l, 0))))
 							{
 								continueCalcul = true;
 								break;
 							}
 						}
 
-						beta_hat = nouv_beta_hat;
+						tableauNoir.beta_hat = tableauNoir.nouv_beta_hat;
 					}
 				}
 			}
 			// Si le calcul est terminé, on calcule l'indice d'Effron
 			if (!continueCalcul)
 			{
-				composantEfron = sum((intermScores % intermScores)(0, 0, taille - 1, 0));
-				loglikeCourante = sum((Y % (Xb) - log(1. + exp_Xb))(0, 0, taille - 1, 0));
+				composantEfron = sum((tableauNoir.intermScores % tableauNoir.intermScores)(0, 0, taille - 1, 0));
+				loglikeCourante = sum((tableauNoir.Y % (tableauNoir.Xb) - log(1. + tableauNoir.exp_Xb))(0, 0, taille - 1, 0));
 			}
 		}
 	}
 	if (nbIterations == limiteIter)
 	{
-		composantEfron = sum((intermScores % intermScores)(0, 0, taille - 1, 0));
-		loglikeCourante = sum((Y % (Xb) - log(1. + exp_Xb))(0, 0, taille - 1, 0));
+		composantEfron = sum((tableauNoir.intermScores % tableauNoir.intermScores)(0, 0, taille - 1, 0));
+		loglikeCourante = sum((tableauNoir.Y % (tableauNoir.Xb) - log(1. + tableauNoir.exp_Xb))(0, 0, taille - 1, 0));
 		typeErreur = 4;
 	}
 	return typeErreur;
@@ -968,14 +968,14 @@ bool RegressionLogistique::calculeStats(Modele& resultat, int nbParamEstimes)
 		// On teste la significativité du score à la fin.
 
 		// Initialisation du score de Wald
-		reel WaldCourant(beta_hat(1, 0) * beta_hat(1, 0) / inv_J_info(1, 1));
+		reel WaldCourant(tableauNoir.beta_hat(1, 0) * tableauNoir.beta_hat(1, 0) / tableauNoir.inv_J_info(1, 1));
 		resultat.second[WaldScore] = WaldCourant;
 
 		//affiche(resultat.first);
 		//cout << "	" << WaldCourant;
 		for (int paramCourant(2); paramCourant <= tailleModele; ++paramCourant)
 		{
-			WaldCourant = beta_hat(paramCourant, 0) * beta_hat(paramCourant, 0) / inv_J_info(paramCourant, paramCourant);
+			WaldCourant = tableauNoir.beta_hat(paramCourant, 0) * tableauNoir.beta_hat(paramCourant, 0) / tableauNoir.inv_J_info(paramCourant, paramCourant);
 			if (WaldCourant < resultat.second[WaldScore])
 			{
 				resultat.second[WaldScore] = WaldCourant;
@@ -998,7 +998,7 @@ bool RegressionLogistique::calculeStats(Modele& resultat, int nbParamEstimes)
 
 	}
 	else //if (selModeles!=best)	// STOREY !
-		// Aucun modèle parent n'est valide -> on compare avec le modèle constant 
+		// Aucun modèle parent n'est valide -> on compare avec le modèle constant
 		// Le modèle constant est de toute façon valide
 		//-> Attention au changement de seuil pour la p-valeur
 	{
@@ -1062,12 +1062,12 @@ bool RegressionLogistique::calculeStats(Modele& resultat, int nbParamEstimes)
 		int tailleModele(dimParents + 1);
 
 		// Initialisation du score de Wald
-		reel WaldCourant(beta_hat(1, 0) * beta_hat(1, 0) / inv_J_info(1, 1));
+		reel WaldCourant(tableauNoir.beta_hat(1, 0) * tableauNoir.beta_hat(1, 0) / tableauNoir.inv_J_info(1, 1));
 		resultat.second[WaldScore] = WaldCourant;
 
 		for (int paramCourant(2); paramCourant <= tailleModele; ++paramCourant)
 		{
-			WaldCourant = beta_hat(paramCourant, 0) * beta_hat(paramCourant, 0) / inv_J_info(paramCourant, paramCourant);
+			WaldCourant = tableauNoir.beta_hat(paramCourant, 0) * tableauNoir.beta_hat(paramCourant, 0) / tableauNoir.inv_J_info(paramCourant, paramCourant);
 
 			if (WaldCourant < resultat.second[WaldScore])
 			{
@@ -1114,7 +1114,7 @@ bool RegressionLogistique::calculeStats(Modele& resultat, int nbParamEstimes)
 			set<int>::reverse_iterator variableCourante(resultat.first.environnement.rbegin());
 			etiquetteCourante.environnement.erase(*variableCourante);
 
-			resultat.second[WaldScorePop] = beta_hat((dimParents + 1), 0) * beta_hat((dimParents + 1), 0) / inv_J_info((dimParents + 1), (dimParents + 1));
+			resultat.second[WaldScorePop] = tableauNoir.beta_hat((dimParents + 1), 0) * tableauNoir.beta_hat((dimParents + 1), 0) / tableauNoir.inv_J_info((dimParents + 1), (dimParents + 1));
 		}
 		else
 		{
@@ -1122,7 +1122,7 @@ bool RegressionLogistique::calculeStats(Modele& resultat, int nbParamEstimes)
 			set<int>::iterator variableCourante(resultat.first.environnement.begin());
 			etiquetteCourante.environnement.erase(*variableCourante);
 
-			resultat.second[WaldScorePop] = beta_hat(1, 0) * beta_hat(1, 0) / inv_J_info(1, 1);
+			resultat.second[WaldScorePop] = tableauNoir.beta_hat(1, 0) * tableauNoir.beta_hat(1, 0) / tableauNoir.inv_J_info(1, 1);
 		}
 		modeleParentPop = resultats[dimParents].find(etiquetteCourante);
 

@@ -35,6 +35,7 @@
 #include "Journal.hpp"
 #include "histograms/StoreyHistograms.hpp"
 #include "modeles/Modele.hpp"
+#include "modeles/calibration/TableauNoir.hpp"
 #include "modeles/scriptorium/scribe/Scribe.hpp"
 #include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
 #include "modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp"
@@ -179,12 +180,7 @@ protected:
 
 private:
 	sambada::FamilleVariables familleVariables;
-
-protected:
-	MatriceReels X, Y,
-			beta_hat, nouv_beta_hat, diff_beta_hat,
-			scores, J_info, inv_J_info,
-			Xb, nouv_Xb, exp_Xb, pi_hat, interm, intermScores;
+	sambada::TableauNoir tableauNoir;
 
 private:
 	sambada::FamilleModeles resultats;

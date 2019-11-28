@@ -2305,7 +2305,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 		}
 
 		// Initialisation de beta_hat_local, on prend l'estimation globale
-		beta_hat_l = beta_hat;
+		beta_hat_l = tableauNoir.beta_hat;
 
 		int limiteLignes(nbVoisins - 1), limiteCols(nbParam - 1);
 
@@ -2466,7 +2466,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 			MatriceReels invXtWX(nbParam, nbParam, true, 0), XtW(nbParam, nbVoisins);
 			for (int j(0); j < nbVoisins; ++j)
 			{
-				XtW(_, j) = t(X_l(j, _)) * interm(j, 0);
+				XtW(_, j) = t(X_l(j, _)) * tableauNoir.interm(j, 0);
 			}
 			try
 			{
@@ -2497,7 +2497,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 			if (pointsValides(i, 0))
 			{
 				//On fait le calcul avec la variable du modèle global
-				loglikeGlobale += Y(indiceVariablesModeleGlobal, 0) * Xb(indiceVariablesModeleGlobal, 0) - log(1 + exp_Xb(indiceVariablesModeleGlobal, 0));
+				loglikeGlobale += tableauNoir.Y(indiceVariablesModeleGlobal, 0) * tableauNoir.Xb(indiceVariablesModeleGlobal, 0) - log(1 + tableauNoir.exp_Xb(indiceVariablesModeleGlobal, 0));
 				++indiceVariablesModeleGlobal;
 			}
 			else if (masque(i, 0))
