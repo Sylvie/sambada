@@ -227,7 +227,6 @@ private:
 	// Variables pour la régression locale (et le jackknife)
 	sambada::TableauNoir tableauNoirLocal;
 
-private:
 	// Flots d'écriture des résultats
 	sambada::FlotSortieFichierFactory flotSortieFichierFactory;
 	sambada::Scribe sortie;
