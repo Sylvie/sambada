@@ -2258,8 +2258,8 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 			continue;
 		}
 
-		X_l = 0;
-		Y_l = 0;
+		tableauNoirLocal.X = 0;
+		tableauNoirLocal.Y = 0;
 
 		// Copie des valeurs dans  X et dans Y
 		// On a déjà tenu compte des voisins géographiques à exclure du calcul avec masqueGWR dans la création de la pondération
@@ -2281,23 +2281,23 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 			listePoids(k, 0) = pointsGWR.poids[i][k].second;
 			//if (masqueGWR(voisinCourant,0) == true)
 			//{
-			X_l(k, 0) = 1;
+			tableauNoirLocal.X(k, 0) = 1;
 			set<int>::iterator iter(varContinues.begin());
 			for (int l(0); l < nbVarCont; ++l)
 			{
-				X_l(k, l + 1) = dataEnv(voisinCourant, *iter);
+				tableauNoirLocal.X(k, l + 1) = dataEnv(voisinCourant, *iter);
 				++iter;
 			}
-			Y_l(k, 0) = dataMarq(voisinCourant, numMarq);
+			tableauNoirLocal.Y(k, 0) = dataMarq(voisinCourant, numMarq);
 			//			}
 
 		}
 
 		//cout << "!" << numMarq << " " << i << " " << nbVoisins; //<< " " << X_l << " " << Y_l << endl;
 
-		if (sum(Y_l) == 0 || sum(Y_l) == pointsGWR.taille)    // Y est constant
+		if (sum(tableauNoirLocal.Y) == 0 || sum(tableauNoirLocal.Y) == pointsGWR.taille)    // Y est constant
 		{
-			cout << "P " << i << " " << 5 << " " << sum(Y_l) << t(X_l(0, 1, nbVoisins - 1, 1)) << endl;
+			cout << "P " << i << " " << 5 << " " << sum(tableauNoirLocal.Y) << t(tableauNoirLocal.X(0, 1, nbVoisins - 1, 1)) << endl;
 
 			recalculeLoglikeGlobale = true;
 			pointsValides(i, 0) = false;
@@ -2305,7 +2305,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 		}
 
 		// Initialisation de beta_hat_local, on prend l'estimation globale
-		beta_hat_l = tableauNoir.beta_hat;
+		tableauNoirLocal.beta_hat = tableauNoir.beta_hat;
 
 		int limiteLignes(nbVoisins - 1), limiteCols(nbParam - 1);
 
@@ -2317,12 +2317,12 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 		// Iteration
 		while (continueCalcul && !singularMatrix && !divergentCalculation && (nbIterations < limiteIterGWR))
 		{
-			cout << "%" << i << " " << nbIterations << " " << sum(nouv_Xb_l(0, 0, limiteLignes, 0)) << " " << (J_info_l)[2, 2] << " " << beta_hat_l << endl;
+			cout << "%" << i << " " << nbIterations << " " << sum(tableauNoirLocal.nouv_Xb(0, 0, limiteLignes, 0)) << " " << (tableauNoirLocal.J_info)[2, 2] << " " << tableauNoirLocal.beta_hat << endl;
 			// Calcul pi
 			//cout << X_l(0,0,limiteLignes,limiteCols)<< beta_hat_l << X_l(0,0,limiteLignes,limiteCols) * beta_hat_l;
-			nouv_Xb_l(0, 0, limiteLignes, 0) = (X_l(0, 0, limiteLignes, limiteCols) * beta_hat_l)(0, 0, limiteLignes, 0); // Test avant l'exp
+			tableauNoirLocal.nouv_Xb(0, 0, limiteLignes, 0) = (tableauNoirLocal.X(0, 0, limiteLignes, limiteCols) * tableauNoirLocal.beta_hat)(0, 0, limiteLignes, 0); // Test avant l'exp
 
-			if (max(nouv_Xb_l(0, 0, limiteLignes, 0)) > limiteExp)
+			if (max(tableauNoirLocal.nouv_Xb(0, 0, limiteLignes, 0)) > limiteExp)
 			{
 				continueCalcul = false;
 				//loglikeCourante = sum((Y_l%(Xb_l) - log(1.+exp_Xb_l))(0,0,nbVoisinsValides-1,0));
@@ -2334,12 +2334,12 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 				++nbIterations;
 
 				// Calcul pi
-				Xb_l(0, 0, limiteLignes, 0) = nouv_Xb_l(0, 0, limiteLignes, 0);
-				exp_Xb_l(0, 0, limiteLignes, 0) = exp(Xb_l(0, 0, limiteLignes, 0));
+				tableauNoirLocal.Xb(0, 0, limiteLignes, 0) = tableauNoirLocal.nouv_Xb(0, 0, limiteLignes, 0);
+				tableauNoirLocal.exp_Xb(0, 0, limiteLignes, 0) = exp(tableauNoirLocal.Xb(0, 0, limiteLignes, 0));
 
 				//cout << nbIterations << "\n" << beta_hat << "\n" << Xb << "\n" << exp_Xb << "\n";
 
-				pi_hat_l(0, 0, limiteLignes, 0) = exp_Xb_l(0, 0, limiteLignes, 0) / (1 + exp_Xb_l(0, 0, limiteLignes, 0));
+				tableauNoirLocal.pi_hat(0, 0, limiteLignes, 0) = tableauNoirLocal.exp_Xb(0, 0, limiteLignes, 0) / (1 + tableauNoirLocal.exp_Xb(0, 0, limiteLignes, 0));
 				//cout << endl << pi_hat_l(0,0,limiteLignes,0) << endl<< endl;
 				/*if (nbIterations==26)
 				 {
@@ -2348,26 +2348,26 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 
 				//cout << pi_hat<< "\n";
 				// Calcul ni * pi * (1 - pi)
-				interm_l(0, 0, limiteLignes, 0) = (pi_hat_l(0, 0, limiteLignes, 0) % (1 - pi_hat_l(0, 0, limiteLignes, 0))) % listePoids(0, 0, limiteLignes, 0);
+				tableauNoirLocal.interm(0, 0, limiteLignes, 0) = (tableauNoirLocal.pi_hat(0, 0, limiteLignes, 0) % (1 - tableauNoirLocal.pi_hat(0, 0, limiteLignes, 0))) % listePoids(0, 0, limiteLignes, 0);
 
 				// Calcul des scores U
-				intermScores_l(0, 0, limiteLignes, 0) = (Y_l(0, 0, limiteLignes, 0) - pi_hat_l(0, 0, limiteLignes, 0)) % listePoids(0, 0, limiteLignes, 0);
+				tableauNoirLocal.intermScores(0, 0, limiteLignes, 0) = (tableauNoirLocal.Y(0, 0, limiteLignes, 0) - tableauNoirLocal.pi_hat(0, 0, limiteLignes, 0)) % listePoids(0, 0, limiteLignes, 0);
 				//cout << "ç" << endl << intermScores_l(0,0,limiteLignes,0) << "ç" << X_l(0,0,limiteLignes,limiteCols) << endl;
 				for (int k(0); k < nbParam; ++k)
 				{
 					//cout << "£"<< intermScores_l(0,0,limiteLignes,0) % X_l(0,k,limiteLignes,k) << endl;
-					scores_l(k, 0) = sum(intermScores_l(0, 0, limiteLignes, 0) % X_l(0, k, limiteLignes, k));
+					tableauNoirLocal.scores(k, 0) = sum(tableauNoirLocal.intermScores(0, 0, limiteLignes, 0) % tableauNoirLocal.X(0, k, limiteLignes, k));
 					//cout<< "&" << intermScores_l(0,0,1,0) << " " << X_l(0,k,1,k) << " " << scores_l(k,0) << endl;
 				}
 
 				// Calcul de J, qui est symétrique
 				for (int k(0); k < nbParam; ++k)
 				{
-					J_info_l(k, k) = sum(interm_l(0, 0, limiteLignes, 0) % X_l(0, k, limiteLignes, k) % X_l(0, k, limiteLignes, k));
+					tableauNoirLocal.J_info(k, k) = sum(tableauNoirLocal.interm(0, 0, limiteLignes, 0) % tableauNoirLocal.X(0, k, limiteLignes, k) % tableauNoirLocal.X(0, k, limiteLignes, k));
 					for (int l(k + 1); l < nbParam; ++l)
 					{
-						J_info_l(k, l) = sum(interm_l(0, 0, limiteLignes, 0) % X_l(0, k, limiteLignes, k) % X_l(0, l, limiteLignes, l));
-						J_info_l(l, k) = J_info_l(k, l);
+						tableauNoirLocal.J_info(k, l) = sum(tableauNoirLocal.interm(0, 0, limiteLignes, 0) % tableauNoirLocal.X(0, k, limiteLignes, k) % tableauNoirLocal.X(0, l, limiteLignes, l));
+						tableauNoirLocal.J_info(l, k) = tableauNoirLocal.J_info(k, l);
 					}
 				}
 
@@ -2382,7 +2382,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 					// Calcul de l'inverse de J
 					try
 					{
-						inv_J_info_l = invpd(J_info_l);
+						tableauNoirLocal.inv_J_info = invpd(tableauNoirLocal.J_info);
 					}
 					catch (scythe_exception& error)
 					{
@@ -2402,13 +2402,13 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 					if (!singularMatrix)
 					{
 						// Mise à jour de beta_hat
-						nouv_beta_hat_l = beta_hat_l + inv_J_info_l * scores_l;
+						tableauNoirLocal.nouv_beta_hat = tableauNoirLocal.beta_hat + tableauNoirLocal.inv_J_info * tableauNoirLocal.scores;
 
 						//cout << inv_J_info_l << det(J_info_l) << "\n" << nouv_beta_hat_l << "\n" << "\n";
 
 						for (int l(0); l < nbParam; ++l)
 						{
-							if (abs(nouv_beta_hat_l(l, 0)) > limiteNaN)
+							if (abs(tableauNoirLocal.nouv_beta_hat(l, 0)) > limiteNaN)
 							{
 								continueCalcul = false;
 								divergentCalculation = true;
@@ -2420,18 +2420,18 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 						if (continueCalcul)
 						{
 							// Test de convergence
-							diff_beta_hat_l = nouv_beta_hat_l - beta_hat_l;
+							tableauNoirLocal.diff_beta_hat = tableauNoirLocal.nouv_beta_hat - tableauNoirLocal.beta_hat;
 							continueCalcul = false;
 							for (int l(0); l < nbParam; ++l)
 							{
-								if (abs(diff_beta_hat_l(l, 0)) > convCrit * max(eps, abs(beta_hat_l(l, 0))))
+								if (abs(tableauNoirLocal.diff_beta_hat(l, 0)) > convCrit * max(eps, abs(tableauNoirLocal.beta_hat(l, 0))))
 								{
 									continueCalcul = true;
 									break;
 								}
 							}
 
-							beta_hat_l = nouv_beta_hat_l;
+							tableauNoirLocal.beta_hat = tableauNoirLocal.nouv_beta_hat;
 						}
 					}
 					//cout << nbIterations << "\n" << beta_hat << "\n";
@@ -2454,7 +2454,7 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 
 		if (typeErreur > 0)
 		{
-			cout << "PQ " << i << " " << typeErreur << " " << t(nouv_beta_hat_l) << " " << t(beta_hat_l) << endl << t(listePoids(0, 0, limiteLignes, 0)) << endl;
+			cout << "PQ " << i << " " << typeErreur << " " << t(tableauNoirLocal.nouv_beta_hat) << " " << t(tableauNoirLocal.beta_hat) << endl << t(listePoids(0, 0, limiteLignes, 0)) << endl;
 			pointsValides(i, 0) = false;
 			recalculeLoglikeGlobale = true;
 
@@ -2462,15 +2462,15 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 		else
 		{
 			//Copie des betas
-			liste_beta_hat(_, i) = beta_hat_l;
+			liste_beta_hat(_, i) = tableauNoirLocal.beta_hat;
 			MatriceReels invXtWX(nbParam, nbParam, true, 0), XtW(nbParam, nbVoisins);
 			for (int j(0); j < nbVoisins; ++j)
 			{
-				XtW(_, j) = t(X_l(j, _)) * tableauNoir.interm(j, 0);
+				XtW(_, j) = t(tableauNoirLocal.X(j, _)) * tableauNoir.interm(j, 0);
 			}
 			try
 			{
-				invXtWX = invpd(XtW * X_l(0, 0, limiteLignes, nbParam - 1));
+				invXtWX = invpd(XtW * tableauNoirLocal.X(0, 0, limiteLignes, nbParam - 1));
 			}
 			catch (scythe_exception& error)
 			{
@@ -2480,9 +2480,9 @@ void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues,
 			}
 			// Le point lui-même est le dernier de la liste
 			//cout << "^" << i << " " << invXtWX.rows() << " " << invXtWX.cols() << " " << (Y_l(limiteLignes,0,limiteLignes,0)%(Xb_l(limiteLignes,0,limiteLignes,0)) - log(1.+exp_Xb_l(limiteLignes,0,limiteLignes,0)))<< endl;
-			traceS += (X_l(limiteLignes, 0, limiteLignes, limiteCols) * ((invXtWX * XtW)))(0, limiteLignes);
+			traceS += (tableauNoirLocal.X(limiteLignes, 0, limiteLignes, limiteCols) * ((invXtWX * XtW)))(0, limiteLignes);
 			// Le point i est la dernière ligne
-			loglikeGWR += sum(listePoids(0, 0, limiteLignes, 0) % (Y_l(limiteLignes, 0, limiteLignes, 0) % (Xb_l(limiteLignes, 0, limiteLignes, 0)) - log(1. + exp_Xb_l(limiteLignes, 0, limiteLignes, 0))));
+			loglikeGWR += sum(listePoids(0, 0, limiteLignes, 0) % (tableauNoirLocal.Y(limiteLignes, 0, limiteLignes, 0) % (tableauNoirLocal.Xb(limiteLignes, 0, limiteLignes, 0)) - log(1. + tableauNoirLocal.exp_Xb(limiteLignes, 0, limiteLignes, 0))));
 
 		}
 	}

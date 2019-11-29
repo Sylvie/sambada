@@ -182,7 +182,6 @@ private:
 	sambada::FamilleVariables familleVariables;
 	sambada::TableauNoir tableauNoir;
 
-private:
 	sambada::FamilleModeles resultats;
 
 protected:
@@ -223,11 +222,10 @@ protected:
 	int nbPointsGeo; // Nombre de points avec des coordonnées valides (taille du masqueGeo)
 	bool AS_GWR, AS_autocorrGlobale, AS_autocorrLocale, AS_autocorrVarEnv, AS_autocorrMarq, AS_shapefile;
 	bool AS_spatialLag;
+
+private:
 	// Variables pour la régression locale (et le jackknife)
-	MatriceReels X_l, Y_l,
-			beta_hat_l, nouv_beta_hat_l, diff_beta_hat_l,
-			scores_l, J_info_l, inv_J_info_l,
-			Xb_l, nouv_Xb_l, exp_Xb_l, pi_hat_l, interm_l, intermScores_l, hat_matrix_l;
+	sambada::TableauNoir tableauNoirLocal;
 
 private:
 	// Flots d'écriture des résultats

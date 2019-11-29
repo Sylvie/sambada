@@ -185,13 +185,13 @@ int RegressionLogistique::creeModelesGlobaux()
 
 		// On redimensionne aussi les matrices locales
 		// Ces matrices ne changent pas de taille
-		Y_l.resize(nbPoints, 1);
-		nouv_Xb_l.resize(nbPoints, 1);
-		Xb_l.resize(nbPoints, 1);
-		exp_Xb_l.resize(nbPoints, 1);
-		pi_hat_l.resize(nbPoints, 1);
-		interm_l.resize(nbPoints, 1);
-		intermScores_l.resize(nbPoints, 1);
+		tableauNoirLocal.Y.resize(nbPoints, 1);
+		tableauNoirLocal.nouv_Xb.resize(nbPoints, 1);
+		tableauNoirLocal.Xb.resize(nbPoints, 1);
+		tableauNoirLocal.exp_Xb.resize(nbPoints, 1);
+		tableauNoirLocal.pi_hat.resize(nbPoints, 1);
+		tableauNoirLocal.interm.resize(nbPoints, 1);
+		tableauNoirLocal.intermScores.resize(nbPoints, 1);
 
 	}
 
@@ -294,13 +294,13 @@ int RegressionLogistique::creeModelesGlobaux()
 		// Sauvegarde des paramètres globaux si calcul de modèles locaux -> redimensionnement
 		if (AS_GWR)
 		{
-			beta_hat_l.resize(nbParam, 1);
-			nouv_beta_hat_l.resize(nbParam, 1);
-			diff_beta_hat_l.resize(nbParam, 1);
-			scores_l.resize(nbParam, 1);
-			J_info_l.resize(nbParam, nbParam);
-			inv_J_info_l.resize(nbParam, nbParam);
-			X_l.resize(nbPoints, nbParam);
+			tableauNoirLocal.beta_hat.resize(nbParam, 1);
+			tableauNoirLocal.nouv_beta_hat.resize(nbParam, 1);
+			tableauNoirLocal.diff_beta_hat.resize(nbParam, 1);
+			tableauNoirLocal.scores.resize(nbParam, 1);
+			tableauNoirLocal.J_info.resize(nbParam, nbParam);
+			tableauNoirLocal.inv_J_info.resize(nbParam, nbParam);
+			tableauNoirLocal.X.resize(nbPoints, nbParam);
 
 			// Calcul de la pondération type si masqueGeoMarq=masque (X*Y)
 			pointsMarq.masque = pointsTot.masque % masqueY;
@@ -444,14 +444,14 @@ int RegressionLogistique::creeModelesGlobaux()
 			tableauNoir.X.resize(nbPoints, nbParam);
 
 
-			beta_hat_l.resize(nbParam, 1);
-			nouv_beta_hat_l.resize(nbParam, 1);
-			diff_beta_hat_l.resize(nbParam, 1);
-			scores_l.resize(nbParam, 1);
-			J_info_l.resize(nbParam, nbParam);
-			inv_J_info_l.resize(nbParam, nbParam);
+			tableauNoirLocal.beta_hat.resize(nbParam, 1);
+			tableauNoirLocal.nouv_beta_hat.resize(nbParam, 1);
+			tableauNoirLocal.diff_beta_hat.resize(nbParam, 1);
+			tableauNoirLocal.scores.resize(nbParam, 1);
+			tableauNoirLocal.J_info.resize(nbParam, nbParam);
+			tableauNoirLocal.inv_J_info.resize(nbParam, nbParam);
 
-			X_l.resize(nbPoints, nbParam);
+			tableauNoirLocal.X.resize(nbPoints, nbParam);
 
 
 
