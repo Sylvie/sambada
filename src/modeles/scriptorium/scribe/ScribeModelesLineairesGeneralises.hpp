@@ -29,7 +29,7 @@ namespace sambada {
 	{
 	public:
 
-		ScribeModelesLineairesGeneralises(const Scribe& scribe);
+		explicit ScribeModelesLineairesGeneralises(const Scribe& scribe);
 
 		ScribeModelesLineairesGeneralises(ScribeModelesLineairesGeneralises& scribeMLG) = delete;
 

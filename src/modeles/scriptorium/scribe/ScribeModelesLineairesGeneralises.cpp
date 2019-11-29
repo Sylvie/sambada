@@ -21,15 +21,15 @@
 namespace sambada {
 
 	ScribeModelesLineairesGeneralises::ScribeModelesLineairesGeneralises(const Scribe& scribe)
-			: scribe(scribe), dimensionMax(0)
+			: dimensionMax(0), scribe(scribe)
 	{}
 
-	void ScribeModelesLineairesGeneralises::initialise(const SpecificationsVariables& specVarEnv, const SpecificationsVariables& specMarq, const std::pair<std::string, std::string>& nomFichierBase, int dimensionMax, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots)
+	void ScribeModelesLineairesGeneralises::initialise(const SpecificationsVariables& specVariablesEnvironnementales, const SpecificationsVariables& specMarqueurs, const std::pair<std::string, std::string>& nomFichierBase, int dimensionMaximale, const std::string& chaineRetourLigne, char charDelimMots, int precisionFlots)
 	{
-		this->specVarEnv = specVarEnv;
-		this->specMarq = specMarq;
+		specVarEnv = specVariablesEnvironnementales;
+		specMarq = specMarqueurs;
 
-		this->dimensionMax = dimensionMax;
+		dimensionMax = dimensionMaximale;
 
 		std::vector<std::string> nomsFichiers;
 		for (int i(0); i <= dimensionMax; ++i)
