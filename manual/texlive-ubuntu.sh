@@ -88,6 +88,7 @@ l3kernel	  \
 l3packages	  \
 lm-math       \
 logreq        \
+ltxcmds       \
 mdframed	  \
 multirow	  \
 needspace	  \
