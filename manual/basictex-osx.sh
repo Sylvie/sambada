@@ -61,6 +61,7 @@ epstopdf      \
 etoolbox	  \
 ifxetex		  \
 latexmk       \
+letltxmacro   \
 lm-math       \
 logreq        \
 mdframed	  \
