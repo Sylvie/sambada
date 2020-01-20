@@ -83,7 +83,7 @@ etoolbox      \
 float		  \
 iftex		  \
 hyperref	  \
-kvsetkeys     \
+kvdefinekeys  \
 latexmk       \
 l3kernel	  \
 l3packages	  \

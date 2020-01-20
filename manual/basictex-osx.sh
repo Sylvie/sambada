@@ -60,6 +60,7 @@ enumitem	  \
 epstopdf      \
 etoolbox	  \
 ifxetex		  \
+kvdefinekeys  \
 latexmk       \
 letltxmacro   \
 lm-math       \
@@ -72,7 +73,8 @@ tracklang     \
 units         \
 xkeyval		  \
 xstring		  \
-was
+was           \
+zref
 
 # Keep no backups (not required, simply makes cache bigger)
 sudo tlmgr option -- autobackup 0
