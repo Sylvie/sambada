@@ -80,6 +80,7 @@ ec            \
 enumitem	  \
 epstopdf      \
 etoolbox      \
+etexcmds      \
 float		  \
 iftex		  \
 intcalc       \
