@@ -64,6 +64,7 @@ siunitx       \
 adobemapping  \
 amsfonts      \
 amsmath       \
+atbegshi      \
 babel		  \
 babel-english \
 babel-french  \
