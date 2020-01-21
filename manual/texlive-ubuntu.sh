@@ -65,6 +65,7 @@ adobemapping  \
 amsfonts      \
 amsmath       \
 atbegshi      \
+atveryend     \
 babel		  \
 babel-english \
 babel-french  \
