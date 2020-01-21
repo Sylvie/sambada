@@ -104,6 +104,7 @@ needspace	  \
 pdfescape     \
 pdftexcmds    \
 pgf           \
+rerunfilecheck \
 tools         \
 tracklang     \
 ulem          \
