@@ -69,6 +69,7 @@ babel-english \
 babel-french  \
 biber         \
 biblatex      \
+bitset        \
 caption		  \
 carlisle	  \
 csquotes	  \
