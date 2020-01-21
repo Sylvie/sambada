@@ -115,7 +115,8 @@ xcolor        \
 xkeyval		  \
 xstring       \
 xunicode	  \
-was
+was           \
+zref
 
 # Keep no backups (not required, simply makes cache bigger)
 tlmgr option -- autobackup 0
