@@ -93,6 +93,7 @@ ltxcmds       \
 mdframed	  \
 multirow	  \
 needspace	  \
+pdfescape     \
 pdftexcmds    \
 pgf           \
 tools         \
