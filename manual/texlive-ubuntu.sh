@@ -86,11 +86,12 @@ hycolor       \
 hyperref	  \
 kvdefinekeys  \
 latexmk       \
-l3kernel	  \
-l3packages	  \
+letltxmacro   \
 lm-math       \
 logreq        \
 ltxcmds       \
+l3kernel	  \
+l3packages	  \
 mdframed	  \
 multirow	  \
 needspace	  \
