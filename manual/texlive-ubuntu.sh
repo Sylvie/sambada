@@ -82,6 +82,7 @@ epstopdf      \
 etoolbox      \
 float		  \
 iftex		  \
+hycolor       \
 hyperref	  \
 kvdefinekeys  \
 latexmk       \
