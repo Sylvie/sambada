@@ -108,6 +108,7 @@ rerunfilecheck \
 tools         \
 tracklang     \
 ulem          \
+uniquecounter \
 units         \
 url           \
 xcolor        \
