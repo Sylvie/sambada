@@ -82,8 +82,7 @@ datetime2-french  \
 dirtree		  \
 ec            \
 enumitem	  \
-epstopdf-base \
-epstopdf      \
+epstopdf-pkg  \
 etoolbox      \
 etexcmds      \
 float		  \
