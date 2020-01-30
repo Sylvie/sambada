@@ -104,6 +104,7 @@ needspace	  \
 pdfescape     \
 pdftexcmds    \
 pgf           \
+refcount      \
 rerunfilecheck \
 tools         \
 tracklang     \
