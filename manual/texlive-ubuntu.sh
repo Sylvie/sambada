@@ -88,6 +88,7 @@ etexcmds      \
 float		  \
 iftex		  \
 intcalc       \
+gettitlestring \
 hycolor       \
 hyperref	  \
 kvdefinekeys  \
