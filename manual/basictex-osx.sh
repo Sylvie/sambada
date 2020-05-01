@@ -18,10 +18,6 @@ wget http://mirror.ox.ac.uk/sites/ctan.org/systems/mac/mactex/mactex-basictex-20
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
 
-ls /Library/
-ls -R /Library/TeX/
-sudo find / -iname tlmgr
-
 # Refreshing the PATH
 bash --login
 
