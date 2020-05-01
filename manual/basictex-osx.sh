@@ -21,6 +21,9 @@ sudo installer -pkg BasicTeX.pkg -target /
 # Refreshing the PATH
 export PATH="$PATH:/usr/local/texlive/2020basic/bin/"
 
+echo $PATH
+ls /usr/local/texlive/2020basic/bin/
+
 # Creating the directory for tlmgr config, otherwise the permissions are too restrictive
 mkdir -p /Users/travis/Library/texlive/2020basic/texmf-config/tlmgr/
 
