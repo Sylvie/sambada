@@ -19,10 +19,10 @@ wget http://mirror.ox.ac.uk/sites/ctan.org/systems/mac/mactex/mactex-basictex-20
 sudo installer -pkg BasicTeX.pkg -target /
 
 # Refreshing the PATH
-export PATH="$PATH:/usr/local/texlive/2020basic/bin/"
+export PATH="$PATH:/usr/local/texlive/2020basic/bin/x86_64-darwin"
 
 echo $PATH
-ls /usr/local/texlive/2020basic/bin/
+ls /usr/local/texlive/2020basic/bin/x86_64-darwin
 
 # Creating the directory for tlmgr config, otherwise the permissions are too restrictive
 mkdir -p /Users/travis/Library/texlive/2020basic/texmf-config/tlmgr/
