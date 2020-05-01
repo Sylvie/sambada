@@ -18,6 +18,9 @@ wget http://mirror.ox.ac.uk/sites/ctan.org/systems/mac/mactex/mactex-basictex-20
 # Install a minimal system
 sudo installer -pkg BasicTeX.pkg -target /
 
+ls /Library/
+ls -R /Library/TeX/
+
 # Creating the directory for tlmgr config, otherwise the permissions are too restrictive
 mkdir -p /Users/travis/Library/texlive/2020basic/texmf-config/tlmgr/
 
