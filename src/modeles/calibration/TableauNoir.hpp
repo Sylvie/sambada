@@ -25,6 +25,8 @@ namespace sambada {
 
 	struct TableauNoir
 	{
+		int nbPoints;
+		int taille;
 
 		MatriceReels X;
 		MatriceReels Y;
@@ -41,6 +43,8 @@ namespace sambada {
 		MatriceReels interm;
 		MatriceReels intermScores;
 
+		reel logLikelihood;
+		reel composantEfron;
 	};
 
 }
