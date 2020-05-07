@@ -133,6 +133,8 @@ add_library(modeles
         src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp
         src/modeles/calibration/TableauNoir.cpp
         src/modeles/calibration/TableauNoir.hpp
+        src/modeles/calibration/RegresseurLogistique.cpp
+        src/modeles/calibration/RegresseurLogistique.hpp
         )
 
 set_target_properties(modeles
