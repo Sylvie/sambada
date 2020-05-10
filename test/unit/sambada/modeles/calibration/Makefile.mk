@@ -1,7 +1,7 @@
 ## Adding unit tests for variables
 
 test_unit_SambadaUnitTests_SOURCES += \
-	RegresseurLogistiqueTests.cpp
+	test/unit/sambada/modeles/calibration/RegresseurLogistiqueTests.cpp
 
 ## Cleaning ##
 clean-local-test-unit-sambada-modeles-calibration:

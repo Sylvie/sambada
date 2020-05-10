@@ -5,6 +5,7 @@ test_unit_SambadaUnitTests_SOURCES +=  \
 
 test_unit_SambadaUnitTests_LDADD += src/modeles/libmodeles.a
 
+include test/unit/sambada/modeles/calibration/Makefile.mk
 include test/unit/sambada/modeles/scriptorium/Makefile.mk
 
 ## Cleaning ##
