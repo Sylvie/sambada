@@ -4,7 +4,8 @@
 #include <limits>
 #include "optimize.h"
 
-void redimensionneTableau(sambada::TableauNoir& tableauNoir, int nbParam) {
+void redimensionneTableau(sambada::TableauNoir& tableauNoir, int nbParam)
+{
 	tableauNoir.beta_hat.resize(nbParam, 1);
 	tableauNoir.nouv_beta_hat.resize(nbParam, 1);
 	tableauNoir.diff_beta_hat.resize(nbParam, 1);
@@ -75,8 +76,8 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		CHECK(tableauNoir.logLikelihood == Approx(-269.053878322823));
 		CHECK(tableauNoir.composantEfron == Approx(79.7502514265949));
 
-		CHECK(tableauNoir.beta_hat(0,0) == Approx(-17.3693654948711));
-		CHECK(tableauNoir.beta_hat(1,0) == Approx(0.187236665153414));
+		CHECK(tableauNoir.beta_hat(0, 0) == Approx(-17.3693654948711));
+		CHECK(tableauNoir.beta_hat(1, 0) == Approx(0.187236665153414));
 	}
 
 	SECTION("Test that bivariate models computed with all points are correct")
@@ -106,9 +107,9 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		CHECK(tableauNoir.logLikelihood == Approx(-435.120101963281));
 		CHECK(tableauNoir.composantEfron == Approx(145.477083900859));
 
-		CHECK(tableauNoir.beta_hat(0,0) == Approx(-0.946516830318298));
-		CHECK(tableauNoir.beta_hat(1,0) == Approx(-0.0183359381677985));
-		CHECK(tableauNoir.beta_hat(2,0) == Approx(0.0050682175537951));
+		CHECK(tableauNoir.beta_hat(0, 0) == Approx(-0.946516830318298));
+		CHECK(tableauNoir.beta_hat(1, 0) == Approx(-0.0183359381677985));
+		CHECK(tableauNoir.beta_hat(2, 0) == Approx(0.0050682175537951));
 	}
 
 	SECTION("Test that trivariate models computed with all points are correct")
@@ -139,12 +140,12 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		CHECK(tableauNoir.logLikelihood == Approx(-432.491730351773));
 		CHECK(tableauNoir.composantEfron == Approx(143.974102367147));
 
-		CHECK(tableauNoir.beta_hat(0,0) == Approx(5.25923737406656));
-		CHECK(tableauNoir.beta_hat(1,0) == Approx(-0.0533335260266855));
-		CHECK(tableauNoir.beta_hat(2,0) == Approx(0.0280629365409178));
-		CHECK(tableauNoir.beta_hat(3,0) == Approx(-0.00980981249150528));
+		CHECK(tableauNoir.beta_hat(0, 0) == Approx(5.25923737406656));
+		CHECK(tableauNoir.beta_hat(1, 0) == Approx(-0.0533335260266855));
+		CHECK(tableauNoir.beta_hat(2, 0) == Approx(0.0280629365409178));
+		CHECK(tableauNoir.beta_hat(3, 0) == Approx(-0.00980981249150528));
 	}
-	
+
 	SECTION("Test that univariate models computed with a subset of points are correct")
 	{
 		/* Model:
@@ -177,8 +178,8 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		CHECK(tableauNoir.logLikelihood == Approx(-128.550369026278));
 		CHECK(tableauNoir.composantEfron == Approx(44.9201224350144));
 
-		CHECK(tableauNoir.beta_hat(0,0) == Approx(1.04986719024447));
-		CHECK(tableauNoir.beta_hat(1,0) == Approx(-0.0144318014628657));
+		CHECK(tableauNoir.beta_hat(0, 0) == Approx(1.04986719024447));
+		CHECK(tableauNoir.beta_hat(1, 0) == Approx(-0.0144318014628657));
 	}
 
 	SECTION("Test that bivariate models computed with a subset of points are correct")
@@ -214,9 +215,9 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		CHECK(tableauNoir.logLikelihood == Approx(-247.006148393722));
 		CHECK(tableauNoir.composantEfron == Approx(85.3924668706675));
 
-		CHECK(tableauNoir.beta_hat(0,0) == Approx(-5.52868771037956));
-		CHECK(tableauNoir.beta_hat(1,0) == Approx(0.0260439228674401));
-		CHECK(tableauNoir.beta_hat(2,0) == Approx(0.00949205994024362));
+		CHECK(tableauNoir.beta_hat(0, 0) == Approx(-5.52868771037956));
+		CHECK(tableauNoir.beta_hat(1, 0) == Approx(0.0260439228674401));
+		CHECK(tableauNoir.beta_hat(2, 0) == Approx(0.00949205994024362));
 	}
 
 	SECTION("Test that trivariate models computed with a subset of points are correct")
@@ -253,10 +254,42 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		CHECK(tableauNoir.logLikelihood == Approx(-279.092073280418));
 		CHECK(tableauNoir.composantEfron == Approx(89.4029957634644));
 
-		CHECK(tableauNoir.beta_hat(0,0) == Approx(17.3793503311373));
-		CHECK(tableauNoir.beta_hat(1,0) == Approx(-0.22955684361421));
-		CHECK(tableauNoir.beta_hat(2,0) == Approx(0.00631684213375558 ));
-		CHECK(tableauNoir.beta_hat(3,0) == Approx(-0.00257202969179504));
+		CHECK(tableauNoir.beta_hat(0, 0) == Approx(17.3793503311373));
+		CHECK(tableauNoir.beta_hat(1, 0) == Approx(-0.22955684361421));
+		CHECK(tableauNoir.beta_hat(2, 0) == Approx(0.00631684213375558));
+		CHECK(tableauNoir.beta_hat(3, 0) == Approx(-0.00257202969179504));
 	}
 
+	SECTION("Test that unconverged models return an error")
+	{
+		/* Model:
+		 * Hapmap41762-BTA-117570_AA bio3 bio3' with last bio3' item=75.0000001
+		 * */
+
+		int numeroMarqueur = 0;
+		std::vector<int> numerosEnv = {0};
+		int nbParam = 3;
+
+		tableauNoir.taille = taillesMarqueurs[numeroMarqueur];
+		redimensionneTableau(tableauNoir, nbParam);
+
+		tableauNoir.Y = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 1, marq[numeroMarqueur].begin());
+
+		std::vector<sambada::reel> vecteurX(tableauNoir.nbPoints, 1.);
+		vecteurX.insert(vecteurX.end(), dataEnv[numerosEnv[0]].begin(), dataEnv[numerosEnv[0]].end());
+		vecteurX.insert(vecteurX.end(), dataEnv[numerosEnv[0]].begin(), dataEnv[numerosEnv[0]].end());
+		vecteurX[vecteurX.size() - 1] = 75.0000001;
+		tableauNoir.X = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, nbParam, vecteurX.begin());
+
+		if (tableauNoir.taille < tableauNoir.nbPoints)
+		{
+			tableauNoir.X(tableauNoir.taille, 0, tableauNoir.nbPoints - 1, nbParam - 1) = 0;
+			tableauNoir.Y(tableauNoir.taille, 0, tableauNoir.nbPoints - 1, 0) = 0;
+		}
+
+		int codeErreur = regresseurLogistique.calculeRegression(tableauNoir);
+
+		// 2: J_info singulière
+		CHECK(codeErreur == 2);
+	}
 }
