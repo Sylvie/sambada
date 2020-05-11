@@ -124,7 +124,6 @@ int sambada::RegresseurLogistique::calculeRegression(sambada::TableauNoir& table
 					{
 						// Test de convergence
 						tableauNoir.diff_beta_hat = tableauNoir.nouv_beta_hat - tableauNoir.beta_hat;
-						std::cout << nbIterations << " " << tableauNoir.diff_beta_hat << std::endl;
 						continueCalcul = false;
 						for (int l(0); l < nbParam; ++l)
 						{

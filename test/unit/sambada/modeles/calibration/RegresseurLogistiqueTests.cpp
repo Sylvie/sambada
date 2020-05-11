@@ -27,13 +27,7 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 	tableauNoir.pi_hat.resize(tableauNoir.nbPoints, 1);
 	tableauNoir.interm.resize(tableauNoir.nbPoints, 1);
 	tableauNoir.intermScores.resize(tableauNoir.nbPoints, 1);
-
-
-
-	std::vector<sambada::reel> env1 = {1.5, 3, 8, -12.45};
-
-	std::vector<sambada::reel> env2 = {4, -5, 6, -7.2};
-
+	
 	std::vector<std::string> nomsMarqueurs({"Hapmap41762.BTA.117570_AA", "Hapmap41762.BTA.117570_AG", "Hapmap41762.BTA.117570_GG", "Hapmap28985.BTA.73836_CC", "Hapmap28985.BTA.73836_CG", "Hapmap28985.BTA.73836_GG"});
 	std::vector<int> taillesMarqueurs({804, 804, 804, 200, 400, 600});
 	std::vector<std::vector<int> > marq({
@@ -55,51 +49,29 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 	sambada::ConfigurationRegresseurLogistique configuration = {100, std::sqrt(std::numeric_limits<sambada::reel>::epsilon()), 1.e-6, 1000000, std::min((sambada::reel) 700, std::log(std::numeric_limits<sambada::reel>::max() / 2))};
 	sambada::RegresseurLogistique regresseurLogistique(configuration);
 
-	SECTION("Test something")
-	{
-		std::vector<sambada::reel> env3 = env1;
-		env3.insert(env3.end(), env2.begin(), env2.end());
-
-		scythe::Matrix<sambada::reel> data(4, 2, env3.begin());
-
-		CHECK(data.cols() == 2);
-
-		CHECK(data.rows() == 4);
-
-		CHECK(data(0, 0) == Approx(1.5));
-		CHECK(data(1, 0) == Approx(3));
-		CHECK(data(2, 1) == Approx(6));
-	}
-
 	SECTION("Test that univariate models computed with all points are correct")
 	{
 		int numeroMarqueur = 0;
 		int numeroEnv = 0;
+		int nbParam = 2;
+
+		redimensionneTableau(tableauNoir, nbParam);
 
 		tableauNoir.Y = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 1, marq[numeroMarqueur].begin());
 
 		std::vector<sambada::reel> vecteurX(tableauNoir.nbPoints, 1.);
 		vecteurX.insert(vecteurX.end(), dataEnv[numeroEnv].begin(), dataEnv[numeroEnv].end());
-		tableauNoir.X = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 2, vecteurX.begin());
-
-		redimensionneTableau(tableauNoir, 2);
+		tableauNoir.X = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, nbParam, vecteurX.begin());
 
 		int codeErreur = regresseurLogistique.calculeRegression(tableauNoir);
 
 		CHECK(codeErreur == 0);
-		INFO(configuration.limiteIterations);
-		INFO(configuration.limiteExp);
-		INFO(configuration.limiteNaN);
-		INFO(configuration.epsilon);
-		INFO(configuration.critereConvergence);
 
 		CHECK(tableauNoir.logLikelihood == Approx(-269.053878322823));
 		CHECK(tableauNoir.composantEfron == Approx(79.7502514265949));
 
 		CHECK(tableauNoir.beta_hat(0,0) == Approx( -17.3693654948711));
 		CHECK(tableauNoir.beta_hat(1,0) == Approx( 0.187236665153414));
-
-
 	}
 
 }
