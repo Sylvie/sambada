@@ -27,8 +27,8 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 	tableauNoir.pi_hat.resize(tableauNoir.nbPoints, 1);
 	tableauNoir.interm.resize(tableauNoir.nbPoints, 1);
 	tableauNoir.intermScores.resize(tableauNoir.nbPoints, 1);
-	
-	std::vector<std::string> nomsMarqueurs({"Hapmap41762.BTA.117570_AA", "Hapmap41762.BTA.117570_AG", "Hapmap41762.BTA.117570_GG", "Hapmap28985.BTA.73836_CC", "Hapmap28985.BTA.73836_CG", "Hapmap28985.BTA.73836_GG"});
+
+	std::vector<std::string> nomsMarqueurs({"Hapmap41762-BTA-117570_AA", "Hapmap41762-BTA-117570_AG", "Hapmap41762-BTA-117570_GG", "Hapmap28985-BTA-73836_CC", "Hapmap28985-BTA-73836_CG", "Hapmap28985-BTA-73836_GG"});
 	std::vector<int> taillesMarqueurs({804, 804, 804, 200, 400, 600});
 	std::vector<std::vector<int> > marq({
 			                                    {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -51,8 +51,12 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 
 	SECTION("Test that univariate models computed with all points are correct")
 	{
+		/* Model:
+		 * Hapmap41762-BTA-117570_AA bio3 -269.053878322823 41.9521916771594 35.7445154865424 0 0.0392687721459054 0.0723238896228927 0.0654280506469977 0.0508413732659607 0.0989205722664067 542.107756645645 551.486955184003 -17.3693654948711 0.187236665153414 79.7502514265949
+		 * */
+
 		int numeroMarqueur = 0;
-		int numeroEnv = 0;
+		std::vector<int> numerosEnv = {0};
 		int nbParam = 2;
 
 		redimensionneTableau(tableauNoir, nbParam);
@@ -60,7 +64,7 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		tableauNoir.Y = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 1, marq[numeroMarqueur].begin());
 
 		std::vector<sambada::reel> vecteurX(tableauNoir.nbPoints, 1.);
-		vecteurX.insert(vecteurX.end(), dataEnv[numeroEnv].begin(), dataEnv[numeroEnv].end());
+		vecteurX.insert(vecteurX.end(), dataEnv[numerosEnv[0]].begin(), dataEnv[numerosEnv[0]].end());
 		tableauNoir.X = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, nbParam, vecteurX.begin());
 
 		int codeErreur = regresseurLogistique.calculeRegression(tableauNoir);
@@ -70,8 +74,72 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		CHECK(tableauNoir.logLikelihood == Approx(-269.053878322823));
 		CHECK(tableauNoir.composantEfron == Approx(79.7502514265949));
 
-		CHECK(tableauNoir.beta_hat(0,0) == Approx( -17.3693654948711));
-		CHECK(tableauNoir.beta_hat(1,0) == Approx( 0.187236665153414));
+		CHECK(tableauNoir.beta_hat(0,0) == Approx(-17.3693654948711));
+		CHECK(tableauNoir.beta_hat(1,0) == Approx(0.187236665153414));
+	}
+
+	SECTION("Test that bivariate models computed with all points are correct")
+	{
+		/* Model:
+		 * Hapmap41762-BTA-117570_AG prec7 tmax10 -435.120101963281 0.592258461412371 0.58529645333064 0 0.0870423021793632 0.0758606099663791 0.0694889940433464 0.0850180337122862 0.12321142767156 876.240203926561 890.309001734098 -0.946516830318298 -0.0183359381677985 0.0050682175537951 145.477083900859
+		 * */
+
+		int numeroMarqueur = 1;
+		std::vector<int> numerosEnv = {1, 2};
+		int nbParam = 3;
+
+		redimensionneTableau(tableauNoir, nbParam);
+
+		tableauNoir.Y = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 1, marq[numeroMarqueur].begin());
+
+		std::vector<sambada::reel> vecteurX(tableauNoir.nbPoints, 1.);
+		vecteurX.insert(vecteurX.end(), dataEnv[numerosEnv[0]].begin(), dataEnv[numerosEnv[0]].end());
+		vecteurX.insert(vecteurX.end(), dataEnv[numerosEnv[1]].begin(), dataEnv[numerosEnv[1]].end());
+		tableauNoir.X = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, nbParam, vecteurX.begin());
+
+		int codeErreur = regresseurLogistique.calculeRegression(tableauNoir);
+
+		CHECK(codeErreur == 0);
+
+		CHECK(tableauNoir.logLikelihood == Approx(-435.120101963281));
+		CHECK(tableauNoir.composantEfron == Approx(145.477083900859));
+
+		CHECK(tableauNoir.beta_hat(0,0) == Approx(-0.946516830318298));
+		CHECK(tableauNoir.beta_hat(1,0) == Approx(-0.0183359381677985));
+		CHECK(tableauNoir.beta_hat(2,0) == Approx(0.0050682175537951));
+	}
+
+	SECTION("Test that trivariate models computed with all points are correct")
+	{
+		/* Model:
+		 * Hapmap41762-BTA-117570_GG bio3 prec7 tmax10 -432.491730351773 2.11694184536077 2.11992316011661 0 0.246792564543991 0.00244140337051846 -0.0067847484989576 0.00262954890906708 0.0039848355116093 872.983460703546 891.741857780262 5.25923737406656 -0.0533335260266855 0.0280629365409178 -0.00980981249150528 143.974102367147
+		 * */
+
+		int numeroMarqueur = 2;
+		std::vector<int> numerosEnv = {0, 1, 2};
+		int nbParam = 4;
+
+		redimensionneTableau(tableauNoir, nbParam);
+
+		tableauNoir.Y = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 1, marq[numeroMarqueur].begin());
+
+		std::vector<sambada::reel> vecteurX(tableauNoir.nbPoints, 1.);
+		vecteurX.insert(vecteurX.end(), dataEnv[numerosEnv[0]].begin(), dataEnv[numerosEnv[0]].end());
+		vecteurX.insert(vecteurX.end(), dataEnv[numerosEnv[1]].begin(), dataEnv[numerosEnv[1]].end());
+		vecteurX.insert(vecteurX.end(), dataEnv[numerosEnv[2]].begin(), dataEnv[numerosEnv[2]].end());
+		tableauNoir.X = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, nbParam, vecteurX.begin());
+
+		int codeErreur = regresseurLogistique.calculeRegression(tableauNoir);
+
+		CHECK(codeErreur == 0);
+
+		CHECK(tableauNoir.logLikelihood == Approx(-432.491730351773));
+		CHECK(tableauNoir.composantEfron == Approx(143.974102367147));
+
+		CHECK(tableauNoir.beta_hat(0,0) == Approx(5.25923737406656));
+		CHECK(tableauNoir.beta_hat(1,0) == Approx(-0.0533335260266855));
+		CHECK(tableauNoir.beta_hat(2,0) == Approx(0.0280629365409178));
+		CHECK(tableauNoir.beta_hat(3,0) == Approx(-0.00980981249150528));
 	}
 
 }
