@@ -23,10 +23,24 @@
 
 namespace sambada {
 
+	struct ConfigurationRegresseurLogistique
+	{
+		int limiteIterations;
+		reel epsilon;
+		reel critereConvergence;
+		reel limiteNaN;
+		reel limiteExp;
+	};
+
 	class RegresseurLogistique
 	{
 	public:
+		RegresseurLogistique(const ConfigurationRegresseurLogistique& configuration);
+
 		int calculeRegression(TableauNoir& tableauNoir) const;
+
+	private:
+		const ConfigurationRegresseurLogistique configuration;
 	};
 
 }

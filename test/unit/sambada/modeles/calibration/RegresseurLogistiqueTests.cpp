@@ -1,12 +1,34 @@
 #include "catch.hpp"
 #include "modeles/calibration/TableauNoir.hpp"
 #include "modeles/calibration/RegresseurLogistique.hpp"
+#include <limits>
+#include "optimize.h"
+
+void redimensionneTableau(sambada::TableauNoir& tableauNoir, int nbParam) {
+	tableauNoir.beta_hat.resize(nbParam, 1);
+	tableauNoir.nouv_beta_hat.resize(nbParam, 1);
+	tableauNoir.diff_beta_hat.resize(nbParam, 1);
+	tableauNoir.scores.resize(nbParam, 1);
+	tableauNoir.J_info.resize(nbParam, nbParam);
+	tableauNoir.inv_J_info.resize(nbParam, nbParam);
+	tableauNoir.X.resize(tableauNoir.nbPoints, nbParam);
+}
 
 TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresseur-logistique-unit]")
 {
 	sambada::TableauNoir tableauNoir;
 	tableauNoir.nbPoints = 804;
 	tableauNoir.taille = 804;
+
+	tableauNoir.Y.resize(tableauNoir.nbPoints, 1);
+	tableauNoir.Xb.resize(tableauNoir.nbPoints, 1);
+	tableauNoir.nouv_Xb.resize(tableauNoir.nbPoints, 1);
+	tableauNoir.exp_Xb.resize(tableauNoir.nbPoints, 1);
+	tableauNoir.pi_hat.resize(tableauNoir.nbPoints, 1);
+	tableauNoir.interm.resize(tableauNoir.nbPoints, 1);
+	tableauNoir.intermScores.resize(tableauNoir.nbPoints, 1);
+
+
 
 	std::vector<sambada::reel> env1 = {1.5, 3, 8, -12.45};
 
@@ -30,7 +52,8 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 			                                                {236, 262, 254, 286, 286, 286, 262, 262, 272, 275, 286, 286, 290, 287, 287, 287, 284, 284, 284, 278, 273, 273, 273, 273, 273, 271, 291, 291, 289, 290, 291, 291, 291, 291, 287, 302, 303, 303, 309, 299, 299, 301, 301, 291, 282, 282, 297, 296, 296, 299, 299, 298, 298, 298, 298, 298, 298, 302, 302, 304, 304, 304, 303, 303, 303, 303, 290, 290, 290, 290, 290, 291, 288, 280, 280, 285, 285, 285, 285, 285, 294, 301, 304, 293, 289, 291, 288, 288, 288, 296, 296, 296, 294, 294, 240, 240, 240, 232, 232, 232, 236, 236, 236, 210, 210, 210, 210, 210, 291, 291, 291, 282, 282, 282, 282, 280, 280, 280, 280, 216, 216, 216, 216, 216, 216, 216, 288, 288, 288, 288, 292, 292, 262, 262, 262, 262, 262, 262, 262, 244, 244, 244, 256, 256, 256, 254, 254, 254, 262, 262, 262, 259, 259, 259, 259, 255, 255, 255, 286, 286, 286, 286, 286, 286, 286, 286, 286, 284, 284, 284, 281, 281, 281, 281, 277, 277, 277, 277, 259, 259, 259, 262, 262, 262, 262, 262, 262, 262, 262, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261, 263, 263, 263, 263, 262, 262, 262, 258, 258, 258, 262, 262, 262, 261, 261, 261, 260, 260, 260, 260, 288, 288, 288, 290, 290, 290, 290, 294, 294, 294, 294, 291, 291, 291, 279, 279, 279, 279, 279, 279, 279, 280, 280, 280, 279, 279, 279, 264, 264, 264, 264, 266, 266, 266, 260, 260, 260, 288, 288, 288, 288, 281, 281, 281, 281, 269, 269, 269, 269, 272, 272, 272, 272, 275, 305, 305, 305, 309, 309, 309, 309, 294, 294, 294, 286, 286, 286, 286, 290, 290, 290, 265, 265, 265, 260, 260, 260, 260, 258, 258, 258, 264, 264, 264, 264, 286, 286, 286, 286, 287, 287, 287, 287, 287, 287, 287, 284, 281, 281, 281, 281, 278, 278, 278, 278, 277, 277, 277, 277, 277, 282, 282, 282, 282, 257, 257, 257, 257, 257, 273, 273, 273, 273, 268, 268, 268, 273, 269, 269, 269, 269, 269, 269, 269, 270, 270, 270, 270, 271, 271, 271, 268, 268, 268, 321, 321, 321, 321, 311, 311, 311, 311, 306, 306, 306, 315, 315, 315, 315, 321, 321, 321, 291, 291, 291, 291, 291, 291, 291, 291, 291, 289, 289, 289, 290, 292, 292, 292, 292, 292, 292, 292, 292, 291, 291, 291, 291, 291, 291, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 287, 288, 288, 288, 288, 285, 285, 285, 285, 286, 286, 286, 286, 286, 286, 286, 286, 286, 273, 273, 273, 273, 273, 276, 276, 276, 276, 274, 274, 274, 274, 276, 276, 276, 276, 276, 302, 302, 302, 303, 303, 303, 303, 303, 309, 309, 301, 301, 301, 299, 299, 299, 299, 299, 299, 301, 301, 301, 301, 301, 296, 296, 296, 296, 296, 296, 296, 296, 296, 297, 297, 297, 297, 297, 297, 297, 297, 297, 301, 301, 301, 301, 302, 302, 302, 302, 302, 303, 303, 303, 303, 303, 298, 298, 298, 298, 290, 290, 290, 290, 290, 290, 290, 290, 290, 287, 287, 287, 287, 291, 291, 291, 291, 274, 274, 274, 274, 270, 270, 270, 270, 270, 270, 270, 284, 284, 284, 284, 284, 284, 284, 282, 297, 297, 296, 299, 298, 298, 298, 298, 298, 298, 298, 295, 295, 295, 304, 304, 304, 302, 304, 304, 303, 306, 306, 306, 306, 306, 306, 306, 306, 306, 306, 306, 306, 306, 306, 304, 304, 304, 293, 293, 293, 288, 288, 288, 288, 288, 291, 291, 291, 291, 288, 288, 288, 288, 288, 280, 280, 282, 282, 282, 285, 285, 285, 296, 296, 296, 293, 293, 293, 293, 294, 294, 294, 294, 294, 294, 294, 294, 294, 294, 301, 301, 301, 301, 304, 304, 304, 303, 303, 303, 303, 302, 302, 302, 302, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 297, 297, 297, 293, 293, 293, 291, 291, 291, 291, 289, 289, 289, 290, 290, 290, 290, 290, 291, 291, 288, 288, 288, 288, 304, 304, 304, 304, 290, 290, 290, 290, 291, 291, 291, 291, 290, 290, 290, 290, 290, 281, 281, 281, 281, 288, 288, 288, 288, 296, 294, 294, 294, 296, 296, 296, 292, 292, 292, 292, 298, 298, 304, 304, 302, 297, 289, 288, 275, 260, 275, 275, 276, 276, 276, 276, 252, 252, 252, 252, 248, 248, 248, 248, 248, 260, 260, 260, 268, 268, 268, 266, 266, 266, 263, 263, 263, 264, 264, 264, 265, 265, 265, 265, 265, 265, 265, 265, 261, 261, 261, 264, 264, 264, 264, 265, 265, 265, 265, 262, 262, 262, 262, 265, 265, 265, 259, 259, 259, 259, 314, 314, 314, 313, 313, 313, 313}
 	                                                });
 
-	sambada::RegresseurLogistique regresseurLogistique;
+	sambada::ConfigurationRegresseurLogistique configuration = {100, std::sqrt(std::numeric_limits<sambada::reel>::epsilon()), 1.e-6, 1000000, std::min((sambada::reel) 700, std::log(std::numeric_limits<sambada::reel>::max() / 2))};
+	sambada::RegresseurLogistique regresseurLogistique(configuration);
 
 	SECTION("Test something")
 	{
@@ -54,14 +77,29 @@ TEST_CASE("Test that RegresseurLogistique computes models correctly", "[regresse
 		int numeroEnv = 0;
 
 		tableauNoir.Y = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 1, marq[numeroMarqueur].begin());
-		tableauNoir.X = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 1, dataEnv[numeroEnv].begin());
+
+		std::vector<sambada::reel> vecteurX(tableauNoir.nbPoints, 1.);
+		vecteurX.insert(vecteurX.end(), dataEnv[numeroEnv].begin(), dataEnv[numeroEnv].end());
+		tableauNoir.X = scythe::Matrix<sambada::reel>(tableauNoir.nbPoints, 2, vecteurX.begin());
+
+		redimensionneTableau(tableauNoir, 2);
 
 		int codeErreur = regresseurLogistique.calculeRegression(tableauNoir);
 
 		CHECK(codeErreur == 0);
+		INFO(configuration.limiteIterations);
+		INFO(configuration.limiteExp);
+		INFO(configuration.limiteNaN);
+		INFO(configuration.epsilon);
+		INFO(configuration.critereConvergence);
 
 		CHECK(tableauNoir.logLikelihood == Approx(-269.053878322823));
 		CHECK(tableauNoir.composantEfron == Approx(79.7502514265949));
+
+		CHECK(tableauNoir.beta_hat(0,0) == Approx( -17.3693654948711));
+		CHECK(tableauNoir.beta_hat(1,0) == Approx( 0.187236665153414));
+
+
 	}
 
 }
