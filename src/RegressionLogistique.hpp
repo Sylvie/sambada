@@ -36,6 +36,7 @@
 #include "histograms/StoreyHistograms.hpp"
 #include "modeles/Modele.hpp"
 #include "modeles/calibration/TableauNoir.hpp"
+#include "modeles/calibration/RegresseurLogistique.hpp"
 #include "modeles/scriptorium/scribe/Scribe.hpp"
 #include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
 #include "modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp"
@@ -181,6 +182,9 @@ protected:
 private:
 	sambada::FamilleVariables familleVariables;
 	sambada::TableauNoir tableauNoir;
+
+	sambada::ConfigurationRegresseurLogistique configurationRegresseurLogistique;
+	sambada::RegresseurLogistique regresseurLogistique;
 
 	sambada::FamilleModeles resultats;
 

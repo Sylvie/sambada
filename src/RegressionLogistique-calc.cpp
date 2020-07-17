@@ -49,7 +49,9 @@ RegressionLogistique::RegressionLogistique()
 		  storey(nullptr),
 		  sortie(flotSortieFichierFactory), scribeModelesLineairesGeneralises(sortie), delimLignes("\n"), delimMots(' '),
 		  AS_GWR(false), AS_autocorrGlobale(false), AS_autocorrLocale(false), AS_autocorrVarEnv(false), AS_autocorrMarq(false), AS_shapefile(false),
-		  AS_spatialLag(false)
+		  AS_spatialLag(false),
+
+		  configurationRegresseurLogistique({100, std::sqrt(std::numeric_limits<sambada::reel>::epsilon()), 1.e-6, 1000000, std::min((sambada::reel) 700, std::log(std::numeric_limits<sambada::reel>::max() / 2))}), regresseurLogistique(configurationRegresseurLogistique)
 {
 }
 
@@ -636,7 +638,12 @@ void RegressionLogistique::construitModele(int numMarq, const set<int>& varConti
 			tableauNoir.beta_hat = 0;
 
 			int typeErreur(0);
-			typeErreur = calculeRegression(resultat.second[valloglikelihood], resultat.second[Efron]);
+
+			tableauNoir.nbPoints = nbPoints;
+			tableauNoir.taille = taille;
+			typeErreur = regresseurLogistique.calculeRegression(tableauNoir);
+			resultat.second[valloglikelihood] = tableauNoir.logLikelihood;
+			resultat.second[Efron] = tableauNoir.composantEfron;
 
 			if (typeErreur > 0)
 			{
@@ -824,7 +831,7 @@ int RegressionLogistique::calculeRegression(reel& loglikeCourante, reel& composa
 				if (!singularMatrix)
 				{
 					// Mise à jour de beta_hat
-					tableauNoir.nouv_beta_hat =tableauNoir.beta_hat + tableauNoir.inv_J_info * tableauNoir.scores;
+					tableauNoir.nouv_beta_hat = tableauNoir.beta_hat + tableauNoir.inv_J_info * tableauNoir.scores;
 
 					for (int l(0); l < nbParam; ++l)
 					{
