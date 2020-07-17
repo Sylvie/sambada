@@ -123,9 +123,7 @@ protected:
 	void construitModele(int numMarq, const set<int>& varContinues); //, const reel loglike_zero, reel& loglike_courante);
 	//	void calculeStats(reel loglikeCourante, reel loglikeZero, int nbParamEstimes, vector<double>& statsCourantes, vector<double>& pseudosRcarresCourants);
 	bool calculeStats(sambada::Modele& resultat, int nbParamEstimes);
-
-	int calculeRegression(reel& loglikeCourante, reel& indiceEfron);
-
+	
 	void calculeGWR(int numMarq, const set<int>& varContinues, sambada::Modele& resultat);
 
 	void calculePonderation() CPPTHROW(Erreur);
