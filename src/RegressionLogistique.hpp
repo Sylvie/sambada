@@ -128,7 +128,6 @@ protected:
 
 	void calculePonderation() CPPTHROW(Erreur);
 
-
 private:
 
 	/**
@@ -145,6 +144,8 @@ private:
 		// Mise à jour à partir du masque, recalcule les nombres de points totaux et valides, les vecteurs d'indiçage et redimensionne le poids
 		bool miseAJour();
 	} Domaine;
+
+	void calculeDomaineGlobal(Domaine& pointsTot);
 
 
 protected:
@@ -295,7 +296,6 @@ private :
 	bool inclutToutesVariablesPop(set<int> variables) const;
 
 	bool estModeleEligiblePourStructurePopulation(set<int> variables) const;
-
 };
 
 class ComparaisonVoisins

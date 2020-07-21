@@ -154,36 +154,7 @@ int RegressionLogistique::creeModelesGlobaux()
 
 	if (AS_GWR)
 	{
-		if (!AS_autocorrVarEnv && !AS_autocorrMarq)
-		{
-			calculePonderation();
-		}
-		// Calcul de la pondération type si aucun marqueur ou variable env ne manque
-		// La pondération géo prend en compte le point lui-même
-		// On fait le même calcul quel que soit le type de pondération (y compris les plus proches voisins)
-		pointsTot = pointsGeo;
-		reel sommePond(0);
-		int nbVoisins(0);
-		for (int i(0); i < nbPoints; ++i)
-		{
-			if (pointsTot.masque(i, 0))
-			{
-				// Si un point est valide, tous ses voisins sont considérés, vu qu'on ne compte que le masque géo
-				nbVoisins = pointsTot.poids[i].size();
-				for (int j(0); j < nbVoisins; ++j)
-				{
-					sommePond += pointsTot.poids[i][j].second;
-				}
-				sommePond += 1.; // Pour le point i
-				for (int j(0); j < nbVoisins; ++j)
-				{
-					pointsTot.poids[i][j].second /= sommePond;
-				}
-				pointsTot.poids[i].push_back(make_pair(i, 1. / sommePond));
-				//ponderationGeo[i].push_back(make_pair(i, 1.));
-
-			}
-		}
+		calculeDomaineGlobal(pointsTot);
 
 		// On redimensionne aussi les matrices locales
 		// Ces matrices ne changent pas de taille
@@ -194,7 +165,6 @@ int RegressionLogistique::creeModelesGlobaux()
 		tableauNoirLocal.pi_hat.resize(nbPoints, 1);
 		tableauNoirLocal.interm.resize(nbPoints, 1);
 		tableauNoirLocal.intermScores.resize(nbPoints, 1);
-
 	}
 
 	storey = std::unique_ptr<sambada::StoreyHistograms>(new sambada::StoreyHistograms(dimensionMax));
@@ -495,7 +465,6 @@ int RegressionLogistique::creeModelesGlobaux()
 
 	return 0;
 }
-
 
 void RegressionLogistique::construitModele(int numMarq, const set<int>& varContinues)//, const reel loglike_zero, reel& loglike_courante)
 {
