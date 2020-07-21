@@ -147,6 +147,7 @@ private:
 
 	void calculeDomaineGlobal(Domaine& pointsTot);
 
+	void calculeDomaineMarqueur(const Domaine& pointsTot);
 
 protected:
 

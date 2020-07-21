@@ -2132,6 +2132,123 @@ void RegressionLogistique::calculeDomaineGlobal(RegressionLogistique::Domaine& p
 	}
 }
 
+void RegressionLogistique::calculeDomaineMarqueur(const RegressionLogistique::Domaine& pointsTot)
+{
+	// Calcul de la pondération type si masqueGeoMarq=masque (X*Y)
+	pointsMarq.masque = pointsTot.masque % masqueY;
+	pointsMarq.taille = toolbox::sommeNumerique(pointsMarq.masque);
+	if (pointsMarq.taille == pointsTot.taille)    // Si on n'a pas de nouvelles valeurs manquantes (par rapport à masqueGeo)
+	{
+		pointsMarq = pointsTot;
+	}
+	else
+	{
+		pointsMarq.miseAJour();
+
+		reel sommePond(0);
+		int nbVoisins(0);
+		if (choixPonderation != pondPlusProchesVoisins)
+		{
+			for (int i(0); i < nbPoints; ++i)
+			{
+				if (pointsMarq.masque(i, 0))
+				{
+					nbVoisins = pointsTot.poids[i].size();
+					for (int j(0); j < nbVoisins; ++j)
+					{
+						if (pointsMarq.masque(j, 0))
+						{
+							sommePond += pointsTot.poids[i][j].second;
+							pointsMarq.poids[i].push_back(pointsTot.poids[i][j]);
+						}
+					}
+					sommePond += 1.; // Pour le point i
+					nbVoisins = pointsMarq.poids[i].size();
+
+					for (int j(0); j < nbVoisins; ++j)
+					{
+						pointsMarq.poids[i][j].second /= sommePond;
+					}
+					pointsMarq.poids[i].push_back(make_pair(i, 1. / sommePond));
+				}
+			}
+		}
+		else    // Cas plus proches voisins, on reprend la liste du voisinage
+		{
+
+			// Cas où tous les points valides sont voisins
+			if (pointsMarq.taille <= (nbPlusProchesVoisins + 1))
+			{
+				double poids(1. / pointsMarq.taille);
+				for (int i(0); i < nbPoints; ++i)
+				{
+					if (pointsMarq.masque(i, 0))
+					{
+
+						pointsMarq.poids[i].push_back(make_pair(i, poids));
+
+						for (int j(i + 1); j < nbPoints; ++j)
+						{
+							if (pointsMarq.masque(j, 0))
+							{
+								pointsMarq.poids[i].push_back(make_pair(j, poids));
+								pointsMarq.poids[j].push_back(make_pair(i, poids));
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				// On sélectionne les points voisins
+				// Il peut y en avoir plus que "nbPlusProchesVoisins" si certains points sont à égale distance
+
+				int nbVoisinsCourants(0);
+				vector<Voisin>::iterator voisinCourant, voisinSuivant;
+
+				reel plusPetiteDiffDist(pow(10., -4)); // En dessous d' 1cm ça compte pas! (Les distances sont au carré)
+				for (int i(0); i < nbPoints; ++i)
+				{
+					if (pointsMarq.masque(i, 0))
+					{
+						nbVoisinsCourants = 0;
+						pointsMarq.poids[i].push_back(make_pair(i, 1));
+						voisinCourant = voisinage[i].begin();
+						while ((nbVoisinsCourants < nbPlusProchesVoisins) && (voisinCourant != voisinage[i].end()))
+						{
+							if (pointsMarq.masque(voisinCourant->first, 0))
+							{
+								pointsMarq.poids[i].push_back(make_pair(voisinCourant->first, 1));
+								++voisinCourant;
+								++nbVoisinsCourants;
+							}
+						}
+						// On cherche si des points sont à la même distance que le dernier
+						voisinSuivant = voisinCourant + 1;
+						while ((voisinSuivant != voisinage[i].end()) && abs((voisinSuivant)->second - voisinCourant->second) < plusPetiteDiffDist)
+						{
+							if (pointsMarq.masque(voisinSuivant->first, 0))
+							{
+								pointsMarq.poids[i].push_back(make_pair(voisinSuivant->first, 1));
+
+								++voisinCourant;
+								++voisinSuivant;
+								++nbVoisinsCourants;
+							}
+						}
+						sommePond = nbVoisinsCourants + 1; // +1 pour le point lui-même
+						double poids(1. / sommePond);
+						for (int j(0); j < sommePond; ++j)
+						{
+							pointsMarq.poids[i][j].second = poids;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 void RegressionLogistique::calculeGWR(int numMarq, const set<int>& varContinues, Modele& resultat)
 {
 	cout << "%" << numMarq << endl;
