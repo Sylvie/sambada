@@ -21,8 +21,10 @@
 noinst_LIBRARIES += src/parametres/libparametres.a
 
 src_parametres_libparametres_a_SOURCES = \
+	src/parametres/Parametres.hpp \
 	src/parametres/Parametres.cpp \
-	src/parametres/Parametres.hpp
+	src/parametres/LecteurParametres.hpp \
+    src/parametres/LecteurParametres.cpp
 
 src_parametres_libparametres_a_CPPFLAGS = \
 	-I $(top_srcdir)/src

@@ -59,6 +59,8 @@ set_target_properties(shp
 add_library(parametres
         src/parametres/Parametres.hpp
         src/parametres/Parametres.cpp
+        src/parametres/LecteurParametres.hpp
+        src/parametres/LecteurParametres.cpp
         )
 
 set_target_properties(parametres
@@ -416,6 +418,7 @@ add_executable(SambadaUnitTests
         test/unit/sambada/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralisesTests.cpp
         test/unit/sambada/modeles/scriptorium/lecteur/FlotEntreeChaineFactoryTests.cpp
         test/unit/sambada/modeles/scriptorium/lecteur/LecteurTests.cpp
+        test/unit/sambada/parametres/LecteurParametresTests.cpp
         test/unit/sambada/variables/FamilleVariablesFactoryTests.cpp
         test/unit/sambada/histograms/HistogramTests.cpp
         test/unit/sambada/histograms/GroupHistogramsTests.cpp
@@ -430,6 +433,7 @@ target_link_libraries(SambadaUnitTests
         variables
         histograms
         modeles
+        parametres
         segmentation
         )
 
