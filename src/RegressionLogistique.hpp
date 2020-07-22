@@ -275,7 +275,7 @@ private :
 		vector<string> prereq;    // Liste des pré-requis
 		vector<string> contents;
 	}
-			ParameterSetData;
+	ParameterSetData;
 
 	typedef vector<ParameterSetData> ParameterSet;
 	typedef map<string, int> ParameterSetIndex;

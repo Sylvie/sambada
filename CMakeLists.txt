@@ -56,6 +56,16 @@ set_target_properties(shp
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/"
         )
 
+add_library(parametres
+        src/parametres/Parametres.hpp
+        src/parametres/Parametres.cpp
+        )
+
+set_target_properties(parametres
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/parametres/"
+        )
+
 add_library(variables
         src/common/TypesCommuns.hpp
         src/variables/CombinaisonVariables.hpp
