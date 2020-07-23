@@ -21,7 +21,116 @@ namespace sambada {
 
 	void LecteurParametres::initialiseParametres(Parametres& parametres) const
 	{
+		Parametre paramCourant;
 
+		// INPUTFILE
+		paramCourant.name = "INPUTFILE";
+		paramCourant.mandatory = false;
+		paramCourant.present = false;
+		parametres.entrees.push_back(paramCourant);
+
+		// OUTPUTFILE
+		paramCourant.name = "OUTPUTFILE";
+		parametres.entrees.push_back(paramCourant);
+
+		// WORDDELIM
+		paramCourant.name = "WORDDELIM";
+		parametres.entrees.push_back(paramCourant);
+
+		// LOG
+		paramCourant.name = "LOG";
+		parametres.entrees.push_back(paramCourant);
+
+		// UNCONVERGEDMODELS
+		paramCourant.name = "UNCONVERGEDMODELS";
+		parametres.entrees.push_back(paramCourant);
+
+		// HEADERS
+		paramCourant.name = "HEADERS";
+		//paramCourant.tokenize=true;
+		parametres.entrees.push_back(paramCourant);
+
+		// NUMVARENV
+		paramCourant.name = "NUMVARENV";
+		paramCourant.mandatory = true;
+		parametres.entrees.push_back(paramCourant);
+
+		// NUMMARK
+		paramCourant.name = "NUMMARK";
+		parametres.entrees.push_back(paramCourant);
+
+		// NUMINDIV
+		paramCourant.name = "NUMINDIV";
+		parametres.entrees.push_back(paramCourant);
+
+		// IDINDIV
+		paramCourant.name = "IDINDIV";
+		paramCourant.mandatory = false;
+		parametres.entrees.push_back(paramCourant);
+
+		// COLSUPENV
+		paramCourant.name = "COLSUPENV";
+		parametres.entrees.push_back(paramCourant);
+
+		// COLSUPMARK
+		paramCourant.name = "COLSUPMARK";
+		parametres.entrees.push_back(paramCourant);
+
+		// SUBSETVARENV
+		paramCourant.name = "SUBSETVARENV";
+		parametres.entrees.push_back(paramCourant);
+
+		// SUBSETMARK
+		paramCourant.name = "SUBSETMARK";
+		parametres.entrees.push_back(paramCourant);
+
+		// DIMMAX
+		paramCourant.name = "DIMMAX";
+		parametres.entrees.push_back(paramCourant);
+
+		// SPATIAL
+		paramCourant.name = "SPATIAL";
+		parametres.entrees.push_back(paramCourant);
+
+		// Pré-requis: autocorr, GWR et SHP requièrent le paramètre SPATIAL
+		// AUTOCORR
+		paramCourant.name = "AUTOCORR";
+		paramCourant.prereq.push_back("SPATIAL");
+		parametres.entrees.push_back(paramCourant);
+
+		// GWR
+		paramCourant.name = "GWR";
+		parametres.entrees.push_back(paramCourant);
+
+		// SHAPEFILE
+		paramCourant.name = "SHAPEFILE";
+		parametres.entrees.push_back(paramCourant);
+
+		// DISCRETEVAR
+		paramCourant.name = "DISCRETEVAR";
+		paramCourant.prereq.clear();
+		parametres.entrees.push_back(paramCourant);
+
+		// SAVETYPE
+		paramCourant.name = "SAVETYPE";
+		paramCourant.mandatory = true;
+		parametres.entrees.push_back(paramCourant);
+
+		// POPULATIONVAR
+		paramCourant.name = "POPULATIONVAR";
+		paramCourant.mandatory = false;
+		parametres.entrees.push_back(paramCourant);
+
+		// STOREY
+		paramCourant.name = "STOREY";
+		paramCourant.mandatory = false;
+		parametres.entrees.push_back(paramCourant);
+
+		int nbTotParam(parametres.entrees.size());
+		for (int i(0); i < nbTotParam; ++i)
+		{
+			parametres.index.insert(make_pair(parametres.entrees[i].name, i));
+		}
 	}
 
 }

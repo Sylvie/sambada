@@ -44,3 +44,5 @@ ${GCOV} -r ../src/variables/EtiquetteCombinaisonVariables.cpp -o src/variables/s
 ${GCOV} -r ../src/variables/CombinaisonVariables.cpp -o src/variables/src_variables_libvariables_a-CombinaisonVariables.o
 ${GCOV} -r ../src/variables/FamilleVariablesFactory.cpp -o src/variables/src_variables_libvariables_a-FamilleVariablesFactory.o
 ${GCOV} -r ../src/variables/SpecificationsVariables.cpp -o src/variables/src_variables_libvariables_a-SpecificationsVariables.o
+
+${GCOV} -r ../src/parametres/LecteurParametres.cpp -o src/parametres/src_parametres_libparametres_a-LecteurParametres.o
