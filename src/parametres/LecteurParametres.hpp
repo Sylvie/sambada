@@ -19,11 +19,16 @@
 #ifndef SAMBADA_LECTEURPARAMETRES_HPP
 #define SAMBADA_LECTEURPARAMETRES_HPP
 
+#include "Parametres.hpp"
 
-class LecteurParametres
-{
+namespace sambada {
 
-};
+	class LecteurParametres
+	{
+	public:
+		void initialiseParametres(Parametres& parametres) const;
+	};
 
+}
 
 #endif //SAMBADA_LECTEURPARAMETRES_HPP

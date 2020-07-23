@@ -17,3 +17,11 @@
 *************************************************************************/
 
 #include "LecteurParametres.hpp"
+namespace sambada {
+
+	void LecteurParametres::initialiseParametres(Parametres& parametres) const
+	{
+
+	}
+
+}
