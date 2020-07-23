@@ -19,11 +19,28 @@
 #ifndef SAMBADA_PARAMETRES_HPP
 #define SAMBADA_PARAMETRES_HPP
 
+#include <string>
+#include <vector>
+#include <map>
+
 namespace sambada {
+
+	typedef struct
+	{
+		std::string name;
+		bool mandatory;
+		bool present;
+		std::vector<std::string> prereq;    // Liste des pré-requis
+		std::vector<std::string> contents;
+	}
+	Parametre;
 
 	class Parametres
 	{
+	public:
 
+		std::vector<Parametre> entrees;
+		std::map<std::string, int> index;
 	};
 
 }
