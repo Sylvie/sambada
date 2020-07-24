@@ -47,7 +47,6 @@ namespace sambada {
 
 		// HEADERS
 		paramCourant.name = "HEADERS";
-		//paramCourant.tokenize=true;
 		parametres.entrees.push_back(paramCourant);
 
 		// NUMVARENV
@@ -126,8 +125,8 @@ namespace sambada {
 		paramCourant.mandatory = false;
 		parametres.entrees.push_back(paramCourant);
 
-		int nbTotParam(parametres.entrees.size());
-		for (int i(0); i < nbTotParam; ++i)
+		auto nbTotParam(parametres.entrees.size());
+		for (auto i(0); i < nbTotParam; ++i)
 		{
 			parametres.index.insert(make_pair(parametres.entrees[i].name, i));
 		}
