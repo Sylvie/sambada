@@ -60,6 +60,7 @@ binaries_sambada_LDADD = \
 	src/libintermediate.a \
 	src/histograms/libhistograms.a \
 	src/modeles/libmodeles.a \
+	src/parametres/libparametres.a \
 	src/variables/libvariables.a \
 	src/common/maths/libmaths.a
 

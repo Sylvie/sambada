@@ -40,6 +40,7 @@
 #include "modeles/scriptorium/scribe/Scribe.hpp"
 #include "modeles/scriptorium/scribe/FlotSortieFichierFactory.hpp"
 #include "modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp"
+#include "parametres/Parametres.hpp"
 #include "variables/CombinaisonVariables.hpp"
 #include "variables/SpecificationsVariables.hpp"
 
@@ -264,28 +265,10 @@ private :
 
 	//	bool plusPetitQue(const groupeResultats::value_type* const &  r1, const groupeResultats::value_type* const &  r2);
 	void trieEtEcritResultats();
-
-	// Définition d'un argument pour le fichier de paramètres
-	typedef struct
-	{
-		string name;
-		bool mandatory;
-		bool present;
-		//bool tokenize;
-		vector<string> prereq;    // Liste des pré-requis
-		vector<string> contents;
-	}
-	ParameterSetData;
-
-	typedef vector<ParameterSetData> ParameterSet;
-	typedef map<string, int> ParameterSetIndex;
-
-
-	void initialisationParametres(ParameterSet& listeParam, ParameterSetIndex& indexParam) const;
-
+	
 	// Cette méthode lit le fichier de paramètres et remplit la liste
 	// Elle vérifie aussi si les paramètres obligatoires sont présents
-	ifstream& lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) CPPTHROW(Erreur);
+	ifstream& lectureParametres(ifstream& entree, const sambada::IndexParametres& index, vector<sambada::Parametre>& parametres) CPPTHROW(Erreur);
 
 	// This method creates a new Erreur, write the description to the log and throw the Erreur
 	void erreurDetectee(const string& nom="", const string& description="", bool arret=true) CPPTHROW(Erreur);

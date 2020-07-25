@@ -179,13 +179,14 @@ add_executable(sambada
 
 target_link_libraries(sambada
         PRIVATE
-        shp
-        intermediate
-        variables
         histograms
+        intermediate
         maths
         modeles
+        parametres
         segmentation
+        shp
+        variables
         )
 
 add_executable(supervision

@@ -29,6 +29,7 @@
 
 #include "RegressionLogistique.hpp"
 #include "LecteurCheminAcces.hpp"
+#include "parametres/LecteurParametres.hpp"
 #include "variables/FamilleVariablesFactory.hpp"
 
 #include "optimize.h"
@@ -70,14 +71,11 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 		journal << nl;
 	}
 
-	// Conteneur pour les paramètres
-	ParameterSet listeParam;
-
-	// Création de l'index
-	ParameterSetIndex indexParam;
-
 	// Initialisation des paramètres
-	initialisationParametres(listeParam, indexParam);
+	sambada::Parametres parametres;
+	sambada::LecteurParametres lecteurParametres;
+
+	lecteurParametres.initialiseParametres(parametres);
 
 	// Comptage des arguments
 	// 2 si le(s) noms(s) de fichiers d'entrée sont dans les paramètres
@@ -104,13 +102,13 @@ int RegressionLogistique::initialisation(int argc, char *argv[]) CPPTHROW(Erreur
 	}
 	journal.setDelimLignes(delimLignes);
 	modelesDivergents.setDelimMots(delimLignes);
-	lectureParametres(entree, indexParam, listeParam);
+	lectureParametres(entree, parametres.index, parametres.entrees);
 
 	// Fin de la lecture des paramètres
 	entree.close();
 
 	// Analyse des paramètres
-	ParameterSet::iterator paramCourant(listeParam.begin());
+	vector<sambada::Parametre>::iterator paramCourant(parametres.entrees.begin());
 
 	//INPUTFILE
 	// Le(s) nom(s) du/des fichier(s) d'entrées sont copiés dans le vecteur nomFichierInput
@@ -1890,12 +1888,12 @@ void RegressionLogistique::trieEtEcritResultats()
 
 // Cette méthode lit le fichier de paramètres et remplit la liste
 // Elle vérifie aussi si les paramètres obligatoires (et les pré-requis) sont présents
-ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const ParameterSetIndex& index, ParameterSet& parametres) CPPTHROW(Erreur)
+ifstream& RegressionLogistique::lectureParametres(ifstream& entree, const sambada::IndexParametres & index, vector<sambada::Parametre>& parametres) CPPTHROW(Erreur)
 {
 	entree >> ws;
 	string nomParam, lu;
 	vector<string> ligne;
-	ParameterSetIndex::const_iterator paramCourant; // L'itérateur doit pointer une valeur constante (index est const)
+	sambada::IndexParametres::const_iterator paramCourant; // L'itérateur doit pointer une valeur constante (index est const)
 
 	string filler("    ");    // Indentation for parameters in the log
 	journal << "Reading parameter file..." << nl;
