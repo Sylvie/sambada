@@ -35,12 +35,14 @@ namespace sambada {
 	}
 	Parametre;
 
+	typedef std::map<std::string, int> IndexParametres;
+
 	class Parametres
 	{
 	public:
 
 		std::vector<Parametre> entrees;
-		std::map<std::string, int> index;
+		IndexParametres index;
 	};
 
 }
