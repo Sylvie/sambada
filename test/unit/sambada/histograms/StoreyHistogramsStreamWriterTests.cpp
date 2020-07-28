@@ -21,6 +21,7 @@
 #include "SambadaStoreyHistogramMapper.hpp"
 
 #include "catch.hpp"
+#include <sstream>
 
 TEST_CASE("Test that StoreyHistogramsStreamWriter can write StoreyHistograms into output streams", "[storey-histograms-stream-writer-unit]")
 {

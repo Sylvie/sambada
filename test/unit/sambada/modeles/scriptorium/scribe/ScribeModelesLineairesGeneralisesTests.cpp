@@ -23,7 +23,7 @@
 #include "common/TypesCommuns.hpp"
 #include "modeles/scriptorium/lecteur/Lecteur.hpp"
 #include "modeles/scriptorium/lecteur/FlotEntreeChaineFactory.hpp"
-#include <string>
+#include <sstream>
 
 
 std::vector<std::vector<std::string> > getMessagesLus(const sambada::FlotSortieChaineFactory& factory, const std::vector<std::string>& nomFichiersAttendus, char delimMots, const std::string& retourLigne, int precision);
