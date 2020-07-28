@@ -145,6 +145,8 @@ add_library(modeles
         src/modeles/scriptorium/scribe/ScribeModelesLineairesGeneralises.hpp
         src/modeles/calibration/TableauNoir.cpp
         src/modeles/calibration/TableauNoir.hpp
+        src/modeles/calibration/PreparateurRegressionLogistique.cpp
+        src/modeles/calibration/PreparateurRegressionLogistique.hpp
         src/modeles/calibration/RegresseurLogistique.cpp
         src/modeles/calibration/RegresseurLogistique.hpp
         )
@@ -413,6 +415,7 @@ add_executable(SambadaUnitTests
         test/unit/sambada/common/maths/ProbabilityTests.cpp
         test/unit/sambada/common/segmentation/TokenizerTests.cpp
         test/unit/sambada/modeles/ModeleTests.cpp
+        test/unit/sambada/modeles/calibration/PreparateurRegressionLogistiqueTests.cpp
         test/unit/sambada/modeles/calibration/RegresseurLogistiqueTests.cpp
         test/unit/sambada/modeles/scriptorium/scribe/FlotSortieChaineFactoryTests.cpp
         test/unit/sambada/modeles/scriptorium/scribe/ScribeTests.cpp

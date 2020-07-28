@@ -19,6 +19,8 @@
 ## Building internal library ##
 
 src_modeles_libmodeles_a_SOURCES += \
+	 src/modeles/calibration/PreparateurRegressionLogistique.hpp \
+	 src/modeles/calibration/PreparateurRegressionLogistique.cpp \
 	 src/modeles/calibration/RegresseurLogistique.hpp \
 	 src/modeles/calibration/RegresseurLogistique.cpp \
 	 src/modeles/calibration/TableauNoir.hpp \
