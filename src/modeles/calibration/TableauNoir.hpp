@@ -27,6 +27,7 @@ namespace sambada {
 	{
 		int nbPoints;
 		int taille;
+		int nbParametres;
 
 		MatriceReels X;
 		MatriceReels Y;
@@ -45,6 +46,8 @@ namespace sambada {
 
 		reel logLikelihood;
 		reel composantEfron;
+
+		TableauNoir();
 	};
 
 }

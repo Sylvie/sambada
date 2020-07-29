@@ -17,9 +17,50 @@
 *************************************************************************/
 
 #include "catch.hpp"
-#include "modeles/calibration/PreparateurRegressionLogistique.hpp"
+#include "modeles/calibration/TableauNoir.hpp"
 
 TEST_CASE("Test that PreparateurRegressionLogistique sets up the TableauNoir correctly", "[preparateur-regression-logistique-unit]")
 {
+	sambada::TableauNoir tableauNoir;
+
+	SECTION("Test that the initial TableauNoir has no points nor parameters")
+	{
+		CHECK(tableauNoir.nbPoints == 0);
+		CHECK(tableauNoir.nbParametres == 0);
+
+		/* Matrices nbPoints x _ */
+		CHECK(tableauNoir.X.rows() == 0);
+		CHECK(tableauNoir.Y.rows() == 0);
+		CHECK(tableauNoir.Xb.rows() == 0);
+		CHECK(tableauNoir.nouv_Xb.rows() == 0);
+		CHECK(tableauNoir.exp_Xb.rows() == 0);
+		CHECK(tableauNoir.pi_hat.rows() == 0);
+		CHECK(tableauNoir.interm.rows() == 0);
+		CHECK(tableauNoir.intermScores.rows() == 0);
+
+		CHECK(tableauNoir.X.cols() == 0);
+		CHECK(tableauNoir.Y.cols() == 0);
+		CHECK(tableauNoir.Xb.cols() == 0);
+		CHECK(tableauNoir.nouv_Xb.cols() == 0);
+		CHECK(tableauNoir.exp_Xb.cols() == 0);
+		CHECK(tableauNoir.pi_hat.cols() == 0);
+		CHECK(tableauNoir.interm.cols() == 0);
+		CHECK(tableauNoir.intermScores.cols() == 0);
+
+		/* Matrices nbParams x _ */
+		CHECK(tableauNoir.beta_hat.rows() == 0);
+		CHECK(tableauNoir.nouv_beta_hat.rows() == 0);
+		CHECK(tableauNoir.diff_beta_hat.rows() == 0);
+		CHECK(tableauNoir.scores.rows() == 0);
+		CHECK(tableauNoir.J_info.rows() == 0);
+		CHECK(tableauNoir.inv_J_info.rows() == 0);
+
+		CHECK(tableauNoir.beta_hat.cols() == 0);
+		CHECK(tableauNoir.nouv_beta_hat.cols() == 0);
+		CHECK(tableauNoir.diff_beta_hat.cols() == 0);
+		CHECK(tableauNoir.scores.cols() == 0);
+		CHECK(tableauNoir.J_info.cols() == 0);
+		CHECK(tableauNoir.inv_J_info.cols() == 0);
+	}
 
 }

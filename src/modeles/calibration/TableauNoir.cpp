@@ -17,3 +17,7 @@
 *************************************************************************/
 
 #include "TableauNoir.hpp"
+
+sambada::TableauNoir::TableauNoir()
+: nbPoints(0), nbParametres(0)
+{}
