@@ -19,11 +19,15 @@
 #ifndef SAMBADA_PREPARATEURREGRESSIONLOGISTIQUE_HPP
 #define SAMBADA_PREPARATEURREGRESSIONLOGISTIQUE_HPP
 
+#include "TableauNoir.hpp"
+
 namespace sambada {
 
 	class PreparateurRegressionLogistique
 	{
-
+	public:
+		void setNombrePoints(TableauNoir& tableauNoir, int nombrePoints) const;
+		void setNombreParametres(TableauNoir& tableauNoir, int nombreParametres) const;
 	};
 
 }
