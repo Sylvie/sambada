@@ -33,6 +33,7 @@
 #include <list>
 #include <ctime>
 #include <histograms/StoreyHistogramsStreamWriter.hpp>
+#include "modeles/calibration/PreparateurRegressionLogistique.hpp"
 
 using namespace std;
 using namespace scythe;
@@ -141,14 +142,10 @@ int RegressionLogistique::creeModelesGlobaux()
 	Modele resultatCourant;
 	resultatCourant.second.resize(tailleEtiquetteInvar, 0.0);
 
+	sambada::PreparateurRegressionLogistique preparateurRegressionLogistique;
+
 	// Ces matrices ne changent pas de taille
-	tableauNoir.Y.resize(nbPoints, 1);
-	tableauNoir.Xb.resize(nbPoints, 1);
-	tableauNoir.nouv_Xb.resize(nbPoints, 1);
-	tableauNoir.exp_Xb.resize(nbPoints, 1);
-	tableauNoir.pi_hat.resize(nbPoints, 1);
-	tableauNoir.interm.resize(nbPoints, 1);
-	tableauNoir.intermScores.resize(nbPoints, 1);
+	preparateurRegressionLogistique.setNombrePoints(tableauNoir, nbPoints);
 
 	Domaine pointsTot;//, pointsMarq, pointsCourants;
 
@@ -158,13 +155,7 @@ int RegressionLogistique::creeModelesGlobaux()
 
 		// On redimensionne aussi les matrices locales
 		// Ces matrices ne changent pas de taille
-		tableauNoirLocal.Y.resize(nbPoints, 1);
-		tableauNoirLocal.nouv_Xb.resize(nbPoints, 1);
-		tableauNoirLocal.Xb.resize(nbPoints, 1);
-		tableauNoirLocal.exp_Xb.resize(nbPoints, 1);
-		tableauNoirLocal.pi_hat.resize(nbPoints, 1);
-		tableauNoirLocal.interm.resize(nbPoints, 1);
-		tableauNoirLocal.intermScores.resize(nbPoints, 1);
+		preparateurRegressionLogistique.setNombrePoints(tableauNoirLocal, nbPoints);
 	}
 
 	storey = std::unique_ptr<sambada::StoreyHistograms>(new sambada::StoreyHistograms(dimensionMax));
@@ -255,24 +246,12 @@ int RegressionLogistique::creeModelesGlobaux()
 		// On commence par les modèles univariés
 		//for (set<int>::iterator variableCourante(varActives.begin()); variableCourante!=varActives.end(); ++variableCourante)
 		int nbParam(2);
-		tableauNoir.beta_hat.resize(nbParam, 1);
-		tableauNoir.nouv_beta_hat.resize(nbParam, 1);
-		tableauNoir.diff_beta_hat.resize(nbParam, 1);
-		tableauNoir.scores.resize(nbParam, 1);
-		tableauNoir.J_info.resize(nbParam, nbParam);
-		tableauNoir.inv_J_info.resize(nbParam, nbParam);
-		tableauNoir.X.resize(nbPoints, nbParam);
+		preparateurRegressionLogistique.setNombreParametres(tableauNoir, nbParam);
 
 		// Sauvegarde des paramètres globaux si calcul de modèles locaux -> redimensionnement
 		if (AS_GWR)
 		{
-			tableauNoirLocal.beta_hat.resize(nbParam, 1);
-			tableauNoirLocal.nouv_beta_hat.resize(nbParam, 1);
-			tableauNoirLocal.diff_beta_hat.resize(nbParam, 1);
-			tableauNoirLocal.scores.resize(nbParam, 1);
-			tableauNoirLocal.J_info.resize(nbParam, nbParam);
-			tableauNoirLocal.inv_J_info.resize(nbParam, nbParam);
-			tableauNoirLocal.X.resize(nbPoints, nbParam);
+			preparateurRegressionLogistique.setNombreParametres(tableauNoirLocal, nbParam);
 
 			calculeDomaineMarqueur(pointsTot);
 		}
@@ -291,26 +270,9 @@ int RegressionLogistique::creeModelesGlobaux()
 			// On connaît la taille de l'échantillon pour la regression -> construction des matrices
 			// Matrice des paramètres
 			nbParam = dim + 1;
-			tableauNoir.beta_hat.resize(nbParam, 1);
-			tableauNoir.nouv_beta_hat.resize(nbParam, 1);
-			tableauNoir.diff_beta_hat.resize(nbParam, 1);
-			tableauNoir.scores.resize(nbParam, 1);
-			tableauNoir.J_info.resize(nbParam, nbParam);
-			tableauNoir.inv_J_info.resize(nbParam, nbParam);
+			preparateurRegressionLogistique.setNombreParametres(tableauNoir, nbParam);
 
-			tableauNoir.X.resize(nbPoints, nbParam);
-
-
-			tableauNoirLocal.beta_hat.resize(nbParam, 1);
-			tableauNoirLocal.nouv_beta_hat.resize(nbParam, 1);
-			tableauNoirLocal.diff_beta_hat.resize(nbParam, 1);
-			tableauNoirLocal.scores.resize(nbParam, 1);
-			tableauNoirLocal.J_info.resize(nbParam, nbParam);
-			tableauNoirLocal.inv_J_info.resize(nbParam, nbParam);
-
-			tableauNoirLocal.X.resize(nbPoints, nbParam);
-
-
+			preparateurRegressionLogistique.setNombreParametres(tableauNoirLocal, nbParam);
 
 			// Parcours des modèles de dimension dim
 			for (sambada::GenerationVariables::const_iterator generationCourante(familleVariables[dim].cbegin()); (generationCourante != familleVariables[dim].cend()); ++generationCourante)
