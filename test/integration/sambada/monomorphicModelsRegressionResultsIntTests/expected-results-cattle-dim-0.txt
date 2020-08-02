@@ -1,0 +1,2 @@
+Marker Loglikelihood AverageProb Beta_0 NumError
+Hapmap41762.BTA.117570_AA 0 1 0 5

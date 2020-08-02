@@ -1,0 +1,2 @@
+Marker Env_1 Loglikelihood Gscore WaldScore NumError Efron McFadden McFaddenAdj CoxSnell Nagelkerke AIC BIC Beta_0 Beta_1
+Hapmap41762.BTA.117570_AG bio12 0 0 0 5 1

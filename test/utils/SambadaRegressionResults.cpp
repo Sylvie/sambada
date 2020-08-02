@@ -20,10 +20,13 @@ void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int
 
 	int tailleEtiquettes = dimension + 1;
 	int tailleValeurs = 4;
+	int tailleValeursModelesMonomorphes = 4;
 
 	if (dimension > 0)
 	{
 		tailleValeurs = dimension + 12;
+		tailleValeursModelesMonomorphes = 5;
+
 		if (hasPop)
 		{
 			tailleValeurs += 2;
@@ -39,7 +42,7 @@ void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int
 	{
 		INFO("Modèle numéro: " + std::to_string(i));
 		CHECK(etiquettes[i].size() == tailleEtiquettes);
-		CHECK(valeurs[i].size() == tailleValeurs);
+		CHECK((valeurs[i].size() == tailleValeurs || valeurs[i].size() == tailleValeursModelesMonomorphes));
 	}
 }
 

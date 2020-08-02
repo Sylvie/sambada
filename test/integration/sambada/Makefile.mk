@@ -18,6 +18,7 @@ include test/integration/sambada/basicSpatialAutocorrelationIntTests/Makefile.mk
 include test/integration/sambada/flotFactoriesIntTests/Makefile.mk
 include test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/Makefile.mk
 include test/integration/sambada/modelSelectionSavetypeBestIntTests/Makefile.mk
+include test/integration/sambada/monomorphicModelsRegressionResultsIntTests/Makefile.mk
 include test/integration/sambada/noExtensionsToFilenamesIntTests/Makefile.mk
 include test/integration/sambada/noNewLinesEndOfFilesIntTests/Makefile.mk
 include test/integration/sambada/regressionResultsIntTests/Makefile.mk

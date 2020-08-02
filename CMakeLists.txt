@@ -304,6 +304,8 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalDistanceIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalGaussianIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalNearestIntTests.cpp
+        test/integration/sambada/monomorphicModelsRegressionResultsIntTests/regressionResultsDim0IntTests.cpp
+        test/integration/sambada/monomorphicModelsRegressionResultsIntTests/regressionResultsDim1IntTests.cpp
         test/integration/sambada/modelSelectionSavetypeBestIntTests/modelSelectionSavetypeAllIntTests.cpp
         test/integration/sambada/modelSelectionSavetypeBestIntTests/modelSelectionSavetypeBestIntTests.cpp
         test/integration/sambada/noExtensionsToFilenamesIntTests/noExtensionsToFilenamesIntTests.cpp
@@ -376,6 +378,7 @@ file(MAKE_DIRECTORY
         "${CMAKE_BINARY_DIR}/test/integration/sambada/flotFactoriesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/modelSelectionSavetypeBestIntTests/"
+        "${CMAKE_BINARY_DIR}/test/integration/sambada/monomorphicModelsRegressionResultsIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noExtensionsToFilenamesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/noNewLinesEndOfFilesIntTests/"
         "${CMAKE_BINARY_DIR}/test/integration/sambada/regressionResultsIntTests/"
