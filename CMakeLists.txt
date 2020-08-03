@@ -305,6 +305,7 @@ add_executable(SambadaIntegrationTests
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalGaussianIntTests.cpp
         test/integration/sambada/geographicallyWeightedRegressionResultsIntTests/GWRSphericalNearestIntTests.cpp
         test/integration/sambada/monomorphicModelsRegressionResultsIntTests/regressionResultsDim0IntTests.cpp
+        test/integration/sambada/monomorphicModelsRegressionResultsIntTests/regressionResultsDim0IntTests-marqueur-absent-savetype-real.cpp
         test/integration/sambada/monomorphicModelsRegressionResultsIntTests/regressionResultsDim1IntTests.cpp
         test/integration/sambada/monomorphicModelsRegressionResultsIntTests/regressionResultsDim2IntTests.cpp
         test/integration/sambada/monomorphicModelsRegressionResultsIntTests/regressionResultsDim3IntTests.cpp

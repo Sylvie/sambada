@@ -1,0 +1,2 @@
+Marker Loglikelihood AverageProb Beta_0 NumError
+BTA.122374.no.rs_AG 0 0 0 5

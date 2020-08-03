@@ -1,0 +1,9 @@
+HEADERS YES
+WORDDELIM " "
+NUMVARENV 4
+NUMMARK 5
+NUMINDIV 804
+DIMMAX 0
+SUBSETMARK "BTA.122374.no.rs_AG"
+OUTPUTFILE "test/integration/sambada/monomorphicModelsRegressionResultsIntTests/choice-mark-cattle.txt"
+SAVETYPE REAL ALL

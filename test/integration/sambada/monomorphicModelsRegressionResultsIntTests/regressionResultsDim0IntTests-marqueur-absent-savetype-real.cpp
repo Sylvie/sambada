@@ -7,7 +7,7 @@
 #include <fstream>
 #include <vector>
 
-SCENARIO("Test that regression results for monomophic models are correct for models of dimension 3 when the marker is absent in all remaining locations", "[monomorphic-models-dim-3-marqueur-absent-int][monomorphic-models-int]") {
+SCENARIO("Test that regression results for monomophic models are correct for models of dimension 0 with SAVETYPE REAL when the marker is absent in all locations", "[monomorphic-models-dim-0-marqueur-absent-savetype-real-int][monomorphic-models-int]") {
 
     INFO("Working folder: " + SambadaIntegrationTestUtils::runCommand("pwd"));
 
@@ -17,30 +17,26 @@ SCENARIO("Test that regression results for monomophic models are correct for mod
 
 	    std::string pathToTestFolder("test/integration/sambada/monomorphicModelsRegressionResultsIntTests/");
 
-
 	    std::string pathToOutputFolder("./" + pathToTestFolder);
-        std::string fileNameOut0(pathToOutputFolder + "choice-mark-cattle-Out-0.txt");
-        std::string fileNameOut1(pathToOutputFolder + "choice-mark-cattle-Out-1.txt");
-	    std::string fileNameOut2(pathToOutputFolder + "choice-mark-cattle-Out-2.txt");
-	    std::string fileNameOut3(pathToOutputFolder + "choice-mark-cattle-Out-3.txt");
+	    std::string fileNameOut0(pathToOutputFolder + "choice-mark-cattle-Out-0.txt");
         std::string fileNameLogs(pathToOutputFolder + "choice-mark-cattle-log.txt");
 
-        std::vector<std::string> outputFileNames({fileNameOut0, fileNameOut1, fileNameOut2, fileNameOut3, fileNameLogs});
+        std::vector<std::string> outputFileNames({fileNameOut0, fileNameLogs});
 
         std::string pathToInputFolder(SambadaIntegrationTestUtils::getTopSourceDirectory() + pathToTestFolder);
 
-        std::string fileNameParam(pathToInputFolder + "param-dim-3-marqueur-absent.txt");
+        std::string fileNameParam(pathToInputFolder + "param-dim-0-marqueur-absent-savetype-real.txt");
         std::string fileNameEnv(pathToInputFolder + "choice-env-cattle.csv");
         std::string fileNameMark(pathToInputFolder + "choice-mark-cattle.txt");
 
-        std::string fileNameExpectedResultsDim3(pathToInputFolder + "expected-results-cattle-dim-3-marqueur-absent.txt");
+        std::string fileNameExpectedResultsDim0(pathToInputFolder + "expected-results-cattle-dim-0-marqueur-absent-savetype-real.txt");
 
-	    std::ifstream lecteurCorrige(fileNameExpectedResultsDim3.c_str());
+        std::ifstream lecteurCorrige(fileNameExpectedResultsDim0.c_str());
         REQUIRE(lecteurCorrige.good());
         REQUIRE(lecteurCorrige.is_open());
-        SambadaRegressionResults expectedResults(SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 3));
+        SambadaRegressionResults expectedNullResults(SambadaIntegrationTestUtils::readRegressionResults(lecteurCorrige, true, 0));
         lecteurCorrige.close();
-        expectedResults.verifieTailles(true, 3, 1);
+        expectedNullResults.verifieTailles(true, 0, 1);
 
         CHECK_FALSE(SambadaIntegrationTestUtils::doesAnyFileExist(outputFileNames));
 
@@ -49,9 +45,9 @@ SCENARIO("Test that regression results for monomophic models are correct for mod
             std::string output = SambadaIntegrationTestUtils::runCommand(program + " " + fileNameParam + " " + fileNameEnv + " " + fileNameMark);
             //INFO(output);
 
-            THEN("the output file of dimension 3 is found")
+            THEN("the output file of dimension 0 is found")
             {
-                std::ifstream lecteur(fileNameOut3.c_str());
+                std::ifstream lecteur(fileNameOut0.c_str());
 
                 REQUIRE(lecteur.good());
                 REQUIRE(lecteur.is_open());
@@ -59,12 +55,12 @@ SCENARIO("Test that regression results for monomophic models are correct for mod
                 AND_WHEN("the file is read")
                 {
                     SambadaRegressionResults results(
-                            SambadaIntegrationTestUtils::readRegressionResults(lecteur, true, 3));
+                            SambadaIntegrationTestUtils::readRegressionResults(lecteur, true, 0));
 
                     THEN("the results match the expectation")
                     {
-                        results.verifieTailles(true, 3, 1);
-                        results.compare(expectedResults);
+                        results.verifieTailles(true, 0, 1);
+                        results.compare(expectedNullResults);
                     }
                 }
 
