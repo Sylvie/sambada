@@ -20,7 +20,7 @@ void SambadaRegressionResults::verifieTailles(bool hasHeader, int dimension, int
 
 	int tailleEtiquettes = dimension + 1;
 	int tailleValeurs = 4;
-	int tailleValeursModelesMonomorphes = 4;
+	int tailleValeursModelesMonomorphes = tailleValeurs;
 
 	if (dimension > 0)
 	{
