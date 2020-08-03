@@ -1860,7 +1860,8 @@ void RegressionLogistique::trieEtEcritResultats()
 			for (int j(0); j < tailleListe; ++j)
 			{
 				// On n'écrit jamais les modèles avec des erreurs de convergence
-				if (listeModeles[j]->second[validiteModele] == 0 || (listeModeles[j]->second[validiteModele] == 6 && selModeles == signif) ||
+				if (listeModeles[j]->second[validiteModele] == 0 || listeModeles[j]->second[validiteModele] == 5 ||
+					(listeModeles[j]->second[validiteModele] == 6 && selModeles == signif) ||
 				    ((listeModeles[j]->second[validiteModele] == 6 || listeModeles[j]->second[validiteModele] == 7) && selModeles == all))
 				{
 					if (structurePop == pasStructurePop ||   listeModeles[j]->first.environnement.size() != dimensionMax - 1 || inclutToutesVariablesPop(listeModeles[j]->first.environnement))

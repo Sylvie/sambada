@@ -7,4 +7,4 @@ DIMMAX 2
 SUBSETMARK "Hapmap41762.BTA.117570_AG"
 SUBSETVARENV "bio3" "prec7"
 OUTPUTFILE "test/integration/sambada/monomorphicModelsRegressionResultsIntTests/choice-mark-cattle.txt"
-SAVETYPE REAL ALL
+SAVETYPE END ALL
