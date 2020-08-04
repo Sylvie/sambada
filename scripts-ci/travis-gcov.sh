@@ -35,6 +35,7 @@ ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeChaineFactory.cpp -o src
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/FlotEntreeFichierFactory.cpp -o src/modeles/scriptorium/lecteur/src_modeles_libmodeles_a-FlotEntreeFichierFactory.o
 ${GCOV} -r ../src/modeles/scriptorium/lecteur/Lecteur.cpp -o src/modeles/scriptorium/lecteur/src_modeles_libmodeles_a-Lecteur.o
 ${GCOV} -r ../src/modeles/calibration/TableauNoir.cpp -o src/modeles/calibration/src_modeles_libmodeles_a-TableauNoir.o
+${GCOV} -r ../src/modeles/calibration/PreparateurRegressionLogistique.cpp -o src/modeles/calibration/src_modeles_libmodeles_a-PreparateurRegressionLogistique.o
 ${GCOV} -r ../src/modeles/calibration/RegresseurLogistique.cpp -o src/modeles/calibration/src_modeles_libmodeles_a-RegresseurLogistique.o
 
 ${GCOV} -r ../src/common/maths/Probability.cpp -o src/common/maths/src_common_maths_libmaths_a-Probability.o
