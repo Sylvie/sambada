@@ -1,4 +1,6 @@
 Release 0.9.0 (2020-??-??)
+Bug fix:
+- Fixed a bug where the monomorphic models were not written in the results for SAVETYPE=END.
 
 Release 0.8.3 (2019-11-22)
 Notice:
