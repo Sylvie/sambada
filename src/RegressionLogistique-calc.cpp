@@ -242,29 +242,7 @@ int RegressionLogistique::creeModelesGlobaux()
 		}
 
 		// Pour toutes les combinaisons de paramètres environnementaux
-
-		// On commence par les modèles univariés
-		//for (set<int>::iterator variableCourante(varActives.begin()); variableCourante!=varActives.end(); ++variableCourante)
-		int nbParam(2);
-		preparateurRegressionLogistique.setNombreParametres(tableauNoir, nbParam);
-
-		// Sauvegarde des paramètres globaux si calcul de modèles locaux -> redimensionnement
-		if (AS_GWR)
-		{
-			preparateurRegressionLogistique.setNombreParametres(tableauNoirLocal, nbParam);
-
-			calculeDomaineMarqueur(pointsTot);
-		}
-
-		for (sambada::GenerationVariables::const_iterator variableCourante(familleVariables[1].cbegin()); variableCourante != familleVariables[1].cend(); ++variableCourante)
-		{
-			construitModele(i, variableCourante->first);
-		}
-
-		// Calcul des modèles multivariés
-
-		// Ici la dim est celle de la génération courante (le cas dim=1 est traité avant)
-		for (int dim(2); dim <= dimensionMax; ++dim)
+		for (int dim(1); dim <= dimensionMax; ++dim)
 		{
 			// On peut déjà redimensionner les matrices pour les calculs
 			// On connaît la taille de l'échantillon pour la regression -> construction des matrices
@@ -272,15 +250,24 @@ int RegressionLogistique::creeModelesGlobaux()
 			nbParam = dim + 1;
 			preparateurRegressionLogistique.setNombreParametres(tableauNoir, nbParam);
 
-			preparateurRegressionLogistique.setNombreParametres(tableauNoirLocal, nbParam);
+			// Sauvegarde des paramètres globaux si calcul de modèles locaux -> redimensionnement
+			if (AS_GWR)
+			{
+				preparateurRegressionLogistique.setNombreParametres(tableauNoirLocal, nbParam);
+
+				if (dim == 1)
+				{
+					calculeDomaineMarqueur(pointsTot);
+				}
+			}
 
 			// Parcours des modèles de dimension dim
-			for (sambada::GenerationVariables::const_iterator generationCourante(familleVariables[dim].cbegin()); (generationCourante != familleVariables[dim].cend()); ++generationCourante)
+			for (sambada::GenerationVariables::const_iterator combinaisonCourante(familleVariables[dim].cbegin()); (combinaisonCourante != familleVariables[dim].cend()); ++combinaisonCourante)
 			{
 				//if (dim < (dimensionMax - 2) || (structurePop == pasStructurePop) || (inclutToutesVariablesPop(varContinues)))
-				if (estModeleEligiblePourStructurePopulation(generationCourante->first))
+				if (estModeleEligiblePourStructurePopulation(combinaisonCourante->first))
 				{
-					construitModele(i, generationCourante->first);
+					construitModele(i, combinaisonCourante->first);
 				}
 			}
 		}
