@@ -92,3 +92,4 @@ deploy:
     repo: Sylvie/sambada
     tags: true
     condition: ${SAMBADA_BUILD_TYPE} = PACKAGE
+
