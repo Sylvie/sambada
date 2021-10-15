@@ -20,6 +20,7 @@ jobs:
           ${CXX} -v
           pwd
           ls
+          brew install autoconf libtool
       - name: configure
         run: |
           autoreconf -i
