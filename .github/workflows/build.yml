@@ -20,7 +20,7 @@ jobs:
           ${CXX} -v
           pwd
           ls
-          brew install m4
+          brew update
       - name: configure
         run: |
           autoreconf -i
