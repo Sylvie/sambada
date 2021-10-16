@@ -18,15 +18,14 @@ jobs:
           set -v
           ${CC} -v
           ${CXX} -v
-          pwd
-          ls
           brew update
-          brew install automake libtool
+          brew install automake
       - name: configure
         run: |
           autoreconf -i
-          ./configure
           mkdir build
+          cd build
+          ../configure --disable-manual
       - name: make
         run: |
           cd build
