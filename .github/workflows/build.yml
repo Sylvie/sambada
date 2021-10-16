@@ -34,7 +34,11 @@ jobs:
         run: |
           cd build
           make check
+          cat test-suite.log
+          binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
       - name: make distcheck
         run: |
-          cd build
+          mkdir distributionverification
+          cd distributionverification
+          ../configure --disable-manual
           make distcheck
