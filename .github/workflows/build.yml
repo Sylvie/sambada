@@ -20,7 +20,7 @@ jobs:
           ${CXX} -v
           pwd
           ls
-          brew install aclocal
+          brew install m4
       - name: configure
         run: |
           autoreconf -i
