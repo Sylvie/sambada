@@ -20,9 +20,10 @@ jobs:
           ${CXX} -v
           pwd
           ls
+          brew install aclocal
       - name: configure
         run: |
-          autoconf
+          autoreconf -i
           ./configure
           mkdir build
       - name: make
