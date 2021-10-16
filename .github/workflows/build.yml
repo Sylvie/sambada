@@ -26,16 +26,26 @@ jobs:
           mkdir build
           cd build
           ../configure --disable-manual
+      - name: determine version number
+        id: version-number
+        run: |
+          sambada_version=$(./git-version-gen .version)
+          ::set-output name={sambada_version}::{${sambada_version}}
       - name: make
         run: |
           cd build
           make
+      - name: make archive
+          cd build
+          make binary-archive
+          ls
       - name: make check
         run: |
           cd build
           make check
           cat test-suite.log
           binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
+          binaries/sambada ../examples/data-from-manual/one-data-file/param-combo.txt ../examples/data-from-manual/one-data-file/combo-data.txt
       - name: make distcheck
         run: |
           mkdir distributionverification
