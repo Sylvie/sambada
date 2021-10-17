@@ -42,10 +42,10 @@ jobs:
           make binary-archive
           ls
       - name: upload archive
-          uses: actions/upload-artifact@v2
-          with:
-            name: sambada-archive
-            path: build/sambada-${{steps.version-number.sambada_version}}-OSX.tar.gz
+        uses: actions/upload-artifact@v2
+        with:
+          name: sambada-archive
+          path: build/sambada-${{steps.version-number.sambada_version}}-OSX.tar.gz
       - name: make check
         run: |
           cd build
