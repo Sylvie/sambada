@@ -30,22 +30,28 @@ jobs:
         id: version-number
         run: |
           sambada_version=$(./git-version-gen .version)
+          echo ${sambada_version}
           echo '::set-output name={sambada_version}::{${sambada_version}}'
       - name: make
+        env:
+          sambada_version: ${{steps.version-number.outputs.sambada_version}}
         run: |
           cd build
           make
       - name: make archive
+        env:
+          sambada_version: ${{steps.version-number.outputs.sambada_version}}
         run: |
           cd build
-          export sambada_version=${{steps.version-number.sambada_version}}
           make binary-archive
           ls
       - name: upload archive
         uses: actions/upload-artifact@v2
+        env:
+          sambada_version: ${{steps.version-number.outputs.sambada_version}}
         with:
           name: sambada-archive
-          path: build/sambada-${{steps.version-number.sambada_version}}-OSX.tar.gz
+          path: build/sambada-${sambada_version}-OSX.tar.gz
       - name: make check
         run: |
           cd build
@@ -54,8 +60,9 @@ jobs:
           binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
           binaries/sambada ../examples/data-from-manual/one-data-file/param-combo.txt ../examples/data-from-manual/one-data-file/combo-data.txt
       - name: make distcheck
+        env:
+          sambada_version: ${{steps.version-number.outputs.sambada_version}}
         run: |
-          export sambada_version=${{steps.version-number.sambada_version}}
           mkdir distributionverification
           cd distributionverification
           ../configure --disable-manual
