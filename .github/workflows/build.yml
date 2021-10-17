@@ -34,6 +34,7 @@ jobs:
           sambada_version=$(./git-version-gen .version)
           echo ${sambada_version}
           echo '::set-output name={sambada_version}::{${sambada_version}}'
+          echo '::set-env name=sambada_version::${sambada_version}'
       - name: make
         env:
           sambada_version: ${{ steps.version-number.outputs.sambada_version }}
@@ -51,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sambada-archive
-          path: build/sambada-${{ steps.version-number.outputs.sambada_version }}-OSX.tar.gz
+          path: build/sambada-${{ env.sambada_version }}-OSX.tar.gz
       - name: make check
         run: |
           cd build
