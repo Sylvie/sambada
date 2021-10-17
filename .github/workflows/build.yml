@@ -1,6 +1,6 @@
 name: Sambada Build
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 env:
   CC: gcc-11
@@ -36,6 +36,7 @@ jobs:
           cd build
           make
       - name: make archive
+        run: |
           cd build
           make binary-archive
           ls
