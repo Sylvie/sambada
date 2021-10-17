@@ -36,13 +36,13 @@ jobs:
           echo '::set-output name={sambada_version}::{${sambada_version}}'
       - name: make
         env:
-          sambada_version: ${{steps.version-number.outputs.sambada_version}}
+          sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
           cd build
           make
       - name: make archive
         env:
-          sambada_version: ${{steps.version-number.outputs.sambada_version}}
+          sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
           cd build
           make binary-archive
@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sambada-archive
-          path: build/sambada-${{steps.version-number.outputs.sambada_version}}-OSX.tar.gz
+          path: build/sambada-${{ steps.version-number.outputs.sambada_version }}-OSX.tar.gz
       - name: make check
         run: |
           cd build
@@ -61,7 +61,7 @@ jobs:
           binaries/sambada ../examples/data-from-manual/one-data-file/param-combo.txt ../examples/data-from-manual/one-data-file/combo-data.txt
       - name: make distcheck
         env:
-          sambada_version: ${{steps.version-number.outputs.sambada_version}}
+          sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
           mkdir distributionverification
           cd distributionverification
