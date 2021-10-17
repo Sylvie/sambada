@@ -49,11 +49,9 @@ jobs:
           ls
       - name: upload archive
         uses: actions/upload-artifact@v2
-        env:
-          sambada_version: ${{steps.version-number.outputs.sambada_version}}
         with:
           name: sambada-archive
-          path: build/sambada-${sambada_version}-OSX.tar.gz
+          path: build/sambada-${{steps.version-number.outputs.sambada_version}}-OSX.tar.gz
       - name: make check
         run: |
           cd build
