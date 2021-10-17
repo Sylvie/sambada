@@ -38,8 +38,14 @@ jobs:
       - name: make archive
         run: |
           cd build
+          export sambada_version=${{steps.version-number.sambada_version}}
           make binary-archive
           ls
+      - name: upload archive
+          uses: actions/upload-artifact@v2
+          with:
+            name: sambada-archive
+            path: build/sambada-${{steps.version-number.sambada_version}}-OSX.tar.gz
       - name: make check
         run: |
           cd build
@@ -49,6 +55,7 @@ jobs:
           binaries/sambada ../examples/data-from-manual/one-data-file/param-combo.txt ../examples/data-from-manual/one-data-file/combo-data.txt
       - name: make distcheck
         run: |
+          export sambada_version=${{steps.version-number.sambada_version}}
           mkdir distributionverification
           cd distributionverification
           ../configure --disable-manual
