@@ -30,7 +30,7 @@ jobs:
         id: version-number
         run: |
           sambada_version=$(./git-version-gen .version)
-          ::set-output name={sambada_version}::{${sambada_version}}
+          echo '::set-output name={sambada_version}::{${sambada_version}}'
       - name: make
         run: |
           cd build
