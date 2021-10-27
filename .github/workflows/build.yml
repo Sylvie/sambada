@@ -7,8 +7,18 @@ env:
   CXX: g++-11
 
 jobs:
-  build:
+  workflow-params:
+    name: Determining workflow params
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Greetings
+        run: |
+          echo "Hello!"
+
+
+  build:
+    if: never()
     runs-on: macos-11
 
     steps:
