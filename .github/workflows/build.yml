@@ -37,6 +37,7 @@ jobs:
       - name: Greetings
         run: |
           echo "Hello!"
+          echo "Reading output: ${{ needs.workflow-params.outputs.version-number }}"
       - name: Read variables
         run: |
           echo "${sambada_version}"
