@@ -11,7 +11,7 @@ jobs:
     name: Determining workflow params
     runs-on: ubuntu-latest
     outputs:
-      version-number: ${{ steps.version-number.outputs.sambada_version }}
+      version-number: ${{ steps.version-number.outputs.sambada_version_number }}
     steps:
       - name: Greetings
         run: |
