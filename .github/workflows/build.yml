@@ -24,7 +24,7 @@ jobs:
         run: |
           sambada_version=$(./git-version-gen .version)
           echo ${sambada_version}
-          echo '::set-output name={sambada_version}::{${sambada_version}}'
+          echo '::set-output name=sambada_version::${sambada_version}'
 
   read-params:
     name: Reading workflow params
@@ -39,7 +39,7 @@ jobs:
           echo "Hello!"
       - name: Read variables
         run: |
-          echo "${{ env.sambada_version }}"
+          echo "${sambada_version}"
 
   build:
     if: false
