@@ -18,7 +18,7 @@ jobs:
 
 
   build:
-    if: never()
+    if: false
     runs-on: macos-11
 
     steps:
