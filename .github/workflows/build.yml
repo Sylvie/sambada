@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: workflow-params
     env:
-     - sambada_version: ${{ needs.workflow-params.outputs.version-number }}
+      sambada_version: ${{ needs.workflow-params.outputs.version-number }}
 
     steps:
       - name: Greetings
