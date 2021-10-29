@@ -45,6 +45,9 @@ jobs:
   build:
     if: false
     runs-on: macos-11
+    needs: workflow-params
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
 
     steps:
       - uses: actions/checkout@v2
@@ -64,6 +67,7 @@ jobs:
           cd build
           ../configure --disable-manual
       - name: determine version number
+        if: false
         id: version-number
         run: |
           sambada_version=$(./git-version-gen .version)
