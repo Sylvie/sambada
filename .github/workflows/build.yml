@@ -43,7 +43,6 @@ jobs:
           echo "${sambada_version_number}"
 
   build:
-    if: false
     runs-on: macos-11
     needs: workflow-params
     env:
