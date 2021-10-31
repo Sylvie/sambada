@@ -113,6 +113,8 @@ jobs:
     name: Compiling Sambada's manual
     runs-on: ubuntu-latest
     needs: workflow-params
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
 
     steps:
       - name: Greetings
@@ -136,6 +138,11 @@ jobs:
         with:
           root_file: manual.tex
           working_directory: manual/
+          precompile: |
+            echo "${sambada_version_number}"
+            pwd
+            ls
+            sed "s/%versionNumber%/{sambada_version_number}/g" latexmkrc_template > latexmkrc
 
       - name: uploading manual
         uses: actions/upload-artifact@v2
