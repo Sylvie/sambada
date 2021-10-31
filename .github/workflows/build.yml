@@ -137,3 +137,8 @@ jobs:
           root_file: manual.tex
           working_directory: manual/
 
+      - name: uploading manual
+        uses: actions/upload-artifact@v2
+        with:
+          name: manual.pdf
+          path: manual/manual.pdf
