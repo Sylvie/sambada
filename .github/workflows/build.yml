@@ -43,6 +43,7 @@ jobs:
           echo "${sambada_version_number}"
 
   build:
+    if: false
     runs-on: macos-11
     needs: workflow-params
     env:
@@ -106,3 +107,26 @@ jobs:
           cd distributionverification
           ../configure --disable-manual
           make distcheck
+
+
+  sambadoc:
+    name: Compiling Sambada's manual
+    runs-on: ubuntu-latest
+    needs: workflow-params
+
+    steps:
+      - name: Greetings
+        run: |
+          echo "Hello!"
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configuring build
+        run: |
+          autoreconf -i
+          mkdir build
+          cd build
+          ../configure
+
