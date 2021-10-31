@@ -124,9 +124,15 @@ jobs:
           fetch-depth: 0
 
       - name: Configuring build
+        if: false
         run: |
           autoreconf -i
           mkdir build
           cd build
           ../configure
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: manual/manual.tex
 
