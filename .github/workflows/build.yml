@@ -134,6 +134,6 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: manual/manual.tex
+          root_file: manual.tex
           working_directory: manual/
 
