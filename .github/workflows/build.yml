@@ -90,7 +90,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sambada-archive
-          path: build/sambada-${{ env.sambada_version }}-OSX.tar.gz
+          path: build/sambada-${{ env.sambada_version_number }}-OSX.tar.gz
       - name: make check
         run: |
           cd build
