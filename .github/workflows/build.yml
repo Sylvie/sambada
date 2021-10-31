@@ -135,4 +135,5 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: manual/manual.tex
+          working_directory: manual/
 
