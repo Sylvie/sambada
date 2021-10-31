@@ -138,7 +138,7 @@ jobs:
         with:
           root_file: manual.tex
           working_directory: manual/
-          precompile: |
+          pre_compile: |
             echo "${sambada_version_number}"
             pwd
             ls
