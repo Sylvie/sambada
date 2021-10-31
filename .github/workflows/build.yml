@@ -91,6 +91,7 @@ jobs:
         with:
           name: sambada-archive
           path: build/sambada-${{ env.sambada_version_number }}-OSX.tar.gz
+          if-no-files-found: error
       - name: make check
         run: |
           cd build
