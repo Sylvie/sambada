@@ -125,13 +125,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: check environment
+        run: |
+          brew install automake
+
       - name: Configuring build
-        if: false
         run: |
           autoreconf -i
           mkdir build
           cd build
           ../configure
+
+      - name: Preparing manual
+        run: |
+          make manual/latexmkrc
 
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
@@ -142,7 +149,7 @@ jobs:
             echo "${sambada_version_number}"
             pwd
             ls
-            sed "s/%versionNumber%/{sambada_version_number}/g" latexmkrc_template > latexmkrc
+            # sed "s/%versionNumber%/{sambada_version_number}/g" latexmkrc_template > latexmkrc
 
       - name: uploading manual
         uses: actions/upload-artifact@v2
