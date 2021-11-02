@@ -139,13 +139,14 @@ jobs:
 
       - name: Preparing manual
         run: |
+          cd build
           make manual/latexmkrc
 
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
           root_file: manual.tex
-          working_directory: manual/
+          working_directory: build/manual/
           pre_compile: |
             echo "${sambada_version_number}"
             pwd
@@ -156,4 +157,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: manual.pdf
-          path: manual/manual.pdf
+          path: build/manual/manual.pdf
