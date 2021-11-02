@@ -148,15 +148,12 @@ jobs:
         with:
           root_file: manual.tex
           working_directory: build/manual/
-          pre_compile: |
-            echo "${sambada_version_number}"
-            pwd
-            ls
-            # sed "s/%versionNumber%/{sambada_version_number}/g" latexmkrc_template > latexmkrc
+          args: |
+            -jobname=sambadoc
 
       - name: uploading manual
         uses: actions/upload-artifact@v2
         with:
-          name: manual.pdf
-          path: build/manual/manual.pdf
+          name: sambadoc.pdf
+          path: build/manual/sambadoc.pdf
           if-no-files-found: error
