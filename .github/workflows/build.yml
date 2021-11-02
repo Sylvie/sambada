@@ -119,15 +119,13 @@ jobs:
       CXX: g++-10
 
     steps:
-      - name: Greetings
-        run: |
-          echo "Hello!"
+
       - name: Checking out
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: check environment
+      - name: Installing missing package
         run: |
           brew install automake
 
@@ -138,12 +136,12 @@ jobs:
           cd build
           ../configure
 
-      - name: Preparing manual
+      - name: Preparing LaTeX compilation
         run: |
           cd build
           make manual/latexmkrc
 
-      - name: Compile LaTeX document
+      - name: Compiling LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
           root_file: manual.tex
@@ -151,7 +149,7 @@ jobs:
           args: |
             -jobname=sambadoc
 
-      - name: uploading manual
+      - name: Uploading manual
         uses: actions/upload-artifact@v2
         with:
           name: sambadoc.pdf
