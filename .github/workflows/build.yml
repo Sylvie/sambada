@@ -115,6 +115,8 @@ jobs:
     needs: workflow-params
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      CC: gcc-10
+      CXX: g++-10
 
     steps:
       - name: Greetings
@@ -128,7 +130,6 @@ jobs:
       - name: check environment
         run: |
           brew install automake
-          brew install gcc@11
 
       - name: Configuring build
         run: |
@@ -158,3 +159,4 @@ jobs:
         with:
           name: manual.pdf
           path: build/manual/manual.pdf
+          if-no-files-found: error
