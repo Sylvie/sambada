@@ -43,74 +43,74 @@ jobs:
           echo "${sambada_version_number}"
 
   build:
-    if: false
-    runs-on: macos-11
+    runs-on: macos-10
     needs: workflow-params
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+    strategy:
+      matrix:
+        build-type: [ package, distcheck ]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checking out
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: check environment
+
+      - name: Installing missing package
         run: |
-          set -v
-          ${CC} -v
-          ${CXX} -v
-          brew update
           brew install automake
-      - name: configure
+
+      - name: Configuring
         run: |
           autoreconf -i
           mkdir build
           cd build
           ../configure --disable-manual
-      - name: determine version number
-        if: false
-        id: version-number
-        run: |
-          sambada_version=$(./git-version-gen .version)
-          echo ${sambada_version}
-          echo '::set-output name={sambada_version}::{${sambada_version}}'
-          echo "sambada_version=${sambada_version}" >> $GITHUB_ENV
-      - name: make
+
+      - name: Building
         env:
           sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
           cd build
           make
-      - name: make archive
+
+      - name: Making archive
+        if: ${{ matrix.build-type }} == "package"
         env:
           sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
           cd build
           make binary-archive
           ls
-      - name: upload archive
+
+      - name: Uploading archive
+        if: ${{ matrix.build-type }} == "package"
         uses: actions/upload-artifact@v2
         with:
-          name: sambada-archive
+          name: sambada-archive-${{ runner.os }}
           path: build/sambada-${{ env.sambada_version_number }}-OSX.tar.gz
           if-no-files-found: error
-      - name: make check
+
+      - name: Running check
+        if: ${{ matrix.build-type }} == "package"
         run: |
           cd build
           make check
           cat test-suite.log
           binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
           binaries/sambada ../examples/data-from-manual/one-data-file/param-combo.txt ../examples/data-from-manual/one-data-file/combo-data.txt
-      - name: make distcheck
+
+      - name: Running distcheck
+        if: ${{ matrix.build-type }} == "distcheck"
         env:
           sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
-          mkdir distributionverification
-          cd distributionverification
-          ../configure --disable-manual
+          cd build
           make distcheck
 
-
   sambadoc:
+    if: false
     name: Compiling Sambada's manual
     runs-on: ubuntu-latest
     needs: workflow-params
