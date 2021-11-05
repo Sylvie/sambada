@@ -43,6 +43,7 @@ jobs:
           echo "${sambada_version_number}"
 
   build:
+    if: false
     runs-on: macos-11
     needs: workflow-params
     env:
@@ -107,3 +108,51 @@ jobs:
           cd distributionverification
           ../configure --disable-manual
           make distcheck
+
+
+  sambadoc:
+    name: Compiling Sambada's manual
+    runs-on: ubuntu-latest
+    needs: workflow-params
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      CC: gcc-10
+      CXX: g++-10
+
+    steps:
+
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Installing missing package
+        run: |
+          brew install automake
+
+      - name: Configuring build
+        run: |
+          autoreconf -i
+          mkdir build
+          cd build
+          ../configure
+
+      - name: Preparing LaTeX compilation
+        run: |
+          cd build
+          make manual/latexmkrc
+
+      - name: Compiling LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: manual.tex
+          working_directory: build/manual/
+          args: |
+            -jobname=sambadoc
+
+      - name: Uploading manual
+        uses: actions/upload-artifact@v2
+        with:
+          name: sambadoc.pdf
+          path: build/manual/sambadoc.pdf
+          if-no-files-found: error
