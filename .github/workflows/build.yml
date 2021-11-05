@@ -69,6 +69,7 @@ jobs:
           ../configure --disable-manual
 
       - name: Building
+        if: ${{ matrix.build-type }} == "package"
         env:
           sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
