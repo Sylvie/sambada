@@ -43,7 +43,7 @@ jobs:
           echo "${sambada_version_number}"
 
   build:
-    runs-on: macos-10
+    runs-on: macos-10.15
     needs: workflow-params
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
