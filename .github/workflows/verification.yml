@@ -1,0 +1,27 @@
+name: Sambada Verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseName:
+        description: 'Release Name (= tag)'
+        required: true
+        default: 'v0.8.3'
+env:
+  CC: gcc-11
+  CXX: g++-11
+
+jobs:
+  verifying-sambada-release:
+    name: Verifying Sambada release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Greetings
+        run: |
+          echo "Hello!"
+          echo "Starting verification of Sambada ${{ inputs.releaseName }}
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
