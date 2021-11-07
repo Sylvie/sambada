@@ -43,6 +43,7 @@ jobs:
           echo "${sambada_version_number}"
 
   build:
+    name: Building
     runs-on: macos-10.15
     needs: workflow-params
     env:
@@ -76,6 +77,21 @@ jobs:
           cd build
           make
 
+      - name: Running check
+        if: ${{ matrix.build-type == 'package' }}
+        run: |
+          cd build
+          make check
+          cat test-suite.log
+
+      - name: Uploading test results
+        if: ${{ matrix.build-type == 'package' && failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-suite-${{ runner.os }}
+          path: build/test-suite.log
+          if-no-files-found: error
+
       - name: Making archive
         if: ${{ matrix.build-type == 'package' }}
         env:
@@ -93,15 +109,6 @@ jobs:
           path: build/sambada-${{ env.sambada_version_number }}-OSX.tar.gz
           if-no-files-found: error
 
-      - name: Running check
-        if: ${{ matrix.build-type == 'package' }}
-        run: |
-          cd build
-          make check
-          cat test-suite.log
-          binaries/sambada ../Data/Example_parameters_input_matrix.txt ../Data/input_matrix.csv
-          binaries/sambada ../examples/data-from-manual/one-data-file/param-combo.txt ../examples/data-from-manual/one-data-file/combo-data.txt
-
       - name: Running distcheck
         if: ${{ matrix.build-type == 'distcheck' }}
         env:
@@ -109,6 +116,22 @@ jobs:
         run: |
           cd build
           make distcheck
+
+      - name: Uploading source archive (.zip)
+        if: ${{ matrix.build-type == 'distcheck' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-zip
+          path: build/sambada-${{ env.sambada_version_number }}.zip
+          if-no-files-found: error
+
+      - name: Uploading source archive (.tar.gz)
+        if: ${{ matrix.build-type == 'distcheck' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-tgz
+          path: build/sambada-${{ env.sambada_version_number }}.tar.gz
+          if-no-files-found: error
 
   sambadoc:
     if: false
