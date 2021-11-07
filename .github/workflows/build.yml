@@ -1,6 +1,10 @@
 name: Sambada Build
 
-on: [ push, pull_request ]
+on:
+  push:
+    paths-ignore:
+    - '.github/workflows/verification.yml'
+  pull_request:
 
 env:
   CC: gcc-11
