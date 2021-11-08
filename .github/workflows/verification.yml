@@ -1,0 +1,23 @@
+name: Sambada Verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (= tag)'
+        required: true
+        default: 'v0.8.3'
+env:
+  CC: gcc-11
+  CXX: g++-11
+
+jobs:
+  verifying-sambada-release:
+    name: Verifying Sambada release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Greetings
+        run: |
+          echo "Hello!"
+          echo "Starting verification of Sambada ${{ github.event.inputs.version }}"
