@@ -3,8 +3,8 @@ name: Sambada Verification
 on:
   workflow_dispatch:
     inputs:
-      releaseName:
-        description: 'Release Name (= tag)'
+      version:
+        description: 'Version (= tag)'
         required: true
         default: 'v0.8.3'
 env:
@@ -20,8 +20,4 @@ jobs:
       - name: Greetings
         run: |
           echo "Hello!"
-          echo "Starting verification of Sambada ${{ inputs.releaseName }}
-
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+          echo "Starting verification of Sambada ${{ github.event.inputs.version }}"
