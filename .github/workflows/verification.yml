@@ -17,21 +17,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Greetings
+      - name: Setting environment variables
         run: |
-          echo "Hello!"
-          echo "Starting verification of Sambada ${{ github.event.inputs.version }}"
-          SAMBADA_VERSION=${{ github.event.inputs.version }}
-          SAMBADA_OS_NAME=ubuntu
-          echo "SAMBADA_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
-          echo "SAMBADA_OS_NAME=ubuntu" >> $GITHUB_ENV
-          echo "PACKAGE_NAME=sambada-${SAMBADA_VERSION}-${SAMBADA_OS_NAME}" >> $GITHUB_ENV
+          sambada_version=${{ github.event.inputs.version }}
+          sambada_OS_name=ubuntu
+          echo "Starting verification of Sambada ${sambada_version}"
+          echo "sambada_version=${sambada_version}" >> $GITHUB_ENV
+          echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
+          echo "package_name=sambada-${sambada_version}-${sambada_OS_name}" >> $GITHUB_ENV
 
       - name: Checking environment
         run: |
-          echo "Sambada version: ${{ env.SAMBADA_VERSION }}"
-          echo "Sambada OS name: ${{ env.SAMBADA_OS_NAME }}"
-          echo "Sambada package name: ${{ env.PACKAGE_NAME }}"
+          echo "Sambada version: ${{ env.sambada_version }}"
+          echo "Sambada OS name: ${{ env.sambada_OS_name }}"
+          echo "Sambada package name: ${{ env.package_name }}"
 
       - name: Downloading package
         run: |
