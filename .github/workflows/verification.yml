@@ -20,6 +20,10 @@ jobs:
       - name: Setting environment variables
         run: |
           sambada_version=${{ github.event.inputs.version }}
+          if [ "x${sambada_version:0:1}" = "xv" ]; then
+            sambada_version=${sambada_version:1}
+          fi
+
           sambada_OS_name=ubuntu
           echo "Starting verification of Sambada ${sambada_version}"
           echo "sambada_version=${sambada_version}" >> $GITHUB_ENV
