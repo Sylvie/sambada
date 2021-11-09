@@ -21,6 +21,15 @@ jobs:
         run: |
           echo "Hello!"
           echo "Starting verification of Sambada ${{ github.event.inputs.version }}"
+          echo "SAMBADA_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "SAMBADA_OS_NAME=ubuntu" >> $GITHUB_ENV
+          echo "PACKAGE_NAME=sambada-${SAMBADA_VERSION}-${SAMBADA_OS_NAME}" >> $GITHUB_ENV
+
+      - name: Checking environment
+        run: |
+          echo "Sambada version: ${{ env.SAMBADA_VERSION }}
+          echo "Sambada OS name: ${{ env.SAMBADA_OS_NAME }}
+          echo "Sambada package name: ${{ env.PACKAGE_NAME }}
 
       - name: Downloading package
         run: |
