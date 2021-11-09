@@ -14,6 +14,9 @@ env:
 jobs:
   verifying-sambada-release:
     name: Verifying Sambada release
+    strategy:
+      matrix:
+        test-type: [ smoke, integration ]
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +33,7 @@ jobs:
           echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
           echo "package_name=sambada-${sambada_version}-${sambada_OS_name}" >> $GITHUB_ENV
 
-      - name: Checking environment
+      - name: Checking environment variables
         run: |
           echo "Sambada version: ${{ env.sambada_version }}"
           echo "Sambada OS name: ${{ env.sambada_OS_name }}"
@@ -42,6 +45,7 @@ jobs:
           tar -zxvf ${{ env.package_name }}.tar.gz
 
       - name: Smoke testing release
+        if: ${{ matrix.test-type == 'smoke' }}
         run: |
           cd ${{ env.package_name }}/examples/subset-cattle-SNP
           time ../../binaries/sambada param-cattle.txt cattle-env.csv cattle-mark.txt
