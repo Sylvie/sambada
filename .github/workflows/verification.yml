@@ -32,6 +32,9 @@ jobs:
 
       - name: Smoke testing release
         run: |
+          SAMBADA_VERSION=${{ github.event.inputs.version }}
+          SAMBADA_OS_NAME=ubuntu
+          PACKAGE_NAME=sambada-${SAMBADA_VERSION}-${SAMBADA_OS_NAME}
           cd ${PACKAGE_NAME}/examples/subset-cattle-SNP
           time ../../binaries/sambada param-cattle.txt cattle-env.csv cattle-mark.txt
           head  cattle-mark-Out-1.txt
