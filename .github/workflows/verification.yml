@@ -29,9 +29,9 @@ jobs:
 
       - name: Checking environment
         run: |
-          echo "Sambada version: ${{ env.SAMBADA_VERSION }}
-          echo "Sambada OS name: ${{ env.SAMBADA_OS_NAME }}
-          echo "Sambada package name: ${{ env.PACKAGE_NAME }}
+          echo "Sambada version: ${{ env.SAMBADA_VERSION }}"
+          echo "Sambada OS name: ${{ env.SAMBADA_OS_NAME }}"
+          echo "Sambada package name: ${{ env.PACKAGE_NAME }}"
 
       - name: Downloading package
         run: |
