@@ -26,12 +26,13 @@ jobs:
           if [ "x${sambada_version:0:1}" = "xv" ]; then
             sambada_version=${sambada_version:1}
           fi
+          echo "Starting verification of Sambada version ${sambada_version}"
 
           sambada_OS_name=ubuntu
-          echo "Starting verification of Sambada ${sambada_version}"
           echo "sambada_version=${sambada_version}" >> $GITHUB_ENV
           echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
           echo "package_name=sambada-${sambada_version}-${sambada_OS_name}" >> $GITHUB_ENV
+          echo "archive_name=sambada-${sambada_version}" >> $GITHUB_ENV
 
       - name: Checking environment variables
         run: |
@@ -50,3 +51,24 @@ jobs:
           cd ${{ env.package_name }}/examples/subset-cattle-SNP
           time ../../binaries/sambada param-cattle.txt cattle-env.csv cattle-mark.txt
           head  cattle-mark-Out-1.txt
+
+      - name: Downloading source code archive
+        if: ${{ matrix.test-type == 'integration' }}
+        run: |
+          wget "https://github.com/Sylvie/sambada/releases/download/v${{ env.sambada_version }}/${{ env.archive_name }}.zip"
+          unzip ${{ env.archive_name }}.zip
+
+      - name: Compiling integration tests
+        if: ${{ matrix.test-type == 'integration' }}
+        run: |
+          mkdir -p ${{ env.archive_name }}/build/
+          cd ${{ env.archive_name }}/build/
+          ../configure sambadahostsystemname=${{ env.sambada_OS_name }} --disable-manual
+          make test/integration/SambadaIntegrationTests
+          ln -s ../../${{ env.package_name }}}/binaries/ binaries
+
+      - name: Running integration tests on release
+        if: ${{ matrix.test-type == 'integration' }}
+        run: |
+          cd ${{ env.archive_name }}/build/
+          time test/integration/SambadaIntegrationTests
