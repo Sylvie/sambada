@@ -35,7 +35,7 @@ jobs:
       - name: Downloading package
         run: |
           wget "https://github.com/Sylvie/sambada/releases/download/v${{ env.sambada_version }}/${{ env.package_name }}.tar.gz"
-          tar -zxvf $PACKAGE_NAME.tar.gz
+          tar -zxvf ${{ env.package_name }}.tar.gz
 
       - name: Smoke testing release
         run: |
