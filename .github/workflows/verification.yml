@@ -13,7 +13,7 @@ env:
 
 jobs:
   verifying-sambada-release:
-    name: Verifying Sambada release
+    name: Verifying release
     strategy:
       matrix:
         test-type: [ smoke, integration ]
