@@ -17,8 +17,9 @@ jobs:
     strategy:
       matrix:
         test-type: [ smoke, integration ]
+        os: [ ubuntu-18.04, ubuntu-20.04 ]
       fail-fast: false
-    runs-on: [ ubuntu-18.04, ubuntu-20.04 ]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Setting environment variables
