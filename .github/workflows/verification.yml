@@ -16,8 +16,8 @@ jobs:
     name: Verifying release
     strategy:
       matrix:
-        test-type: [ smoke, integration ]
         os: [ ubuntu-18.04, ubuntu-20.04, macos-10.15, macos-11 ]
+        test-type: [ smoke, integration ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
 
@@ -30,7 +30,7 @@ jobs:
           fi
           echo "Starting verification of Sambada version ${sambada_version}"
 
-          runner_OS=${{ runner.os }}
+          runner_OS=${{ matrix.os }}
           if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
             sambada_OS_name=ubuntu
           else
