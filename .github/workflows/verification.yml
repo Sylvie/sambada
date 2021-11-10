@@ -18,7 +18,7 @@ jobs:
       matrix:
         test-type: [ smoke, integration ]
       fail-fast: false
-    runs-on: ubuntu-latest
+    runs-on: [ ubuntu-18.04, ubuntu-20.04 ]
 
     steps:
       - name: Setting environment variables
@@ -40,6 +40,11 @@ jobs:
           echo "Sambada version: ${{ env.sambada_version }}"
           echo "Sambada OS name: ${{ env.sambada_OS_name }}"
           echo "Sambada package name: ${{ env.package_name }}"
+
+      - name: Removing extra package
+        if: ${{ matrix.test-type == 'smoke' && runner.name == 'ubuntu-18.04' }}
+        run: |
+          brew uninstall gcc@7
 
       - name: Downloading package
         run: |
