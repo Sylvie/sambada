@@ -26,7 +26,6 @@ jobs:
       - name: determine version number
         id: version-number
         run: |
-          set -v
           echo "----------------------------------------------"
           git tag
           echo "----------------------------------------------"
