@@ -27,10 +27,15 @@ jobs:
         id: version-number
         run: |
           set -v
+          echo "----------------------------------------------"
           git tag
+          echo "----------------------------------------------"
           git describe
+          echo "----------------------------------------------"
           sambada_version_number=$(./git-version-gen .version)
+          echo "----------------------------------------------"
           echo ${sambada_version_number}
+          echo "----------------------------------------------"
           echo "::set-output name=sambada_version_number::${sambada_version_number}"
 
   read-params:
