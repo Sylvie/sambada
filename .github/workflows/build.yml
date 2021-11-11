@@ -26,6 +26,9 @@ jobs:
       - name: determine version number
         id: version-number
         run: |
+          set -v
+          git tag
+          git describe
           sambada_version_number=$(./git-version-gen .version)
           echo ${sambada_version_number}
           echo "::set-output name=sambada_version_number::${sambada_version_number}"
