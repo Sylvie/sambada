@@ -55,15 +55,29 @@ jobs:
 
   build:
     name: Building
-    runs-on: macos-10.15
+    runs-on: ${{ matrix.os }}
     needs: workflow-params
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
     strategy:
       matrix:
+        os: [ ubuntu-18.04, macos-10.15 ]
         build-type: [ package, distcheck ]
+      fail-fast: false
 
     steps:
+      - name: Setting environment variables
+        run: |
+          runner_OS=${{ matrix.os }}
+          if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
+            sambada_OS_name=ubuntu
+          else
+            sambada_OS_name=osx
+          fi
+          echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
+          echo "package_name=sambada-${{ env.sambada_version_number }}-${sambada_OS_name}" >> $GITHUB_ENV
+          echo "archive_name=sambada-${{ env.sambada_version_number }}" >> $GITHUB_ENV
+
       - name: Checking out
         uses: actions/checkout@v2
         with:
@@ -110,7 +124,7 @@ jobs:
       - name: Making archive
         if: ${{ matrix.build-type == 'package' }}
         env:
-          sambada_version: ${{ steps.version-number.outputs.sambada_version }}
+          sambada_version: ${{ env.sambada_version_number }}
         run: |
           cd build
           make binary-archive
@@ -120,8 +134,8 @@ jobs:
         if: ${{ matrix.build-type == 'package' }}
         uses: actions/upload-artifact@v2
         with:
-          name: sambada-archive-${{ runner.os }}.tar.gz
-          path: build/sambada-${{ env.sambada_version_number }}-OSX.tar.gz
+          name: sambada-archive-${{ env.sambada_OS_name }}.tar.gz
+          path: build/${{ env.package_name }}.tar.gz
           if-no-files-found: error
 
       - name: Running distcheck
@@ -133,7 +147,7 @@ jobs:
           make distcheck
 
       - name: Uploading source archive (.zip)
-        if: ${{ matrix.build-type == 'distcheck' }}
+        if: ${{ matrix.build-type == 'distcheck' && env.sambada_OS_name == 'ubuntu' }}
         uses: actions/upload-artifact@v2
         with:
           name: dist-zip.zip
@@ -141,7 +155,7 @@ jobs:
           if-no-files-found: error
 
       - name: Uploading source archive (.tar.gz)
-        if: ${{ matrix.build-type == 'distcheck' }}
+        if: ${{ matrix.build-type == 'distcheck' && env.sambada_OS_name == 'ubuntu' }}
         uses: actions/upload-artifact@v2
         with:
           name: dist-tgz.tar.gz
