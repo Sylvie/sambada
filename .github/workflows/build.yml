@@ -90,6 +90,7 @@ jobs:
       - name: Installing missing package
         run: |
           brew install automake
+          brew install gcc@11
 
       - name: Configuring
         run: |
