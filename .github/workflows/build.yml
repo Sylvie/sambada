@@ -72,7 +72,7 @@ jobs:
           if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
             sambada_OS_name=ubuntu
           else
-            sambada_OS_name=osx
+            sambada_OS_name=OSX
           fi
           echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
           echo "package_name=sambada-${{ env.sambada_version_number }}-${sambada_OS_name}" >> $GITHUB_ENV
@@ -97,7 +97,7 @@ jobs:
           autoreconf -i
           mkdir build
           cd build
-          ../configure --disable-manual
+          ../configure --disable-manual sambadahostsystemname=${{ env.sambada_OS_name }}
 
       - name: Building
         if: ${{ matrix.build-type == 'package' }}

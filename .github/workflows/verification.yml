@@ -34,7 +34,7 @@ jobs:
           if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
             sambada_OS_name=ubuntu
           else
-            sambada_OS_name=osx
+            sambada_OS_name=OSX
           fi
           echo "sambada_version=${sambada_version}" >> $GITHUB_ENV
           echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
