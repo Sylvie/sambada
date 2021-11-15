@@ -63,6 +63,9 @@ jobs:
       matrix:
         os: [ ubuntu-18.04, macos-10.15 ]
         build-type: [ package, distcheck ]
+        include:
+          - os: ubuntu-18.04
+            LDFLAGS: -static
       fail-fast: false
 
     steps:
