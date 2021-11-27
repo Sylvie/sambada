@@ -65,7 +65,8 @@ jobs:
         build-type: [ package, distcheck ]
         include:
           - os: ubuntu-18.04
-            LDFLAGS: -static
+            env:
+              LDFLAGS: -static
       fail-fast: false
 
     steps:
