@@ -71,7 +71,8 @@ jobs:
           runner_OS=${{ matrix.os }}
           if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
             sambada_OS_name=ubuntu
-            LDFLAGS += -static
+            LDFLAGS+=-static
+            export LDFLAGS
           else
             sambada_OS_name=OSX
           fi
