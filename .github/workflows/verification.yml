@@ -43,6 +43,7 @@ jobs:
 
       - name: Checking environment variables
         run: |
+          echo "Runner name: ${{ runner.name }}"
           echo "Sambada version: ${{ env.sambada_version }}"
           echo "Sambada OS name: ${{ env.sambada_OS_name }}"
           echo "Sambada package name: ${{ env.package_name }}"
