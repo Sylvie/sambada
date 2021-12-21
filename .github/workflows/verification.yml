@@ -50,6 +50,8 @@ jobs:
       - name: Removing extra package on Ubuntu
         if: ${{ matrix.test-type == 'smoke' && matrix.os == 'ubuntu-18.04' }}
         run: |
+          brew info gcc
+          brew info gcc@7
           brew uninstall gcc@7
 
       - name: Installing missing package on macOS
