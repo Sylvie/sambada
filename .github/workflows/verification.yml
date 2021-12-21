@@ -43,13 +43,12 @@ jobs:
 
       - name: Checking environment variables
         run: |
-          echo "Runner name: ${{ runner.name }}"
           echo "Sambada version: ${{ env.sambada_version }}"
           echo "Sambada OS name: ${{ env.sambada_OS_name }}"
           echo "Sambada package name: ${{ env.package_name }}"
 
       - name: Removing extra package on Ubuntu
-        if: ${{ matrix.test-type == 'smoke' && runner.name == 'ubuntu-18.04' }}
+        if: ${{ matrix.test-type == 'smoke' && matrix.os == 'ubuntu-18.04' }}
         run: |
           brew uninstall gcc@7
 
