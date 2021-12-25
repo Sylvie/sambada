@@ -59,7 +59,6 @@ jobs:
     needs: workflow-params
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
-      LDFLAGS: -static
     strategy:
       matrix:
         os: [ ubuntu-18.04, macos-10.15 ]
@@ -74,12 +73,15 @@ jobs:
           echo "CXXFLAGS: $CXXFLAGS"
           echo "LDFLAGS: $LDFLAGS"
           runner_OS=${{ matrix.os }}
+          sambada_extra_LDFLAGS=""
           if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
             sambada_OS_name=ubuntu
+            sambada_extra_LDFLAGS=-static
           else
             sambada_OS_name=OSX
           fi
           echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
+          echo "sambada_extra_LDFLAGS=${sambada_extra_LDFLAGS}" >> $GITHUB_ENV
           echo "package_name=sambada-${{ env.sambada_version_number }}-${sambada_OS_name}" >> $GITHUB_ENV
           echo "archive_name=sambada-${{ env.sambada_version_number }}" >> $GITHUB_ENV
 
@@ -98,6 +100,8 @@ jobs:
           brew install gcc@11
 
       - name: Configuring
+        env:
+          LDFLAGS: ${{ env.sambada_extra_LDFLAGS }}
         run: |
           autoreconf -i
           mkdir build
