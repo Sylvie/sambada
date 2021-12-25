@@ -52,6 +52,10 @@ jobs:
       - name: Read variables
         run: |
           echo "${sambada_version_number}"
+          echo "CFLAGS: $CFLAGS"
+          echo "CPPFLAGS: $CPPFLAGS"
+          echo "CXXFLAGS: $CXXFLAGS"
+          echo "LDFLAGS: $LDFLAGS"
 
   build:
     name: Building
