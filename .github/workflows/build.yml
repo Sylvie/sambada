@@ -52,10 +52,6 @@ jobs:
       - name: Read variables
         run: |
           echo "${sambada_version_number}"
-          echo "CFLAGS: $CFLAGS"
-          echo "CPPFLAGS: $CPPFLAGS"
-          echo "CXXFLAGS: $CXXFLAGS"
-          echo "LDFLAGS: $LDFLAGS"
 
   build:
     name: Building
@@ -63,6 +59,7 @@ jobs:
     needs: workflow-params
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      LDFLAGS: -static
     strategy:
       matrix:
         os: [ ubuntu-18.04, macos-10.15 ]
@@ -72,11 +69,13 @@ jobs:
     steps:
       - name: Setting environment variables
         run: |
+          echo "CFLAGS: $CFLAGS"
+          echo "CPPFLAGS: $CPPFLAGS"
+          echo "CXXFLAGS: $CXXFLAGS"
+          echo "LDFLAGS: $LDFLAGS"
           runner_OS=${{ matrix.os }}
           if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
             sambada_OS_name=ubuntu
-            LDFLAGS+=-static
-            export LDFLAGS
           else
             sambada_OS_name=OSX
           fi
