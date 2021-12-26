@@ -68,10 +68,6 @@ jobs:
     steps:
       - name: Setting environment variables
         run: |
-          echo "CFLAGS: $CFLAGS"
-          echo "CPPFLAGS: $CPPFLAGS"
-          echo "CXXFLAGS: $CXXFLAGS"
-          echo "LDFLAGS: $LDFLAGS"
           runner_OS=${{ matrix.os }}
           sambada_extra_LDFLAGS=""
           if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
@@ -110,8 +106,6 @@ jobs:
 
       - name: Building
         if: ${{ matrix.build-type == 'package' }}
-        env:
-          sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
           cd build
           make
@@ -150,8 +144,6 @@ jobs:
 
       - name: Running distcheck
         if: ${{ matrix.build-type == 'distcheck' }}
-        env:
-          sambada_version: ${{ steps.version-number.outputs.sambada_version }}
         run: |
           cd build
           make distcheck
@@ -161,7 +153,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist-zip.zip
-          path: build/sambada-${{ env.sambada_version_number }}.zip
+          path: build/${{ env.archive_name }}.zip
           if-no-files-found: error
 
       - name: Uploading source archive (.tar.gz)
@@ -169,7 +161,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist-tgz.tar.gz
-          path: build/sambada-${{ env.sambada_version_number }}.tar.gz
+          path: build/${{ env.archive_name }}.tar.gz
           if-no-files-found: error
 
   sambadoc:
