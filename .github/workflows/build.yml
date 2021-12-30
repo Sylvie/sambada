@@ -105,13 +105,24 @@ jobs:
           ../configure --disable-manual sambadahostsystemname=${{ env.sambada_OS_name }}
 
       - name: Building
-        if: ${{ matrix.build-type == 'package' }}
+        if: ${{ matrix.build-type == 'package' && false }}
         run: |
           cd build
           make
 
-      - name: Running check
+      - name: Fake building
         if: ${{ matrix.build-type == 'package' }}
+        run: |
+          cd build
+          mkdir binaries
+          cd binaries
+          cat "Fake sambada" > sambada
+          cat "Fake supervision" > supervision
+          cat "Fake recode-plink" > recode-plink
+          cat "Fake recode-plink-lfmm" > recode-plink-lfmm
+
+      - name: Running check
+        if: ${{ matrix.build-type == 'package' && false }}
         run: |
           cd build
           make check
@@ -143,10 +154,16 @@ jobs:
           if-no-files-found: error
 
       - name: Running distcheck
-        if: ${{ matrix.build-type == 'distcheck' }}
+        if: ${{ matrix.build-type == 'distcheck' && false }}
         run: |
           cd build
           make distcheck
+
+      - name: Running fake distcheck
+        if: ${{ matrix.build-type == 'distcheck' }}
+        run: |
+          cd build
+          make dist
 
       - name: Uploading source archive (.zip)
         if: ${{ matrix.build-type == 'distcheck' && env.sambada_OS_name == 'ubuntu' }}
@@ -208,6 +225,29 @@ jobs:
           working_directory: build/manual/
           args: |
             -jobname=sambadoc
+
+      - name: Uploading manual
+        uses: actions/upload-artifact@v2
+        with:
+          name: sambadoc.pdf
+          path: build/manual/sambadoc.pdf
+          if-no-files-found: error
+
+  fake-sambadoc:
+    name: Pseudo-compiling Sambada's manual
+    runs-on: ubuntu-latest
+    needs: workflow-params
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      CC: gcc-10
+      CXX: g++-10
+
+    steps:
+
+      - name: Creating fake manual
+        run: |
+          mkdir -p build/manual
+          cat "Pseudo-manual" > build/manual/sambadoc.pdf
 
       - name: Uploading manual
         uses: actions/upload-artifact@v2
