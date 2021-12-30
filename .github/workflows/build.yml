@@ -116,10 +116,10 @@ jobs:
           cd build
           mkdir binaries
           cd binaries
-          cat "Fake sambada" > sambada
-          cat "Fake supervision" > supervision
-          cat "Fake recode-plink" > recode-plink
-          cat "Fake recode-plink-lfmm" > recode-plink-lfmm
+          echo "Fake sambada" > sambada
+          echo "Fake supervision" > supervision
+          echo "Fake recode-plink" > recode-plink
+          echo "Fake recode-plink-lfmm" > recode-plink-lfmm
 
       - name: Running check
         if: ${{ matrix.build-type == 'package' && false }}
@@ -247,7 +247,7 @@ jobs:
       - name: Creating fake manual
         run: |
           mkdir -p build/manual
-          cat "Pseudo-manual" > build/manual/sambadoc.pdf
+          echo "Pseudo-manual" > build/manual/sambadoc.pdf
 
       - name: Uploading manual
         uses: actions/upload-artifact@v2
