@@ -294,5 +294,17 @@ jobs:
       - name: Expanding binary archive
         run: |
           cd artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz
-          tar -xvzf ${{ env.package_name }}.tar.gz
+          mkdir expanded_archive
+          tar -xvzf ${{ env.package_name }}.tar.gz -C expanded_archive
           ls -lR
+          rm -fr expanded_archive/${{ env.package_name }}/manual.txt
+          cp ../sambadoc.pdf/sambadoc.pdf expanded_archive/${{ env.package_name }}
+          tar -cvzf expanded_archive/${{ env.package_name }}.tar.gz -C expanded_archive
+
+      - name: Uploading new artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.package_name }}.tar.gz
+          path: expanded_archive/${{ env.package_name }}.tar.gz
+          if-no-files-found: error
+
