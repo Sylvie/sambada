@@ -259,7 +259,7 @@ jobs:
   release:
     name: Releasing
     runs-on: ${{ matrix.os }}
-    needs: [ workflow-params, build ]
+    needs: [ workflow-params, build, fake-sambadoc ]
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
     strategy:
@@ -288,5 +288,11 @@ jobs:
         with:
           path: artifacts
 
-      - name: Display structure of downloaded files
+      - name: Displaying structure of downloaded files
         run: ls -R
+
+      - name: Expanding binary archive
+        run: |
+          cd artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz
+          tar -xvzf ${{ env.package_name }}.tar.gz
+          ls -lR
