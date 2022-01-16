@@ -255,3 +255,38 @@ jobs:
           name: sambadoc.pdf
           path: build/manual/sambadoc.pdf
           if-no-files-found: error
+
+  release:
+    name: Releasing
+    runs-on: ${{ matrix.os }}
+    needs: [ workflow-params, build ]
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04, macos-10.15 ]
+      fail-fast: false
+
+    steps:
+      - name: Setting environment variables
+        run: |
+          runner_OS=${{ matrix.os }}
+          sambada_extra_LDFLAGS=""
+          if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
+            sambada_OS_name=ubuntu
+            sambada_extra_LDFLAGS=-static
+          else
+            sambada_OS_name=OSX
+          fi
+          echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
+          echo "sambada_extra_LDFLAGS=${sambada_extra_LDFLAGS}" >> $GITHUB_ENV
+          echo "package_name=sambada-${{ env.sambada_version_number }}-${sambada_OS_name}" >> $GITHUB_ENV
+          echo "archive_name=sambada-${{ env.sambada_version_number }}" >> $GITHUB_ENV
+
+      - name: Downloading artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
+      - name: Display structure of downloaded files
+        run: ls -R
