@@ -299,7 +299,7 @@ jobs:
           ls -lR
           rm -fr expanded_archive/${{ env.package_name }}/manual.txt
           cp ../sambadoc.pdf/sambadoc.pdf expanded_archive/${{ env.package_name }}
-          tar -cvzf expanded_archive/${{ env.package_name }}.tar.gz -C expanded_archive
+          tar -cvzf expanded_archive/${{ env.package_name }}.tar.gz expanded_archive/${{ env.package_name }} -C expanded_archive
 
       - name: Uploading new artifact
         uses: actions/upload-artifact@v2
