@@ -297,6 +297,10 @@ jobs:
           mkdir expanded_archive
           tar -xvzf ${{ env.package_name }}.tar.gz -C expanded_archive
           ls -lR
+
+      - name: Updating binary archive
+        run: |
+          cd artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz
           rm -fr expanded_archive/${{ env.package_name }}/manual.txt
           cp ../sambadoc.pdf/sambadoc.pdf expanded_archive/${{ env.package_name }}
           tar -cvzf expanded_archive/${{ env.package_name }}.tar.gz expanded_archive/${{ env.package_name }} -C expanded_archive
@@ -306,6 +310,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.package_name }}.tar.gz
-          path: expanded_archive/${{ env.package_name }}.tar.gz
+          path: artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz/expanded_archive/${{ env.package_name }}.tar.gz
           if-no-files-found: error
 
