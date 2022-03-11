@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version-number: ${{ steps.version-number.outputs.sambada_version_number }}
+      release-type: ${{ steps.release-status.outputs.sambada_release_type }}
     steps:
       - name: Greetings
         run: |
@@ -280,6 +281,7 @@ jobs:
     needs: [ workflow-params, build, fake-sambadoc ]
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
     strategy:
       matrix:
         os: [ ubuntu-18.04, macos-10.15 ]
@@ -300,6 +302,7 @@ jobs:
           echo "sambada_extra_LDFLAGS=${sambada_extra_LDFLAGS}" >> $GITHUB_ENV
           echo "package_name=sambada-${{ env.sambada_version_number }}-${sambada_OS_name}" >> $GITHUB_ENV
           echo "archive_name=sambada-${{ env.sambada_version_number }}" >> $GITHUB_ENV
+          echo "release_type=${{ env.sambada_release_type }}" >> $GITHUB_ENV
 
       - name: Downloading artifacts
         uses: actions/download-artifact@v2
@@ -331,3 +334,13 @@ jobs:
           path: artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz/expanded_archive/${{ env.package_name }}.tar.gz
           if-no-files-found: error
 
+      - name: Creating release
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        run: |
+          if [[ "${env.release_type}" =~ ${finalReleaseRegex} ]]; then
+            echo "This is a final release"
+          elif [[ "${sambada_version_number}" =~ ${releaseCandidateRegex} ]]; then
+            echo "This is a release candidate"
+          else
+            echo "This is NOT a release. What went wrong ?"
+          fi
