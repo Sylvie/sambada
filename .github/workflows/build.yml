@@ -337,9 +337,9 @@ jobs:
       - name: Creating release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         run: |
-          if [[ "${env.release_type}" =~ ${finalReleaseRegex} ]]; then
+          if [[ "${env.release_type}" == 'finalRelease' ]]; then
             echo "This is a final release"
-          elif [[ "${sambada_version_number}" =~ ${releaseCandidateRegex} ]]; then
+          elif [[ "${sambada_version_number}" == 'releaseCandidate' ]]; then
             echo "This is a release candidate"
           else
             echo "This is NOT a release. What went wrong ?"
