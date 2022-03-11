@@ -62,6 +62,7 @@ jobs:
     needs: workflow-params
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
 
     steps:
       - name: Greetings
@@ -71,6 +72,27 @@ jobs:
       - name: Read variables
         run: |
           echo "${sambada_version_number}"
+          echo "${sambada_release_type}"
+      - name: Creating release
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: creating-release
+        with:
+          github-token: ${{ secrets.RELEASE_TOKEN }}
+          script: |
+            const isPreRelease = ${{ env.release_type }} == "releaseCandidate";
+            octokit.rest.repos.createRelease({
+              owner: Sylvie,
+              repo: Sambada,
+              tag_name: ${{ env.sambada_version_number }},
+              name: ${{ env.sambada_version_number }},
+              body: "Sambada release ${{ env.sambada_version_number }}",
+              draft: true,
+              prerelease: ${isPreRelease}
+            });
+
+      - name: Get result
+        run: echo "${{steps.set-result.outputs.result}}"
 
   build:
     name: Building
