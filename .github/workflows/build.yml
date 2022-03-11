@@ -340,7 +340,7 @@ jobs:
         id: creating-release
         with:
           script: |
-            const isPreRelease = ( ${{ env.release_type }} == "releaseCandidate" )
+            const isPreRelease = ( ${{ env.release_type }} == "releaseCandidate" );
             octokit.rest.repos.createRelease({
               owner: Sylvie,
               repo: Sambada,
