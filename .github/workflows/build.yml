@@ -73,6 +73,9 @@ jobs:
         run: |
           echo "${sambada_version_number}"
           echo "${sambada_release_type}"
+          echo "sambada_version_number=${{ env.sambada_version_number }}" >> $GITHUB_ENV
+          echo "release_type=${{ env.sambada_release_type }}" >> $GITHUB_ENV
+
       - name: Creating release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
