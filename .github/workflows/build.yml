@@ -36,12 +36,14 @@ jobs:
           sambada_version_number=$(./git-version-gen .version)
           echo ${sambada_version_number}
           echo "::set-output name=sambada_version_number::${sambada_version_number}"
+          echo "sambada_version_number=${sambada_version_number}" >> $GITHUB_ENV
 
       - name: Determining release status
         id: release-status
         run: |
           finalReleaseRegex="^[0-9]\.[0-9]\.[0-9]$"
           releaseCandidateRegex="^[0-9]\.[0-9]\.[0-9](alpha|beta|rc)[0-9]+$"
+          echo "Version number: ${sambada_version_number}"
           if [[ "${sambada_version_number}" =~ ${finalReleaseRegex} ]]; then
             echo "This is a final release"
             echo "::set-output name=sambada_release_type::finalRelease"
