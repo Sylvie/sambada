@@ -37,6 +37,22 @@ jobs:
           echo ${sambada_version_number}
           echo "::set-output name=sambada_version_number::${sambada_version_number}"
 
+      - name: Determining release status
+        id: release-status
+        run: |
+          finalReleaseRegex="^[0-9]\.[0-9]\.[0-9]$"
+          releaseCandidateRegex="^[0-9]\.[0-9]\.[0-9](alpha|beta|rc)[0-9]+$"
+          if [[ "${sambada_version_number}" =~ ${finalReleaseRegex} ]]; then
+            echo "This is a final release"
+            echo "::set-output name=sambada_release_type::finalRelease"
+          elif [[ "${sambada_version_number}" =~ ${releaseCandidateRegex} ]]; then
+            echo "This is a release candidate"
+            echo "::set-output name=sambada_release_type::releaseCandidate"
+          else
+            echo "This is not a release"
+            echo "::set-output name=sambada_release_type::none"
+          fi
+
   read-params:
     name: Reading workflow params
     runs-on: ubuntu-latest
