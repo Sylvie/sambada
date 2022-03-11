@@ -83,13 +83,13 @@ jobs:
         with:
           github-token: ${{ secrets.RELEASE_TOKEN }}
           script: |
-            const isPreRelease = ${{ env.release_type }} == "releaseCandidate";
+            const isPreRelease = ${sambada_release_type} == "releaseCandidate";
             octokit.rest.repos.createRelease({
               owner: Sylvie,
               repo: Sambada,
-              tag_name: ${{ env.sambada_version_number }},
-              name: ${{ env.sambada_version_number }},
-              body: "Sambada release ${{ env.sambada_version_number }}",
+              tag_name: ${sambada_version_number},
+              name: ${sambada_version_number},
+              body: "Sambada release ${sambada_version_number}",
               draft: true,
               prerelease: ${isPreRelease}
             });
