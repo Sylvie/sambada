@@ -339,6 +339,7 @@ jobs:
         uses: actions/github-script@v6
         id: creating-release
         with:
+          github-token: ${{ secrets.RELEASE_TOKEN }}
           script: |
             const isPreRelease = ( ${{ env.release_type }} == "releaseCandidate" );
             octokit.rest.repos.createRelease({
