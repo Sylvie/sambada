@@ -336,11 +336,20 @@ jobs:
 
       - name: Creating release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        run: |
-          if [[ "${{ env.release_type }}" == 'finalRelease' ]]; then
-            echo "This is a final release"
-          elif [[ "${{ env.release_type }}" == 'releaseCandidate' ]]; then
-            echo "This is a release candidate"
-          else
-            echo "This is NOT a release. What went wrong ?"
-          fi
+        uses: actions/github-script@v6
+        id: creating-release
+        with:
+          script: |
+            const isPreRelease = ( ${{ env.release_type }} == "releaseCandidate" )
+            octokit.rest.repos.createRelease({
+              owner: Sylvie,
+              repo: Sambada,
+              tag_name: ${{ env.sambada_version_number }},
+              name: ${{ env.sambada_version_number }},
+              body: "Sambada release ${{ env.sambada_version_number }}",
+              draft: true,
+              prerelease: ${isPreRelease}
+            });
+
+      - name: Get result
+        run: echo "${{steps.set-result.outputs.result}}"
