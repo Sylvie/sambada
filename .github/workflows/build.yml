@@ -87,7 +87,7 @@ jobs:
             const { sambada_version_number, sambada_release_type } = process.env
             const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
             console.log(`isPreRelease: ${isPreRelease}`);
-            github.rest.repos.createRelease({
+            return github.rest.repos.createRelease({
               owner: 'Sylvie',
               repo: 'Sambada',
               tag_name: `v${sambada_version_number}`,
