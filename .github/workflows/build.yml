@@ -85,7 +85,7 @@ jobs:
           script: |
             const { sambada_version_number, sambada_release_type } = process.env
             const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
-            const result = console.log(`isPreRelease: ${isPreRelease}`);
+            const result = console.log(`Release status: ${isPreRelease ? 'Release Candidate' : 'Final Release'}`);
             const response = await github.rest.repos.createRelease({
               owner: 'Sylvie',
               repo: 'Sambada',
@@ -95,7 +95,7 @@ jobs:
               draft: true,
               prerelease: isPreRelease
             });
-            console.log(JSON.stringify(response, null, "    "));
+            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
             
       - name: Get result
