@@ -85,15 +85,15 @@ jobs:
           debug: true
           script: |
             const { sambada_version_number, sambada_release_type } = process.env
-            const isPreRelease = ${sambada_release_type} == "releaseCandidate";
+            const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
             octokit.rest.repos.createRelease({
               owner: Sylvie,
               repo: Sambada,
-              tag_name: ${sambada_version_number},
-              name: ${sambada_version_number},
+              tag_name: `${sambada_version_number}`,
+              name: `${sambada_version_number}`,
               body: "Sambada release ${sambada_version_number}",
               draft: true,
-              prerelease: ${isPreRelease}
+              prerelease: `${isPreRelease}`
             });
 
       - name: Get result
