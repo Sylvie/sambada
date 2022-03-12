@@ -86,7 +86,7 @@ jobs:
           script: |
             const { sambada_version_number, sambada_release_type } = process.env
             const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
-            octokit.rest.repos.createRelease({
+            github.rest.repos.createRelease({
               owner: Sylvie,
               repo: Sambada,
               tag_name: `${sambada_version_number}`,
