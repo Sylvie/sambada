@@ -82,7 +82,9 @@ jobs:
         id: creating-release
         with:
           github-token: ${{ secrets.RELEASE_TOKEN }}
+          debug: true
           script: |
+            const { sambada_version_number, sambada_release_type } = process.env
             const isPreRelease = ${sambada_release_type} == "releaseCandidate";
             octokit.rest.repos.createRelease({
               owner: Sylvie,
