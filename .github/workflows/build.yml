@@ -92,8 +92,8 @@ jobs:
               tag_name: `${sambada_version_number}`,
               name: `${sambada_version_number}`,
               body: `Sambada release ${sambada_version_number}`,
-              draft: "true",
-              prerelease: `${isPreRelease}`
+              draft: true,
+              prerelease: isPreRelease`
             });
 
       - name: Get result
