@@ -93,7 +93,7 @@ jobs:
               name: `${sambada_version_number}`,
               body: `Sambada release ${sambada_version_number}`,
               draft: true,
-              prerelease: isPreRelease`
+              prerelease: isPreRelease
             });
 
       - name: Get result
