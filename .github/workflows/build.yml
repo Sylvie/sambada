@@ -98,8 +98,29 @@ jobs:
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
             
-      - name: Get result
-        run: echo "${{steps.creating-release.outputs.result}}"
+      - name: Creating fake asset
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        run: echo "Hello world!" > asset.txt
+
+      - name: Uploading release asset
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: uploading-asset
+        env:
+          release-info: ${{steps.creating-release.outputs.result}}
+        with:
+          debug: true
+          script: |
+            const { release_info } = process.env
+            const response = await github.rest.repos.uploadReleaseAsset({
+              owner: 'Sylvie',
+              repo: 'Sambada',
+              release_id: release_info.data.id,
+              name: 'asset.txt',
+              data: asset.txt
+            });
+            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
+            return response;      
 
   build:
     name: Building
