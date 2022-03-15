@@ -107,15 +107,16 @@ jobs:
         uses: actions/github-script@v6
         id: uploading-asset
         env:
-          release-info: ${{steps.creating-release.outputs.result}}
+          release_info: ${{steps.creating-release.outputs.result}}
         with:
           debug: true
           script: |
             const { release_info } = process.env
+            const {data: {id: releaseId}}
             const response = await github.rest.repos.uploadReleaseAsset({
               owner: 'Sylvie',
               repo: 'Sambada',
-              release_id: release_info.data.id,
+              release_id: releaseId,
               name: 'asset.txt',
               data: asset.txt
             });
