@@ -112,7 +112,7 @@ jobs:
           debug: true
           script: |
             const { release_info } = process.env;
-            const {data: {id: releaseId}} = release_info;
+            const { id: releaseId } = release_info;
             const response = await github.rest.repos.uploadReleaseAsset({
               owner: 'Sylvie',
               repo: 'Sambada',
