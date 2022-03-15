@@ -118,7 +118,7 @@ jobs:
               repo: 'Sambada',
               release_id: releaseId,
               name: 'asset.txt',
-              data: asset.txt
+              data: 'asset.txt'
             });
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;      
