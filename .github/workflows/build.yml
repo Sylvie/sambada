@@ -113,6 +113,7 @@ jobs:
           script: |
             const { release_info } = process.env;
             const { id: releaseId } = release_info;
+            console.log(`Release ID: ${releaseId}`)
             const fs = require('fs').promises;
             const response = await github.rest.repos.uploadReleaseAsset({
               owner: 'Sylvie',
