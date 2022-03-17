@@ -111,6 +111,8 @@ jobs:
         with:
           debug: true
           script: |
+            const directInput = ${{steps.creating-release.outputs.result}}
+            console.log(`Direct input: ${JSON.stringify(directInput, null, "    ")}`);
             const { release_info } = process.env;
             console.log(`Release Info: ${JSON.stringify(release_info, null, "    ")}`);
             const releaseInfo = JSON.parse(release_info);
