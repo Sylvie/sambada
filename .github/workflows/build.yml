@@ -112,6 +112,7 @@ jobs:
           debug: true
           script: |
             const { release_info } = process.env;
+            console.log(`Release Info: ${JSON.stringify(release_info, null, "    ")}`);
             const { data: { id: releaseId } } = release_info;
             console.log(`Release ID: ${releaseId}`)
             const fs = require('fs').promises;
