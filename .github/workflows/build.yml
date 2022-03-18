@@ -158,7 +158,7 @@ jobs:
             const releaseId = ${{steps.finding-release-id.outputs.result}};
             console.log(`Release ID: ${releaseId}`);
             const fullpath = './mainfolder/subfolder/otherasset.txt';
-            const filename = fullpath.split(/[\\/]/).pop();
+            const filename = fullpath.split(['/','\\']).pop();
             console.log(`Filename: ${filename}`);
             const fs = require('fs').promises;
             const response = await github.rest.repos.uploadReleaseAsset({
