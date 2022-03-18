@@ -102,6 +102,7 @@ jobs:
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         run: |
           mkdir -p "mainfolder/subfolder/"
+          echo "Artefact party" > summary.txt
           echo "Hello world!" > mainfolder/asset.txt
           echo "See you soon!" > mainfolder/subfolder/otherasset.txt
 
@@ -156,13 +157,16 @@ jobs:
           script: |
             const releaseId = ${{steps.finding-release-id.outputs.result}};
             console.log(`Release ID: ${releaseId}`);
+            const fullpath = './mainfolder/subfolder/otherasset.txt';
+            const filename = fullpath.split(/[\\/]/).pop();
+            console.log(`Filename: ${filename}`);
             const fs = require('fs').promises;
             const response = await github.rest.repos.uploadReleaseAsset({
               owner: 'Sylvie',
               repo: 'Sambada',
               release_id: releaseId,
-              name: 'otherasset.txt',
-              data: await fs.readFile(`./mainfolder/subfolder/otherasset.txt`)
+              name: filename,
+              data: await fs.readFile(fullpath)
             });
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
