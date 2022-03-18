@@ -101,8 +101,9 @@ jobs:
       - name: Creating fake assets
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         run: |
-          echo "Hello world!" > asset.txt
-          echo "See you soon!" > otherasset.txt
+          mkdir -p "mainfolder/subfolder/"
+          echo "Hello world!" > mainfolder/asset.txt
+          echo "See you soon!" > mainfolder/subfolder/otherasset.txt
 
 
       - name: Uploading release asset
@@ -128,7 +129,7 @@ jobs:
               repo: 'Sambada',
               release_id: releaseId,
               name: 'asset.txt',
-              data: await fs.readFile(`./asset.txt`)
+              data: await fs.readFile(`./mainfolder/asset.txt`)
             });
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
@@ -161,7 +162,7 @@ jobs:
               repo: 'Sambada',
               release_id: releaseId,
               name: 'otherasset.txt',
-              data: await fs.readFile(`./otherasset.txt`)
+              data: await fs.readFile(`./mainfolder/subfolder/otherasset.txt`)
             });
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
