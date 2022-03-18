@@ -177,7 +177,7 @@ jobs:
         with:
           debug: true
           script: |
-            console.log(`PWD: process.cwd()`);
+            console.log(`PWD: ${process.cwd()}`);
             const script = require('./.github/workflows/scripts/upload-artefact.js');
             await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './summary.txt'});
 
