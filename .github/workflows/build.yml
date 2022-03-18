@@ -149,7 +149,7 @@ jobs:
       - name: Uploading other release asset
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
-        id: uploading-asset
+        id: uploading-other-asset
         with:
           debug: true
           script: |
