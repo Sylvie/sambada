@@ -178,6 +178,9 @@ jobs:
           debug: true
           script: |
             console.log(`PWD: ${process.cwd()}`);
+            var fs = require('fs');
+            var files = fs.readdirSync('./');
+            console.log(`Files: ${files}`);
             const script = require('./.github/workflows/scripts/upload-artefact.js');
             await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './summary.txt'});
 
