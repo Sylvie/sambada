@@ -102,7 +102,7 @@ jobs:
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         run: |
           echo "Hello world!" > asset.txt
-          echo "See you soon" > otherasset.txt
+          echo "See you soon!" > otherasset.txt
 
 
       - name: Uploading release asset
@@ -161,7 +161,7 @@ jobs:
               repo: 'Sambada',
               release_id: releaseId,
               name: 'otherasset.txt',
-              data: await fs.readFile(`./asset.txt`)
+              data: await fs.readFile(`./otherasset.txt`)
             });
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
