@@ -178,7 +178,7 @@ jobs:
           debug: true
           script: |
             const script = require('./.github/workflows/scripts/upload-artefact.js');
-            await script({github, ${{steps.finding-release-id.outputs.result}}, './summary.txt'});
+            await script({github, '${{steps.finding-release-id.outputs.result}}', './summary.txt'});
 
   build:
     name: Building
