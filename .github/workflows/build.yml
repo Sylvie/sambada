@@ -98,9 +98,12 @@ jobs:
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
             
-      - name: Creating fake asset
+      - name: Creating fake assets
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        run: echo "Hello world!" > asset.txt
+        run: |
+          echo "Hello world!" > asset.txt
+          echo "See you soon" > otherasset.txt
+
 
       - name: Uploading release asset
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
@@ -128,7 +131,40 @@ jobs:
               data: await fs.readFile(`./asset.txt`)
             });
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
-            return response;      
+            return response;
+
+      - name: Finding release ID
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: finding-release-id
+        with:
+          debug: true
+          script: |
+            const releaseInfo = ${{steps.creating-release.outputs.result}}
+            console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
+            const { data: { id: releaseId } } = releaseInfo;
+            console.log(`Release ID: ${releaseId}`)
+            return releaseId;
+
+      - name: Uploading other release asset
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: uploading-asset
+        with:
+          debug: true
+          script: |
+            const releaseId = ${{steps.finding-release-id.outputs.result}};
+            console.log(`Release ID: ${releaseId}`);
+            const fs = require('fs').promises;
+            const response = await github.rest.repos.uploadReleaseAsset({
+              owner: 'Sylvie',
+              repo: 'Sambada',
+              release_id: releaseId,
+              name: 'otherasset.txt',
+              data: await fs.readFile(`./asset.txt`)
+            });
+            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
+            return response;
 
   build:
     name: Building
