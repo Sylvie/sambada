@@ -171,6 +171,11 @@ jobs:
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
 
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Uploading release asset with script
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
