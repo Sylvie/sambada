@@ -8,7 +8,7 @@ module.exports = async ({github, releaseId, fullpathToArtefact}) => {
         repo: 'Sambada',
         release_id: releaseId,
         name: filename,
-        data: await fs.readFile(fullpath)
+        data: await fs.readFile(fullpathToArtefact)
     });
     console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
     return response;
