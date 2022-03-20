@@ -1,6 +1,5 @@
 module.exports = async ({github, releaseId, fullpathToArtefact}) => {
     console.log(`Release ID: ${releaseId}`);
-    /*
     const filename = fullpathToArtefact.split(['/','\\']).pop();
     console.log(`Filename: ${filename}`);
     const fs = require('fs').promises;
@@ -13,5 +12,4 @@ module.exports = async ({github, releaseId, fullpathToArtefact}) => {
     });
     console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
     return response;
-    */
 }
