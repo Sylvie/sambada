@@ -155,6 +155,7 @@ jobs:
         with:
           debug: true
           script: |
+            console.log(`PWD: ${process.cwd()}`);
             const releaseId = ${{steps.finding-release-id.outputs.result}};
             console.log(`Release ID: ${releaseId}`);
             const fullpath = './mainfolder/subfolder/otherasset.txt';
