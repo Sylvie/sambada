@@ -58,11 +58,15 @@ jobs:
 
   read-params:
     name: Reading workflow params
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: workflow-params
     env:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
       sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04, macos-10.15 ]
+      fail-fast: false
 
     steps:
       - name: Greetings
