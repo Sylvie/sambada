@@ -90,11 +90,18 @@ jobs:
             const { sambada_version_number, sambada_release_type } = process.env
             const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
             const result = console.log(`Release status: ${isPreRelease ? 'Release Candidate' : 'Final Release'}`);
-            const response = await github.rest.repos.getReleaseByTag({
-              owner: 'Sylvie',
-              repo: 'Sambada',
-              tag_name: `v${sambada_version_number}`
-            });
+            try
+            {
+              const response = await github.rest.repos.getReleaseByTag({
+                owner: 'Sylvie',
+                repo: 'Sambada',
+                tag_name: `v${sambada_version_number}`
+              });
+            }
+            catch (error)
+            {
+                console.log(error.message)
+            }
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
 
