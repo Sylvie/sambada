@@ -103,7 +103,6 @@ jobs:
             catch (error)
             {
                 console.log(error.message)
-                console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             }
 
       - name: Creating release
