@@ -97,13 +97,14 @@ jobs:
                 repo: 'Sambada',
                 tag_name: `v${sambada_version_number}`
               });
+              console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
+              return response;
             }
             catch (error)
             {
                 console.log(error.message)
+                console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             }
-            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
-            return response;
 
       - name: Creating release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
