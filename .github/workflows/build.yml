@@ -127,7 +127,7 @@ jobs:
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
 
-      - name: Still searching for release
+      - name: Listing releases
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
         id: still-searching-release
@@ -137,10 +137,9 @@ jobs:
             const { sambada_version_number, sambada_release_type } = process.env
             const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
             const result = console.log(`Release status: ${isPreRelease ? 'Release Candidate' : 'Final Release'}`);
-            const response = await github.rest.repos.getReleaseByTag({
+            const response = await github.rest.repos.listReleases({
               owner: 'Sylvie',
               repo: 'Sambada',
-              tag_name: `v${sambada_version_number}`
             });
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
