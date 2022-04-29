@@ -125,7 +125,7 @@ jobs:
                                           releaseAssets(last:20) {
                                             edges {
                                               node {
-                                                id
+                                                name
                                                 }
                                                }
                                                 }
@@ -147,11 +147,23 @@ jobs:
                 {
                   console.log("No release found");
                 }
+                return result
               }
               catch (error)
               {
                 console.log(error.message)
               }
+
+      - name: Checking release output ( - positive case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.result ["repository"]["release"] != null }}
+        run: |
+          echo "Release found!"
+
+      - name: Checking release output ( - negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.result ["repository"]["release"] != null }}
+        run: |
+          echo "Release not found!"
+
 
       - name: Creating release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
@@ -212,7 +224,7 @@ jobs:
                                         releaseAssets(last:20) {
                                           edges {
                                             node {
-                                              id
+                                              name
                                               }
                                              }
                                               }
@@ -234,6 +246,17 @@ jobs:
             {
               console.log("No release found");
             }
+            return result
+
+      - name: Checking release output (positive case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.result ["repository"]["release"] != null }}
+        run: |
+          echo "Release found!"
+
+      - name: Checking release output (negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.result ["repository"]["release"] != null }}
+        run: |
+          echo "Release not found!"
 
       - name: Checking out
         uses: actions/checkout@v2
