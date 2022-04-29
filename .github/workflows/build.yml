@@ -117,6 +117,7 @@ jobs:
                 repository(owner: $owner, name: $name) {
                 release(tagName: $tagName) {
                                           id
+                                          databaseId
                                           createdAt
                                           isDraft
                                           isPrerelease
@@ -203,6 +204,7 @@ jobs:
               repository(owner: $owner, name: $name) {
               release(tagName: $tagName) {
                                         id
+                                        databaseId
                                         createdAt
                                         isDraft
                                         isPrerelease
