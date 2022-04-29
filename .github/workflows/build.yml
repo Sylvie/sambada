@@ -152,9 +152,9 @@ jobs:
           debug: true
           script: |
             const { sambada_version_number, sambada_release_type } = process.env;
-            const query = `query {
-              repository($owner:String!, $name:String!) {
-              release(tagName: $tagName:String!) {
+            const query = `query($owner:String!, $name:String!, $tagName:String!) {
+              repository(owner: $owner, name: $name) {
+              release(tagName: $tagName) {
                                         id
                                         createdAt
                                         isDraft
