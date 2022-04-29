@@ -139,6 +139,13 @@ jobs:
               try {
               const result = await github.graphql(query, variables);
               console.log(result);
+                if (result["repository"]["release"] != null) {
+                  console.log("Found a release");
+                }
+                else 
+                {
+                  console.log("No release found");
+                }
               }
               catch (error)
               {
