@@ -224,6 +224,14 @@ jobs:
                              };
             const result = await github.graphql(query, variables);
             console.log(result);
+            if (result["repository"]["release"] != null) {
+               console.log("Found a release");
+               console.log(result["repository"]["release"]["id"]);
+            }
+            else 
+            {
+              console.log("No release found");
+            }
 
       - name: Checking out
         uses: actions/checkout@v2
