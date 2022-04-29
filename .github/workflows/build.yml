@@ -155,12 +155,12 @@ jobs:
               }
 
       - name: Checking release output ( - positive case)
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.result ["repository"]["release"] != null }}
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.result["repository"]["release"] != null }}
         run: |
           echo "Release found!"
 
       - name: Checking release output ( - negative case)
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.result ["repository"]["release"] != null }}
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.result["repository"]["release"] != null }}
         run: |
           echo "Release not found!"
 
