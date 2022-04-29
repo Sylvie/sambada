@@ -140,10 +140,10 @@ jobs:
               const result = await github.graphql(query, variables);
               console.log(result);
               }
-            catch (error)
-            {
-              console.log(error.message)
-            }
+              catch (error)
+              {
+                console.log(error.message)
+              }
 
       - name: Creating release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
