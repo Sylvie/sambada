@@ -105,6 +105,47 @@ jobs:
                 console.log(error.message)
             }
 
+      - name: Searching for current release
+          if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+          uses: actions/github-script@v6
+          id: searching-current-release-pre-creation
+          with:
+            debug: true
+            script: |
+              const { sambada_version_number, sambada_release_type } = process.env;
+              const query = `query($owner:String!, $name:String!, $tagName:String!) {
+                repository(owner: $owner, name: $name) {
+                release(tagName: $tagName) {
+                                          id
+                                          createdAt
+                                          isDraft
+                                          isPrerelease
+                                          publishedAt
+                                          releaseAssets(last:20) {
+                                            edges {
+                                              node {
+                                                id
+                                                }
+                                               }
+                                                }
+                                    }
+                                  }
+                                }`;
+              const variables = {
+                              owner: context.repo.owner,
+                              name: context.repo.repo,
+                              tagName: `v${sambada_version_number}`
+                               };
+              try {
+              const result = await github.graphql(query, variables);
+              console.log(result);
+              }
+
+            catch (error)
+            {
+              console.log(error.message)
+            }
+
       - name: Creating release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
