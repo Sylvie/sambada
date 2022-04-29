@@ -144,6 +144,40 @@ jobs:
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
 
+      - name: Searching current release
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: searching-current-release
+        with:
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const query = `query {
+              repository($owner:String!, $name:String!) {
+              release(tagName: $tagName:String!) {
+                                        id
+                                        createdAt
+                                        isDraft
+                                        isPrerelease
+                                        publishedAt
+                                        releaseAssets(last:20) {
+                                          edges {
+                                            node {
+                                              id
+                                              }
+                                             }
+                                              }
+                                  }
+                                }
+                              }`;
+            const variables = {
+                            owner: context.repo.owner,
+                            name: context.repo.repo,
+                            tagName: `v${sambada_version_number}`
+                             };
+            const result = await github.graphql(query, variables);
+            console.log(result);
+
       - name: Checking out
         uses: actions/checkout@v2
         with:
