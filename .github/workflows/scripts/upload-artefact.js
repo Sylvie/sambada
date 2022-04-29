@@ -1,6 +1,6 @@
 module.exports = async ({github, releaseId, fullpathToArtefact}) => {
     console.log(`Release ID: ${releaseId}`);
-    const filename = fullpathToArtefact.split(['/','\\']).pop();
+    const filename = fullpathToArtefact.split(/[\\\/]/).pop();
     console.log(`Filename: ${filename}`);
     const fs = require('fs').promises;
     const response = await github.rest.repos.uploadReleaseAsset({
