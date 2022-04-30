@@ -366,6 +366,23 @@ jobs:
             const script = require('./.github/workflows/scripts/search-release.js');
             await script({github, context, core, tagName: `v${sambada_version_number}`});  
 
+      - name: Checking final release output (positive case)
+        uses: actions/github-script@v6
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'found' }}
+        debug: true
+        run: |
+          echo "Release found!"
+          const releaseInfo = ${{steps.searching-current-release-with-script.outputs.result}}
+          console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
+          const { data: { repository: { release: { databaseId: releaseId } } } } = releaseInfo;
+          console.log(`Release ID: ${releaseId}`)
+          return releaseId;          
+
+      - name: Checking final release output (negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'not-found' }}
+        run: |
+          echo "Release not found!"
+
   build:
     name: Building
     runs-on: ${{ matrix.os }}
