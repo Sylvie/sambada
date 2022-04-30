@@ -1,23 +1,24 @@
 module.exports = async ({github, context, core, tagName}) => {
-    const query = `query($owner:String!, $name:String!, $tagName:String!) {
-                repository(owner: $owner, name: $name) {
+    const query =
+        `query($owner:String!, $name:String!, $tagName:String!) {
+            repository(owner: $owner, name: $name) {
                 release(tagName: $tagName) {
-                                          id
-                                          databaseId
-                                          createdAt
-                                          isDraft
-                                          isPrerelease
-                                          publishedAt
-                                          releaseAssets(last:20) {
-                                            edges {
-                                              node {
-                                                name
-                                                }
-                                               }
-                                                }
-                                    }
-                                  }
-                                }`;
+                    id
+                    databaseId
+                    createdAt
+                    isDraft
+                    isPrerelease
+                    publishedAt
+                    releaseAssets(last:20) {
+                        edges {
+                            node {
+                                name
+                            }
+                        }
+                    }
+                }
+            }
+        }`;
     const variables = {
         owner: context.repo.owner,
         name: context.repo.repo,
@@ -29,16 +30,12 @@ module.exports = async ({github, context, core, tagName}) => {
         if (result["repository"]["release"] != null) {
             console.log("Found a release");
             core.setOutput("status", "found")
-        }
-        else
-        {
+        } else {
             console.log("No release found");
             core.setOutput("status", "not-found")
         }
         return result
-    }
-    catch (error)
-    {
+    } catch (error) {
         console.log(error.message)
         core.setOutput("status", "not-found")
     }

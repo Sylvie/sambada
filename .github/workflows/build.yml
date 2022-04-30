@@ -80,6 +80,11 @@ jobs:
           echo "sambada_version_number=${{ env.sambada_version_number }}" >> $GITHUB_ENV
           echo "release_type=${{ env.sambada_release_type }}" >> $GITHUB_ENV
 
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Searching for release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
@@ -105,57 +110,17 @@ jobs:
                 console.log(error.message)
             }
 
-      - name: Searching for current release
+      - name: Searching for current release with script
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
         id: searching-current-release-pre-creation
         with:
-            debug: true
-            script: |
-              const { sambada_version_number, sambada_release_type } = process.env;
-              const query = `query($owner:String!, $name:String!, $tagName:String!) {
-                repository(owner: $owner, name: $name) {
-                release(tagName: $tagName) {
-                                          id
-                                          databaseId
-                                          createdAt
-                                          isDraft
-                                          isPrerelease
-                                          publishedAt
-                                          releaseAssets(last:20) {
-                                            edges {
-                                              node {
-                                                name
-                                                }
-                                               }
-                                                }
-                                    }
-                                  }
-                                }`;
-              const variables = {
-                              owner: context.repo.owner,
-                              name: context.repo.repo,
-                              tagName: `v${sambada_version_number}`
-                               };
-              try {
-              const result = await github.graphql(query, variables);
-              console.log(result);
-                if (result["repository"]["release"] != null) {
-                  console.log("Found a release");
-                  core.setOutput("status", "found")
-                }
-                else 
-                {
-                  console.log("No release found");
-                  core.setOutput("status", "not-found")
-                }
-                return result
-              }
-              catch (error)
-              {
-                console.log(error.message)
-                core.setOutput("status", "not-found")
-              }
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const script = require('./.github/workflows/scripts/search-release.js');
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            return result
 
       - name: Checking release output ( - positive case)
         if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.status == 'found' }}
@@ -166,7 +131,6 @@ jobs:
         if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.status == 'not-found' }}
         run: |
           echo "Release not found!"
-
 
       - name: Creating release
         if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.status == 'not-found' }}
@@ -262,11 +226,6 @@ jobs:
         if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'not-found' }}
         run: |
           echo "Release not found!"
-
-      - name: Checking out
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Creating fake assets
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
