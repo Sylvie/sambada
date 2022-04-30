@@ -373,6 +373,7 @@ jobs:
           debug: true
           script: |
             console.log("Release found!")
+            console.log(myVariable)
             const releaseInfo = ${{ steps.searching-current-release-with-script.outputs.result }}
             console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
             const { repository: { release: { databaseId: releaseId } } } = releaseInfo;

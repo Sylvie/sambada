@@ -30,6 +30,7 @@ module.exports = async ({github, context, core, tagName}) => {
             console.log("Found a release");
             core.setOutput("status", "found")
             core.setOutput("result", result)
+            core.exportVariable('myVariable', result);
         }
         else
         {
