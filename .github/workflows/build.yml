@@ -169,7 +169,7 @@ jobs:
 
 
       - name: Creating release
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.status == 'not-found' }}
         uses: actions/github-script@v6
         id: creating-release
         with:
