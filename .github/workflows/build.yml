@@ -355,6 +355,17 @@ jobs:
             const script = require('./.github/workflows/scripts/upload-artefact.js');
             await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './summary.txt'});
 
+      - name: Searching for current release with script
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: searching-current-release-with-script
+        with:
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const script = require('./.github/workflows/scripts/search-release.js');
+            await script({github, context, core, `v{sambada_version_number}`});  
+
   build:
     name: Building
     runs-on: ${{ matrix.os }}
