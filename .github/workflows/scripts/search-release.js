@@ -29,8 +29,7 @@ module.exports = async ({github, context, core, tagName}) => {
         if (result["repository"]["release"] != null) {
             console.log("Found a release");
             core.setOutput("status", "found")
-            core.setOutput("result", result)
-            core.exportVariable('myVariable', result);
+            core.setOutput("result", core.toJSON(result))
         }
         else
         {
