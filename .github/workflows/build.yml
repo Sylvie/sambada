@@ -364,7 +364,7 @@ jobs:
           script: |
             const { sambada_version_number, sambada_release_type } = process.env;
             const script = require('./.github/workflows/scripts/search-release.js');
-            await script({github, context, core, `v{sambada_version_number}`});  
+            await script({github, context, core, tagName: `v${sambada_version_number}`});  
 
   build:
     name: Building
