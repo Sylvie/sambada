@@ -171,7 +171,7 @@ jobs:
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
             return response;
 
-      - name: Searching current release
+      - name: Searching for current release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
         id: searching-current-release
@@ -179,42 +179,8 @@ jobs:
           debug: true
           script: |
             const { sambada_version_number, sambada_release_type } = process.env;
-            const query = `query($owner:String!, $name:String!, $tagName:String!) {
-              repository(owner: $owner, name: $name) {
-              release(tagName: $tagName) {
-                                        id
-                                        databaseId
-                                        createdAt
-                                        isDraft
-                                        isPrerelease
-                                        publishedAt
-                                        releaseAssets(last:20) {
-                                          edges {
-                                            node {
-                                              name
-                                              }
-                                             }
-                                              }
-                                  }
-                                }
-                              }`;
-            const variables = {
-                            owner: context.repo.owner,
-                            name: context.repo.repo,
-                            tagName: `v${sambada_version_number}`
-                             };
-            const result = await github.graphql(query, variables);
-            console.log(result);
-            if (result["repository"]["release"] != null) {
-               console.log("Found a release");
-               console.log(result["repository"]["release"]["id"]);
-               core.setOutput("status", "found")
-            }
-            else 
-            {
-              console.log("No release found");
-              core.setOutput("status", "not-found")
-            }
+            const script = require('./.github/workflows/scripts/search-release.js');
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
             return result
 
       - name: Checking release output (positive case)
@@ -242,9 +208,10 @@ jobs:
         with:
           debug: true
           script: |
-            const releaseInfo = ${{steps.creating-release.outputs.result}}
+            const releaseInfo = ${{ steps.searching-current-release.outputs.result }}
+            console.log(releaseInfo)
             console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
-            const { data: { id: releaseId } } = releaseInfo;
+            const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
             console.log(`Release ID: ${releaseId}`)
             return releaseId;
 
