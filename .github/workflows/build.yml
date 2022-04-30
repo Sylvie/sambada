@@ -364,7 +364,8 @@ jobs:
           script: |
             const { sambada_version_number, sambada_release_type } = process.env;
             const script = require('./.github/workflows/scripts/search-release.js');
-            await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            return result
 
       - name: Checking final release output (positive case)
         if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-with-script.outputs.status == 'found' }}
