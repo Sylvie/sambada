@@ -276,35 +276,6 @@ jobs:
           echo "Hello world!" > mainfolder/asset.txt
           echo "See you soon!" > mainfolder/subfolder/otherasset.txt
 
-
-      - name: Uploading release asset
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: uploading-asset
-        env:
-          release_info: ${{steps.creating-release.outputs.result}}
-        with:
-          debug: true
-          script: |
-            const directInput = ${{steps.creating-release.outputs.result}}
-            console.log(`Direct input: ${JSON.stringify(directInput, null, "    ")}`);
-            const { release_info } = process.env;
-            console.log(`Release Info: ${JSON.stringify(release_info, null, "    ")}`);
-            const releaseInfo = JSON.parse(release_info);
-            console.log(`Release Info: ${JSON.stringify(releaseInfo, null, "    ")}`);
-            const { data: { id: releaseId } } = releaseInfo;
-            console.log(`Release ID: ${releaseId}`)
-            const fs = require('fs').promises;
-            const response = await github.rest.repos.uploadReleaseAsset({
-              owner: 'Sylvie',
-              repo: 'Sambada',
-              release_id: releaseId,
-              name: 'asset.txt',
-              data: await fs.readFile(`./mainfolder/asset.txt`)
-            });
-            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
-            return response;
-
       - name: Finding release ID
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
         uses: actions/github-script@v6
@@ -317,6 +288,17 @@ jobs:
             const { data: { id: releaseId } } = releaseInfo;
             console.log(`Release ID: ${releaseId}`)
             return releaseId;
+
+      - name: Uploading release asset
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: uploading-asset
+        with:
+          debug: true
+          script: |
+            var fs = require('fs');
+            const script = require('./.github/workflows/scripts/upload-artefact.js');
+            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './mainfolder/asset.txt'});
 
       - name: Uploading other release asset
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
