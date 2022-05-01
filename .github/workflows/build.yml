@@ -209,8 +209,7 @@ jobs:
           debug: true
           script: |
             const releaseInfo = ${{ steps.searching-current-release.outputs.result }}
-            console.log(releaseInfo)
-            console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
+            console.log(`Release: ${JSON.stringify(releaseInfo, null, "    ")}`);
             const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
             console.log(`Release ID: ${releaseId}`)
             return releaseId;
@@ -267,7 +266,6 @@ jobs:
           script: |
             console.log("Release found!")
             const releaseInfo = ${{ steps.searching-current-release-with-script.outputs.result }}
-            console.log(releaseInfo)
             console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
             const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
             console.log(`Release ID: ${releaseId}`)

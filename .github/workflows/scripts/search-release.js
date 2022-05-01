@@ -26,7 +26,7 @@ module.exports = async ({github, context, core, tagName}) => {
     };
     try {
         const result = await github.graphql(query, variables);
-        console.log(result);
+        console.log(`Result: ${JSON.stringify(result, null, "    ")}`);
         if (result["repository"]["release"] != null) {
             console.log("Found a release");
             core.setOutput("status", "found")
