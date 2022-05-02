@@ -80,202 +80,6 @@ jobs:
           echo "sambada_version_number=${{ env.sambada_version_number }}" >> $GITHUB_ENV
           echo "release_type=${{ env.sambada_release_type }}" >> $GITHUB_ENV
 
-      - name: Checking out
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Searching for release
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: searching-release
-        with:
-          debug: true
-          script: |
-            const { sambada_version_number, sambada_release_type } = process.env
-            const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
-            const result = console.log(`Release status: ${isPreRelease ? 'Release Candidate' : 'Final Release'}`);
-            try
-            {
-              const response = await github.rest.repos.getReleaseByTag({
-                owner: 'Sylvie',
-                repo: 'Sambada',
-                tag_name: `v${sambada_version_number}`
-              });
-              console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
-              return response;
-            }
-            catch (error)
-            {
-                console.log(error.message)
-            }
-
-      - name: Searching for current release with script
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: searching-current-release-pre-creation
-        with:
-          debug: true
-          script: |
-            const { sambada_version_number, sambada_release_type } = process.env;
-            const script = require('./.github/workflows/scripts/search-release.js');
-            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
-            return result
-
-      - name: Checking release output ( - positive case)
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.status == 'found' }}
-        run: |
-          echo "Release found!"
-
-      - name: Checking release output ( - negative case)
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.status == 'not-found' }}
-        run: |
-          echo "Release not found!"
-
-      - name: Creating release
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-pre-creation.outputs.status == 'not-found' }}
-        uses: actions/github-script@v6
-        id: creating-release
-        with:
-          debug: true
-          script: |
-            const { sambada_version_number, sambada_release_type } = process.env
-            const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
-            const result = console.log(`Release status: ${isPreRelease ? 'Release Candidate' : 'Final Release'}`);
-            const response = await github.rest.repos.createRelease({
-              owner: 'Sylvie',
-              repo: 'Sambada',
-              tag_name: `v${sambada_version_number}`,
-              name: `v${sambada_version_number}`,
-              body: `Sambada release ${sambada_version_number}`,
-              draft: true,
-              prerelease: isPreRelease
-            });
-            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
-            return response;
-
-      - name: Listing releases
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: still-searching-release
-        with:
-          debug: true
-          script: |
-            const { sambada_version_number, sambada_release_type } = process.env
-            const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
-            const result = console.log(`Release status: ${isPreRelease ? 'Release Candidate' : 'Final Release'}`);
-            const response = await github.rest.repos.listReleases({
-              owner: 'Sylvie',
-              repo: 'Sambada',
-            });
-            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
-            return response;
-
-      - name: Searching for current release
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: searching-current-release
-        with:
-          debug: true
-          script: |
-            const { sambada_version_number, sambada_release_type } = process.env;
-            const script = require('./.github/workflows/scripts/search-release.js');
-            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
-            return result
-
-      - name: Checking release output (positive case)
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'found' }}
-        run: |
-          echo "Release found!"
-
-      - name: Checking release output (negative case)
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'not-found' }}
-        run: |
-          echo "Release not found!"
-
-      - name: Creating fake assets
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        run: |
-          mkdir -p "mainfolder/subfolder/"
-          echo "Artefact party" > summary.txt
-          echo "Hello world!" > mainfolder/asset.txt
-          echo "See you soon!" > mainfolder/subfolder/otherasset.txt
-
-      - name: Finding release ID
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: finding-release-id
-        with:
-          debug: true
-          script: |
-            const releaseInfo = ${{ steps.searching-current-release.outputs.result }}
-            console.log(`Release: ${JSON.stringify(releaseInfo, null, "    ")}`);
-            const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
-            console.log(`Release ID: ${releaseId}`)
-            return releaseId;
-
-      - name: Uploading release asset
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: uploading-asset
-        with:
-          debug: true
-          script: |
-            var fs = require('fs');
-            const script = require('./.github/workflows/scripts/upload-artefact.js');
-            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './mainfolder/asset.txt'});
-
-      - name: Uploading other release asset
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: uploading-other-asset
-        with:
-          debug: true
-          script: |
-            var fs = require('fs');
-            const script = require('./.github/workflows/scripts/upload-artefact.js');
-            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './mainfolder/subfolder/otherasset.txt'});
-
-      - name: Uploading last release
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        with:
-          debug: true
-          script: |
-            var fs = require('fs');
-            const script = require('./.github/workflows/scripts/upload-artefact.js');
-            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './summary.txt'});
-
-      - name: Searching for current release with script
-        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
-        uses: actions/github-script@v6
-        id: searching-current-release-with-script
-        with:
-          debug: true
-          script: |
-            const { sambada_version_number, sambada_release_type } = process.env;
-            const script = require('./.github/workflows/scripts/search-release.js');
-            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
-            return result
-
-      - name: Checking final release output (positive case)
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-with-script.outputs.status == 'found' }}
-        uses: actions/github-script@v6
-        with:
-          debug: true
-          script: |
-            console.log("Release found!")
-            const releaseInfo = ${{ steps.searching-current-release-with-script.outputs.result }}
-            console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
-            const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
-            console.log(`Release ID: ${releaseId}`)
-            return releaseId;          
-
-      - name: Checking final release output (negative case)
-        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-with-script.outputs.status == 'not-found' }}
-        run: |
-          echo "Release not found!"
-
   build:
     name: Building
     runs-on: ${{ matrix.os }}
@@ -538,23 +342,122 @@ jobs:
           path: artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz/expanded_archive/${{ env.package_name }}.tar.gz
           if-no-files-found: error
 
-      - name: Creating release
+      - name: Searching for existing release
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: searching-existing-release
+        with:
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const script = require('./.github/workflows/scripts/search-release.js');
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            return result
+
+      - name: Checking release output ( - positive case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-existing-release.outputs.status == 'found' }}
+        run: |
+          echo "Release found!"
+
+      - name: Checking release output ( - negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-existing-release.outputs.status == 'not-found' }}
+        run: |
+          echo "Release not found!"
+
+      - name: Creating release
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-existing-release.outputs.status == 'not-found' }}
         uses: actions/github-script@v6
         id: creating-release
         with:
-          github-token: ${{ secrets.RELEASE_TOKEN }}
+          debug: true
           script: |
-            const isPreRelease = ( ${{ env.release_type }} == "releaseCandidate" );
-            octokit.rest.repos.createRelease({
-              owner: Sylvie,
-              repo: Sambada,
-              tag_name: ${{ env.sambada_version_number }},
-              name: ${{ env.sambada_version_number }},
-              body: "Sambada release ${{ env.sambada_version_number }}",
+            const { sambada_version_number, sambada_release_type } = process.env
+            const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
+            const result = console.log(`Release status: ${isPreRelease ? 'Release Candidate' : 'Final Release'}`);
+            const response = await github.rest.repos.createRelease({
+              owner: 'Sylvie',
+              repo: 'Sambada',
+              tag_name: `v${sambada_version_number}`,
+              name: `v${sambada_version_number}`,
+              body: `Sambada release ${sambada_version_number}`,
               draft: true,
-              prerelease: ${isPreRelease}
+              prerelease: isPreRelease
             });
+            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
+            return response;
 
-      - name: Get result
-        run: echo "${{steps.set-result.outputs.result}}"
+      - name: Searching for current release
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: searching-current-release
+        with:
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const script = require('./.github/workflows/scripts/search-release.js');
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            return result
+
+      - name: Checking release output (positive case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'found' }}
+        run: |
+          echo "Release found!"
+
+      - name: Checking release output (negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'not-found' }}
+        run: |
+          echo "Release not found!"
+
+      - name: Finding release ID
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: finding-release-id
+        with:
+          debug: true
+          script: |
+            const releaseInfo = ${{ steps.searching-current-release.outputs.result }}
+            console.log(`Release: ${JSON.stringify(releaseInfo, null, "    ")}`);
+            const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
+            console.log(`Release ID: ${releaseId}`)
+            return releaseId;
+
+      - name: Uploading documentation
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: uploading-asset
+        with:
+          debug: true
+          script: |
+            var fs = require('fs');
+            const script = require('./.github/workflows/scripts/upload-artefact.js');
+            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/sambadoc.pdf/sambadoc.pdf'});
+
+      - name: Searching for current release with script
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: searching-current-release-with-script
+        with:
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const script = require('./.github/workflows/scripts/search-release.js');
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            return result
+
+      - name: Checking final release output (positive case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-with-script.outputs.status == 'found' }}
+        uses: actions/github-script@v6
+        with:
+          debug: true
+          script: |
+            console.log("Release found!")
+            const releaseInfo = ${{ steps.searching-current-release-with-script.outputs.result }}
+            console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
+            const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
+            console.log(`Release ID: ${releaseId}`)
+            return releaseId;          
+
+      - name: Checking final release output (negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-with-script.outputs.status == 'not-found' }}
+        run: |
+          echo "Release not found!"
