@@ -312,6 +312,11 @@ jobs:
           echo "archive_name=sambada-${{ env.sambada_version_number }}" >> $GITHUB_ENV
           echo "release_type=${{ env.sambada_release_type }}" >> $GITHUB_ENV
 
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Downloading artifacts
         uses: actions/download-artifact@v2
         with:
