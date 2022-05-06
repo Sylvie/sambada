@@ -1,4 +1,4 @@
-module.exports = async ({github, releaseId, fullpathToArtefact}) => {
+module.exports = async ({github, core, releaseId, fullpathToArtefact}) => {
     try {
         console.log(`Release ID: ${releaseId}`);
         const filename = fullpathToArtefact.split(/[\\\/]/).pop();
@@ -14,6 +14,11 @@ module.exports = async ({github, releaseId, fullpathToArtefact}) => {
         console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
         return response;
     } catch (error) {
-        console.log(error.message)
+        if (error.message.includes('already_exists')) {
+            console.log(error.message)
+        }
+        else {
+            core.setFailed(error.message);
+        }
     }
 }

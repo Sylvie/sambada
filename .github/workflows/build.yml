@@ -434,7 +434,7 @@ jobs:
           script: |
             var fs = require('fs');
             const script = require('./.github/workflows/scripts/upload-artefact.js');
-            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: 'artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz/expanded_archive/${{ env.package_name }}.tar.gz'});
+            await script({github, core, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: 'artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz/expanded_archive/${{ env.package_name }}.tar.gz'});
 
       - name: Uploading documentation
         if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && env.sambada_OS_name == 'ubuntu' }}
@@ -444,7 +444,7 @@ jobs:
           script: |
             var fs = require('fs');
             const script = require('./.github/workflows/scripts/upload-artefact.js');
-            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/sambadoc.pdf/sambadoc.pdf'});
+            await script({github, core, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/sambadoc.pdf/sambadoc.pdf'});
 
       - name: Uploading source archive (.zip)
         if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && env.sambada_OS_name == 'ubuntu' }}
@@ -454,17 +454,17 @@ jobs:
           script: |
             var fs = require('fs');
             const script = require('./.github/workflows/scripts/upload-artefact.js');
-            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/dist-zip.zip/${{ env.archive_name }}.zip'});
+            await script({github, core, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/dist-zip.zip/${{ env.archive_name }}.zip'});
 
       - name: Uploading source archive (.tar.gz)
         if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && env.sambada_OS_name == 'ubuntu' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/github-script@v6
         with:
           debug: true
           script: |
             var fs = require('fs');
             const script = require('./.github/workflows/scripts/upload-artefact.js');
-            await script({github, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/dist-tgz.tar.gz/${{ env.archive_name }}.tar.gz'});
+            await script({github, core, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/dist-tgz.tar.gz/${{ env.archive_name }}.tar.gz'});
 
       - name: Searching for current release with script
         if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
