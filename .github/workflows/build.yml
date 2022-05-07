@@ -296,7 +296,7 @@ jobs:
           cd artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz
           rm -fr expanded_archive/${{ env.package_name }}/manual.txt
           cp ../sambadoc.pdf/sambadoc.pdf expanded_archive/${{ env.package_name }}
-          tar -cvzf expanded_archive/${{ env.package_name }}.tar.gz expanded_archive/${{ env.package_name }} -C expanded_archive
+          tar -C expanded_archive -cvzf ${{ env.package_name }}.tar.gz ${{ env.package_name }} 
           ls -lR
 
       - name: Uploading new artifact
