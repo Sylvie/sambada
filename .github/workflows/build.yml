@@ -344,7 +344,7 @@ jobs:
               tag_name: `v${sambada_version_number}`,
               name: `v${sambada_version_number}`,
               body: `Sambada release ${sambada_version_number}`,
-              draft: true,
+              draft: false,
               prerelease: isPreRelease
             });
             console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
