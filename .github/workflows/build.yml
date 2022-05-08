@@ -199,11 +199,30 @@ jobs:
       SONAR_SCANNER_VERSION: 4.7.0.2747 # Find the latest version in the "Linux" link on this page:
       # https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/sonarscanner-cli/
       SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: build/bw-outputs # Directory where build-wrapper output will be placed
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setting environment variables
+        run: |
+          runner_OS=${{ matrix.os }}
+          sambada_extra_LDFLAGS=""
+          if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
+            sambada_OS_name=ubuntu
+            sambada_extra_LDFLAGS=-static
+          else
+            sambada_OS_name=OSX
+          fi
+          echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
+          echo "sambada_extra_LDFLAGS=${sambada_extra_LDFLAGS}" >> $GITHUB_ENV
+          echo "package_name=sambada-${{ env.sambada_version_number }}-${sambada_OS_name}" >> $GITHUB_ENV
+          echo "archive_name=sambada-${{ env.sambada_version_number }}" >> $GITHUB_ENV
+      - name: Installing missing package
+        run: |
+          brew install automake
+          brew install gcc@11
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
@@ -232,8 +251,10 @@ jobs:
       - name: Run build-wrapper
         run: |
           autoreconf --install
-          ./configure
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean all
+          mkdir build
+          cd build
+          ../configure --disable-manual sambadahostsystemname=${{ env.sambada_OS_name }}
+          ../build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean all
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
