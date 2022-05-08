@@ -333,6 +333,7 @@ jobs:
         uses: actions/github-script@v6
         id: creating-release
         with:
+          github-token: ${{ secrets.RELEASE_TOKEN }}
           debug: true
           script: |
             const { sambada_version_number, sambada_release_type } = process.env
