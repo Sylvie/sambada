@@ -196,7 +196,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: workflow-params
     env:
-      SONAR_SCANNER_VERSION: 4.7 # Find the latest version in the "Linux" link on this page:
+      SONAR_SCANNER_VERSION: 4.7.0.2747 # Find the latest version in the "Linux" link on this page:
       # https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/sonarscanner-cli/
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build/bw-outputs # Directory where build-wrapper output will be placed
