@@ -193,7 +193,7 @@ jobs:
 
   analyse:
     name: Analyse
-    runs-on: ubuntu-18.04
+    runs-on: ${{ matrix.os }}
     needs: workflow-params
     env:
       SONAR_SCANNER_VERSION: 4.7.0.2747 # Find the latest version in the "Linux" link on this page:
@@ -201,6 +201,9 @@ jobs:
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04 ]
     steps:
       - uses: actions/checkout@v2
         with:
