@@ -9,6 +9,7 @@ on:
 env:
   CC: gcc-11
   CXX: g++-11
+  GCOV: gcov-11
 
 jobs:
   workflow-params:
@@ -202,6 +203,7 @@ jobs:
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      CXXFLAGS: "-Wall -O0 --coverage"
     strategy:
       matrix:
         os: [ ubuntu-18.04 ]
