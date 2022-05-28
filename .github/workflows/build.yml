@@ -9,7 +9,7 @@ on:
 env:
   CC: gcc-11
   CXX: g++-11
-  GCOV: gcov-11
+  GCOV: "gcov-11 --preserve-paths"
 
 jobs:
   workflow-params:
@@ -203,7 +203,7 @@ jobs:
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
-      CXXFLAGS: "-Wall -O0 --coverage"
+      CXXFLAGS: "-Wall -O0 --coverage -fprofile-abs-path"
     strategy:
       matrix:
         os: [ ubuntu-18.04 ]
@@ -262,6 +262,11 @@ jobs:
           ../configure --disable-manual sambadahostsystemname=${{ env.sambada_OS_name }}
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean all
           ls -lR
+      - name: Running check
+        run: |
+          cd build
+          make check
+          cat test-suite.log
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
