@@ -271,7 +271,7 @@ jobs:
         run: |
           cd build
           ls -lR
-          ../scripts-ci/travis-gcov.sh
+          ../scripts-ci/analysis-gcov.sh
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
