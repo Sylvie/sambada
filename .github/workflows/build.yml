@@ -270,6 +270,7 @@ jobs:
       - name: Measuring code coverage
         run: |
           cd build
+          ls -lR
           ../scripts-ci/travis-gcov.sh
       - name: Run sonar-scanner
         env:
