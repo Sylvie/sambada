@@ -192,8 +192,8 @@ jobs:
           path: build/${{ env.archive_name }}.tar.gz
           if-no-files-found: error
 
-  analyse:
-    name: Analyse
+  analysis:
+    name: Analysing code quality and coverage
     runs-on: ${{ matrix.os }}
     needs: workflow-params
     env:
