@@ -267,6 +267,10 @@ jobs:
           cd build
           make check
           cat test-suite.log
+      - name: Measuring code coverage
+        run: |
+          cd build
+          ../scripts-ci/travis-gcov.sh
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
