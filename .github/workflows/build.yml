@@ -82,7 +82,6 @@ jobs:
           echo "release_type=${{ env.sambada_release_type }}" >> $GITHUB_ENV
 
   build:
-    if: ${{ false }}
     name: Building
     runs-on: ${{ matrix.os }}
     needs: workflow-params
