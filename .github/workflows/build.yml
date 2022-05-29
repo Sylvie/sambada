@@ -9,7 +9,7 @@ on:
 env:
   CC: gcc-11
   CXX: g++-11
-  GCOV: "gcov-11"
+  GCOV: gcov-11
 
 jobs:
   workflow-params:
