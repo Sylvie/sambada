@@ -1,0 +1,531 @@
+name: Sambada Build
+
+on:
+  push:
+    paths-ignore:
+    - '.github/workflows/verification.yml'
+  pull_request:
+
+env:
+  CC: gcc-11
+  CXX: g++-11
+  GCOV: gcov-11
+
+jobs:
+  workflow-params:
+    name: Determining workflow params
+    runs-on: ubuntu-latest
+    outputs:
+      version-number: ${{ steps.version-number.outputs.sambada_version_number }}
+      release-type: ${{ steps.release-status.outputs.sambada_release_type }}
+    steps:
+      - name: Greetings
+        run: |
+          echo "Hello!"
+
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Fetching all tags
+        run: |
+          git fetch --tags --force
+
+      - name: Determining version number
+        id: version-number
+        run: |
+          sambada_version_number=$(./git-version-gen .version)
+          echo ${sambada_version_number}
+          echo "::set-output name=sambada_version_number::${sambada_version_number}"
+          echo "sambada_version_number=${sambada_version_number}" >> $GITHUB_ENV
+
+      - name: Determining release status
+        id: release-status
+        run: |
+          finalReleaseRegex="^[0-9]\.[0-9]\.[0-9]$"
+          releaseCandidateRegex="^[0-9]\.[0-9]\.[0-9](alpha|beta|rc)[0-9]+$"
+          echo "Version number: ${sambada_version_number}"
+          if [[ "${sambada_version_number}" =~ ${finalReleaseRegex} ]]; then
+            echo "This is a final release"
+            echo "::set-output name=sambada_release_type::finalRelease"
+          elif [[ "${sambada_version_number}" =~ ${releaseCandidateRegex} ]]; then
+            echo "This is a release candidate"
+            echo "::set-output name=sambada_release_type::releaseCandidate"
+          else
+            echo "This is not a release"
+            echo "::set-output name=sambada_release_type::none"
+          fi
+
+  read-params:
+    name: Reading workflow params
+    runs-on: ${{ matrix.os }}
+    needs: workflow-params
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04, macos-10.15 ]
+      fail-fast: false
+
+    steps:
+      - name: Greetings
+        run: |
+          echo "Hello!"
+          echo "Reading output: ${{ needs.workflow-params.outputs.version-number }}"
+      - name: Read variables
+        run: |
+          echo "${sambada_version_number}"
+          echo "${sambada_release_type}"
+          echo "sambada_version_number=${{ env.sambada_version_number }}" >> $GITHUB_ENV
+          echo "release_type=${{ env.sambada_release_type }}" >> $GITHUB_ENV
+
+  build:
+    name: Building
+    runs-on: ${{ matrix.os }}
+    needs: workflow-params
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04, macos-10.15 ]
+        build-type: [ package, distcheck ]
+      fail-fast: false
+
+    steps:
+      - name: Setting environment variables
+        run: |
+          runner_OS=${{ matrix.os }}
+          sambada_extra_LDFLAGS=""
+          if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
+            sambada_OS_name=ubuntu
+            sambada_extra_LDFLAGS=-static
+          else
+            sambada_OS_name=OSX
+          fi
+          echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
+          echo "sambada_extra_LDFLAGS=${sambada_extra_LDFLAGS}" >> $GITHUB_ENV
+          echo "package_name=sambada-${{ env.sambada_version_number }}-${sambada_OS_name}" >> $GITHUB_ENV
+          echo "archive_name=sambada-${{ env.sambada_version_number }}" >> $GITHUB_ENV
+
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Fetching all tags
+        run: |
+          git fetch --tags --force
+
+      - name: Installing missing package
+        run: |
+          brew install automake
+          brew install gcc@11
+
+      - name: Configuring
+        env:
+          LDFLAGS: ${{ env.sambada_extra_LDFLAGS }}
+        run: |
+          autoreconf -i
+          mkdir build
+          cd build
+          ../configure --disable-manual sambadahostsystemname=${{ env.sambada_OS_name }}
+
+      - name: Building
+        if: ${{ matrix.build-type == 'package' }}
+        run: |
+          cd build
+          make
+
+      - name: Running check
+        if: ${{ matrix.build-type == 'package' }}
+        run: |
+          cd build
+          make check
+          cat test-suite.log
+
+      - name: Uploading test results
+        if: ${{ matrix.build-type == 'package' && failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-suite-${{ runner.os }}.log
+          path: build/test-suite.log
+          if-no-files-found: error
+
+      - name: Making archive
+        if: ${{ matrix.build-type == 'package' }}
+        env:
+          sambada_version: ${{ env.sambada_version_number }}
+        run: |
+          cd build
+          make binary-archive
+          ls
+
+      - name: Uploading archive
+        if: ${{ matrix.build-type == 'package' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: sambada-archive-${{ env.sambada_OS_name }}.tar.gz
+          path: build/${{ env.package_name }}.tar.gz
+          if-no-files-found: error
+
+      - name: Running distcheck
+        if: ${{ matrix.build-type == 'distcheck' }}
+        run: |
+          cd build
+          make distcheck
+
+      - name: Uploading source archive (.zip)
+        if: ${{ matrix.build-type == 'distcheck' && env.sambada_OS_name == 'ubuntu' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-zip.zip
+          path: build/${{ env.archive_name }}.zip
+          if-no-files-found: error
+
+      - name: Uploading source archive (.tar.gz)
+        if: ${{ matrix.build-type == 'distcheck' && env.sambada_OS_name == 'ubuntu' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-tgz.tar.gz
+          path: build/${{ env.archive_name }}.tar.gz
+          if-no-files-found: error
+
+  analysis:
+    name: Analysing code quality and coverage
+    runs-on: ${{ matrix.os }}
+    needs: workflow-params
+    env:
+      SONAR_SCANNER_VERSION: 4.7.0.2747 # Find the latest version in the "Linux" link on this page:
+      # https://docs.sonarcloud.io/advanced-setup/ci-based-analysis/sonarscanner-cli/
+      SONAR_SERVER_URL: "https://sonarcloud.io"
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      CXXFLAGS: "-Wall -O0 --coverage"
+      LDFLAGS: "-static"
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04 ]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Installing missing package
+        run: |
+          brew install automake
+          brew install gcc@11
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Download and set up sonar-scanner
+        env:
+          SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-linux.zip
+        run: |
+          mkdir -p $HOME/.sonar
+          curl -sSLo $HOME/.sonar/sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} 
+          unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
+      - name: Download and set up build-wrapper
+        env:
+          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
+        run: |
+          curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+          unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+      - name: Run build-wrapper
+        run: |
+          autoreconf --install
+          mkdir build
+          cd build
+          ../configure --disable-manual
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean all
+          ls -lR
+      - name: Running check
+        run: |
+          cd build
+          make check
+          cat test-suite.log
+      - name: Measuring code coverage
+        run: |
+          cd build
+          ls -lR
+          ../scripts-ci/analysis-gcov.sh
+      - name: Run sonar-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+        run: |
+          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="build/${{ env.BUILD_WRAPPER_OUT_DIR }}"
+
+  sambadoc:
+    name: Compiling Sambada's manual
+    runs-on: ubuntu-latest
+    needs: workflow-params
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      CC: gcc-10
+      CXX: g++-10
+
+    steps:
+
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Fetching all tags
+        run: |
+          git fetch --tags --force
+
+      - name: Installing missing package
+        run: |
+          brew install automake
+
+      - name: Configuring build
+        run: |
+          autoreconf -i
+          mkdir build
+          cd build
+          ../configure
+
+      - name: Preparing LaTeX compilation
+        run: |
+          cd build
+          make manual/latexmkrc
+
+      - name: Compiling LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: manual.tex
+          working_directory: build/manual/
+          args: |
+            -jobname=sambadoc
+
+      - name: Uploading manual
+        uses: actions/upload-artifact@v2
+        with:
+          name: sambadoc.pdf
+          path: build/manual/sambadoc.pdf
+          if-no-files-found: error
+
+  release:
+    name: Releasing
+    runs-on: ${{ matrix.os }}
+    needs: [ workflow-params, build, sambadoc ]
+    env:
+      sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
+      sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
+    strategy:
+      matrix:
+        os: [ ubuntu-18.04, macos-10.15 ]
+      fail-fast: false
+
+    steps:
+      - name: Setting environment variables
+        run: |
+          runner_OS=${{ matrix.os }}
+          sambada_extra_LDFLAGS=""
+          if [ "x${runner_OS:0:6}" = "xubuntu" ]; then
+            sambada_OS_name=ubuntu
+            sambada_extra_LDFLAGS=-static
+          else
+            sambada_OS_name=OSX
+          fi
+          echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
+          echo "sambada_extra_LDFLAGS=${sambada_extra_LDFLAGS}" >> $GITHUB_ENV
+          echo "package_name=sambada-${{ env.sambada_version_number }}-${sambada_OS_name}" >> $GITHUB_ENV
+          echo "archive_name=sambada-${{ env.sambada_version_number }}" >> $GITHUB_ENV
+          echo "release_type=${{ env.sambada_release_type }}" >> $GITHUB_ENV
+
+      - name: Checking out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Downloading artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
+      - name: Displaying structure of downloaded files
+        run: ls -R artifacts
+
+      - name: Expanding binary archive
+        run: |
+          cd artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz
+          mkdir expanded_archive
+          tar -xvzf ${{ env.package_name }}.tar.gz -C expanded_archive
+          ls -lR
+
+      - name: Updating binary archive
+        run: |
+          cd artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz
+          rm -fr expanded_archive/${{ env.package_name }}/manual.txt
+          cp ../sambadoc.pdf/sambadoc.pdf expanded_archive/${{ env.package_name }}
+          tar -cvzf expanded_archive/${{ env.package_name }}.tar.gz -C expanded_archive ${{ env.package_name }}
+          ls -lR
+
+      - name: Uploading new artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.package_name }}.tar.gz
+          path: artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz/expanded_archive/${{ env.package_name }}.tar.gz
+          if-no-files-found: error
+
+      - name: Searching for existing release
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: searching-existing-release
+        with:
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const script = require('./.github/workflows/scripts/search-release.js');
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            return result
+
+      - name: Checking release output ( - positive case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-existing-release.outputs.status == 'found' }}
+        run: |
+          echo "Release found!"
+
+      - name: Checking release output ( - negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-existing-release.outputs.status == 'not-found' }}
+        run: |
+          echo "Release not found!"
+
+      - name: Creating release
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-existing-release.outputs.status == 'not-found' }}
+        uses: actions/github-script@v6
+        id: creating-release
+        with:
+          github-token: ${{ secrets.RELEASE_TOKEN }}
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env
+            const isPreRelease = `${sambada_release_type}` == "releaseCandidate";
+            const result = console.log(`Release status: ${isPreRelease ? 'Release Candidate' : 'Final Release'}`);
+            const response = await github.rest.repos.createRelease({
+              owner: 'Sylvie',
+              repo: 'Sambada',
+              tag_name: `v${sambada_version_number}`,
+              name: `v${sambada_version_number}`,
+              body: `Sambada release ${sambada_version_number}`,
+              draft: false,
+              prerelease: isPreRelease
+            });
+            console.log(`Response: ${JSON.stringify(response, null, "    ")}`);
+            return response;
+
+      - name: Searching for current release
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: searching-current-release
+        with:
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const script = require('./.github/workflows/scripts/search-release.js');
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            return result
+
+      - name: Checking release output (positive case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'found' }}
+        run: |
+          echo "Release found!"
+
+      - name: Checking release output (negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release.outputs.status == 'not-found' }}
+        run: |
+          echo "Release not found!"
+
+      - name: Finding release ID
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: finding-release-id
+        with:
+          debug: true
+          script: |
+            const releaseInfo = ${{ steps.searching-current-release.outputs.result }}
+            console.log(`Release: ${JSON.stringify(releaseInfo, null, "    ")}`);
+            const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
+            console.log(`Release ID: ${releaseId}`)
+            return releaseId;
+
+      - name: Uploading binary archive
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        with:
+          debug: true
+          script: |
+            var fs = require('fs');
+            const script = require('./.github/workflows/scripts/upload-artefact.js');
+            await script({github, core, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: 'artifacts/sambada-archive-${{ env.sambada_OS_name }}.tar.gz/expanded_archive/${{ env.package_name }}.tar.gz'});
+
+      - name: Uploading documentation
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && env.sambada_OS_name == 'ubuntu' }}
+        uses: actions/github-script@v6
+        with:
+          debug: true
+          script: |
+            var fs = require('fs');
+            const script = require('./.github/workflows/scripts/upload-artefact.js');
+            await script({github, core, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/sambadoc.pdf/sambadoc.pdf'});
+
+      - name: Uploading source archive (.zip)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && env.sambada_OS_name == 'ubuntu' }}
+        uses: actions/github-script@v6
+        with:
+          debug: true
+          script: |
+            var fs = require('fs');
+            const script = require('./.github/workflows/scripts/upload-artefact.js');
+            await script({github, core, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/dist-zip.zip/${{ env.archive_name }}.zip'});
+
+      - name: Uploading source archive (.tar.gz)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && env.sambada_OS_name == 'ubuntu' }}
+        uses: actions/github-script@v6
+        with:
+          debug: true
+          script: |
+            var fs = require('fs');
+            const script = require('./.github/workflows/scripts/upload-artefact.js');
+            await script({github, core, releaseId: '${{steps.finding-release-id.outputs.result}}', fullpathToArtefact: './artifacts/dist-tgz.tar.gz/${{ env.archive_name }}.tar.gz'});
+
+      - name: Searching for current release with script
+        if: ${{ env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' }}
+        uses: actions/github-script@v6
+        id: searching-current-release-with-script
+        with:
+          debug: true
+          script: |
+            const { sambada_version_number, sambada_release_type } = process.env;
+            const script = require('./.github/workflows/scripts/search-release.js');
+            result = await script({github, context, core, tagName: `v${sambada_version_number}`});  
+            return result
+
+      - name: Checking final release output (positive case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-with-script.outputs.status == 'found' }}
+        uses: actions/github-script@v6
+        with:
+          debug: true
+          script: |
+            console.log("Release found!")
+            const releaseInfo = ${{ steps.searching-current-release-with-script.outputs.result }}
+            console.log(`Direct input: ${JSON.stringify(releaseInfo, null, "    ")}`);
+            const { repository: { release: { databaseId: releaseId } } } = releaseInfo;
+            console.log(`Release ID: ${releaseId}`)
+            return releaseId;          
+
+      - name: Checking final release output (negative case)
+        if: ${{ ( env.release_type == 'finalRelease' || env.release_type == 'releaseCandidate' ) && steps.searching-current-release-with-script.outputs.status == 'not-found' }}
+        run: |
+          echo "Release not found!"
