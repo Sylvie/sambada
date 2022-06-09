@@ -203,22 +203,22 @@ Compiled versions of \smb\ are already packaged for Windows, macOS and Ubuntu.
 Download and expand the archive at the location of your choice.
 
 \subsubsection*{macOS}
-\smb\ requires the GNU Compiler Collection (GCC) version 7 to be installed on the computer.
+\smb\ requires the GNU Compiler Collection (GCC) version 11 to be installed on the computer.
 Here are the installation steps using the package manager  \prog{Homebrew\footnote{\url{https://brew.sh/}}}:
 \begin{enumerate}
 \item{Open a Terminal prompt (located at \prog{/Applications/Utilities/Terminal.app}).}
 \item{Browse to \prog{Homebrew}'s home page (\url{https://brew.sh/}) and copy the installation command into the Terminal.
 At the time of writing, the command is: \\
-\verb+/usr/bin/ruby -e "$(curl -fsSL \+ \\*
-\verb+https://raw.githubusercontent.com/Homebrew/install/master/install)"+
+\verb+/bin/bash -c "$(curl -fsSL  \+ \\*
+\verb+https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"+
 Press "Enter" and follow the instructions.}
-\item{Install GCC with the Terminal command: \prog{brew install gcc@7}.}
+\item{Install GCC with the Terminal command: \prog{brew install gcc@11}.}
 \item{Download and expand \smb's archive at the location of your choice.}
 \end{enumerate}
 
 \subsection*{Compiling from sources}
-\smb\ can be built from source using the GNU Build System (a.k.a Autotools) or CMake and GCC (in versions 4.4.7 to 7.x).
-We noticed some incompatibilities with GCC version 8 and with Clang, which are under investigation.
+\smb\ can be built from source using the GNU Build System (a.k.a Autotools) or CMake and GCC (tested with version~11).
+We noticed some incompatibilities with Clang, which are under investigation.
 The distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) contains all files needed for the compilation. 
 
 \subsubsection*{Building with \prog{Make}}
@@ -227,7 +227,7 @@ Provided that \prog{make} is installed on your machine, the simplest build proce
 \item{downloading and expanding the distribution archive \prog{sambada-\versionnumber.tar.gz} (or \prog{sambada-\versionnumber.zip}) at the location of your choice;} 
 \item{creating a sub-folder for separating the compiled objects from the source code, e.g. \prog{sambada-\versionnumber/build}}
 \item{running \prog{../configure \&\& make} in the folder \prog{sambada-\versionnumber/build} for building with your default version of GCC;}
-\item{or running \prog{../configure CC=gcc-7 CXX=g++-7 \&\& make} for building with GCC~7.}
+\item{or running \prog{../configure CC=gcc-11 CXX=g++-11 \&\& make} for building with GCC~11.}
 \end{itemize}
 The executables are placed in the subfolder \prog{binaries}.
 
