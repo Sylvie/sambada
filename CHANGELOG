@@ -1,3 +1,9 @@
+Release 0.8.4 (2022-06-xx)
+Change of tooling:
+- Migration from Travis CI to GitHub Actions for continuous integration and releasing
+  on macOS and Ubuntu.
+- Upgraded default compiler to GCC 11.
+
 Release 0.8.3 (2019-11-22)
 Notice:
 - Removed the trailing word separator at the end of each line when writing models.
