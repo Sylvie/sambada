@@ -119,6 +119,7 @@ jobs:
           git fetch --tags --force
 
       - name: Installing missing package
+        if: {{ false }}
         run: |
           brew install automake
           brew install gcc@11
@@ -212,6 +213,7 @@ jobs:
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: Installing missing package
+        if: {{ false }}
         run: |
           brew install automake
           brew install gcc@11
@@ -286,6 +288,7 @@ jobs:
           git fetch --tags --force
 
       - name: Installing missing package
+        if: {{ false }}
         run: |
           brew install automake
 
