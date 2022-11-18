@@ -203,7 +203,12 @@ Compiled versions of \smb\ are already packaged for Windows, macOS and Ubuntu.
 Download and expand the archive at the location of your choice.
 
 \subsubsection*{macOS}
-\smb\ requires the GNU Compiler Collection (GCC) version 11 to be installed on the computer.
+\fbox{\begin{minipage}{\linewidth}
+\smb\ is not compatible with Apple Silicon processors yet.
+\end{minipage}}
+\vspace{1pt}
+\\
+\smb\ requires an Intel Core processor and the GNU Compiler Collection (GCC) version 11 to be installed on the computer.
 Here are the installation steps using the package manager  \prog{Homebrew\footnote{\url{https://brew.sh/}}}:
 \begin{enumerate}
 \item{Open a Terminal prompt (located at \prog{/Applications/Utilities/Terminal.app}).}
@@ -397,7 +402,7 @@ Each line provides information for an individual, each column contains an enviro
 Examples are provided on fig. \ref{fig:envfile}, \ref{fig:molfile} and \ref{fig:molenvfile}.
 Information about data format and analysis options are specified separately in the parameter file.
 
-Data files are organised as follows: the header line is optional and the column separator is up to the user.
+Data files are organised as follows: the header line is optional and the columns are separated with spaces by default, see options \texttt{HEADERS} and \texttt{WORDDELIM} to change these settings.
 Sample names (identifiers) are optional, and some columns may be excluded from the analysis (for instance phenotypical information stored with the environmental data).
 If there is a single data file, environmental data must be provided in the first columns, and molecular data in the last ones.
 Sample names and coordinates are considered as environmental data.
@@ -1032,6 +1037,7 @@ If the log is saved for future reference, the corresponding file is named \prog{
 For logistic regressions, there is one file for constant models, which are not sorted (see fig.~\ref{fig:fichier-res-const}).
 There is also one file per distinct number of parameters (univariate, bivariate, trivariate models and so on, see fig.~\ref{fig:fichier-res-univ}).
 In these files, models are sorted according to their Wald scores.
+See section \ref{model-selection-R} for an example on how to compute $p$-values corresponding to the $G$ and/or Wald scores.
 Fig.~\ref{fig:errors} lists possible errors for logistic models.
 If the back-up of unconverged models is enabled, the output file is named \prog{data-unconvergedModels.ext}.
 Results files are named as follows: constant models are saved in the file \prog{data-Out-0.ext}, univariate models in the file \prog{data-Out-1.ext}, bivariate models the file \prog{data-Out-2.ext}, and so on.
@@ -1769,9 +1775,18 @@ For Windows, you can start with \url{http://www.cs.princeton.edu/courses/archive
 
 MacOS and Linux \prog{Terminal}s are basically the same, see for instance: \url{http://www.davidbaumgold.com/tutorials/command-line/}. 
 
+If you are familiar with \prog{R}, have a look at \textsf{R.Sam$\upbeta$ada}: \url{https://github.com/SolangeD/R.SamBada}.
+
 \subsection*{My results do not make any sense! \label{faq:nonsense}}
 Check whether the samples in the environmental data are in the same order as those in the molecular data.
 What could have happened is that one of your files got sorted by some column during data preparation.
+
+\subsection*{How to format input data?}
+The parameter file can have any name or extension. The settings should be separated by spaces. See Fig. \ref{fig:fichier-param-general}, \ref{fig:fichier-param}, or \ref{fig:fichier-param-combo} for examples.
+
+The data file(s) can have any name or extension. By default, \smb\ assumes that data columns are separated by spaces, see option \texttt{WORDDELIM} to specify another separator. See Fig. \ref{fig:envfile}, \ref{fig:molfile}, or \ref{fig:molenvfile} for examples of data files.
+
+\label{sec:data}
 
 \vspace{1cm}
 
