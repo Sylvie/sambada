@@ -66,7 +66,7 @@ jobs:
       sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
     strategy:
       matrix:
-        os: [ ubuntu-18.04, macos-10.15 ]
+        os: [ ubuntu-22.04, macos-10.15 ]
       fail-fast: false
 
     steps:
@@ -89,7 +89,7 @@ jobs:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
     strategy:
       matrix:
-        os: [ ubuntu-18.04, macos-10.15 ]
+        os: [ ubuntu-22.04, macos-10.15 ]
         build-type: [ package, distcheck ]
       fail-fast: false
 
@@ -206,7 +206,7 @@ jobs:
       LDFLAGS: "-static"
     strategy:
       matrix:
-        os: [ ubuntu-18.04 ]
+        os: [ ubuntu-22.04 ]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -325,7 +325,7 @@ jobs:
       sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
     strategy:
       matrix:
-        os: [ ubuntu-18.04, macos-10.15 ]
+        os: [ ubuntu-22.04, macos-10.15 ]
       fail-fast: false
 
     steps:
