@@ -16,9 +16,10 @@
 * Web site : http://lasig.epfl.ch/sambada
 *************************************************************************/
 
-#include "catch.hpp"
 #include "modeles/scriptorium/scribe/Scribe.hpp"
 #include "modeles/scriptorium/scribe/FlotSortieChaineFactory.hpp"
+#include "catch.hpp"
+#include <sstream>
 
 TEST_CASE("Test that Scribe can write in several output streams", "[scribe-unit]")
 {

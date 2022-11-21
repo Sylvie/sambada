@@ -19,8 +19,8 @@
 #include "common/segmentation/Tokenizer.hpp"
 #include "catch.hpp"
 
-#include <cmath>
 #include <limits>
+#include <sstream>
 
 TEST_CASE("Test that the Tokenizer reads files correctly", "[tokenizer-unit]")
 {
