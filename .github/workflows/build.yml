@@ -66,7 +66,7 @@ jobs:
       sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
     strategy:
       matrix:
-        os: [ ubuntu-22.04, macos-11 ]
+        os: [ ubuntu-22.04, macos-12 ]
       fail-fast: false
 
     steps:
@@ -99,7 +99,7 @@ jobs:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
     strategy:
       matrix:
-        os: [ ubuntu-22.04, macos-11 ]
+        os: [ ubuntu-22.04, macos-12 ]
         build-type: [ package, distcheck ]
       fail-fast: false
 
@@ -339,7 +339,7 @@ jobs:
       sambada_release_type: ${{ needs.workflow-params.outputs.release-type }}
     strategy:
       matrix:
-        os: [ ubuntu-22.04, macos-11 ]
+        os: [ ubuntu-22.04, macos-12 ]
       fail-fast: false
 
     steps:
