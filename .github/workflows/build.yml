@@ -187,6 +187,14 @@ jobs:
           cd build
           make distcheck
 
+      - name: Uploading distcheck results
+        if: ${{ matrix.build-type == 'distcheck' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: distcheck-${{ env.sambada_OS_name }}-zip.zip
+          path: /home/runner/work/sambada/sambada/build/
+          if-no-files-found: error
+
       - name: Uploading source archive (.zip)
         if: ${{ matrix.build-type == 'distcheck' && env.sambada_OS_name == 'ubuntu' }}
         uses: actions/upload-artifact@v2
