@@ -188,7 +188,7 @@ jobs:
           make distcheck
 
       - name: Uploading distcheck results
-        if: ${{ matrix.build-type == 'distcheck' }}
+        if: ${{ matrix.build-type == 'distcheck' && failure() }}
         uses: actions/upload-artifact@v2
         with:
           name: distcheck-${{ env.sambada_OS_name }}-zip.zip
