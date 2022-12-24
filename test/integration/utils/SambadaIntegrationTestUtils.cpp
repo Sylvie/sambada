@@ -40,7 +40,8 @@ SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std:
 	{
 		std::string header("");
 		getline(lecteur, header);
-		INFO(header);
+		INFO("My header:")
+		INFO(header)
 
 		std::istringstream iss(header);
 		std::string lu;
