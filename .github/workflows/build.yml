@@ -99,7 +99,7 @@ jobs:
       sambada_version_number: ${{ needs.workflow-params.outputs.version-number }}
     strategy:
       matrix:
-        os: [ ubuntu-20.04, macos-11 ]
+        os: [ ubuntu-22.04, macos-11 ]
         build-type: [ package, distcheck ]
       fail-fast: false
 
@@ -128,13 +128,8 @@ jobs:
         run: |
           git fetch --tags --force
 
-      - name: Set up Homebrew
-        if: ${{ env.sambada_OS_name == 'ubuntu' }}
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-
       - name: Installing missing package
-        #if: ${{ env.sambada_OS_name == 'OSX' }}
+        if: ${{ env.sambada_OS_name == 'OSX' }}
         run: |
           brew install automake
           brew install gcc@11

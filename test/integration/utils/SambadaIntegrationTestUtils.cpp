@@ -1,5 +1,6 @@
 #include "SambadaIntegrationTestUtils.hpp"
 #include "SambadaStoreyHistogramMapper.hpp"
+#include "catch.hpp"
 
 #include <fstream>
 #include <sstream>
@@ -39,6 +40,7 @@ SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std:
 	{
 		std::string header("");
 		getline(lecteur, header);
+		INFO(header);
 
 		std::istringstream iss(header);
 		std::string lu;
