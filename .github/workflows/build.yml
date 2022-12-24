@@ -129,7 +129,7 @@ jobs:
           git fetch --tags --force
 
       - name: Installing missing package
-        if: ${{ env.sambada_OS_name == 'OSX' }}
+        #if: ${{ env.sambada_OS_name == 'OSX' }}
         run: |
           brew install automake
           brew install gcc@11
