@@ -45,7 +45,7 @@ SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std:
 
 		std::istringstream iss(header);
 		std::string lu;
-		while (iss >> lu >> std::ws)
+		while (iss >> lu)
 		{
 			results.header.push_back(lu);
 		}
@@ -80,7 +80,7 @@ SambadaRegressionResults SambadaIntegrationTestUtils::readRegressionResults(std:
 		std::vector<long double> values(0);
 		std::istringstream iss(concatenatedValues);
 		long double value;
-		while (iss >> value >> std::ws)
+		while (iss >> value)
 		{
 			values.push_back(value);
 		}
@@ -101,7 +101,7 @@ SambadaSpatialAutocorrelationResults SambadaIntegrationTestUtils::readSpatialAut
 
 	std::istringstream iss(header);
 	std::string lu;
-	while (iss >> lu >> std::ws)
+	while (iss >> lu)
 	{
 		results.header.push_back(lu);
 	}
@@ -128,7 +128,7 @@ SambadaSpatialAutocorrelationResults SambadaIntegrationTestUtils::readSpatialAut
 		std::vector<long double> values(0);
 		std::istringstream iss(concatenatedValues);
 		long double value;
-		while (iss >> value >> std::ws)
+		while (iss >> value)
 		{
 			values.push_back(value);
 		}

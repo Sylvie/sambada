@@ -44,7 +44,7 @@ SambadaStoreyHistogram SambadaStoreyHistogramMapper::readStoreyHistogram(std::is
 		std::istringstream iss(header);
 		long double lu(0.);
 		std::vector<long double> valeurs;
-		while (iss >> lu >> std::ws)
+		while (iss >> lu)
 		{
 			valeurs.push_back(lu);
 		}
@@ -71,7 +71,7 @@ SambadaStoreyHistogram SambadaStoreyHistogramMapper::readStoreyHistogram(std::is
 		std::vector<int> values(0);
 		std::istringstream iss(concatenatedValues);
 		int value;
-		while (iss >> value >> std::ws)
+		while (iss >> value)
 		{
 			values.push_back(value);
 		}
