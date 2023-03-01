@@ -1781,10 +1781,14 @@ If you are familiar with \prog{R}, have a look at \textsf{R.Sam$\upbeta$ada}: \u
 Check whether the samples in the environmental data are in the same order as those in the molecular data.
 What could have happened is that one of your files got sorted by some column during data preparation.
 
-\subsection*{How to format input data?}
+\subsection*{How to format input data ?}
 The parameter file can have any name or extension. The settings should be separated by spaces. See Fig. \ref{fig:fichier-param-general}, \ref{fig:fichier-param}, or \ref{fig:fichier-param-combo} for examples.
 
 The data file(s) can have any name or extension. By default, \smb\ assumes that data columns are separated by spaces, see option \texttt{WORDDELIM} to specify another separator. See Fig. \ref{fig:envfile}, \ref{fig:molfile}, or \ref{fig:molenvfile} for examples of data files.
+
+\subsection*{How to compute the $p$-values from the $G$ and Wald scores ?}
+
+See section \ref{model-selection-R} for an example on how to compute $p$-values corresponding to the $G$ and/or Wald scores.
 
 \label{sec:data}
 
