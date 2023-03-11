@@ -1,5 +1,5 @@
 /*************************************************************************
- * Copyright (©) 2011-2022 EPFL (Ecole Polytechnique fédérale de Lausanne)
+ * Copyright (©) 2011-2023 EPFL (Ecole Polytechnique fédérale de Lausanne)
  * Laboratory of Geographic information systems (LaSIG)
  *
  * This file is part of Sambada.
@@ -33,7 +33,7 @@ vector<string> RegressionLogistique::getMessageBienvenue(bool versionLongue)
 {
 	vector<string> message;
 	message.push_back("| Welcome to Sambada!");
-	message.push_back("| Copyright (C) 2011-2022 EPFL (Ecole Polytechnique federale de Lausanne)");
+	message.push_back("| Copyright (C) 2011-2023 EPFL (Ecole Polytechnique federale de Lausanne)");
 	message.push_back("| Laboratory of Geographic information systems (LaSIG)");
 	if (!versionLongue)
 	{

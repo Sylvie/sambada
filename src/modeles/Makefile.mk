@@ -1,5 +1,5 @@
 ##########################################################################
-# Copyright (©) 2011-2022 EPFL (Ecole Polytechnique fédérale de Lausanne)
+# Copyright (©) 2011-2023 EPFL (Ecole Polytechnique fédérale de Lausanne)
 # Laboratory of Geographic information systems (LaSIG)
 #
 # This file is part of Sambada.
