@@ -65,13 +65,14 @@ jobs:
           head  cattle-mark-Out-1.txt
 
       - name: Setting up Homebrew on Ubuntu for the integration tests
-        if: ${{ matrix.test-type == 'integration' && env.sambada_OS_name == 'ubuntu' }}
+        if: ${{ matrix.test-type == 'integration' && matrix.os == 'ubuntu-20.04' }}
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Installing missing package on Ubuntu
-        if: ${{ matrix.test-type == 'integration' && env.sambada_OS_name == 'ubuntu' }}
+        if: ${{ matrix.test-type == 'integration' && matrix.os == 'ubuntu-20.04'  }}
         run: |
           brew install gcc@11
+          brew link --force glibc
 
       - name: Downloading source code archive
         if: ${{ matrix.test-type == 'integration' }}
