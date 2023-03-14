@@ -73,7 +73,7 @@ deploy:
   # Deploy to GitHub Releases
   - provider: GitHub
     auth_token:
-      secure: c/f8RYqFIv9lerOVFu8hXmu0Ot2AP/kp/KbsSrjos0yRhryaXo72lE07pKgY23Gr
+      secure: UtEZ0YrZV1W2amES716s6vo7ywmk/dAGjsPImYWUS9sLwkGKerGgfHVJykSMPVBc
     description: "Sambada release $(sambada_version)"
     draft: false
     prerelease: true
