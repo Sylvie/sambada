@@ -69,6 +69,8 @@ jobs:
           ${CC} -v
           echo "CXX is:"
           ${CXX} -v
+          echo "Listing /usr/local/Cellar/ :"
+          ls -laR /usr/local/Cellar/
 
       - name: Downloading package
         run: |
