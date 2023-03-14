@@ -88,6 +88,11 @@ jobs:
           make test/integration/SambadaIntegrationTests
           ln -s ../../${{ env.package_name }}/binaries/ binaries
 
+      - name: Displaying configuration results
+        if: ${{  matrix.test-type == 'integration' && failure() }}
+        run: |
+          cat ${{ env.archive_name }}/build/config.log
+
       - name: Running integration tests on release
         if: ${{ matrix.test-type == 'integration' }}
         run: |
