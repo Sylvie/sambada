@@ -47,11 +47,6 @@ jobs:
           echo "Sambada OS name: ${{ env.sambada_OS_name }}"
           echo "Sambada package name: ${{ env.package_name }}"
 
-      - name: Removing extra package on Ubuntu
-        if: ${{ matrix.test-type == 'smoke' && env.sambada_OS_name == 'ubuntu' }}
-        run: |
-          brew uninstall --force gcc
-
       - name: Installing missing package on macOS
         if: ${{ env.sambada_OS_name == 'OSX' }}
         run: |
