@@ -85,6 +85,7 @@ jobs:
         run: |
           mkdir -p ${{ env.archive_name }}/build/
           cd ${{ env.archive_name }}/build/
+          brew link --force glibc
           ../configure sambadahostsystemname=${{ env.sambada_OS_name }} --disable-manual
           make test/integration/SambadaIntegrationTests
           ln -s ../../${{ env.package_name }}/binaries/ binaries
