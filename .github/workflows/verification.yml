@@ -57,6 +57,18 @@ jobs:
         run: |
           softwareupdate --all --install --force
 
+      - name: Check compilers
+        if: ${{  matrix.test-type == 'integration' }}
+        run: |
+          echo "gcc-11 is:"
+          gcc-11 -v
+          echo "g++-11 is:"
+          g++-11 -v
+          echo "CC is:"
+          ${CC} -v
+          echo "CXX is:"
+          ${CXX} -v
+
       - name: Downloading package
         run: |
           wget "https://github.com/Sylvie/sambada/releases/download/v${{ env.sambada_version }}/${{ env.package_name }}.tar.gz"
