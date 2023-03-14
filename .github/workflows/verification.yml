@@ -64,11 +64,6 @@ jobs:
           time ../../binaries/sambada param-cattle.txt cattle-env.csv cattle-mark.txt
           head  cattle-mark-Out-1.txt
 
-      - name: Installing missing package on Ubuntu
-        if: ${{ matrix.test-type == 'integration' && env.sambada_OS_name == 'ubuntu' }}
-        run: |
-          brew install gcc@11
-
       - name: Downloading source code archive
         if: ${{ matrix.test-type == 'integration' }}
         run: |
