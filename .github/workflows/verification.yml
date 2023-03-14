@@ -55,7 +55,8 @@ jobs:
       - name: Updating command-line tools on macOS 12
         if: ${{  matrix.test-type == 'integration' && matrix.os == 'macos-12'  }}
         run: |
-          softwareupdate --all --install --force
+          echo "Hello!"
+#          softwareupdate --all --install --force
 
       - name: Check compilers
         if: ${{  matrix.test-type == 'integration' }}
