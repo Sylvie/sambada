@@ -55,7 +55,7 @@ jobs:
       - name: Installing missing package on macOS
         if: ${{ env.sambada_OS_name == 'OSX' }}
         run: |
-          brew install gcc@7
+          brew install gcc@11
 
       - name: Downloading package
         run: |
