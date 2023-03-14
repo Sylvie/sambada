@@ -64,15 +64,11 @@ jobs:
           time ../../binaries/sambada param-cattle.txt cattle-env.csv cattle-mark.txt
           head  cattle-mark-Out-1.txt
 
-      - name: Setting up Homebrew on Ubuntu for the integration tests
-        if: ${{ matrix.test-type == 'integration' && matrix.os == 'ubuntu-20.04' }}
-        uses: Homebrew/actions/setup-homebrew@master
-
       - name: Installing missing package on Ubuntu
         if: ${{ matrix.test-type == 'integration' && matrix.os == 'ubuntu-20.04'  }}
         run: |
-          brew install gcc@11
-          brew link --force glibc
+          sudo apt-get update
+          sudo apt-get install g++-11 -y
 
       - name: Downloading source code archive
         if: ${{ matrix.test-type == 'integration' }}
@@ -85,7 +81,6 @@ jobs:
         run: |
           mkdir -p ${{ env.archive_name }}/build/
           cd ${{ env.archive_name }}/build/
-          brew link --force glibc
           ../configure sambadahostsystemname=${{ env.sambada_OS_name }} --disable-manual
           make test/integration/SambadaIntegrationTests
           ln -s ../../${{ env.package_name }}/binaries/ binaries
