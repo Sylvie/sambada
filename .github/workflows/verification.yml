@@ -64,6 +64,10 @@ jobs:
           time ../../binaries/sambada param-cattle.txt cattle-env.csv cattle-mark.txt
           head  cattle-mark-Out-1.txt
 
+      - name: Setting up Homebrew on Ubuntu for the integration tests
+        if: ${{ matrix.test-type == 'integration' && env.sambada_OS_name == 'ubuntu' }}
+        uses: Homebrew/actions/setup-homebrew@master
+
       - name: Installing missing package on Ubuntu
         if: ${{ matrix.test-type == 'integration' && env.sambada_OS_name == 'ubuntu' }}
         run: |
