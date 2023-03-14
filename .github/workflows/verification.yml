@@ -52,6 +52,11 @@ jobs:
         run: |
           brew install gcc@11
 
+      - name: Updating command-line tools on macOS 12
+        if: ${{  matrix.test-type == 'integration' && matrix.os == 'macos-12'  }}
+        run: |
+          softwareupdate --all --install --force
+
       - name: Downloading package
         run: |
           wget "https://github.com/Sylvie/sambada/releases/download/v${{ env.sambada_version }}/${{ env.package_name }}.tar.gz"
