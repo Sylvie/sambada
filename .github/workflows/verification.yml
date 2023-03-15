@@ -47,10 +47,10 @@ jobs:
           echo "Sambada OS name: ${{ env.sambada_OS_name }}"
           echo "Sambada package name: ${{ env.package_name }}"
 
-      - name: Installing missing package on macOS
-        if: ${{ env.sambada_OS_name == 'OSX' }}
-        run: |
-          brew install gcc@11
+#      - name: Installing missing package on macOS
+#        if: ${{ env.sambada_OS_name == 'OSX' }}
+#        run: |
+#          brew install gcc@11
 
       - name: Updating command-line tools on macOS 12
         if: ${{  matrix.test-type == 'integration' && matrix.os == 'macos-12'  }}
@@ -71,8 +71,8 @@ jobs:
           ${CC} -v
           echo "CXX is:"
           ${CXX} -v
-          echo "Listing /usr/local/Cellar/ :"
-          ls -laR /usr/local/Cellar/
+#          echo "Listing /usr/local/Cellar/ :"
+#          ls -laR /usr/local/Cellar/
 
       - name: Downloading package
         run: |
