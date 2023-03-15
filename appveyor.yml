@@ -1,4 +1,14 @@
 #---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# Skipping commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
+skip_commits:
+  files:
+    - .github/*
+    - manual/*
+
+#---------------------------------#
 #    environment configuration    #
 #---------------------------------#
 # Build worker image (VM template)
