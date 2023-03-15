@@ -61,6 +61,8 @@ jobs:
       - name: Check compilers
         if: ${{  matrix.test-type == 'integration' }}
         run: |
+          echo "ld -v"
+          ld -v
           echo "gcc-11 is:"
           gcc-11 -v
           echo "g++-11 is:"
