@@ -50,8 +50,8 @@ jobs:
       - name: Installing missing package on macOS
         if: ${{ env.sambada_OS_name == 'OSX' }}
         run: |
-#          brew install gcc@11
           brew install automake
+#          brew install gcc@11
 
       - name: Updating command-line tools on macOS 12
         if: ${{  matrix.test-type == 'integration' && matrix.os == 'macos-12'  }}
