@@ -108,7 +108,6 @@ jobs:
         run: |
           mkdir -p ${{ env.archive_name }}/build/
           cd ${{ env.archive_name }}
-#          echo ${{ env.sambada_version }} > .version
           autoreconf -i
           cd build/
           ../configure sambadahostsystemname=${{ env.sambada_OS_name }} --disable-manual
