@@ -51,9 +51,9 @@ jobs:
         if: ${{ env.sambada_OS_name == 'OSX' }}
         run: |
           brew install automake
-#          brew install gcc@11
           echo "AR=$(brew --prefix llvm@15)/bin/llvm-ar" >> $GITHUB_ENV
           echo "RANLIB=$(brew --prefix llvm@15)/bin/llvm-ranlib" >> $GITHUB_ENV
+#          brew install gcc@11
 #          export AR=/opt/homebrew/opt/llvm@11/bin/llvm-ar
 #          export RANLIB=/opt/homebrew/opt/llvm@11/bin/llvm-ranlib
 
