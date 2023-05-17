@@ -7,9 +7,9 @@ on:
   pull_request:
 
 env:
-  CC: gcc-12
-  CXX: g++-12
-  GCOV: gcov-12
+  CC: gcc-11
+  CXX: g++-11
+  GCOV: gcov-11
 
 jobs:
   workflow-params:
@@ -131,6 +131,7 @@ jobs:
       - name: Installing missing package
         if: ${{ env.sambada_OS_name == 'OSX' }}
         run: |
+          brew update
           brew install automake
           brew install gcc@11
 
