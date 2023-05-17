@@ -7,9 +7,9 @@ on:
   pull_request:
 
 env:
-  CC: gcc-11
-  CXX: g++-11
-  GCOV: gcov-11
+  CC: gcc-12
+  CXX: g++-12
+  GCOV: gcov-12
 
 jobs:
   workflow-params:
