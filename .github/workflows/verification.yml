@@ -108,7 +108,7 @@ jobs:
         run: |
           mkdir -p ${{ env.archive_name }}/build/
           cd ${{ env.archive_name }}
-#          autoreconf -i
+          #  autoreconf -i
           cd build/
           ../configure sambadahostsystemname=${{ env.sambada_OS_name }} --disable-manual
           make test/integration/SambadaIntegrationTests
