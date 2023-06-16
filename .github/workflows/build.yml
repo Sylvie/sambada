@@ -142,7 +142,7 @@ jobs:
           autoreconf -i
           mkdir build
           cd build
-          ../configure --disable-manual sambadahostsystemname=${{ env.sambada_OS_name }}
+          ../configure --disable-manual sambadahostsystemname=${{ env.sambada_OS_name }} LDFLAGS="-fuse-ld=mold"
 
       - name: Building
         if: ${{ matrix.build-type == 'package' }}
@@ -266,7 +266,7 @@ jobs:
           autoreconf --install
           mkdir build
           cd build
-          ../configure --disable-manual
+          ../configure --disable-manual LDFLAGS="-fuse-ld=mold"
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean all
           ls -lR
       - name: Running check
@@ -317,7 +317,7 @@ jobs:
           autoreconf -i
           mkdir build
           cd build
-          ../configure
+          ../configure LDFLAGS="-fuse-ld=mold"
 
       - name: Preparing LaTeX compilation
         run: |
