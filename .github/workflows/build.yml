@@ -146,6 +146,12 @@ jobs:
           cd build
           ../configure --disable-manual sambadahostsystemname=${{ env.sambada_OS_name }}
 
+      - name: Post-mortem
+        if: ${{ failure() }}
+        run: |
+          cat build/config.log
+        
+
       - name: Building
         if: ${{ matrix.build-type == 'package' }}
         run: |
