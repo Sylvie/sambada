@@ -135,6 +135,7 @@ jobs:
           brew update
           brew install automake
           brew install gcc@11
+          brew install mold
 
       - name: Configuring
         env:
