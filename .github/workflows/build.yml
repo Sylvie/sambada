@@ -113,7 +113,7 @@ jobs:
             sambada_extra_LDFLAGS=-static
           else
             sambada_OS_name=OSX
-            sambada_extra_LDFLAGS="-fuse-ld=gold"
+            sambada_extra_LDFLAGS="-fuse-ld=gold" 
           fi
           echo "sambada_OS_name=${sambada_OS_name}" >> $GITHUB_ENV
           echo "sambada_extra_LDFLAGS=${sambada_extra_LDFLAGS}" >> $GITHUB_ENV
